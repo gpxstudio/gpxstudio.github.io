@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>GPX Tool</title>
+        <meta name="description" content="Roughly 155 characters">
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+            integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+            crossorigin=""
+        />
+        <script
+            src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+            integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+            crossorigin="">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
+        <script src="http://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+        <link rel="stylesheet" href="leaflet.elevation-0.0.4-d3v4.css"/>
+        <script type="text/javascript" src="leaflet.elevation-0.0.4-d3v4.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script type="module" src="script.js"></script>
+
+    </head>
+    <body>
+        <input id="input-file" type="file" accept=".gpx" style="display: none" multiple/>
+        <div id="mapid"></div>
+        <button id="clear" type="button">Clear</button>
+        <div id="toolbar" class="panels-container">
+            <div id="load" class="panels custom-button">Load</div>
+            <div id="clear" class="panels custom-button">Clear</div>
+            <div id="donate" class="panels custom-button">Donate</div>
+        </div>
+        <div id="info" class="padding-container">
+            <div id="info-grid" class="panels-container trace-info">
+                <div class="panels panels-info" id="distance">Distance</div>
+                <div class="panels panels-val" id="distance-val">- km</div>
+                <div class="panels panels-info" id="elevation">Elevation</div>
+                <div class="panels panels-val" id="elevation-val">- m</div>
+                <div class="panels panels-info" id="speed">Speed</div>
+                <div class="panels panels-val" id="speed-val">- km/h</div>
+                <div class="panels panels-info" id="duration">Moving time</div>
+                <div class="panels panels-val" id="duration-val">- h -</div>
+            </div>
+        </div>
+    </body>
+</html>
