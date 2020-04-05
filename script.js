@@ -61,7 +61,7 @@ var focus_on = -1;
 
 // STYLE CONSTS
 
-const normal_style = { color: 'red', weight: 3 };
+const normal_style = { color: '#FF4040', weight: 3 };
 const focus_style = { color: 'red', weight: 5 };
 
 // HTML ELEMENTS
@@ -70,6 +70,7 @@ const input = document.getElementById("input-file");
 const load_button = document.getElementById("load");
 const clear_button = document.getElementById("clear");
 const donate_button = document.getElementById("donate");
+const delete_button = document.getElementById("delete");
 const data_distance = document.getElementById("distance-val");
 const data_elevation = document.getElementById("elevation-val");
 const data_duration = document.getElementById("duration-val");
@@ -169,6 +170,9 @@ input.oninput = function() { load_files(this.files) };
 load_button.addEventListener("click", open_input_dialog);
 clear_button.addEventListener("click", clear_traces);
 donate_button.addEventListener("click", donate);
+delete_button.addEventListener("click", function () {
+    if (focus_on != -1) remove_trace(traces[focus_on]);
+});
 
 function open_input_dialog() {
     input.click();

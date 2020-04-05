@@ -22,7 +22,8 @@ html, body {
     -ms-user-select: none;
     user-select: none;
     background-color: #FFFFFF;
-    border: 1px solid #CECECE;
+    border: 0px solid #CECECE;
+    box-shadow: 2px 2px 2px #BCBCBC;
 }
 
 .padding-container {
@@ -118,6 +119,24 @@ html, body {
   grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: 5;
+}
+
+#edit {
+  grid-column-start: 4;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 1;
+}
+
+#delete {
+  grid-column-start: 4;
+  grid-column-end: 4;
+  grid-row-start: 2;
+  grid-row-end: 2;
+}
+
+.fas .far {
+    color: #D0D0D0 !important;
 }
 
 .tick {
