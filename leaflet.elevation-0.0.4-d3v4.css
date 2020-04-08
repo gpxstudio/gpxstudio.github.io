@@ -1,5 +1,5 @@
 .steelblue-theme.leaflet-control.elevation .background{
-	background-color:#ffffff;
+	background-color:#fcfcfc;
 	-webkit-border-radius:10px;
 	-moz-border-radius:10px;
 	-ms-border-radius:10px;
@@ -22,7 +22,7 @@
 	width:36px;
 	height:36px;
     color:#ff0000;
-	background-color:#ffffff
+	background-color:#fcfcfc
 }
 .steelblue-theme.leaflet-control.elevation .elevation-toggle-icon{
 	background:url(images/elevation-steelblue.png) no-repeat center center

@@ -20,7 +20,7 @@ L.control.zoom({
 var elev = L.control.elevation({
     theme: "steelblue-theme",
     useHeightIndicator: true,
-    width: 600,
+    width: 400,
 	height: 100,
     margins:{
         top:20,
@@ -30,6 +30,24 @@ var elev = L.control.elevation({
     }
 });
 elev.addTo(map);
+
+// HTML ELEMENTS
+
+const input = document.getElementById("input-file");
+const load_button = document.getElementById("load");
+const clear_button = document.getElementById("clear");
+const donate_button = document.getElementById("donate");
+const delete_button = document.getElementById("delete");
+const validate_button = document.getElementById("validate");
+const unvalidate_button = document.getElementById("unvalidate");
+const data_distance = document.getElementById("distance-val");
+const data_elevation = document.getElementById("elevation-val");
+const data_duration = document.getElementById("duration-val");
+const data_speed = document.getElementById("speed-val");
+const elevation_profile = document.getElementsByClassName('elevation')[0];
+const trace_info_grid = document.getElementById('info-grid');
+const start_slider = document.getElementById('start-point');
+const end_slider = document.getElementById('end-point');
 
 // OVERLAY COMPONENTS
 
@@ -49,9 +67,9 @@ trace_info.onAdd = function (map) {
 };
 trace_info.addTo(map);
 
-var elevation_profile = document.getElementsByClassName('elevation')[0];
-var trace_info_grid = document.getElementById('info-grid');
 trace_info_grid.appendChild(elevation_profile);
+
+end_slider.classList.add('hidden');
 
 // GLOBAL LOGIC VARIABLES
 
@@ -63,18 +81,6 @@ var focus_on = -1;
 
 const normal_style = { color: '#FF4040', weight: 3 };
 const focus_style = { color: 'red', weight: 5 };
-
-// HTML ELEMENTS
-
-const input = document.getElementById("input-file");
-const load_button = document.getElementById("load");
-const clear_button = document.getElementById("clear");
-const donate_button = document.getElementById("donate");
-const delete_button = document.getElementById("delete");
-const data_distance = document.getElementById("distance-val");
-const data_elevation = document.getElementById("elevation-val");
-const data_duration = document.getElementById("duration-val");
-const data_speed = document.getElementById("speed-val");
 
 // HELPER FUNCTIONS
 
@@ -102,6 +108,11 @@ function load_file(file) {
         }
 
         traces.push(e.target);
+        trace_info_grid.style.visibility = "visible";
+        if (end_slider.classList.contains('hidden')) {
+            end_slider.classList.remove('hidden');
+            end_slider.classList.add('visible');
+        }
     }).on('click', function(e) {
         const trace = e.target;
         const index = traces.indexOf(trace);
@@ -110,7 +121,59 @@ function load_file(file) {
 }
 
 function trace_get_points(trace) {
-    return trace.getLayers()[0].getLayers()[0]._latlngs;
+    return trace.getLayers()[0]._latlngs;
+}
+
+function trace_update_point(index, lat, lng) {
+    const Http = new XMLHttpRequest();
+    const url = 'https://elevation-api.io/api/elevation?points=(' + lat + ',' + lng + ')&key=w2-Otn-4S7sAahUs-Ubd7o7f0P4Fms';
+    Http.open("GET", url);
+    Http.send();
+
+    const trace = traces[focus_on];
+    var points = trace_get_points(trace);
+
+    var a = points[index].clone();
+    var b = points[index].clone();
+    var c = points[index].clone();
+
+    if (index > 0) {
+        a = points[index-1].clone();
+        a.meta = {"ele" : trace.get_elevation_data()[index-1][1]};
+    } else a.meta = {"ele" : trace.get_elevation_data()[index][1]};
+    b.meta = {"ele" : trace.get_elevation_data()[index][1]};
+    if (index < points.length-1) {
+        c = points[index+1].clone();
+        c.meta = {"ele" : trace.get_elevation_data()[index+1][1]};
+    } else a.meta = {"ele" : trace.get_elevation_data()[index][1]};
+
+    Http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var ans = JSON.parse(this.responseText);
+            const ele = ans["elevations"][0]["elevation"];
+
+            const d1 = trace._dist3d(a, b) + trace._dist3d(b, c);
+            const e1 = Math.max(b.meta.ele - a.meta.ele, 0) + Math.max(c.meta.ele - b.meta.ele, 0);
+
+            // data of new point
+            b.lat = lat;
+            b.lng = lng;
+            b.meta.ele = ele;
+
+            const d2 = trace._dist3d(a, b) + trace._dist3d(b, c);
+            const e2 = Math.max(b.meta.ele - a.meta.ele, 0) + Math.max(c.meta.ele - b.meta.ele, 0);
+
+            // update trace info
+            trace._info.length += d2 - d1;
+            trace._info.elevation.gain += e2 - e1;
+            update_data();
+        }
+    }
+
+    points[index].lat = lat;
+    points[index].lng = lng;
+    trace.remove();
+    trace.addTo(map);
 }
 
 function remove_trace(trace) {
@@ -124,6 +187,11 @@ function remove_trace(trace) {
         traces.splice(index, 1);
         trace.clearLayers();
     }
+    if (traces.length == 0) {
+        trace_info_grid.style.visibility = "hidden";
+        end_slider.classList.remove('visible');
+        end_slider.classList.add('hidden');
+    }
 }
 
 function lose_focus(index) {
@@ -134,6 +202,17 @@ function lose_focus(index) {
     data_speed.innerHTML = "- km/h";
     data_duration.innerHTML = "- h -";
     elev.clear();
+    reset_slider();
+}
+
+function update_data() {
+    traces[focus_on].setStyle(focus_style);
+    data_distance.innerHTML = (traces[focus_on].get_distance() / 1000).toFixed(1).toString() + ' km';
+    data_elevation.innerHTML = traces[focus_on].get_elevation_gain().toFixed(0).toString() + ' m';
+    data_speed.innerHTML = traces[focus_on].get_moving_speed().toFixed(1).toString() + ' km/h';
+    data_duration.innerHTML = msToTime(traces[focus_on].get_moving_time());
+    elev.clear();
+    elev.addData(traces[focus_on].getLayers()[0]);
 }
 
 function update_focus(index) {
@@ -144,12 +223,8 @@ function update_focus(index) {
         lose_focus(focus_on);
     }
     focus_on = index;
-    traces[focus_on].setStyle(focus_style);
-    data_distance.innerHTML = (traces[focus_on].get_distance() / 1000).toFixed(0).toString() + ' km';
-    data_elevation.innerHTML = traces[focus_on].get_elevation_gain().toFixed(0).toString() + ' m';
-    data_speed.innerHTML = traces[focus_on].get_moving_speed().toFixed(1).toString() + ' km/h';
-    data_duration.innerHTML = msToTime(traces[focus_on].get_moving_time());
-    elev.addData(traces[focus_on].getLayers()[0]);
+    update_data();
+    reset_slider();
 }
 
 function msToTime(duration) {
@@ -164,6 +239,38 @@ function msToTime(duration) {
   return hours + "h" + minutes;
 }
 
+function total_distance() {
+    var tot = 0;
+    for (var trace in traces) {
+        tot += trace._info.length;
+    }
+    return tot;
+}
+
+function total_elevation() {
+    var tot = 0;
+    for (var trace in traces) {
+        tot += trace._info.elevation.gain;
+    }
+    return tot;
+}
+
+function total_moving_time() {
+    var tot = 0;
+    for (var trace in traces) {
+        tot += trace._info.duration.moving;
+    }
+    return tot;
+}
+
+function total_moving_speed() {
+    return total_distance() / (total_moving_time() / (3600 * 1000));
+}
+
+function total_moving_pace() {
+    return total_moving_time() / (total_distance() / 1000);
+}
+
 // USER INTERACTION
 
 input.oninput = function() { load_files(this.files) };
@@ -173,6 +280,61 @@ donate_button.addEventListener("click", donate);
 delete_button.addEventListener("click", function () {
     if (focus_on != -1) remove_trace(traces[focus_on]);
 });
+validate_button.addEventListener("click", function () {
+    // cut
+    reset_slider();
+});
+unvalidate_button.addEventListener("click", function () {
+    reset_slider();
+});
+
+function hide_buttons() {
+    validate_button.style.opacity = 0;
+    unvalidate_button.style.opacity = 0;
+    validate_button.style.visibility = "hidden";
+    unvalidate_button.style.visibility = "hidden";
+}
+
+function show_buttons() {
+    validate_button.style.opacity = 1;
+    unvalidate_button.style.opacity = 1;
+    validate_button.style.visibility = "visible";
+    unvalidate_button.style.visibility = "visible";
+}
+
+start_slider.addEventListener("input", function () {
+    let start = parseInt(start_slider.value);
+    let end = parseInt(end_slider.value);
+    if (start > end) {
+        start_slider.value = end;
+        start = end;
+    }
+    if (start == start_slider.min && end == end_slider.max) {
+        hide_buttons();
+    } else {
+        show_buttons();
+    }
+});
+
+end_slider.addEventListener("input", function () {
+    let start = parseInt(start_slider.value);
+    let end = parseInt(end_slider.value);
+    if (start > end) {
+        end_slider.value = start;
+        end = start;
+    }
+    if (start == start_slider.min && end == end_slider.max) {
+        hide_buttons();
+    } else {
+        show_buttons();
+    }
+});
+
+function reset_slider() {
+    start_slider.value = start_slider.min;
+    end_slider.value = end_slider.max;
+    hide_buttons();
+}
 
 function open_input_dialog() {
     input.click();

@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>GPX Tool</title>
+        <title>GPX Online Studio</title>
         <meta name="description" content="Roughly 155 characters">
         <link
             rel="stylesheet"
@@ -27,10 +27,9 @@
     <body>
         <input id="input-file" type="file" accept=".gpx" style="display: none" multiple/>
         <div id="mapid"></div>
-        <button id="clear" type="button">Clear</button>
         <div id="toolbar" class="panels-container">
             <div id="load" class="panels custom-button">Load GPX</div>
-            <div id="load" class="panels custom-button">Manual trace</div>
+            <div id="manual" class="panels custom-button">Manual trace</div>
             <div class="panels custom-button" id="edit"><i class="fas fa-reply"></i></div>
             <div class="panels custom-button" id="edit"><i class="fas fa-share"></i></div>
             <div id="clear" class="panels custom-button">Clear</div>
@@ -46,10 +45,20 @@
                 <div class="panels panels-val" id="speed-val">- km/h</div>
                 <div class="panels panels-info" id="duration">Moving time</div>
                 <div class="panels panels-val" id="duration-val">- h -</div>
-                <div class="panels" id="edit"><i class="fas fa-pencil-alt custom-button"></i></div>
-                <div class="panels" id="delete"><i class="fas fa-trash-alt custom-button"></i></i></div>
-                <div class="panels" id="validate"><i class="fas fa-check custom-button"></i></i></div>
-                <div class="panels" id="validate"><i class="fas fa-ban custom-button"></i></i></div>
+                <div class="panels panels-val panels-live" id="live-distance">--</div>
+                <div class="panels panels-val panels-live" id="live-speed">--</div>
+                <div class="panels panels-val panels-live" id="live-elevation">--</div>
+                <div class="panels panels-val panels-live" id="live-slope">--</div>
+                <div class="panels-button" id="edit"><i class="fas fa-pencil-alt custom-button"></i></div>
+                <div class="panels-button" id="delete"><i class="fas fa-trash-alt custom-button"></i></i></div>
+                <div id="crop-container">
+                    <div class="panels-button" id="validate"><i class="fas fa-check custom-button"></i></i></div>
+                    <div class="panels-button" id="unvalidate"><i class="fas fa-ban custom-button"></i></i></div>
+                </div>
+                <div class="slidecontainer">
+                    <input type="range" min="0" max="1000000" value="0" class="slider" id="start-point">
+                    <input type="range" min="0" max="1000000" value="1000000" class="slider" id="end-point">
+                </div>
             </div>
         </div>
     </body>
