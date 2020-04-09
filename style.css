@@ -287,3 +287,20 @@ html, body {
     color: #FF0000;
     font-size: 100 !important;
 }
+
+.start-marker {
+    fill: #71bb6d;
+    fill-opacity: 1;
+    stroke: #ffffff;
+    stroke-opacity: 1;
+    stroke-width: 2;
+}
+
+.leaflet-image-layer {
+    width: 10px !important;
+    height: 10px !important;
+    border-radius: 7px;
+    position: absolute;
+    top: -7px;
+    left: -7px;
+}

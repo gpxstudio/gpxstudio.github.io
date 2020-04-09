@@ -310,9 +310,10 @@ start_slider.addEventListener("input", function () {
         start = end;
     }
     if (start == start_slider.min && end == end_slider.max) {
-        hide_buttons();
+        reset_slider();
     } else {
         show_buttons();
+        elev._drawRectangle(start/start_slider.max, end/end_slider.max);
     }
 });
 
@@ -324,15 +325,17 @@ end_slider.addEventListener("input", function () {
         end = start;
     }
     if (start == start_slider.min && end == end_slider.max) {
-        hide_buttons();
+        reset_slider();
     } else {
         show_buttons();
+        elev._drawRectangle(start/start_slider.max, end/end_slider.max);
     }
 });
 
 function reset_slider() {
     start_slider.value = start_slider.min;
     end_slider.value = end_slider.max;
+    elev._resetDrag();
     hide_buttons();
 }
 
