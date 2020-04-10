@@ -26,7 +26,7 @@ var elev = L.control.elevation({
         top:20,
         right:30,
         bottom:18,
-        left:30
+        left:40
     }
 });
 elev.addTo(map);
@@ -40,6 +40,7 @@ const donate_button = document.getElementById("donate");
 const delete_button = document.getElementById("delete");
 const validate_button = document.getElementById("validate");
 const unvalidate_button = document.getElementById("unvalidate");
+const export_button = document.getElementById("export");
 const data_distance = document.getElementById("distance-val");
 const data_elevation = document.getElementById("elevation-val");
 const data_duration = document.getElementById("duration-val");
@@ -84,7 +85,7 @@ const focus_style = { color: 'red', weight: 5 };
 
 // HELPER FUNCTIONS
 
-function load_file(file) {
+function load_file(file, should_update_bounds) {
     new L.GPX(file, {
         async: true,
         polyline_options: normal_style,
@@ -95,24 +96,16 @@ function load_file(file) {
             wptIconUrls : { '': '' }
         }
     }).on('loaded', function(e) {
-        var map_bounds = map.getBounds();
-        var trace_bounds = e.target.getBounds();
-
-        if (!map_bounds.contains(trace_bounds)) {
-            if (traces.length == 0) {
-                map.fitBounds(trace_bounds);
-            } else {
-                map_bounds.extend(trace_bounds);
-                map.fitBounds(map_bounds);
-            }
-        }
-
         traces.push(e.target);
         trace_info_grid.style.visibility = "visible";
         if (end_slider.classList.contains('hidden')) {
             end_slider.classList.remove('hidden');
             end_slider.classList.add('visible');
         }
+        if (should_update_bounds)
+            update_bounds();
+        if (focus_on == -1)
+            lose_focus(focus_on);
     }).on('click', function(e) {
         const trace = e.target;
         const index = traces.indexOf(trace);
@@ -120,8 +113,67 @@ function load_file(file) {
     }).addTo(map);
 }
 
+function update_bounds() {
+    var trace_bounds = new L.LatLngBounds();
+    for (var i=0; i<traces.length; i++)
+        trace_bounds.extend(traces[i].getLayers()[0]._bounds);
+    trace_bounds._northEast.lat += 0.1 * (trace_bounds._northEast.lat - trace_bounds._southWest.lat);
+    trace_bounds._southWest.lat -= 0.45 * (trace_bounds._northEast.lat - trace_bounds._southWest.lat);
+    map.fitBounds(trace_bounds);
+}
+
 function trace_get_points(trace) {
     return trace.getLayers()[0]._latlngs;
+}
+
+function trace_recompute_stats(trace) {
+    // reset
+    trace._info.length = 0.0;
+    trace._info.elevation.gain = 0.0;
+    trace._info.elevation.loss = 0.0;
+    trace._info.elevation.max = 0.0;
+    trace._info.elevation.min = Infinity;
+    trace._info.duration.start = null;
+    trace._info.duration.end = null;
+    trace._info.duration.moving = 0;
+    trace._info.duration.total = 0;
+
+    // recompute on remaining data
+    var ll = null, last = null;
+    const points = trace_get_points(trace);
+    for (var i=0; i<points.length; i++) {
+        ll = points[i];
+        if (ll.meta.ele > trace._info.elevation.max) {
+            trace._info.elevation.max = ll.meta.ele;
+        }
+
+        if (ll.meta.ele < trace._info.elevation.min) {
+            trace._info.elevation.min = ll.meta.ele;
+        }
+
+        trace._info.duration.end = ll.meta.time;
+
+        if (last != null) {
+            trace._info.length += trace._dist3d(last, ll);
+
+            var t = ll.meta.ele - last.meta.ele;
+            if (t > 0) {
+              trace._info.elevation.gain += t;
+            } else {
+              trace._info.elevation.loss += Math.abs(t);
+            }
+
+            t = Math.abs(ll.meta.time - last.meta.time);
+            trace._info.duration.total += t;
+            if (t < trace.options.max_point_interval) {
+              trace._info.duration.moving += t;
+            }
+        } else if (trace._info.duration.start == null) {
+            trace._info.duration.start = ll.meta.time;
+        }
+
+        last = ll;
+    }
 }
 
 function trace_update_point(index, lat, lng) {
@@ -195,12 +247,12 @@ function remove_trace(trace) {
 }
 
 function lose_focus(index) {
-    traces[index].setStyle(normal_style);
+    if (index != -1) traces[index].setStyle(normal_style);
     focus_on = -1;
-    data_distance.innerHTML = "- km";
-    data_elevation.innerHTML = "- m";
-    data_speed.innerHTML = "- km/h";
-    data_duration.innerHTML = "- h -";
+    data_distance.innerHTML = (total_distance() / 1000).toFixed(1).toString() + ' km';
+    data_elevation.innerHTML = total_elevation().toFixed(0).toString() + ' m';
+    data_speed.innerHTML = total_moving_speed().toFixed(1).toString() + ' km/h';
+    data_duration.innerHTML = msToTime(total_moving_time());
     elev.clear();
     reset_slider();
 }
@@ -210,7 +262,7 @@ function update_data() {
     data_distance.innerHTML = (traces[focus_on].get_distance() / 1000).toFixed(1).toString() + ' km';
     data_elevation.innerHTML = traces[focus_on].get_elevation_gain().toFixed(0).toString() + ' m';
     data_speed.innerHTML = traces[focus_on].get_moving_speed().toFixed(1).toString() + ' km/h';
-    data_duration.innerHTML = msToTime(traces[focus_on].get_moving_time());
+    data_duration.innerHTML = msToTime(total_moving_time());
     elev.clear();
     elev.addData(traces[focus_on].getLayers()[0]);
 }
@@ -241,34 +293,81 @@ function msToTime(duration) {
 
 function total_distance() {
     var tot = 0;
-    for (var trace in traces) {
-        tot += trace._info.length;
+    for (var i=0; i<traces.length; i++) {
+        tot += traces[i]._info.length;
     }
     return tot;
 }
 
 function total_elevation() {
     var tot = 0;
-    for (var trace in traces) {
-        tot += trace._info.elevation.gain;
+    for (var i=0; i<traces.length; i++) {
+        tot += traces[i]._info.elevation.gain;
     }
     return tot;
 }
 
 function total_moving_time() {
     var tot = 0;
-    for (var trace in traces) {
-        tot += trace._info.duration.moving;
+    for (var i=0; i<traces.length; i++) {
+        tot += traces[i]._info.duration.moving;
     }
     return tot;
 }
 
 function total_moving_speed() {
-    return total_distance() / (total_moving_time() / (3600 * 1000));
+    return total_distance() / (total_moving_time() / 3600);
 }
 
 function total_moving_pace() {
     return total_moving_time() / (total_distance() / 1000);
+}
+
+function get_index_for_slider_val(val) {
+    return elev._findItemForX(Math.floor(parseInt(val)/start_slider.max * elev._width()));
+}
+
+function merged_gpx() {
+    const xmlStart = `<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" version="1.1" creator="GPX Online Studio">`;
+    const xmlEnd = '</gpx>';
+
+    let xmlOutput = xmlStart;
+        xmlOutput += `
+<metadata>
+    <name>Activity</name>
+    <author><name>GPX Online Studio</name></author>
+</metadata>`;
+
+        xmlOutput += `
+<trk>
+<trkseg>
+`;
+    for (let i=0; i<traces.length; i++) {
+        let points = trace_get_points(traces[i]);
+        for (let j=0; j<points.length; j++) {
+            let point = points[j];
+            xmlOutput += `<trkpt lat="${point.lat.toFixed(6)}" lon="${point.lng.toFixed(6)}">
+`;
+            if (point.meta) {
+                if (point.meta.ele) {
+                    xmlOutput += `    <ele>${point.meta.ele.toFixed(1)}</ele>
+`;
+                }
+                if (point.meta.time) {
+                    xmlOutput += `    <time>${point.meta.time.toISOString()}</time>
+`;
+                }
+            }
+            xmlOutput += `</trkpt>
+`;
+        }
+    }
+
+    xmlOutput += `</trkseg>
+</trk>
+${xmlEnd}`;
+    return xmlOutput;
 }
 
 // USER INTERACTION
@@ -277,11 +376,33 @@ input.oninput = function() { load_files(this.files) };
 load_button.addEventListener("click", open_input_dialog);
 clear_button.addEventListener("click", clear_traces);
 donate_button.addEventListener("click", donate);
+export_button.addEventListener("click", function () {
+    if (traces.length > 0)
+        download('track.gpx',merged_gpx());
+});
 delete_button.addEventListener("click", function () {
     if (focus_on != -1) remove_trace(traces[focus_on]);
 });
 validate_button.addEventListener("click", function () {
-    // cut
+    if (focus_on == -1) return;
+
+    let start = get_index_for_slider_val(start_slider.value);
+    let end = get_index_for_slider_val(end_slider.value);
+
+    const trace = traces[focus_on];
+    const points = trace_get_points(trace);
+    const length = points.length;
+
+    // store this to revert action
+    const deleted_end = points.splice(end);
+    const deleted_start = points.splice(0, start);
+
+    trace_recompute_stats(trace);
+
+    trace.remove();
+    trace.addTo(map);
+
+    update_data();
     reset_slider();
 });
 unvalidate_button.addEventListener("click", function () {
@@ -311,9 +432,14 @@ start_slider.addEventListener("input", function () {
     }
     if (start == start_slider.min && end == end_slider.max) {
         reset_slider();
-    } else {
+    } else if (focus_on != -1) {
         show_buttons();
-        elev._drawRectangle(start/start_slider.max, end/end_slider.max);
+        elev._drawRectangle(
+            start/start_slider.max,
+            end/end_slider.max,
+            get_index_for_slider_val(start),
+            get_index_for_slider_val(end)
+        );
     }
 });
 
@@ -326,9 +452,14 @@ end_slider.addEventListener("input", function () {
     }
     if (start == start_slider.min && end == end_slider.max) {
         reset_slider();
-    } else {
+    } else if (focus_on != -1) {
         show_buttons();
-        elev._drawRectangle(start/start_slider.max, end/end_slider.max);
+        elev._drawRectangle(
+            start/start_slider.max,
+            end/end_slider.max,
+            get_index_for_slider_val(start),
+            get_index_for_slider_val(end)
+        );
     }
 });
 
@@ -347,11 +478,11 @@ function load_files(files) {
     for (var i = 0; i < files.length; i++) {
         var file = files[i];
         var reader = new FileReader();
-        reader.onload = (function(f) {
+        reader.onload = (function(f, update) {
             return function(e) {
-                load_file(e.target.result)
+                load_file(e.target.result, update)
             };
-        })(file);
+        })(file, i == files.length-1);
         reader.readAsDataURL(file);
     }
     input.value = "";
@@ -367,4 +498,17 @@ function donate() {
     window.open('https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TCK9RME3XUV9N&source=url');
 }
 
-load_file('test.gpx');
+function download(filename, text) {
+  var element = document.createElement('a');
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
+
+load_file('test.gpx', true);

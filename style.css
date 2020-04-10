@@ -171,22 +171,19 @@ html, body {
     width: 100%;
     grid-column: 3 / span 1;
     grid-row: 5 / span 1;
-    align-items: center;
 }
 
 .slider {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 34px;
   -webkit-appearance: none;
   appearance: none;
-  width: 89%;
+  width: 86%;
   height: 7px;
   border-radius: 3px;
   background: #D0D0D0;
   -webkit-box-shadow: none;
   outline: none;
-  align-items: center;
 }
 
 .slider::-webkit-slider-thumb {
