@@ -114,6 +114,7 @@ function load_file(file, should_update_bounds, name) {
         li.innerHTML = name;
         li.classList.add('tab');
         li.addEventListener('click', focus_tab);
+        li._trace = e.target;
         ul.appendChild(li);
         e.target._tab = li;
         if (elev._startCircle) {
@@ -446,12 +447,16 @@ unvalidate_button.addEventListener("click", function () {
     reset_slider();
 });
 $( ".sortable" ).on( "sortupdate", function( event, ui ) {
-    const order = event.target.children;
-    var pos = new Array(order.length-1);
-    for (var i=1; i<order.length; i++) {
-
+    const order = tabs.childNodes;
+    const offset = 3;
+    for (var i=offset; i<order.length; i++) {
+        const j = traces.indexOf(order[i]._trace);
+        var tmp = traces[i-offset];
+        traces[i-offset] = order[i]._trace;
+        traces[j] = tmp;
+        if (j == focus_on) focus_on = i-offset;
     }
-    //update focus_on
+    if (focus_on == -1) lose_focus(-1, true);
 });
 
 function focus_tab(e) {
@@ -574,4 +579,5 @@ function download(filename, text) {
   document.body.removeChild(element);
 }
 
+load_file('4.gpx', false, '4.gpx');
 load_file('5.gpx', true, '5.gpx');
