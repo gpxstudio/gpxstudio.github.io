@@ -67,7 +67,7 @@ html, body {
 .panels-button {
     display: inline-block;
     *display: inline;
-    padding: 4px 6px;
+    padding: 0px 6px;
     color: #535353;
     white-space: nowrap;
 }
@@ -248,6 +248,11 @@ html, body {
 #delete {
   grid-column: 5 / span 1;
   grid-row: 5 / span 1;
+}
+
+#reverse {
+  grid-column: 5 / span 1;
+  grid-row: 2 / span 1;
 }
 
 #crop-container {

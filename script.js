@@ -38,6 +38,7 @@ const load_button = document.getElementById("load");
 const clear_button = document.getElementById("clear");
 const donate_button = document.getElementById("donate");
 const delete_button = document.getElementById("delete");
+const reverse_button = document.getElementById("reverse");
 const validate_button = document.getElementById("validate");
 const unvalidate_button = document.getElementById("unvalidate");
 const export_button = document.getElementById("export");
@@ -105,7 +106,7 @@ function load_file(file, should_update_bounds) {
         if (should_update_bounds)
             update_bounds();
         if (focus_on == -1)
-            lose_focus(focus_on);
+            lose_focus(focus_on, true);
     }).on('click', function(e) {
         const trace = e.target;
         const index = traces.indexOf(trace);
@@ -232,7 +233,7 @@ function remove_trace(trace) {
     const index = traces.indexOf(trace);
     if (index > -1) {
         if (focus_on == index) {
-            lose_focus(index);
+            lose_focus(index, true);
         } else if (focus_on > index) {
             focus_on--;
         }
@@ -244,16 +245,26 @@ function remove_trace(trace) {
         end_slider.classList.remove('visible');
         end_slider.classList.add('hidden');
     }
+    if (focus_on == -1) {
+        lose_focus(focus_on, true);
+    }
 }
 
-function lose_focus(index) {
+function lose_focus(index, total) {
     if (index != -1) traces[index].setStyle(normal_style);
     focus_on = -1;
-    data_distance.innerHTML = (total_distance() / 1000).toFixed(1).toString() + ' km';
-    data_elevation.innerHTML = total_elevation().toFixed(0).toString() + ' m';
-    data_speed.innerHTML = total_moving_speed().toFixed(1).toString() + ' km/h';
-    data_duration.innerHTML = msToTime(total_moving_time());
-    elev.clear();
+    if (total) {
+        start_slider.style.display = 'none';
+        end_slider.style.display = 'none';
+        data_distance.innerHTML = (total_distance() / 1000).toFixed(1).toString() + ' km';
+        data_elevation.innerHTML = total_elevation().toFixed(0).toString() + ' m';
+        data_speed.innerHTML = total_moving_speed().toFixed(1).toString() + ' km/h';
+        data_duration.innerHTML = msToTime(total_moving_time());
+        elev.clear();
+        for (var i=0; i<traces.length; i++)
+            elev.addData(traces[i].getLayers()[0]);
+        elev._removeSliderCircles();
+    }
     reset_slider();
 }
 
@@ -262,17 +273,19 @@ function update_data() {
     data_distance.innerHTML = (traces[focus_on].get_distance() / 1000).toFixed(1).toString() + ' km';
     data_elevation.innerHTML = traces[focus_on].get_elevation_gain().toFixed(0).toString() + ' m';
     data_speed.innerHTML = traces[focus_on].get_moving_speed().toFixed(1).toString() + ' km/h';
-    data_duration.innerHTML = msToTime(total_moving_time());
+    data_duration.innerHTML = msToTime(traces[focus_on].get_moving_time());
+    start_slider.style.display = 'block';
+    end_slider.style.display = 'block';
     elev.clear();
     elev.addData(traces[focus_on].getLayers()[0]);
 }
 
 function update_focus(index) {
     if (focus_on == index) {
-        lose_focus(index);
+        lose_focus(index, true);
         return;
     } else if (focus_on != -1) {
-        lose_focus(focus_on);
+        lose_focus(focus_on, false);
     }
     focus_on = index;
     update_data();
@@ -283,7 +296,7 @@ function msToTime(duration) {
   var milliseconds = parseInt((duration % 1000) / 100),
     seconds = Math.floor((duration / 1000) % 60),
     minutes = Math.floor((duration / (1000 * 60)) % 60),
-    hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+    hours = Math.floor(duration / (1000 * 60 * 60));
 
   minutes = (minutes < 10) ? "0" + minutes : minutes;
   seconds = (seconds < 10) ? "0" + seconds : seconds;
@@ -324,7 +337,7 @@ function total_moving_pace() {
 }
 
 function get_index_for_slider_val(val) {
-    return elev._findItemForX(Math.floor(parseInt(val)/start_slider.max * elev._width()));
+    return elev._findItemForX(parseInt(val)/start_slider.max * elev._width());
 }
 
 function merged_gpx() {
@@ -511,4 +524,6 @@ function download(filename, text) {
   document.body.removeChild(element);
 }
 
-load_file('test.gpx', true);
+load_file('3.gpx', false);
+load_file('4.gpx', false);
+load_file('5.gpx', true);
