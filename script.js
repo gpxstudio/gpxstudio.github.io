@@ -50,6 +50,8 @@ const elevation_profile = document.getElementsByClassName('elevation')[0];
 const trace_info_grid = document.getElementById('info-grid');
 const start_slider = document.getElementById('start-point');
 const end_slider = document.getElementById('end-point');
+const tabs = document.getElementById('sortable');
+const total_tab = document.getElementById('total-tab');
 
 // OVERLAY COMPONENTS
 
@@ -86,7 +88,7 @@ const focus_style = { color: 'red', weight: 5 };
 
 // HELPER FUNCTIONS
 
-function load_file(file, should_update_bounds) {
+function load_file(file, should_update_bounds, name) {
     new L.GPX(file, {
         async: true,
         polyline_options: normal_style,
@@ -107,10 +109,23 @@ function load_file(file, should_update_bounds) {
             update_bounds();
         if (focus_on == -1)
             lose_focus(focus_on, true);
+        var ul = document.getElementById("sortable");
+        var li = document.createElement("li");
+        li.innerHTML = name;
+        li.classList.add('tab');
+        li.addEventListener('click', focus_tab);
+        ul.appendChild(li);
+        e.target._tab = li;
+        if (elev._startCircle) {
+            elev._startCircle.bringToFront();
+            elev._endCircle.bringToFront();
+        }
     }).on('click', function(e) {
         const trace = e.target;
         const index = traces.indexOf(trace);
         update_focus(index);
+        if (focus_on == index) focus_tab_element(trace._tab);
+        else focus_tab_element(total_tab);
     }).addTo(map);
 }
 
@@ -234,16 +249,13 @@ function remove_trace(trace) {
     if (index > -1) {
         if (focus_on == index) {
             lose_focus(index, true);
+            focus_tab_element(total_tab);
         } else if (focus_on > index) {
             focus_on--;
         }
         traces.splice(index, 1);
+        tabs.removeChild(trace._tab);
         trace.clearLayers();
-    }
-    if (traces.length == 0) {
-        trace_info_grid.style.visibility = "hidden";
-        end_slider.classList.remove('visible');
-        end_slider.classList.add('hidden');
     }
     if (focus_on == -1) {
         lose_focus(focus_on, true);
@@ -261,8 +273,17 @@ function lose_focus(index, total) {
         data_speed.innerHTML = total_moving_speed().toFixed(1).toString() + ' km/h';
         data_duration.innerHTML = msToTime(total_moving_time());
         elev.clear();
-        for (var i=0; i<traces.length; i++)
+        for (var i=0; i<traces.length; i++) {
+            if (i > 0) {
+                const between = new L.GPX('', {});
+                between._latlngs = [
+                    traces[i-1].getLayers()[0]._latlngs[traces[i-1].getLayers()[0]._latlngs.length-1],
+                    traces[i].getLayers()[0]._latlngs[0]
+                ];
+                elev.addData(between);
+            }
             elev.addData(traces[i].getLayers()[0]);
+        }
         elev._removeSliderCircles();
     }
     reset_slider();
@@ -329,7 +350,9 @@ function total_moving_time() {
 }
 
 function total_moving_speed() {
-    return total_distance() / (total_moving_time() / 3600);
+    const time = total_moving_time();
+    if (time == 0) return 0;
+    return total_distance() / (time / 3600);
 }
 
 function total_moving_pace() {
@@ -385,6 +408,7 @@ ${xmlEnd}`;
 
 // USER INTERACTION
 
+total_tab.addEventListener('click', focus_tab);
 input.oninput = function() { load_files(this.files) };
 load_button.addEventListener("click", open_input_dialog);
 clear_button.addEventListener("click", clear_traces);
@@ -421,6 +445,32 @@ validate_button.addEventListener("click", function () {
 unvalidate_button.addEventListener("click", function () {
     reset_slider();
 });
+$( ".sortable" ).on( "sortupdate", function( event, ui ) {
+    const order = event.target.children;
+    var pos = new Array(order.length-1);
+    for (var i=1; i<order.length; i++) {
+
+    }
+    //update focus_on
+});
+
+function focus_tab(e) {
+    focus_tab_element(e.target);
+    var focus = -1;
+    for (var i=0; i<traces.length; i++) {
+        if (e.target == traces[i]._tab) {
+            focus = i;
+            break;
+        }
+    }
+    if (focus == -1) lose_focus(focus_on, true);
+    else update_focus(focus);
+}
+
+function focus_tab_element(tab) {
+    document.querySelectorAll('.tab').forEach(item => {item.classList.remove('tab-focus');});
+    tab.classList.add('tab-focus');
+}
 
 function hide_buttons() {
     validate_button.style.opacity = 0;
@@ -491,11 +541,11 @@ function load_files(files) {
     for (var i = 0; i < files.length; i++) {
         var file = files[i];
         var reader = new FileReader();
-        reader.onload = (function(f, update) {
+        reader.onload = (function(f, update, name) {
             return function(e) {
-                load_file(e.target.result, update)
+                load_file(e.target.result, update, name)
             };
-        })(file, i == files.length-1);
+        })(file, i == files.length-1, file.name);
         reader.readAsDataURL(file);
     }
     input.value = "";
@@ -524,6 +574,4 @@ function download(filename, text) {
   document.body.removeChild(element);
 }
 
-load_file('3.gpx', false);
-load_file('4.gpx', false);
-load_file('5.gpx', true);
+load_file('5.gpx', true, '5.gpx');

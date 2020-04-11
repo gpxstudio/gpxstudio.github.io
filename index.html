@@ -20,9 +20,21 @@
         <script src="https://kit.fontawesome.com/0b26f70058.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="leaflet.elevation-0.0.4-d3v4.css"/>
         <script type="text/javascript" src="leaflet.elevation-0.0.4-d3v4.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <link rel="stylesheet" type="text/css" href="style.css">
         <script type="module" src="script.js"></script>
-
+        <script>
+            $( function() {
+                $( "#sortable" ).sortable({
+                    axis: "x",
+                    items: "li:not(.no-drag)",
+                    containment: 'parent',
+                    cursor: "grabbing"
+                });
+                $( "#sortable" ).disableSelection();
+            });
+        </script>
     </head>
     <body>
         <input id="input-file" type="file" accept=".gpx" style="display: none"/>
@@ -62,6 +74,9 @@
                     <input type="range" min="0" max="10000000" value="10000000" class="slider" id="end-point">
                 </div>
             </div>
+            <ul id="sortable" class="sortable">
+              <li class="tab no-drag tab-focus" id="total-tab">Total</li>
+            </ul>
         </div>
     </body>
 </html>
