@@ -116,6 +116,7 @@ function load_file(file, should_update_bounds, name) {
         li.addEventListener('click', focus_tab);
         li._trace = e.target;
         ul.appendChild(li);
+        update_tab_width();
         e.target._tab = li;
         if (elev._startCircle) {
             elev._startCircle.bringToFront();
@@ -536,6 +537,30 @@ function reset_slider() {
     end_slider.value = end_slider.max;
     elev._resetDrag();
     hide_buttons();
+}
+
+function update_tab_width() {
+    const offset = 3;
+    const remaining_width = trace_info_grid.offsetWidth - total_tab.offsetWidth;
+    var tabs_width = 0;
+    for (var i=offset; i<tabs.childNodes.length; i++) {
+        tabs_width += tabs.childNodes[i].offsetWidth;
+    }
+    if (tabs_width > remaining_width) {
+        const avg_tab_width = tabs_width / (tabs.childNodes.length - offset);
+        var cnt = 0;
+        var to_divide = remaining_width;
+        for (var i=offset; i<tabs.childNodes.length; i++) {
+            if (tabs.childNodes[i].offsetWidth > avg_tab_width) cnt++;
+            else to_divide -= tabs.childNodes[i].offsetWidth;
+        }
+        const new_tab_width = to_divide / cnt - 2 * parseFloat(window.getComputedStyle(total_tab, null).getPropertyValue('padding-left'));
+        for (var i=offset; i<tabs.childNodes.length; i++) {
+            if (tabs.childNodes[i].offsetWidth > avg_tab_width) {
+                tabs.childNodes[i].style.width = new_tab_width + 'px';
+            }
+        }
+    }
 }
 
 function open_input_dialog() {

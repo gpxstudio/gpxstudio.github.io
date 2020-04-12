@@ -253,9 +253,14 @@ html, body {
   grid-row: 5 / span 1;
 }
 
-#reverse {
+#edit-time {
   grid-column: 5 / span 1;
   grid-row: 2 / span 1;
+}
+
+#reverse {
+  grid-column: 5 / span 1;
+  grid-row: 3 / span 1;
 }
 
 #crop-container {
@@ -316,7 +321,7 @@ html, body {
     padding: 0;
 }
 .tab {
-    padding: 2px 4px;
+    padding: 2px 6px;
     font-size: 10px;
     color: #777777;
     display:block;
@@ -331,6 +336,9 @@ html, body {
     border: 0px solid #CECECE;
     box-shadow: #BCBCBC 2px 2px 2px, #BCBCBC inset 0px 2px 2px;
     cursor: pointer;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .tab-focus {
     box-shadow: #BCBCBC 2px 2px 2px, #BCBCBC inset 0px 0px 0px;
