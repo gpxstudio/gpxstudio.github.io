@@ -262,6 +262,7 @@ function remove_trace(trace) {
     if (focus_on == -1) {
         lose_focus(focus_on, true);
     }
+    update_tab_width();
 }
 
 function lose_focus(index, total) {
@@ -541,23 +542,29 @@ function reset_slider() {
 
 function update_tab_width() {
     const offset = 3;
-    const remaining_width = trace_info_grid.offsetWidth - total_tab.offsetWidth;
+    const remaining_width = Math.floor(trace_info_grid.offsetWidth) - Math.ceil(total_tab.offsetWidth);
     var tabs_width = 0;
     for (var i=offset; i<tabs.childNodes.length; i++) {
+        tabs.childNodes[i].style.width = 'auto';
         tabs_width += tabs.childNodes[i].offsetWidth;
     }
     if (tabs_width > remaining_width) {
-        const avg_tab_width = tabs_width / (tabs.childNodes.length - offset);
+        const avg_tab_width = remaining_width / (tabs.childNodes.length - offset);
         var cnt = 0;
         var to_divide = remaining_width;
         for (var i=offset; i<tabs.childNodes.length; i++) {
-            if (tabs.childNodes[i].offsetWidth > avg_tab_width) cnt++;
+            if (tabs.childNodes[i].offsetWidth >= avg_tab_width) cnt++;
             else to_divide -= tabs.childNodes[i].offsetWidth;
         }
-        const new_tab_width = to_divide / cnt - 2 * parseFloat(window.getComputedStyle(total_tab, null).getPropertyValue('padding-left'));
+        const padding = 2 * parseFloat(window.getComputedStyle(total_tab, null).getPropertyValue('padding-left'));
+        const new_tab_width = Math.floor(to_divide / cnt - padding);
+        var first = true;
         for (var i=offset; i<tabs.childNodes.length; i++) {
-            if (tabs.childNodes[i].offsetWidth > avg_tab_width) {
-                tabs.childNodes[i].style.width = new_tab_width + 'px';
+            if (tabs.childNodes[i].offsetWidth >= avg_tab_width) {
+                if (first) {
+                    first = false;
+                    tabs.childNodes[i].style.width = (to_divide - (cnt - 1) * (new_tab_width + padding) - padding - 1) + 'px';
+                } else tabs.childNodes[i].style.width = new_tab_width + 'px';
             }
         }
     }
