@@ -306,6 +306,14 @@ html, body {
     stroke-width: 2;
 }
 
+.edit-marker {
+    fill: #ffffff;
+    fill-opacity: 1;
+    stroke: #000000;
+    stroke-opacity: 1;
+    stroke-width: 1;
+}
+
 .leaflet-image-layer {
     width: 10px !important;
     height: 10px !important;
