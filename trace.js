@@ -17,6 +17,7 @@ export default class Trace {
         this.total = total;
         this.buttons = total.buttons;
         this.hasFocus = false;
+        this.isEdited = false;
 
         this.gpx = new L.GPX(file, gpx_options).addTo(map);
         this.gpx.trace = this;
@@ -53,8 +54,23 @@ export default class Trace {
         this.buttons.tabs.removeChild(this.tab);
     }
 
-    afterLoad() {
-
+    newEditMarker(points, i) {
+        const map = this.map;
+        const marker = L.circleMarker([points[i].lat, points[i].lng], {
+            className: 'edit-marker',
+            radius: 4
+        }).addTo(map);
+        marker._index = i;
+        marker.on({
+            mousedown: function () {
+                map.dragging.disable();
+                map.on('mousemove', function (e) {
+                    marker.setLatLng(e.latlng);
+                });
+                map._draggedMarker = marker;
+            }
+        });
+        return marker;
     }
 
     /*** DISPLAY ***/
@@ -82,6 +98,11 @@ export default class Trace {
         } else this.focus();
     }
 
+    update() {
+        this.showData();
+        this.showElevation();
+    }
+
     redraw() {
         this.gpx.remove();
         this.gpx.addTo(this.map);
@@ -105,6 +126,30 @@ export default class Trace {
 
     getBounds() {
         return this.gpx.getBounds();
+    }
+
+    updateEditMarkers() {
+        if (this.isEdited) {
+            if (this._editMarkers) {
+                for (var i=0; i<this._editMarkers.length; i++)
+                    this._editMarkers[i].remove();
+            }
+            this._editMarkers = [];
+            const points = this.getPoints();
+            var last = false;
+            for (var i=0; i<points.length; i += Math.pow(2,19-this.map.getZoom())) {
+                this._editMarkers.push(this.newEditMarker(points, i));
+                if (i == points.length-1) last = true;
+            }
+            if (!last) {
+                this._editMarkers.push(this.newEditMarker(points, points.length-1));
+            }
+        }
+    }
+
+    refreshEditMarkers() {
+        for (var i=0; i<this._editMarkers.length; i++)
+            this._editMarkers[i].bringToFront();
     }
 
     /*** GPX DATA ***/
@@ -157,7 +202,7 @@ export default class Trace {
     }
 
     updatePoint(index, lat, lng) {
-        var points = this.getPoints();
+        const points = this.getPoints();
 
         var a = points[index].clone();
         var b = points[index].clone();
@@ -181,12 +226,13 @@ export default class Trace {
         Http.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
         Http.send();
 
+        const trace = this;
         Http.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 var ans = JSON.parse(this.responseText);
                 const ele = ans["data"][0]; //ans["elevations"][0]["elevation"];
 
-                const d1 = trace._dist3d(a, b) + trace._dist3d(b, c);
+                const d1 = trace.gpx._dist3d(a, b) + trace.gpx._dist3d(b, c);
                 const e1 = Math.max(b.meta.ele - a.meta.ele, 0) + Math.max(c.meta.ele - b.meta.ele, 0);
 
                 // data of new point
@@ -194,13 +240,15 @@ export default class Trace {
                 b.lng = lng;
                 b.meta.ele = ele;
 
-                const d2 = trace._dist3d(a, b) + trace._dist3d(b, c);
+                const d2 = trace.gpx._dist3d(a, b) + trace.gpx._dist3d(b, c);
                 const e2 = Math.max(b.meta.ele - a.meta.ele, 0) + Math.max(c.meta.ele - b.meta.ele, 0);
 
                 // update trace info
-                trace._info.length += d2 - d1;
-                trace._info.elevation.gain += e2 - e1;
-                update_data();
+                trace.gpx._info.length += d2 - d1;
+                trace.gpx._info.elevation.gain += e2 - e1;
+
+                trace.update();
+                trace.buttons.elev._removeSliderCircles();
             }
         }
 

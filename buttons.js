@@ -113,7 +113,7 @@ export default class Buttons {
     }
 
     addHandlers() {
-        var buttons = this;
+        const buttons = this;
         this.input.oninput = function() {
             buttons.loadFiles(this.files)
         };
@@ -130,7 +130,7 @@ export default class Buttons {
 
     addHandlersWithTotal(total) {
         this.total = total;
-        var buttons = this;
+        const buttons = this;
 
         $( ".sortable" ).on( "sortupdate", function( event, ui ) {
             const order = total.buttons.tabs.childNodes;
@@ -156,6 +156,42 @@ export default class Buttons {
             if (total.hasFocus) return;
             total.traces[total.focusOn].crop(total.buttons.slider.getIndexStart(), total.buttons.slider.getIndexEnd());
         });
+        this.map.addEventListener("zoomend", function () {
+            if (total.hasFocus) return;
+            if (!total.traces[total.focusOn].isEdited) return;
+            total.traces[total.focusOn].updateEditMarkers();
+        });
+        //this.map.addEventListener("movestart", update_edit_markers);
+        this.edit.addEventListener("click", function() {
+            if (total.hasFocus) return;
+            var trace = total.traces[total.focusOn];
+            trace.isEdited = true;
+            trace.updateEditMarkers();
+            buttons.hideTraceButtons();
+            buttons.elev._removeSliderCircles();
+
+            /* do something when exit edit mode
+            if (edit_mode) {
+                edit_mode = false;
+                const trace = traces[focus_on];
+                for (var i=0; i<trace._editMarkers.length; i++)
+                    trace._editMarkers[i].remove();
+                trace._editMarkers = [];
+            }*/
+        });
+        const map = this.map;
+        map.on('mouseup', function(e) {
+            map.dragging.enable();
+            map.removeEventListener('mousemove');
+            if (map._draggedMarker) {
+                if (total.hasFocus) return;
+                var trace = total.traces[total.focusOn];
+                const marker = map._draggedMarker;
+                trace.updatePoint(marker._index, e.latlng.lat, e.latlng.lng);
+                trace.refreshEditMarkers();
+            }
+            map._draggedMarker = null;
+        })
     }
 
     focusTabElement(tab) {
