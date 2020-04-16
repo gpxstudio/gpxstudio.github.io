@@ -14,6 +14,10 @@
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <link rel="stylesheet" type="text/css" href="style.css">
+        <script type="module" src="slider.js"></script>
+        <script type="module" src="buttons.js"></script>
+        <script type="module" src="trace.js"></script>
+        <script type="module" src="total.js"></script>
         <script type="module" src="script.js"></script>
         <script>
             $( function() {
@@ -63,7 +67,7 @@
                 </div>
                 <div class="slidecontainer">
                     <input type="range" min="0" max="10000000" value="0" class="slider" id="start-point">
-                    <input type="range" min="0" max="10000000" value="10000000" class="slider" id="end-point">
+                    <input type="range" min="0" max="10000000" value="10000000" class="slider visible" id="end-point">
                 </div>
             </div>
             <ul id="sortable" class="sortable">

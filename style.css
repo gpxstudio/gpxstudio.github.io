@@ -49,10 +49,6 @@ html, body {
     height: 131px;
 }
 
-#info-grid {
-    visibility: hidden;
-}
-
 .custom-button {
     cursor: pointer;
 }
