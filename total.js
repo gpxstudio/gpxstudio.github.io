@@ -88,6 +88,7 @@ export default class Total {
     }
 
     showElevation() {
+        this.buttons.elev.clear();
         for (var i=0; i<this.traces.length; i++) {
             /*if (i > 0) {
                 const between = new L.GPX('', {});

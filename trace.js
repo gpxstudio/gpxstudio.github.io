@@ -24,6 +24,17 @@ export default class Trace {
 
         this.gpx.on('loaded', function(e) {
             this.trace.index = total.traces.length;
+
+            if (!this.getLayers()[0]._latlngs) {
+                var layers = this.getLayers()[0].getLayers();
+                this.removeLayer(this.getLayers()[0]);
+                var mergedLayer = layers[0];
+                for (var i=1; i<layers.length; i++) {
+                    mergedLayer._latlngs = mergedLayer._latlngs.concat(layers[i]._latlngs);
+                }
+                this.addLayer(mergedLayer);
+            }
+
             total.traces.push(this.trace);
             total.buttons.updateBounds();
 
