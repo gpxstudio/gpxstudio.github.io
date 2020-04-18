@@ -105,6 +105,17 @@ export default class Buttons {
         this.time.style.visibility = 'visible';
     }
 
+    editToValidate() {
+        this.edit.style.visibility = 'visible';
+        this.edit.childNodes[0].classList.remove('fa-pencil-alt');
+        this.edit.childNodes[0].classList.add('fa-check');
+    }
+
+    validateToEdit() {
+        this.edit.childNodes[0].classList.remove('fa-check');
+        this.edit.childNodes[0].classList.add('fa-pencil-alt');
+    }
+
     circlesToFront() {
         if (this.elev._startCircle) {
             this.elev._startCircle.bringToFront();
@@ -165,19 +176,8 @@ export default class Buttons {
         this.edit.addEventListener("click", function() {
             if (total.hasFocus) return;
             var trace = total.traces[total.focusOn];
-            trace.isEdited = true;
-            trace.updateEditMarkers();
-            buttons.hideTraceButtons();
-            buttons.elev._removeSliderCircles();
-
-            /* do something when exit edit mode
-            if (edit_mode) {
-                edit_mode = false;
-                const trace = traces[focus_on];
-                for (var i=0; i<trace._editMarkers.length; i++)
-                    trace._editMarkers[i].remove();
-                trace._editMarkers = [];
-            }*/
+            if (trace.isEdited) trace.stopEdit();
+            else trace.edit();
         });
         const map = this.map;
         map.on('mouseup', function(e) {
@@ -187,7 +187,7 @@ export default class Buttons {
                 if (total.hasFocus) return;
                 var trace = total.traces[total.focusOn];
                 const marker = map._draggedMarker;
-                trace.updatePoint(marker._index, e.latlng.lat, e.latlng.lng);
+                trace.updatePoint(marker, e.latlng.lat, e.latlng.lng);
                 trace.refreshEditMarkers();
             }
             map._draggedMarker = null;

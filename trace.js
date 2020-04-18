@@ -65,25 +65,6 @@ export default class Trace {
         this.buttons.tabs.removeChild(this.tab);
     }
 
-    newEditMarker(points, i) {
-        const map = this.map;
-        const marker = L.circleMarker([points[i].lat, points[i].lng], {
-            className: 'edit-marker',
-            radius: 4
-        }).addTo(map);
-        marker._index = i;
-        marker.on({
-            mousedown: function () {
-                map.dragging.disable();
-                map.on('mousemove', function (e) {
-                    marker.setLatLng(e.latlng);
-                });
-                map._draggedMarker = marker;
-            }
-        });
-        return marker;
-    }
-
     /*** DISPLAY ***/
 
     focus() {
@@ -100,6 +81,7 @@ export default class Trace {
     unfocus() {
         this.hasFocus = false;
         this.gpx.setStyle(normal_style);
+        if (this.isEdited) this.stopEdit();
     }
 
     updateFocus() {
@@ -112,6 +94,22 @@ export default class Trace {
     update() {
         this.showData();
         this.showElevation();
+    }
+
+    edit() {
+        this.isEdited = true;
+        this.updateEditMarkers();
+        this.buttons.hideTraceButtons();
+        this.buttons.elev._removeSliderCircles();
+        this.buttons.editToValidate();
+    }
+
+    stopEdit() {
+        this.isEdited = false;
+        this.removeEditMarkers();
+        this.buttons.showTraceButtons();
+        this.buttons.elev._addSliderCircles();
+        this.buttons.validateToEdit();
     }
 
     redraw() {
@@ -139,21 +137,46 @@ export default class Trace {
         return this.gpx.getBounds();
     }
 
+    newEditMarker(point) {
+        const map = this.map;
+        const marker = L.circleMarker([point.lat, point.lng], {
+            className: 'edit-marker',
+            radius: 4
+        }).addTo(map);
+        marker._index = point.index;
+        marker.on({
+            mousedown: function () {
+                map.dragging.disable();
+                map.on('mousemove', function (e) {
+                    marker.setLatLng(e.latlng);
+                });
+                map._draggedMarker = marker;
+            }
+        });
+        return marker;
+    }
+
+    removeEditMarkers() {
+        if (this._editMarkers) {
+            for (var i=0; i<this._editMarkers.length; i++)
+                this._editMarkers[i].remove();
+        }
+        this._editMarkers = [];
+    }
+
     updateEditMarkers() {
         if (this.isEdited) {
-            if (this._editMarkers) {
-                for (var i=0; i<this._editMarkers.length; i++)
-                    this._editMarkers[i].remove();
-            }
-            this._editMarkers = [];
+            this.removeEditMarkers();
+            const bounds = this.map.getBounds();
             const points = this.getPoints();
-            var last = false;
-            for (var i=0; i<points.length; i += Math.pow(2,19-this.map.getZoom())) {
-                this._editMarkers.push(this.newEditMarker(points, i));
-                if (i == points.length-1) last = true;
-            }
-            if (!last) {
-                this._editMarkers.push(this.newEditMarker(points, points.length-1));
+            const dist = Math.abs(bounds._southWest.lat - bounds._northEast.lat);
+            const simplifiedPoints = simplify.douglasPeucker(points, dist/100);
+            for (var i=0; i<simplifiedPoints.length; i++) {
+                this._editMarkers.push(this.newEditMarker(simplifiedPoints[i]));
+                if (i > 0) {
+                    this._editMarkers[i]._prec = this._editMarkers[i-1]._index;
+                    this._editMarkers[i-1]._succ = this._editMarkers[i]._index;
+                }
             }
         }
     }
@@ -167,10 +190,6 @@ export default class Trace {
 
     getPoints() {
         return this.gpx.getLayers()[0]._latlngs;
-    }
-
-    getElevationAt(index) {
-        return this.gpx.get_elevation_data()[index][1];
     }
 
     getDistance() {
@@ -212,22 +231,27 @@ export default class Trace {
         this.buttons.slider.reset();
     }
 
-    updatePoint(index, lat, lng) {
+    updatePoint(marker, lat, lng) {
         const points = this.getPoints();
 
-        var a = points[index].clone();
-        var b = points[index].clone();
-        var c = points[index].clone();
+        const prec_idx = marker._prec ? marker._prec : marker._index;
+        const this_idx = marker._index;
+        const succ_idx = marker._succ ? marker._succ : marker._index;
 
-        if (index > 0) {
-            a = points[index-1].clone();
-            a.meta = {"ele" : this.getElevationAt(index-1)};
-        } else a.meta = {"ele" : this.getElevationAt(index)};
-        b.meta = {"ele" : this.getElevationAt(index)};
-        if (index < points.length-1) {
-            c = points[index+1].clone();
-            c.meta = {"ele" : this.getElevationAt(index+1)};
-        } else a.meta = {"ele" : this.getElevationAt(index)};
+        var a = points[prec_idx].clone();
+        var b = points[this_idx].clone();
+        var c = points[succ_idx].clone();
+        a.meta = points[prec_idx].meta;
+        b.meta = points[this_idx].meta;
+        c.meta = points[succ_idx].meta;
+
+        points[this_idx].lat = lat;
+        points[this_idx].lng = lng;
+
+        points.splice(this_idx+1, succ_idx-this_idx-1);
+        points.splice(prec_idx+1, this_idx-prec_idx-1);
+
+        this.redraw();
 
         const Http = new XMLHttpRequest();
         //const url = 'https://elevation-api.io/api/elevation?points=(' + lat + ',' + lng + ')&key=w2-Otn-4S7sAahUs-Ubd7o7f0P4Fms';
@@ -242,6 +266,8 @@ export default class Trace {
             if (this.readyState == 4 && this.status == 200) {
                 var ans = JSON.parse(this.responseText);
                 const ele = ans["data"][0]; //ans["elevations"][0]["elevation"];
+
+                // USE RECOMPUTE STATS 
 
                 const d1 = trace.gpx._dist3d(a, b) + trace.gpx._dist3d(b, c);
                 const e1 = Math.max(b.meta.ele - a.meta.ele, 0) + Math.max(c.meta.ele - b.meta.ele, 0);
@@ -262,10 +288,6 @@ export default class Trace {
                 trace.buttons.elev._removeSliderCircles();
             }
         }
-
-        points[index].lat = lat;
-        points[index].lng = lng;
-        this.redraw();
     }
 
     recomputeStats() {
