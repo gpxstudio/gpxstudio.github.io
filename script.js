@@ -18,7 +18,6 @@ function get_path() {
     }
 }
 
-total.addTrace('4.gpx', '4.gpx');
-total.addTrace('5.gpx', '5.gpx');
+total.addTrace('ventoux.gpx', 'ventoux.gpx');
 
 //get_path();

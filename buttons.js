@@ -187,6 +187,7 @@ export default class Buttons {
                 if (total.hasFocus) return;
                 var trace = total.traces[total.focusOn];
                 const marker = map._draggedMarker;
+                marker.getElement().style.cursor = 'pointer';
                 trace.updatePoint(marker, e.latlng.lat, e.latlng.lng);
                 trace.refreshEditMarkers();
             }

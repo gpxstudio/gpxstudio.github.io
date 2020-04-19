@@ -348,3 +348,7 @@ html, body {
     box-shadow: #BCBCBC 2px 2px 2px, #BCBCBC inset 0px 0px 0px;
     background-color: #fcfcfc;
 }
+
+.leaflet-interactive.mouseDown {
+    cursor: grabbing !important;
+}

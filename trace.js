@@ -53,14 +53,21 @@ export default class Trace {
             this.trace.tab = li;
             total.buttons.updateTabWidth();
             total.buttons.circlesToFront();
-        }).on('click', function(e) {
-            e.target.trace.updateFocus();
+        }).on('click', function (e) {
+            if (!e.target.trace.isEdited) e.target.trace.updateFocus();
+        }).on('mousedown', function (e) {
+            const trace = e.target.trace;
+            if (trace.isEdited) {
+                const marker = trace.insertEditMarker(e.layerPoint);
+                marker.fire('mousedown');
+            }
         });
     }
 
     /*** LOGIC ***/
 
     remove() {
+        this.unfocus();
         this.gpx.clearLayers();
         this.buttons.tabs.removeChild(this.tab);
     }
@@ -113,8 +120,7 @@ export default class Trace {
     }
 
     redraw() {
-        this.gpx.remove();
-        this.gpx.addTo(this.map);
+        this.gpx.getLayers()[0].redraw();
     }
 
     showData() {
@@ -145,14 +151,60 @@ export default class Trace {
         }).addTo(map);
         marker._index = point.index;
         marker.on({
-            mousedown: function () {
+            mousedown: function (e) {
                 map.dragging.disable();
                 map.on('mousemove', function (e) {
                     marker.setLatLng(e.latlng);
                 });
                 map._draggedMarker = marker;
+                marker.getElement().style.cursor = 'grabbing';
             }
         });
+        return marker;
+    }
+
+    insertEditMarker(layer_point) {
+        const polyline = this.gpx.getLayers()[0];
+        const layer_pt = polyline.closestLayerPoint(layer_point);
+        const pt = this.map.layerPointToLatLng(layer_pt);
+        const points = this.getPoints();
+        var best_dist = -1, best_idx = -1;
+        for (var i=0; i<points.length-1; i++) {
+            const dist = L.LineUtil.pointToSegmentDistance(layer_pt,
+                this.map.latLngToLayerPoint(points[i]),
+                this.map.latLngToLayerPoint(points[i+1])
+            );
+            if (best_idx == -1 || dist < best_dist) {
+                best_idx = i+1;
+                best_dist = dist;
+            }
+        }
+        pt.meta = {"ele" : 0};
+        pt.index = best_idx;
+        this.askPointsElevation([pt]);
+
+        points.splice(best_idx, 0, pt);
+
+        const marker = this.newEditMarker(pt);
+        var marker_idx = -1;
+
+        // update markers indices + find index
+        for (var i=0; i<this._editMarkers.length; i++) {
+            if (this._editMarkers[i]._prec && this._editMarkers[i]._prec >= best_idx) this._editMarkers[i]._prec++;
+            if (this._editMarkers[i]._index && this._editMarkers[i]._index >= best_idx) {
+                this._editMarkers[i]._index++;
+                if (marker_idx == -1) marker_idx = i;
+            }
+            if (this._editMarkers[i]._succ && this._editMarkers[i]._succ >= best_idx) this._editMarkers[i]._succ++;
+        }
+
+        // insert new marker
+        this._editMarkers.splice(marker_idx, 0, marker);
+        this._editMarkers[marker_idx]._prec = this._editMarkers[marker_idx-1]._index;
+        this._editMarkers[marker_idx]._succ = this._editMarkers[marker_idx+1]._index;
+        this._editMarkers[marker_idx-1]._succ = this._editMarkers[marker_idx]._index;
+        this._editMarkers[marker_idx+1]._prec = this._editMarkers[marker_idx]._index;
+
         return marker;
     }
 
@@ -238,56 +290,34 @@ export default class Trace {
         const this_idx = marker._index;
         const succ_idx = marker._succ ? marker._succ : marker._index;
 
-        var a = points[prec_idx].clone();
-        var b = points[this_idx].clone();
-        var c = points[succ_idx].clone();
-        a.meta = points[prec_idx].meta;
-        b.meta = points[this_idx].meta;
-        c.meta = points[succ_idx].meta;
+        var a = points[prec_idx];
+        var b = points[this_idx];
+        var c = points[succ_idx];
 
-        points[this_idx].lat = lat;
-        points[this_idx].lng = lng;
+        b.lat = lat;
+        b.lng = lng;
 
-        points.splice(this_idx+1, succ_idx-this_idx-1);
-        points.splice(prec_idx+1, this_idx-prec_idx-1);
+        if (succ_idx-this_idx-1 > 0) points.splice(this_idx+1, succ_idx-this_idx-1);
+        if (this_idx-prec_idx-1 > 0) points.splice(prec_idx+1, this_idx-prec_idx-1);
 
-        this.redraw();
-
-        const Http = new XMLHttpRequest();
-        //const url = 'https://elevation-api.io/api/elevation?points=(' + lat + ',' + lng + ')&key=w2-Otn-4S7sAahUs-Ubd7o7f0P4Fms';
-        const url = 'https://api.airmap.com/elevation/v1/ele/?points=' + lat + ',' + lng;
-        Http.open("GET", url);
-        Http.setRequestHeader('X-API-Key', '{eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVkZW50aWFsX2lkIjoiY3JlZGVudGlhbHx6eFcwM1p4QzlRYW4wbmZCeVFQejVoTDJ4NjUiLCJhcHBsaWNhdGlvbl9pZCI6ImFwcGxpY2F0aW9ufDllS3hvV1lJSkw3S1phaEFLd0trWWgwOE04cHAiLCJvcmdhbml6YXRpb25faWQiOiJkZXZlbG9wZXJ8cXBlOU0yR1VlT1o4Tlh0ODVSbk9nSEo2bmJnZyIsImlhdCI6MTU4Njg3NjYwOX0.LpZdUZ_jnxhwPHyheDqYnVdQ91kTNuraJq7I9djl6Hc}');
-        Http.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-        Http.send();
-
-        const trace = this;
-        Http.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                var ans = JSON.parse(this.responseText);
-                const ele = ans["data"][0]; //ans["elevations"][0]["elevation"];
-
-                // USE RECOMPUTE STATS 
-
-                const d1 = trace.gpx._dist3d(a, b) + trace.gpx._dist3d(b, c);
-                const e1 = Math.max(b.meta.ele - a.meta.ele, 0) + Math.max(c.meta.ele - b.meta.ele, 0);
-
-                // data of new point
-                b.lat = lat;
-                b.lng = lng;
-                b.meta.ele = ele;
-
-                const d2 = trace.gpx._dist3d(a, b) + trace.gpx._dist3d(b, c);
-                const e2 = Math.max(b.meta.ele - a.meta.ele, 0) + Math.max(c.meta.ele - b.meta.ele, 0);
-
-                // update trace info
-                trace.gpx._info.length += d2 - d1;
-                trace.gpx._info.elevation.gain += e2 - e1;
-
-                trace.update();
-                trace.buttons.elev._removeSliderCircles();
+        // update markers indices
+        for (var i=0; i<this._editMarkers.length; i++) {
+            if (this._editMarkers[i]._prec) {
+                if (this._editMarkers[i]._prec > this_idx) this._editMarkers[i]._prec -= Math.max(0,succ_idx-this_idx-1) + Math.max(0,this_idx-prec_idx-1);
+                else if (this._editMarkers[i]._prec > prec_idx) this._editMarkers[i]._prec -= Math.max(0,this_idx-prec_idx-1);
+            }
+            if (this._editMarkers[i]._index) {
+                if (this._editMarkers[i]._index > this_idx) this._editMarkers[i]._index -= Math.max(0,succ_idx-this_idx-1) + Math.max(0,this_idx-prec_idx-1);
+                else if (this._editMarkers[i]._index > prec_idx) this._editMarkers[i]._index -= Math.max(0,this_idx-prec_idx-1);
+            }
+            if (this._editMarkers[i]._succ) {
+                if (this._editMarkers[i]._succ > this_idx) this._editMarkers[i]._succ -= Math.max(0,succ_idx-this_idx-1) + Math.max(0,this_idx-prec_idx-1);
+                else if (this._editMarkers[i]._succ > prec_idx) this._editMarkers[i]._succ -= Math.max(0,this_idx-prec_idx-1);
             }
         }
+
+        this.redraw();
+        this.askPointsElevation([b]);
     }
 
     recomputeStats() {
@@ -331,6 +361,37 @@ export default class Trace {
             }
 
             last = ll;
+        }
+    }
+
+    /*** REQUESTS ***/
+
+    askPointsElevation(points) {
+        const point = points[0];
+        const lat = point.lat;
+        const lng = point.lng;
+
+        const Http = new XMLHttpRequest();
+        //const url = 'https://elevation-api.io/api/elevation?points=(' + lat + ',' + lng + ')&key=w2-Otn-4S7sAahUs-Ubd7o7f0P4Fms';
+        const url = 'https://api.airmap.com/elevation/v1/ele/?points=' + lat + ',' + lng;
+        Http.open("GET", url);
+        Http.setRequestHeader('X-API-Key', '{eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVkZW50aWFsX2lkIjoiY3JlZGVudGlhbHx6eFcwM1p4QzlRYW4wbmZCeVFQejVoTDJ4NjUiLCJhcHBsaWNhdGlvbl9pZCI6ImFwcGxpY2F0aW9ufDllS3hvV1lJSkw3S1phaEFLd0trWWgwOE04cHAiLCJvcmdhbml6YXRpb25faWQiOiJkZXZlbG9wZXJ8cXBlOU0yR1VlT1o4Tlh0ODVSbk9nSEo2bmJnZyIsImlhdCI6MTU4Njg3NjYwOX0.LpZdUZ_jnxhwPHyheDqYnVdQ91kTNuraJq7I9djl6Hc}');
+        Http.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+        Http.send();
+
+        const trace = this;
+        Http.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var ans = JSON.parse(this.responseText);
+                const ele = ans["data"][0]; //ans["elevations"][0]["elevation"];
+                point.meta.ele = ele;
+
+                // update trace info
+                trace.recomputeStats();
+
+                trace.update();
+                trace.buttons.elev._removeSliderCircles();
+            }
         }
     }
 }
