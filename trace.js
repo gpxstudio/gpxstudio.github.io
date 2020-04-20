@@ -124,9 +124,10 @@ export default class Trace {
     }
 
     showData() {
-        this.buttons.distance.innerHTML = (this.getDistance() / 1000).toFixed(1).toString() + ' km';
-        this.buttons.elevation.innerHTML = this.getElevation().toFixed(0).toString() + ' m';
-        this.buttons.speed.innerHTML = this.getMovingSpeed().toFixed(1).toString() + ' km/h';
+        this.buttons.distance.innerHTML = (this.getDistance() / 1000).toFixed(1).toString() + (this.buttons.km ? ' km' : ' mi');
+        this.buttons.elevation.innerHTML = this.getElevation().toFixed(0).toString() + (this.buttons.km ? ' m' : ' ft');
+        if (this.buttons.cycling) this.buttons.speed.innerHTML = this.getMovingSpeed().toFixed(1).toString() + ' ' + (this.buttons.km ? ' km' : ' mi') + '/h';
+        else this.buttons.speed.innerHTML = this.total.msToTimeMin(this.getMovingPace()) + ' min/' + (this.buttons.km ? 'km' : 'mi');
         this.buttons.duration.innerHTML = this.total.msToTime(this.getMovingTime());
     }
 
@@ -245,11 +246,13 @@ export default class Trace {
     }
 
     getDistance() {
-        return this.gpx._info.length;
+        if (this.buttons.km) return this.gpx._info.length;
+        else return this.gpx._info.length / 1.60934;
     }
 
     getElevation() {
-        return this.gpx._info.elevation.gain;
+        if (this.buttons.km) return this.gpx._info.elevation.gain;
+        else return this.gpx._info.elevation.gain * 3.28084;
     }
 
     getMovingTime() {

@@ -36,7 +36,7 @@ html, body {
 
 .padding-container {
     padding-left: 0px;
-    padding-bottom: 30px;
+    padding-bottom: 20px;
 }
 
 .trace-info {
@@ -351,4 +351,9 @@ html, body {
 
 .leaflet-interactive.mouseDown {
     cursor: grabbing !important;
+}
+
+.unit {
+    font-size: 11px;
+    vertical-align: top;
 }

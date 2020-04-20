@@ -81,9 +81,10 @@ export default class Total {
     }
 
     showData() {
-        this.buttons.distance.innerHTML = (this.getDistance() / 1000).toFixed(1).toString() + ' km';
-        this.buttons.elevation.innerHTML = this.getElevation().toFixed(0).toString() + ' m';
-        this.buttons.speed.innerHTML = this.getMovingSpeed().toFixed(1).toString() + ' km/h';
+        this.buttons.distance.innerHTML = (this.getDistance() / 1000).toFixed(1).toString() + (this.buttons.km ? ' km' : ' mi');
+        this.buttons.elevation.innerHTML = this.getElevation().toFixed(0).toString() + (this.buttons.km ? ' m' : ' ft');
+        if (this.buttons.cycling) this.buttons.speed.innerHTML = this.getMovingSpeed().toFixed(1).toString() + ' ' + (this.buttons.km ? ' km' : ' mi') + '/h';
+        else this.buttons.speed.innerHTML = this.msToTimeMin(this.getMovingPace()) + ' min/' + (this.buttons.km ? 'km' : 'mi');
         this.buttons.duration.innerHTML = this.msToTime(this.getMovingTime());
     }
 
@@ -201,5 +202,15 @@ export default class Total {
       seconds = (seconds < 10) ? "0" + seconds : seconds;
 
       return hours + "h" + minutes;
+    }
+
+    msToTimeMin(duration) {
+      var milliseconds = parseInt((duration % 1000) / 100),
+        seconds = Math.floor((duration / 1000) % 60),
+        minutes = Math.floor(duration / (1000 * 60));
+
+      seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+      return minutes + ":" + seconds;
     }
 }

@@ -40,6 +40,7 @@ export default class Buttons {
                 left:40
             }
         }).addTo(this.map);
+        this.elev.buttons = this;
 
         // BUTTONS
         this.input = document.getElementById("input-file");
@@ -53,6 +54,8 @@ export default class Buttons {
         this.validate = document.getElementById("validate");
         this.unvalidate = document.getElementById("unvalidate");
         this.export = document.getElementById("export");
+        this.units = document.getElementById("units");
+        this.activity = document.getElementById("activity");
 
         // DISPLAYS
         this.distance = document.getElementById("distance-val");
@@ -87,6 +90,10 @@ export default class Buttons {
         this.slider = new Slider(this);
 
         this.addHandlers();
+
+        // SETTINGS
+        this.km = true;
+        this.cycling = true;
     }
 
     hideTraceButtons() {
@@ -141,6 +148,7 @@ export default class Buttons {
 
     addHandlersWithTotal(total) {
         this.total = total;
+        this.elev.total = total;
         const buttons = this;
 
         $( ".sortable" ).on( "sortupdate", function( event, ui ) {
@@ -166,6 +174,16 @@ export default class Buttons {
         this.validate.addEventListener("click", function () {
             if (total.hasFocus) return;
             total.traces[total.focusOn].crop(total.buttons.slider.getIndexStart(), total.buttons.slider.getIndexEnd());
+        });
+        this.units.addEventListener("click", function () {
+            buttons.km = !buttons.km;
+            if (total.hasFocus) total.showData();
+            else total.traces[total.focusOn].showData();
+        });
+        this.activity.addEventListener("click", function () {
+            buttons.cycling = !buttons.cycling;
+            if (total.hasFocus) total.showData();
+            else total.traces[total.focusOn].showData();
         });
         this.map.addEventListener("zoomend", function () {
             if (total.hasFocus) return;
