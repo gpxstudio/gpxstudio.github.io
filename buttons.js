@@ -94,6 +94,7 @@ export default class Buttons {
         // SETTINGS
         this.km = true;
         this.cycling = true;
+        this.routing = true;
     }
 
     hideTraceButtons() {

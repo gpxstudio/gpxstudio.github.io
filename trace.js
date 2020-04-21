@@ -185,6 +185,7 @@ export default class Trace {
         this.askPointsElevation([pt]);
 
         points.splice(best_idx, 0, pt);
+        this.updatePointIndices();
 
         const marker = this.newEditMarker(pt);
         var marker_idx = -1;
@@ -234,6 +235,12 @@ export default class Trace {
         }
     }
 
+    updatePointIndices() {
+        const points = this.getPoints();
+        for (var i=0; i<points.length; i++)
+            points[i].index = i;
+    }
+
     refreshEditMarkers() {
         for (var i=0; i<this._editMarkers.length; i++)
             this._editMarkers[i].bringToFront();
@@ -275,7 +282,6 @@ export default class Trace {
         const points = this.getPoints();
         const length = points.length;
 
-        // store this to revert action
         const deleted_end = points.splice(end);
         const deleted_start = points.splice(0, start);
 
@@ -287,6 +293,11 @@ export default class Trace {
     }
 
     updatePoint(marker, lat, lng) {
+        if (this.buttons.routing) this.updatePointRouting(marker, lat, lng);
+        else this.updatePointManual(marker, lat, lng);
+    }
+
+    updatePointManual(marker, lat, lng) {
         const points = this.getPoints();
 
         const prec_idx = marker._prec ? marker._prec : marker._index;
@@ -302,6 +313,7 @@ export default class Trace {
 
         if (succ_idx-this_idx-1 > 0) points.splice(this_idx+1, succ_idx-this_idx-1);
         if (this_idx-prec_idx-1 > 0) points.splice(prec_idx+1, this_idx-prec_idx-1);
+        this.updatePointIndices();
 
         // update markers indices
         for (var i=0; i<this._editMarkers.length; i++) {
@@ -321,6 +333,23 @@ export default class Trace {
 
         this.redraw();
         this.askPointsElevation([b]);
+    }
+
+    updatePointRouting(marker, lat, lng) {
+        const points = this.getPoints();
+
+        const prec_idx = marker._prec ? marker._prec : marker._index;
+        const this_idx = marker._index;
+        const succ_idx = marker._succ ? marker._succ : marker._index;
+
+        var a = points[prec_idx];
+        var b = points[this_idx];
+        var c = points[succ_idx];
+
+        b.lat = lat;
+        b.lng = lng;
+
+        this.askRoute([a,b,c]);
     }
 
     recomputeStats() {
@@ -370,13 +399,13 @@ export default class Trace {
     /*** REQUESTS ***/
 
     askPointsElevation(points) {
-        const point = points[0];
-        const lat = point.lat;
-        const lng = point.lng;
-
         const Http = new XMLHttpRequest();
         //const url = 'https://elevation-api.io/api/elevation?points=(' + lat + ',' + lng + ')&key=w2-Otn-4S7sAahUs-Ubd7o7f0P4Fms';
-        const url = 'https://api.airmap.com/elevation/v1/ele/?points=' + lat + ',' + lng;
+        var url = 'https://api.airmap.com/elevation/v1/ele/?points=';
+        for (var i=0; i<points.length; i++) {
+            url += points[i].lat + ',' + points[i].lng;
+            if (i < points.length-1) url += ';';
+        }
         Http.open("GET", url);
         Http.setRequestHeader('X-API-Key', '{eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVkZW50aWFsX2lkIjoiY3JlZGVudGlhbHx6eFcwM1p4QzlRYW4wbmZCeVFQejVoTDJ4NjUiLCJhcHBsaWNhdGlvbl9pZCI6ImFwcGxpY2F0aW9ufDllS3hvV1lJSkw3S1phaEFLd0trWWgwOE04cHAiLCJvcmdhbml6YXRpb25faWQiOiJkZXZlbG9wZXJ8cXBlOU0yR1VlT1o4Tlh0ODVSbk9nSEo2bmJnZyIsImlhdCI6MTU4Njg3NjYwOX0.LpZdUZ_jnxhwPHyheDqYnVdQ91kTNuraJq7I9djl6Hc}');
         Http.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
@@ -386,14 +415,63 @@ export default class Trace {
         Http.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 var ans = JSON.parse(this.responseText);
-                const ele = ans["data"][0]; //ans["elevations"][0]["elevation"];
-                point.meta.ele = ele;
+
+                for (var i=0; i<points.length; i++) {
+                    points[i].meta.ele = ans["data"][i]; //ans["elevations"][0]["elevation"];
+                }
 
                 // update trace info
                 trace.recomputeStats();
 
                 trace.update();
                 trace.buttons.elev._removeSliderCircles();
+            }
+        }
+    }
+
+    askRoute(points) {
+        const Http = new XMLHttpRequest();
+        var url = "https://api.mapbox.com/directions/v5/mapbox/" + (this.buttons.cycling ? "cycling" : "walking") + "/";
+        for (var i=0; i<points.length; i++) {
+            url += points[i].lng.toFixed(6) + ',' + points[i].lat.toFixed(6);
+            if (i < points.length-1) url += ';';
+        }
+        url += "?geometries=geojson&access_token=pk.eyJ1IjoidmNvcHBlIiwiYSI6ImNrOGhkY3g0ZDAxajczZWxnNW1jc3Q3dWIifQ.tCrnYH85RYxUzvKugY2khw&overview=full";
+        Http.open("GET", url);
+        Http.send();
+
+        const trace = this;
+
+        Http.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var ans = JSON.parse(this.responseText);
+                const new_pts = ans['routes'][0]['geometry']['coordinates'];
+                const new_points = [];
+                for (var i=0; i<new_pts.length; i++) {
+                    new_points.push(L.latLng(new_pts[i][1],new_pts[i][0]));
+                    new_points[i].meta = {"ele" : 0, "time" : new Date()};
+                }
+
+                const pts = trace.getPoints();
+                var diff = new_points.length - (points[points.length-1].index-points[0].index-1);
+                // remove old
+                pts.splice(points[0].index+1, points[points.length-1].index-points[0].index-1);
+                console.log(pts);
+                // add new
+                pts.splice(points[0].index+1, 0, ...new_points);
+                console.log(pts);
+                // update points indices
+                trace.updatePointIndices();
+                // update markers indices
+                trace.updateEditMarkers();
+
+                trace.redraw();
+
+                // ask elevation of new points
+                /*const split = 5;
+                for (var i=0; i<pts.length/split; i++) {
+                    trace.askPointsElevation(pts.slice(i * split, (i+1) * split));
+                }*/
             }
         }
     }

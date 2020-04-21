@@ -32,6 +32,7 @@ html, body {
     background-color: #fcfcfc;
     border: 0px solid #CECECE;
     box-shadow: 2px 2px 2px #BCBCBC;
+    white-space: nowrap;
 }
 
 .padding-container {
@@ -77,7 +78,7 @@ html, body {
 
 .panels-val {
     padding-bottom: 0px;
-    min-width: 60px;
+    min-width: 70px;
     text-align: right;
 }
 
