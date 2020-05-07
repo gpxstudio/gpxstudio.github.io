@@ -8,7 +8,8 @@ const gpx_options = {
         endIconUrl: '',
         shadowUrl: '',
         wptIconUrls : { '': '' }
-    }
+    },
+    max_point_interval: 3000
 };
 
 export default class Trace {
