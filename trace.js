@@ -152,6 +152,8 @@ export default class Trace {
             radius: 4
         }).addTo(map);
         marker._index = point.index;
+        marker._prec = point.index;
+        marker._succ = point.index;
         marker.on({
             mousedown: function (e) {
                 map.dragging.disable();
@@ -177,28 +179,21 @@ export default class Trace {
                 this.map.latLngToLayerPoint(points[i+1])
             );
             if (best_idx == -1 || dist < best_dist) {
-                best_idx = i+1;
+                best_idx = i;
                 best_dist = dist;
             }
         }
-        pt.meta = {"ele" : 0};
-        pt.index = best_idx;
-        this.askPointsElevation([pt]);
 
-        points.splice(best_idx, 0, pt);
-        this.updatePointIndices();
-
-        const marker = this.newEditMarker(pt);
+        points[best_idx].index = best_idx;
+        const marker = this.newEditMarker(points[best_idx]);
         var marker_idx = -1;
 
-        // update markers indices + find index
+        // find index for new marker
         for (var i=0; i<this._editMarkers.length; i++) {
-            if (this._editMarkers[i]._prec && this._editMarkers[i]._prec >= best_idx) this._editMarkers[i]._prec++;
             if (this._editMarkers[i]._index && this._editMarkers[i]._index >= best_idx) {
-                this._editMarkers[i]._index++;
-                if (marker_idx == -1) marker_idx = i;
+                marker_idx = i;
+                break;
             }
-            if (this._editMarkers[i]._succ && this._editMarkers[i]._succ >= best_idx) this._editMarkers[i]._succ++;
         }
 
         // insert new marker
@@ -225,7 +220,7 @@ export default class Trace {
             const bounds = this.map.getBounds();
             const points = this.getPoints();
             const dist = Math.abs(bounds._southWest.lat - bounds._northEast.lat);
-            const simplifiedPoints = simplify.douglasPeucker(points, dist/100);
+            const simplifiedPoints = simplify.douglasPeucker(points, dist/20);
             for (var i=0; i<simplifiedPoints.length; i++) {
                 this._editMarkers.push(this.newEditMarker(simplifiedPoints[i]));
                 if (i > 0) {
@@ -339,13 +334,9 @@ export default class Trace {
     updatePointRouting(marker, lat, lng) {
         const points = this.getPoints();
 
-        const prec_idx = marker._prec ? marker._prec : marker._index;
-        const this_idx = marker._index;
-        const succ_idx = marker._succ ? marker._succ : marker._index;
-
-        var a = points[prec_idx];
-        var b = points[this_idx];
-        var c = points[succ_idx];
+        var a = points[marker._prec];
+        var b = points[marker._index];
+        var c = points[marker._succ];
 
         b.lat = lat;
         b.lng = lng;
@@ -399,13 +390,33 @@ export default class Trace {
 
     /*** REQUESTS ***/
 
-    askPointsElevation(points) {
+    askElevation(points) {
+        const step = 5;
+        const maxpoints = 2000;
+        var pts = [], start = -1, requests = [];
+        for (var i=0; i<points.length; i += step) {
+            pts.push(points[i]);
+            if (start == -1) start = i;
+            if (pts.length == maxpoints) {
+                requests.push([points.slice(start, i + step - 1), pts]);
+                pts = [];
+                start = -1;
+            }
+        }
+        if (pts.length > 0) {
+            requests.push([points.slice(start, i + step - 1), pts]);
+        }
+        this.askPointsElevation(requests, step);
+    }
+
+    askPointsElevation(requests, step) {
+        const trace_points = requests[0][0], points = requests[0][1];
         const Http = new XMLHttpRequest();
         //const url = 'https://elevation-api.io/api/elevation?points=(' + lat + ',' + lng + ')&key=w2-Otn-4S7sAahUs-Ubd7o7f0P4Fms';
-        var url = 'https://api.airmap.com/elevation/v1/ele/?points=';
+        var url = 'https://api.airmap.com/elevation/v1/ele?points=';
         for (var i=0; i<points.length; i++) {
             url += points[i].lat + ',' + points[i].lng;
-            if (i < points.length-1) url += ';';
+            if (i < points.length-1) url += ',';
         }
         Http.open("GET", url);
         Http.setRequestHeader('X-API-Key', '{eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVkZW50aWFsX2lkIjoiY3JlZGVudGlhbHx6eFcwM1p4QzlRYW4wbmZCeVFQejVoTDJ4NjUiLCJhcHBsaWNhdGlvbl9pZCI6ImFwcGxpY2F0aW9ufDllS3hvV1lJSkw3S1phaEFLd0trWWgwOE04cHAiLCJvcmdhbml6YXRpb25faWQiOiJkZXZlbG9wZXJ8cXBlOU0yR1VlT1o4Tlh0ODVSbk9nSEo2bmJnZyIsImlhdCI6MTU4Njg3NjYwOX0.LpZdUZ_jnxhwPHyheDqYnVdQ91kTNuraJq7I9djl6Hc}');
@@ -417,15 +428,23 @@ export default class Trace {
             if (this.readyState == 4 && this.status == 200) {
                 var ans = JSON.parse(this.responseText);
 
-                for (var i=0; i<points.length; i++) {
-                    points[i].meta.ele = ans["data"][i]; //ans["elevations"][0]["elevation"];
+                for (var i=0; i<trace_points.length; i++) {
+                    trace_points[i].meta.ele = ans["data"][Math.floor(i/step)] ? ans["data"][Math.floor(i/step)] : 0; //ans["elevations"][0]["elevation"];
+                    if (trace_points[i].meta.ele == 0) {
+                        console.log(ans["data"][Math.floor(i/step)], Math.floor(i/step));
+                    }
                 }
 
-                // update trace info
-                trace.recomputeStats();
+                if (requests.length == 1) {
+                    // update trace info
+                    trace.recomputeStats();
 
-                trace.update();
-                trace.buttons.elev._removeSliderCircles();
+                    trace.update();
+                    trace.buttons.elev._removeSliderCircles();
+                } else trace.askPointsElevation(requests.slice(1), step);
+            } else if (this.readyState == 4 && this.status == 504) {
+                console.log('elevation query timeout : retry');
+                trace.askPointsElevation(requests, step);
             }
         }
     }
@@ -446,21 +465,19 @@ export default class Trace {
         Http.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 var ans = JSON.parse(this.responseText);
-                const new_pts = ans['routes'][0]['geometry']['coordinates'];
+                const new_geojson = ans['routes'][0]['geometry'];
+                const new_pts = new_geojson['coordinates'];
                 const new_points = [];
                 for (var i=0; i<new_pts.length; i++) {
                     new_points.push(L.latLng(new_pts[i][1],new_pts[i][0]));
-                    new_points[i].meta = {"ele" : 0, "time" : new Date()};
+                    new_points[i].meta = {"time":new Date(), "ele":0};
                 }
 
                 const pts = trace.getPoints();
-                var diff = new_points.length - (points[points.length-1].index-points[0].index-1);
                 // remove old
                 pts.splice(points[0].index+1, points[points.length-1].index-points[0].index-1);
-                console.log(pts);
                 // add new
                 pts.splice(points[0].index+1, 0, ...new_points);
-                console.log(pts);
                 // update points indices
                 trace.updatePointIndices();
                 // update markers indices
@@ -469,10 +486,7 @@ export default class Trace {
                 trace.redraw();
 
                 // ask elevation of new points
-                /*const split = 5;
-                for (var i=0; i<pts.length/split; i++) {
-                    trace.askPointsElevation(pts.slice(i * split, (i+1) * split));
-                }*/
+                trace.askElevation(new_points);
             }
         }
     }

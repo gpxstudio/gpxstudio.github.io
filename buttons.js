@@ -1,4 +1,5 @@
 import Slider from './slider.js';
+import TileCover from './include/mapbox/tilecover.js';
 
 export default class Buttons {
     constructor() {
@@ -41,6 +42,9 @@ export default class Buttons {
             }
         }).addTo(this.map);
         this.elev.buttons = this;
+
+        // ELEVATION UTILITIES
+        this.tilecover = new TileCover();
 
         // BUTTONS
         this.input = document.getElementById("input-file");

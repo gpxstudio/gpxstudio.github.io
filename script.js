@@ -4,6 +4,4 @@ import Total from './total.js';
 const buttons = new Buttons();
 const total =  new Total(buttons);
 
-total.addTrace('ventoux.gpx', 'ventoux.gpx');
-
-//get_path();
+total.addTrace('1.gpx', '1.gpx');
