@@ -97,7 +97,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             if (t1 > t0 + 1) {
                 var m = (t0 + t1) >> 1;
                 _simplifyDouglasPeucker(points, simplifiedPoints, tolerance2, t0, m);
-                points[m].index = m;
                 _appendIfNotSame(simplifiedPoints, points[m]);
                 _simplifyDouglasPeucker(points, simplifiedPoints, tolerance2, m, t1);
             }
@@ -119,7 +118,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
         if (maxD > tolerance2) {
             _simplifyDouglasPeucker(points, simplifiedPoints, tolerance2, t0, maxIdx);
-            points[maxIdx].index = maxIdx;
             simplifiedPoints.push(points[maxIdx]);
             _simplifyDouglasPeucker(points, simplifiedPoints, tolerance2, maxIdx, t1);
         }
@@ -148,9 +146,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             if (points && points.length > 1 && tolerance > 0) {
                 var sPoints = [];
                 sPoints.push(points[0]);
-                points[0].index = 0;
                 _simplifyDouglasPeucker(points, sPoints, tolerance * tolerance, 0, points.length - 1);
-                points[points.length - 1].index = points.length - 1;
                 _appendIfNotSame(sPoints, points[points.length - 1]);
                 return sPoints;
             }

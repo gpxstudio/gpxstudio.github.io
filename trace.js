@@ -106,6 +106,7 @@ export default class Trace {
 
     edit() {
         this.isEdited = true;
+        this.updatePointIndices();
         this.updateEditMarkers();
         this.buttons.hideTraceButtons();
         this.buttons.elev._removeSliderCircles();
@@ -220,7 +221,19 @@ export default class Trace {
             const bounds = this.map.getBounds();
             const points = this.getPoints();
             const dist = Math.abs(bounds._southWest.lat - bounds._northEast.lat);
-            const simplifiedPoints = simplify.douglasPeucker(points, dist/20);
+            var start = -1, simplifiedPoints = [];
+            for (var i=0; i<points.length; i++) {
+                if (!points[i].routing && start == -1) start = i;
+                else if (points[i].routing && start != -1) {
+                    if (start == i-1) simplifiedPoints.push(points[start]);
+                    else simplifiedPoints = simplifiedPoints.concat(simplify.douglasPeucker(points.slice(start, i), dist/20));
+                    start = -1;
+                }
+            }
+            if (start != -1) {
+                if (start == points.length-1) simplifiedPoints.push(points[start]);
+                else simplifiedPoints = simplifiedPoints.concat(simplify.douglasPeucker(points.slice(start, points.length), dist/20));
+            }
             for (var i=0; i<simplifiedPoints.length; i++) {
                 this._editMarkers.push(this.newEditMarker(simplifiedPoints[i]));
                 if (i > 0) {
@@ -341,7 +354,7 @@ export default class Trace {
         b.lat = lat;
         b.lng = lng;
 
-        this.askRoute([a,b,c]);
+        this.askRoute(a,b,c);
     }
 
     recomputeStats() {
@@ -430,9 +443,6 @@ export default class Trace {
 
                 for (var i=0; i<trace_points.length; i++) {
                     trace_points[i].meta.ele = ans["data"][Math.floor(i/step)] ? ans["data"][Math.floor(i/step)] : 0; //ans["elevations"][0]["elevation"];
-                    if (trace_points[i].meta.ele == 0) {
-                        console.log(ans["data"][Math.floor(i/step)], Math.floor(i/step));
-                    }
                 }
 
                 if (requests.length == 1) {
@@ -449,13 +459,12 @@ export default class Trace {
         }
     }
 
-    askRoute(points) {
+    askRoute(a, b, c) {
         const Http = new XMLHttpRequest();
         var url = "https://api.mapbox.com/directions/v5/mapbox/" + (this.buttons.cycling ? "cycling" : "walking") + "/";
-        for (var i=0; i<points.length; i++) {
-            url += points[i].lng.toFixed(6) + ',' + points[i].lat.toFixed(6);
-            if (i < points.length-1) url += ';';
-        }
+        url += a.lng.toFixed(6) + ',' + a.lat.toFixed(6) + ';';
+        url += b.lng.toFixed(6) + ',' + b.lat.toFixed(6) + ';';
+        url += c.lng.toFixed(6) + ',' + c.lat.toFixed(6) ;
         url += "?geometries=geojson&access_token=pk.eyJ1IjoidmNvcHBlIiwiYSI6ImNrOGhkY3g0ZDAxajczZWxnNW1jc3Q3dWIifQ.tCrnYH85RYxUzvKugY2khw&overview=full";
         Http.open("GET", url);
         Http.send();
@@ -468,16 +477,23 @@ export default class Trace {
                 const new_geojson = ans['routes'][0]['geometry'];
                 const new_pts = new_geojson['coordinates'];
                 const new_points = [];
+                var mid = -1, dist = -1;
                 for (var i=0; i<new_pts.length; i++) {
                     new_points.push(L.latLng(new_pts[i][1],new_pts[i][0]));
                     new_points[i].meta = {"time":new Date(), "ele":0};
+                    new_points[i].routing = true;
+                    if (mid == -1 || new_points[i].distanceTo(b) < dist) {
+                        dist = new_points[i].distanceTo(b);
+                        mid = i;
+                    }
                 }
+                if (!a.equals(b) && !b.equals(c)) new_points[mid].routing = false;
 
                 const pts = trace.getPoints();
                 // remove old
-                pts.splice(points[0].index+1, points[points.length-1].index-points[0].index-1);
+                pts.splice(a.index+1, c.index-a.index-1);
                 // add new
-                pts.splice(points[0].index+1, 0, ...new_points);
+                pts.splice(a.index+1, 0, ...new_points);
                 // update points indices
                 trace.updatePointIndices();
                 // update markers indices
