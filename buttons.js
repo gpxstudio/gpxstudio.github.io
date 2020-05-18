@@ -49,6 +49,7 @@ export default class Buttons {
         // BUTTONS
         this.input = document.getElementById("input-file");
         this.load = document.getElementById("load");
+        this.draw = document.getElementById("manual");
         this.clear = document.getElementById("clear");
         this.donate = document.getElementById("donate");
         this.delete = document.getElementById("delete");
@@ -60,6 +61,13 @@ export default class Buttons {
         this.export = document.getElementById("export");
         this.units = document.getElementById("units");
         this.activity = document.getElementById("activity");
+        this.method = document.getElementById("method");
+        this.bike = document.getElementById("bike");
+        this.run = document.getElementById("run");
+        this.kms = document.getElementById("km");
+        this.mi = document.getElementById("mi");
+        this.route = document.getElementById("route");
+        this.crow = document.getElementById("crow");
 
         // DISPLAYS
         this.distance = document.getElementById("distance-val");
@@ -166,6 +174,11 @@ export default class Buttons {
             if (total.hasFocus) total.update();
         });
 
+        this.draw.addEventListener("click", function () {
+            const newTrace = total.addTrace(undefined, "new.gpx");
+            newTrace.focus();
+            newTrace.edit();
+        });
         this.clear.addEventListener("click", function () {
             total.clear();
         });
@@ -180,13 +193,42 @@ export default class Buttons {
             if (total.hasFocus) return;
             total.traces[total.focusOn].crop(total.buttons.slider.getIndexStart(), total.buttons.slider.getIndexEnd());
         });
+        buttons.kms.classList.add("selected");
         this.units.addEventListener("click", function () {
             buttons.km = !buttons.km;
+            if (buttons.km) {
+                buttons.kms.classList.add("selected");
+                buttons.mi.classList.remove("selected");
+            } else {
+                buttons.kms.classList.remove("selected");
+                buttons.mi.classList.add("selected");
+            }
             if (total.hasFocus) total.showData();
             else total.traces[total.focusOn].showData();
         });
+        buttons.bike.classList.add("selected");
         this.activity.addEventListener("click", function () {
             buttons.cycling = !buttons.cycling;
+            if (buttons.cycling) {
+                buttons.bike.classList.add("selected");
+                buttons.run.classList.remove("selected");
+            } else {
+                buttons.bike.classList.remove("selected");
+                buttons.run.classList.add("selected");
+            }
+            if (total.hasFocus) total.showData();
+            else total.traces[total.focusOn].showData();
+        });
+        buttons.route.classList.add("selected");
+        this.method.addEventListener("click", function () {
+            buttons.routing = !buttons.routing;
+            if (buttons.routing) {
+                buttons.route.classList.add("selected");
+                buttons.crow.classList.remove("selected");
+            } else {
+                buttons.route.classList.remove("selected");
+                buttons.crow.classList.add("selected");
+            }
             if (total.hasFocus) total.showData();
             else total.traces[total.focusOn].showData();
         });
@@ -213,8 +255,8 @@ export default class Buttons {
                 marker.getElement().style.cursor = 'pointer';
                 trace.updatePoint(marker, e.latlng.lat, e.latlng.lng);
                 trace.refreshEditMarkers();
+                map._draggedMarker = null;
             }
-            map._draggedMarker = null;
         })
     }
 

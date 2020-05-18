@@ -16,7 +16,7 @@ export default class Total {
     /*** LOGIC ***/
 
     addTrace(file, name) {
-        new Trace(file, name, this.buttons.map, this);
+        return new Trace(file, name, this.buttons.map, this);
     }
 
     removeTrace(index) {

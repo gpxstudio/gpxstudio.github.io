@@ -26,7 +26,8 @@ export default class Trace {
         this.gpx.on('loaded', function(e) {
             this.trace.index = total.traces.length;
 
-            if (!this.getLayers()[0]._latlngs) {
+            // merge multiple tracks of same file
+            if (this.getLayers().length > 0 && !this.getLayers()[0]._latlngs) {
                 var layers = this.getLayers()[0].getLayers();
                 this.removeLayer(this.getLayers()[0]);
                 var mergedLayer = layers[0];
@@ -64,6 +65,8 @@ export default class Trace {
                 marker.fire('mousedown');
             }
         });
+
+        if (file === undefined) this.gpx.fire('loaded');
     }
 
     /*** LOGIC ***/
@@ -140,7 +143,8 @@ export default class Trace {
     }
 
     addElevation() {
-        this.buttons.elev.addData(this.gpx.getLayers()[0]);
+        if (this.hasPoints()) this.buttons.elev.addData(this.gpx.getLayers()[0]);
+        else this.buttons.elev.clear();
     }
 
     getBounds() {
@@ -154,9 +158,9 @@ export default class Trace {
             className: 'edit-marker',
             radius: 4
         }).addTo(map);
-        marker._index = point.index;
-        marker._prec = point.index;
-        marker._succ = point.index;
+        marker._pt = point;
+        marker._prec = point;
+        marker._succ = point;
         marker.on({
             mousedown: function (e) {
                 if (e.originalEvent !== undefined && e.originalEvent.which == 3) return;
@@ -173,7 +177,7 @@ export default class Trace {
                     closeButton: false
                 }).setContent(`<div id="remove-waypoint" class="custom-button" style="display: inline-block">Remove waypoint</div>
                 <div class="custom-button" style="display: inline-block; width: 4px"></i></div>
-                <div class="custom-button" style="display: inline-block"><i class="fas fa-times"></i></div>`);
+                <div id="close-popup" class="custom-button" style="display: inline-block"><i class="fas fa-times"></i></div>`);
                 popup.setLatLng(e.latlng);
                 popup.openOn(map);
 
@@ -181,6 +185,11 @@ export default class Trace {
                 button.addEventListener("click", function () {
                     trace.deletePoint(marker);
                     marker.remove();
+                    popup.remove();
+                });
+
+                var close = document.getElementById("close-popup");
+                close.addEventListener("click", function () {
                     popup.remove();
                 });
 
@@ -202,18 +211,20 @@ export default class Trace {
                 this.map.latLngToLayerPoint(points[i+1])
             );
             if (best_idx == -1 || dist < best_dist) {
-                best_idx = i;
+                best_idx = i+1;
                 best_dist = dist;
             }
         }
 
-        points[best_idx].index = best_idx;
-        const marker = this.newEditMarker(points[best_idx]);
-        var marker_idx = -1;
+        var newPt = new L.LatLng(pt.lat, pt.lng);
+        newPt.meta = { time: points[best_idx].meta.time, ele: (points[best_idx-1].meta.ele + points[best_idx].meta.ele) / 2};
+        points.splice(best_idx, 0, newPt);
 
-        // find index for new marker
+        const marker = this.newEditMarker(newPt);
+        var marker_idx = -1;
+        // find index for new marker (could binary search)
         for (var i=0; i<this._editMarkers.length; i++) {
-            if (this._editMarkers[i]._index >= best_idx) {
+            if (this._editMarkers[i]._pt.index >= best_idx) {
                 marker_idx = i;
                 break;
             }
@@ -221,10 +232,10 @@ export default class Trace {
 
         // insert new marker
         this._editMarkers.splice(marker_idx, 0, marker);
-        this._editMarkers[marker_idx]._prec = this._editMarkers[marker_idx-1]._index;
-        this._editMarkers[marker_idx]._succ = this._editMarkers[marker_idx+1]._index;
-        this._editMarkers[marker_idx-1]._succ = this._editMarkers[marker_idx]._index;
-        this._editMarkers[marker_idx+1]._prec = this._editMarkers[marker_idx]._index;
+        this._editMarkers[marker_idx]._prec = this._editMarkers[marker_idx-1]._pt;
+        this._editMarkers[marker_idx]._succ = this._editMarkers[marker_idx+1]._pt;
+        this._editMarkers[marker_idx-1]._succ = this._editMarkers[marker_idx]._pt;
+        this._editMarkers[marker_idx+1]._prec = this._editMarkers[marker_idx]._pt;
 
         return marker;
     }
@@ -259,8 +270,8 @@ export default class Trace {
             for (var i=0; i<simplifiedPoints.length; i++) {
                 this._editMarkers.push(this.newEditMarker(simplifiedPoints[i]));
                 if (i > 0) {
-                    this._editMarkers[i]._prec = this._editMarkers[i-1]._index;
-                    this._editMarkers[i-1]._succ = this._editMarkers[i]._index;
+                    this._editMarkers[i]._prec = this._editMarkers[i-1]._pt;
+                    this._editMarkers[i-1]._succ = this._editMarkers[i]._pt;
                 }
             }
         }
@@ -279,8 +290,13 @@ export default class Trace {
 
     /*** GPX DATA ***/
 
+    hasPoints() {
+        return this.gpx.getLayers().length > 0;
+    }
+
     getPoints() {
-        return this.gpx.getLayers()[0]._latlngs;
+        if (this.hasPoints()) return this.gpx.getLayers()[0]._latlngs;
+        else return [];
     }
 
     getDistance() {
@@ -331,14 +347,14 @@ export default class Trace {
     deletePoint(marker) {
         const points = this.getPoints();
 
-        var a = points[marker._prec];
-        var b = points[marker._index];
-        var c = points[marker._succ];
+        var a = marker._prec;
+        var b = marker._pt;
+        var c = marker._succ;
 
         this.deletePointManual(marker);
 
         if (this.buttons.routing) {
-            if(marker._prec != marker._index && marker._succ != marker._index) this.askRoute2(a, c);
+            if(!marker._prec.equals(marker._pt) && !marker._succ.equals(marker._pt)) this.askRoute2(a, c);
             else {
                 this.recomputeStats();
                 this.update();
@@ -351,9 +367,9 @@ export default class Trace {
     deletePointManual(marker) {
         const points = this.getPoints();
 
-        const prec_idx = marker._prec;
-        const this_idx = marker._index;
-        const succ_idx = marker._succ;
+        const prec_idx = marker._prec.index;
+        const this_idx = marker._pt.index;
+        const succ_idx = marker._succ.index;
 
         var res = [];
         if (prec_idx == this_idx) {
@@ -373,8 +389,15 @@ export default class Trace {
                 break;
             }
         }
+        if (idx > 0) {
+            if (idx < this._editMarkers.length-1) this._editMarkers[idx-1]._succ = this._editMarkers[idx+1]._pt;
+            else this._editMarkers[idx-1]._succ = this._editMarkers[idx-1]._pt;
+        }
+        if (idx < this._editMarkers.length-1) {
+            if (idx > 0) this._editMarkers[idx+1]._prec = this._editMarkers[idx-1]._pt;
+            else this._editMarkers[idx+1]._prec = this._editMarkers[idx+1]._pt;
+        }
         this._editMarkers.splice(idx, 1);
-        this.updateEditMarkers();
 
         if (!this.buttons.routing) {
             this.recomputeStats();
@@ -387,13 +410,13 @@ export default class Trace {
     updatePointManual(marker, lat, lng) {
         const points = this.getPoints();
 
-        const prec_idx = marker._prec;
-        const this_idx = marker._index;
-        const succ_idx = marker._succ;
+        const prec_idx = marker._prec.index;
+        const this_idx = marker._pt.index;
+        const succ_idx = marker._succ.index;
 
-        var a = points[prec_idx];
-        var b = points[this_idx];
-        var c = points[succ_idx];
+        var a = marker._prec;
+        var b = marker._pt;
+        var c = marker._succ;
 
         b.lat = lat;
         b.lng = lng;
@@ -404,18 +427,20 @@ export default class Trace {
         this.updateEditMarkers();
 
         this.redraw();
-        this.askPointsElevation([b]);
+        this.askElevation([b]);
     }
 
     updatePointRouting(marker, lat, lng) {
         const points = this.getPoints();
 
-        var a = points[marker._prec];
-        var b = points[marker._index];
-        var c = points[marker._succ];
+        var a = marker._prec;
+        var b = marker._pt;
+        var c = marker._succ;
 
         b.lat = lat;
         b.lng = lng;
+
+        if (a.equals(b) && b.equals(c)) return;
 
         this.askRoute(a,b,c);
     }
@@ -526,7 +551,7 @@ export default class Trace {
         const Http = new XMLHttpRequest();
         var url = "https://api.mapbox.com/directions/v5/mapbox/" + (this.buttons.cycling ? "cycling" : "walking") + "/";
         url += a.lng.toFixed(6) + ',' + a.lat.toFixed(6) + ';';
-        url += b.lng.toFixed(6) + ',' + b.lat.toFixed(6) + ';';
+        if (!a.equals(b) && !b.equals(c)) url += b.lng.toFixed(6) + ',' + b.lat.toFixed(6) + ';';
         url += c.lng.toFixed(6) + ',' + c.lat.toFixed(6) ;
         url += "?geometries=geojson&access_token=pk.eyJ1IjoidmNvcHBlIiwiYSI6ImNrOGhkY3g0ZDAxajczZWxnNW1jc3Q3dWIifQ.tCrnYH85RYxUzvKugY2khw&overview=full";
         Http.open("GET", url);

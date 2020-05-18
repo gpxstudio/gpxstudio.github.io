@@ -381,3 +381,11 @@ html, body {
     font-size: 11px;
     vertical-align: top;
 }
+
+.selected {
+    color: #535353;
+}
+
+.unselected {
+    color: #b3b3b3;
+}
