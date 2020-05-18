@@ -219,6 +219,7 @@ export default class Trace {
         var newPt = new L.LatLng(pt.lat, pt.lng);
         newPt.meta = { time: points[best_idx].meta.time, ele: (points[best_idx-1].meta.ele + points[best_idx].meta.ele) / 2};
         points.splice(best_idx, 0, newPt);
+        this.updatePointIndices();
 
         const marker = this.newEditMarker(newPt);
         var marker_idx = -1;
@@ -424,7 +425,7 @@ export default class Trace {
         if (succ_idx-this_idx-1 > 0) points.splice(this_idx+1, succ_idx-this_idx-1);
         if (this_idx-prec_idx-1 > 0) points.splice(prec_idx+1, this_idx-prec_idx-1);
         this.updatePointIndices();
-        this.updateEditMarkers();
+        //this.updateEditMarkers();
 
         this.redraw();
         this.askElevation([b]);
