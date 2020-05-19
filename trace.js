@@ -131,6 +131,7 @@ export default class Trace {
     draw() {
         this.focus();
         this.edit();
+        this.buttons.hideValidate();
         this.drawing = true;
         this.buttons.map._container.style.cursor = 'crosshair';
         this.insertMarker = false;
@@ -145,6 +146,7 @@ export default class Trace {
         this.buttons.map._container.style.cursor = '';
         this.buttons.map.removeEventListener("click");
         this.drawing = false;
+        if (this.getPoints().length < 2) this.total.removeTrace(this.index);
     }
 
     redraw() {
@@ -374,6 +376,8 @@ export default class Trace {
         const points = this.getPoints();
         pt.index = points.length-1;
 
+        if (points.length >= 2) this.buttons.showValidate();
+
         const marker = this.newEditMarker(pt);
         this._editMarkers.push(marker);
         const len = this._editMarkers.length;
@@ -402,6 +406,8 @@ export default class Trace {
         var c = marker._succ;
 
         this.deletePointManual(marker);
+
+        if (points.length < 2) this.buttons.hideValidate();
 
         if (this.buttons.routing) {
             if(!marker._prec.equals(marker._pt) && !marker._succ.equals(marker._pt)) this.askRoute2(a, c);

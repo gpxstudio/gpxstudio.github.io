@@ -126,14 +126,22 @@ export default class Buttons {
     }
 
     editToValidate() {
-        this.edit.style.visibility = 'visible';
         this.edit.childNodes[0].classList.remove('fa-pencil-alt');
         this.edit.childNodes[0].classList.add('fa-check');
+        this.showValidate();
     }
 
     validateToEdit() {
         this.edit.childNodes[0].classList.remove('fa-check');
         this.edit.childNodes[0].classList.add('fa-pencil-alt');
+    }
+
+    showValidate() {
+        this.edit.style.visibility = 'visible';
+    }
+
+    hideValidate() {
+        this.edit.style.visibility = 'hidden';
     }
 
     circlesToFront() {
