@@ -62,6 +62,7 @@ export default class Trace {
             const trace = e.target.trace;
             if (trace.isEdited) {
                 if (e.originalEvent.which == 3) return;
+                trace.insertMarker = true;
                 const marker = trace.insertEditMarker(e.layerPoint);
                 marker.fire('mousedown');
             }
@@ -132,9 +133,11 @@ export default class Trace {
         this.edit();
         this.drawing = true;
         this.buttons.map._container.style.cursor = 'crosshair';
+        this.insertMarker = false;
         const _this = this;
         this.buttons.map.addEventListener("click", function (e) {
-            _this.addEndPoint(e.latlng.lat, e.latlng.lng);
+            if (!_this.insertMarker) _this.addEndPoint(e.latlng.lat, e.latlng.lng);
+            _this.insertMarker = false;
         });
     }
 

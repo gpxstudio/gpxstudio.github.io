@@ -11,6 +11,10 @@ export default class Total {
         this.buttons = buttons;
         this.buttons.addHandlersWithTotal(this);
         this.focus();
+
+        // UNDO REDO
+        this.states = [];
+        this.t = -1;
     }
 
     /*** LOGIC ***/
@@ -214,5 +218,21 @@ export default class Total {
       seconds = (seconds < 10) ? "0" + seconds : seconds;
 
       return minutes + ":" + seconds;
+    }
+
+    /*** UNDO REDO ***/
+
+    push(traces) {
+        if (this.t < this.states.length-1) this.states.splice(this.t+1, this.states.length);
+        this.states.push(traces);
+        this.t = this.states.length-1;
+    }
+
+    undo() {
+        if (this.states.length == 0) return;
+    }
+
+    redo() {
+
     }
 }
