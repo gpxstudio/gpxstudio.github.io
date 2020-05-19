@@ -143,7 +143,9 @@ export default class Total {
     }
 
     getMovingPace() {
-        return this.getMovingTime() / (this.getDistance() / 1000);
+        const dist = this.getDistance();
+        if (dist == 0) return 0;
+        return this.getMovingTime() / (dist / 1000);
     }
 
     /*** OUTPUT ***/

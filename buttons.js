@@ -176,8 +176,7 @@ export default class Buttons {
 
         this.draw.addEventListener("click", function () {
             const newTrace = total.addTrace(undefined, "new.gpx");
-            newTrace.focus();
-            newTrace.edit();
+            newTrace.draw();
         });
         this.clear.addEventListener("click", function () {
             total.clear();
@@ -241,8 +240,10 @@ export default class Buttons {
         this.edit.addEventListener("click", function() {
             if (total.hasFocus) return;
             var trace = total.traces[total.focusOn];
-            if (trace.isEdited) trace.stopEdit();
-            else trace.edit();
+            if (trace.isEdited) {
+                trace.stopEdit();
+                if (trace.drawing) trace.stopDraw();
+            } else trace.edit();
         });
         const map = this.map;
         map.on('mouseup', function(e) {

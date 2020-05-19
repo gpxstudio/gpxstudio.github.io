@@ -514,7 +514,7 @@ L.GPX = L.FeatureGroup.extend({
     }
 
     // add track
-    var l = new L.Polyline(coords, this._extract_styling(line, polyline_options, options.polyline_options));
+    var l = new L.Polyline(coords, options.polyline_options);
     this.fire('addline', { line: l, element: line });
     layers.push(l);
 

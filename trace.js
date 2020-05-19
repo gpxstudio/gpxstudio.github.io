@@ -19,6 +19,7 @@ export default class Trace {
         this.buttons = total.buttons;
         this.hasFocus = false;
         this.isEdited = false;
+        this.drawing = false;
 
         this.gpx = new L.GPX(file, gpx_options).addTo(map);
         this.gpx.trace = this;
@@ -38,7 +39,7 @@ export default class Trace {
             }
 
             total.traces.push(this.trace);
-            total.buttons.updateBounds();
+            if (this.getLayers().length > 0) total.buttons.updateBounds();
 
             if (total.hasFocus) total.update();
 
@@ -94,6 +95,7 @@ export default class Trace {
         this.hasFocus = false;
         this.gpx.setStyle(normal_style);
         if (this.isEdited) this.stopEdit();
+        if (this.drawing) this.stopDraw();
     }
 
     updateFocus() {
@@ -123,6 +125,23 @@ export default class Trace {
         this.buttons.showTraceButtons();
         this.buttons.elev._addSliderCircles();
         this.buttons.validateToEdit();
+    }
+
+    draw() {
+        this.focus();
+        this.edit();
+        this.drawing = true;
+        this.buttons.map._container.style.cursor = 'crosshair';
+        const _this = this;
+        this.buttons.map.addEventListener("click", function (e) {
+            _this.addEndPoint(e.latlng.lat, e.latlng.lng);
+        });
+    }
+
+    stopDraw() {
+        this.buttons.map._container.style.cursor = '';
+        this.buttons.map.removeEventListener("click");
+        this.drawing = false;
     }
 
     redraw() {
@@ -338,6 +357,33 @@ export default class Trace {
         this.showData();
         this.showElevation();
         this.buttons.slider.reset();
+    }
+
+    addEndPoint(lat, lng) {
+        const pt = new L.LatLng(lat, lng);
+        pt.meta = {"time":null, "ele":0};
+
+        if (!this.hasPoints()) {
+            this.gpx.addLayer(new L.Polyline([pt], this.gpx.options.polyline_options));
+            this.gpx.setStyle(focus_style);
+        } else this.getPoints().push(pt);
+
+        const points = this.getPoints();
+        pt.index = points.length-1;
+
+        const marker = this.newEditMarker(pt);
+        this._editMarkers.push(marker);
+        const len = this._editMarkers.length;
+        if (len > 1) {
+            this._editMarkers[len-1]._prec = this._editMarkers[len-2]._pt;
+            this._editMarkers[len-2]._succ = this._editMarkers[len-1]._pt;
+        }
+
+        if (this.buttons.routing && len > 1) this.askRoute2(this._editMarkers[len-2]._pt, this._editMarkers[len-1]._pt);
+        else {
+            this.redraw();
+            this.askElevation([pt]);
+        }
     }
 
     updatePoint(marker, lat, lng) {
