@@ -11,10 +11,6 @@ export default class Total {
         this.buttons = buttons;
         this.buttons.addHandlersWithTotal(this);
         this.focus();
-
-        // UNDO REDO
-        this.states = [];
-        this.t = -1;
     }
 
     /*** LOGIC ***/
@@ -94,17 +90,8 @@ export default class Total {
 
     showElevation() {
         this.buttons.elev.clear();
-        for (var i=0; i<this.traces.length; i++) {
-            /*if (i > 0) {
-                const between = new L.GPX('', {});
-                between._latlngs = [
-                    traces[i-1].getLayers()[0]._latlngs[traces[i-1].getLayers()[0]._latlngs.length-1],
-                    traces[i].getLayers()[0]._latlngs[0]
-                ];
-                elev.addData(between);
-            }*/
+        for (var i=0; i<this.traces.length; i++)
             this.traces[i].addElevation();
-        }
         this.buttons.elev._removeSliderCircles();
     }
 
@@ -227,21 +214,5 @@ export default class Total {
       seconds = (seconds < 10) ? "0" + seconds : seconds;
 
       return minutes + ":" + seconds;
-    }
-
-    /*** UNDO REDO ***/
-
-    save() {
-        if (this.t < this.states.length-1) this.states.splice(this.t+1, this.states.length);
-        this.states.push(traces);
-        this.t = this.states.length-1;
-    }
-
-    undo() {
-        if (this.states.length == 0) return;
-    }
-
-    redo() {
-
     }
 }
