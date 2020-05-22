@@ -126,6 +126,14 @@ export default class Total {
         return tot;
     }
 
+    getMovingDistance() {
+        var tot = 0;
+        for (var i=0; i<this.traces.length; i++)
+            if (this.traces[i].getMovingTime() > 0)
+                tot += this.traces[i].getDistance();
+        return tot;
+    }
+
     getElevation() {
         var tot = 0;
         for (var i=0; i<this.traces.length; i++)
@@ -143,11 +151,11 @@ export default class Total {
     getMovingSpeed() {
         const time = this.getMovingTime();
         if (time == 0) return 0;
-        return this.getDistance() / (time / 3600);
+        return this.getMovingDistance() / (time / 3600);
     }
 
     getMovingPace() {
-        const dist = this.getDistance();
+        const dist = this.getMovingDistance();
         if (dist == 0) return 0;
         return this.getMovingTime() / (dist / 1000);
     }

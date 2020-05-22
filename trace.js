@@ -623,7 +623,7 @@ export default class Trace {
                 var mid = -1, dist = -1;
                 for (var i=0; i<new_pts.length; i++) {
                     new_points.push(L.latLng(new_pts[i][1],new_pts[i][0]));
-                    new_points[i].meta = {"time":new Date(), "ele":0};
+                    new_points[i].meta = {"time":null, "ele":0};
                     new_points[i].routing = true;
                     if (mid == -1 || new_points[i].distanceTo(b) < dist) {
                         dist = new_points[i].distanceTo(b);
@@ -669,7 +669,7 @@ export default class Trace {
                 const new_points = [];
                 for (var i=0; i<new_pts.length; i++) {
                     new_points.push(L.latLng(new_pts[i][1],new_pts[i][0]));
-                    new_points[i].meta = {"time":new Date(), "ele":0};
+                    new_points[i].meta = {"time":null, "ele":0};
                     new_points[i].routing = true;
                 }
 
