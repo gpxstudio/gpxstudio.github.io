@@ -164,14 +164,15 @@ export default class Total {
 
     outputGPX() {
         const xmlStart = `<?xml version="1.0" encoding="UTF-8"?>
-    <gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" version="1.1" creator="GPX Online Studio">`;
+    <gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" version="1.1" creator="https://gpxstudio.github.io">`;
         const xmlEnd = '</gpx>';
 
         let xmlOutput = xmlStart;
             xmlOutput += `
     <metadata>
         <name>Activity</name>
-        <author><name>GPX Online Studio</name></author>
+        <author>gpx.studio</author>
+        <link>https://gpxstudio.github.io</link>
     </metadata>`;
 
             xmlOutput += `
@@ -230,7 +231,7 @@ export default class Total {
 
     /*** UNDO REDO ***/
 
-    push(traces) {
+    save() {
         if (this.t < this.states.length-1) this.states.splice(this.t+1, this.states.length);
         this.states.push(traces);
         this.t = this.states.length-1;
