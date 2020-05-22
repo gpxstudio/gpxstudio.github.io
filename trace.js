@@ -684,6 +684,7 @@ export default class Trace {
                 trace.redraw();
 
                 // ask elevation of new points
+                if (b.meta.ele == 0) new_points.push(b);
                 trace.askElevation(new_points);
             }
         }
