@@ -3,10 +3,34 @@ import TileCover from './include/mapbox/tilecover.js';
 
 export default class Buttons {
     constructor() {
+        var _this = this;
+
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                _this.mapbox_token = xhr.responseText;
+            }
+        }
+        xhr.open('GET', './mapbox_token.txt');
+        xhr.send();
+
+        var xhr2 = new XMLHttpRequest();
+        xhr2.onreadystatechange = function() {
+            if (xhr2.readyState == 4 && xhr2.status == 200) {
+                _this.airmap_token = xhr2.responseText;
+            }
+        }
+        xhr2.open('GET', './airmap_token.txt');
+        xhr2.send();
+
         // MAIN MAP
         this.map = L.map('mapid', {
             zoomControl: false
         }).setView([50.772, 3.890], 13);
+        this.map.addEventListener("locationfound", function (e) {
+            e.target.fitBounds(e.bounds);
+        });
+        this.map.locate();
 
         // TILES
         /*L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -15,7 +39,7 @@ export default class Buttons {
             id: 'mapbox/streets-v11',
             tileSize: 512,
             zoomOffset: -1,
-            accessToken: 'pk.eyJ1IjoidmNvcHBlIiwiYSI6ImNrOGhkY3g0ZDAxajczZWxnNW1jc3Q3dWIifQ.tCrnYH85RYxUzvKugY2khw'
+            accessToken: this.mapbox_token
         }).addTo(map);*/
 
         L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {

@@ -569,14 +569,13 @@ export default class Trace {
     askPointsElevation(requests, step) {
         const trace_points = requests[0][0], points = requests[0][1];
         const Http = new XMLHttpRequest();
-        //const url = 'https://elevation-api.io/api/elevation?points=(' + lat + ',' + lng + ')&key=w2-Otn-4S7sAahUs-Ubd7o7f0P4Fms';
         var url = 'https://api.airmap.com/elevation/v1/ele?points=';
         for (var i=0; i<points.length; i++) {
             url += points[i].lat + ',' + points[i].lng;
             if (i < points.length-1) url += ',';
         }
         Http.open("GET", url);
-        Http.setRequestHeader('X-API-Key', '{eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVkZW50aWFsX2lkIjoiY3JlZGVudGlhbHx6eFcwM1p4QzlRYW4wbmZCeVFQejVoTDJ4NjUiLCJhcHBsaWNhdGlvbl9pZCI6ImFwcGxpY2F0aW9ufDllS3hvV1lJSkw3S1phaEFLd0trWWgwOE04cHAiLCJvcmdhbml6YXRpb25faWQiOiJkZXZlbG9wZXJ8cXBlOU0yR1VlT1o4Tlh0ODVSbk9nSEo2bmJnZyIsImlhdCI6MTU4Njg3NjYwOX0.LpZdUZ_jnxhwPHyheDqYnVdQ91kTNuraJq7I9djl6Hc}');
+        Http.setRequestHeader('X-API-Key', this.buttons.airmap_token);
         Http.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
         Http.send();
 
@@ -609,7 +608,7 @@ export default class Trace {
         url += a.lng.toFixed(6) + ',' + a.lat.toFixed(6) + ';';
         if (!a.equals(b) && !b.equals(c)) url += b.lng.toFixed(6) + ',' + b.lat.toFixed(6) + ';';
         url += c.lng.toFixed(6) + ',' + c.lat.toFixed(6) ;
-        url += "?geometries=geojson&access_token=pk.eyJ1IjoidmNvcHBlIiwiYSI6ImNrOGhkY3g0ZDAxajczZWxnNW1jc3Q3dWIifQ.tCrnYH85RYxUzvKugY2khw&overview=full";
+        url += "?geometries=geojson&access_token="+this.buttons.mapbox_token+"&overview=full";
         Http.open("GET", url);
         Http.send();
 
@@ -656,7 +655,7 @@ export default class Trace {
         var url = "https://api.mapbox.com/directions/v5/mapbox/" + (this.buttons.cycling ? "cycling" : "walking") + "/";
         url += a.lng.toFixed(6) + ',' + a.lat.toFixed(6) + ';';
         url += b.lng.toFixed(6) + ',' + b.lat.toFixed(6);
-        url += "?geometries=geojson&access_token=pk.eyJ1IjoidmNvcHBlIiwiYSI6ImNrOGhkY3g0ZDAxajczZWxnNW1jc3Q3dWIifQ.tCrnYH85RYxUzvKugY2khw&overview=full";
+        url += "?geometries=geojson&access_token="+this.buttons.mapbox_token+"&overview=full";
         Http.open("GET", url);
         Http.send();
 
