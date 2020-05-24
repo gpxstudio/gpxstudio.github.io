@@ -3,12 +3,30 @@ import TileCover from './include/mapbox/tilecover.js';
 
 export default class Buttons {
     constructor() {
-        var _this = this;
+        // MAIN MAP
+        this.map = L.map('mapid', {
+            zoomControl: false
+        }).setView([50.772, 3.890], 13);
+        this.map.addEventListener("locationfound", function (e) {
+            e.target.setView(e.latlng,12);
+        });
+        this.map.locate();
 
+        var _this = this;
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 _this.mapbox_token = xhr.responseText;
+
+                // TILES
+                L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                    maxZoom: 18,
+                    id: 'mapbox/streets-v11',
+                    tileSize: 512,
+                    zoomOffset: -1,
+                    accessToken: _this.mapbox_token
+                }).addTo(_this.map);
             }
         }
         xhr.open('GET', './mapbox_token.txt');
@@ -22,30 +40,6 @@ export default class Buttons {
         }
         xhr2.open('GET', './airmap_token.txt');
         xhr2.send();
-
-        // MAIN MAP
-        this.map = L.map('mapid', {
-            zoomControl: false
-        }).setView([50.772, 3.890], 13);
-        this.map.addEventListener("locationfound", function (e) {
-            e.target.setView(e.latlng,12);
-        });
-        this.map.locate();
-
-        // TILES
-        /*L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            maxZoom: 18,
-            id: 'mapbox/streets-v11',
-            tileSize: 512,
-            zoomOffset: -1,
-            accessToken: this.mapbox_token
-        }).addTo(map);*/
-
-        L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
-        	maxZoom: 18,
-        	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(this.map);
 
         // ZOOM CONTROL
         this.zoom = L.control.zoom({
