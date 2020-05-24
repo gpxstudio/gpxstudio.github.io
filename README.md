@@ -12,7 +12,7 @@ This repository contains the source code of the website [gpx.studio](https://gpx
     * Cut from the start or the end
     * Change the starting time of the activity
     * Change the average speed of the activity
-* Combine and export multiple traces <b>in the chosen order</b> and respecting time precedence constraints (if any time data)
+* Combine and export multiple traces in the chosen order and respecting time precedence constraints (if any time data)
 
 ## Future developments
 * Extend time data based on the slope and the existing uploaded data
