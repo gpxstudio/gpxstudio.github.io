@@ -2,7 +2,7 @@
 
 This repository contains the source code of the website [gpx.studio](https://gpxstudio.github.io), an online tool for GPX editing.
 
-![Preview of the online app.](preview.PNG)
+![Preview of the online app.](preview.png)
 
 ## Features
 * Import GPX files
