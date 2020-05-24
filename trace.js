@@ -609,7 +609,7 @@ export default class Trace {
 
                 t = Math.abs(ll.meta.time - last.meta.time);
                 this.gpx._info.duration.total += t;
-                if (/*t < this.gpx.options.max_point_interval && */1000*dist/t > 1) {
+                if (/*t < this.gpx.options.max_point_interval && */(dist/1000)/(t/1000/60/60) >= 1) {
                   this.gpx._info.duration.moving += t;
                 }
             } else if (this.gpx._info.duration.start == null) {

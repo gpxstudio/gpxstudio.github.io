@@ -55,6 +55,7 @@ export default class Slider {
     hide() {
         this.start.style.display = 'none';
         this.end.style.display = 'none';
+        this.hideButtons();
     }
 
     hideButtons() {

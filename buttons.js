@@ -28,7 +28,7 @@ export default class Buttons {
             zoomControl: false
         }).setView([50.772, 3.890], 13);
         this.map.addEventListener("locationfound", function (e) {
-            e.target.fitBounds(e.bounds);
+            e.target.setView(e.latlng,12);
         });
         this.map.locate();
 
@@ -75,6 +75,7 @@ export default class Buttons {
         this.load = document.getElementById("load");
         this.draw = document.getElementById("manual");
         this.clear = document.getElementById("clear");
+        this.about = document.getElementById("about");
         this.donate = document.getElementById("donate");
         this.delete = document.getElementById("delete");
         this.reverse = document.getElementById("reverse");
@@ -104,6 +105,7 @@ export default class Buttons {
         this.end_slider = document.getElementById('end-point');
         this.total_tab = document.getElementById('total-tab');
         this.tabs = document.getElementById('sortable');
+        this.about_text = document.getElementById('about-text');
 
         // OVERLAY COMPONENTS
         this.toolbar = L.control({position: 'topleft'});
@@ -158,7 +160,7 @@ export default class Buttons {
     showToolbars() {
         this.toolbar.getContainer().style.visibility = 'visible';
         this.trace_info.getContainer().style.visibility = 'visible';
-        this.showTraceButtons();
+        if (!this.total.hasFocus) this.showTraceButtons();
     }
 
     disableMap() {
@@ -373,7 +375,7 @@ export default class Buttons {
             var seconds = document.getElementById("seconds");
 
             if (buttons.cycling) {
-                speed.value = trace.getMovingSpeed().toFixed(1);
+                speed.value = Math.max(1, trace.getMovingSpeed().toFixed(1));
             } else {
                 var pace = Math.floor(trace.getMovingPace() / 1000);
                 minutes.value = Math.floor(pace / 60);
@@ -384,6 +386,7 @@ export default class Buttons {
             if (trace.hasPoints()) {
                 const points = trace.getPoints();
                 if (points[0].meta.time) start.value = (new Date(points[0].meta.time.getTime() + offset * 60 * 60 * 1000)).toISOString().substring(0, 16);
+                else start.value = new Date().toISOString().substring(0, 16);
             }
 
             var ok = document.getElementById("ok-dialog");
@@ -413,6 +416,21 @@ export default class Buttons {
             var close = document.getElementById("close-dialog");
             close.addEventListener("click", function () {
                 trace.closePopup();
+            });
+        });
+        this.about.addEventListener("click", function () {
+            const latlng = [50.846708, 4.352491];
+            const latlngCentered = [54, 4.352491];
+            const bounds = map.getBounds();
+            map.setView(latlngCentered, 6)
+            const popup = L.popup();
+            popup.setLatLng(latlng);
+            popup.setContent(buttons.about_text);
+            popup.openOn(map);
+            buttons.hideToolbars();
+            popup.addEventListener('remove', function (e) {
+                buttons.showToolbars();
+                map.fitBounds(bounds);
             });
         });
     }
