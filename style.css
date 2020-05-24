@@ -30,6 +30,7 @@ html, body {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    width: max-content !important;
 }
 
 .leaflet-popup-tip {
@@ -43,6 +44,15 @@ html, body {
     background: #fcfcfc;
     color: #535353;
     box-shadow: 2px 2px 2px #BCBCBC;
+}
+
+.custom-popup .leaflet-popup-tip {
+    width: 0px;
+    height: 0px;
+}
+
+.custom-popup .leaflet-popup-content-wrapper {
+    border-radius: 0px;
 }
 
 .panels-container {
@@ -388,4 +398,39 @@ html, body {
 
 .unselected {
     color: #b3b3b3;
+}
+
+#popup-grid {
+    display: grid;
+    grid-gap: 8px;
+    align-items: center;
+    grid-auto-columns: auto;
+    width: max-content;
+}
+
+#speed-change {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#start-change {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+#ok-dialog {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: center;
+}
+
+#close-dialog {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+}
+
+input {
+    font: inherit;
+    font-size: inherit;
 }

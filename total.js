@@ -113,11 +113,11 @@ export default class Total {
         return tot;
     }
 
-    getMovingDistance() {
+    getMovingDistance(noConversion) {
         var tot = 0;
         for (var i=0; i<this.traces.length; i++)
             if (this.traces[i].getMovingTime() > 0)
-                tot += this.traces[i].getDistance();
+                tot += this.traces[i].getDistance(noConversion);
         return tot;
     }
 
@@ -135,10 +135,10 @@ export default class Total {
         return tot;
     }
 
-    getMovingSpeed() {
+    getMovingSpeed(noConversion) {
         const time = this.getMovingTime();
         if (time == 0) return 0;
-        return this.getMovingDistance() / (time / 3600);
+        return this.getMovingDistance(noConversion) / (time / 3600);
     }
 
     getMovingPace() {
@@ -150,11 +150,44 @@ export default class Total {
     /*** OUTPUT ***/
 
     outputGPX() {
+        if (this.getMovingTime() > 0) { // at least one track has time data
+            const avg = this.getMovingSpeed(true);
+            var lastPoints = null;
+            for (var i=0; i<this.traces.length; i++) {
+                const points = this.traces[i].getPoints();
+                if (this.traces[i].firstTimeData() == -1) { // no time data
+                    var startTime = new Date();
+                    if(lastPoints) {
+                        const a = lastPoints[lastPoints.length-1];
+                        const b = points[0];
+                        const dist = this.traces[i].gpx._dist3d(a, b);
+                        startTime = new Date(a.meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
+                    } else if (i < this.traces.length-1) {
+                        const a = points[points.length-1];
+                        const b = this.traces[i+1].getPoints()[0];
+                        const dist = this.traces[i].gpx._dist3d(a, b);
+                        startTime = new Date(b.meta.time.getTime()
+                                                - 1000 * 60 * 60 * dist/(1000 * avg)
+                                                - 1000 * 60 * 60 * this.traces[i].getDistance(true)/(1000 * avg)
+                                            );
+                    }
+                    this.traces[i].changeTimeData(startTime, avg);
+                } else if (lastPoints && points[0].meta.time < lastPoints[lastPoints.length-1].meta.time) { // time precedence constraint
+                    const a = lastPoints[lastPoints.length-1];
+                    const b = points[0];
+                    const dist = this.traces[i].gpx._dist3d(a, b);
+                    const startTime = new Date(a.meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
+                    this.traces[i].changeTimeData(startTime, this.traces[i].getMovingSpeed(true));
+                }
+                lastPoints = points;
+            }
+        }
+
         const xmlStart = `<?xml version="1.0" encoding="UTF-8"?>
     <gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" version="1.1" creator="https://gpxstudio.github.io">`;
         const xmlEnd = '</gpx>';
 
-        let xmlOutput = xmlStart;
+        var xmlOutput = xmlStart;
             xmlOutput += `
     <metadata>
         <name>Activity</name>
@@ -166,10 +199,10 @@ export default class Total {
     <trk>
     <trkseg>
     `;
-        for (let i=0; i<this.traces.length; i++) {
-            let points = this.traces[i].getPoints();
-            for (let j=0; j<points.length; j++) {
-                let point = points[j];
+        for (var i=0; i<this.traces.length; i++) {
+            const points = this.traces[i].getPoints();
+            for (var j=0; j<points.length; j++) {
+                const point = points[j];
                 xmlOutput += `<trkpt lat="${point.lat.toFixed(6)}" lon="${point.lng.toFixed(6)}">
     `;
                 if (point.meta) {

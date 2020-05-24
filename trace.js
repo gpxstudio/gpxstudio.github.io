@@ -20,6 +20,7 @@ export default class Trace {
         this.hasFocus = false;
         this.isEdited = false;
         this.drawing = false;
+        this.popup = null;
 
         this.gpx = new L.GPX(file, gpx_options).addTo(map);
         this.gpx.trace = this;
@@ -85,6 +86,7 @@ export default class Trace {
         this.total.unfocusAll();
         this.hasFocus = true;
         this.total.focusOn = this.index;
+        this.total.hasFocus = false;
         this.gpx.setStyle(focus_style);
         this.buttons.focusTabElement(this.tab);
         this.buttons.slider.reset();
@@ -95,6 +97,7 @@ export default class Trace {
     unfocus() {
         this.hasFocus = false;
         this.gpx.setStyle(normal_style);
+        this.closePopup();
         if (this.isEdited) this.stopEdit();
         if (this.drawing) this.stopDraw();
     }
@@ -118,6 +121,7 @@ export default class Trace {
         this.buttons.hideTraceButtons();
         this.buttons.elev._removeSliderCircles();
         this.buttons.editToValidate();
+        this.closePopup();
     }
 
     stopEdit() {
@@ -126,6 +130,7 @@ export default class Trace {
         this.buttons.showTraceButtons();
         this.buttons.elev._addSliderCircles();
         this.buttons.validateToEdit();
+        this.closePopup();
     }
 
     draw() {
@@ -147,6 +152,13 @@ export default class Trace {
         this.buttons.map.removeEventListener("click");
         this.drawing = false;
         if (this.getPoints().length < 2) this.total.removeTrace(this.index);
+    }
+
+    closePopup() {
+        if (this.popup) {
+            this.popup.remove();
+            this.popup = null;
+        }
     }
 
     redraw() {
@@ -204,18 +216,24 @@ export default class Trace {
                 <div id="close-popup" class="custom-button" style="display: inline-block"><i class="fas fa-times"></i></div>`);
                 popup.setLatLng(e.latlng);
                 popup.openOn(map);
+                popup.addEventListener('remove', function (e) {
+                    trace.closePopup();
+                });
 
                 var button = document.getElementById("remove-waypoint");
                 button.addEventListener("click", function () {
                     trace.deletePoint(marker);
                     marker.remove();
-                    popup.remove();
+                    trace.closePopup();
                 });
 
                 var close = document.getElementById("close-popup");
                 close.addEventListener("click", function () {
-                    popup.remove();
+                    trace.closePopup();
                 });
+
+                trace.closePopup();
+                trace.popup = popup;
 
                 return false;
             }
@@ -324,8 +342,8 @@ export default class Trace {
         else return [];
     }
 
-    getDistance() {
-        if (this.buttons.km) return this.gpx._info.length;
+    getDistance(noConversion) {
+        if (this.buttons.km || noConversion) return this.gpx._info.length;
         else return this.gpx._info.length / 1.60934;
     }
 
@@ -338,10 +356,10 @@ export default class Trace {
         return this.gpx._info.duration.moving;
     }
 
-    getMovingSpeed() {
+    getMovingSpeed(noConversion) {
         const time = this.getMovingTime();
         if (time == 0) return 0;
-        return this.getDistance() / (time / 3600);
+        return this.getDistance(noConversion) / (time / 3600);
     }
 
     getMovingPace() {
@@ -501,6 +519,62 @@ export default class Trace {
         this.askRoute(a,b,c);
     }
 
+    firstTimeData() {
+        const points = this.getPoints();
+        var hasTimeInfo = false;
+        for (var i=0; i<points.length; i++) {
+            if (points[i].meta.time != null)
+                return i;
+        }
+        return -1;
+    }
+
+    changeTimeData(start, avg) {
+        const points = this.getPoints();
+        const index = this.firstTimeData();
+        if (index != -1) {
+            this.extendTimeData();
+            this.shiftAndCompressTime(start, avg);
+        } else {
+            points[0].meta.time = start;
+            for (var i=1; i<points.length; i++) {
+                const dist = this.gpx._dist3d(points[i-1], points[i]);
+                points[i].meta.time = new Date(points[i-1].meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
+            }
+        }
+    }
+
+    shiftAndCompressTime(start, avg) {
+        const points = this.getPoints();
+        const curAvg = this.getMovingSpeed(true);
+        var last = points[0].meta.time;
+        points[0].meta.time = start;
+        for (var i=1; i<points.length; i++) {
+            const newTime = new Date(points[i-1].meta.time.getTime() + (points[i].meta.time.getTime() - last.getTime()) * curAvg / avg);
+            last = points[i].meta.time;
+            points[i].meta.time = newTime;
+        }
+    }
+
+    extendTimeData() {
+        const points = this.getPoints();
+        const index = this.firstTimeData();
+        const avg = this.getMovingSpeed(true);
+
+        if (index == -1) return;
+        else if (index > 0) {
+            const dist = this.gpx._dist3d(points[0], points[index]);
+            points[0].meta.time = new Date(points[index].meta.time.getTime() - 1000 * 60 * 60 * dist/(1000 * avg));
+        }
+
+        for (var i=1; i<points.length; i++) {
+            if (!points[i].meta.time) {
+                const dist = this.gpx._dist3d(points[i-1], points[i]);
+                points[i].meta.time = new Date(points[i-1].meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
+            }
+        }
+    }
+
     recomputeStats() {
         // reset
         this.gpx._info.length = 0.0;
@@ -523,7 +597,8 @@ export default class Trace {
             this.gpx._info.duration.end = ll.meta.time;
 
             if (last != null) {
-                this.gpx._info.length += this.gpx._dist3d(last, ll);
+                const dist = this.gpx._dist3d(last, ll);
+                this.gpx._info.length += dist;
 
                 var t = ll.meta.ele - last.meta.ele;
                 if (t > 0) {
@@ -534,7 +609,7 @@ export default class Trace {
 
                 t = Math.abs(ll.meta.time - last.meta.time);
                 this.gpx._info.duration.total += t;
-                if (t < this.gpx.options.max_point_interval) {
+                if (/*t < this.gpx.options.max_point_interval && */1000*dist/t > 1) {
                   this.gpx._info.duration.moving += t;
                 }
             } else if (this.gpx._info.duration.start == null) {
@@ -641,6 +716,7 @@ export default class Trace {
                 trace.updatePointIndices();
                 // update markers indices
                 trace.updateEditMarkers();
+                trace.extendTimeData();
 
                 trace.redraw();
 
@@ -680,6 +756,7 @@ export default class Trace {
                 trace.updatePointIndices();
                 // update markers indices
                 trace.updateEditMarkers();
+                trace.extendTimeData();
 
                 trace.redraw();
 

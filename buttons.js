@@ -48,7 +48,7 @@ export default class Buttons {
         }).addTo(this.map);
 
         // ZOOM CONTROL
-        L.control.zoom({
+        this.zoom = L.control.zoom({
             position: 'topright'
         }).addTo(this.map);
 
@@ -136,7 +136,7 @@ export default class Buttons {
     hideTraceButtons() {
         this.slider.hide();
         this.delete.style.visibility = 'hidden';
-        this.reverse.style.visibility = 'hidden';
+        //this.reverse.style.visibility = 'hidden';
         this.edit.style.visibility = 'hidden';
         this.time.style.visibility = 'hidden';
     }
@@ -144,9 +144,43 @@ export default class Buttons {
     showTraceButtons() {
         this.slider.show();
         this.delete.style.visibility = 'visible';
-        this.reverse.style.visibility = 'visible';
+        //this.reverse.style.visibility = 'visible';
         this.edit.style.visibility = 'visible';
         this.time.style.visibility = 'visible';
+    }
+
+    hideToolbars() {
+        this.toolbar.getContainer().style.visibility = 'hidden';
+        this.trace_info.getContainer().style.visibility = 'hidden';
+        this.hideTraceButtons();
+    }
+
+    showToolbars() {
+        this.toolbar.getContainer().style.visibility = 'visible';
+        this.trace_info.getContainer().style.visibility = 'visible';
+        this.showTraceButtons();
+    }
+
+    disableMap() {
+        this.map.dragging.disable();
+        this.map.touchZoom.disable();
+        this.map.doubleClickZoom.disable();
+        this.map.scrollWheelZoom.disable();
+        this.map.boxZoom.disable();
+        this.map.keyboard.disable();
+        this.zoom.disable();
+        if (this.map.tap) this.map.tap.disable();
+    }
+
+    enableMap() {
+        this.map.dragging.enable();
+        this.map.touchZoom.enable();
+        this.map.doubleClickZoom.enable();
+        this.map.scrollWheelZoom.enable();
+        this.map.boxZoom.enable();
+        this.map.keyboard.enable();
+        this.zoom.enable();
+        if (this.map.tap) this.map.tap.enable();
     }
 
     editToValidate() {
@@ -195,6 +229,7 @@ export default class Buttons {
         this.total = total;
         this.elev.total = total;
         const buttons = this;
+        const map = this.map;
 
         $( ".sortable" ).on( "sortupdate", function( event, ui ) {
             const order = total.buttons.tabs.childNodes;
@@ -265,10 +300,9 @@ export default class Buttons {
         });
         this.map.addEventListener("zoomend", function () {
             if (total.hasFocus) return;
-            if (!total.traces[total.focusOn].isEdited) return;
-            total.traces[total.focusOn].updateEditMarkers();
+            const trace = total.traces[total.focusOn];
+            if (trace.isEdited) trace.updateEditMarkers();
         });
-        //this.map.addEventListener("movestart", update_edit_markers);
         this.edit.addEventListener("click", function() {
             if (total.hasFocus) return;
             var trace = total.traces[total.focusOn];
@@ -277,8 +311,7 @@ export default class Buttons {
                 if (trace.drawing) trace.stopDraw();
             } else trace.edit();
         });
-        const map = this.map;
-        map.on('mouseup', function(e) {
+        map.on('mouseup', function (e) {
             map.dragging.enable();
             map.removeEventListener('mousemove');
             if (map._draggedMarker) {
@@ -290,7 +323,98 @@ export default class Buttons {
                 trace.refreshEditMarkers();
                 map._draggedMarker = null;
             }
-        })
+        });
+        this.time.addEventListener("click", function (e) {
+            const trace = total.traces[total.focusOn];
+            if (trace.popup) return;
+
+            var content = `<div id="popup-grid">
+                           <div id="speed-change">`;
+
+            if (buttons.cycling) {
+                content += `Speed <input type="number" id="speed" min="1.0" max="99.9" step="0.1" lang="en-150"> `;
+                if (buttons.km) content += `km/h</div>`;
+                else content += `mi/h</div>`;
+            } else {
+                content += `Pace <input type="number" id="minutes" min="1" max="59" step="1">
+                            :
+                            <input type="number" id="seconds" min="0" max="59" step="1"> `;
+                if (buttons.km) content += `min/km</div>`;
+                else content += `min/mi</div>`;
+            }
+
+            content += `<div id="start-change">Start
+                        <input type="datetime-local" id="start-time"></div>
+                        <div id="ok-dialog"><i class="fas fa-check custom-button"></i></div>
+                        <div id="close-dialog"><i class="fas fa-times custom-button"></i></div>
+                        </div>`;
+
+            const popup = L.popup({
+                closeButton: false,
+                autoPan: false,
+                className: "custom-popup"
+            });
+
+            popup.setContent(content);
+            popup.setLatLng(map.getCenter());
+            popup.openOn(map);
+            popup.update();
+            popup.addEventListener('remove', function (e) {
+                trace.closePopup();
+                buttons.enableMap();
+            });
+            trace.popup = popup;
+            buttons.disableMap();
+
+            var offset = -(new Date().getTimezoneOffset() / 60);
+
+            var speed = document.getElementById("speed");
+            var minutes = document.getElementById("minutes");
+            var seconds = document.getElementById("seconds");
+
+            if (buttons.cycling) {
+                speed.value = trace.getMovingSpeed().toFixed(1);
+            } else {
+                var pace = Math.floor(trace.getMovingPace() / 1000);
+                minutes.value = Math.floor(pace / 60);
+                seconds.value = pace % 60;
+            }
+
+            var start = document.getElementById("start-time");
+            if (trace.hasPoints()) {
+                const points = trace.getPoints();
+                if (points[0].meta.time) start.value = (new Date(points[0].meta.time.getTime() + offset * 60 * 60 * 1000)).toISOString().substring(0, 16);
+            }
+
+            var ok = document.getElementById("ok-dialog");
+            ok.addEventListener("click", function () {
+                // others: pay attention to units
+                var v = 0;
+                if (buttons.cycling) {
+                    v = Number(speed.value);
+                    if (!buttons.km) v *= 1.60934;
+                } else {
+                    v = Number(minutes.value) * 60 +  Number(seconds.value);
+                    v = Math.max(v, 1);
+                    if (!buttons.km) v /= 1.60934;
+                    v = 1 / v; // km/s
+                    v *= 3600;
+                }
+
+                const startTime = new Date(new Date(start.value).getTime());
+
+                trace.closePopup();
+                trace.changeTimeData(startTime, v);
+
+                trace.recomputeStats();
+                trace.update();
+            });
+
+            var close = document.getElementById("close-dialog");
+            close.addEventListener("click", function () {
+                trace.closePopup();
+            });
+        });
     }
 
     focusTabElement(tab) {
