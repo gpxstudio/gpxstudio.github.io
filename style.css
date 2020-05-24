@@ -444,4 +444,5 @@ ul {
 #about-text {
     text-align: justify;
     width: 480px;
+    display: none;
 }

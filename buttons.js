@@ -438,11 +438,13 @@ export default class Buttons {
             const popup = L.popup();
             popup.setLatLng(latlng);
             popup.setContent(buttons.about_text);
+            buttons.about_text.style.display = 'block';
             popup.openOn(map);
             buttons.hideToolbars();
             popup.addEventListener('remove', function (e) {
                 buttons.showToolbars();
                 map.fitBounds(bounds);
+                buttons.about_text.style.display = 'none';
             });
         });
     }
