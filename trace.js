@@ -31,7 +31,7 @@ const gpx_options = {
         shadowUrl: '',
         wptIconUrls : { '': '' }
     },
-    max_point_interval: 3000
+    max_point_interval: 15000
 };
 
 export default class Trace {
@@ -64,7 +64,7 @@ export default class Trace {
             total.traces.push(this.trace);
             if (this.getLayers().length > 0) total.buttons.updateBounds();
 
-            if (total.hasFocus) total.update();
+            //if (total.hasFocus) total.update();
 
             var ul = document.getElementById("sortable");
             var li = document.createElement("li");
@@ -79,6 +79,8 @@ export default class Trace {
             this.trace.tab = li;
             total.buttons.updateTabWidth();
             total.buttons.circlesToFront();
+
+            this.trace.focus();
         }).on('click', function (e) {
             if (!e.target.trace.isEdited) e.target.trace.updateFocus();
         }).on('mousedown', function (e) {
@@ -99,7 +101,7 @@ export default class Trace {
     remove() {
         this.unfocus();
         this.gpx.clearLayers();
-        this.buttons.tabs.removeChild(this.tab);
+        if (document.body.contains(this.tab)) this.buttons.tabs.removeChild(this.tab);
     }
 
     /*** DISPLAY ***/
@@ -156,7 +158,6 @@ export default class Trace {
     }
 
     draw() {
-        this.focus();
         this.edit();
         this.buttons.hideValidate();
         this.drawing = true;
@@ -173,7 +174,10 @@ export default class Trace {
         this.buttons.map._container.style.cursor = '';
         this.buttons.map.removeEventListener("click");
         this.drawing = false;
-        if (this.getPoints().length < 2) this.total.removeTrace(this.index);
+        if (this.getPoints().length < 2) {
+            this.total.removeTrace(this.index);
+            this.buttons.showTraceButtons();
+        }
     }
 
     closePopup() {
@@ -631,7 +635,7 @@ export default class Trace {
 
                 t = Math.abs(ll.meta.time - last.meta.time);
                 this.gpx._info.duration.total += t;
-                if (/*t < this.gpx.options.max_point_interval && */(dist/1000)/(t/1000/60/60) >= 1) {
+                if (t < this.gpx.options.max_point_interval && (dist/1000)/(t/1000/60/60) >= 1) {
                   this.gpx._info.duration.moving += t;
                 }
             } else if (this.gpx._info.duration.start == null) {

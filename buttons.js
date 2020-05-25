@@ -169,7 +169,11 @@ export default class Buttons {
     showToolbars() {
         this.toolbar.getContainer().style.visibility = 'visible';
         this.trace_info.getContainer().style.visibility = 'visible';
-        if (!this.total.hasFocus) this.showTraceButtons();
+        if (!this.total.hasFocus) {
+             if (this.total.traces[this.total.focusOn].isEdited) {
+                 if (this.total.traces[this.total.focusOn].getPoints().length >= 2) this.showValidate();
+             } else this.showTraceButtons();
+         }
     }
 
     disableMap() {

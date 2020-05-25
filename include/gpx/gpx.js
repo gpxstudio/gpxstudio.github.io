@@ -502,7 +502,7 @@ L.GPX = L.FeatureGroup.extend({
 
         t = Math.abs(ll.meta.time - last.meta.time);
         this._info.duration.total += t;
-        if (/*t < options.max_point_interval && */(dist/1000)/(t/1000/60/60) >= 1) {
+        if (t < options.max_point_interval && (dist/1000)/(t/1000/60/60) >= 1) {
           this._info.duration.moving += t;
         }
       } else if (this._info.duration.start == null) {
