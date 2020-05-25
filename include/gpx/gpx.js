@@ -436,7 +436,7 @@ L.GPX = L.FeatureGroup.extend({
       if (_.length > 0) {
         ll.meta.time = new Date(Date.parse(_[0].textContent));
       } else {
-        ll.meta.time = new Date('1970-01-01T00:00:00');
+        ll.meta.time = null;
       }
 
       _ = el[i].getElementsByTagName('ele');
@@ -502,7 +502,7 @@ L.GPX = L.FeatureGroup.extend({
 
         t = Math.abs(ll.meta.time - last.meta.time);
         this._info.duration.total += t;
-        if (t < options.max_point_interval && (dist/1000)/(t/1000/60/60) >= 1) {
+        if (t < options.max_point_interval && (dist/1000)/(t/1000/60/60) >= 0.5) {
           this._info.duration.moving += t;
         }
       } else if (this._info.duration.start == null) {
