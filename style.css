@@ -55,6 +55,10 @@ html, body {
     border-radius: 0px;
 }
 
+.centered-popup .leaflet-popup-content-wrapper {
+    transform: translateY(34%);
+}
+
 .panels-container {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -443,6 +447,12 @@ ul {
 
 #about-text {
     text-align: justify;
-    width: 480px;
+    width: 400px;
+    display: none;
+}
+
+#help-text {
+    text-align: justify;
+    width: 750px;
     display: none;
 }

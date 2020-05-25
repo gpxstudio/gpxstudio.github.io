@@ -87,6 +87,7 @@ export default class Buttons {
         this.load = document.getElementById("load");
         this.draw = document.getElementById("manual");
         this.clear = document.getElementById("clear");
+        this.help = document.getElementById("help");
         this.about = document.getElementById("about");
         this.donate = document.getElementById("donate");
         this.delete = document.getElementById("delete");
@@ -118,6 +119,7 @@ export default class Buttons {
         this.total_tab = document.getElementById('total-tab');
         this.tabs = document.getElementById('sortable');
         this.about_text = document.getElementById('about-text');
+        this.help_text = document.getElementById('help-text');
 
         // OVERLAY COMPONENTS
         this.toolbar = L.control({position: 'topleft'});
@@ -438,7 +440,7 @@ export default class Buttons {
         });
         this.about.addEventListener("click", function () {
             const latlng = [50.846708, 4.352491];
-            const latlngCentered = [54, 4.352491];
+            const latlngCentered = [52.846708, 4.352491];
             const bounds = map.getBounds();
             map.setView(latlngCentered, 6)
             const popup = L.popup();
@@ -451,6 +453,23 @@ export default class Buttons {
                 buttons.showToolbars();
                 map.fitBounds(bounds);
                 buttons.about_text.style.display = 'none';
+            });
+        });
+        this.help.addEventListener("click", function () {
+            if (buttons.help.open) return;
+            buttons.help.open = true;
+            const popup = L.popup({
+                className: "centered-popup custom-popup",
+                closeButton: false,
+                autoPan: false
+            });
+            popup.setLatLng(map.getCenter());
+            popup.setContent(buttons.help_text);
+            buttons.help_text.style.display = 'block';
+            popup.openOn(map);
+            popup.addEventListener('remove', function (e) {
+                buttons.help_text.style.display = 'none';
+                buttons.help.open = false;
             });
         });
     }
