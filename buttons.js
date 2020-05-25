@@ -166,10 +166,12 @@ export default class Buttons {
     hideToolbars() {
         this.toolbar.getContainer().style.visibility = 'hidden';
         this.trace_info.getContainer().style.visibility = 'hidden';
+        this.elev.hide();
         this.hideTraceButtons();
     }
 
     showToolbars() {
+        this.elev.show();
         this.toolbar.getContainer().style.visibility = 'visible';
         this.trace_info.getContainer().style.visibility = 'visible';
         if (!this.total.hasFocus) {
