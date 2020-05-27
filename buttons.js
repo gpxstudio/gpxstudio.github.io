@@ -276,7 +276,7 @@ export default class Buttons {
         });
         this.export.addEventListener("click", function () {
             if (total.traces.length > 0) buttons.download('track.gpx', total.outputGPX());
-            gtag('send', 'event', 'export', 'pressed');
+            gtag('event', 'button', {'event_category' : 'export'});
         });
         this.validate.addEventListener("click", function () {
             if (total.hasFocus) return;
@@ -527,12 +527,12 @@ export default class Buttons {
             reader.readAsDataURL(file);
         }
         this.input.value = "";
-        gtag('send', 'event', 'load', 'pressed');
+        gtag('event', 'button', {'event_category' : 'load'});
     }
 
     donation() {
         window.open('https://paypal.me/vcoppe');
-        gtag('send', 'event', 'donate', 'button');
+        gtag('event', 'button', {'event_category' : 'donate'});
     }
 
     download(filename, text) {
