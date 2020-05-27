@@ -276,6 +276,7 @@ export default class Buttons {
         });
         this.export.addEventListener("click", function () {
             if (total.traces.length > 0) buttons.download('track.gpx', total.outputGPX());
+            ga('send', 'event', 'export', 'pressed');
         });
         this.validate.addEventListener("click", function () {
             if (total.hasFocus) return;
@@ -526,10 +527,12 @@ export default class Buttons {
             reader.readAsDataURL(file);
         }
         this.input.value = "";
+        ga('send', 'event', 'load', 'pressed');
     }
 
     donation() {
         window.open('https://paypal.me/vcoppe');
+        ga('send', 'event', 'donate', 'button');
     }
 
     download(filename, text) {
