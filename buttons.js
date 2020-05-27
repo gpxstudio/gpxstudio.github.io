@@ -266,6 +266,7 @@ export default class Buttons {
         this.draw.addEventListener("click", function () {
             const newTrace = total.addTrace(undefined, "new.gpx");
             newTrace.draw();
+            gtag('event', 'button', {'event_category' : 'draw'});
         });
         this.clear.addEventListener("click", function () {
             total.clear();
