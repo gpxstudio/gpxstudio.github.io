@@ -392,6 +392,36 @@ export default class Trace {
         return this.getMovingTime() / (this.getDistance() / 1000);
     }
 
+    getAverageAdditionalData() {
+        var cntHr = 0, totHr = 0;
+        var cntTemp = 0, totTemp = 0;
+        var cntCad = 0, totCad = 0;
+
+        const points = this.getPoints();
+
+        for (var i=0; i<points.length; i++) {
+            if (points[i].meta.hr) {
+                totHr += points[i].meta.hr;
+                cntHr++;
+            }
+            if (points[i].meta.atemp) {
+                totTemp += points[i].meta.atemp;
+                cntTemp++;
+            }
+            if (points[i].meta.cad) {
+                totCad += points[i].meta.cad;
+                cntCad++;
+            }
+        }
+
+        this.additionalAvgData = {
+            hr: cntHr > 0 ? Math.round((totHr/cntHr) * 10) / 10 : null,
+            atemp: cntTemp > 0 ? Math.round((totTemp/cntTemp) * 10) / 10 : null,
+            cad: cntCad > 0 ? Math.round((totCad/cntCad) * 10) / 10 : null,
+        };
+        return this.additionalAvgData;
+    }
+
     /*** MODIFIERS ***/
 
     crop(start, end) {

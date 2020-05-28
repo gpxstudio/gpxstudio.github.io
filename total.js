@@ -170,6 +170,35 @@ export default class Total {
         return this.getMovingTime() / (dist / 1000);
     }
 
+    getAverageAdditionalData() {
+        var cntHr = 0, totHr = 0;
+        var cntTemp = 0, totTemp = 0;
+        var cntCad = 0, totCad = 0;
+
+        for (var i=0; i<this.traces.length; i++) {
+            const data = this.traces[i].getAverageAdditionalData();
+            const duration = this.traces[i].getMovingTime();
+            if (data.hr) {
+                totHr += data.hr * duration;
+                cntHr += duration;
+            }
+            if (data.atemp) {
+                totTemp += data.atemp * duration;
+                cntTemp += duration;
+            }
+            if (data.cad) {
+                totCad += data.cad * duration;
+                cntCad += duration;
+            }
+        }
+
+        return {
+            hr: cntHr > 0 ? Math.round((totHr/cntHr) * 10) / 10 : null,
+            atemp: cntTemp > 0 ? Math.round((totTemp/cntTemp) * 10) / 10 : null,
+            cad: cntCad > 0 ? Math.round((totCad/cntCad) * 10) / 10 : null,
+        };
+    }
+
     /*** OUTPUT ***/
 
     outputGPX() {
@@ -207,7 +236,7 @@ export default class Total {
         }
 
         const xmlStart = `<?xml version="1.0" encoding="UTF-8"?>
-    <gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" version="1.1" creator="https://gpxstudio.github.io">`;
+    <gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" version="1.1" creator="https://gpxstudio.github.io">`;
         const xmlEnd = '</gpx>';
 
         var xmlOutput = xmlStart;
@@ -222,7 +251,14 @@ export default class Total {
     <trk>
     <trkseg>
     `;
+
+        const totalData = this.getAverageAdditionalData();
         for (var i=0; i<this.traces.length; i++) {
+            const data = this.traces[i].additionalAvgData;
+            const hr = data.hr ? data.hr : totalData.hr;
+            const atemp = data.atemp ? data.atemp : totalData.atemp;
+            const cad = data.cad ? data.cad : totalData.cad;
+
             const points = this.traces[i].getPoints();
             for (var j=0; j<points.length; j++) {
                 const point = points[j];
@@ -237,6 +273,33 @@ export default class Total {
                         xmlOutput += `    <time>${point.meta.time.toISOString()}</time>
     `;
                     }
+                    xmlOutput += `    <extensions>
+        <gpxtpx:TrackPointExtension>
+    `;
+                    if (point.meta.hr) {
+                        xmlOutput += `    <gpxtpx:hr>${point.meta.hr}</gpxtpx:hr>
+    `;
+                    } else if (hr) {
+                        xmlOutput += `    <gpxtpx:hr>${hr}</gpxtpx:hr>
+    `;
+                    }
+                    if (point.meta.atemp) {
+                        xmlOutput += `    <gpxtpx:atemp>${point.meta.atemp}</gpxtpx:atemp>
+    `;
+                    } else if (atemp) {
+                        xmlOutput += `    <gpxtpx:atemp>${atemp}</gpxtpx:atemp>
+    `;
+                    }
+                    if (point.meta.cad) {
+                        xmlOutput += `    <gpxtpx:cad>${point.meta.cad}</gpxtpx:cad>
+    `;
+                    } else if (cad) {
+                        xmlOutput += `    <gpxtpx:cad>${cad}</gpxtpx:cad>
+    `;
+                    }
+                    xmlOutput += `    </gpxtpx:TrackPointExtension>
+        </extensions>
+    `;
                 }
                 xmlOutput += `</trkpt>
     `;
