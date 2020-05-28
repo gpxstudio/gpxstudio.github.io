@@ -544,6 +544,7 @@ export default class Buttons {
                 buttons.about_text.style.display = 'none';
                 buttons.enableMap();
             });
+            gtag('event', 'button', {'event_category' : 'about'});
         });
         this.help.addEventListener("click", function () {
             if (buttons.help.open) return;
@@ -562,6 +563,7 @@ export default class Buttons {
                 buttons.help.open = false;
                 buttons.enableMap();
             });
+            gtag('event', 'button', {'event_category' : 'help'});
         });
     }
 
