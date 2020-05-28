@@ -87,16 +87,22 @@ export default class Buttons {
         this.load = document.getElementById("load");
         this.draw = document.getElementById("manual");
         this.clear = document.getElementById("clear");
+        this.clear2 = document.getElementById("clear2");
+        this.cancel_clear = document.getElementById("cancelclear");
         this.help = document.getElementById("help");
         this.about = document.getElementById("about");
         this.donate = document.getElementById("donate");
+        this.donate2 = document.getElementById("donate-2");
         this.delete = document.getElementById("delete");
+        this.delete2 = document.getElementById("delete2");
         this.reverse = document.getElementById("reverse");
+        this.cancel_delete = document.getElementById("canceldelete");
         this.time = document.getElementById("edit-time");
         this.edit = document.getElementById("edit");
         this.validate = document.getElementById("validate");
         this.unvalidate = document.getElementById("unvalidate");
         this.export = document.getElementById("export");
+        this.export2 = document.getElementById("export-2");
         this.units = document.getElementById("units");
         this.activity = document.getElementById("activity");
         this.method = document.getElementById("method");
@@ -106,6 +112,7 @@ export default class Buttons {
         this.mi = document.getElementById("mi");
         this.route = document.getElementById("route");
         this.crow = document.getElementById("crow");
+        this.filename = document.getElementById("filename");
 
         // DISPLAYS
         this.distance = document.getElementById("distance-val");
@@ -120,6 +127,9 @@ export default class Buttons {
         this.tabs = document.getElementById('sortable');
         this.about_text = document.getElementById('about-text');
         this.help_text = document.getElementById('help-text');
+        this.export_content = document.getElementById('export-content');
+        this.clear_content = document.getElementById('clear-content');
+        this.delete_content = document.getElementById('delete-content');
 
         // OVERLAY COMPONENTS
         this.toolbar = L.control({position: 'topleft'});
@@ -242,6 +252,9 @@ export default class Buttons {
         this.donate.addEventListener("click", function () {
             buttons.donation();
         });
+        this.donate2.addEventListener("click", function () {
+            buttons.donation();
+        });
         this.unvalidate.addEventListener("click", function () {
             buttons.slider.reset();
         });
@@ -269,14 +282,87 @@ export default class Buttons {
             gtag('event', 'button', {'event_category' : 'draw'});
         });
         this.clear.addEventListener("click", function () {
+            if (total.traces.length == 0) return;
+            if (buttons.clear.open) return;
+            buttons.clear.open = true;
+            const popup = L.popup({
+                className: "centered-popup custom-popup",
+                closeButton: false,
+                autoPan: false
+            });
+            buttons.clear.popup = popup;
+            popup.setLatLng(map.getCenter());
+            popup.setContent(buttons.clear_content);
+            buttons.clear_content.style.display = 'block';
+            popup.openOn(map);
+            buttons.disableMap();
+            popup.addEventListener('remove', function (e) {
+                buttons.clear.open = false;
+                buttons.clear_content.style.display = 'none';
+                buttons.enableMap();
+            });
+        });
+        this.clear2.addEventListener("click", function () {
             total.clear();
+            buttons.clear.popup.remove();
+        });
+        this.cancel_clear.addEventListener("click", function () {
+            buttons.clear.popup.remove();
         });
         this.delete.addEventListener("click", function () {
             if (total.hasFocus) return;
+            if (buttons.delete.open) return;
+            buttons.delete.open = true;
+            const popup = L.popup({
+                className: "centered-popup custom-popup",
+                closeButton: false,
+                autoPan: false
+            });
+            buttons.delete.popup = popup;
+            popup.setLatLng(map.getCenter());
+            popup.setContent(buttons.delete_content);
+            buttons.delete_content.style.display = 'block';
+            popup.openOn(map);
+            buttons.disableMap();
+            popup.addEventListener('remove', function (e) {
+                buttons.delete.open = false;
+                buttons.delete_content.style.display = 'none';
+                buttons.enableMap();
+            });
+        });
+        this.delete2.addEventListener("click", function () {
             total.removeTrace(total.focusOn);
+            buttons.delete.popup.remove();
+        });
+        this.cancel_delete.addEventListener("click", function () {
+            buttons.delete.popup.remove();
         });
         this.export.addEventListener("click", function () {
-            if (total.traces.length > 0) buttons.download('track.gpx', total.outputGPX());
+            if (total.traces.length > 0) {
+                if (buttons.export.open) return;
+                buttons.export.open = true;
+                const popup = L.popup({
+                    className: "centered-popup custom-popup cross",
+                    autoPan: false
+                });
+                buttons.export.popup = popup;
+                popup.setLatLng(map.getCenter());
+                popup.setContent(buttons.export_content);
+                buttons.export_content.style.display = 'block';
+                popup.openOn(map);
+                buttons.disableMap();
+                popup.addEventListener('remove', function (e) {
+                    buttons.export.open = false;
+                    buttons.export_content.style.display = 'none';
+                    buttons.enableMap();
+                });
+            }
+        });
+        this.export2.addEventListener("click", function () {
+            var name = 'track.gpx';
+            if (buttons.filename.value.length > 0) name = buttons.filename.value + '.gpx';
+            buttons.download(name, total.outputGPX());
+            buttons.export.popup.remove();
             gtag('event', 'button', {'event_category' : 'export'});
         });
         this.validate.addEventListener("click", function () {
@@ -450,11 +536,13 @@ export default class Buttons {
             popup.setContent(buttons.about_text);
             buttons.about_text.style.display = 'block';
             popup.openOn(map);
+            buttons.disableMap();
             buttons.hideToolbars();
             popup.addEventListener('remove', function (e) {
                 buttons.showToolbars();
                 map.fitBounds(bounds);
                 buttons.about_text.style.display = 'none';
+                buttons.enableMap();
             });
         });
         this.help.addEventListener("click", function () {
@@ -462,16 +550,17 @@ export default class Buttons {
             buttons.help.open = true;
             const popup = L.popup({
                 className: "centered-popup custom-popup",
-                closeButton: false,
                 autoPan: false
             });
             popup.setLatLng(map.getCenter());
             popup.setContent(buttons.help_text);
             buttons.help_text.style.display = 'block';
             popup.openOn(map);
+            buttons.disableMap();
             popup.addEventListener('remove', function (e) {
                 buttons.help_text.style.display = 'none';
                 buttons.help.open = false;
+                buttons.enableMap();
             });
         });
     }

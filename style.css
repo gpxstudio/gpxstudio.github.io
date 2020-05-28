@@ -59,6 +59,14 @@ html, body {
     transform: translateY(34%);
 }
 
+.centered-popup .leaflet-popup-close-button {
+    transform: translateY(680%);
+}
+
+.cross .leaflet-popup-close-button {
+    transform: translateY(235%) !important;
+}
+
 .panels-container {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -454,5 +462,23 @@ ul {
 #help-text {
     text-align: justify;
     width: 750px;
+    display: none;
+}
+
+#export-content {
+    text-align: center;
+    width: 310px;
+    display: none;
+}
+
+#clear-content {
+    text-align: center;
+    width: 170px;
+    display: none;
+}
+
+#delete-content {
+    text-align: center;
+    width: 180px;
     display: none;
 }
