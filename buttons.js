@@ -457,7 +457,6 @@ export default class Buttons {
             buttons.help.open = true;
             const popup = L.popup({
                 className: "centered-popup custom-popup",
-                closeButton: false,
                 autoPan: false
             });
             popup.setLatLng(map.getCenter());

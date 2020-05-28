@@ -59,6 +59,10 @@ html, body {
     transform: translateY(34%);
 }
 
+.centered-popup .leaflet-popup-close-button {
+    transform: translateY(660%);
+}
+
 .panels-container {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
