@@ -33,11 +33,32 @@ export default class Buttons {
         });
         this.map.locate();
 
+        // ZOOM CONTROL
+        this.zoom = L.control.zoom({
+            position: 'topright'
+        }).addTo(this.map);
+
         var _this = this;
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 _this.mapbox_token = xhr.responseText;
+
+                // TILES
+                var openStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
+                	maxZoom: 18,
+                	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(_this.map);
+
+                var openTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 18,
+                    attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+                });
+
+                L.control.layers({
+                    "OpenStreetMap" : openStreetMap,
+                    "OpenTopoMap" : openTopoMap
+                }).addTo(_this.map);
             }
         }
         xhr.open('GET', './mapbox_token.txt');
@@ -51,18 +72,6 @@ export default class Buttons {
         }
         xhr2.open('GET', './airmap_token.txt');
         xhr2.send();
-
-        // TILES
-
-        L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
-        	maxZoom: 18,
-        	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(this.map);
-
-        // ZOOM CONTROL
-        this.zoom = L.control.zoom({
-            position: 'topright'
-        }).addTo(this.map);
 
         // ELEVATION PROFILE
         this.elev = L.control.elevation({
