@@ -87,6 +87,7 @@ export default class Buttons {
         this.help = document.getElementById("help");
         this.about = document.getElementById("about");
         this.donate = document.getElementById("donate");
+        this.donate2 = document.getElementById("donate-2");
         this.delete = document.getElementById("delete");
         this.reverse = document.getElementById("reverse");
         this.time = document.getElementById("edit-time");
@@ -94,6 +95,7 @@ export default class Buttons {
         this.validate = document.getElementById("validate");
         this.unvalidate = document.getElementById("unvalidate");
         this.export = document.getElementById("export");
+        this.export2 = document.getElementById("export-2");
         this.units = document.getElementById("units");
         this.activity = document.getElementById("activity");
         this.method = document.getElementById("method");
@@ -103,6 +105,7 @@ export default class Buttons {
         this.mi = document.getElementById("mi");
         this.route = document.getElementById("route");
         this.crow = document.getElementById("crow");
+        this.filename = document.getElementById("filename");
 
         // DISPLAYS
         this.distance = document.getElementById("distance-val");
@@ -117,6 +120,7 @@ export default class Buttons {
         this.tabs = document.getElementById('sortable');
         this.about_text = document.getElementById('about-text');
         this.help_text = document.getElementById('help-text');
+        this.export_content = document.getElementById('export-content');
 
         // OVERLAY COMPONENTS
         this.toolbar = L.control({position: 'topleft'});
@@ -239,6 +243,9 @@ export default class Buttons {
         this.donate.addEventListener("click", function () {
             buttons.donation();
         });
+        this.donate2.addEventListener("click", function () {
+            buttons.donation();
+        });
         this.unvalidate.addEventListener("click", function () {
             buttons.slider.reset();
         });
@@ -272,7 +279,29 @@ export default class Buttons {
             total.removeTrace(total.focusOn);
         });
         this.export.addEventListener("click", function () {
-            if (total.traces.length > 0) buttons.download('track.gpx', total.outputGPX());
+            if (total.traces.length > 0) {
+                if (buttons.export.open) return;
+                buttons.export.open = true;
+                const popup = L.popup({
+                    className: "centered-popup custom-popup cross",
+                    autoPan: false
+                });
+                buttons.export.popup = popup;
+                popup.setLatLng(map.getCenter());
+                popup.setContent(buttons.export_content);
+                buttons.export_content.style.display = 'block';
+                popup.openOn(map);
+                popup.addEventListener('remove', function (e) {
+                    buttons.export.open = false;
+                    buttons.export_content.style.display = 'none';
+                });
+            }
+        });
+        this.export2.addEventListener("click", function () {
+            var name = 'track.gpx';
+            if (buttons.filename.value.length > 0) name = buttons.filename.value + '.gpx';
+            buttons.download(name, total.outputGPX());
+            buttons.export.popup.remove();
         });
         this.validate.addEventListener("click", function () {
             if (total.hasFocus) return;
