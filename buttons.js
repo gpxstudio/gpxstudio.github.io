@@ -291,9 +291,11 @@ export default class Buttons {
                 popup.setContent(buttons.export_content);
                 buttons.export_content.style.display = 'block';
                 popup.openOn(map);
+                buttons.disableMap();
                 popup.addEventListener('remove', function (e) {
                     buttons.export.open = false;
                     buttons.export_content.style.display = 'none';
+                    buttons.enableMap();
                 });
             }
         });
@@ -474,11 +476,13 @@ export default class Buttons {
             popup.setContent(buttons.about_text);
             buttons.about_text.style.display = 'block';
             popup.openOn(map);
+            buttons.disableMap();
             buttons.hideToolbars();
             popup.addEventListener('remove', function (e) {
                 buttons.showToolbars();
                 map.fitBounds(bounds);
                 buttons.about_text.style.display = 'none';
+                buttons.enableMap();
             });
         });
         this.help.addEventListener("click", function () {
@@ -492,9 +496,11 @@ export default class Buttons {
             popup.setContent(buttons.help_text);
             buttons.help_text.style.display = 'block';
             popup.openOn(map);
+            buttons.disableMap();
             popup.addEventListener('remove', function (e) {
                 buttons.help_text.style.display = 'none';
                 buttons.help.open = false;
+                buttons.enableMap();
             });
         });
     }
