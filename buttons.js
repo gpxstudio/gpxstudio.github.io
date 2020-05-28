@@ -84,12 +84,16 @@ export default class Buttons {
         this.load = document.getElementById("load");
         this.draw = document.getElementById("manual");
         this.clear = document.getElementById("clear");
+        this.clear2 = document.getElementById("clear2");
+        this.cancel_clear = document.getElementById("cancelclear");
         this.help = document.getElementById("help");
         this.about = document.getElementById("about");
         this.donate = document.getElementById("donate");
         this.donate2 = document.getElementById("donate-2");
         this.delete = document.getElementById("delete");
+        this.delete2 = document.getElementById("delete2");
         this.reverse = document.getElementById("reverse");
+        this.cancel_delete = document.getElementById("canceldelete");
         this.time = document.getElementById("edit-time");
         this.edit = document.getElementById("edit");
         this.validate = document.getElementById("validate");
@@ -121,6 +125,8 @@ export default class Buttons {
         this.about_text = document.getElementById('about-text');
         this.help_text = document.getElementById('help-text');
         this.export_content = document.getElementById('export-content');
+        this.clear_content = document.getElementById('clear-content');
+        this.delete_content = document.getElementById('delete-content');
 
         // OVERLAY COMPONENTS
         this.toolbar = L.control({position: 'topleft'});
@@ -272,11 +278,60 @@ export default class Buttons {
             newTrace.draw();
         });
         this.clear.addEventListener("click", function () {
+            if (total.traces.length == 0) return;
+            if (buttons.clear.open) return;
+            buttons.clear.open = true;
+            const popup = L.popup({
+                className: "centered-popup custom-popup",
+                closeButton: false,
+                autoPan: false
+            });
+            buttons.clear.popup = popup;
+            popup.setLatLng(map.getCenter());
+            popup.setContent(buttons.clear_content);
+            buttons.clear_content.style.display = 'block';
+            popup.openOn(map);
+            buttons.disableMap();
+            popup.addEventListener('remove', function (e) {
+                buttons.clear.open = false;
+                buttons.clear_content.style.display = 'none';
+                buttons.enableMap();
+            });
+        });
+        this.clear2.addEventListener("click", function () {
             total.clear();
+            buttons.clear.popup.remove();
+        });
+        this.cancel_clear.addEventListener("click", function () {
+            buttons.clear.popup.remove();
         });
         this.delete.addEventListener("click", function () {
             if (total.hasFocus) return;
+            if (buttons.delete.open) return;
+            buttons.delete.open = true;
+            const popup = L.popup({
+                className: "centered-popup custom-popup",
+                closeButton: false,
+                autoPan: false
+            });
+            buttons.delete.popup = popup;
+            popup.setLatLng(map.getCenter());
+            popup.setContent(buttons.delete_content);
+            buttons.delete_content.style.display = 'block';
+            popup.openOn(map);
+            buttons.disableMap();
+            popup.addEventListener('remove', function (e) {
+                buttons.delete.open = false;
+                buttons.delete_content.style.display = 'none';
+                buttons.enableMap();
+            });
+        });
+        this.delete2.addEventListener("click", function () {
             total.removeTrace(total.focusOn);
+            buttons.delete.popup.remove();
+        });
+        this.cancel_delete.addEventListener("click", function () {
+            buttons.delete.popup.remove();
         });
         this.export.addEventListener("click", function () {
             if (total.traces.length > 0) {

@@ -470,3 +470,15 @@ ul {
     width: 310px;
     display: none;
 }
+
+#clear-content {
+    text-align: center;
+    width: 170px;
+    display: none;
+}
+
+#delete-content {
+    text-align: center;
+    width: 180px;
+    display: none;
+}
