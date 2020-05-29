@@ -33,78 +33,6 @@ export default class Buttons {
         });
         this.map.locate();
 
-        // ZOOM CONTROL
-        this.zoom = L.control.zoom({
-            position: 'topright'
-        }).addTo(this.map);
-
-        var _this = this;
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                _this.mapbox_token = xhr.responseText;
-
-                // TILES
-
-                var mapboxStreets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                    maxZoom: 18,
-                    id: 'mapbox/streets-v11',
-                    tileSize: 512,
-                    zoomOffset: -1,
-                    accessToken: _this.mapbox_token
-                }).addTo(_this.map);
-
-                var mapboxOutdoors = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                    maxZoom: 18,
-                    id: 'mapbox/outdoors-v11',
-                    tileSize: 512,
-                    zoomOffset: -1,
-                    accessToken: _this.mapbox_token
-                });
-
-                var openTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 18,
-                    tileSize: 512,
-                    zoomOffset: -1,
-                    attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-                });
-
-                L.control.layers({
-                    "Mapbox Streets" : mapboxStreets,
-                    "Mapbox Outdoors" : mapboxOutdoors,
-                    "OpenTopoMap" : openTopoMap
-                }).addTo(_this.map);
-            }
-        }
-        xhr.open('GET', './mapbox_token.txt');
-        xhr.send();
-
-        var xhr2 = new XMLHttpRequest();
-        xhr2.onreadystatechange = function() {
-            if (xhr2.readyState == 4 && xhr2.status == 200) {
-                _this.airmap_token = xhr2.responseText;
-            }
-        }
-        xhr2.open('GET', './airmap_token.txt');
-        xhr2.send();
-
-        // ELEVATION PROFILE
-        this.elev = L.control.elevation({
-            theme: "steelblue-theme",
-            useHeightIndicator: true,
-            width: 400,
-        	height: 100,
-            margins:{
-                top:20,
-                right:30,
-                bottom:18,
-                left:40
-            }
-        }).addTo(this.map);
-        this.elev.buttons = this;
-
         // BUTTONS
         this.input = document.getElementById("input-file");
         this.load = document.getElementById("load");
@@ -136,13 +64,13 @@ export default class Buttons {
         this.route = document.getElementById("route");
         this.crow = document.getElementById("crow");
         this.filename = document.getElementById("filename");
+        this.strava_ok = document.getElementById("strava-ok");
 
         // DISPLAYS
         this.distance = document.getElementById("distance-val");
         this.elevation = document.getElementById("elevation-val");
         this.duration = document.getElementById("duration-val");
         this.speed = document.getElementById("speed-val");
-        this.elevation_profile = document.getElementsByClassName('elevation')[0];
         this.trace_info_grid = document.getElementById('info-grid');
         this.start_slider = document.getElementById('start-point');
         this.end_slider = document.getElementById('end-point');
@@ -153,6 +81,122 @@ export default class Buttons {
         this.export_content = document.getElementById('export-content');
         this.clear_content = document.getElementById('clear-content');
         this.delete_content = document.getElementById('delete-content');
+        this.strava_content = document.getElementById('strava-content');
+
+        // ZOOM CONTROL
+        this.zoom = L.control.zoom({
+            position: 'topright'
+        }).addTo(this.map);
+
+        var _this = this;
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                _this.mapbox_token = xhr.responseText;
+
+                // TILES
+
+                _this.mapboxStreets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                    maxZoom: 18,
+                    id: 'mapbox/streets-v11',
+                    tileSize: 512,
+                    zoomOffset: -1,
+                    accessToken: _this.mapbox_token,
+                    useCache: true,
+	                crossOrigin: true
+                }).addTo(_this.map);
+
+                _this.mapboxOutdoors = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                    maxZoom: 18,
+                    id: 'mapbox/outdoors-v11',
+                    tileSize: 512,
+                    zoomOffset: -1,
+                    accessToken: _this.mapbox_token,
+                    useCache: true,
+	                crossOrigin: true
+                });
+
+                _this.openCycleMap = L.tileLayer('https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey={apikey}', {
+                    attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                    apikey: '67774cfadfeb42d2ac42bc38fda667c0',
+                    maxZoom: 18,
+                    useCache: true,
+	                crossOrigin: true
+                });
+
+                _this.openTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 18,
+                    attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
+                    useCache: true,
+	                crossOrigin: true
+                });
+
+                _this.stravaHeatmap = L.tileLayer('https://heatmap-external-{s}.strava.com/tiles-auth/both/bluered/{z}/{x}/{y}.png', {
+                    maxZoom: 18,
+                    attribution: 'Heatmap: &copy; <a href="https://www.strava.com">Strava</a>'
+                });
+
+                L.control.layers({
+                    "Mapbox Streets" : _this.mapboxStreets,
+                    "Mapbox Outdoors" : _this.mapboxOutdoors,
+                    "OpenCycleMap" : _this.openCycleMap,
+                    "OpenTopoMap" : _this.openTopoMap
+                },{
+                    "Strava Heatmap" : _this.stravaHeatmap
+                }).addTo(_this.map);
+
+                _this.stravaHeatmap.on('tileerror', function (e) {
+                    _this.stravaHeatmap.remove();
+                    if (_this.stravaHeatmap.open) return;
+                    _this.stravaHeatmap.open = true;
+                    const popup = L.popup({
+                        className: "centered-popup custom-popup",
+                        autoPan: false,
+                        closeButton: false
+                    });
+                    _this.stravaHeatmap.popup = popup;
+                    popup.setLatLng(_this.map.getCenter());
+                    popup.setContent(_this.strava_content);
+                    _this.strava_content.style.display = 'block';
+                    popup.openOn(_this.map);
+                    _this.disableMap();
+                    popup.addEventListener('remove', function (e) {
+                        _this.stravaHeatmap.open = false;
+                        _this.strava_content.style.display = 'none';
+                        _this.enableMap();
+                    });
+                });
+            }
+        }
+        xhr.open('GET', './mapbox_token.txt');
+        xhr.send();
+
+        var xhr2 = new XMLHttpRequest();
+        xhr2.onreadystatechange = function() {
+            if (xhr2.readyState == 4 && xhr2.status == 200) {
+                _this.airmap_token = xhr2.responseText;
+            }
+        }
+        xhr2.open('GET', './airmap_token.txt');
+        xhr2.send();
+
+        // ELEVATION PROFILE
+        this.elev = L.control.elevation({
+            theme: "steelblue-theme",
+            useHeightIndicator: true,
+            width: 400,
+        	height: 100,
+            margins:{
+                top:20,
+                right:30,
+                bottom:18,
+                left:40
+            }
+        }).addTo(this.map);
+        this.elev.buttons = this;
+        this.elevation_profile = document.getElementsByClassName('elevation')[0];
 
         // OVERLAY COMPONENTS
         this.toolbar = L.control({position: 'topleft'});
@@ -280,6 +324,9 @@ export default class Buttons {
         });
         this.unvalidate.addEventListener("click", function () {
             buttons.slider.reset();
+        });
+        this.strava_ok.addEventListener("click", function () {
+            buttons.stravaHeatmap.popup.remove();
         });
     }
 
