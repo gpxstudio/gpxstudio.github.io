@@ -115,7 +115,7 @@ export default class Buttons {
 	                crossOrigin: true
                 });
 
-                _this.stravaHeatmap = L.tileLayer('https://heatmap-external-{s}.strava.com/tiles-auth/both/bluered/{z}/{x}/{y}.png', {
+                _this.stravaHeatmap = L.tileLayer('https://heatmap-external-{s}.strava.com/tiles-auth/cycling/bluered/{z}/{x}/{y}.png', {
                     maxZoom: 18,
                     attribution: 'Heatmap: &copy; <a href="https://www.strava.com">Strava</a>'
                 });
@@ -437,9 +437,11 @@ export default class Buttons {
             if (buttons.cycling) {
                 buttons.bike.classList.add("selected");
                 buttons.run.classList.remove("selected");
+                buttons.stravaHeatmap.setUrl('https://heatmap-external-{s}.strava.com/tiles-auth/cycling/bluered/{z}/{x}/{y}.png');
             } else {
                 buttons.bike.classList.remove("selected");
                 buttons.run.classList.add("selected");
+                buttons.stravaHeatmap.setUrl('https://heatmap-external-{s}.strava.com/tiles-auth/running/bluered/{z}/{x}/{y}.png');
             }
             if (total.hasFocus) total.showData();
             else total.traces[total.focusOn].showData();
