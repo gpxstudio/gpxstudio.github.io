@@ -176,6 +176,9 @@ export default class Trace {
         this.buttons.redo.classList.add('unselected');
         this.buttons.undo.removeEventListener('click', this.undoListener);
         this.buttons.redo.removeEventListener('click', this.redoListener);
+
+        this.memory = [];
+        this.at = -1;
     }
 
     draw() {
