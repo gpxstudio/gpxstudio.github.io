@@ -44,6 +44,11 @@ export default class Trace {
         this.drawing = false;
         this.popup = null;
 
+        this.memory = [];
+        this.at = -1;
+        this.lastSaveIsNew = true;
+        this.backToZero = false;
+
         this.gpx = new L.GPX(file, gpx_options).addTo(map);
         this.gpx.trace = this;
 
@@ -138,6 +143,13 @@ export default class Trace {
         this.showElevation();
     }
 
+    updateUndoRedo() {
+        if (this.at >= 0 && !this.backToZero) this.buttons.undo.classList.remove('unselected');
+        else this.buttons.undo.classList.add('unselected');
+        if (this.at < this.memory.length-1) this.buttons.redo.classList.remove('unselected');
+        else this.buttons.redo.classList.add('unselected');
+    }
+
     edit() {
         this.isEdited = true;
         this.updatePointIndices();
@@ -146,6 +158,10 @@ export default class Trace {
         this.buttons.elev._removeSliderCircles();
         this.buttons.editToValidate();
         this.closePopup();
+
+        this.buttons.undo.addEventListener('click', this.undoListener = this.undo.bind(this));
+        this.buttons.redo.addEventListener('click', this.redoListener = this.redo.bind(this));
+        this.updateUndoRedo();
     }
 
     stopEdit() {
@@ -155,6 +171,11 @@ export default class Trace {
         this.buttons.elev._addSliderCircles();
         this.buttons.validateToEdit();
         this.closePopup();
+
+        this.buttons.undo.classList.add('unselected');
+        this.buttons.redo.classList.add('unselected');
+        this.buttons.undo.removeEventListener('click', this.undoListener);
+        this.buttons.redo.removeEventListener('click', this.redoListener);
     }
 
     draw() {
@@ -439,6 +460,8 @@ export default class Trace {
     }
 
     addEndPoint(lat, lng) {
+        this.save();
+
         const pt = new L.LatLng(lat, lng);
         pt.meta = {"time":null, "ele":0};
 
@@ -468,11 +491,15 @@ export default class Trace {
     }
 
     updatePoint(marker, lat, lng) {
+        this.save();
+
         if (this.buttons.routing) this.updatePointRouting(marker, lat, lng);
         else this.updatePointManual(marker, lat, lng);
     }
 
     deletePoint(marker) {
+        this.save();
+
         const points = this.getPoints();
 
         var a = marker._prec;
@@ -821,5 +848,76 @@ export default class Trace {
                 trace.askElevation(new_points);
             }
         }
+    }
+
+    // UNDO REDO
+
+    save(noUpdate) {
+        // wipe all redo info on save
+        if (this.at != this.memory.length-1) this.memory.splice(this.at+1, this.memory.length);
+        if (this.lastSaveIsNew) {
+            const points = this.getPoints();
+            if (points.length == 0) return;
+            const mem = [];
+            for (var i=0; i<points.length; i++) {
+                const pt = points[i].clone();
+                pt.meta = points[i].meta;
+                pt.index = points[i].index;
+                pt.routing = points[i].routing;
+                mem.push(pt);
+            }
+            this.memory.push(mem);
+            this.at++;
+        }
+
+        this.backToZero = false;
+        if (noUpdate) {
+            this.lastSaveIsNew = false;
+            return;
+        }
+        this.lastSaveIsNew = true;
+        this.updateUndoRedo();
+    }
+
+    undo() {
+        if (this.at == -1) return;
+        if (this.at == this.memory.length-1 && this.lastSaveIsNew) this.save(true);
+        if (this.at <= 0) return;
+
+        this.at--;
+        if (this.at == 0) this.backToZero = true;
+        else this.backToZero = false;
+        this.do();
+    }
+
+    redo() {
+        if (this.at >= this.memory.length-1) return;
+
+        this.backToZero = false;
+        this.at++;
+        this.do();
+    }
+
+    do() {
+        const points = this.memory[this.at];
+        const cpy = [];
+        for (var i=0; i<points.length; i++) {
+            const pt = points[i].clone();
+            pt.meta = points[i].meta;
+            pt.index = points[i].index;
+            pt.routing = points[i].routing;
+            cpy.push(pt);
+        }
+        this.gpx.getLayers()[0]._latlngs = cpy;
+
+        this.updateUndoRedo();
+        this.recomputeStats();
+        this.update();
+        this.redraw();
+        this.updateEditMarkers();
+        this.buttons.elev._removeSliderCircles();
+
+        if (points.length < 2) this.buttons.hideValidate();
+        else this.buttons.showValidate();
     }
 }

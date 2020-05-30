@@ -12,13 +12,13 @@ This repository contains the source code of the website [gpx.studio](https://gpx
     * Cut from the start or the end
     * Change the starting time of the activity
     * Change the average speed of the activity
+* Undo and redo
 * Combine and export multiple traces in the chosen order and respecting time precedence constraints (if any time data)
 * Preserve and automatically extend heart rate, cadence and temperature data
+* Cycling and hiking maps, and Strava Heatmap layer
 
 ## Future developments
 * Extend time data based on the slope and the existing uploaded data
-* Undo-redo
-* Cycling and hiking maps
 * Duplicate trace
 * Reverse trace
 
