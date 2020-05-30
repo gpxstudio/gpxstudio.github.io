@@ -449,8 +449,11 @@ export default class Trace {
         const points = this.getPoints();
         const length = points.length;
 
-        const deleted_end = points.splice(end);
-        const deleted_start = points.splice(0, start);
+        points.splice(end);
+        points.splice(0, start);
+
+        points[0].routing = false;
+        points[points.length-1].routing = false;
 
         this.recomputeStats();
         this.redraw();
