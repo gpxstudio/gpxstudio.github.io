@@ -37,6 +37,8 @@ export default class Buttons {
         this.input = document.getElementById("input-file");
         this.load = document.getElementById("load");
         this.draw = document.getElementById("manual");
+        this.undo = document.getElementById("undo");
+        this.redo = document.getElementById("redo");
         this.clear = document.getElementById("clear");
         this.clear2 = document.getElementById("clear2");
         this.cancel_clear = document.getElementById("cancelclear");
