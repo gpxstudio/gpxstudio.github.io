@@ -97,11 +97,28 @@ export default class Buttons {
                 _this.mapbox_token = xhr.responseText;
 
                 // TILES
-                _this.openStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
-                	maxZoom: 18,
-                	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                _this.mapboxStreets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                    maxZoom: 18,
+                    id: 'mapbox/streets-v11',
+                    tileSize: 512,
+                    zoomOffset: -1,
+                    accessToken: _this.mapbox_token,
+                    useCache: true,
+	                crossOrigin: true
                 }).addTo(_this.map);
 
+                _this.mapboxOutdoors = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                    maxZoom: 18,
+                    id: 'mapbox/outdoors-v11',
+                    tileSize: 512,
+                    zoomOffset: -1,
+                    accessToken: _this.mapbox_token,
+                    useCache: true,
+	                crossOrigin: true
+                });
+              
                 _this.openCycleMap = L.tileLayer('https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey={apikey}', {
                     attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                     apikey: '67774cfadfeb42d2ac42bc38fda667c0',
@@ -123,7 +140,8 @@ export default class Buttons {
                 });
 
                 L.control.layers({
-                    "OpenStreetMap" : _this.openStreetMap,
+                    "Mapbox Streets" : _this.mapboxStreets,
+                    "Mapbox Outdoors" : _this.mapboxOutdoors,
                     "OpenCycleMap" : _this.openCycleMap,
                     "OpenTopoMap" : _this.openTopoMap
                 },{
@@ -332,6 +350,7 @@ export default class Buttons {
         this.draw.addEventListener("click", function () {
             const newTrace = total.addTrace(undefined, "new.gpx");
             newTrace.draw();
+            gtag('event', 'button', {'event_category' : 'draw'});
         });
         this.clear.addEventListener("click", function () {
             if (total.traces.length == 0) return;
@@ -415,6 +434,7 @@ export default class Buttons {
             if (buttons.filename.value.length > 0) name = buttons.filename.value + '.gpx';
             buttons.download(name, total.outputGPX());
             buttons.export.popup.remove();
+            gtag('event', 'button', {'event_category' : 'export'});
         });
         this.validate.addEventListener("click", function () {
             if (total.hasFocus) return;
@@ -597,6 +617,7 @@ export default class Buttons {
                 buttons.about_text.style.display = 'none';
                 buttons.enableMap();
             });
+            gtag('event', 'button', {'event_category' : 'about'});
         });
         this.help.addEventListener("click", function () {
             if (buttons.help.open) return;
@@ -615,6 +636,7 @@ export default class Buttons {
                 buttons.help.open = false;
                 buttons.enableMap();
             });
+            gtag('event', 'button', {'event_category' : 'help'});
         });
     }
 
@@ -670,10 +692,12 @@ export default class Buttons {
             reader.readAsDataURL(file);
         }
         this.input.value = "";
+        gtag('event', 'button', {'event_category' : 'load'});
     }
 
     donation() {
         window.open('https://paypal.me/vcoppe');
+        gtag('event', 'button', {'event_category' : 'donate'});
     }
 
     download(filename, text) {
