@@ -97,7 +97,6 @@ export default class Buttons {
                 _this.mapbox_token = xhr.responseText;
 
                 // TILES
-
                 _this.mapboxStreets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
                     maxZoom: 18,
@@ -119,7 +118,7 @@ export default class Buttons {
                     useCache: true,
 	                crossOrigin: true
                 });
-
+              
                 _this.openCycleMap = L.tileLayer('https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey={apikey}', {
                     attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                     apikey: '67774cfadfeb42d2ac42bc38fda667c0',
