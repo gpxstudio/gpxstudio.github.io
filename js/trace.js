@@ -309,7 +309,10 @@ export default class Trace {
         }
 
         var newPt = new L.LatLng(pt.lat, pt.lng);
-        newPt.meta = { time: points[best_idx].meta.time, ele: (points[best_idx-1].meta.ele + points[best_idx].meta.ele) / 2};
+        newPt.meta = {
+            time: null,
+            ele: (points[best_idx-1].meta.ele + points[best_idx].meta.ele) / 2
+        };
         points.splice(best_idx, 0, newPt);
         this.updatePointIndices();
 
@@ -656,10 +659,16 @@ export default class Trace {
             points[0].meta.time = new Date(points[index].meta.time.getTime() - 1000 * 60 * 60 * dist/(1000 * avg));
         }
 
+        var last = points[0].meta.time;
         for (var i=1; i<points.length; i++) {
-            if (!points[i].meta.time) {
+            if (!points[i].meta.time || !last) {
+                last = points[i].meta.time;
                 const dist = this.gpx._dist3d(points[i-1], points[i]);
                 points[i].meta.time = new Date(points[i-1].meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
+            } else {
+                const newTime = new Date(points[i-1].meta.time.getTime() + points[i].meta.time.getTime() - last.getTime());
+                last = points[i].meta.time;
+                points[i].meta.time = newTime;
             }
         }
     }
