@@ -56,11 +56,11 @@ html, body {
 }
 
 .centered-popup .leaflet-popup-content-wrapper {
-    transform: translateY(34%);
+    transform: translateY(35%);
 }
 
 .centered-popup .leaflet-popup-close-button {
-    transform: translateY(680%);
+    transform: translateY(700%);
 }
 
 .cross .leaflet-popup-close-button {
@@ -298,6 +298,11 @@ html, body {
 #edit-time {
   grid-column: 5 / span 1;
   grid-row: 2 / span 1;
+}
+
+#duplicate {
+  grid-column: 5 / span 1;
+  grid-row: 3 / span 1;
 }
 
 #reverse {

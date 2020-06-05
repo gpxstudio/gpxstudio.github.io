@@ -51,6 +51,7 @@ export default class Buttons {
         this.reverse = document.getElementById("reverse");
         this.cancel_delete = document.getElementById("canceldelete");
         this.time = document.getElementById("edit-time");
+        this.duplicate = document.getElementById("duplicate");
         this.edit = document.getElementById("edit");
         this.validate = document.getElementById("validate");
         this.unvalidate = document.getElementById("unvalidate");
@@ -233,6 +234,7 @@ export default class Buttons {
         //this.reverse.style.visibility = 'hidden';
         this.edit.style.visibility = 'hidden';
         this.time.style.visibility = 'hidden';
+        this.duplicate.style.visibility = 'hidden';
     }
 
     showTraceButtons() {
@@ -241,6 +243,7 @@ export default class Buttons {
         //this.reverse.style.visibility = 'visible';
         this.edit.style.visibility = 'visible';
         this.time.style.visibility = 'visible';
+        this.duplicate.style.visibility = 'visible';
     }
 
     hideToolbars() {
@@ -637,6 +640,10 @@ export default class Buttons {
                 buttons.enableMap();
             });
             gtag('event', 'button', {'event_category' : 'help'});
+        });
+        this.duplicate.addEventListener("click", function () {
+            const trace = total.traces[total.focusOn];
+            trace.clone();
         });
     }
 

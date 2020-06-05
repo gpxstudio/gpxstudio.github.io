@@ -36,6 +36,7 @@ const gpx_options = {
 
 export default class Trace {
     constructor(file, name, map, total) {
+        this.name = name;
         this.map = map;
         this.total = total;
         this.buttons = total.buttons;
@@ -69,8 +70,6 @@ export default class Trace {
             total.traces.push(this.trace);
             if (this.getLayers().length > 0) total.buttons.updateBounds();
 
-            //if (total.hasFocus) total.update();
-
             var ul = document.getElementById("sortable");
             var li = document.createElement("li");
             li.innerHTML = name;
@@ -99,6 +98,25 @@ export default class Trace {
         });
 
         if (file === undefined) this.gpx.fire('loaded');
+    }
+
+    clone() {
+        const newTrace = this.total.addTrace(undefined, this.name);
+
+        const points = this.getPoints();
+        const cpy = [];
+        for (var i=0; i<points.length; i++) {
+            const pt = points[i].clone();
+            pt.meta = points[i].meta;
+            pt.index = points[i].index;
+            pt.routing = points[i].routing;
+            cpy.push(pt);
+        }
+
+        newTrace.gpx.addLayer(new L.Polyline(cpy, this.gpx.options.polyline_options));
+        newTrace.gpx.setStyle(focus_style);
+        newTrace.recomputeStats();
+        newTrace.update();
     }
 
     /*** LOGIC ***/
