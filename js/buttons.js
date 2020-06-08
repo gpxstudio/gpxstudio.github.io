@@ -100,7 +100,7 @@ export default class Buttons {
                 // TILES
                 _this.mapboxStreets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                    maxZoom: 18,
+                    maxZoom: 20,
                     id: 'mapbox/streets-v11',
                     tileSize: 512,
                     zoomOffset: -1,
@@ -109,10 +109,20 @@ export default class Buttons {
 	                crossOrigin: true
                 }).addTo(_this.map);
 
-                _this.mapboxOutdoors = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+                _this.mapboxOutdoors = L.tileLayer('https://api.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}.jpg90?access_token={accessToken}', {
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                    maxZoom: 18,
-                    id: 'mapbox/outdoors-v11',
+                    maxZoom: 20,
+                    tileSize: 512,
+                    zoomOffset: -1,
+                    accessToken: _this.mapbox_token,
+                    useCache: true,
+	                crossOrigin: true
+                });
+
+                _this.mapboxSatellite = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                    maxZoom: 20,
+                    id: 'mapbox/satellite-v9',
                     tileSize: 512,
                     zoomOffset: -1,
                     accessToken: _this.mapbox_token,
@@ -123,26 +133,29 @@ export default class Buttons {
                 _this.openCycleMap = L.tileLayer('https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey={apikey}', {
                     attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                     apikey: '67774cfadfeb42d2ac42bc38fda667c0',
-                    maxZoom: 18,
+                    maxZoom: 20,
                     useCache: true,
 	                crossOrigin: true
                 });
 
                 _this.openTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 17,
+                    maxZoom: 20,
+                    maxNativeZoom: 17,
                     attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
                     useCache: true,
 	                crossOrigin: true
                 });
 
                 _this.stravaHeatmap = L.tileLayer('https://heatmap-external-{s}.strava.com/tiles-auth/cycling/bluered/{z}/{x}/{y}.png', {
-                    maxZoom: 18,
+                    maxZoom: 20,
+                    maxNativeZoom: 15,
                     attribution: 'Heatmap: &copy; <a href="https://www.strava.com">Strava</a>'
                 });
 
                 L.control.layers({
-                    "Mapbox Streets" : _this.mapboxStreets,
-                    "Mapbox Outdoors" : _this.mapboxOutdoors,
+                    "Streets" : _this.mapboxStreets,
+                    "Outdoors" : _this.mapboxOutdoors,
+                    "Satellite" : _this.mapboxSatellite,
                     "OpenCycleMap" : _this.openCycleMap,
                     "OpenTopoMap" : _this.openTopoMap
                 },{
