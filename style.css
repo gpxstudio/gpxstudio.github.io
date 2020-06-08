@@ -60,7 +60,7 @@ html, body {
 }
 
 .centered-popup .leaflet-popup-close-button {
-    transform: translateY(700%);
+    transform: translateY(680%);
 }
 
 .cross .leaflet-popup-close-button {

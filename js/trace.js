@@ -434,6 +434,8 @@ export default class Trace {
     }
 
     getMovingPace() {
+        const dist = this.getDistance();
+        if (dist == 0) return 0;
         return this.getMovingTime() / (this.getDistance() / 1000);
     }
 
@@ -739,7 +741,7 @@ export default class Trace {
     /*** REQUESTS ***/
 
     askElevation(points) {
-        const step = 5;
+        const step = 10;
         const maxpoints = 2000;
         var pts = [], start = -1, requests = [];
         for (var i=0; i<points.length; i += step) {
@@ -776,7 +778,14 @@ export default class Trace {
                 var ans = JSON.parse(this.responseText);
 
                 for (var i=0; i<trace_points.length; i++) {
-                    trace_points[i].meta.ele = ans["data"][Math.floor(i/step)] ? ans["data"][Math.floor(i/step)] : 0; //ans["elevations"][0]["elevation"];
+                    if (Math.floor(i/step) + 1 < ans["data"].length) {
+                        trace_points[i].meta.ele =
+                            (
+                                (step - i % step) * ans["data"][Math.floor(i/step)]
+                                + (i % step) * ans["data"][Math.floor(i/step) + 1]
+                            ) / step;
+
+                    } else trace_points[i].meta.ele = ans["data"][Math.floor(i/step)];
                 }
 
                 if (requests.length == 1) {
@@ -793,7 +802,12 @@ export default class Trace {
         }
     }
 
-    askRoute(a, b, c) {
+    askRoute(a, b, c, override_openroute) {
+        if (this.buttons.openroute && !override_openroute) {
+            this.askRouteOpenroute(a, b, c);
+            return;
+        }
+
         const Http = new XMLHttpRequest();
         var url = "https://api.mapbox.com/directions/v5/mapbox/" + (this.buttons.cycling ? "cycling" : "walking") + "/";
         url += a.lng.toFixed(6) + ',' + a.lat.toFixed(6) + ';';
@@ -808,8 +822,7 @@ export default class Trace {
         Http.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 var ans = JSON.parse(this.responseText);
-                const new_geojson = ans['routes'][0]['geometry'];
-                const new_pts = new_geojson['coordinates'];
+                const new_pts = ans['routes'][0]['geometry']['coordinates'];
                 const new_points = [];
                 var mid = -1, dist = -1;
                 for (var i=0; i<new_pts.length; i++) {
@@ -823,26 +836,89 @@ export default class Trace {
                 }
                 if (!a.equals(b) && !b.equals(c)) new_points[mid].routing = false;
 
-                const pts = trace.getPoints();
-                // remove old
-                pts.splice(a.index+1, c.index-a.index-1);
-                // add new
-                pts.splice(a.index+1, 0, ...new_points);
-                // update points indices
-                trace.updatePointIndices();
-                // update markers indices
-                trace.updateEditMarkers();
-                trace.extendTimeData();
-
-                trace.redraw();
-
-                // ask elevation of new points
-                trace.askElevation(new_points);
+                trace.addRoute(new_points, a, c);
             }
         }
     }
 
-    askRoute2(a, b) {
+    askRouteOpenroute(a, b, c) {
+        const Http = new XMLHttpRequest();
+        var url = "https://api.openrouteservice.org/v2/directions/" + (this.buttons.cycling ? "cycling-road" : "foot-hiking") + "?";
+        url += "api_key=5b3ce3597851110001cf624874258de335114cc6b5d5c26de9a3587c&";
+        url += "start=" + a.lng.toFixed(6) + ',' + a.lat.toFixed(6) + '&';
+        url += "end=" + b.lng.toFixed(6) + ',' + b.lat.toFixed(6);
+        Http.open("GET", url);
+        Http.send();
+
+        const trace = this;
+
+        Http.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 403) {
+                trace.buttons.openroute = false;
+                trace.askRoute(a,b,c);
+            } else if (this.readyState == 4 && this.status == 404) {
+                trace.askRoute(a,b,c,true);
+            } else if (this.readyState == 4 && this.status == 200) {
+                var ans = JSON.parse(this.responseText);
+                var new_pts = ans['features'][0]['geometry']['coordinates'];
+                const new_points = [];
+                for (var i=0; i<new_pts.length; i++) {
+                    new_points.push(L.latLng(new_pts[i][1],new_pts[i][0]));
+                    new_points[i].meta = {"time":null, "ele":0};
+                    new_points[i].routing = true;
+                }
+
+                if (!a.equals(b) && !b.equals(c)) {
+                    const Http2 = new XMLHttpRequest();
+                    url = "https://api.openrouteservice.org/v2/directions/" + (trace.buttons.cycling ? "cycling-road" : "foot-hiking") + "?";
+                    url += "api_key=5b3ce3597851110001cf624874258de335114cc6b5d5c26de9a3587c&";
+                    url += "start=" + b.lng.toFixed(6) + ',' + b.lat.toFixed(6) + '&';
+                    url += "end=" + c.lng.toFixed(6) + ',' + c.lat.toFixed(6);
+                    Http2.open("GET", url);
+                    Http2.send();
+
+                    Http2.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            ans = JSON.parse(this.responseText);
+                            new_pts = ans['features'][0]['geometry']['coordinates'];
+                            new_points[new_points.length-1].routing = false;
+                            for (var i=0; i<new_pts.length; i++) {
+                                new_points.push(L.latLng(new_pts[i][1],new_pts[i][0]));
+                                new_points[new_points.length-1].meta = {"time":null, "ele":0};
+                                new_points[new_points.length-1].routing = true;
+                            }
+                            trace.addRoute(new_points, a, c);
+                        }
+                    }
+                } else trace.addRoute(new_points, a, b);
+            }
+        }
+    }
+
+    addRoute(new_points, a, c) {
+        const pts = this.getPoints();
+        // remove old
+        pts.splice(a.index+1, c.index-a.index-1);
+        // add new
+        pts.splice(a.index+1, 0, ...new_points);
+        // update points indices
+        this.updatePointIndices();
+        // update markers indices
+        this.updateEditMarkers();
+        this.extendTimeData();
+
+        this.redraw();
+
+        // ask elevation of new points
+        this.askElevation(new_points);
+    }
+
+    askRoute2(a, b, override_openroute) {
+        if (this.buttons.openroute && !override_openroute) {
+            this.askRoute2Openroute(a, b);
+            return;
+        }
+
         const Http = new XMLHttpRequest();
         var url = "https://api.mapbox.com/directions/v5/mapbox/" + (this.buttons.cycling ? "cycling" : "walking") + "/";
         url += a.lng.toFixed(6) + ',' + a.lat.toFixed(6) + ';';
@@ -856,31 +932,57 @@ export default class Trace {
         Http.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 var ans = JSON.parse(this.responseText);
-                const new_geojson = ans['routes'][0]['geometry'];
-                const new_pts = new_geojson['coordinates'];
-                const new_points = [];
-                for (var i=0; i<new_pts.length; i++) {
-                    new_points.push(L.latLng(new_pts[i][1],new_pts[i][0]));
-                    new_points[i].meta = {"time":null, "ele":0};
-                    new_points[i].routing = true;
-                }
-
-                const pts = trace.getPoints();
-                // add new
-                pts.splice(a.index+1, 0, ...new_points);
-                // update points indices
-                trace.updatePointIndices();
-                // update markers indices
-                trace.updateEditMarkers();
-                trace.extendTimeData();
-
-                trace.redraw();
-
-                // ask elevation of new points
-                if (b.meta.ele == 0) new_points.push(b);
-                trace.askElevation(new_points);
+                trace.addRoute2(ans['routes'][0]['geometry']['coordinates'], a, b);
             }
         }
+    }
+
+    askRoute2Openroute(a, b) {
+        const Http = new XMLHttpRequest();
+        var url = "https://api.openrouteservice.org/v2/directions/" + (this.buttons.cycling ? "cycling-road" : "foot-hiking") + "?";
+        url += "api_key=5b3ce3597851110001cf624874258de335114cc6b5d5c26de9a3587c&";
+        url += "start=" + a.lng.toFixed(6) + ',' + a.lat.toFixed(6) + '&';
+        url += "end=" + b.lng.toFixed(6) + ',' + b.lat.toFixed(6);
+        Http.open("GET", url);
+        Http.send();
+
+        const trace = this;
+
+        Http.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 403) {
+                trace.buttons.openroute = false;
+                trace.askRoute2(a,b);
+            } else if (this.readyState == 4 && this.status == 404) {
+                trace.askRoute2(a,b,true);
+            } else if (this.readyState == 4 && this.status == 200) {
+                var ans = JSON.parse(this.responseText);
+                trace.addRoute2(ans['features'][0]['geometry']['coordinates'], a, b);
+            }
+        }
+    }
+
+    addRoute2(new_pts, a, b) {
+        const new_points = [];
+        for (var i=0; i<new_pts.length; i++) {
+            new_points.push(L.latLng(new_pts[i][1],new_pts[i][0]));
+            new_points[i].meta = {"time":null, "ele":0};
+            new_points[i].routing = true;
+        }
+
+        const pts = this.getPoints();
+        // add new
+        pts.splice(a.index+1, 0, ...new_points);
+        // update points indices
+        this.updatePointIndices();
+        // update markers indices
+        this.updateEditMarkers();
+        this.extendTimeData();
+
+        this.redraw();
+
+        // ask elevation of new points
+        if (b.meta.ele == 0) new_points.push(b);
+        this.askElevation(new_points);
     }
 
     // UNDO REDO
