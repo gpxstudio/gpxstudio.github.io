@@ -741,7 +741,7 @@ export default class Trace {
     /*** REQUESTS ***/
 
     askElevation(points) {
-        const step = 10;
+        const step = Math.max(1, Math.ceil(points.length / 100));
         const maxpoints = 2000;
         var pts = [], start = -1, requests = [];
         for (var i=0; i<points.length; i += step) {
@@ -754,6 +754,7 @@ export default class Trace {
             }
         }
         if (pts.length > 0) {
+            pts.push(points[points.length-1]);
             requests.push([points.slice(start, i + step - 1), pts]);
         }
         this.askPointsElevation(requests, step);
@@ -779,11 +780,12 @@ export default class Trace {
 
                 for (var i=0; i<trace_points.length; i++) {
                     if (Math.floor(i/step) + 1 < ans["data"].length) {
+                        const s = Math.min(step, trace_points.length-step*Math.floor(i/step));
                         trace_points[i].meta.ele =
                             (
-                                (step - i % step) * ans["data"][Math.floor(i/step)]
-                                + (i % step) * ans["data"][Math.floor(i/step) + 1]
-                            ) / step;
+                                (s - i % s) * ans["data"][Math.floor(i/step)]
+                                + (i % s) * ans["data"][Math.floor(i/step) + 1]
+                            ) / s;
 
                     } else trace_points[i].meta.ele = ans["data"][Math.floor(i/step)];
                 }
