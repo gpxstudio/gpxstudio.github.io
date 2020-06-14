@@ -66,7 +66,11 @@ export default class Buttons {
         this.mi = document.getElementById("mi");
         this.route = document.getElementById("route");
         this.crow = document.getElementById("crow");
-        this.filename = document.getElementById("filename");
+        this.merge = document.getElementById("merge");
+        this.include_time = document.getElementById("include-time");
+        this.include_hr = document.getElementById("include-hr");
+        this.include_cad = document.getElementById("include-cad");
+        this.include_atemp = document.getElementById("include-atemp");
         this.strava_ok = document.getElementById("strava-ok");
 
         // DISPLAYS
@@ -433,6 +437,36 @@ export default class Buttons {
                     className: "centered-popup custom-popup cross",
                     autoPan: false
                 });
+                buttons.merge.checked = true;
+                if (total.getMovingTime() == 0) {
+                    buttons.include_time.checked = false;
+                    buttons.include_time.disabled = true;
+                } else {
+                    buttons.include_time.checked = true;
+                    buttons.include_time.disabled = false;
+                }
+                const additionalData = total.getAverageAdditionalData();
+                if (!additionalData.hr) {
+                    buttons.include_hr.checked = false;
+                    buttons.include_hr.disabled = true;
+                } else {
+                    buttons.include_hr.checked = true;
+                    buttons.include_hr.disabled = false;
+                }
+                if (!additionalData.cad) {
+                    buttons.include_cad.checked = false;
+                    buttons.include_cad.disabled = true;
+                } else {
+                    buttons.include_cad.checked = true;
+                    buttons.include_cad.disabled = false;
+                }
+                if (!additionalData.atemp) {
+                    buttons.include_atemp.checked = false;
+                    buttons.include_atemp.disabled = true;
+                } else {
+                    buttons.include_atemp.checked = true;
+                    buttons.include_atemp.disabled = false;
+                }
                 buttons.export.popup = popup;
                 popup.setLatLng(map.getCenter());
                 popup.setContent(buttons.export_content);
@@ -447,9 +481,16 @@ export default class Buttons {
             }
         });
         this.export2.addEventListener("click", function () {
-            var name = 'track.gpx';
-            if (buttons.filename.value.length > 0) name = buttons.filename.value + '.gpx';
-            buttons.download(name, total.outputGPX());
+            const mergeAll = buttons.merge.checked;
+            const time = buttons.include_time.checked;
+            const hr = buttons.include_hr.checked;
+            const atemp = buttons.include_atemp.checked;
+            const cad = buttons.include_cad.checked;
+
+            const output = total.outputGPX(mergeAll, time, hr, atemp, cad);
+            for (var i=0; i<output.length; i++)
+                buttons.download(output[i].name, output[i].text);
+
             buttons.export.popup.remove();
             gtag('event', 'button', {'event_category' : 'export'});
         });

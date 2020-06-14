@@ -193,17 +193,18 @@ export default class Total {
             }
         }
 
-        return {
+        this.additionalAvgData = {
             hr: cntHr > 0 ? Math.round((totHr/cntHr) * 10) / 10 : null,
             atemp: cntTemp > 0 ? Math.round((totTemp/cntTemp) * 10) / 10 : null,
             cad: cntCad > 0 ? Math.round((totCad/cntCad) * 10) / 10 : null,
         };
+        return this.additionalAvgData;
     }
 
     /*** OUTPUT ***/
 
-    outputGPX() {
-        if (this.getMovingTime() > 0) { // at least one track has time data
+    outputGPX(mergeAll, incl_time, incl_hr, incl_atemp, incl_cad) {
+        if (incl_time && this.getMovingTime() > 0) { // at least one track has time data
             const avg = this.getMovingSpeed(true);
             var lastPoints = null;
             for (var i=0; i<this.traces.length; i++) {
@@ -225,7 +226,7 @@ export default class Total {
                                             );
                     }
                     this.traces[i].changeTimeData(startTime, avg);
-                } else if (lastPoints && points[0].meta.time < lastPoints[lastPoints.length-1].meta.time) { // time precedence constraint
+                } else if (mergeAll && lastPoints && points[0].meta.time < lastPoints[lastPoints.length-1].meta.time) { // time precedence constraint
                     const a = lastPoints[lastPoints.length-1];
                     const b = points[0];
                     const dist = this.traces[i].gpx._dist3d(a, b);
@@ -237,23 +238,24 @@ export default class Total {
         }
 
         const xmlStart = `<?xml version="1.0" encoding="UTF-8"?>
-    <gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" version="1.1" creator="https://gpxstudio.github.io">`;
-        const xmlEnd = '</gpx>';
-
-        var xmlOutput = xmlStart;
-            xmlOutput += `
+    <gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" version="1.1" creator="https://gpxstudio.github.io">
     <metadata>
         <name>Activity</name>
         <author>gpx.studio</author>
         <link>https://gpxstudio.github.io</link>
-    </metadata>`;
-
-            xmlOutput += `
+    </metadata>
     <trk>
     <trkseg>
     `;
 
-        const totalData = this.getAverageAdditionalData();
+        const xmlEnd = `</trkseg>
+    </trk>
+    </gpx>`;
+
+        const output = [];
+        var xmlOutput = '';
+
+        const totalData = this.additionalAvgData;
         for (var i=0; i<this.traces.length; i++) {
             const data = this.traces[i].additionalAvgData;
             const hr = data.hr ? data.hr : totalData.hr;
@@ -270,33 +272,39 @@ export default class Total {
                         xmlOutput += `    <ele>${point.meta.ele.toFixed(1)}</ele>
     `;
                     }
-                    if (point.meta.time) {
+                    if (incl_time && point.meta.time) {
                         xmlOutput += `    <time>${point.meta.time.toISOString()}</time>
     `;
                     }
                     xmlOutput += `    <extensions>
         <gpxtpx:TrackPointExtension>
     `;
-                    if (point.meta.hr) {
-                        xmlOutput += `    <gpxtpx:hr>${point.meta.hr}</gpxtpx:hr>
+                    if (incl_hr) {
+                        if (point.meta.hr) {
+                            xmlOutput += `    <gpxtpx:hr>${point.meta.hr}</gpxtpx:hr>
     `;
-                    } else if (hr) {
-                        xmlOutput += `    <gpxtpx:hr>${hr}</gpxtpx:hr>
+                        } else if (hr) {
+                            xmlOutput += `    <gpxtpx:hr>${hr}</gpxtpx:hr>
     `;
+                        }
                     }
-                    if (point.meta.atemp) {
-                        xmlOutput += `    <gpxtpx:atemp>${point.meta.atemp}</gpxtpx:atemp>
+                    if (incl_atemp) {
+                        if (point.meta.atemp) {
+                            xmlOutput += `    <gpxtpx:atemp>${point.meta.atemp}</gpxtpx:atemp>
     `;
-                    } else if (atemp) {
-                        xmlOutput += `    <gpxtpx:atemp>${atemp}</gpxtpx:atemp>
+                        } else if (atemp) {
+                            xmlOutput += `    <gpxtpx:atemp>${atemp}</gpxtpx:atemp>
     `;
+                        }
                     }
-                    if (point.meta.cad) {
-                        xmlOutput += `    <gpxtpx:cad>${point.meta.cad}</gpxtpx:cad>
+                    if (incl_cad) {
+                        if (point.meta.cad) {
+                            xmlOutput += `    <gpxtpx:cad>${point.meta.cad}</gpxtpx:cad>
     `;
-                    } else if (cad) {
-                        xmlOutput += `    <gpxtpx:cad>${cad}</gpxtpx:cad>
+                        } else if (cad) {
+                            xmlOutput += `    <gpxtpx:cad>${cad}</gpxtpx:cad>
     `;
+                        }
                     }
                     xmlOutput += `    </gpxtpx:TrackPointExtension>
         </extensions>
@@ -305,12 +313,24 @@ export default class Total {
                 xmlOutput += `</trkpt>
     `;
             }
+
+            if (!mergeAll) {
+                output.push({
+                    name: this.traces[i].name,
+                    text: (xmlStart+xmlOutput+xmlEnd)
+                });
+                xmlOutput = '';
+            }
         }
 
-        xmlOutput += `</trkseg>
-    </trk>
-    ${xmlEnd}`;
-        return xmlOutput;
+        if (mergeAll) {
+            output.push({
+                name: 'track.gpx',
+                text: (xmlStart+xmlOutput+xmlEnd)
+            });
+        }
+
+        return output;
     }
 
     /*** HELPER FUNCTIONS ***/

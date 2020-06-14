@@ -64,7 +64,7 @@ html, body {
 }
 
 .cross .leaflet-popup-close-button {
-    transform: translateY(235%) !important;
+    transform: translateY(350%) !important;
 }
 
 .panels-container {
