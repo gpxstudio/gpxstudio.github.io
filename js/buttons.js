@@ -52,6 +52,9 @@ export default class Buttons {
         this.cancel_delete = document.getElementById("canceldelete");
         this.time = document.getElementById("edit-time");
         this.duplicate = document.getElementById("duplicate");
+        this.color = document.getElementById("color");
+        this.color_ok = document.getElementById("validate-color");
+        this.color_picker = document.getElementById("color-picker");
         this.edit = document.getElementById("edit");
         this.validate = document.getElementById("validate");
         this.unvalidate = document.getElementById("unvalidate");
@@ -66,7 +69,11 @@ export default class Buttons {
         this.mi = document.getElementById("mi");
         this.route = document.getElementById("route");
         this.crow = document.getElementById("crow");
-        this.filename = document.getElementById("filename");
+        this.merge = document.getElementById("merge");
+        this.include_time = document.getElementById("include-time");
+        this.include_hr = document.getElementById("include-hr");
+        this.include_cad = document.getElementById("include-cad");
+        this.include_atemp = document.getElementById("include-atemp");
         this.strava_ok = document.getElementById("strava-ok");
 
         // DISPLAYS
@@ -85,6 +92,7 @@ export default class Buttons {
         this.clear_content = document.getElementById('clear-content');
         this.delete_content = document.getElementById('delete-content');
         this.strava_content = document.getElementById('strava-content');
+        this.color_content = document.getElementById('color-content');
 
         // ZOOM CONTROL
         this.zoom = L.control.zoom({
@@ -249,6 +257,7 @@ export default class Buttons {
         this.edit.style.visibility = 'hidden';
         this.time.style.visibility = 'hidden';
         this.duplicate.style.visibility = 'hidden';
+        this.color.style.visibility = 'hidden';
     }
 
     showTraceButtons() {
@@ -258,6 +267,7 @@ export default class Buttons {
         this.edit.style.visibility = 'visible';
         this.time.style.visibility = 'visible';
         this.duplicate.style.visibility = 'visible';
+        this.color.style.visibility = 'visible';
     }
 
     hideToolbars() {
@@ -433,6 +443,36 @@ export default class Buttons {
                     className: "centered-popup custom-popup cross",
                     autoPan: false
                 });
+                buttons.merge.checked = true;
+                if (total.getMovingTime() == 0) {
+                    buttons.include_time.checked = false;
+                    buttons.include_time.disabled = true;
+                } else {
+                    buttons.include_time.checked = true;
+                    buttons.include_time.disabled = false;
+                }
+                const additionalData = total.getAverageAdditionalData();
+                if (!additionalData.hr) {
+                    buttons.include_hr.checked = false;
+                    buttons.include_hr.disabled = true;
+                } else {
+                    buttons.include_hr.checked = true;
+                    buttons.include_hr.disabled = false;
+                }
+                if (!additionalData.cad) {
+                    buttons.include_cad.checked = false;
+                    buttons.include_cad.disabled = true;
+                } else {
+                    buttons.include_cad.checked = true;
+                    buttons.include_cad.disabled = false;
+                }
+                if (!additionalData.atemp) {
+                    buttons.include_atemp.checked = false;
+                    buttons.include_atemp.disabled = true;
+                } else {
+                    buttons.include_atemp.checked = true;
+                    buttons.include_atemp.disabled = false;
+                }
                 buttons.export.popup = popup;
                 popup.setLatLng(map.getCenter());
                 popup.setContent(buttons.export_content);
@@ -447,9 +487,16 @@ export default class Buttons {
             }
         });
         this.export2.addEventListener("click", function () {
-            var name = 'track.gpx';
-            if (buttons.filename.value.length > 0) name = buttons.filename.value + '.gpx';
-            buttons.download(name, total.outputGPX());
+            const mergeAll = buttons.merge.checked;
+            const time = buttons.include_time.checked;
+            const hr = buttons.include_hr.checked;
+            const atemp = buttons.include_atemp.checked;
+            const cad = buttons.include_cad.checked;
+
+            const output = total.outputGPX(mergeAll, time, hr, atemp, cad);
+            for (var i=0; i<output.length; i++)
+                buttons.download(output[i].name, output[i].text);
+
             buttons.export.popup.remove();
             gtag('event', 'button', {'event_category' : 'export'});
         });
@@ -572,12 +619,23 @@ export default class Buttons {
             var minutes = document.getElementById("minutes");
             var seconds = document.getElementById("seconds");
 
+            var speedChange = false;
+
             if (buttons.cycling) {
                 speed.value = Math.max(1, trace.getMovingSpeed().toFixed(1));
+                speed.addEventListener("change", function () {
+                    speedChange = true;
+                });
             } else {
                 var pace = Math.floor(trace.getMovingPace() / 1000);
                 minutes.value = Math.floor(pace / 60);
                 seconds.value = pace % 60;
+                minutes.addEventListener("change", function () {
+                    speedChange = true;
+                });
+                seconds.addEventListener("change", function () {
+                    speedChange = true;
+                });
             }
 
             var start = document.getElementById("start-time");
@@ -589,17 +647,18 @@ export default class Buttons {
 
             var ok = document.getElementById("ok-dialog");
             ok.addEventListener("click", function () {
-                // others: pay attention to units
-                var v = 0;
-                if (buttons.cycling) {
-                    v = Number(speed.value);
-                    if (!buttons.km) v *= 1.60934;
-                } else {
-                    v = Number(minutes.value) * 60 +  Number(seconds.value);
-                    v = Math.max(v, 1);
-                    if (!buttons.km) v /= 1.60934;
-                    v = 1 / v; // km/s
-                    v *= 3600;
+                var v = trace.getMovingSpeed();
+                if (speedChange) {
+                    if (buttons.cycling) {
+                        v = Number(speed.value);
+                        if (!buttons.km) v *= 1.60934;
+                    } else {
+                        v = Number(minutes.value) * 60 +  Number(seconds.value);
+                        v = Math.max(v, 1);
+                        if (!buttons.km) v /= 1.60934;
+                        v = 1 / v; // km/s
+                        v *= 3600;
+                    }
                 }
 
                 const startTime = new Date(new Date(start.value).getTime());
@@ -615,6 +674,34 @@ export default class Buttons {
             close.addEventListener("click", function () {
                 trace.closePopup();
             });
+        });
+        this.color.addEventListener("click", function () {
+            const trace = total.traces[total.focusOn];
+            if (trace.popup) return;
+
+            const popup = L.popup({
+                closeButton: false,
+                autoPan: false,
+                className: "custom-popup"
+            });
+
+            popup.setContent(buttons.color_content);
+            popup.setLatLng(map.getCenter());
+            popup.openOn(map);
+            popup.addEventListener('remove', function (e) {
+                trace.closePopup();
+                buttons.enableMap();
+            });
+            trace.popup = popup;
+            buttons.disableMap();
+        });
+        this.color_ok.addEventListener("click", function () {
+            const trace = total.traces[total.focusOn];
+            const color = buttons.color_picker.value;
+            trace.normal_style.color = color;
+            trace.focus_style.color = color;
+            trace.gpx.setStyle(trace.focus_style);
+            trace.popup.remove();
         });
         this.about.addEventListener("click", function () {
             const latlng = [50.846708, 4.352491];

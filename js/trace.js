@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-const normal_style = { color: '#FF4040', weight: 3 };
+const normal_style = { color: 'red', weight: 3 };
 const focus_style = { color: 'red', weight: 5 };
 const gpx_options = {
     async: true,
@@ -44,6 +44,9 @@ export default class Trace {
         this.isEdited = false;
         this.drawing = false;
         this.popup = null;
+        this.renaming = false;
+        this.normal_style = {...normal_style};
+        this.focus_style = {...focus_style};
 
         this.memory = [];
         this.at = -1;
@@ -53,8 +56,10 @@ export default class Trace {
         this.gpx = new L.GPX(file, gpx_options).addTo(map);
         this.gpx.trace = this;
 
+        const trace = this;
+
         this.gpx.on('loaded', function(e) {
-            this.trace.index = total.traces.length;
+            trace.index = total.traces.length;
 
             // merge multiple tracks of same file
             if (this.getLayers().length > 0 && !this.getLayers()[0]._latlngs) {
@@ -67,24 +72,36 @@ export default class Trace {
                 this.addLayer(mergedLayer);
             }
 
-            total.traces.push(this.trace);
+            total.traces.push(trace);
             if (this.getLayers().length > 0) total.buttons.updateBounds();
 
             var ul = document.getElementById("sortable");
             var li = document.createElement("li");
             li.innerHTML = name;
             li.classList.add('tab');
-            li.trace = this.trace;
+            li.trace = trace;
             li.addEventListener('click', function (e) {
-                if (!e.target.trace.hasFocus) e.target.trace.focus();
+                if (!trace.hasFocus) trace.focus();
+            });
+            li.addEventListener('dblclick', function (e) {
+                if (trace.renaming) return;
+                trace.renaming = true;
+                li.innerHTML = '<input type="text" id="tabname" class="input-minimal" minlength="1" size="'+(trace.name.length-5)+'">.gpx';
+                trace.tabname = document.getElementById("tabname");
+                trace.tabname.addEventListener('keydown', function (e) {
+                    if(e.key === 'Enter') trace.rename();
+                });
+                trace.tabname.addEventListener('focusout', trace.rename.bind(trace));
+                trace.tabname.focus();
+                trace.tabname.value = trace.name.substring(0, trace.name.length-4);
             });
             ul.appendChild(li);
 
-            this.trace.tab = li;
+            trace.tab = li;
             total.buttons.updateTabWidth();
             total.buttons.circlesToFront();
 
-            this.trace.focus();
+            trace.focus();
         }).on('click', function (e) {
             if (!e.target.trace.isEdited) e.target.trace.updateFocus();
         }).on('mousedown', function (e) {
@@ -98,6 +115,18 @@ export default class Trace {
         });
 
         if (file === undefined) this.gpx.fire('loaded');
+    }
+
+    rename() {
+        var newname = this.tabname.value;
+        if (newname.length == 0) this.tab.innerHTML = this.name;
+        else {
+            newname += '.gpx';
+            this.name = newname;
+            this.tab.innerHTML = newname;
+            this.total.buttons.updateTabWidth();
+        }
+        this.renaming = false;
     }
 
     clone() {
@@ -129,12 +158,13 @@ export default class Trace {
 
     /*** DISPLAY ***/
 
-    focus() {
+    focus(creation) {
         this.total.unfocusAll();
         this.hasFocus = true;
         this.total.focusOn = this.index;
         this.total.hasFocus = false;
-        this.gpx.setStyle(focus_style);
+        this.gpx.setStyle(this.focus_style);
+        this.gpx.bringToFront();
         this.buttons.focusTabElement(this.tab);
         this.buttons.slider.reset();
         this.showData();
@@ -143,10 +173,11 @@ export default class Trace {
 
     unfocus() {
         this.hasFocus = false;
-        this.gpx.setStyle(normal_style);
+        this.gpx.setStyle(this.normal_style);
         this.closePopup();
         if (this.isEdited) this.stopEdit();
         if (this.drawing) this.stopDraw();
+        if (this.renaming) this.rename();
     }
 
     updateFocus() {
@@ -496,7 +527,7 @@ export default class Trace {
 
         if (!this.hasPoints()) {
             this.gpx.addLayer(new L.Polyline([pt], this.gpx.options.polyline_options));
-            this.gpx.setStyle(focus_style);
+            this.gpx.setStyle(this.focus_style);
         } else this.getPoints().push(pt);
 
         const points = this.getPoints();
@@ -848,7 +879,8 @@ export default class Trace {
         var url = "https://api.openrouteservice.org/v2/directions/" + (this.buttons.cycling ? "cycling-road" : "foot-hiking") + "?";
         url += "api_key=5b3ce3597851110001cf624874258de335114cc6b5d5c26de9a3587c&";
         url += "start=" + a.lng.toFixed(6) + ',' + a.lat.toFixed(6) + '&';
-        url += "end=" + b.lng.toFixed(6) + ',' + b.lat.toFixed(6);
+        if (!a.equals(b)) url += "end=" + b.lng.toFixed(6) + ',' + b.lat.toFixed(6);
+        else url += "end=" + c.lng.toFixed(6) + ',' + c.lat.toFixed(6);
         Http.open("GET", url);
         Http.send();
 
@@ -892,7 +924,7 @@ export default class Trace {
                             trace.addRoute(new_points, a, c);
                         }
                     }
-                } else trace.addRoute(new_points, a, b);
+                } else trace.addRoute(new_points, a, c);
             }
         }
     }

@@ -64,7 +64,7 @@ html, body {
 }
 
 .cross .leaflet-popup-close-button {
-    transform: translateY(235%) !important;
+    transform: translateY(350%) !important;
 }
 
 .panels-container {
@@ -504,4 +504,11 @@ ul {
     color: #fcfcfc;
     background-color: rgb(160,160,160);
     border-radius: 4px;
+}
+
+.input-minimal {
+    border-width: 0px;
+    color: inherit;
+    padding: 0px;
+    background: inherit;
 }
