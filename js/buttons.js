@@ -572,12 +572,23 @@ export default class Buttons {
             var minutes = document.getElementById("minutes");
             var seconds = document.getElementById("seconds");
 
+            var speedChange = false;
+
             if (buttons.cycling) {
                 speed.value = Math.max(1, trace.getMovingSpeed().toFixed(1));
+                speed.addEventListener("change", function () {
+                    speedChange = true;
+                });
             } else {
                 var pace = Math.floor(trace.getMovingPace() / 1000);
                 minutes.value = Math.floor(pace / 60);
                 seconds.value = pace % 60;
+                minutes.addEventListener("change", function () {
+                    speedChange = true;
+                });
+                seconds.addEventListener("change", function () {
+                    speedChange = true;
+                });
             }
 
             var start = document.getElementById("start-time");
@@ -589,17 +600,18 @@ export default class Buttons {
 
             var ok = document.getElementById("ok-dialog");
             ok.addEventListener("click", function () {
-                // others: pay attention to units
-                var v = 0;
-                if (buttons.cycling) {
-                    v = Number(speed.value);
-                    if (!buttons.km) v *= 1.60934;
-                } else {
-                    v = Number(minutes.value) * 60 +  Number(seconds.value);
-                    v = Math.max(v, 1);
-                    if (!buttons.km) v /= 1.60934;
-                    v = 1 / v; // km/s
-                    v *= 3600;
+                var v = trace.getMovingSpeed();
+                if (speedChange) {
+                    if (buttons.cycling) {
+                        v = Number(speed.value);
+                        if (!buttons.km) v *= 1.60934;
+                    } else {
+                        v = Number(minutes.value) * 60 +  Number(seconds.value);
+                        v = Math.max(v, 1);
+                        if (!buttons.km) v /= 1.60934;
+                        v = 1 / v; // km/s
+                        v *= 3600;
+                    }
                 }
 
                 const startTime = new Date(new Date(start.value).getTime());
