@@ -52,6 +52,9 @@ export default class Buttons {
         this.cancel_delete = document.getElementById("canceldelete");
         this.time = document.getElementById("edit-time");
         this.duplicate = document.getElementById("duplicate");
+        this.color = document.getElementById("color");
+        this.color_ok = document.getElementById("validate-color");
+        this.color_picker = document.getElementById("color-picker");
         this.edit = document.getElementById("edit");
         this.validate = document.getElementById("validate");
         this.unvalidate = document.getElementById("unvalidate");
@@ -89,6 +92,7 @@ export default class Buttons {
         this.clear_content = document.getElementById('clear-content');
         this.delete_content = document.getElementById('delete-content');
         this.strava_content = document.getElementById('strava-content');
+        this.color_content = document.getElementById('color-content');
 
         // ZOOM CONTROL
         this.zoom = L.control.zoom({
@@ -253,6 +257,7 @@ export default class Buttons {
         this.edit.style.visibility = 'hidden';
         this.time.style.visibility = 'hidden';
         this.duplicate.style.visibility = 'hidden';
+        this.color.style.visibility = 'hidden';
     }
 
     showTraceButtons() {
@@ -262,6 +267,7 @@ export default class Buttons {
         this.edit.style.visibility = 'visible';
         this.time.style.visibility = 'visible';
         this.duplicate.style.visibility = 'visible';
+        this.color.style.visibility = 'visible';
     }
 
     hideToolbars() {
@@ -668,6 +674,34 @@ export default class Buttons {
             close.addEventListener("click", function () {
                 trace.closePopup();
             });
+        });
+        this.color.addEventListener("click", function () {
+            const trace = total.traces[total.focusOn];
+            if (trace.popup) return;
+
+            const popup = L.popup({
+                closeButton: false,
+                autoPan: false,
+                className: "custom-popup"
+            });
+
+            popup.setContent(buttons.color_content);
+            popup.setLatLng(map.getCenter());
+            popup.openOn(map);
+            popup.addEventListener('remove', function (e) {
+                trace.closePopup();
+                buttons.enableMap();
+            });
+            trace.popup = popup;
+            buttons.disableMap();
+        });
+        this.color_ok.addEventListener("click", function () {
+            const trace = total.traces[total.focusOn];
+            const color = buttons.color_picker.value;
+            trace.normal_style.color = color;
+            trace.focus_style.color = color;
+            trace.gpx.setStyle(trace.focus_style);
+            trace.popup.remove();
         });
         this.about.addEventListener("click", function () {
             const latlng = [50.846708, 4.352491];

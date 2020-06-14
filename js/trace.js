@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-const normal_style = { color: '#FF4040', weight: 3 };
+const normal_style = { color: 'red', weight: 3 };
 const focus_style = { color: 'red', weight: 5 };
 const gpx_options = {
     async: true,
@@ -45,6 +45,8 @@ export default class Trace {
         this.drawing = false;
         this.popup = null;
         this.renaming = false;
+        this.normal_style = {...normal_style};
+        this.focus_style = {...focus_style};
 
         this.memory = [];
         this.at = -1;
@@ -84,7 +86,7 @@ export default class Trace {
             li.addEventListener('dblclick', function (e) {
                 if (trace.renaming) return;
                 trace.renaming = true;
-                li.innerHTML = '<input type="text" id="tabname" class="rename" minlength="1" size="'+(trace.name.length-5)+'">.gpx';
+                li.innerHTML = '<input type="text" id="tabname" class="input-minimal" minlength="1" size="'+(trace.name.length-5)+'">.gpx';
                 trace.tabname = document.getElementById("tabname");
                 trace.tabname.addEventListener('keydown', function (e) {
                     if(e.key === 'Enter') trace.rename();
@@ -156,12 +158,13 @@ export default class Trace {
 
     /*** DISPLAY ***/
 
-    focus() {
+    focus(creation) {
         this.total.unfocusAll();
         this.hasFocus = true;
         this.total.focusOn = this.index;
         this.total.hasFocus = false;
-        this.gpx.setStyle(focus_style);
+        this.gpx.setStyle(this.focus_style);
+        this.gpx.bringToFront();
         this.buttons.focusTabElement(this.tab);
         this.buttons.slider.reset();
         this.showData();
@@ -170,7 +173,7 @@ export default class Trace {
 
     unfocus() {
         this.hasFocus = false;
-        this.gpx.setStyle(normal_style);
+        this.gpx.setStyle(this.normal_style);
         this.closePopup();
         if (this.isEdited) this.stopEdit();
         if (this.drawing) this.stopDraw();
@@ -524,7 +527,7 @@ export default class Trace {
 
         if (!this.hasPoints()) {
             this.gpx.addLayer(new L.Polyline([pt], this.gpx.options.polyline_options));
-            this.gpx.setStyle(focus_style);
+            this.gpx.setStyle(this.focus_style);
         } else this.getPoints().push(pt);
 
         const points = this.getPoints();
