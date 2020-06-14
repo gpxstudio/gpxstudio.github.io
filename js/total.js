@@ -51,9 +51,10 @@ export default class Total {
     }
 
     clear() {
-        while (this.traces.length > 0) {
-            this.removeTrace(0);
-        }
+        for (var i=0; i<this.traces.length; i++)
+            this.traces[i].remove();
+        this.traces = [];
+        this.focus();
     }
 
     swapTraces(i, j) {
