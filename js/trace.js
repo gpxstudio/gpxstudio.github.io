@@ -879,7 +879,8 @@ export default class Trace {
         var url = "https://api.openrouteservice.org/v2/directions/" + (this.buttons.cycling ? "cycling-road" : "foot-hiking") + "?";
         url += "api_key=5b3ce3597851110001cf624874258de335114cc6b5d5c26de9a3587c&";
         url += "start=" + a.lng.toFixed(6) + ',' + a.lat.toFixed(6) + '&';
-        url += "end=" + b.lng.toFixed(6) + ',' + b.lat.toFixed(6);
+        if (!a.equals(b)) url += "end=" + b.lng.toFixed(6) + ',' + b.lat.toFixed(6);
+        else url += "end=" + c.lng.toFixed(6) + ',' + c.lat.toFixed(6);
         Http.open("GET", url);
         Http.send();
 
@@ -923,7 +924,7 @@ export default class Trace {
                             trace.addRoute(new_points, a, c);
                         }
                     }
-                } else trace.addRoute(new_points, a, b);
+                } else trace.addRoute(new_points, a, c);
             }
         }
     }
