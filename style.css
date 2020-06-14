@@ -505,3 +505,10 @@ ul {
     background-color: rgb(160,160,160);
     border-radius: 4px;
 }
+
+.rename {
+    border-width: 0px;
+    color: inherit;
+    padding: 0px;
+    background: inherit;
+}

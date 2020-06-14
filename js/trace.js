@@ -44,6 +44,7 @@ export default class Trace {
         this.isEdited = false;
         this.drawing = false;
         this.popup = null;
+        this.renaming = false;
 
         this.memory = [];
         this.at = -1;
@@ -53,8 +54,10 @@ export default class Trace {
         this.gpx = new L.GPX(file, gpx_options).addTo(map);
         this.gpx.trace = this;
 
+        const trace = this;
+
         this.gpx.on('loaded', function(e) {
-            this.trace.index = total.traces.length;
+            trace.index = total.traces.length;
 
             // merge multiple tracks of same file
             if (this.getLayers().length > 0 && !this.getLayers()[0]._latlngs) {
@@ -67,24 +70,36 @@ export default class Trace {
                 this.addLayer(mergedLayer);
             }
 
-            total.traces.push(this.trace);
+            total.traces.push(trace);
             if (this.getLayers().length > 0) total.buttons.updateBounds();
 
             var ul = document.getElementById("sortable");
             var li = document.createElement("li");
             li.innerHTML = name;
             li.classList.add('tab');
-            li.trace = this.trace;
+            li.trace = trace;
             li.addEventListener('click', function (e) {
-                if (!e.target.trace.hasFocus) e.target.trace.focus();
+                if (!trace.hasFocus) trace.focus();
+            });
+            li.addEventListener('dblclick', function (e) {
+                if (trace.renaming) return;
+                trace.renaming = true;
+                li.innerHTML = '<input type="text" id="tabname" class="rename" minlength="1" size="'+(trace.name.length-5)+'">.gpx';
+                trace.tabname = document.getElementById("tabname");
+                trace.tabname.addEventListener('keydown', function (e) {
+                    if(e.key === 'Enter') trace.rename();
+                });
+                trace.tabname.addEventListener('focusout', trace.rename.bind(trace));
+                trace.tabname.focus();
+                trace.tabname.value = trace.name.substring(0, trace.name.length-4);
             });
             ul.appendChild(li);
 
-            this.trace.tab = li;
+            trace.tab = li;
             total.buttons.updateTabWidth();
             total.buttons.circlesToFront();
 
-            this.trace.focus();
+            trace.focus();
         }).on('click', function (e) {
             if (!e.target.trace.isEdited) e.target.trace.updateFocus();
         }).on('mousedown', function (e) {
@@ -98,6 +113,18 @@ export default class Trace {
         });
 
         if (file === undefined) this.gpx.fire('loaded');
+    }
+
+    rename() {
+        var newname = this.tabname.value;
+        if (newname.length == 0) this.tab.innerHTML = this.name;
+        else {
+            newname += '.gpx';
+            this.name = newname;
+            this.tab.innerHTML = newname;
+            this.total.buttons.updateTabWidth();
+        }
+        this.renaming = false;
     }
 
     clone() {
@@ -147,6 +174,7 @@ export default class Trace {
         this.closePopup();
         if (this.isEdited) this.stopEdit();
         if (this.drawing) this.stopDraw();
+        if (this.renaming) this.rename();
     }
 
     updateFocus() {
