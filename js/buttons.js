@@ -114,7 +114,8 @@ export default class Buttons {
                     zoomOffset: -1,
                     accessToken: _this.mapbox_token,
                     useCache: true,
-	                crossOrigin: true
+	                crossOrigin: true,
+                    cacheMaxAge: 7 * 24 * 60 * 60 * 1000
                 }).addTo(_this.map);
 
                 _this.mapboxOutdoors = L.tileLayer('https://api.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}.jpg90?access_token={accessToken}', {
@@ -124,7 +125,8 @@ export default class Buttons {
                     zoomOffset: -1,
                     accessToken: _this.mapbox_token,
                     useCache: true,
-	                crossOrigin: true
+	                crossOrigin: true,
+                    cacheMaxAge: 7 * 24 * 60 * 60 * 1000
                 });
 
                 _this.mapboxSatellite = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -135,7 +137,8 @@ export default class Buttons {
                     zoomOffset: -1,
                     accessToken: _this.mapbox_token,
                     useCache: true,
-	                crossOrigin: true
+	                crossOrigin: true,
+                    cacheMaxAge: 7 * 24 * 60 * 60 * 1000
                 });
 
                 _this.openCycleMap = L.tileLayer('https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey={apikey}', {
@@ -143,7 +146,8 @@ export default class Buttons {
                     apikey: '67774cfadfeb42d2ac42bc38fda667c0',
                     maxZoom: 20,
                     useCache: true,
-	                crossOrigin: true
+	                crossOrigin: true,
+                    cacheMaxAge: 7 * 24 * 60 * 60 * 1000
                 });
 
                 _this.openTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
@@ -151,7 +155,8 @@ export default class Buttons {
                     maxNativeZoom: 17,
                     attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
                     useCache: true,
-	                crossOrigin: true
+	                crossOrigin: true,
+                    cacheMaxAge: 7 * 24 * 60 * 60 * 1000
                 });
 
                 _this.stravaHeatmap = L.tileLayer('https://heatmap-external-{s}.strava.com/tiles-auth/cycling/bluered/{z}/{x}/{y}.png', {
@@ -556,7 +561,7 @@ export default class Buttons {
             if (trace.isEdited) {
                 trace.stopEdit();
                 if (trace.drawing) trace.stopDraw();
-            } else trace.edit();
+            } else trace.draw();
         });
         map.on('mouseup', function (e) {
             map.dragging.enable();
