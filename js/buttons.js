@@ -561,7 +561,7 @@ export default class Buttons {
             if (trace.isEdited) {
                 trace.stopEdit();
                 if (trace.drawing) trace.stopDraw();
-            } else trace.edit();
+            } else trace.draw();
         });
         map.on('mouseup', function (e) {
             map.dragging.enable();

@@ -232,7 +232,7 @@ export default class Trace {
 
     draw() {
         this.edit();
-        this.buttons.hideValidate();
+        if (!this.hasPoints()) this.buttons.hideValidate();
         this.drawing = true;
         this.buttons.map._container.style.cursor = 'crosshair';
         this.insertMarker = false;
