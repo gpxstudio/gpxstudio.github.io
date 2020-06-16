@@ -118,9 +118,10 @@ export default class Buttons {
                     cacheMaxAge: 7 * 24 * 60 * 60 * 1000
                 }).addTo(_this.map);
 
-                _this.mapboxOutdoors = L.tileLayer('https://api.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}.jpg90?access_token={accessToken}', {
+                _this.mapboxOutdoors = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
                     maxZoom: 20,
+                    id: 'mapbox/outdoors-v11',
                     tileSize: 512,
                     zoomOffset: -1,
                     accessToken: _this.mapbox_token,
@@ -507,6 +508,7 @@ export default class Buttons {
         });
         this.validate.addEventListener("click", function () {
             if (total.hasFocus) return;
+            gtag('event', 'button', {'event_category' : 'crop'});
             total.traces[total.focusOn].crop(total.buttons.slider.getIndexStart(), total.buttons.slider.getIndexEnd());
         });
         buttons.kms.classList.add("selected");
@@ -561,6 +563,7 @@ export default class Buttons {
             if (trace.isEdited) {
                 trace.stopEdit();
                 if (trace.drawing) trace.stopDraw();
+                gtag('event', 'button', {'event_category' : 'edit-trace'});
             } else trace.draw();
         });
         map.on('mouseup', function (e) {
@@ -673,6 +676,7 @@ export default class Buttons {
 
                 trace.recomputeStats();
                 trace.update();
+                gtag('event', 'button', {'event_category' : 'edit-time'});
             });
 
             var close = document.getElementById("close-dialog");
