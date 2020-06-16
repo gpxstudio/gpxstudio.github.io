@@ -507,6 +507,7 @@ export default class Buttons {
         });
         this.validate.addEventListener("click", function () {
             if (total.hasFocus) return;
+            gtag('event', 'button', {'event_category' : 'crop'});
             total.traces[total.focusOn].crop(total.buttons.slider.getIndexStart(), total.buttons.slider.getIndexEnd());
         });
         buttons.kms.classList.add("selected");
@@ -561,6 +562,7 @@ export default class Buttons {
             if (trace.isEdited) {
                 trace.stopEdit();
                 if (trace.drawing) trace.stopDraw();
+                gtag('event', 'button', {'event_category' : 'edit-trace'});
             } else trace.draw();
         });
         map.on('mouseup', function (e) {
@@ -673,6 +675,7 @@ export default class Buttons {
 
                 trace.recomputeStats();
                 trace.update();
+                gtag('event', 'button', {'event_category' : 'edit-time'});
             });
 
             var close = document.getElementById("close-dialog");
