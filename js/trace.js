@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-const normal_style = { color: 'red', weight: 3 };
-const focus_style = { color: 'red', weight: 5 };
+const normal_style = { color: '#ff0000', weight: 3 };
+const focus_style = { color: '#ff0000', weight: 5 };
 const gpx_options = {
     async: true,
     polyline_options: normal_style,

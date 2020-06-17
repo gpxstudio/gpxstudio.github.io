@@ -694,6 +694,7 @@ export default class Buttons {
                 className: "custom-popup"
             });
 
+            buttons.color_picker.value = trace.normal_style.color;
             popup.setContent(buttons.color_content);
             popup.setLatLng(map.getCenter());
             popup.openOn(map);
