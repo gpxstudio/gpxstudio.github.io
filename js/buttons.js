@@ -105,6 +105,8 @@ export default class Buttons {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 _this.mapbox_token = xhr.responseText;
 
+                const cacheAge = 30 * 24 * 60 * 60 * 1000;
+
                 // TILES
                 _this.mapboxStreets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -115,7 +117,7 @@ export default class Buttons {
                     accessToken: _this.mapbox_token,
                     useCache: true,
 	                crossOrigin: true,
-                    cacheMaxAge: 7 * 24 * 60 * 60 * 1000
+                    cacheMaxAge: cacheAge
                 }).addTo(_this.map);
 
                 _this.mapboxOutdoors = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -127,7 +129,7 @@ export default class Buttons {
                     accessToken: _this.mapbox_token,
                     useCache: true,
 	                crossOrigin: true,
-                    cacheMaxAge: 7 * 24 * 60 * 60 * 1000
+                    cacheMaxAge: cacheAge
                 });
 
                 _this.mapboxSatellite = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -139,7 +141,7 @@ export default class Buttons {
                     accessToken: _this.mapbox_token,
                     useCache: true,
 	                crossOrigin: true,
-                    cacheMaxAge: 7 * 24 * 60 * 60 * 1000
+                    cacheMaxAge: cacheAge
                 });
 
                 _this.openCycleMap = L.tileLayer('https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey={apikey}', {
@@ -148,7 +150,7 @@ export default class Buttons {
                     maxZoom: 20,
                     useCache: true,
 	                crossOrigin: true,
-                    cacheMaxAge: 7 * 24 * 60 * 60 * 1000
+                    cacheMaxAge: cacheAge
                 });
 
                 _this.openTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
@@ -157,7 +159,7 @@ export default class Buttons {
                     attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
                     useCache: true,
 	                crossOrigin: true,
-                    cacheMaxAge: 7 * 24 * 60 * 60 * 1000
+                    cacheMaxAge: cacheAge
                 });
 
                 _this.stravaHeatmap = L.tileLayer('https://heatmap-external-{s}.strava.com/tiles-auth/cycling/bluered/{z}/{x}/{y}.png', {
