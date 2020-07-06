@@ -44,7 +44,7 @@
         </script>
     </head>
     <body>
-        <input id="input-file" type="file" accept=".gpx" style="display: none"/>
+        <input id="input-file" type="file" accept=".gpx" multiple style="display: none"/>
         <div id="mapid"></div>
         <div id="toolbar" class="panels-container">
             <img src="logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 2px 4px">
@@ -112,7 +112,7 @@
             <tbody>
             <tr>
                 <td><b>Load GPX</b></td>
-                <td>Import and visualize a GPX file</td>
+                <td>Import and visualize GPX files, also possible through drag and drop in the window</td>
             </tr>
             <tr>
                 <td><b>Draw</b></td>
@@ -268,7 +268,7 @@
             Please log in to<br><a href="https://www.strava.com/heatmap" target="_blank">Strava Global Heatmap</a> and retry.<br>
             <div id="strava-ok" class="panels custom-button normal-button" style="margin-top: 4px;">Got it</div>
         </div>
-        <div id="color-content" style="text-align: center">
+        <div id="color-content">
             Pick a new color<br><div><input type="color" id="color-picker" class="input-minimal" value="#ff0000"><div class="panels-button" id="validate-color" style="transform: translate(0px, -3px)"><i class="fas fa-check custom-button"></i></div></div>
         </div>
     </body>

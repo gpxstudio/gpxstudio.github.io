@@ -108,6 +108,16 @@ export default class Buttons {
                 const cacheAge = 30 * 24 * 60 * 60 * 1000;
 
                 // TILES
+
+                _this.openStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                    maxZoom: 20,
+                    maxNativeZoom: 19,
+                    useCache: true,
+	                crossOrigin: true,
+                    cacheMaxAge: cacheAge
+                }).addTo(_this.map);
+
                 _this.mapboxStreets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
                     maxZoom: 20,
@@ -118,7 +128,7 @@ export default class Buttons {
                     useCache: true,
 	                crossOrigin: true,
                     cacheMaxAge: cacheAge
-                }).addTo(_this.map);
+                });
 
                 _this.mapboxOutdoors = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -169,11 +179,12 @@ export default class Buttons {
                 });
 
                 L.control.layers({
-                    "Streets" : _this.mapboxStreets,
-                    "Outdoors" : _this.mapboxOutdoors,
-                    "Satellite" : _this.mapboxSatellite,
+                    "OpenStreetMap" : _this.openStreetMap,
                     "OpenCycleMap" : _this.openCycleMap,
-                    "OpenTopoMap" : _this.openTopoMap
+                    "OpenTopoMap" : _this.openTopoMap,
+                    "Mapbox Streets" : _this.mapboxStreets,
+                    "Mapbox Outdoors" : _this.mapboxOutdoors,
+                    "Mapbox Satellite" : _this.mapboxSatellite
                 },{
                     "Strava Heatmap" : _this.stravaHeatmap
                 }).addTo(_this.map);
@@ -363,6 +374,14 @@ export default class Buttons {
         });
         this.strava_ok.addEventListener("click", function () {
             buttons.stravaHeatmap.popup.remove();
+        });
+
+        window.addEventListener('dragover', function (e) {
+            e.preventDefault();
+        });
+        window.addEventListener('drop', function (e) {
+            e.preventDefault();
+            buttons.loadFiles(e.dataTransfer.files);
         });
     }
 
@@ -698,11 +717,13 @@ export default class Buttons {
 
             buttons.color_picker.value = trace.normal_style.color;
             popup.setContent(buttons.color_content);
+            buttons.color_content.style.display = 'block';
             popup.setLatLng(map.getCenter());
             popup.openOn(map);
             popup.addEventListener('remove', function (e) {
                 trace.closePopup();
                 buttons.enableMap();
+                buttons.color_content.style.display = 'none';
             });
             trace.popup = popup;
             buttons.disableMap();
@@ -803,6 +824,7 @@ export default class Buttons {
         var total = this.total;
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
+            if (file.name.split('.').pop() != 'gpx') continue;
             var reader = new FileReader();
             reader.onload = (function(f, name) {
                 return function(e) {
