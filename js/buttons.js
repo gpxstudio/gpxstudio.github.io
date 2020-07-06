@@ -108,6 +108,16 @@ export default class Buttons {
                 const cacheAge = 30 * 24 * 60 * 60 * 1000;
 
                 // TILES
+
+                _this.openStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                    maxZoom: 20,
+                    maxNativeZoom: 19,
+                    useCache: true,
+	                crossOrigin: true,
+                    cacheMaxAge: cacheAge
+                }).addTo(_this.map);
+
                 _this.mapboxStreets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
                     maxZoom: 20,
@@ -118,7 +128,7 @@ export default class Buttons {
                     useCache: true,
 	                crossOrigin: true,
                     cacheMaxAge: cacheAge
-                }).addTo(_this.map);
+                });
 
                 _this.mapboxOutdoors = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -169,11 +179,12 @@ export default class Buttons {
                 });
 
                 L.control.layers({
-                    "Streets" : _this.mapboxStreets,
-                    "Outdoors" : _this.mapboxOutdoors,
-                    "Satellite" : _this.mapboxSatellite,
+                    "OpenStreetMap" : _this.openStreetMap,
                     "OpenCycleMap" : _this.openCycleMap,
-                    "OpenTopoMap" : _this.openTopoMap
+                    "OpenTopoMap" : _this.openTopoMap,
+                    "Mapbox Streets" : _this.mapboxStreets,
+                    "Mapbox Outdoors" : _this.mapboxOutdoors,
+                    "Mapbox Satellite" : _this.mapboxSatellite
                 },{
                     "Strava Heatmap" : _this.stravaHeatmap
                 }).addTo(_this.map);
