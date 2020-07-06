@@ -364,6 +364,14 @@ export default class Buttons {
         this.strava_ok.addEventListener("click", function () {
             buttons.stravaHeatmap.popup.remove();
         });
+
+        window.addEventListener('dragover', function (e) {
+            e.preventDefault();
+        });
+        window.addEventListener('drop', function (e) {
+            e.preventDefault();
+            buttons.loadFiles(e.dataTransfer.files);
+        });
     }
 
     addHandlersWithTotal(total) {
@@ -805,6 +813,7 @@ export default class Buttons {
         var total = this.total;
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
+            if (file.name.split('.').pop() != 'gpx') continue;
             var reader = new FileReader();
             reader.onload = (function(f, name) {
                 return function(e) {
