@@ -698,11 +698,13 @@ export default class Buttons {
 
             buttons.color_picker.value = trace.normal_style.color;
             popup.setContent(buttons.color_content);
+            buttons.color_content.style.display = 'block';
             popup.setLatLng(map.getCenter());
             popup.openOn(map);
             popup.addEventListener('remove', function (e) {
                 trace.closePopup();
                 buttons.enableMap();
+                buttons.color_content.style.display = 'none';
             });
             trace.popup = popup;
             buttons.disableMap();
