@@ -63,6 +63,7 @@ export default class Buttons {
         this.unvalidate = document.getElementById("unvalidate");
         this.export = document.getElementById("export");
         this.export2 = document.getElementById("export-2");
+        this.save_drive = document.getElementById("save-drive");
         this.units = document.getElementById("units");
         this.activity = document.getElementById("activity");
         this.method = document.getElementById("method");
@@ -391,7 +392,7 @@ export default class Buttons {
             buttons.load.popup.remove();
         });
         this.load_drive.addEventListener("click", function () {
-            buttons.google.loadPicker();
+            buttons.google.loadPicker(false);
             buttons.load.popup.remove();
         });
         this.donate.addEventListener("click", function () {
@@ -557,6 +558,9 @@ export default class Buttons {
 
             buttons.export.popup.remove();
             gtag('event', 'button', {'event_category' : 'export'});
+        });
+        this.save_drive.addEventListener("click", function () {
+            buttons.google.loadPicker(true);
         });
         this.validate.addEventListener("click", function () {
             if (total.hasFocus) return;
