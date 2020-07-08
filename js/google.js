@@ -137,6 +137,8 @@ export default class Google {
             document.execCommand("copy");
             copyText.style.display = 'none';
 
+            navigator.clipboard.writeText(url);
+
             const popup = L.popup({
                 className: "centered-popup custom-popup",
                 closeButton: false,
