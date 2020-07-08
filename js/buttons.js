@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 import Slider from './slider.js';
+import Google from './google.js';
 
 export default class Buttons {
     constructor() {
@@ -36,6 +37,8 @@ export default class Buttons {
         // BUTTONS
         this.input = document.getElementById("input-file");
         this.load = document.getElementById("load");
+        this.load2 = document.getElementById("load2");
+        this.load_drive = document.getElementById("load-drive");
         this.draw = document.getElementById("manual");
         this.undo = document.getElementById("undo");
         this.redo = document.getElementById("redo");
@@ -60,6 +63,7 @@ export default class Buttons {
         this.unvalidate = document.getElementById("unvalidate");
         this.export = document.getElementById("export");
         this.export2 = document.getElementById("export-2");
+        this.save_drive = document.getElementById("save-drive");
         this.units = document.getElementById("units");
         this.activity = document.getElementById("activity");
         this.method = document.getElementById("method");
@@ -75,6 +79,7 @@ export default class Buttons {
         this.include_cad = document.getElementById("include-cad");
         this.include_atemp = document.getElementById("include-atemp");
         this.strava_ok = document.getElementById("strava-ok");
+        this.share_ok = document.getElementById("share-ok");
 
         // DISPLAYS
         this.distance = document.getElementById("distance-val");
@@ -93,6 +98,8 @@ export default class Buttons {
         this.delete_content = document.getElementById('delete-content');
         this.strava_content = document.getElementById('strava-content');
         this.color_content = document.getElementById('color-content');
+        this.load_content = document.getElementById('load-content');
+        this.share_content = document.getElementById('share-content');
 
         // ZOOM CONTROL
         this.zoom = L.control.zoom({
@@ -259,6 +266,7 @@ export default class Buttons {
         this.trace_info_grid.appendChild(this.elevation_profile);
 
         this.slider = new Slider(this);
+        this.google = new Google(this);
 
         this.addHandlers();
 
@@ -357,11 +365,37 @@ export default class Buttons {
 
     addHandlers() {
         const buttons = this;
+        const map = this.map;
         this.input.oninput = function() {
             buttons.loadFiles(this.files)
         };
         this.load.addEventListener("click", function () {
+            if (buttons.load.open) return;
+            buttons.load.open = true;
+            const popup = L.popup({
+                className: "centered-popup custom-popup",
+                closeButton: false,
+                autoPan: false
+            });
+            buttons.load.popup = popup;
+            popup.setLatLng(map.getCenter());
+            popup.setContent(buttons.load_content);
+            buttons.load_content.style.display = 'block';
+            popup.openOn(map);
+            buttons.disableMap();
+            popup.addEventListener('remove', function (e) {
+                buttons.load.open = false;
+                buttons.load_content.style.display = 'none';
+                buttons.enableMap();
+            });
+        });
+        this.load2.addEventListener("click", function () {
             buttons.input.click();
+            buttons.load.popup.remove();
+        });
+        this.load_drive.addEventListener("click", function () {
+            buttons.google.loadPicker(false);
+            buttons.load.popup.remove();
         });
         this.donate.addEventListener("click", function () {
             buttons.donation();
@@ -374,6 +408,9 @@ export default class Buttons {
         });
         this.strava_ok.addEventListener("click", function () {
             buttons.stravaHeatmap.popup.remove();
+        });
+        this.share_ok.addEventListener("click", function () {
+            buttons.share_content.popup.remove();
         });
 
         window.addEventListener('dragover', function (e) {
@@ -526,6 +563,9 @@ export default class Buttons {
 
             buttons.export.popup.remove();
             gtag('event', 'button', {'event_category' : 'export'});
+        });
+        this.save_drive.addEventListener("click", function () {
+            buttons.google.loadPicker(true);
         });
         this.validate.addEventListener("click", function () {
             if (total.hasFocus) return;
