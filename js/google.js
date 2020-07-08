@@ -25,6 +25,7 @@ export default class Google {
                         if (params.action == 'open') {
                             for (var i=0; i<params.ids.length; i++)
                                 _this.downloadFile({id:params.ids[i], name:'track.gpx'});
+                            gtag('event', 'button', {'event_category' : 'open-drive'});
                         }
                     }
                 });
@@ -133,10 +134,31 @@ export default class Google {
         form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
         form.append('file', file);
 
+        const _this = this;
         var xhr = new XMLHttpRequest();
-        xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
+        xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id&visibility="DEFAULT"');
         xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
         xhr.responseType = 'json';
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200 ) {
+                const fileId = xhr.response.id;
+                var request = gapi.client.request({
+                    'path': '/drive/v3/files/' + fileId + '/permissions',
+                    'method': 'POST',
+                    'headers': {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + _this.oauthToken
+                    },
+                    'body':{
+                        'role': 'reader',
+                        'type': 'anyone'
+                    }
+                });
+                request.execute(function(resp) {
+                    console.log(resp);
+                });
+            }
+        }
         xhr.send(form);
     }
 
@@ -147,13 +169,13 @@ export default class Google {
             'path': '/drive/v2/files/'+file.id,
             'method': 'GET',
             callback: function (resp) {
-                var token = gapi.auth.getToken().access_token;
                 var xhr = new XMLHttpRequest();
                 var file_url = resp.downloadUrl;
                 file_url = file_url.replace('content.google','www.google');
                 xhr.open('GET', file_url, true );
-                xhr.setRequestHeader('Authorization', 'Bearer ' + token);
-                xhr.onreadystatechange = function( theProgressEvent ) {
+                const token = gapi.auth.getToken();
+                if (token) xhr.setRequestHeader('Authorization', 'Bearer ' + token.access_token);
+                xhr.onreadystatechange = function () {
                     if (xhr.readyState == 4 && xhr.status == 200 ) {
                         buttons.total.addTrace(xhr.response, resp.title);
                     }
