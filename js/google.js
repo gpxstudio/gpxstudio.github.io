@@ -4,15 +4,38 @@ export default class Google {
         this.developerKey = 'AIzaSyAs_cICESbZdkknavgbOk623ouO3RG23Bs';
         this.clientId = "666808960580-0vssfd67o4l2oeirhnapdv2ej575pks7.apps.googleusercontent.com";
         this.appId = "666808960580";
-        this.scope = ['https://www.googleapis.com/auth/drive.file'];
+        this.scope = ['https://www.googleapis.com/auth/drive.file',
+                      'https://www.googleapis.com/auth/drive.install'];
         this.pickerApiLoaded = false;
         this.buttons = buttons;
+
+        const _this = this;
+
+        gapi.load('client:auth', {
+            callback: function () {
+                gapi.client.init({
+                    apiKey: _this.developerKey,
+                    clientId: _this.clientId,
+                    scope: 'https://www.googleapis.com/auth/drive.file'
+                }).then(function () {
+                    const queryString = window.location.search;
+                    const urlParams = new URLSearchParams(queryString);
+                    if (urlParams.has('state')) {
+                        const params = JSON.parse(urlParams.get('state'));
+                        if (params.action == 'open') {
+                            for (var i=0; i<params.ids.length; i++)
+                                _this.downloadFile({id:params.ids[i], name:'track.gpx'});
+                        }
+                    }
+                });
+            }
+        });
     }
 
     loadPicker(folderMode) {
         this.folderMode = folderMode;
         if (!this.oauthToken)
-            gapi.load('client:auth', {'callback': this.onAuthApiLoad.bind(this)});
+            gapi.load('auth', {'callback': this.onAuthApiLoad.bind(this)});
         gapi.load('picker', {'callback': this.onPickerApiLoad.bind(this)});
     }
 
@@ -132,7 +155,7 @@ export default class Google {
                 xhr.setRequestHeader('Authorization', 'Bearer ' + token);
                 xhr.onreadystatechange = function( theProgressEvent ) {
                     if (xhr.readyState == 4 && xhr.status == 200 ) {
-                        buttons.total.addTrace(xhr.response, file.name);
+                        buttons.total.addTrace(xhr.response, resp.title);
                     }
                 }
                 xhr.send();
