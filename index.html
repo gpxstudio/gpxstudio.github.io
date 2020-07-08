@@ -30,6 +30,7 @@
         <script type="module" src="js/buttons.js"></script>
         <script type="module" src="js/trace.js"></script>
         <script type="module" src="js/total.js"></script>
+        <script type="module" src="js/google.js"></script>
         <script type="module" src="js/script.js"></script>
         <script>
             $( function() {
@@ -42,6 +43,7 @@
                 $( "#sortable" ).disableSelection();
             });
         </script>
+        <script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
     </head>
     <body>
         <input id="input-file" type="file" accept=".gpx" multiple style="display: none"/>
@@ -270,6 +272,11 @@
         </div>
         <div id="color-content">
             Pick a new color<br><div><input type="color" id="color-picker" class="input-minimal" value="#ff0000"><div class="panels-button" id="validate-color" style="transform: translate(0px, -3px)"><i class="fas fa-check custom-button"></i></div></div>
+        </div>
+        <div id="load-content">
+            Choose file(s) from<br>
+            <div id="load2" class="panels custom-button normal-button">Desktop</div>
+            <div id="load-drive" class="panels custom-button normal-button">Google Drive <i class="fab fa-google-drive"></i></div>
         </div>
     </body>
 </html>

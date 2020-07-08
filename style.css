@@ -499,6 +499,11 @@ ul {
     display: none;
 }
 
+#load-content {
+    text-align: center;
+    display: none;
+}
+
 .fancy-button {
     color:white;
     background-color:rgb(220,15,130);
