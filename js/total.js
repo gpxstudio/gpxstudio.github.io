@@ -314,7 +314,7 @@ export default class Total {
     `;
             }
 
-            if (!mergeAll) {
+            if (!mergeAll || this.traces.length == 1) {
                 output.push({
                     name: this.traces[i].name,
                     text: (xmlStart+xmlOutput+xmlEnd)
@@ -323,7 +323,7 @@ export default class Total {
             }
         }
 
-        if (mergeAll) {
+        if (mergeAll && this.traces.length > 1) {
             output.push({
                 name: 'track.gpx',
                 text: (xmlStart+xmlOutput+xmlEnd)
