@@ -79,6 +79,7 @@ export default class Buttons {
         this.include_cad = document.getElementById("include-cad");
         this.include_atemp = document.getElementById("include-atemp");
         this.strava_ok = document.getElementById("strava-ok");
+        this.share_ok = document.getElementById("share-ok");
 
         // DISPLAYS
         this.distance = document.getElementById("distance-val");
@@ -98,6 +99,7 @@ export default class Buttons {
         this.strava_content = document.getElementById('strava-content');
         this.color_content = document.getElementById('color-content');
         this.load_content = document.getElementById('load-content');
+        this.share_content = document.getElementById('share-content');
 
         // ZOOM CONTROL
         this.zoom = L.control.zoom({
@@ -406,6 +408,9 @@ export default class Buttons {
         });
         this.strava_ok.addEventListener("click", function () {
             buttons.stravaHeatmap.popup.remove();
+        });
+        this.share_ok.addEventListener("click", function () {
+            buttons.share_content.popup.remove();
         });
 
         window.addEventListener('dragover', function (e) {

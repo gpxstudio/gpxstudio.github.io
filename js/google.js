@@ -21,6 +21,7 @@ export default class Google {
                     const queryString = window.location.search;
                     const urlParams = new URLSearchParams(queryString);
                     if (urlParams.has('state')) {
+                        _this.buttons.map.stopLocate();
                         const params = JSON.parse(urlParams.get('state'));
                         if (params.action == 'open') {
                             for (var i=0; i<params.ids.length; i++)
@@ -105,19 +106,52 @@ export default class Google {
 
     folderPickerCallback(data) {
         if (data.action == google.picker.Action.PICKED) {
-            const mergeAll = this.buttons.merge.checked;
-            const time = this.buttons.include_time.checked;
-            const hr = this.buttons.include_hr.checked;
-            const atemp = this.buttons.include_atemp.checked;
-            const cad = this.buttons.include_cad.checked;
+            const buttons = this.buttons;
+            const mergeAll = buttons.merge.checked;
+            const time = buttons.include_time.checked;
+            const hr = buttons.include_hr.checked;
+            const atemp = buttons.include_atemp.checked;
+            const cad = buttons.include_cad.checked;
 
-            this.buttons.export.popup.remove();
+            buttons.export.popup.remove();
 
-            const output = this.buttons.total.outputGPX(mergeAll, time, hr, atemp, cad);
+            this.fileIds = [];
+            const output = buttons.total.outputGPX(mergeAll, time, hr, atemp, cad);
             for (var i=0; i<output.length; i++)
                 this.saveFile(output[i].name, output[i].text, data.docs[0].id);
 
             gtag('event', 'button', {'event_category' : 'save-drive'});
+
+            var url = 'https://gpxstudio.github.io/?state=%7B"ids":%5B"';
+            for (var i=0; i<this.fileIds.length; i++) {
+                url += this.fileIds[i];
+                if (i<this.fileIds.length-1) url += '","';
+            }
+            url += '"%5D,"action":"open"%7D';
+
+            var copyText = document.getElementById("share-url");
+            copyText.style.display = 'block';
+            copyText.value = url;
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+            copyText.style.display = 'none';
+
+            const popup = L.popup({
+                className: "centered-popup custom-popup",
+                closeButton: false,
+                autoPan: false
+            });
+            popup.setLatLng(buttons.map.getCenter());
+            popup.setContent(buttons.share_content);
+            buttons.share_content.style.display = 'block';
+            buttons.share_content.popup = popup;
+            popup.openOn(buttons.map);
+            buttons.disableMap();
+            popup.addEventListener('remove', function (e) {
+                buttons.share_content.style.display = 'none';
+                buttons.enableMap();
+            });
         }
     }
 
@@ -136,12 +170,12 @@ export default class Google {
 
         const _this = this;
         var xhr = new XMLHttpRequest();
-        xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id&visibility="DEFAULT"');
+        xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id', false);
         xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
-        xhr.responseType = 'json';
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200 ) {
-                const fileId = xhr.response.id;
+                const fileId = JSON.parse(xhr.response).id;
+                _this.fileIds.push(fileId);
                 var request = gapi.client.request({
                     'path': '/drive/v3/files/' + fileId + '/permissions',
                     'method': 'POST',
@@ -154,9 +188,7 @@ export default class Google {
                         'type': 'anyone'
                     }
                 });
-                request.execute(function(resp) {
-                    console.log(resp);
-                });
+                request.execute();
             }
         }
         xhr.send(form);
