@@ -136,7 +136,7 @@ export default class Trace {
         const cpy = [];
         for (var i=0; i<points.length; i++) {
             const pt = points[i].clone();
-            pt.meta = points[i].meta;
+            pt.meta = JSON.parse(JSON.stringify(points[i].meta));
             pt.index = points[i].index;
             pt.routing = points[i].routing;
             cpy.push(pt);

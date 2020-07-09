@@ -214,16 +214,21 @@ export default class Total {
                     if(lastPoints) {
                         const a = lastPoints[lastPoints.length-1];
                         const b = points[0];
-                        const dist = this.traces[i].gpx._dist3d(a, b);
+                        const dist = mergeAll ? this.traces[i].gpx._dist3d(a, b) : 0;
                         startTime = new Date(a.meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
                     } else if (i < this.traces.length-1) {
-                        const a = points[points.length-1];
-                        const b = this.traces[i+1].getPoints()[0];
-                        const dist = this.traces[i].gpx._dist3d(a, b);
-                        startTime = new Date(b.meta.time.getTime()
-                                                - 1000 * 60 * 60 * dist/(1000 * avg)
-                                                - 1000 * 60 * 60 * this.traces[i].getDistance(true)/(1000 * avg)
-                                            );
+                        var a = points[points.length-1];
+                        var b;
+                        var dist = this.traces[i].getDistance(true);
+                        for (var j=i+1; j<this.traces.length; j++) {
+                            const cur_points = this.traces[j].getPoints();
+                            b = cur_points[0];
+                            if (mergeAll) dist += this.traces[j].gpx._dist3d(a, b);
+                            if (this.traces[j].firstTimeData() == -1) dist += this.traces[j].getDistance(true);
+                            else break;
+                            a = cur_points[cur_points.length-1];
+                        }
+                        startTime = new Date(b.meta.time.getTime() - 1000 * 60 * 60 * dist/(1000 * avg));
                     }
                     this.traces[i].changeTimeData(startTime, avg);
                 } else if (mergeAll && lastPoints && points[0].meta.time < lastPoints[lastPoints.length-1].meta.time) { // time precedence constraint
