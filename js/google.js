@@ -42,14 +42,19 @@ export default class Google {
     }
 
     onAuthApiLoad() {
-        window.gapi.auth.authorize(
-            {
-                'client_id': this.clientId,
-                'scope': this.scope,
-                'immediate': false
-            },
-            this.handleAuthResult.bind(this)
-        );
+        const authResult = gapi.auth.getToken();
+        if (authResult) {
+            this.handleAuthResult(authResult);
+        } else {
+            window.gapi.auth.authorize(
+                {
+                    'client_id': this.clientId,
+                    'scope': this.scope,
+                    'immediate': false
+                },
+                this.handleAuthResult.bind(this)
+            );
+        }
     }
 
     onPickerApiLoad() {
