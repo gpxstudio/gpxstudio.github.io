@@ -122,23 +122,6 @@ export default class Google {
 
             gtag('event', 'button', {'event_category' : 'save-drive'});
 
-            var url = 'https://gpxstudio.github.io/?state=%7B"ids":%5B"';
-            for (var i=0; i<this.fileIds.length; i++) {
-                url += this.fileIds[i];
-                if (i<this.fileIds.length-1) url += '","';
-            }
-            url += '"%5D,"action":"open"%7D';
-
-            var copyText = document.getElementById("share-url");
-            copyText.style.display = 'block';
-            copyText.value = url;
-            copyText.select();
-            copyText.setSelectionRange(0, 99999);
-            document.execCommand("copy");
-            copyText.style.display = 'none';
-
-            navigator.clipboard.writeText(url);
-
             const popup = L.popup({
                 className: "centered-popup custom-popup",
                 closeButton: false,
@@ -160,30 +143,27 @@ export default class Google {
     saveFile(filename, filecontent, folderid) {
         var file = new Blob([filecontent], {type: 'text/xml'});
         var metadata = {
-            'name': filename,
+            'title': filename,
             'mimeType': 'text/xml',
-            'parents': [folderid],
+            'parents': [{"kind": "drive#parentReference", "id": folderid}]
         };
 
         var accessToken = gapi.auth.getToken().access_token;
-        var form = new FormData();
-        form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
-        form.append('file', file);
 
         const _this = this;
-        var xhr = new XMLHttpRequest();
-        xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id', false);
-        xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200 ) {
-                const fileId = JSON.parse(xhr.response).id;
-                _this.fileIds.push(fileId);
+        var uploader = new MediaUploader({
+            file: file,
+            token: accessToken,
+            metadata: metadata,
+            onComplete: function (resp) {
+                const ans = JSON.parse(resp);
+                _this.fileIds.push(ans.id);
                 var request = gapi.client.request({
-                    'path': '/drive/v3/files/' + fileId + '/permissions',
+                    'path': '/drive/v3/files/' + ans.id + '/permissions',
                     'method': 'POST',
                     'headers': {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + _this.oauthToken
+                        'Authorization': 'Bearer ' + accessToken
                     },
                     'body':{
                         'role': 'reader',
@@ -191,9 +171,18 @@ export default class Google {
                     }
                 });
                 request.execute();
+
+                var url = 'https://gpxstudio.github.io/?state=%7B"ids":%5B"';
+                for (var i=0; i<_this.fileIds.length; i++) {
+                    url += _this.fileIds[i];
+                    if (i<_this.fileIds.length-1) url += '","';
+                }
+                url += '"%5D,"action":"open"%7D';
+
+                navigator.clipboard.writeText(url);
             }
-        }
-        xhr.send(form);
+        });
+        uploader.upload();
     }
 
     downloadFile(file) {
@@ -205,16 +194,18 @@ export default class Google {
             callback: function (resp) {
                 var xhr = new XMLHttpRequest();
                 var file_url = resp.downloadUrl;
-                file_url = file_url.replace('content.google','www.google');
-                xhr.open('GET', file_url, true );
-                const token = gapi.auth.getToken();
-                if (token) xhr.setRequestHeader('Authorization', 'Bearer ' + token.access_token);
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState == 4 && xhr.status == 200 ) {
-                        buttons.total.addTrace(xhr.response, resp.title);
+                if (file_url) {
+                    file_url = file_url.replace('content.google','www.google');
+                    xhr.open('GET', file_url, true );
+                    const token = gapi.auth.getToken();
+                    if (token) xhr.setRequestHeader('Authorization', 'Bearer ' + token.access_token);
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState == 4 && xhr.status == 200) {
+                            buttons.total.addTrace(xhr.response, resp.title);
+                        }
                     }
+                    xhr.send();
                 }
-                xhr.send();
             }
         });
     }
