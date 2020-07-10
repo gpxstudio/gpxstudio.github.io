@@ -91,7 +91,6 @@ export default class Buttons {
         this.end_slider = document.getElementById('end-point');
         this.total_tab = document.getElementById('total-tab');
         this.tabs = document.getElementById('sortable');
-        this.about_text = document.getElementById('about-text');
         this.help_text = document.getElementById('help-text');
         this.export_content = document.getElementById('export-content');
         this.clear_content = document.getElementById('clear-content');
@@ -777,24 +776,7 @@ export default class Buttons {
             trace.popup.remove();
         });
         this.about.addEventListener("click", function () {
-            const latlng = [50.846708, 4.352491];
-            const latlngCentered = [52.846708, 4.352491];
-            const bounds = map.getBounds();
-            map.setView(latlngCentered, 6)
-            const popup = L.popup();
-            popup.setLatLng(latlng);
-            popup.setContent(buttons.about_text);
-            buttons.about_text.style.display = 'block';
-            popup.openOn(map);
-            buttons.disableMap();
-            buttons.hideToolbars();
-            popup.addEventListener('remove', function (e) {
-                buttons.showToolbars();
-                map.fitBounds(bounds);
-                buttons.about_text.style.display = 'none';
-                buttons.enableMap();
-            });
-            gtag('event', 'button', {'event_category' : 'about'});
+            window.open('./about.html');
         });
         this.help.addEventListener("click", function () {
             if (buttons.help.open) return;
