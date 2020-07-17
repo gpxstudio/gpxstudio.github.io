@@ -102,6 +102,8 @@ export default class Trace {
             total.buttons.circlesToFront();
 
             trace.focus();
+
+            if (trace.gpx.missing_elevation) trace.askElevation(trace.getPoints());
         }).on('click', function (e) {
             if (!e.target.trace.isEdited) e.target.trace.updateFocus();
         }).on('mousedown', function (e) {
@@ -826,7 +828,7 @@ export default class Trace {
                     trace.recomputeStats();
 
                     trace.update();
-                    trace.buttons.elev._removeSliderCircles();
+                    if (trace.isEdited) trace.buttons.elev._removeSliderCircles();
                 } else trace.askPointsElevation(requests.slice(1), step);
             } else if (this.readyState == 4 && this.status == 504) {
                 console.log('elevation query timeout : retry');

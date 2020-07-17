@@ -444,6 +444,7 @@ L.GPX = L.FeatureGroup.extend({
         ll.meta.ele = parseFloat(_[0].textContent);
       } else {
         ll.meta.ele = 0;
+        this.missing_elevation = true;
       }
 
       _ = el[i].getElementsByTagName('name');
