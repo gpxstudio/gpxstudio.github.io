@@ -123,18 +123,20 @@ export default class Google {
             this.fileIds = [];
             const output = buttons.total.outputGPX(mergeAll, time, hr, atemp, cad);
             for (var i=0; i<output.length; i++)
-                this.saveFile(output[i].name, output[i].text, data.docs[0].id);
+                this.saveFile(output[i].name, output[i].text, data.docs[0].id, output.length);
 
             gtag('event', 'button', {'event_category' : 'save-drive'});
 
             const popup = L.popup({
                 className: "centered-popup custom-popup",
                 closeButton: false,
-                autoPan: false
+                autoPan: false,
+                closeOnEscapeKey: false,
+                closeOnClick: false,
+                autoClose: false
             });
             popup.setLatLng(buttons.map.getCenter());
-            popup.setContent(buttons.share_content);
-            buttons.share_content.style.display = 'block';
+            popup.setContent('Uploading...');
             buttons.share_content.popup = popup;
             popup.openOn(buttons.map);
             buttons.disableMap();
@@ -142,14 +144,15 @@ export default class Google {
                 buttons.share_content.style.display = 'none';
                 buttons.enableMap();
             });
+            this.popup = popup;
         }
     }
 
-    saveFile(filename, filecontent, folderid) {
+    saveFile(filename, filecontent, folderid, number) {
         var file = new Blob([filecontent], {type: 'text/xml'});
         var metadata = {
             'title': filename,
-            'mimeType': 'text/xml',
+            'mimeType': 'application/gpx+xml',
             'parents': [{"kind": "drive#parentReference", "id": folderid}]
         };
 
@@ -177,14 +180,20 @@ export default class Google {
                 });
                 request.execute();
 
-                var url = 'https://gpxstudio.github.io/?state=%7B"ids":%5B"';
-                for (var i=0; i<_this.fileIds.length; i++) {
-                    url += _this.fileIds[i];
-                    if (i<_this.fileIds.length-1) url += '","';
-                }
-                url += '"%5D,"action":"open"%7D';
+                if (_this.fileIds.length == number) {
+                    var url = 'https://gpxstudio.github.io/?state=%7B"ids":%5B"';
+                    for (var i=0; i<_this.fileIds.length; i++) {
+                        url += _this.fileIds[i];
+                        if (i<_this.fileIds.length-1) url += '","';
+                    }
+                    url += '"%5D,"action":"open"%7D';
 
-                navigator.clipboard.writeText(url);
+                    navigator.clipboard.writeText(url);
+
+                    _this.buttons.share_content.style.display = 'block';
+                    _this.popup.setContent(_this.buttons.share_content);
+                    _this.popup.setLatLng(_this.buttons.map.getCenter());
+                }
             }
         });
         uploader.upload();
