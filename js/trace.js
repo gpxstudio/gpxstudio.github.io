@@ -240,6 +240,7 @@ export default class Trace {
         this.insertMarker = false;
         const _this = this;
         this.buttons.map.addEventListener("click", function (e) {
+            if (e.originalEvent.target.id != "mapid") return;
             if (!_this.insertMarker) _this.addEndPoint(e.latlng.lat, e.latlng.lng);
             _this.insertMarker = false;
         });
