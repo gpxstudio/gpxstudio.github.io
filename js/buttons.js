@@ -273,6 +273,14 @@ export default class Buttons {
         this.trace_info.addTo(this.map);
         this.trace_info_grid.appendChild(this.elevation_profile);
 
+
+        this.social = L.control({position: 'bottomright'});
+        this.social.onAdd = function (map) {
+            var div = document.getElementById('social');
+            return div;
+        };
+        this.social.addTo(this.map);
+
         this.slider = new Slider(this);
         this.google = new Google(this);
 
