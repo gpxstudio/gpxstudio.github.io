@@ -99,6 +99,7 @@ export default class Buttons {
         this.color_content = document.getElementById('color-content');
         this.load_content = document.getElementById('load-content');
         this.share_content = document.getElementById('share-content');
+        this.buttons_bar = document.getElementById('buttons-bar');
 
         // ZOOM CONTROL
         this.zoom = L.control.zoom({
@@ -255,6 +256,14 @@ export default class Buttons {
         };
         this.toolbar.addTo(this.map);
 
+        this.buttonbar = L.control({position: 'topleft'});
+        this.buttonbar.onAdd = function (map) {
+            var div = _this.buttons_bar;
+            L.DomEvent.disableClickPropagation(div);
+            return div;
+        };
+        this.buttonbar.addTo(this.map);
+
         this.trace_info = L.control({position: 'bottomleft'});
         this.trace_info.onAdd = function (map) {
             var div = document.getElementById('info');
@@ -278,22 +287,40 @@ export default class Buttons {
 
     hideTraceButtons() {
         this.slider.hide();
-        this.delete.style.visibility = 'hidden';
-        //this.reverse.style.visibility = 'hidden';
-        this.edit.style.visibility = 'hidden';
-        this.time.style.visibility = 'hidden';
-        this.duplicate.style.visibility = 'hidden';
-        this.color.style.visibility = 'hidden';
+        this.delete.classList.add('unselected','no-click');
+        this.reverse.classList.add('unselected','no-click');
+        this.edit.classList.add('unselected','no-click');
+        this.time.classList.add('unselected','no-click');
+        this.duplicate.classList.add('unselected','no-click');
+        this.color.classList.add('unselected','no-click');
     }
 
     showTraceButtons() {
         this.slider.show();
-        this.delete.style.visibility = 'visible';
-        //this.reverse.style.visibility = 'visible';
-        this.edit.style.visibility = 'visible';
-        this.time.style.visibility = 'visible';
-        this.duplicate.style.visibility = 'visible';
-        this.color.style.visibility = 'visible';
+        this.delete.classList.remove('unselected','no-click');
+        this.reverse.classList.remove('unselected','no-click');
+        this.edit.classList.remove('unselected','no-click');
+        this.time.classList.remove('unselected','no-click');
+        this.duplicate.classList.remove('unselected','no-click');
+        this.color.classList.remove('unselected','no-click');
+    }
+
+    greyTraceButtons() {
+        this.slider.hide();
+        this.delete.classList.add('unselected','no-click');
+        this.reverse.classList.add('unselected','no-click');
+        this.time.classList.add('unselected','no-click');
+        this.duplicate.classList.add('unselected','no-click');
+        this.color.classList.add('unselected','no-click');
+    }
+
+    blackTraceButtons() {
+        this.slider.show();
+        this.delete.classList.remove('unselected','no-click');
+        this.reverse.classList.remove('unselected','no-click');
+        this.time.classList.remove('unselected','no-click');
+        this.duplicate.classList.remove('unselected','no-click');
+        this.color.classList.remove('unselected','no-click');
     }
 
     hideToolbars() {
@@ -308,9 +335,7 @@ export default class Buttons {
         this.toolbar.getContainer().style.visibility = 'visible';
         this.trace_info.getContainer().style.visibility = 'visible';
         if (!this.total.hasFocus) {
-             if (this.total.traces[this.total.focusOn].isEdited) {
-                 if (this.total.traces[this.total.focusOn].getPoints().length >= 2) this.showValidate();
-             } else this.showTraceButtons();
+             if (!this.total.traces[this.total.focusOn].isEdited) this.showTraceButtons();
          }
     }
 
@@ -339,20 +364,11 @@ export default class Buttons {
     editToValidate() {
         this.edit.childNodes[0].classList.remove('fa-pencil-alt');
         this.edit.childNodes[0].classList.add('fa-check');
-        this.showValidate();
     }
 
     validateToEdit() {
         this.edit.childNodes[0].classList.remove('fa-check');
         this.edit.childNodes[0].classList.add('fa-pencil-alt');
-    }
-
-    showValidate() {
-        this.edit.style.visibility = 'visible';
-    }
-
-    hideValidate() {
-        this.edit.style.visibility = 'hidden';
     }
 
     circlesToFront() {
@@ -625,6 +641,11 @@ export default class Buttons {
                 if (trace.drawing) trace.stopDraw();
                 gtag('event', 'button', {'event_category' : 'edit-trace'});
             } else trace.draw();
+        });
+        this.reverse.addEventListener("click", function() {
+            if (total.hasFocus) return;
+            var trace = total.traces[total.focusOn];
+            trace.reverse();
         });
         map.on('mouseup', function (e) {
             map.dragging.enable();

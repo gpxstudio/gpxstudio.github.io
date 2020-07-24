@@ -205,7 +205,7 @@ export default class Trace {
         this.isEdited = true;
         this.updatePointIndices();
         this.updateEditMarkers();
-        this.buttons.hideTraceButtons();
+        this.buttons.greyTraceButtons();
         this.buttons.elev._removeSliderCircles();
         this.buttons.editToValidate();
         this.closePopup();
@@ -218,7 +218,7 @@ export default class Trace {
     stopEdit() {
         this.isEdited = false;
         this.removeEditMarkers();
-        this.buttons.showTraceButtons();
+        this.buttons.blackTraceButtons();
         this.buttons.elev._addSliderCircles();
         this.buttons.validateToEdit();
         this.closePopup();
@@ -234,7 +234,6 @@ export default class Trace {
 
     draw() {
         this.edit();
-        if (!this.hasPoints()) this.buttons.hideValidate();
         this.drawing = true;
         this.buttons.map._container.style.cursor = 'crosshair';
         this.insertMarker = false;
@@ -250,7 +249,7 @@ export default class Trace {
         this.buttons.map._container.style.cursor = '';
         this.buttons.map.removeEventListener("click");
         this.drawing = false;
-        if (this.getPoints().length < 2) {
+        if (this.getPoints().length == 0) {
             this.total.removeTrace(this.index);
             this.buttons.showTraceButtons();
         }
@@ -522,6 +521,13 @@ export default class Trace {
         this.buttons.slider.reset();
     }
 
+    reverse() {
+        this.gpx.getLayers()[0]._latlngs.reverse();
+        this.recomputeStats();
+        this.update();
+        this.redraw();
+    }
+
     addEndPoint(lat, lng) {
         this.save();
 
@@ -535,8 +541,6 @@ export default class Trace {
 
         const points = this.getPoints();
         pt.index = points.length-1;
-
-        if (points.length >= 2) this.buttons.showValidate();
 
         const marker = this.newEditMarker(pt);
         this._editMarkers.push(marker);
@@ -570,8 +574,6 @@ export default class Trace {
         var c = marker._succ;
 
         this.deletePointManual(marker);
-
-        if (points.length < 2) this.buttons.hideValidate();
 
         if (this.buttons.routing) {
             if(!marker._prec.equals(marker._pt) && !marker._succ.equals(marker._pt)) this.askRoute2(a, c);
@@ -1088,8 +1090,5 @@ export default class Trace {
         this.redraw();
         this.updateEditMarkers();
         this.buttons.elev._removeSliderCircles();
-
-        if (points.length < 2) this.buttons.hideValidate();
-        else this.buttons.showValidate();
     }
 }
