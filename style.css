@@ -9,9 +9,13 @@ html, body {
     height: 100%;
 }
 
-.leaflet-left {
-    left: 50%;
+.center-leaflet {
     transform: translate(-50%, 0%);
+    margin-left: 50vw !important;
+}
+
+.vcenter-leaflet {
+    margin-top: 20vh !important;
 }
 
 .leaflet-left .leaflet-control {
@@ -60,7 +64,7 @@ html, body {
 }
 
 .centered-popup .leaflet-popup-close-button {
-    transform: translateY(710%);
+    transform: translateY(690%);
 }
 
 .cross .leaflet-popup-close-button {
@@ -110,7 +114,7 @@ html, body {
 .panels-button {
     display: inline-block;
     *display: inline;
-    padding: 0px 6px;
+    padding: 3px 6px;
     color: #535353;
     white-space: nowrap;
 }
@@ -285,31 +289,6 @@ html, body {
  visibility: hidden;
 }
 
-#edit {
-  grid-column: 5 / span 1;
-  grid-row: 1 / span 1;
-}
-
-#delete {
-  grid-column: 5 / span 1;
-  grid-row: 5 / span 1;
-}
-
-#edit-time {
-  grid-column: 5 / span 1;
-  grid-row: 2 / span 1;
-}
-
-#duplicate {
-  grid-column: 5 / span 1;
-  grid-row: 3 / span 1;
-}
-
-#reverse {
-  grid-column: 5 / span 1;
-  grid-row: 3 / span 1;
-}
-
 #crop-container {
   grid-column: 4 / span 1;
   grid-row: 5 / span 1;
@@ -415,6 +394,10 @@ html, body {
 
 .unselected {
     color: #b3b3b3;
+}
+
+.no-click {
+    pointer-events: none;
 }
 
 #popup-grid {
