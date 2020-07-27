@@ -654,6 +654,7 @@ export default class Buttons {
             if (total.hasFocus) return;
             var trace = total.traces[total.focusOn];
             trace.reverse();
+            gtag('event', 'button', {'event_category' : 'reverse'});
         });
         map.on('mouseup', function (e) {
             map.dragging.enable();
@@ -803,6 +804,7 @@ export default class Buttons {
             trace.focus_style.color = color;
             trace.gpx.setStyle(trace.focus_style);
             trace.popup.remove();
+            gtag('event', 'button', {'event_category' : 'color'});
         });
         this.about.addEventListener("click", function () {
             window.open('./about.html');
@@ -829,6 +831,7 @@ export default class Buttons {
         this.duplicate.addEventListener("click", function () {
             const trace = total.traces[total.focusOn];
             trace.clone();
+            gtag('event', 'button', {'event_category' : 'duplicate'});
         });
     }
 
