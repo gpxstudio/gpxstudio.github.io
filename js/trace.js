@@ -81,7 +81,14 @@ export default class Trace {
             li.classList.add('tab');
             li.trace = trace;
             li.addEventListener('click', function (e) {
-                if (!trace.hasFocus) trace.focus();
+                if (total.to_merge && total.to_merge != trace) {
+                    total.to_merge.merge(trace);
+                    total.removeTrace(trace.index);
+                    total.to_merge.focus();
+                    total.to_merge = null;
+                    total.buttons.combine.popup.remove();
+                    gtag('event', 'button', {'event_category' : 'merge'});
+                } else if (!trace.hasFocus) trace.focus();
             });
             li.addEventListener('dblclick', function (e) {
                 if (trace.renaming) return;
@@ -451,6 +458,11 @@ export default class Trace {
         else return this.gpx._info.length / 1.60934;
     }
 
+    getMovingDistance(noConversion) {
+        if (this.buttons.km || noConversion) return this.gpx._info.moving_length;
+        else return this.gpx._info.moving_length / 1.60934;
+    }
+
     getElevation() {
         if (this.buttons.km) return this.gpx._info.elevation.gain;
         else return this.gpx._info.elevation.gain * 3.28084;
@@ -463,7 +475,7 @@ export default class Trace {
     getMovingSpeed(noConversion) {
         const time = this.getMovingTime();
         if (time == 0) return 0;
-        return this.getDistance(noConversion) / (time / 3600);
+        return this.getMovingDistance(noConversion) / (time / 3600);
     }
 
     getMovingPace() {
@@ -523,6 +535,48 @@ export default class Trace {
 
     reverse() {
         this.gpx.getLayers()[0]._latlngs.reverse();
+        this.recomputeStats();
+        this.update();
+        this.redraw();
+    }
+
+    merge(trace) {
+        const points = this.getPoints();
+        const otherPoints = trace.getPoints();
+
+        const data = this.getAverageAdditionalData();
+        const otherData = trace.getAverageAdditionalData();
+
+        for (var i=0; i<points.length; i++) {
+            if (!data.hr && otherData.hr) points[i].meta.hr = otherData.hr;
+            if (!data.atemp && otherData.atemp) points[i].meta.atemp = otherData.atemp;
+            if (!data.cad && otherData.cad) points[i].meta.cad = otherData.cad;
+        }
+        for (var i=0; i<otherPoints.length; i++) {
+            if (data.hr && !otherData.hr) otherPoints[i].meta.hr = data.hr;
+            if (data.atemp && !otherData.atemp) otherPoints[i].meta.atemp = data.atemp;
+            if (data.cad && !otherData.cad) otherPoints[i].meta.cad = data.cad;
+        }
+
+        if (this.firstTimeData() >= 0 && trace.firstTimeData() == -1) {
+            const avg = this.getMovingSpeed();
+            const a = points[points.length-1];
+            const b = otherPoints[0];
+            const dist = this.gpx._dist3d(a, b);
+            const startTime = new Date(a.meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
+            trace.changeTimeData(startTime, avg);
+        } else if (this.firstTimeData() == -1 && trace.firstTimeData() >= 0) {
+            const avg = trace.getMovingSpeed();
+            const a = points[points.length-1];
+            const b = otherPoints[0];
+            const dist = this.gpx._dist3d(a, b) + this.getDistance(true);
+            const startTime = new Date(b.meta.time.getTime() - 1000 * 60 * 60 * dist/(1000 * avg));
+            this.changeTimeData(startTime, avg);
+        }
+        points.push(...otherPoints);
+
+        // extend additional data
+
         this.recomputeStats();
         this.update();
         this.redraw();
@@ -732,6 +786,7 @@ export default class Trace {
     recomputeStats() {
         // reset
         this.gpx._info.length = 0.0;
+        this.gpx._info.moving_length = 0.0;
         this.gpx._info.elevation.gain = 0.0;
         this.gpx._info.elevation.loss = 0.0;
         this.gpx._info.elevation.max = 0.0;
@@ -765,6 +820,7 @@ export default class Trace {
                 this.gpx._info.duration.total += t;
                 if (t < this.gpx.options.max_point_interval && (dist/1000)/(t/1000/60/60) >= 0.5) {
                   this.gpx._info.duration.moving += t;
+                  this.gpx._info.moving_length += dist;
                 }
             } else if (this.gpx._info.duration.start == null) {
                 this.gpx._info.duration.start = ll.meta.time;
