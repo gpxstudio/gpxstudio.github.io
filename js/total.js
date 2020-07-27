@@ -140,8 +140,7 @@ export default class Total {
     getMovingDistance(noConversion) {
         var tot = 0;
         for (var i=0; i<this.traces.length; i++)
-            if (this.traces[i].getMovingTime() > 0)
-                tot += this.traces[i].getDistance(noConversion);
+            tot += this.traces[i].getMovingDistance(noConversion);
         return tot;
     }
 

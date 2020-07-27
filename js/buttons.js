@@ -54,6 +54,7 @@ export default class Buttons {
         this.reverse = document.getElementById("reverse");
         this.cancel_delete = document.getElementById("canceldelete");
         this.time = document.getElementById("edit-time");
+        this.combine = document.getElementById("combine");
         this.duplicate = document.getElementById("duplicate");
         this.color = document.getElementById("color");
         this.color_ok = document.getElementById("validate-color");
@@ -80,6 +81,7 @@ export default class Buttons {
         this.include_atemp = document.getElementById("include-atemp");
         this.strava_ok = document.getElementById("strava-ok");
         this.share_ok = document.getElementById("share-ok");
+        this.merge_cancel = document.getElementById("merge-cancel");
 
         // DISPLAYS
         this.distance = document.getElementById("distance-val");
@@ -99,6 +101,7 @@ export default class Buttons {
         this.color_content = document.getElementById('color-content');
         this.load_content = document.getElementById('load-content');
         this.share_content = document.getElementById('share-content');
+        this.merge_content = document.getElementById('merge-content');
         this.buttons_bar = document.getElementById('buttons-bar');
 
         // ZOOM CONTROL
@@ -300,6 +303,7 @@ export default class Buttons {
         this.edit.classList.add('unselected','no-click');
         this.time.classList.add('unselected','no-click');
         this.duplicate.classList.add('unselected','no-click');
+        this.combine.classList.add('unselected','no-click');
         this.color.classList.add('unselected','no-click');
     }
 
@@ -310,6 +314,7 @@ export default class Buttons {
         this.edit.classList.remove('unselected','no-click');
         this.time.classList.remove('unselected','no-click');
         this.duplicate.classList.remove('unselected','no-click');
+        this.combine.classList.remove('unselected','no-click');
         this.color.classList.remove('unselected','no-click');
     }
 
@@ -319,6 +324,7 @@ export default class Buttons {
         this.reverse.classList.add('unselected','no-click');
         this.time.classList.add('unselected','no-click');
         this.duplicate.classList.add('unselected','no-click');
+        this.combine.classList.add('unselected','no-click');
         this.color.classList.add('unselected','no-click');
     }
 
@@ -328,6 +334,7 @@ export default class Buttons {
         this.reverse.classList.remove('unselected','no-click');
         this.time.classList.remove('unselected','no-click');
         this.duplicate.classList.remove('unselected','no-click');
+        this.combine.classList.remove('unselected','no-click');
         this.color.classList.remove('unselected','no-click');
     }
 
@@ -530,7 +537,7 @@ export default class Buttons {
                     className: "centered-popup custom-popup cross",
                     autoPan: false
                 });
-                buttons.merge.checked = true;
+                buttons.merge.checked = false;
                 if (total.getMovingTime() == 0) {
                     buttons.include_time.checked = false;
                     buttons.include_time.disabled = true;
@@ -654,6 +661,7 @@ export default class Buttons {
             if (total.hasFocus) return;
             var trace = total.traces[total.focusOn];
             trace.reverse();
+            gtag('event', 'button', {'event_category' : 'reverse'});
         });
         map.on('mouseup', function (e) {
             map.dragging.enable();
@@ -803,6 +811,7 @@ export default class Buttons {
             trace.focus_style.color = color;
             trace.gpx.setStyle(trace.focus_style);
             trace.popup.remove();
+            gtag('event', 'button', {'event_category' : 'color'});
         });
         this.about.addEventListener("click", function () {
             window.open('./about.html');
@@ -829,6 +838,34 @@ export default class Buttons {
         this.duplicate.addEventListener("click", function () {
             const trace = total.traces[total.focusOn];
             trace.clone();
+            gtag('event', 'button', {'event_category' : 'duplicate'});
+        });
+        this.combine.addEventListener("click", function () {
+            if (total.traces.length <= 1) return;
+            const trace = total.traces[total.focusOn];
+            total.to_merge = trace;
+            if (buttons.combine.open) return;
+            buttons.combine.open = true;
+            const popup = L.popup({
+                className: "centered-popup custom-popup",
+                closeButton: false,
+                autoPan: false
+            });
+            buttons.combine.popup = popup;
+            popup.setLatLng(map.getCenter());
+            popup.setContent(buttons.merge_content);
+            buttons.merge_content.style.display = 'block';
+            popup.openOn(map);
+            buttons.disableMap();
+            popup.addEventListener('remove', function (e) {
+                buttons.combine.open = false;
+                buttons.merge_content.style.display = 'none';
+                buttons.enableMap();
+            });
+        });
+        this.merge_cancel.addEventListener("click", function () {
+            total.to_merge = null;
+            buttons.combine.popup.remove();
         });
     }
 

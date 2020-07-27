@@ -23,11 +23,9 @@ export default class Google {
                     if (urlParams.has('state')) {
                         _this.buttons.map.stopLocate();
                         const params = JSON.parse(urlParams.get('state'));
-                        if (params.action == 'open') {
-                            for (var i=0; i<params.ids.length; i++)
-                                _this.downloadFile({id:params.ids[i], name:'track.gpx'});
-                            gtag('event', 'button', {'event_category' : 'open-drive'});
-                        }
+                        for (var i=0; i<params.ids.length; i++)
+                            _this.downloadFile({id:params.ids[i], name:'track.gpx'});
+                        gtag('event', 'button', {'event_category' : 'open-drive'});
                     }
                 });
             }
@@ -186,7 +184,7 @@ export default class Google {
                         url += _this.fileIds[i];
                         if (i<_this.fileIds.length-1) url += '","';
                     }
-                    url += '"%5D,"action":"open"%7D';
+                    url += '"%5D%7D';
 
                     navigator.clipboard.writeText(url);
 

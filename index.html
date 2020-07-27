@@ -95,6 +95,7 @@
             <div class="panels-button" id="edit"><i class="fas fa-pencil-alt custom-button"></i></div><br>
             <div class="panels-button" id="edit-time"><i class="fas fa-stopwatch custom-button"></i></div><br>
             <div class="panels-button" id="reverse"><i class="fas fa-exchange-alt custom-button"></i></div><br>
+            <div class="panels-button" id="combine"><i class="fas fa-plus-circle custom-button"></i></div><br>
             <div class="panels-button" id="duplicate"><i class="far fa-copy custom-button"></i></div><br>
             <div class="panels-button" id="color"><i class="fas fa-palette custom-button"></i></div><br>
             <div class="panels-button" id="delete"><i class="fas fa-trash-alt custom-button"></i></div><br>
@@ -160,6 +161,10 @@
                 <td>Reverse</td>
             </tr>
             <tr>
+                <td><i class="fas fa-plus-circle"></i></td>
+                <td>Merge with another trace (automaticaly extends time, heart rate, cadence and temperature data)</td>
+            </tr>
+            <tr>
                 <td><i class="far fa-copy"></i></td>
                 <td>Duplicate</td>
             </tr>
@@ -186,7 +191,7 @@
                 <tbody>
                     <td></td>
                     <td><b>Export settings</b></td>
-                    <td>Merge all traces<input type="checkbox" id="merge" checked></td>
+                    <td>Merge all traces<input type="checkbox" id="merge"></td>
                     <td></td>
                 </tr>
                 <tr>
@@ -263,6 +268,10 @@
         <div id="share-content">
             Shareable link copied to clipboard!<br>
             <div id="share-ok" class="panels custom-button normal-button">Great</div>
+        </div>
+        <div id="merge-content">
+            Click on another tab to merge the traces<br>
+            <div id="merge-cancel" class="panels custom-button normal-button">Cancel</div>
         </div>
         <div id="social" style="font-size: 30px">
             <a href="https://facebook.com/gpx.studio" target="_blank"><i class="fab fa-facebook-square"></i></a>

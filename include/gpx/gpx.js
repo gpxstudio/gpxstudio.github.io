@@ -248,6 +248,7 @@ L.GPX = L.FeatureGroup.extend({
     this._info = {
       name: null,
       length: 0.0,
+      moving_length: 0.0,
       elevation: {gain: 0.0, loss: 0.0, max: 0.0, min: Infinity, _points: []},
       hr: {avg: 0, _total: 0, _points: []},
       duration: {start: null, end: null, moving: 0, total: 0},
@@ -507,6 +508,7 @@ L.GPX = L.FeatureGroup.extend({
         this._info.duration.total += t;
         if (t < options.max_point_interval && (dist/1000)/(t/1000/60/60) >= 0.5) {
           this._info.duration.moving += t;
+          this._info.moving_length += dist;
         }
       } else if (this._info.duration.start == null) {
         this._info.duration.start = ll.meta.time;

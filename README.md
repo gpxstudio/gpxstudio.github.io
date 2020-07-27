@@ -15,16 +15,17 @@ This repository contains the source code of the website [gpx.studio](https://gpx
 * Undo and redo
 * Duplicate trace
 * Reverse trace
-* Combine and export multiple traces in the chosen order and respecting time precedence constraints (if any time data)
+* Merge traces
+* Export multiple traces as one or separately in the chosen order and respecting time precedence constraints (if any time data)
 * Preserve and automatically extend speed, heart rate, cadence and temperature data
 * Cycling and hiking maps, and Strava Heatmap layer
 * Google Drive integration : select a file, save the new version and get a shareable link
 
 ## Future developments
-* Merge traces from the UI
 * Extend time data based on the slope and the existing uploaded data
 * Allow more file formats
 * Search bar for location
+* Support for waypoints
 
 ## Acknowledgements
 This project would not have been possible without the following amazing projects :
