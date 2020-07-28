@@ -28,7 +28,7 @@ export default class Buttons {
         // MAIN MAP
         this.map = L.map('mapid', {
             zoomControl: false
-        }).setView([50.772, 3.890], 13);
+        }).setView([0, 0], 2);
         this.map.addEventListener("locationfound", function (e) {
             e.target.setView(e.latlng,12);
         });
@@ -173,13 +173,10 @@ export default class Buttons {
                     cacheMaxAge: cacheAge
                 });
 
-                _this.openTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+                _this.openHikingMap = L.tileLayer('https://maps.refuges.info/hiking/{z}/{x}/{y}.png', {
                     maxZoom: 20,
-                    maxNativeZoom: 17,
-                    attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
-                    useCache: true,
-	                crossOrigin: true,
-                    cacheMaxAge: cacheAge
+                    maxNativeZoom: 18,
+                    attribution: '<a href="https://wiki.openstreetmap.org/wiki/Hiking/mri">MRI</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 });
 
                 _this.stravaHeatmap = L.tileLayer('https://heatmap-external-{s}.strava.com/tiles-auth/cycling/bluered/{z}/{x}/{y}.png', {
@@ -191,7 +188,7 @@ export default class Buttons {
                 L.control.layers({
                     "OpenStreetMap" : _this.openStreetMap,
                     "OpenCycleMap" : _this.openCycleMap,
-                    "OpenTopoMap" : _this.openTopoMap,
+                    "OpenHikingMap" : _this.openHikingMap,
                     "Mapbox Streets" : _this.mapboxStreets,
                     "Mapbox Outdoors" : _this.mapboxOutdoors,
                     "Mapbox Satellite" : _this.mapboxSatellite
