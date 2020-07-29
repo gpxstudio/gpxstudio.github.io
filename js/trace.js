@@ -202,10 +202,10 @@ export default class Trace {
     }
 
     updateUndoRedo() {
-        if (this.at >= 0 && !this.backToZero) this.buttons.undo.classList.remove('unselected');
-        else this.buttons.undo.classList.add('unselected');
-        if (this.at < this.memory.length-1) this.buttons.redo.classList.remove('unselected');
-        else this.buttons.redo.classList.add('unselected');
+        if (this.at >= 0 && !this.backToZero) this.buttons.undo.classList.remove('unselected','no-click2');
+        else this.buttons.undo.classList.add('unselected','no-click2');
+        if (this.at < this.memory.length-1) this.buttons.redo.classList.remove('unselected','no-click2');
+        else this.buttons.redo.classList.add('unselected','no-click2');
     }
 
     edit() {

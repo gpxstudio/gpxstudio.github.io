@@ -1,7 +1,7 @@
 export default class Google {
 
     constructor(buttons) {
-        this.developerKey = 'AIzaSyAs_cICESbZdkknavgbOk623ouO3RG23Bs';
+        this.developerKey = 'AIzaSyA2ZadQob_hXiT2VaYIkAyafPvz_4ZMssk';
         this.clientId = "666808960580-0vssfd67o4l2oeirhnapdv2ej575pks7.apps.googleusercontent.com";
         this.appId = "666808960580";
         this.scope = ['https://www.googleapis.com/auth/drive.file',

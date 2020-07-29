@@ -54,8 +54,8 @@
             <div id="load" class="panels custom-button">Load GPX</div>
             <div id="manual" class="panels custom-button">Draw</div>
             <div id="export" class="panels custom-button">Export</div>
-            <div class="panels custom-button unselected" id="undo"><i class="fas fa-reply"></i></div>
-            <div class="panels custom-button unselected" id="redo"><i class="fas fa-share"></i></div>
+            <div class="panels custom-button unselected no-click2" id="undo"><i class="fas fa-reply"></i></div>
+            <div class="panels custom-button unselected no-click2" id="redo"><i class="fas fa-share"></i></div>
             <div id="clear" class="panels custom-button">Clear all</div>
             <div id="activity" class="panels custom-button unselected"><i id="bike" class="fas fa-biking"></i> <i class="fas fa-arrows-alt-h"></i> <i id="run" class="fas fa-running"></i></div>
             <div id="units" class="panels custom-button unselected"><span id="km" class="unit"><b>km</b> </span><i class="fas fa-arrows-alt-h"></i><span id="mi" class="unit"> <b>mi</b></span></div>
@@ -92,13 +92,13 @@
             </ul>
         </div>
         <div id="buttons-bar" class="panels-container vcenter-leaflet">
-            <div class="panels-button" id="edit"><i class="fas fa-pencil-alt custom-button"></i></div><br>
-            <div class="panels-button" id="edit-time"><i class="fas fa-stopwatch custom-button"></i></div><br>
-            <div class="panels-button" id="reverse"><i class="fas fa-exchange-alt custom-button"></i></div><br>
-            <div class="panels-button" id="combine"><i class="fas fa-plus-circle custom-button"></i></div><br>
-            <div class="panels-button" id="duplicate"><i class="far fa-copy custom-button"></i></div><br>
-            <div class="panels-button" id="color"><i class="fas fa-palette custom-button"></i></div><br>
-            <div class="panels-button" id="delete"><i class="fas fa-trash-alt custom-button"></i></div><br>
+            <div class="panels-button" id="edit" title="Edit points"><i class="fas fa-pencil-alt custom-button"></i></div><br>
+            <div class="panels-button" id="edit-time" title="Edit time"><i class="fas fa-stopwatch custom-button"></i></div><br>
+            <div class="panels-button" id="reverse" title="Reverse"><i class="fas fa-exchange-alt custom-button"></i></div><br>
+            <div class="panels-button" id="combine" title="Merge with another trace"><i class="fas fa-plus-circle custom-button"></i></div><br>
+            <div class="panels-button" id="duplicate" title="Duplicate"><i class="far fa-copy custom-button"></i></div><br>
+            <div class="panels-button" id="color" title="Change color"><i class="fas fa-palette custom-button"></i></div><br>
+            <div class="panels-button" id="delete" title="Delete"><i class="fas fa-trash-alt custom-button"></i></div><br>
         </div>
         <div id="help-text">
         <table style="width: 100%">
