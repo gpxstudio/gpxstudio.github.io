@@ -396,7 +396,11 @@ html, body {
     color: #b3b3b3;
 }
 
-.no-click {
+.no-click2 {
+    pointer-events: none;
+}
+
+.no-click > element {
     pointer-events: none;
 }
 
