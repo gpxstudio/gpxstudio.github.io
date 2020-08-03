@@ -146,6 +146,7 @@ export default class Trace {
         for (var i=0; i<points.length; i++) {
             const pt = points[i].clone();
             pt.meta = JSON.parse(JSON.stringify(points[i].meta));
+            pt.meta.time = new Date(pt.meta.time);
             pt.index = points[i].index;
             pt.routing = points[i].routing;
             cpy.push(pt);
@@ -833,7 +834,7 @@ export default class Trace {
     /*** REQUESTS ***/
 
     askElevation(points) {
-        const step = Math.max(1, Math.ceil(points.length / 100));
+        const step = Math.max(10, Math.ceil(points.length / 1000));
         const maxpoints = 2000;
         var pts = [], start = -1, requests = [];
         for (var i=0; i<points.length; i += step) {
@@ -889,7 +890,7 @@ export default class Trace {
                     trace.update();
                     if (trace.isEdited) trace.buttons.elev._removeSliderCircles();
                 } else trace.askPointsElevation(requests.slice(1), step);
-            } else if (this.readyState == 4 && this.status == 504) {
+            } else if (this.readyState == 4 && this.status != 200) {
                 console.log('elevation query timeout : retry');
                 trace.askPointsElevation(requests, step);
             }
