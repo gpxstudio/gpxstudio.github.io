@@ -368,7 +368,7 @@ var _DEFAULT_GPX_OPTS = {
 };
 
 L.GPX = L.FeatureGroup.extend({
-  initialize: function(gpx, options) {
+  initialize: function(gpx, options, trace) {
     options.max_point_interval = options.max_point_interval || _MAX_POINT_INTERVAL_MS;
     options.marker_options = this._merge_objs(
       _DEFAULT_MARKER_OPTS,
@@ -384,6 +384,7 @@ L.GPX = L.FeatureGroup.extend({
     L.GPXTrackIcon = L.Icon.extend({ options: options.marker_options });
 
     this._gpx = gpx;
+    this._trace = trace;
     this._layers = {};
     this._init_info();
 
@@ -705,13 +706,72 @@ L.GPX = L.FeatureGroup.extend({
       });
       var popup = L.popup({
           closeButton: false
-      }).setContent(desc.length > 0 ? ('<b>' + name + '</b><br>' + desc) : name);
-      marker.bindPopup(popup).openPopup();
+      }).setContent(`<label for="name">Name</label><br>
+  <input type="text" id="name" name="name"><br>
+  <label for="cmt">Comment (for GPS devices)</label><br>
+  <input type="text" id="cmt" name="cmt"><br>
+  <label for="desc">Description (for users)</label><br>
+  <input type="text" id="desc" name="desc"><br>
+  <label for="sym">Symbol</label><br>
+  <select type="text" id="sym" name="sym">`);
+
+      popup.addEventListener('add', function () {
+          const select = document.getElementById('sym');
+          for (var i=0; i<icons.length; i++) {
+              var opt = document.createElement('option');
+              opt.value = icons[i][0];
+              opt.innerHTML = icons[i][0];
+              if (icons[i][1].prefix.length > 0) opt.innerHTML += ' <i class="' + icons[i][1].prefix + ' fa-' + icons[i][1].glyph + '"></i>';
+              select.appendChild(opt);
+          }
+      });
+
+      marker.bindPopup(popup);
       marker.ele = ele;
       marker.name = name;
       marker.desc = desc;
       marker.cmt = cmt;
       marker.sym = sym;
+
+      const trace = this._trace;
+      const map = trace.map;
+
+      marker.on({
+          mousedown: function (e) {
+              if (e.originalEvent !== undefined && e.originalEvent.which == 3) return;
+              map.dragging.disable();
+              map.on('mousemove', function (e) {
+                  marker.setLatLng(e.latlng);
+              });
+              map._draggedMarker = marker;
+          },
+          contextmenu: function (e) {
+              const popup2 = L.popup({
+                  closeButton: false
+              }).setContent(`<div id="remove-waypoint" class="custom-button" style="display: inline-block">Remove point</div>
+              <div class="custom-button" style="display: inline-block; width: 4px"></i></div>
+              <div id="close-popup" class="custom-button" style="display: inline-block"><i class="fas fa-times"></i></div>`);
+              marker.bindPopup(popup2).openPopup();
+
+              popup2.addEventListener('remove', function (e) {
+                  marker.bindPopup(popup);
+              });
+
+              var button = document.getElementById("remove-waypoint");
+              button.addEventListener("click", function () {
+                  trace.deleteWaypoint(marker);
+                  marker.closePopup();
+                  marker.remove();
+              });
+
+              var close = document.getElementById("close-popup");
+              close.addEventListener("click", function () {
+                  marker.closePopup();
+              });
+
+              return false;
+          }
+      });
 
       return marker;
   },

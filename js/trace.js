@@ -53,7 +53,7 @@ export default class Trace {
         this.lastSaveIsNew = true;
         this.backToZero = false;
 
-        this.gpx = new L.GPX(file, gpx_options).addTo(map);
+        this.gpx = new L.GPX(file, gpx_options, this).addTo(map);
         this.gpx.trace = this;
         this.waypoints = [];
 
@@ -691,6 +691,13 @@ export default class Trace {
                 this.redraw();
                 this.buttons.elev._removeSliderCircles();
             }
+        }
+    }
+
+    deleteWaypoint(marker) {
+        for (var i=0; i<this.waypoints.length; i++) if (this.waypoints[i] == marker) {
+            this.waypoints.splice(i, 1);
+            return;
         }
     }
 

@@ -668,8 +668,10 @@ export default class Buttons {
                 var trace = total.traces[total.focusOn];
                 const marker = map._draggedMarker;
                 marker.getElement().style.cursor = 'pointer';
-                trace.updatePoint(marker, e.latlng.lat, e.latlng.lng);
-                trace.refreshEditMarkers();
+                if (!marker.sym) {
+                    trace.updatePoint(marker, e.latlng.lat, e.latlng.lng);
+                    trace.refreshEditMarkers();
+                }
                 map._draggedMarker = null;
             }
         });
