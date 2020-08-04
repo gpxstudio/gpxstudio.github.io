@@ -29,7 +29,7 @@ const gpx_options = {
         startIconUrl: '',
         endIconUrl: '',
         shadowUrl: '',
-        wptIconUrls : { '': '' }
+        wptIconUrls : { '': '../favicon.png' }
     },
     max_point_interval: 10 * 60000
 };
@@ -55,21 +55,35 @@ export default class Trace {
 
         this.gpx = new L.GPX(file, gpx_options).addTo(map);
         this.gpx.trace = this;
+        this.waypoints = [];
 
         const trace = this;
 
         this.gpx.on('loaded', function(e) {
             trace.index = total.traces.length;
 
-            // merge multiple tracks of same file
-            if (this.getLayers().length > 0 && !this.getLayers()[0]._latlngs) {
+            if (this.getLayers().length > 0) {
                 var layers = this.getLayers()[0].getLayers();
                 this.removeLayer(this.getLayers()[0]);
-                var mergedLayer = layers[0];
-                for (var i=1; i<layers.length; i++) {
-                    mergedLayer._latlngs = mergedLayer._latlngs.concat(layers[i]._latlngs);
+                var mergedLayer = null;
+                var wptLayers = [];
+                for (var i=0; i<layers.length; i++) {
+                    if (layers[i]._latlngs) { // trk
+                        if (mergedLayer) mergedLayer._latlngs = mergedLayer._latlngs.concat(layers[i]._latlngs);
+                        else mergedLayer = layers[i];
+                    } else if (layers[i]._latlng) { // wpt
+                        wptLayers.push(layers[i]);
+                        trace.waypoints.push(layers[i]);
+                    }
                 }
-                this.addLayer(mergedLayer);
+                if (mergedLayer) this.addLayer(mergedLayer);
+
+                var wptMissingEle = [];
+                for (var i=0; i<wptLayers.length; i++) {
+                    this.addLayer(wptLayers[i]);
+                    if (wptLayers[i].ele == -1) wptMissingEle.push(wptLayers[i]._latlng);
+                }
+                if (wptMissingEle.length > 0) trace.askElevation(wptMissingEle, true);
             }
 
             total.traces.push(trace);
@@ -112,6 +126,7 @@ export default class Trace {
 
             if (trace.gpx.missing_elevation) trace.askElevation(trace.getPoints());
         }).on('click', function (e) {
+            if (e.layer.sym) return;
             if (!e.target.trace.isEdited) e.target.trace.updateFocus();
         }).on('mousedown', function (e) {
             const trace = e.target.trace;
@@ -152,10 +167,19 @@ export default class Trace {
             cpy.push(pt);
         }
 
-        newTrace.gpx.addLayer(new L.Polyline(cpy, this.gpx.options.polyline_options));
-        newTrace.gpx.setStyle(focus_style);
-        newTrace.recomputeStats();
-        newTrace.update();
+        if (cpy.length > 0) {
+            newTrace.gpx.addLayer(new L.Polyline(cpy, this.gpx.options.polyline_options));
+            newTrace.gpx.setStyle(focus_style);
+            newTrace.recomputeStats();
+            newTrace.update();
+        }
+
+        for (var i=0; i<this.waypoints.length; i++) {
+            const marker = this.waypoints[i];
+            const newMarker = this.gpx._get_marker(marker._latlng, marker.ele, marker.sym, marker.name, marker.desc, marker.cmt, this.gpx.options);
+            newTrace.gpx.addLayer(newMarker);
+            newTrace.waypoints.push(newMarker);
+        }
     }
 
     /*** LOGIC ***/
@@ -271,7 +295,7 @@ export default class Trace {
     }
 
     redraw() {
-        this.gpx.getLayers()[0].redraw();
+        if (this.hasPoints()) this.gpx.getLayers()[0].redraw();
     }
 
     showData() {
@@ -320,7 +344,7 @@ export default class Trace {
                 if (trace._editMarkers.length == 1) return;
                 const popup = L.popup({
                     closeButton: false
-                }).setContent(`<div id="remove-waypoint" class="custom-button" style="display: inline-block">Remove waypoint</div>
+                }).setContent(`<div id="remove-waypoint" class="custom-button" style="display: inline-block">Remove point</div>
                 <div class="custom-button" style="display: inline-block; width: 4px"></i></div>
                 <div id="close-popup" class="custom-button" style="display: inline-block"><i class="fas fa-times"></i></div>`);
                 popup.setLatLng(e.latlng);
@@ -446,7 +470,7 @@ export default class Trace {
     /*** GPX DATA ***/
 
     hasPoints() {
-        return this.gpx.getLayers().length > 0;
+        return this.gpx.getLayers().length > 0 && this.gpx.getLayers()[0]._latlngs;
     }
 
     getPoints() {
@@ -559,24 +583,37 @@ export default class Trace {
             if (data.cad && !otherData.cad) otherPoints[i].meta.cad = data.cad;
         }
 
-        if (this.firstTimeData() >= 0 && trace.firstTimeData() == -1) {
-            const avg = this.getMovingSpeed();
-            const a = points[points.length-1];
-            const b = otherPoints[0];
-            const dist = this.gpx._dist3d(a, b);
-            const startTime = new Date(a.meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
-            trace.changeTimeData(startTime, avg);
-        } else if (this.firstTimeData() == -1 && trace.firstTimeData() >= 0) {
-            const avg = trace.getMovingSpeed();
-            const a = points[points.length-1];
-            const b = otherPoints[0];
-            const dist = this.gpx._dist3d(a, b) + this.getDistance(true);
-            const startTime = new Date(b.meta.time.getTime() - 1000 * 60 * 60 * dist/(1000 * avg));
-            this.changeTimeData(startTime, avg);
+        if (this.hasPoints() && trace.hasPoints()) {
+            if (this.firstTimeData() >= 0 && trace.firstTimeData() == -1) {
+                const avg = this.getMovingSpeed();
+                const a = points[points.length-1];
+                const b = otherPoints[0];
+                const dist = this.gpx._dist3d(a, b);
+                const startTime = new Date(a.meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
+                trace.changeTimeData(startTime, avg);
+            } else if (this.firstTimeData() == -1 && trace.firstTimeData() >= 0) {
+                const avg = trace.getMovingSpeed();
+                const a = points[points.length-1];
+                const b = otherPoints[0];
+                const dist = this.gpx._dist3d(a, b) + this.getDistance(true);
+                const startTime = new Date(b.meta.time.getTime() - 1000 * 60 * 60 * dist/(1000 * avg));
+                this.changeTimeData(startTime, avg);
+            }
         }
-        points.push(...otherPoints);
 
-        // extend additional data
+        if (this.hasPoints()) points.push(...otherPoints);
+        else {
+            this.gpx.addLayer(new L.Polyline(otherPoints, this.gpx.options.polyline_options));
+            this.gpx.setStyle(focus_style);
+        }
+
+        for (var i=0; i<trace.waypoints.length; i++) {
+            const marker = trace.waypoints[i];
+            const newMarker = this.gpx._get_marker(marker._latlng, marker.ele, marker.sym, marker.name, marker.desc, marker.cmt, this.gpx.options);
+            this.gpx.addLayer(newMarker);
+            this.waypoints.push(newMarker);
+        }
+        this.swapLayers();
 
         this.recomputeStats();
         this.update();
@@ -592,6 +629,7 @@ export default class Trace {
         if (!this.hasPoints()) {
             this.gpx.addLayer(new L.Polyline([pt], this.gpx.options.polyline_options));
             this.gpx.setStyle(this.focus_style);
+            this.swapLayers();
         } else this.getPoints().push(pt);
 
         const points = this.getPoints();
@@ -610,6 +648,21 @@ export default class Trace {
             this.redraw();
             this.askElevation([pt]);
         }
+    }
+
+    swapLayers() {
+        const layers = this.gpx.getLayers();
+        var ptLayerIndex = 0;
+        for (var i=0; i<layers.length; i++) if (layers[i]._latlngs) {
+            ptLayerIndex = i;
+            break;
+        }
+        const keys = Object.keys(this.gpx._layers);
+        const ptLayer = this.gpx._layers[keys[ptLayerIndex]];
+        this.gpx._layers[keys[ptLayerIndex]] = this.gpx._layers[keys[0]];
+        this.gpx._layers[keys[0]] = ptLayer;
+        this.gpx._layers[keys[ptLayerIndex]]._leaflet_id = keys[ptLayerIndex];
+        this.gpx._layers[keys[0]]._leaflet_id = keys[0];
     }
 
     updatePoint(marker, lat, lng) {
@@ -833,8 +886,9 @@ export default class Trace {
 
     /*** REQUESTS ***/
 
-    askElevation(points) {
-        const step = Math.max(10, Math.ceil(points.length / 1000));
+    askElevation(points, wpt) {
+        var step = Math.max(10, Math.ceil(points.length / 1000));
+        if (wpt) step = 1;
         const maxpoints = 2000;
         var pts = [], start = -1, requests = [];
         for (var i=0; i<points.length; i += step) {
@@ -872,6 +926,7 @@ export default class Trace {
                 var ans = JSON.parse(this.responseText);
 
                 for (var i=0; i<trace_points.length; i++) {
+                    if (!trace_points[i].meta) trace_points[i].meta = {ele: 0};
                     if (Math.floor(i/step) + 1 < ans["data"].length) {
                         const s = Math.min(step, trace_points.length-step*Math.floor(i/step));
                         trace_points[i].meta.ele =

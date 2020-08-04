@@ -357,6 +357,12 @@ L.GPX = L.FeatureGroup.extend({
             el[i].getAttribute('lat'),
             el[i].getAttribute('lon'));
 
+        var eleEl = el[i].getElementsByTagName('ele');
+        var ele = -1;
+        if (eleEl.length > 0) {
+          ele = parseFloat(eleEl[0].textContent);
+        }
+
         var nameEl = el[i].getElementsByTagName('name');
         var name = '';
         if (nameEl.length > 0) {
@@ -369,53 +375,66 @@ L.GPX = L.FeatureGroup.extend({
           desc = descEl[0].textContent;
         }
 
+        var cmtEl = el[i].getElementsByTagName('cmt');
+        var cmt = '';
+        if (cmtEl.length > 0) {
+          cmt = cmtEl[0].textContent;
+        }
+
         var symEl = el[i].getElementsByTagName('sym');
         var symKey = '';
         if (symEl.length > 0) {
           symKey = symEl[0].textContent;
         }
 
-        /*
-         * Add waypoint marker based on the waypoint symbol key.
-         *
-         * First look for a configured icon for that symKey. If not found, look
-         * for a configured icon URL for that symKey and build an icon from it.
-         * Otherwise, fall back to the default icon if one was configured, or
-         * finally to the default icon URL.
-         */
-        var wptIcons = options.marker_options.wptIcons;
-        var wptIconUrls = options.marker_options.wptIconUrls;
-        var symIcon;
-        if (wptIcons && wptIcons[symKey]) {
-          symIcon = wptIcons[symKey];
-        } else if (wptIconUrls && wptIconUrls[symKey]) {
-          symIcon = new L.GPXTrackIcon({iconUrl: wptIconUrls[symKey]});
-        } else if (wptIcons && wptIcons['']) {
-          symIcon = wptIcons[''];
-        } else if (wptIconUrls && wptIconUrls['']) {
-          symIcon = new L.GPXTrackIcon({iconUrl: wptIconUrls['']});
-        } else {
-          console.log('No icon or icon URL configured for symbol type "' + symKey
-            + '", and no fallback configured; ignoring waypoint.');
-          continue;
-        }
-
-        var marker = new L.Marker(ll, {
-          clickable: options.marker_options.clickable,
-          title: name,
-          icon: symIcon
-        });
-        marker.bindPopup("<b>" + name + "</b>" + (desc.length > 0 ? '<br>' + desc : '')).openPopup();
+        var marker = this._get_marker(ll, ele, symKey, name, desc, cmt, options);
         this.fire('addpoint', { point: marker, point_type: 'waypoint', element: el[i] });
         layers.push(marker);
       }
     }
 
-    if (layers.length > 1) {
-       return new L.FeatureGroup(layers);
-    } else if (layers.length == 1) {
-      return layers[0];
-    }
+    if (layers.length == 0) return null;
+    return new L.FeatureGroup(layers);
+  },
+
+  _get_marker: function(ll, ele, symKey, name, desc, cmt, options) {
+      /*
+       * Add waypoint marker based on the waypoint symbol key.
+       *
+       * First look for a configured icon for that symKey. If not found, look
+       * for a configured icon URL for that symKey and build an icon from it.
+       * Otherwise, fall back to the default icon if one was configured, or
+       * finally to the default icon URL.
+       */
+      var wptIcons = options.marker_options.wptIcons;
+      var wptIconUrls = options.marker_options.wptIconUrls;
+      var symIcon;
+      if (wptIcons && wptIcons[symKey]) {
+        symIcon = wptIcons[symKey];
+      } else if (wptIconUrls && wptIconUrls[symKey]) {
+        symIcon = new L.GPXTrackIcon({iconUrl: wptIconUrls[symKey]});
+      } else if (wptIcons && wptIcons['']) {
+        symIcon = wptIcons[''];
+      } else if (wptIconUrls && wptIconUrls['']) {
+        symIcon = new L.GPXTrackIcon({iconUrl: wptIconUrls['']});
+      } else {
+        console.log('No icon or icon URL configured for symbol type "' + symKey
+          + '", and no fallback configured; ignoring waypoint.');
+      }
+
+      var marker = new L.Marker(ll, {
+        clickable: options.marker_options.clickable,
+        title: name,
+        icon: symIcon
+      });
+      marker.bindPopup(desc.length > 0 ? ('<b>' + name + '</b><br>' + desc) : name).openPopup();
+      marker.ele = ele;
+      marker.name = name;
+      marker.desc = desc;
+      marker.cmt = cmt;
+      marker.sym = symKey;
+
+      return marker;
   },
 
   _parse_segment: function(line, options, polyline_options, tag) {
