@@ -39,6 +39,7 @@
 //var L = L || require('leaflet');
 
 const icons = [
+    ["",{prefix: "", glyph: ""}],
     ["ATV",{prefix: "", glyph: ""}],
 	["Airport",{prefix: "fas", glyph: "plane"}],
 	["Amusement Park",{prefix: "", glyph: ""}],
@@ -744,6 +745,7 @@ L.GPX = L.FeatureGroup.extend({
                   marker.setLatLng(e.latlng);
               });
               map._draggedMarker = marker;
+              map._container.style.cursor = 'grabbing';
           },
           contextmenu: function (e) {
               const popup2 = L.popup({

@@ -694,6 +694,10 @@ export default class Trace {
         }
     }
 
+    addWaypoint() {
+        // TODO
+    }
+
     deleteWaypoint(marker) {
         for (var i=0; i<this.waypoints.length; i++) if (this.waypoints[i] == marker) {
             this.waypoints.splice(i, 1);
