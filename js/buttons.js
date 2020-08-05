@@ -56,6 +56,7 @@ export default class Buttons {
         this.time = document.getElementById("edit-time");
         this.combine = document.getElementById("combine");
         this.duplicate = document.getElementById("duplicate");
+        this.add_wpt = document.getElementById("add-wpt");
         this.color = document.getElementById("color");
         this.color_ok = document.getElementById("validate-color");
         this.color_picker = document.getElementById("color-picker");
@@ -302,6 +303,7 @@ export default class Buttons {
         this.duplicate.classList.add('unselected','no-click');
         this.combine.classList.add('unselected','no-click');
         this.color.classList.add('unselected','no-click');
+        this.add_wpt.classList.add('unselected','no-click');
     }
 
     showTraceButtons() {
@@ -313,6 +315,7 @@ export default class Buttons {
         this.duplicate.classList.remove('unselected','no-click');
         this.combine.classList.remove('unselected','no-click');
         this.color.classList.remove('unselected','no-click');
+        this.add_wpt.classList.remove('unselected','no-click');
     }
 
     greyTraceButtons() {
@@ -323,6 +326,7 @@ export default class Buttons {
         this.duplicate.classList.add('unselected','no-click');
         this.combine.classList.add('unselected','no-click');
         this.color.classList.add('unselected','no-click');
+        this.add_wpt.classList.add('unselected','no-click');
     }
 
     blackTraceButtons() {
@@ -333,6 +337,7 @@ export default class Buttons {
         this.duplicate.classList.remove('unselected','no-click');
         this.combine.classList.remove('unselected','no-click');
         this.color.classList.remove('unselected','no-click');
+        this.add_wpt.classList.remove('unselected','no-click');
     }
 
     hideToolbars() {
@@ -469,6 +474,16 @@ export default class Buttons {
             const newTrace = total.addTrace(undefined, "new.gpx");
             newTrace.draw();
             gtag('event', 'button', {'event_category' : 'draw'});
+        });
+        this.add_wpt.addEventListener("click", function () {
+            map._container.style.cursor = 'crosshair';
+            map.addEventListener("click", function (e) {
+                if (e.originalEvent.target.id != "mapid") return;
+                const trace = total.traces[total.focusOn];
+                trace.addWaypoint(e.latlng);
+                map._container.style.cursor = '';
+                map.removeEventListener("click");
+            });
         });
         this.clear.addEventListener("click", function () {
             if (total.traces.length == 0) return;
@@ -668,12 +683,18 @@ export default class Buttons {
                 var trace = total.traces[total.focusOn];
                 const marker = map._draggedMarker;
                 marker.getElement().style.cursor = 'pointer';
-                trace.updatePoint(marker, e.latlng.lat, e.latlng.lng);
-                trace.refreshEditMarkers();
+                map._container.style.cursor = '';
+                if (marker._pt) {
+                    trace.updatePoint(marker, e.latlng.lat, e.latlng.lng);
+                    trace.refreshEditMarkers();
+                } else if (marker._latlng != marker._latlng_origin) {
+                    trace.askElevation([marker._latlng], true)
+                }
                 map._draggedMarker = null;
             }
         });
         this.time.addEventListener("click", function (e) {
+            if (total.hasFocus) return;
             const trace = total.traces[total.focusOn];
             if (trace.popup) return;
 
@@ -779,6 +800,7 @@ export default class Buttons {
             });
         });
         this.color.addEventListener("click", function () {
+            if (total.hasFocus) return;
             const trace = total.traces[total.focusOn];
             if (trace.popup) return;
 
@@ -833,6 +855,7 @@ export default class Buttons {
             gtag('event', 'button', {'event_category' : 'help'});
         });
         this.duplicate.addEventListener("click", function () {
+            if (total.hasFocus) return;
             const trace = total.traces[total.focusOn];
             trace.clone();
             gtag('event', 'button', {'event_category' : 'duplicate'});

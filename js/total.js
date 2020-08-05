@@ -79,11 +79,19 @@ export default class Total {
         this.buttons.focusTabElement(this.tab);
         this.buttons.hideTraceButtons();
         this.buttons.elev._removeSliderCircles();
+
+        for (var i=0; i<this.traces.length; i++) {
+            this.traces[i].showWaypoints();
+        }
     }
 
     unfocus() {
         this.hasFocus = false;
         this.buttons.showTraceButtons();
+
+        for (var i=0; i<this.traces.length; i++) {
+            this.traces[i].hideWaypoints();
+        }
     }
 
     updateFocus() {
@@ -242,22 +250,24 @@ export default class Total {
         }
 
         const xmlStart = `<?xml version="1.0" encoding="UTF-8"?>
-    <gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" version="1.1" creator="https://gpxstudio.github.io">
-    <metadata>
-        <name>Activity</name>
-        <author>gpx.studio</author>
-        <link>https://gpxstudio.github.io</link>
-    </metadata>
-    <trk>
+<gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" version="1.1" creator="https://gpxstudio.github.io">
+<metadata>
+    <name>Activity</name>
+    <author>gpx.studio</author>
+    <link>https://gpxstudio.github.io</link>
+</metadata>
+<trk>
     <trkseg>
     `;
 
-        const xmlEnd = `</trkseg>
-    </trk>
-    </gpx>`;
+        const xmlEnd1 = `</trkseg>
+</trk>
+`;
+        const xmlEnd2 = `</gpx>`;
 
         const output = [];
         var xmlOutput = '';
+        var waypointsOutput = '';
 
         const totalData = this.additionalAvgData;
         for (var i=0; i<this.traces.length; i++) {
@@ -318,19 +328,45 @@ export default class Total {
     `;
             }
 
+            const waypoints = this.traces[i].waypoints;
+            for (var j=0; j<waypoints.length; j++) {
+                const point = waypoints[j];
+                waypointsOutput += `<wpt lat="${point._latlng.lat.toFixed(6)}" lon="${point._latlng.lng.toFixed(6)}">
+`;
+                if (point.ele >= 0) {
+                    waypointsOutput += `    <ele>${point.ele.toFixed(1)}</ele>
+`;
+                } else if (point._latlng.meta) {
+                    waypointsOutput += `    <ele>${point._latlng.meta.ele.toFixed(1)}</ele>
+`;
+                }
+
+                waypointsOutput += `    <name>${point.name}</name>
+`;
+                waypointsOutput += `    <desc>${point.desc}</desc>
+`;
+                waypointsOutput += `    <cmt>${point.cmt}</cmt>
+`;
+                waypointsOutput += `    <sym>${point.sym}</sym>
+`;
+                waypointsOutput += `</wpt>
+`;
+            }
+
             if (!mergeAll || this.traces.length == 1) {
                 output.push({
                     name: this.traces[i].name,
-                    text: (xmlStart+xmlOutput+xmlEnd)
+                    text: (xmlStart+xmlOutput+xmlEnd1+waypointsOutput+xmlEnd2)
                 });
                 xmlOutput = '';
+                waypointsOutput = '';
             }
         }
 
         if (mergeAll && this.traces.length > 1) {
             output.push({
                 name: 'track.gpx',
-                text: (xmlStart+xmlOutput+xmlEnd)
+                text: (xmlStart+xmlOutput+xmlEnd1+waypointsOutput+xmlEnd2)
             });
         }
 

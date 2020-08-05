@@ -38,6 +38,305 @@
 
 //var L = L || require('leaflet');
 
+const icons = [
+    [" ",{prefix: "", glyph: ""}],
+    ["ATV",{prefix: "", glyph: ""}],
+	["Airport",{prefix: "fas", glyph: "plane"}],
+	["Amusement Park",{prefix: "", glyph: ""}],
+	["Anchor",{prefix: "fas", glyph: "anchor"}],
+	["Anchor Prohibited",{prefix: "", glyph: ""}],
+	["Animal Tracks",{prefix: "fas", glyph: "paw"}],
+	["Asian Food",{prefix: "fas", glyph: "utensils"}],
+	["Bait and Tackle",{prefix: "", glyph: ""}],
+	["Ball Park",{prefix: "far", glyph: "futbol"}],
+	["Bank",{prefix: "fas", glyph: "dollar-sign"}],
+	["Bar",{prefix: "fas", glyph: "beer"}],
+	["Beach",{prefix: "fas", glyph: "umbrella-beach"}],
+	["Beacon",{prefix: "", glyph: ""}],
+	["Bell",{prefix: "fas", glyph: "bell"}],
+	["Big Game",{prefix: "fas", glyph: "dice"}],
+	["Bike Trail",{prefix: "fas", glyph: "biking"}],
+	["Blind",{prefix: "fas", glyph: "blind"}],
+	["Block, Blue",{prefix: "fas", glyph: "cube"}],
+	["Block, Green",{prefix: "fas", glyph: "cube"}],
+	["Block, Red",{prefix: "fas", glyph: "cube"}],
+	["Blood Trail",{prefix: "", glyph: ""}],
+	["Boat Ramp",{prefix: "fas", glyph: "ship"}],
+	["Border Crossing (Port Of Entry)",{prefix: "", glyph: ""}],
+	["Bottom Conditions",{prefix: "", glyph: ""}],
+	["Bowling",{prefix: "fas", glyph: "bowling-ball"}],
+	["Bridge",{prefix: "fas", glyph: "archway"}],
+	["Building",{prefix: "fas", glyph: "building"}],
+	["Buoy, White",{prefix: "fas", glyph: "life-ring"}],
+	["Campground",{prefix: "fas", glyph: "campground"}],
+	["Car",{prefix: "fas", glyph: "car-side"}],
+	["Car Rental",{prefix: "fas", glyph: "car-side"}],
+	["Car Repair",{prefix: "fas", glyph: "tools"}],
+	["Cemetery",{prefix: "fas", glyph: "cross"}],
+	["Church",{prefix: "fas", glyph: "place-of-worship"}],
+	["Circle with X",{prefix: "fas", glyph: "times-circle"}],
+	["Circle, Blue",{prefix: "fas", glyph: "circle"}],
+	["Circle, Green",{prefix: "fas", glyph: "circle"}],
+	["Circle, Red",{prefix: "fas", glyph: "circle"}],
+	["City (Capitol)",{prefix: "fas", glyph: "city"}],
+	["City (Large)",{prefix: "fas", glyph: "city"}],
+	["City (Medium)",{prefix: "fas", glyph: "city"}],
+	["City (Small)",{prefix: "fas", glyph: "city"}],
+	["City Hall",{prefix: "fas", glyph: "landmark"}],
+	["Civil",{prefix: "fas", glyph: "male"}],
+	["Coast Guard",{prefix: "fas", glyph: "life-ring"}],
+	["Contact, Afro",{prefix: "fas", glyph: "info"}],
+	["Contact, Alien",{prefix: "fas", glyph: "info"}],
+	["Contact, Ball Cap",{prefix: "fas", glyph: "info"}],
+	["Contact, Big Ears",{prefix: "fas", glyph: "info"}],
+	["Contact, Biker",{prefix: "fas", glyph: "info"}],
+	["Contact, Blonde",{prefix: "fas", glyph: "info"}],
+	["Contact, Bug",{prefix: "fas", glyph: "info"}],
+	["Contact, Cat",{prefix: "fas", glyph: "info"}],
+	["Contact, Clown",{prefix: "fas", glyph: "info"}],
+	["Contact, Dog",{prefix: "fas", glyph: "info"}],
+	["Contact, Dreadlocks",{prefix: "fas", glyph: "info"}],
+	["Contact, Female1",{prefix: "fas", glyph: "info"}],
+	["Contact, Female2",{prefix: "fas", glyph: "info"}],
+	["Contact, Female3",{prefix: "fas", glyph: "info"}],
+	["Contact, Glasses",{prefix: "fas", glyph: "info"}],
+	["Contact, Goatee",{prefix: "fas", glyph: "info"}],
+	["Contact, Kung-Fu",{prefix: "fas", glyph: "info"}],
+	["Contact, Panda",{prefix: "fas", glyph: "info"}],
+	["Contact, Pig",{prefix: "fas", glyph: "info"}],
+	["Contact, Pirate",{prefix: "fas", glyph: "info"}],
+	["Contact, Ranger",{prefix: "fas", glyph: "info"}],
+	["Contact, Smiley",{prefix: "fas", glyph: "info"}],
+	["Contact, Spike",{prefix: "fas", glyph: "info"}],
+	["Contact, Sumo",{prefix: "fas", glyph: "info"}],
+	["Controlled Area",{prefix: "fas", glyph: "exclamation"}],
+	["Convenience Store",{prefix: "fas", glyph: "store"}],
+	["Cover",{prefix: "", glyph: ""}],
+	["Covey",{prefix: "", glyph: ""}],
+	["Crossing",{prefix: "fas", glyph: "traffic-light"}],
+	["Dam",{prefix: "fas", glyph: "water"}],
+	["Danger Area",{prefix: "fas", glyph: "exclamation"}],
+	["Deli",{prefix: "fas", glyph: "store"}],
+	["Department Store",{prefix: "fas", glyph: "store"}],
+	["Diamond, Blue",{prefix: "fas", glyph: "gem"}],
+	["Diamond, Green",{prefix: "fas", glyph: "gem"}],
+	["Diamond, Red",{prefix: "fas", glyph: "gem"}],
+	["Diver Down Flag 1",{prefix: "fas", glyph: "flag"}],
+	["Diver Down Flag 2",{prefix: "far", glyph: "flag"}],
+	["Dock",{prefix: "fas", glyph: "anchor"}],
+	["Dot, White",{prefix: "fas", glyph: "circle"}],
+	["Drinking Water",{prefix: "fas", glyph: "faucet"}],
+	["Dropoff",{prefix: "", glyph: ""}],
+	["Elevation point",{prefix: "fas", glyph: "mountain"}],
+	["Event Cache",{prefix: "fas", glyph: "search"}],
+	["Exit",{prefix: "fas", glyph: "door-open"}],
+	["Exit without services",{prefix: "fas", glyph: "door-open"}],
+	["Fast Food",{prefix: "fas", glyph: "hamburger"}],
+	["First approach fix",{prefix: "", glyph: ""}],
+	["Fishing Area",{prefix: "fas", glyph: "fish"}],
+	["Fishing Hot Spot Facility",{prefix: "fas", glyph: "fish"}],
+	["Fitness Center",{prefix: "fas", glyph: "dumbbell"}],
+	["Flag",{prefix: "fas", glyph: "flag"}],
+	["Flag, Blue",{prefix: "fas", glyph: "flag"}],
+	["Flag, Green",{prefix: "fas", glyph: "flag"}],
+	["Flag, Red",{prefix: "fas", glyph: "flag"}],
+	["Food Source",{prefix: "fas", glyph: "seedling"}],
+	["Forest",{prefix: "fas", glyph: "tree"}],
+	["Furbearer",{prefix: "fas", glyph: "paw"}],
+	["Gambling/casino",{prefix: "fas", glyph: "dice"}],
+	["Gas Station",{prefix: "fas", glyph: "gas-pump"}],
+	["Geocache",{prefix: "fas", glyph: "search"}],
+	["Geocache Found",{prefix: "fas", glyph: "search"}],
+	["Geographic place name, Man-made",{prefix: "fas", glyph: "building"}],
+	["Geographic place name, land",{prefix: "fas", glyph: "globe-europe"}],
+	["Geographic place name, water",{prefix: "fas", glyph: "water"}],
+	["Ghost Town",{prefix: "fas", glyph: "city"}],
+	["Glider Area",{prefix: "fas", glyph: "plane"}],
+	["Golf Course",{prefix: "fas", glyph: "golf-ball"}],
+	["Ground Transportation",{prefix: "fas", glyph: "subway"}],
+	["Heliport",{prefix: "fas", glyph: "helicopter"}],
+	["Horn",{prefix: "fas", glyph: "bullhorn"}],
+	["Hotel",{prefix: "fas", glyph: "hotel"}],
+	["House",{prefix: "fas", glyph: "home"}],
+	["Hunting Area",{prefix: "fas", glyph: "paw"}],
+	["Ice Skating",{prefix: "fas", glyph: "skating"}],
+	["Information",{prefix: "fas", glyph: "info"}],
+	["Intersection",{prefix: "fas", glyph: "traffic-light"}],
+	["Intl freeway hwy",{prefix: "fas", glyph: "road"}],
+	["Intl national hwy",{prefix: "fas", glyph: "road"}],
+	["Italian food",{prefix: "fas", glyph: "pizza"}],
+	["Large Ramp intersection",{prefix: "fas", glyph: "traffic-light"}],
+	["Large exit without services",{prefix: "fas", glyph: "door-open"}],
+	["Letter A, Blue",{prefix: "", glyph: "A"}],
+	["Letter A, Green",{prefix: "", glyph: "A"}],
+	["Letter A, Red",{prefix: "", glyph: "A"}],
+	["Letter B, Blue",{prefix: "", glyph: "B"}],
+	["Letter B, Green",{prefix: "", glyph: "B"}],
+	["Letter B, Red",{prefix: "", glyph: "B"}],
+	["Letter C, Blue",{prefix: "", glyph: "C"}],
+	["Letter C, Green",{prefix: "", glyph: "C"}],
+	["Letter C, Red",{prefix: "", glyph: "C"}],
+	["Letter D, Blue",{prefix: "", glyph: "D"}],
+	["Letter D, Green",{prefix: "", glyph: "D"}],
+	["Letter D, Red",{prefix: "", glyph: "D"}],
+	["Letterbox Cache",{prefix: "fas", glyph: "box-open"}],
+	["Levee",{prefix: "fas", glyph: "anchor"}],
+	["Library",{prefix: "fas", glyph: "book"}],
+	["Light",{prefix: "fas", glyph: "lightbulb"}],
+	["Live Theater",{prefix: "fas", glyph: "theater-masks"}],
+	["Localizer Outer Marker",{prefix: "fas", glyph: "crosshairs"}],
+	["Locationless (Reverse) Cache",{prefix: "fas", glyph: "search"}],
+	["Lodge",{prefix: "fas", glyph: "bed"}],
+	["Lodging",{prefix: "fas", glyph: "bed"}],
+	["Man Overboard",{prefix: "", glyph: ""}],
+	["Marina",{prefix: "fas", glyph: "anchor"}],
+	["Medical Facility",{prefix: "fas", glyph: "clinic-medical"}],
+	["Micro-Cache",{prefix: "fas", glyph: "search"}],
+	["Mile Marker",{prefix: "fas", glyph: "ruler-horizontal"}],
+	["Military",{prefix: "fas", glyph: "fighter-jet"}],
+	["Mine",{prefix: "fas", glyph: "bomb"}],
+	["Missed approach point",{prefix: "", glyph: ""}],
+	["Movie Theater",{prefix: "fas", glyph: "film"}],
+	["Multi-Cache",{prefix: "fas", glyph: "search"}],
+	["Museum",{prefix: "fas", glyph: "monument"}],
+	["Navaid, Amber",{prefix: "fas", glyph: "drafting-compass"}],
+	["Navaid, Black",{prefix: "fas", glyph: "drafting-compass"}],
+	["Navaid, Blue",{prefix: "fas", glyph: "drafting-compass"}],
+	["Navaid, Green",{prefix: "fas", glyph: "drafting-compass"}],
+	["Navaid, Green/Red",{prefix: "fas", glyph: "drafting-compass"}],
+	["Navaid, Green/White",{prefix: "fas", glyph: "drafting-compass"}],
+	["Navaid, Orange",{prefix: "fas", glyph: "drafting-compass"}],
+	["Navaid, Red",{prefix: "fas", glyph: "drafting-compass"}],
+	["Navaid, Red/Green",{prefix: "fas", glyph: "drafting-compass"}],
+	["Navaid, Red/White",{prefix: "fas", glyph: "drafting-compass"}],
+	["Navaid, Violet",{prefix: "fas", glyph: "drafting-compass"}],
+	["Navaid, White",{prefix: "fas", glyph: "drafting-compass"}],
+	["Navaid, White/Green",{prefix: "fas", glyph: "drafting-compass"}],
+	["Navaid, White/Red",{prefix: "fas", glyph: "drafting-compass"}],
+	["Non-directional beacon",{prefix: "", glyph: ""}],
+	["Null",{prefix: "", glyph: ""}],
+	["Number 0, Blue",{prefix: "", glyph: "0"}],
+	["Number 0, Green",{prefix: "", glyph: "0"}],
+	["Number 0, Red",{prefix: "", glyph: "0"}],
+	["Number 1, Blue",{prefix: "", glyph: "1"}],
+	["Number 1, Green",{prefix: "", glyph: "1"}],
+	["Number 1, Red",{prefix: "", glyph: "1"}],
+	["Number 2, Blue",{prefix: "", glyph: "2"}],
+	["Number 2, Green",{prefix: "", glyph: "2"}],
+	["Number 2, Red",{prefix: "", glyph: "2"}],
+	["Number 3, Blue",{prefix: "", glyph: "3"}],
+	["Number 3, Green",{prefix: "", glyph: "3"}],
+	["Number 3, Red",{prefix: "", glyph: "3"}],
+	["Number 4, Blue",{prefix: "", glyph: "4"}],
+	["Number 4, Green",{prefix: "", glyph: "4"}],
+	["Number 4, Red",{prefix: "", glyph: "4"}],
+	["Number 5, Blue",{prefix: "", glyph: "5"}],
+	["Number 5, Green",{prefix: "", glyph: "5"}],
+	["Number 5, Red",{prefix: "", glyph: "5"}],
+	["Number 6, Blue",{prefix: "", glyph: "6"}],
+	["Number 6, Green",{prefix: "", glyph: "6"}],
+	["Number 6, Red",{prefix: "", glyph: "6"}],
+	["Number 7, Blue",{prefix: "", glyph: "7"}],
+	["Number 7, Green",{prefix: "", glyph: "7"}],
+	["Number 7, Red",{prefix: "", glyph: "7"}],
+	["Number 8, Blue",{prefix: "", glyph: "8"}],
+	["Number 8, Green",{prefix: "", glyph: "8"}],
+	["Number 8, Red",{prefix: "", glyph: "8"}],
+	["Number 9, Blue",{prefix: "", glyph: "9"}],
+	["Number 9, Green",{prefix: "", glyph: "9"}],
+	["Number 9, Red",{prefix: "", glyph: "9"}],
+	["Oil Field",{prefix: "fas", glyph: "oil-can"}],
+	["Open 24 Hours",{prefix: "", glyph: ""}],
+	["Oval, Blue",{prefix: "fas", glyph: "circle"}],
+	["Oval, Green",{prefix: "fas", glyph: "circle"}],
+	["Oval, Red",{prefix: "fas", glyph: "circle"}],
+	["Parachute Area",{prefix: "fas", glyph: "parachute-box"}],
+	["Park",{prefix: "fas", glyph: "tree"}],
+	["Parking Area",{prefix: "fas", glyph: "parking"}],
+	["Pharmacy",{prefix: "fas", glyph: "first-aid"}],
+	["Picnic Area",{prefix: "fas", glyph: "utensils"}],
+	["Pin, Blue",{prefix: "fas", glyph: "map-pin"}],
+	["Pin, Green",{prefix: "fas", glyph: "map-pin"}],
+	["Pin, Red",{prefix: "fas", glyph: "map-pin"}],
+	["Pizza",{prefix: "fas", glyph: "pizza"}],
+	["Police Station",{prefix: "fas", glyph: "shield-alt"}],
+	["Post Office",{prefix: "fas", glyph: "envelope"}],
+	["Private Field",{prefix: "fas", glyph: "lock"}],
+	["Puzzle Cache",{prefix: "fas", glyph: "search"}],
+	["RV Park",{prefix: "fas", glyph: "caravan"}],
+	["Radio Beacon",{prefix: "", glyph: ""}],
+	["Ramp intersection",{prefix: "fas", glyph: "traffic-light"}],
+	["Rectangle, Blue",{prefix: "fas", glyph: "square"}],
+	["Rectangle, Green",{prefix: "fas", glyph: "square"}],
+	["Rectangle, Red",{prefix: "fas", glyph: "square"}],
+	["Reef",{prefix: "fas", glyph: "exclamation"}],
+	["Residence",{prefix: "fas", glyph: "home"}],
+	["Restaurant",{prefix: "fas", glyph: "utensils"}],
+	["Restricted Area",{prefix: "fas", glyph: "exclamation"}],
+	["Restroom",{prefix: "fas", glyph: "restroom"}],
+	["Road",{prefix: "fas", glyph: "road"}],
+	["Scales",{prefix: "fas", glyph: "balance-scale"}],
+	["Scenic Area",{prefix: "fas", glyph: "binoculars"}],
+	["School",{prefix: "fas", glyph: "graduation-cap"}],
+	["Seafood",{prefix: "fas", glyph: "fish"}],
+	["Seaplane Base",{prefix: "fas", glyph: "plane"}],
+	["Shipwreck",{prefix: "fas", glyph: "ship"}],
+	["Shopping Center",{prefix: "fas", glyph: "shopping-cart"}],
+	["Short Tower",{prefix: "", glyph: ""}],
+	["Shower",{prefix: "fas", glyph: "shower"}],
+	["Ski Resort",{prefix: "fas", glyph: "skiing"}],
+	["Skiing Area",{prefix: "fas", glyph: "skiing"}],
+	["Skull and Crossbones",{prefix: "fas", glyph: "skull-crossbones"}],
+	["Small City",{prefix: "fas", glyph: "city"}],
+	["Small Game",{prefix: "fas", glyph: "dice"}],
+	["Soft Field",{prefix: "", glyph: ""}],
+	["Square, Blue",{prefix: "fas", glyph: "square"}],
+	["Square, Green",{prefix: "fas", glyph: "square"}],
+	["Square, Red",{prefix: "fas", glyph: "square"}],
+	["Stadium",{prefix: "fas", glyph: "futbol"}],
+	["State Hwy",{prefix: "fas", glyph: "road"}],
+	["Steak",{prefix: "fas", glyph: "utensils"}],
+	["Street Intersection",{prefix: "fas", glyph: "traffic-light"}],
+	["Stump",{prefix: "", glyph: ""}],
+	["Summit",{prefix: "fas", glyph: "mountain"}],
+	["Swimming Area",{prefix: "fas", glyph: "swimmer"}],
+	["TACAN",{prefix: "fas", glyph: "fighter-jet"}],
+	["Tall Tower",{prefix: "", glyph: ""}],
+	["Telephone",{prefix: "fas", glyph: "phone"}],
+	["Tide/Current PRediction Station",{prefix: "", glyph: ""}],
+	["Toll Booth",{prefix: "", glyph: ""}],
+	["TracBack Point",{prefix: "", glyph: ""}],
+	["Trail Head",{prefix: "", glyph: ""}],
+	["Tree Stand",{prefix: "", glyph: ""}],
+	["Treed Quarry",{prefix: "", glyph: ""}],
+	["Triangle, Blue",{prefix: "", glyph: ""}],
+	["Triangle, Green",{prefix: "", glyph: ""}],
+	["Triangle, Red",{prefix: "", glyph: ""}],
+	["Truck",{prefix: "fas", glyph: "truck"}],
+	["Truck Stop",{prefix: "fas", glyph: "truck"}],
+	["Tunnel",{prefix: "fas", glyph: "archway"}],
+	["U Marina",{prefix: "fas", glyph: "anchor"}],
+	["U stump",{prefix: "", glyph: ""}],
+	["US hwy",{prefix: "fas", glyph: "road"}],
+	["Ultralight Area",{prefix: "", glyph: ""}],
+	["Unknown Cache",{prefix: "fas", glyph: "search"}],
+	["Upland Game",{prefix: "", glyph: ""}],
+	["VHF Omni-range",{prefix: "fas", glyph: "fighter-jet"}],
+	["VOR-DME",{prefix: "fas", glyph: "fighter-jet"}],
+	["VOR/TACAN",{prefix: "fas", glyph: "fighter-jet"}],
+	["Virtual cache",{prefix: "fas", glyph: "search"}],
+	["Water Hydrant",{prefix: "fas", glyph: "tint"}],
+	["Water Source",{prefix: "fas", glyph: "faucet"}],
+	["Waterfowl",{prefix: "", glyph: ""}],
+	["Waypoint",{prefix: "fas", glyph: "map-sign"}],
+	["Webcam Cache",{prefix: "fas", glyph: "search"}],
+	["Weed Bed",{prefix: "fas", glyph: "bed"}],
+	["Winery",{prefix: "fas", glyph: "wine-glass"}],
+	["Wrecker",{prefix: "", glyph: ""}],
+	["Zoo",{prefix: "fas", glyph: "paw"}]
+];
+const iconMap = new Map(icons);
+
 var _MAX_POINT_INTERVAL_MS = 15000;
 var _SECOND_IN_MILLIS = 1000;
 var _MINUTE_IN_MILLIS = 60 * _SECOND_IN_MILLIS;
@@ -59,7 +358,7 @@ var _DEFAULT_MARKER_OPTS = {
   shadowSize: [50, 50],
   iconAnchor: [16, 45],
   shadowAnchor: [16, 47],
-  clickable: false
+  clickable: true
 };
 var _DEFAULT_POLYLINE_OPTS = {
   color: 'blue'
@@ -70,7 +369,7 @@ var _DEFAULT_GPX_OPTS = {
 };
 
 L.GPX = L.FeatureGroup.extend({
-  initialize: function(gpx, options) {
+  initialize: function(gpx, options, trace) {
     options.max_point_interval = options.max_point_interval || _MAX_POINT_INTERVAL_MS;
     options.marker_options = this._merge_objs(
       _DEFAULT_MARKER_OPTS,
@@ -86,6 +385,7 @@ L.GPX = L.FeatureGroup.extend({
     L.GPXTrackIcon = L.Icon.extend({ options: options.marker_options });
 
     this._gpx = gpx;
+    this._trace = trace;
     this._layers = {};
     this._init_info();
 
@@ -357,6 +657,12 @@ L.GPX = L.FeatureGroup.extend({
             el[i].getAttribute('lat'),
             el[i].getAttribute('lon'));
 
+        var eleEl = el[i].getElementsByTagName('ele');
+        var ele = -1;
+        if (eleEl.length > 0) {
+          ele = parseFloat(eleEl[0].textContent);
+        }
+
         var nameEl = el[i].getElementsByTagName('name');
         var name = '';
         if (nameEl.length > 0) {
@@ -369,53 +675,147 @@ L.GPX = L.FeatureGroup.extend({
           desc = descEl[0].textContent;
         }
 
+        var cmtEl = el[i].getElementsByTagName('cmt');
+        var cmt = '';
+        if (cmtEl.length > 0) {
+          cmt = cmtEl[0].textContent;
+        }
+
         var symEl = el[i].getElementsByTagName('sym');
-        var symKey = '';
+        var sym = '';
         if (symEl.length > 0) {
-          symKey = symEl[0].textContent;
+          sym = symEl[0].textContent;
         }
 
-        /*
-         * Add waypoint marker based on the waypoint symbol key.
-         *
-         * First look for a configured icon for that symKey. If not found, look
-         * for a configured icon URL for that symKey and build an icon from it.
-         * Otherwise, fall back to the default icon if one was configured, or
-         * finally to the default icon URL.
-         */
-        var wptIcons = options.marker_options.wptIcons;
-        var wptIconUrls = options.marker_options.wptIconUrls;
-        var symIcon;
-        if (wptIcons && wptIcons[symKey]) {
-          symIcon = wptIcons[symKey];
-        } else if (wptIconUrls && wptIconUrls[symKey]) {
-          symIcon = new L.GPXTrackIcon({iconUrl: wptIconUrls[symKey]});
-        } else if (wptIcons && wptIcons['']) {
-          symIcon = wptIcons[''];
-        } else if (wptIconUrls && wptIconUrls['']) {
-          symIcon = new L.GPXTrackIcon({iconUrl: wptIconUrls['']});
-        } else {
-          console.log('No icon or icon URL configured for symbol type "' + symKey
-            + '", and no fallback configured; ignoring waypoint.');
-          continue;
-        }
-
-        var marker = new L.Marker(ll, {
-          clickable: options.marker_options.clickable,
-          title: name,
-          icon: symIcon
-        });
-        marker.bindPopup("<b>" + name + "</b>" + (desc.length > 0 ? '<br>' + desc : '')).openPopup();
+        var marker = this._get_marker(ll, ele, sym, name, desc, cmt, options);
         this.fire('addpoint', { point: marker, point_type: 'waypoint', element: el[i] });
         layers.push(marker);
       }
     }
 
-    if (layers.length > 1) {
-       return new L.FeatureGroup(layers);
-    } else if (layers.length == 1) {
-      return layers[0];
-    }
+    if (layers.length == 0) return null;
+    return new L.FeatureGroup(layers);
+  },
+
+  _get_marker: function(ll, ele, sym, name, desc, cmt, options) {
+      var icon = iconMap.get(sym);
+      if (!icon) icon = {prefix: '', glyph: ''};
+      var marker = new L.Marker(ll, {
+        clickable: options.marker_options.clickable,
+        title: name,
+        icon: L.icon.glyph(icon)
+      });
+
+      marker.ele = ele;
+      marker.name = name;
+      marker.desc = desc;
+      marker.cmt = cmt;
+      marker.sym = sym;
+
+      const trace = this._trace;
+      const map = trace.map;
+
+      marker.on({
+          mousedown: function (e) {
+              if (e.originalEvent !== undefined && e.originalEvent.which == 3) return false;
+              map.dragging.disable();
+              marker._latlng_origin = marker._latlng;
+              map.on('mousemove', function (e) {
+                  marker.setLatLng(e.latlng);
+              });
+              map._draggedMarker = marker;
+              map._container.style.cursor = 'grabbing';
+          },
+          contextmenu: function (e) {
+              const popup2 = L.popup({
+                  closeButton: false
+              }).setContent(`<div id="remove-waypoint" class="custom-button" style="display: inline-block">Remove waypoint</div>
+              <div class="custom-button" style="display: inline-block; width: 4px"></i></div>
+              <div id="close-popup" class="custom-button" style="display: inline-block"><i class="fas fa-times"></i></div>`);
+              marker.bindPopup(popup2).openPopup();
+              popup2.addEventListener('remove', function () {
+                  marker.unbindPopup();
+              });
+
+              var button = document.getElementById("remove-waypoint");
+              button.addEventListener("click", function () {
+                  trace.deleteWaypoint(marker);
+                  marker.closePopup();
+                  marker.remove();
+              });
+
+              var close = document.getElementById("close-popup");
+              close.addEventListener("click", function () {
+                  marker.closePopup();
+              });
+
+              return false;
+          },
+          click: function () {
+              if (this.isPopupOpen()) {
+                  this.closePopup();
+              } else {
+                  const popup = L.popup({
+                      closeButton: false
+                  });
+                  marker.bindPopup(popup).openPopup();
+                  popup.setContent(`<div class="waypoint-input">
+                                        <div style="width: 188px; height: 12px; overflow: scroll; display: inline-block"><b>`+marker.name+`</b></div><i id="edit`+popup._leaflet_id+`" class="fas fa-pencil-alt custom-button" style="display: inline-block"></i><br>
+                                        <div style="height: 48px; overflow: scroll;">`+marker.cmt+`<br><i>`+marker.desc+`</i></div>
+                                    </div>`);
+                  const test = document.getElementById('edit' + popup._leaflet_id);
+                  test.addEventListener('click', function () {
+                      popup.setContent(`<label for="name`+popup._leaflet_id+`">Name</label><br>
+                                     <input type="text" id="name`+popup._leaflet_id+`" name="name`+popup._leaflet_id+`" class="waypoint-input"><br>
+                                     <label for="cmt`+popup._leaflet_id+`">Comment (for GPS devices)</label><br>
+                                     <input type="text" id="cmt`+popup._leaflet_id+`" name="cmt`+popup._leaflet_id+`" class="waypoint-input"><br>
+                                     <label for="desc`+popup._leaflet_id+`">Description (for users)</label><br>
+                                     <input type="text" id="desc`+popup._leaflet_id+`" name="desc`+popup._leaflet_id+`" class="waypoint-input"><br>
+                                     <label for="sym`+popup._leaflet_id+`">Symbol</label><br>
+                                     <select type="text" id="sym`+popup._leaflet_id+`" name="sym`+popup._leaflet_id+`" class="waypoint-input"></select><br>
+                                     <table class="waypoint-input"><colgroup><col span="1" style="width: 30%;"><col span="1" style="width: 20%;"><col span="1" style="width: 20%;"><col span="1" style="width: 30%;"></colgroup><tbody><tr><td></td><td><div id="change`+popup._leaflet_id+`" class="panels custom-button normal-button">Ok</div></td><td><div id="cancel`+popup._leaflet_id+`" class="panels custom-button normal-button"><b>Cancel</b></div></td><td></td></tr></tbody></table>`);
+                      const name = document.getElementById('name'+popup._leaflet_id);
+                      const cmt = document.getElementById('cmt'+popup._leaflet_id);
+                      const desc = document.getElementById('desc'+popup._leaflet_id);
+                      const select = document.getElementById('sym'+popup._leaflet_id);
+                      const change = document.getElementById('change'+popup._leaflet_id);
+                      const cancel = document.getElementById('cancel'+popup._leaflet_id);
+
+                      for (var i=0; i<icons.length; i++) {
+                          var opt = document.createElement('option');
+                          opt.value = icons[i][0];
+                          opt.innerHTML = icons[i][0];
+                          select.appendChild(opt);
+                      }
+
+                      name.value = marker.name;
+                      cmt.value = marker.cmt;
+                      desc.value = marker.desc;
+                      select.value = marker.sym.length > 0 ? marker.sym : " ";
+
+                      change.addEventListener('click', function () {
+                          marker.name = name.value;
+                          marker.cmt = cmt.value;
+                          marker.desc = desc.value;
+                          marker.sym = select.value;
+                          marker.setIcon(L.icon.glyph(iconMap.get(marker.sym)));
+
+                          marker.closePopup();
+                          marker.fire('click');
+                      });
+                      cancel.addEventListener('click', function () {
+                          marker.closePopup();
+                      });
+                  });
+
+                  popup.addEventListener('remove', function () {
+                      marker.unbindPopup();
+                  });
+              }
+          }
+      });
+
+      return marker;
   },
 
   _parse_segment: function(line, options, polyline_options, tag) {
