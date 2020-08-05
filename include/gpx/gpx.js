@@ -39,7 +39,7 @@
 //var L = L || require('leaflet');
 
 const icons = [
-    ["",{prefix: "", glyph: ""}],
+    [" ",{prefix: "", glyph: ""}],
     ["ATV",{prefix: "", glyph: ""}],
 	["Airport",{prefix: "fas", glyph: "plane"}],
 	["Amusement Park",{prefix: "", glyph: ""}],
@@ -358,7 +358,7 @@ var _DEFAULT_MARKER_OPTS = {
   shadowSize: [50, 50],
   iconAnchor: [16, 45],
   shadowAnchor: [16, 47],
-  clickable: false
+  clickable: true
 };
 var _DEFAULT_POLYLINE_OPTS = {
   color: 'blue'
@@ -705,29 +705,7 @@ L.GPX = L.FeatureGroup.extend({
         title: name,
         icon: L.icon.glyph(icon)
       });
-      var popup = L.popup({
-          closeButton: false
-      }).setContent(`<label for="name">Name</label><br>
-  <input type="text" id="name" name="name"><br>
-  <label for="cmt">Comment (for GPS devices)</label><br>
-  <input type="text" id="cmt" name="cmt"><br>
-  <label for="desc">Description (for users)</label><br>
-  <input type="text" id="desc" name="desc"><br>
-  <label for="sym">Symbol</label><br>
-  <select type="text" id="sym" name="sym">`);
 
-      popup.addEventListener('add', function () {
-          const select = document.getElementById('sym');
-          for (var i=0; i<icons.length; i++) {
-              var opt = document.createElement('option');
-              opt.value = icons[i][0];
-              opt.innerHTML = icons[i][0];
-              if (icons[i][1].prefix.length > 0) opt.innerHTML += ' <i class="' + icons[i][1].prefix + ' fa-' + icons[i][1].glyph + '"></i>';
-              select.appendChild(opt);
-          }
-      });
-
-      marker.bindPopup(popup);
       marker.ele = ele;
       marker.name = name;
       marker.desc = desc;
@@ -741,6 +719,7 @@ L.GPX = L.FeatureGroup.extend({
           mousedown: function (e) {
               if (e.originalEvent !== undefined && e.originalEvent.which == 3) return false;
               map.dragging.disable();
+              marker._latlng_origin = marker._latlng;
               map.on('mousemove', function (e) {
                   marker.setLatLng(e.latlng);
               });
@@ -750,13 +729,12 @@ L.GPX = L.FeatureGroup.extend({
           contextmenu: function (e) {
               const popup2 = L.popup({
                   closeButton: false
-              }).setContent(`<div id="remove-waypoint" class="custom-button" style="display: inline-block">Remove point</div>
+              }).setContent(`<div id="remove-waypoint" class="custom-button" style="display: inline-block">Remove waypoint</div>
               <div class="custom-button" style="display: inline-block; width: 4px"></i></div>
               <div id="close-popup" class="custom-button" style="display: inline-block"><i class="fas fa-times"></i></div>`);
               marker.bindPopup(popup2).openPopup();
-
-              popup2.addEventListener('remove', function (e) {
-                  marker.bindPopup(popup);
+              popup2.addEventListener('remove', function () {
+                  marker.unbindPopup();
               });
 
               var button = document.getElementById("remove-waypoint");
@@ -772,6 +750,68 @@ L.GPX = L.FeatureGroup.extend({
               });
 
               return false;
+          },
+          click: function () {
+              if (this.isPopupOpen()) {
+                  this.closePopup();
+              } else {
+                  const popup = L.popup({
+                      closeButton: false
+                  });
+                  marker.bindPopup(popup).openPopup();
+                  popup.setContent(`<div class="waypoint-input">
+                                        <div style="width: 188px; height: 12px; overflow: scroll; display: inline-block"><b>`+marker.name+`</b></div><i id="edit`+popup._leaflet_id+`" class="fas fa-pencil-alt custom-button" style="display: inline-block"></i><br>
+                                        <div style="height: 48px; overflow: scroll;">`+marker.cmt+`<br><i>`+marker.desc+`</i></div>
+                                    </div>`);
+                  const test = document.getElementById('edit' + popup._leaflet_id);
+                  test.addEventListener('click', function () {
+                      popup.setContent(`<label for="name`+popup._leaflet_id+`">Name</label><br>
+                                     <input type="text" id="name`+popup._leaflet_id+`" name="name`+popup._leaflet_id+`" class="waypoint-input"><br>
+                                     <label for="cmt`+popup._leaflet_id+`">Comment (for GPS devices)</label><br>
+                                     <input type="text" id="cmt`+popup._leaflet_id+`" name="cmt`+popup._leaflet_id+`" class="waypoint-input"><br>
+                                     <label for="desc`+popup._leaflet_id+`">Description (for users)</label><br>
+                                     <input type="text" id="desc`+popup._leaflet_id+`" name="desc`+popup._leaflet_id+`" class="waypoint-input"><br>
+                                     <label for="sym`+popup._leaflet_id+`">Symbol</label><br>
+                                     <select type="text" id="sym`+popup._leaflet_id+`" name="sym`+popup._leaflet_id+`" class="waypoint-input"></select><br>
+                                     <table class="waypoint-input"><colgroup><col span="1" style="width: 30%;"><col span="1" style="width: 20%;"><col span="1" style="width: 20%;"><col span="1" style="width: 30%;"></colgroup><tbody><tr><td></td><td><div id="change`+popup._leaflet_id+`" class="panels custom-button normal-button">Ok</div></td><td><div id="cancel`+popup._leaflet_id+`" class="panels custom-button normal-button"><b>Cancel</b></div></td><td></td></tr></tbody></table>`);
+                      const name = document.getElementById('name'+popup._leaflet_id);
+                      const cmt = document.getElementById('cmt'+popup._leaflet_id);
+                      const desc = document.getElementById('desc'+popup._leaflet_id);
+                      const select = document.getElementById('sym'+popup._leaflet_id);
+                      const change = document.getElementById('change'+popup._leaflet_id);
+                      const cancel = document.getElementById('cancel'+popup._leaflet_id);
+
+                      for (var i=0; i<icons.length; i++) {
+                          var opt = document.createElement('option');
+                          opt.value = icons[i][0];
+                          opt.innerHTML = icons[i][0];
+                          select.appendChild(opt);
+                      }
+
+                      name.value = marker.name;
+                      cmt.value = marker.cmt;
+                      desc.value = marker.desc;
+                      select.value = marker.sym.length > 0 ? marker.sym : " ";
+
+                      change.addEventListener('click', function () {
+                          marker.name = name.value;
+                          marker.cmt = cmt.value;
+                          marker.desc = desc.value;
+                          marker.sym = select.value;
+                          marker.setIcon(L.icon.glyph(iconMap.get(marker.sym)));
+
+                          marker.closePopup();
+                          marker.fire('click');
+                      });
+                      cancel.addEventListener('click', function () {
+                          marker.closePopup();
+                      });
+                  });
+
+                  popup.addEventListener('remove', function () {
+                      marker.unbindPopup();
+                  });
+              }
           }
       });
 

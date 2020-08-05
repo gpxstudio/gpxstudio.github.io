@@ -80,7 +80,7 @@ export default class Trace {
 
                 var wptMissingEle = [];
                 for (var i=0; i<wptLayers.length; i++) {
-                    this.addLayer(wptLayers[i]);
+                    wptLayers[i].addTo(map);
                     if (wptLayers[i].ele == -1) wptMissingEle.push(wptLayers[i]._latlng);
                 }
                 if (wptMissingEle.length > 0) trace.askElevation(wptMissingEle, true);
@@ -710,9 +710,12 @@ export default class Trace {
 
     addWaypoint(latlng) {
         const marker = this.gpx._get_marker(latlng, 0, '', '', '', '', this.gpx.options);
-        this.gpx.addLayer(marker);
+        marker.addTo(this.map);
         this.waypoints.push(marker);
-        marker.openPopup();
+        marker.fire('click');
+        const test = document.getElementById('edit' + marker._popup._leaflet_id);
+        test.click();
+        this.askElevation([marker._latlng], true);
     }
 
     deleteWaypoint(marker) {
@@ -932,10 +935,10 @@ export default class Trace {
             pts.push(points[points.length-1]);
             requests.push([points.slice(start, i + step - 1), pts]);
         }
-        this.askPointsElevation(requests, step);
+        this.askPointsElevation(requests, step, 0);
     }
 
-    askPointsElevation(requests, step) {
+    askPointsElevation(requests, step, depth) {
         const trace_points = requests[0][0], points = requests[0][1];
         const Http = new XMLHttpRequest();
         var url = 'https://api.airmap.com/elevation/v1/ele?points=';
@@ -972,10 +975,10 @@ export default class Trace {
 
                     trace.update();
                     if (trace.isEdited) trace.buttons.elev._removeSliderCircles();
-                } else trace.askPointsElevation(requests.slice(1), step);
+                } else trace.askPointsElevation(requests.slice(1), step, 0);
             } else if (this.readyState == 4 && this.status != 200) {
                 console.log('elevation query timeout : retry');
-                trace.askPointsElevation(requests, step);
+                if (depth < 10) trace.askPointsElevation(requests, step, depth+1);
             }
         }
     }

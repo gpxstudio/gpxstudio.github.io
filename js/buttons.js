@@ -684,9 +684,11 @@ export default class Buttons {
                 const marker = map._draggedMarker;
                 marker.getElement().style.cursor = 'pointer';
                 map._container.style.cursor = '';
-                if (!marker.sym) {
+                if (marker._pt) {
                     trace.updatePoint(marker, e.latlng.lat, e.latlng.lng);
                     trace.refreshEditMarkers();
+                } else if (marker._latlng != marker._latlng_origin) {
+                    trace.askElevation([marker._latlng], true)
                 }
                 map._draggedMarker = null;
             }

@@ -520,3 +520,7 @@ ul {
     padding: 0px;
     background: inherit;
 }
+
+.waypoint-input {
+    width: 200px;
+}
