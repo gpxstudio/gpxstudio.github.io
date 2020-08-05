@@ -480,7 +480,7 @@ export default class Buttons {
             map.addEventListener("click", function (e) {
                 if (e.originalEvent.target.id != "mapid") return;
                 const trace = total.traces[total.focusOn];
-                trace.addWaypoint();
+                trace.addWaypoint(e.latlng);
                 map._container.style.cursor = '';
                 map.removeEventListener("click");
             });
@@ -692,6 +692,7 @@ export default class Buttons {
             }
         });
         this.time.addEventListener("click", function (e) {
+            if (total.hasFocus) return;
             const trace = total.traces[total.focusOn];
             if (trace.popup) return;
 
@@ -797,6 +798,7 @@ export default class Buttons {
             });
         });
         this.color.addEventListener("click", function () {
+            if (total.hasFocus) return;
             const trace = total.traces[total.focusOn];
             if (trace.popup) return;
 
@@ -851,6 +853,7 @@ export default class Buttons {
             gtag('event', 'button', {'event_category' : 'help'});
         });
         this.duplicate.addEventListener("click", function () {
+            if (total.hasFocus) return;
             const trace = total.traces[total.focusOn];
             trace.clone();
             gtag('event', 'button', {'event_category' : 'duplicate'});

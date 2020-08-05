@@ -79,11 +79,19 @@ export default class Total {
         this.buttons.focusTabElement(this.tab);
         this.buttons.hideTraceButtons();
         this.buttons.elev._removeSliderCircles();
+
+        for (var i=0; i<this.traces.length; i++) {
+            this.traces[i].showWaypoints();
+        }
     }
 
     unfocus() {
         this.hasFocus = false;
         this.buttons.showTraceButtons();
+
+        for (var i=0; i<this.traces.length; i++) {
+            this.traces[i].hideWaypoints();
+        }
     }
 
     updateFocus() {

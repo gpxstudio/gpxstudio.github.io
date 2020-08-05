@@ -739,7 +739,7 @@ L.GPX = L.FeatureGroup.extend({
 
       marker.on({
           mousedown: function (e) {
-              if (e.originalEvent !== undefined && e.originalEvent.which == 3) return;
+              if (e.originalEvent !== undefined && e.originalEvent.which == 3) return false;
               map.dragging.disable();
               map.on('mousemove', function (e) {
                   marker.setLatLng(e.latlng);

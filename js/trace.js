@@ -203,12 +203,14 @@ export default class Trace {
         this.buttons.slider.reset();
         this.showData();
         this.showElevation();
+        this.showWaypoints();
     }
 
     unfocus() {
         this.hasFocus = false;
         this.gpx.setStyle(this.normal_style);
         this.closePopup();
+        this.hideWaypoints();
         if (this.isEdited) this.stopEdit();
         if (this.drawing) this.stopDraw();
         if (this.renaming) this.rename();
@@ -231,6 +233,18 @@ export default class Trace {
         else this.buttons.undo.classList.add('unselected','no-click2');
         if (this.at < this.memory.length-1) this.buttons.redo.classList.remove('unselected','no-click2');
         else this.buttons.redo.classList.add('unselected','no-click2');
+    }
+
+    showWaypoints() {
+        for (var i=0; i<this.waypoints.length; i++) if (!this.waypoints[i]._map){
+            this.waypoints[i].addTo(this.map);
+        }
+    }
+
+    hideWaypoints() {
+        for (var i=0; i<this.waypoints.length; i++) if (this.waypoints[i]._map) {
+            this.waypoints[i].remove();
+        }
     }
 
     edit() {
@@ -694,8 +708,11 @@ export default class Trace {
         }
     }
 
-    addWaypoint() {
-        // TODO
+    addWaypoint(latlng) {
+        const marker = this.gpx._get_marker(latlng, 0, '', '', '', '', this.gpx.options);
+        this.gpx.addLayer(marker);
+        this.waypoints.push(marker);
+        marker.openPopup();
     }
 
     deleteWaypoint(marker) {

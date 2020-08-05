@@ -82,6 +82,7 @@ html, body {
     border: 0px solid #CECECE;
     box-shadow: 2px 2px 2px #BCBCBC;
     white-space: nowrap;
+    text-align: center;
 }
 
 .padding-container {
