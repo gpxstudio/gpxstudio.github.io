@@ -760,8 +760,8 @@ L.GPX = L.FeatureGroup.extend({
                   });
                   marker.bindPopup(popup).openPopup();
                   popup.setContent(`<div class="waypoint-input">
-                                        <div style="width: 188px; height: 12px; overflow: scroll; display: inline-block"><b>`+marker.name+`</b></div><i id="edit`+popup._leaflet_id+`" class="fas fa-pencil-alt custom-button" style="display: inline-block"></i><br>
-                                        <div style="height: 48px; overflow: scroll;">`+marker.cmt+`<br><i>`+marker.desc+`</i></div>
+                                        <div style="width: 188px; height: 14px; overflow: scroll; display: inline-block"><b>`+(marker.name.length > 0 ? marker.name : 'empty title')+`</b></div><i id="edit`+popup._leaflet_id+`" class="fas fa-pencil-alt custom-button" style="display: inline-block"></i><br>
+                                        <div>`+(marker.cmt.length > 0 ? (marker.cmt + '<br>') : '')+`<i>`+marker.desc+`</i></div>
                                     </div>`);
                   const test = document.getElementById('edit' + popup._leaflet_id);
                   test.addEventListener('click', function () {
