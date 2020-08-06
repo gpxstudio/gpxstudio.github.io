@@ -69,7 +69,7 @@
             <div id="info-grid" class="panels-container trace-info">
                 <div class="panels panels-info" id="distance">Distance</div>
                 <div class="panels panels-val" id="distance-val">- km</div>
-                <div class="panels panels-info" id="elevation">Elevation</div>
+                <div class="panels panels-info" id="elevation">Elevation gain</div>
                 <div class="panels panels-val" id="elevation-val">- m</div>
                 <div class="panels panels-info" id="speed">Speed</div>
                 <div class="panels panels-val" id="speed-val">- km/h</div>
@@ -119,7 +119,7 @@
             </tr>
             <tr>
                 <td><b>Export</b></td>
-                <td>Merge <b>in the chosen order</b> or export separately multiple traces (automaticaly extends time, heart rate, cadence and temperature data). When saving to Google Drive, a <b>shareable link</b> is provided.</td>
+                <td>Merge <b>in the chosen order</b> or export separately multiple traces (automaticaly extends time, heart rate, cadence and temperature data). When saving to Google Drive, a <b>shareable link</b> and <b>embedding code</b> is provided.</td>
             </tr>
             <tr>
                 <td><b>Clear all</b></td>
@@ -175,7 +175,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-map-marker-alt"></i></td>
-                <td>Add a waypoint</td>
+                <td>Add a waypoint (drag to change its location and right-click to remove)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-trash-alt"></i></td>
@@ -271,8 +271,9 @@
             (or drag and drop anywhere in the window)
         </div>
         <div id="share-content">
-            Shareable link copied to clipboard!<br>
-            <div id="share-ok" class="panels custom-button normal-button">Great</div>
+            Done!<br>
+            <div id="copy-link" class="panels custom-button fancy-button">Copy link <i class="fas fa-link"></i></div><br>
+            <div id="copy-embed" class="panels custom-button fancy-button">Copy embedding code <i class="fas fa-code"></i></div><br>
         </div>
         <div id="merge-content">
             Click on another tab to merge the traces<br>
@@ -282,6 +283,9 @@
             <a href="https://facebook.com/gpx.studio" target="_blank"><i class="fab fa-facebook-square"></i></a>
             <a href="https://instagram.com/gpx.studio" target="_blank"><i class="fab fa-instagram-square"></i></a>
             <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank"><i class="fab fa-github-square"></i></a>
+        </div>
+        <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
+            <b>Open in</b> <img src="logo.png" height="21" style="vertical-align: bottom;">
         </div>
     </body>
 </html>

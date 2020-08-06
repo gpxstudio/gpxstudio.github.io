@@ -70,6 +70,7 @@ export default class Slider {
     }
 
     show() {
+        if (this.buttons.embedding) return;
         this.start.style.display = 'block';
         this.end.style.display = 'block';
     }
@@ -88,6 +89,7 @@ export default class Slider {
     }
 
     showButtons() {
+        if (this.buttons.embedding) return;
         this.buttons.validate.style.opacity = 1;
         this.buttons.unvalidate.style.opacity = 1;
         this.buttons.validate.style.visibility = "visible";

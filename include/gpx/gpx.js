@@ -760,53 +760,55 @@ L.GPX = L.FeatureGroup.extend({
                   });
                   marker.bindPopup(popup).openPopup();
                   popup.setContent(`<div class="waypoint-input">
-                                        <div style="width: 188px; height: 14px; overflow: scroll; display: inline-block"><b>`+(marker.name.length > 0 ? marker.name : 'empty title')+`</b></div><i id="edit`+popup._leaflet_id+`" class="fas fa-pencil-alt custom-button" style="display: inline-block"></i><br>
+                                        <div style="width: 188px; height: 14px; overflow: scroll; display: inline-block"><b>`+(marker.name.length > 0 ? marker.name : 'empty title')+`</b></div>`+(trace.buttons.embedding ? '' : (`<i id="edit`+popup._leaflet_id+`" class="fas fa-pencil-alt custom-button" style="display: inline-block"></i>`))+`<br>
                                         <div>`+(marker.cmt.length > 0 ? (marker.cmt + '<br>') : '')+`<i>`+marker.desc+`</i></div>
                                     </div>`);
-                  const test = document.getElementById('edit' + popup._leaflet_id);
-                  test.addEventListener('click', function () {
-                      popup.setContent(`<label for="name`+popup._leaflet_id+`">Name</label><br>
-                                     <input type="text" id="name`+popup._leaflet_id+`" name="name`+popup._leaflet_id+`" class="waypoint-input"><br>
-                                     <label for="cmt`+popup._leaflet_id+`">Comment (for GPS devices)</label><br>
-                                     <input type="text" id="cmt`+popup._leaflet_id+`" name="cmt`+popup._leaflet_id+`" class="waypoint-input"><br>
-                                     <label for="desc`+popup._leaflet_id+`">Description (for users)</label><br>
-                                     <input type="text" id="desc`+popup._leaflet_id+`" name="desc`+popup._leaflet_id+`" class="waypoint-input"><br>
-                                     <label for="sym`+popup._leaflet_id+`">Symbol</label><br>
-                                     <select type="text" id="sym`+popup._leaflet_id+`" name="sym`+popup._leaflet_id+`" class="waypoint-input"></select><br>
-                                     <table class="waypoint-input"><colgroup><col span="1" style="width: 30%;"><col span="1" style="width: 20%;"><col span="1" style="width: 20%;"><col span="1" style="width: 30%;"></colgroup><tbody><tr><td></td><td><div id="change`+popup._leaflet_id+`" class="panels custom-button normal-button">Ok</div></td><td><div id="cancel`+popup._leaflet_id+`" class="panels custom-button normal-button"><b>Cancel</b></div></td><td></td></tr></tbody></table>`);
-                      const name = document.getElementById('name'+popup._leaflet_id);
-                      const cmt = document.getElementById('cmt'+popup._leaflet_id);
-                      const desc = document.getElementById('desc'+popup._leaflet_id);
-                      const select = document.getElementById('sym'+popup._leaflet_id);
-                      const change = document.getElementById('change'+popup._leaflet_id);
-                      const cancel = document.getElementById('cancel'+popup._leaflet_id);
+                  if (!trace.buttons.embedding) {
+                      const edit = document.getElementById('edit' + popup._leaflet_id);
+                      edit.addEventListener('click', function () {
+                          popup.setContent(`<label for="name`+popup._leaflet_id+`">Name</label><br>
+                                         <input type="text" id="name`+popup._leaflet_id+`" name="name`+popup._leaflet_id+`" class="waypoint-input"><br>
+                                         <label for="cmt`+popup._leaflet_id+`">Comment (for GPS devices)</label><br>
+                                         <input type="text" id="cmt`+popup._leaflet_id+`" name="cmt`+popup._leaflet_id+`" class="waypoint-input"><br>
+                                         <label for="desc`+popup._leaflet_id+`">Description (for users)</label><br>
+                                         <input type="text" id="desc`+popup._leaflet_id+`" name="desc`+popup._leaflet_id+`" class="waypoint-input"><br>
+                                         <label for="sym`+popup._leaflet_id+`">Symbol</label><br>
+                                         <select type="text" id="sym`+popup._leaflet_id+`" name="sym`+popup._leaflet_id+`" class="waypoint-input"></select><br>
+                                         <table class="waypoint-input"><colgroup><col span="1" style="width: 30%;"><col span="1" style="width: 20%;"><col span="1" style="width: 20%;"><col span="1" style="width: 30%;"></colgroup><tbody><tr><td></td><td><div id="change`+popup._leaflet_id+`" class="panels custom-button normal-button">Ok</div></td><td><div id="cancel`+popup._leaflet_id+`" class="panels custom-button normal-button"><b>Cancel</b></div></td><td></td></tr></tbody></table>`);
+                          const name = document.getElementById('name'+popup._leaflet_id);
+                          const cmt = document.getElementById('cmt'+popup._leaflet_id);
+                          const desc = document.getElementById('desc'+popup._leaflet_id);
+                          const select = document.getElementById('sym'+popup._leaflet_id);
+                          const change = document.getElementById('change'+popup._leaflet_id);
+                          const cancel = document.getElementById('cancel'+popup._leaflet_id);
 
-                      for (var i=0; i<icons.length; i++) {
-                          var opt = document.createElement('option');
-                          opt.value = icons[i][0];
-                          opt.innerHTML = icons[i][0];
-                          select.appendChild(opt);
-                      }
+                          for (var i=0; i<icons.length; i++) {
+                              var opt = document.createElement('option');
+                              opt.value = icons[i][0];
+                              opt.innerHTML = icons[i][0];
+                              select.appendChild(opt);
+                          }
 
-                      name.value = marker.name;
-                      cmt.value = marker.cmt;
-                      desc.value = marker.desc;
-                      select.value = marker.sym.length > 0 ? marker.sym : " ";
+                          name.value = marker.name;
+                          cmt.value = marker.cmt;
+                          desc.value = marker.desc;
+                          select.value = marker.sym.length > 0 ? marker.sym : " ";
 
-                      change.addEventListener('click', function () {
-                          marker.name = name.value;
-                          marker.cmt = cmt.value;
-                          marker.desc = desc.value;
-                          marker.sym = select.value;
-                          marker.setIcon(L.icon.glyph(iconMap.get(marker.sym)));
+                          change.addEventListener('click', function () {
+                              marker.name = name.value;
+                              marker.cmt = cmt.value;
+                              marker.desc = desc.value;
+                              marker.sym = select.value;
+                              marker.setIcon(L.icon.glyph(iconMap.get(marker.sym)));
 
-                          marker.closePopup();
-                          marker.fire('click');
+                              marker.closePopup();
+                              marker.fire('click');
+                          });
+                          cancel.addEventListener('click', function () {
+                              marker.closePopup();
+                          });
                       });
-                      cancel.addEventListener('click', function () {
-                          marker.closePopup();
-                      });
-                  });
+                  }
 
                   popup.addEventListener('remove', function () {
                       marker.unbindPopup();

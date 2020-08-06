@@ -25,6 +25,21 @@ import Google from './google.js';
 
 export default class Buttons {
     constructor() {
+        // SETTINGS
+        this.km = true;
+        this.cycling = true;
+        this.routing = true;
+        this.openroute = false;
+
+        // EMBEDDING
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        this.embedding = urlParams.has('embed');
+        if (this.embedding) {
+            if (urlParams.has('imperial')) this.km = false;
+            if (urlParams.has('running')) this.cycling = false;
+        }
+
         // MAIN MAP
         this.map = L.map('mapid', {
             zoomControl: false
@@ -32,7 +47,7 @@ export default class Buttons {
         this.map.addEventListener("locationfound", function (e) {
             e.target.setView(e.latlng,12);
         });
-        this.map.locate();
+        if (!this.embedding) this.map.locate();
 
         // BUTTONS
         this.input = document.getElementById("input-file");
@@ -81,7 +96,8 @@ export default class Buttons {
         this.include_cad = document.getElementById("include-cad");
         this.include_atemp = document.getElementById("include-atemp");
         this.strava_ok = document.getElementById("strava-ok");
-        this.share_ok = document.getElementById("share-ok");
+        this.copy_link = document.getElementById("copy-link");
+        this.copy_embed = document.getElementById("copy-embed");
         this.merge_cancel = document.getElementById("merge-cancel");
 
         // DISPLAYS
@@ -103,6 +119,10 @@ export default class Buttons {
         this.load_content = document.getElementById('load-content');
         this.share_content = document.getElementById('share-content');
         this.merge_content = document.getElementById('merge-content');
+        this.embed_content = document.getElementById('embed-content');
+        this.social_content = document.getElementById('social');
+        this.trace_info_content = document.getElementById('info');
+        this.toolbar_content = document.getElementById('toolbar');
         this.buttons_bar = document.getElementById('buttons-bar');
 
         // ZOOM CONTROL
@@ -186,38 +206,42 @@ export default class Buttons {
                     attribution: 'Heatmap: &copy; <a href="https://www.strava.com">Strava</a>'
                 });
 
-                L.control.layers({
-                    "OpenStreetMap" : _this.openStreetMap,
-                    "OpenCycleMap" : _this.openCycleMap,
-                    "OpenHikingMap" : _this.openHikingMap,
-                    "Mapbox Streets" : _this.mapboxStreets,
-                    "Mapbox Outdoors" : _this.mapboxOutdoors,
-                    "Mapbox Satellite" : _this.mapboxSatellite
-                },{
-                    "Strava Heatmap" : _this.stravaHeatmap
-                }).addTo(_this.map);
+                if (_this.embedding) {
+                    _this.openStreetMap.addTo(_this.map);
+                } else {
+                    L.control.layers({
+                        "OpenStreetMap" : _this.openStreetMap,
+                        "OpenCycleMap" : _this.openCycleMap,
+                        "OpenHikingMap" : _this.openHikingMap,
+                        "Mapbox Streets" : _this.mapboxStreets,
+                        "Mapbox Outdoors" : _this.mapboxOutdoors,
+                        "Mapbox Satellite" : _this.mapboxSatellite
+                    },{
+                        "Strava Heatmap" : _this.stravaHeatmap
+                    }).addTo(_this.map);
 
-                _this.stravaHeatmap.on('tileerror', function (e) {
-                    _this.stravaHeatmap.remove();
-                    if (_this.stravaHeatmap.open) return;
-                    _this.stravaHeatmap.open = true;
-                    const popup = L.popup({
-                        className: "centered-popup custom-popup",
-                        autoPan: false,
-                        closeButton: false
+                    _this.stravaHeatmap.on('tileerror', function (e) {
+                        _this.stravaHeatmap.remove();
+                        if (_this.stravaHeatmap.open) return;
+                        _this.stravaHeatmap.open = true;
+                        const popup = L.popup({
+                            className: "centered-popup custom-popup",
+                            autoPan: false,
+                            closeButton: false
+                        });
+                        _this.stravaHeatmap.popup = popup;
+                        popup.setLatLng(_this.map.getCenter());
+                        popup.setContent(_this.strava_content);
+                        _this.strava_content.style.display = 'block';
+                        popup.openOn(_this.map);
+                        _this.disableMap();
+                        popup.addEventListener('remove', function (e) {
+                            _this.stravaHeatmap.open = false;
+                            _this.strava_content.style.display = 'none';
+                            _this.enableMap();
+                        });
                     });
-                    _this.stravaHeatmap.popup = popup;
-                    popup.setLatLng(_this.map.getCenter());
-                    popup.setContent(_this.strava_content);
-                    _this.strava_content.style.display = 'block';
-                    popup.openOn(_this.map);
-                    _this.disableMap();
-                    popup.addEventListener('remove', function (e) {
-                        _this.stravaHeatmap.open = false;
-                        _this.strava_content.style.display = 'none';
-                        _this.enableMap();
-                    });
-                });
+                }
             }
         }
         xhr.open('GET', './mapbox_token.txt');
@@ -249,49 +273,63 @@ export default class Buttons {
         this.elevation_profile = document.getElementsByClassName('elevation')[0];
 
         // OVERLAY COMPONENTS
-        this.toolbar = L.control({position: 'topleft'});
-        this.toolbar.onAdd = function (map) {
-            var div = document.getElementById('toolbar');
-            L.DomEvent.disableClickPropagation(div);
-            return div;
-        };
-        this.toolbar.addTo(this.map);
+        if (this.embedding) {
+            this.buttons_bar.style.display = 'none';
+            this.social_content.style.display = 'none';
+            this.toolbar_content.style.display = 'none';
+            this.trace_info_grid.style.height = '106px';
 
-        this.buttonbar = L.control({position: 'topleft'});
-        this.buttonbar.onAdd = function (map) {
-            var div = _this.buttons_bar;
-            L.DomEvent.disableClickPropagation(div);
-            return div;
-        };
-        this.buttonbar.addTo(this.map);
+            this.toolbar = L.control({position: 'topleft'});
+            this.toolbar.onAdd = function (map) {
+                var div = _this.embed_content;
+                L.DomEvent.disableClickPropagation(div);
+                return div;
+            };
+            this.toolbar.addTo(this.map);
+
+            this.embed_content.addEventListener('click', function () {
+                window.open('https://gpxstudio.github.io/?state='+urlParams.get('state'));
+            });
+        } else {
+            this.toolbar = L.control({position: 'topleft'});
+            this.toolbar.onAdd = function (map) {
+                var div = _this.toolbar_content;
+                L.DomEvent.disableClickPropagation(div);
+                return div;
+            };
+            this.toolbar.addTo(this.map);
+
+            this.buttonbar = L.control({position: 'topleft'});
+            this.buttonbar.onAdd = function (map) {
+                var div = _this.buttons_bar;
+                L.DomEvent.disableClickPropagation(div);
+                return div;
+            };
+            this.buttonbar.addTo(this.map);
+
+            this.social = L.control({position: 'bottomright'});
+            this.social.onAdd = function (map) {
+                var div = _this.social_content;
+                return div;
+            };
+            this.social.addTo(this.map);
+
+            this.embed_content.style.display = 'none';
+        }
 
         this.trace_info = L.control({position: 'bottomleft'});
         this.trace_info.onAdd = function (map) {
-            var div = document.getElementById('info');
+            var div = _this.trace_info_content;
             L.DomEvent.disableClickPropagation(div);
             return div;
         };
         this.trace_info.addTo(this.map);
         this.trace_info_grid.appendChild(this.elevation_profile);
 
-
-        this.social = L.control({position: 'bottomright'});
-        this.social.onAdd = function (map) {
-            var div = document.getElementById('social');
-            return div;
-        };
-        this.social.addTo(this.map);
-
         this.slider = new Slider(this);
         this.google = new Google(this);
 
         this.addHandlers();
-
-        // SETTINGS
-        this.km = true;
-        this.cycling = true;
-        this.routing = true;
-        this.openroute = false;
     }
 
     hideTraceButtons() {
@@ -441,9 +479,6 @@ export default class Buttons {
         this.strava_ok.addEventListener("click", function () {
             buttons.stravaHeatmap.popup.remove();
         });
-        this.share_ok.addEventListener("click", function () {
-            buttons.share_content.popup.remove();
-        });
 
         window.addEventListener('dragover', function (e) {
             e.preventDefault();
@@ -483,6 +518,7 @@ export default class Buttons {
                 trace.addWaypoint(e.latlng);
                 map._container.style.cursor = '';
                 map.removeEventListener("click");
+                gtag('event', 'button', {'event_category' : 'waypoint'});
             });
         });
         this.clear.addEventListener("click", function () {
