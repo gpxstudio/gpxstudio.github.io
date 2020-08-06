@@ -506,12 +506,14 @@ ul {
     color:white;
     background-color:rgb(220,15,130);
     border-radius: 4px;
+    margin-top: 4px;
 }
 
 .normal-button {
     color: #fcfcfc;
     background-color: rgb(160,160,160);
     border-radius: 4px;
+    margin-top: 4px;
 }
 
 .input-minimal {
