@@ -47,7 +47,7 @@ export default class Buttons {
         this.map.addEventListener("locationfound", function (e) {
             e.target.setView(e.latlng,12);
         });
-        if (!this.embedding) this.map.locate();
+        if (!this.embedding && !urlParams.has('state')) this.map.locate();
 
         // BUTTONS
         this.input = document.getElementById("input-file");

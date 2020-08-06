@@ -717,6 +717,7 @@ L.GPX = L.FeatureGroup.extend({
 
       marker.on({
           mousedown: function (e) {
+              if (trace.buttons.embedding) return;
               if (e.originalEvent !== undefined && e.originalEvent.which == 3) return false;
               map.dragging.disable();
               marker._latlng_origin = marker._latlng;
@@ -759,8 +760,8 @@ L.GPX = L.FeatureGroup.extend({
                       closeButton: false
                   });
                   marker.bindPopup(popup).openPopup();
-                  popup.setContent(`<div class="waypoint-input">
-                                        <div style="width: 188px; height: 14px; overflow: scroll; display: inline-block"><b>`+(marker.name.length > 0 ? marker.name : 'empty title')+`</b></div>`+(trace.buttons.embedding ? '' : (`<i id="edit`+popup._leaflet_id+`" class="fas fa-pencil-alt custom-button" style="display: inline-block"></i>`))+`<br>
+                  popup.setContent(`<div>
+                                        <div style="`+(trace.buttons.embedding ? `min-width: 30px; width: auto; max-` : '')+`width: 188px; display: inline-block"><b>`+(marker.name.length > 0 ? marker.name : 'empty title')+`</b></div>`+(trace.buttons.embedding ? '' : (`<i id="edit`+popup._leaflet_id+`" class="fas fa-pencil-alt custom-button" style="display: inline-block"></i>`))+`<br>
                                         <div>`+(marker.cmt.length > 0 ? (marker.cmt + '<br>') : '')+`<i>`+marker.desc+`</i></div>
                                     </div>`);
                   if (!trace.buttons.embedding) {

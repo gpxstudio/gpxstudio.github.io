@@ -135,13 +135,7 @@ export default class Google {
             });
             popup.setLatLng(buttons.map.getCenter());
             popup.setContent('Uploading...');
-            buttons.share_content.popup = popup;
             popup.openOn(buttons.map);
-            buttons.disableMap();
-            popup.addEventListener('remove', function (e) {
-                buttons.share_content.style.display = 'none';
-                buttons.enableMap();
-            });
             this.popup = popup;
         }
     }
@@ -196,9 +190,22 @@ export default class Google {
                         navigator.clipboard.writeText(code);
                     });
 
+                    _this.popup.remove();
+                    _this.popup = L.popup({
+                        className: "centered-popup custom-popup",
+                        closeButton: false,
+                        autoPan: false
+                    });
                     _this.buttons.share_content.style.display = 'block';
                     _this.popup.setContent(_this.buttons.share_content);
                     _this.popup.setLatLng(_this.buttons.map.getCenter());
+                    _this.buttons.share_content.popup = _this.popup;
+                    _this.buttons.disableMap();
+                    _this.popup.addEventListener('remove', function (e) {
+                        _this.buttons.share_content.style.display = 'none';
+                        _this.buttons.enableMap();
+                    });
+                    _this.popup.openOn(_this.buttons.map);
                 }
             }
         });
