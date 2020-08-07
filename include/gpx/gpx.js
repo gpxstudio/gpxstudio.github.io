@@ -618,6 +618,16 @@ L.GPX = L.FeatureGroup.extend({
       this._info.copyright = copyright[0].textContent;
     }
 
+    var color = xml.getElementsByTagName('color');
+    if (color.length > 0) {
+        var s = new Option().style;
+        s.color = color[0].textContent;
+        if (s.color !== '') {
+            this._trace.normal_style.color = color[0].textContent;
+            this._trace.focus_style.color = color[0].textContent;
+        }
+    }
+
     var parseElements = options.gpx_options.parseElements;
     if (parseElements.indexOf('route') > -1) {
       // routes are <rtept> tags inside <rte> sections

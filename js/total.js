@@ -354,9 +354,13 @@ export default class Total {
             }
 
             if (!mergeAll || this.traces.length == 1) {
+                const colorOutput = `<extensions>
+    <color>`+this.traces[i].normal_style.color+`</color>
+</extensions>
+`;
                 output.push({
                     name: this.traces[i].name,
-                    text: (xmlStart+xmlOutput+xmlEnd1+waypointsOutput+xmlEnd2)
+                    text: (xmlStart+xmlOutput+xmlEnd1+waypointsOutput+colorOutput+xmlEnd2)
                 });
                 xmlOutput = '';
                 waypointsOutput = '';
