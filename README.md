@@ -36,4 +36,5 @@ This project would not have been possible without the following amazing projects
 * [Leaflet.Icon.Glyph](https://github.com/Leaflet/Leaflet.Icon.Glyph) : markers with icons for the waypoints
 * [simplify2](https://github.com/geonome/simplify2-js) : line simplification algorithm
 * [Font Awesome](https://fontawesome.com/) : nice icons
+
 And the data, maps and APIs from [OpenStreetMap](https://www.openstreetmap.org/), [Mapbox](https://www.mapbox.com/), [Thunderforest](https://www.thunderforest.com/), [Maps.Refuges.Info](https://wiki.openstreetmap.org/wiki/Hiking/mri), [Strava](https://strava.com) and [AirMap](https://www.airmap.com/).
