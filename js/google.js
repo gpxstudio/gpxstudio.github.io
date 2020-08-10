@@ -119,9 +119,7 @@ export default class Google {
             buttons.export.popup.remove();
 
             this.fileIds = [];
-            const output = buttons.total.outputGPX(mergeAll, time, hr, atemp, cad);
-            for (var i=0; i<output.length; i++)
-                this.saveFile(output[i].name, output[i].text, data.docs[0].id, output.length);
+            this.checkAllFilesInFolder(data.docs[0].id, buttons.total.outputGPX(mergeAll, time, hr, atemp, cad));
 
             gtag('event', 'button', {'event_category' : 'save-drive'});
 
@@ -140,7 +138,29 @@ export default class Google {
         }
     }
 
-    saveFile(filename, filecontent, folderid, number) {
+    checkAllFilesInFolder(folderId, output) {
+        const _this = this;
+        gapi.client.request({
+            'path': '/drive/v2/files',
+            'method': 'GET',
+            'params': {'q': "'" + folderId + "' in parents and trashed=false"},
+            callback: function (resp) {
+                for (var i=0; i<output.length; i++) {
+                    var replace = false;
+                    for (var j=0; j<resp.items.length; j++) {
+                        if (resp.items[j].title == output[i].name) {
+                            _this.saveFile(output[i].name, output[i].text, folderId, output.length, resp.items[j].id);
+                            replace = true;
+                            break;
+                        }
+                    }
+                    if (!replace) _this.saveFile(output[i].name, output[i].text,  folderId, output.length);
+                }
+            }
+        });
+    }
+
+    saveFile(filename, filecontent, folderid, number, fileId) {
         var file = new Blob([filecontent], {type: 'text/xml'});
         var metadata = {
             'title': filename,
@@ -151,7 +171,7 @@ export default class Google {
         var accessToken = gapi.auth.getToken().access_token;
 
         const _this = this;
-        var uploader = new MediaUploader({
+        const options = {
             file: file,
             token: accessToken,
             metadata: metadata,
@@ -207,8 +227,17 @@ export default class Google {
                     });
                     _this.popup.openOn(_this.buttons.map);
                 }
+            },
+            onError: function (e) {
+                console.log(e);
             }
-        });
+        };
+        if (fileId) {
+            options.fileId = fileId;
+            options.baseUrl = 'https://www.googleapis.com/upload/drive/v3/files/';
+        }
+
+        var uploader = new MediaUploader(options);
         uploader.upload();
     }
 
