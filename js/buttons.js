@@ -125,7 +125,6 @@ export default class Buttons {
         this.toolbar_content = document.getElementById('toolbar');
         this.buttons_bar = document.getElementById('buttons-bar');
 
-        // ZOOM CONTROL
         this.zoom = L.control.zoom({
             position: 'topright'
         }).addTo(this.map);
@@ -218,6 +217,11 @@ export default class Buttons {
                         "Mapbox Satellite" : _this.mapboxSatellite
                     },{
                         "Strava Heatmap" : _this.stravaHeatmap
+                    }).addTo(_this.map);
+
+                    _this.searchControl = new L.esri.Geocoding.geosearch({
+                        position: 'topright',
+                        useMapBounds: false
                     }).addTo(_this.map);
 
                     _this.stravaHeatmap.on('tileerror', function (e) {
