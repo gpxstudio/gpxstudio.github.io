@@ -227,9 +227,6 @@ export default class Google {
                     });
                     _this.popup.openOn(_this.buttons.map);
                 }
-            },
-            onError: function (e) {
-                console.log(e);
             }
         };
         if (fileId) {
