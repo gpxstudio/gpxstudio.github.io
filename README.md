@@ -25,7 +25,6 @@ This repository contains the source code of the website [gpx.studio](https://gpx
 ## Future developments
 * Extend time data based on the slope and the existing uploaded data
 * Allow more file formats
-* Search bar for location
 * Snap trace on road network
 
 ## Acknowledgements
