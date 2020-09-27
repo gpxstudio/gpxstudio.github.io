@@ -264,7 +264,7 @@ export default class Buttons {
         this.elev = L.control.elevation({
             theme: "steelblue-theme",
             useHeightIndicator: true,
-            width: (window.innerWidth - 270) * 2 / 3,//400,
+            width: Math.min((window.innerWidth - 270) * 2 / 3, 400),
         	height: 100,
             margins:{
                 top:20,
