@@ -907,7 +907,7 @@ L.GPX = L.FeatureGroup.extend({
       this._info.duration.end = ll.meta.time;
 
       if (last != null) {
-        const dist = this._dist3d(last, ll);
+        const dist = this._dist2d(last, ll);
         this._info.length += dist;
 
         var t = ll.meta.ele - last.meta.ele;

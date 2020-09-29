@@ -602,14 +602,14 @@ export default class Trace {
                 const avg = this.getMovingSpeed();
                 const a = points[points.length-1];
                 const b = otherPoints[0];
-                const dist = this.gpx._dist3d(a, b);
+                const dist = this.gpx._dist2d(a, b);
                 const startTime = new Date(a.meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
                 trace.changeTimeData(startTime, avg);
             } else if (this.firstTimeData() == -1 && trace.firstTimeData() >= 0) {
                 const avg = trace.getMovingSpeed();
                 const a = points[points.length-1];
                 const b = otherPoints[0];
-                const dist = this.gpx._dist3d(a, b) + this.getDistance(true);
+                const dist = this.gpx._dist2d(a, b) + this.getDistance(true);
                 const startTime = new Date(b.meta.time.getTime() - 1000 * 60 * 60 * dist/(1000 * avg));
                 this.changeTimeData(startTime, avg);
             }
@@ -825,7 +825,7 @@ export default class Trace {
         } else {
             points[0].meta.time = start;
             for (var i=1; i<points.length; i++) {
-                const dist = this.gpx._dist3d(points[i-1], points[i]);
+                const dist = this.gpx._dist2d(points[i-1], points[i]);
                 points[i].meta.time = new Date(points[i-1].meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
             }
         }
@@ -850,7 +850,7 @@ export default class Trace {
 
         if (index == -1) return;
         else if (index > 0) {
-            const dist = this.gpx._dist3d(points[0], points[index]);
+            const dist = this.gpx._dist2d(points[0], points[index]);
             points[0].meta.time = new Date(points[index].meta.time.getTime() - 1000 * 60 * 60 * dist/(1000 * avg));
         }
 
@@ -858,7 +858,7 @@ export default class Trace {
         for (var i=1; i<points.length; i++) {
             if (!points[i].meta.time || !last) {
                 last = points[i].meta.time;
-                const dist = this.gpx._dist3d(points[i-1], points[i]);
+                const dist = this.gpx._dist2d(points[i-1], points[i]);
                 points[i].meta.time = new Date(points[i-1].meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
             } else {
                 const newTime = new Date(points[i-1].meta.time.getTime() + points[i].meta.time.getTime() - last.getTime());
@@ -891,7 +891,7 @@ export default class Trace {
             this.gpx._info.duration.end = ll.meta.time;
 
             if (last != null) {
-                const dist = this.gpx._dist3d(last, ll);
+                const dist = this.gpx._dist2d(last, ll);
                 this.gpx._info.length += dist;
 
                 var t = ll.meta.ele - last.meta.ele;
