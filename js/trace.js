@@ -574,6 +574,25 @@ export default class Trace {
 
     reverse() {
         this.gpx.getLayers()[0]._latlngs.reverse();
+
+        if (this.firstTimeData() != -1) {
+            const points = this.getPoints();
+
+            var missing = false;
+            for (var i=0; i<points.length && !missing; i++) {
+                if (!points[i].meta.time) missing = true;
+            }
+            if (missing) this.extendTimeData();
+
+            var last = points[0].meta.time;
+            points[0].meta.time = points[points.length-1].meta.time;
+            for (var i=1; i<points.length; i++) {
+                const tmp = new Date(points[i-1].meta.time.getTime() + (last.getTime() - points[i].meta.time.getTime()));
+                last = points[i].meta.time;
+                points[i].meta.time = tmp;
+            }
+        }
+
         this.recomputeStats();
         this.update();
         this.redraw();
