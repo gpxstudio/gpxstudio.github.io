@@ -11,6 +11,10 @@ export default class Google {
 
         const _this = this;
 
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        if (urlParams.has('state')) _this.buttons.map.stopLocate();
+
         gapi.load('client:auth', {
             callback: function () {
                 gapi.client.init({
@@ -18,13 +22,10 @@ export default class Google {
                     clientId: _this.clientId,
                     scope: 'https://www.googleapis.com/auth/drive.file'
                 }).then(function () {
-                    const queryString = window.location.search;
-                    const urlParams = new URLSearchParams(queryString);
                     if (urlParams.has('state')) {
-                        _this.buttons.map.stopLocate();
                         const params = JSON.parse(urlParams.get('state'));
                         for (var i=0; i<params.ids.length; i++)
-                            _this.downloadFile({id:params.ids[i], name:'track.gpx'});
+                            _this.downloadFile({id:params.ids[i], name:'track.gpx'}, params.hasOwnProperty('action'));
                         gtag('event', 'button', {'event_category' : 'open-drive'});
                     }
                 });
@@ -102,7 +103,7 @@ export default class Google {
     pickerCallback(data) {
         if (data.action == google.picker.Action.PICKED) {
             for (var i=0; i<data.docs.length; i++)
-                this.downloadFile(data.docs[i]);
+                this.downloadFile(data.docs[i], true);
             gtag('event', 'button', {'event_category' : 'load-drive'});
         }
     }
@@ -238,20 +239,29 @@ export default class Google {
         uploader.upload();
     }
 
-    downloadFile(file) {
+    downloadFile(file, auth) {
         if (file.name.split('.').pop() != 'gpx') return;
         const buttons = this.buttons;
-        gapi.client.request({
-            'path': '/drive/v2/files/'+file.id,
-            'method': 'GET',
-            callback: function (resp) {
-                var xhr = new XMLHttpRequest();
+
+        const request = new XMLHttpRequest();
+        var file_url = 'https://content.googleapis.com/drive/v2/files/'+file.id+'?key='+this.developerKey;
+        request.open('GET', file_url, true);
+        if (auth) {
+            const token = gapi.auth.getToken();
+            if (token) request.setRequestHeader('Authorization', 'Bearer ' + token.access_token);
+        }
+        request.onreadystatechange = function () {
+            if (request.readyState == 4 && request.status == 200) {
+                const xhr = new XMLHttpRequest();
+                const resp = JSON.parse(request.response);
                 var file_url = resp.downloadUrl;
                 if (file_url) {
                     file_url = file_url.replace('content.google','www.google');
-                    xhr.open('GET', file_url, true );
-                    const token = gapi.auth.getToken();
-                    if (token) xhr.setRequestHeader('Authorization', 'Bearer ' + token.access_token);
+                    xhr.open('GET', file_url, true);
+                    if (auth) {
+                        const token = gapi.auth.getToken();
+                        if (token) xhr.setRequestHeader('Authorization', 'Bearer ' + token.access_token);
+                    }
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState == 4 && xhr.status == 200) {
                             buttons.total.addTrace(xhr.response, resp.title);
@@ -260,6 +270,7 @@ export default class Google {
                     xhr.send();
                 }
             }
-        });
+        }
+        request.send();
     }
 }
