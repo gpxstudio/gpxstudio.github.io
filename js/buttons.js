@@ -67,6 +67,10 @@ export default class Buttons {
         this.delete = document.getElementById("delete");
         this.delete2 = document.getElementById("delete2");
         this.reverse = document.getElementById("reverse");
+        this.reduce = document.getElementById("reduce");
+        this.reduce_ok = document.getElementById("reduce-ok");
+        this.reduce_cancel = document.getElementById("reduce-cancel");
+        this.reduce_slider = document.getElementById("reduce-slider");
         this.cancel_delete = document.getElementById("canceldelete");
         this.time = document.getElementById("edit-time");
         this.combine = document.getElementById("combine");
@@ -116,6 +120,8 @@ export default class Buttons {
         this.delete_content = document.getElementById('delete-content');
         this.strava_content = document.getElementById('strava-content');
         this.color_content = document.getElementById('color-content');
+        this.reduce_content = document.getElementById('reduce-content');
+        this.reduce_npoints = document.getElementById('reduce-npoints');
         this.load_content = document.getElementById('load-content');
         this.share_content = document.getElementById('share-content');
         this.merge_content = document.getElementById('merge-content');
@@ -343,6 +349,7 @@ export default class Buttons {
         this.combine.classList.add('unselected','no-click');
         this.color.classList.add('unselected','no-click');
         this.add_wpt.classList.add('unselected','no-click');
+        this.reduce.classList.add('unselected','no-click');
     }
 
     showTraceButtons() {
@@ -355,6 +362,7 @@ export default class Buttons {
         this.combine.classList.remove('unselected','no-click');
         this.color.classList.remove('unselected','no-click');
         this.add_wpt.classList.remove('unselected','no-click');
+        this.reduce.classList.remove('unselected','no-click');
     }
 
     greyTraceButtons() {
@@ -366,6 +374,7 @@ export default class Buttons {
         this.combine.classList.add('unselected','no-click');
         this.color.classList.add('unselected','no-click');
         this.add_wpt.classList.add('unselected','no-click');
+        this.reduce.classList.add('unselected','no-click');
     }
 
     blackTraceButtons() {
@@ -377,6 +386,7 @@ export default class Buttons {
         this.combine.classList.remove('unselected','no-click');
         this.color.classList.remove('unselected','no-click');
         this.add_wpt.classList.remove('unselected','no-click');
+        this.reduce.classList.remove('unselected','no-click');
     }
 
     hideToolbars() {
@@ -712,6 +722,44 @@ export default class Buttons {
             trace.reverse();
             gtag('event', 'button', {'event_category' : 'reverse'});
         });
+        const sliderCallback = function() {
+            const npoints = buttons.reduce.trace.previewSimplify(buttons.reduce_slider.value);
+            buttons.reduce_npoints.innerHTML = npoints + '/' + buttons.reduce.trace.getPoints().length;
+        };
+        this.reduce.addEventListener("click", function() {
+            if (total.hasFocus) return;
+            if (buttons.reduce.open) return;
+            buttons.reduce.open = true;
+            const popup = L.popup({
+                className: "centered-popup custom-popup",
+                closeButton: false,
+                autoPan: false
+            });
+            buttons.reduce.popup = popup;
+            buttons.reduce.trace = total.traces[total.focusOn];
+            popup.setLatLng(map.getCenter());
+            popup.setContent(buttons.reduce_content);
+            buttons.reduce_content.style.display = 'block';
+            popup.openOn(map);
+            buttons.disableMap();
+            popup.addEventListener('remove', function (e) {
+                buttons.reduce.open = false;
+                buttons.reduce_content.style.display = 'none';
+                buttons.reduce.trace.cancelSimplify();
+                buttons.enableMap();
+            });
+            buttons.reduce_slider.value = 500;
+            sliderCallback();
+        });
+        this.reduce_ok.addEventListener("click", function() {
+            buttons.reduce.trace.simplify();
+            buttons.reduce.popup.remove();
+            gtag('event', 'button', {'event_category' : 'simplify'});
+        });
+        this.reduce_cancel.addEventListener("click", function() {
+            buttons.reduce.popup.remove();
+        });
+        this.reduce_slider.addEventListener("input", sliderCallback);
         map.on('mouseup', function (e) {
             map.dragging.enable();
             map.removeEventListener('mousemove');
