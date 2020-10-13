@@ -22,6 +22,7 @@
 
 const normal_style = { color: '#ff0000', weight: 3 };
 const focus_style = { color: '#ff0000', weight: 5 };
+const preview_style = { color: '#0000ff', weight: 4 };
 const gpx_options = {
     async: true,
     polyline_options: normal_style,
@@ -479,6 +480,40 @@ export default class Trace {
     refreshEditMarkers() {
         for (var i=0; i<this._editMarkers.length; i++)
             this._editMarkers[i].bringToFront();
+    }
+
+    previewSimplify(value) {
+        value = value / 50;
+        const bounds = this.getBounds();
+        const dist = Math.abs(bounds._southWest.lat - bounds._northEast.lat);
+        const tol = dist * Math.pow(2, -value);
+        if (this.preview) this.preview.clearLayers();
+        this.preview = new L.GPX(undefined, gpx_options, null).addTo(this.map);
+        this.preview.addLayer(new L.Polyline(simplify.douglasPeucker(this.getPoints(), tol), preview_style));
+        return this.preview.getLayers()[0]._latlngs.length;
+    }
+
+    cancelSimplify() {
+        if (this.preview) {
+            this.preview.clearLayers();
+            this.preview = null;
+        }
+    }
+
+    simplify() {
+        this.gpx.getLayers()[0]._latlngs = this.preview.getLayers()[0]._latlngs;
+
+        const points = this.getPoints();
+        for (var i=0; i<points.length; i++) {
+            points[i].routing = false;
+        }
+
+        this.recomputeStats();
+        this.update();
+        this.redraw();
+
+        this.preview.clearLayers();
+        this.preview = null;
     }
 
     /*** GPX DATA ***/

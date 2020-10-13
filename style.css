@@ -64,7 +64,7 @@ html, body {
 }
 
 .centered-popup .leaflet-popup-close-button {
-    transform: translateY(730%);
+    transform: translateY(710%);
 }
 
 .cross .leaflet-popup-close-button {
@@ -455,6 +455,7 @@ ul {
     text-align: justify;
     width: 750px;
     display: none;
+    line-height: 1.2;
 }
 
 #export-content {
@@ -497,6 +498,11 @@ ul {
 }
 
 #merge-content {
+    text-align: center;
+    display: none;
+}
+
+#reduce-content {
     text-align: center;
     display: none;
 }

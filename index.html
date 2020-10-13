@@ -134,6 +134,7 @@
             <div class="panels-button" id="duplicate" title="Duplicate"><i class="far fa-copy custom-button"></i></div><br>
             <div class="panels-button" id="color" title="Change color"><i class="fas fa-palette custom-button"></i></div><br>
             <div class="panels-button" id="add-wpt" title="Add waypoint"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
+            <div class="panels-button" id="reduce" title="Reduce number of points"><i class="fas fa-compress-alt custom-button"></i></div><br>
             <div class="panels-button" id="delete" title="Delete"><i class="fas fa-trash-alt custom-button"></i></div><br>
         </div>
         <div id="help-text">
@@ -145,11 +146,11 @@
             <tbody>
             <tr>
                 <td><b>Load GPX</b></td>
-                <td>Import and visualize GPX files</td>
+                <td>Import and visualize GPX files (or drag and drop anywhere in the window)</td>
             </tr>
             <tr>
                 <td><b>Draw</b></td>
-                <td>Start drawing a new route by clicking on the map</td>
+                <td>Start drawing a new route by placing points on the map</td>
             </tr>
             <tr>
                 <td><b>Export</b></td>
@@ -169,7 +170,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-dove"></i></td>
-                <td>Switch between routing and <i>as the crow flies</i> when editing traces</td>
+                <td>Switch between routing and <i>as the crow flies</i> when creating and editing traces</td>
             </tr>
             </tbody>
         </table>
@@ -210,6 +211,10 @@
             <tr>
                 <td><i class="fas fa-map-marker-alt"></i></td>
                 <td>Add a waypoint (drag to change its location and right-click to remove)</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-compress-alt"></i></td>
+                <td>Reduce the number of points</td>
             </tr>
             <tr>
                 <td><i class="fas fa-trash-alt"></i></td>
@@ -313,6 +318,13 @@
             Click on another tab to merge the traces<br>
             <div id="merge-cancel" class="panels custom-button normal-button">Cancel</div>
         </div>
+        <div id="reduce-content">
+            Choose the amount of detail to keep<br>
+            Number of points : <span id="reduce-npoints">0</span><br>
+            <input type="range" min="0" max="1000" id="reduce-slider" style="width: 100%"><br>
+            <div id="reduce-ok" class="panels custom-button normal-button">Ok</div>
+            <div id="reduce-cancel" class="panels custom-button normal-button">Cancel</div>
+        </div>
         <div id="social" style="font-size: 30px">
             <a href="https://facebook.com/gpx.studio" target="_blank"><i class="fab fa-facebook-square"></i></a>
             <a href="https://instagram.com/gpx.studio" target="_blank"><i class="fab fa-instagram-square"></i></a>
@@ -327,6 +339,7 @@
         <h1 style="display: none">merge gpx files online</h1>
         <h1 style="display: none">reverse gpx file online</h1>
         <h1 style="display: none">add timestamps to gpx file online</h1>
+        <h1 style="display: none">reduce number points gpx file online</h1>
         <h1 style="display: none">view and add waypoints gpx file online</h1>
     </body>
 </html>
