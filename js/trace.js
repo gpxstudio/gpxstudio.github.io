@@ -298,7 +298,6 @@ export default class Trace {
         this.drawing = false;
         if (this.getPoints().length == 0) {
             this.total.removeTrace(this.index);
-            this.buttons.showTraceButtons();
         }
     }
 
