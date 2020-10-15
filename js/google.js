@@ -71,12 +71,9 @@ export default class Google {
     createPicker() {
         if (this.pickerApiLoaded && this.oauthToken) {
             if (this.folderMode) {
-                var view = new google.picker.DocsView()
-                    .setIncludeFolders(true)
-                    .setMimeTypes('application/vnd.google-apps.folder')
+                var view = new google.picker.DocsView(google.picker.ViewId.FOLDERS)
                     .setSelectFolderEnabled(true);
                 var picker = new google.picker.PickerBuilder()
-                    .enableFeature(google.picker.Feature.NAV_HIDDEN)
                     .setAppId(this.appId)
                     .setOAuthToken(this.oauthToken)
                     .addView(view)
