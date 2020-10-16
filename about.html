@@ -18,7 +18,14 @@
         <font face = "Arial, Helvetica, sans-serif">
             <div style="margin: 5% 10% 5% 10%" align="justify">
                 <div style="text-align: center"><a href="https://gpxstudio.github.io"><img src="logo.png" style="width: 60%"></a></div><br>
-                <h1>About</h1>
+                <div style="display: flex; justify-content: space-between">
+                    <a href="#about">About</a>
+                    <a href="#embed">Embedding</a>
+                    <a href="#support">Support</a>
+                    <a href="#terms">Terms of Service</a>
+                    <a href="#privacy">Privacy Policy</a>
+                </div>
+                <h1><a name="about"></a>About</h1>
                 <p><a href="https://gpxstudio.github.io"><b>gpx.studio</b></a> is a free online GPX viewer and editor which allows to :</p>
                 <ul>
                     <li>visualize multiple traces in different colors and aided by many different maps (cycling, hiking, satellite, <a href="https://www.strava.com/heatmap" target="_blank">Strava heatmap</a> overlay, etc)</li>
@@ -33,12 +40,12 @@
                 </ul>
                 <p>It is a one-person side project created after messing with GPX files for some time. If you like the tool and use it frequently, please consider <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TCK9RME3XUV9N&source=url" target="_blank" onclick="gtag('event', 'about', {'event_category' : 'donate'});">donating</a> as to cover bills from API calls (map display, routing and elevation features) and encourage me to keep improving the website. Thank you for your support!</p>
                 <p>The project source code is available on <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank">GitHub</a> where I also put future developments. Follow <b>gpx.studio</b> on <a href="https://facebook.com/gpx.studio" target="_blank">Facebook</a> and <a href="https://instagram.com/gpx.studio" target="_blank">Instagram</a> to be notified about updates, read and share stories.</p>
-                <h1>Embedding</h1>
+                <h1><a name="embed"></a>Embedding</h1>
                 You are very welcome to display traces on your website with <b>gpx.studio</b>. Just save the file to your Google Drive and copy the code provided! You can optionally add parameters to the source URL : <code>imperial</code> to get data in miles and feet, and <code>running</code> to display the pace in minutes by unit of distance.<br><br>
                 <iframe src="https://gpxstudio.github.io/?state=%7B%22ids%22:%5B%2210IbXh7W7QDO7ZKmapJYdcgN3vhdN2Q-e%22%5D%7D&embed" width="100%" height="500" frameborder="0" allowfullscreen><p><a href="https://gpxstudio.github.io/?state=%7B%22ids%22:%5B%2210IbXh7W7QDO7ZKmapJYdcgN3vhdN2Q-e%22%5D%7D"></a></p></iframe>
-                <h1>Support</h1>
+                <h1><a name="support"></a>Support</h1>
                 <p>The <b>Help</b> dialog of the tool should answer most questions about the functionalities, but feel free to ask for help, report any issues or send suggestions on the <a href="https://facebook.com/gpx.studio" target="_blank">Facebook page</a> or by email at <a href="mailto:contact.gpxstudio@gmail.com">contact.gpxstudio@gmail.com</a>.</p>
-                <h1>Terms of Services</h1>
+                <h1><a name="terms"></a>Terms of Services</h1>
                 <p>Thank you for using <b>gpx.studio</b>. These terms of service (Terms) cover your use and access of our website and related software (our Services).</p>
                 <p>By accessing this website, you are agreeing to be bound by this website Terms of Services and to review our Privacy Policy. If you do not agree with any of these terms, you are prohibited from using or accessing this site.</p>
                 <h2>Changes to the Services</h2>
@@ -51,17 +58,20 @@
                 <p>To the fullest extend permitted by law, in no event shall we be liable for any damages or loss of data, business, profits, computer hardware or software.</p>
                 <h2>Changes to Terms</h2>
                 <p>We reserve the right to modify these Terms at any time. By continuing to use the Services after the changes become effective, you agree to the revised Terms.</p>
-                <h1>Privacy Policy</h1>
-                <p>We respect the privacy of our users. We do not collect any personal information except anonymous information such as the number of page views and clicks on buttons to help us enhance your overall experience.</p>
-                <h2>Uploaded Files</h2>
-                <p>The files uploaded on the website are only read once and never stored on a server. We only access the data contained in the files and store it in your local browser.</p>
+                <h1><a name="privacy"></a>Privacy Policy</h1>
+                <p><b>gpx.studio</b> is an online GPX file editor which allows users to create, view and edit files.
+                    We respect the privacy of our users and do not collect any personal information except anonymous information such as the number of page views and clicks on buttons to help us enhance your overall experience.</p>
+                <p>The files created, visualized or edited on the website are only read once and never stored on a server.
+                    We only access the data contained in the files and handle all computations from your local browser (it is a pure client-side application).</p>
+                <p>The code of the website is open-source (see <a href="#about">About</a>), we have nothing to hide.</p>
                 <h2>Google Drive</h2>
-                <p>The website offers the possibility to log in with Google Drive to upload and save files. That service authenticates you directly, and an authentication token identifying you as the file owner is stored in your local browser session profile.
-                   This information is used to browse files in your Google Drive and to automatically authenticate users visiting the website again but it is never stored on our side.
-                   We use standard Google Drive sharing functionality when you decide to share the file, and standard Google Drive authentication, authorization mechanisms for access control.
-                   No other files than those you create with the tool or decide to open with it (either by opening from Google Drive or visiting its associated URL on the tool) will be accessed, and none will ever be stored.
-               </p>
-                <p>Last updated October 25, 2020.</p>
+                <p>The website offers the possibility to log in with Google Drive to upload and save files in order to facilitate the storage, versioning and sharing of GPX files.
+                    That service authenticates you directly with your Google account, and an authentication token identifying you as the file owner is stored in your local browser session profile.
+                    This information is used to browse GPX files in your Google Drive and to open only those you choose to open.
+                    Furthermore, it is used to automatically authenticate users visiting the website again but it is never stored on our side.</p>
+                <p>We use standard Google Drive sharing functionality when you decide to share the file, and standard Google Drive authentication, authorization mechanisms for access control.
+                    No other files than those you create with the tool or decide to open with it (either by opening from Google Drive or visiting its associated URL on the tool) will be accessed, and none will ever be stored.</p>
+                <p>Last updated October 16, 2020.</p>
             </div>
         </font>
     </body>
