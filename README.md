@@ -15,6 +15,7 @@ This repository contains the source code of the website [gpx.studio](https://gpx
 * Undo and redo
 * Duplicate trace
 * Reverse trace
+* Simplify trace
 * Merge traces
 * Support for waypoints
 * Export multiple traces as one or separately in the chosen order and respecting time precedence constraints (if any time data)
