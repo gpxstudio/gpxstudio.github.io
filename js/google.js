@@ -5,7 +5,8 @@ export default class Google {
         this.clientId = "666808960580-0vssfd67o4l2oeirhnapdv2ej575pks7.apps.googleusercontent.com";
         this.appId = "666808960580";
         this.scope = ['https://www.googleapis.com/auth/drive.file',
-                      'https://www.googleapis.com/auth/drive.install'];
+                      'https://www.googleapis.com/auth/drive.install',
+                      'https://www.googleapis.com/auth/drive.readonly'];
         this.pickerApiLoaded = false;
         this.buttons = buttons;
 
@@ -20,7 +21,7 @@ export default class Google {
                 gapi.client.init({
                     apiKey: _this.developerKey,
                     clientId: _this.clientId,
-                    scope: 'https://www.googleapis.com/auth/drive.file'
+                    scope: 'https://www.googleapis.com/auth/drive.readonly'
                 }).then(function () {
                     if (urlParams.has('state')) {
                         const params = JSON.parse(urlParams.get('state'));
