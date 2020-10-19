@@ -7,6 +7,7 @@ export default class Google {
         this.scope = ['https://www.googleapis.com/auth/drive.file',
                       'https://www.googleapis.com/auth/drive.install',
                       'https://www.googleapis.com/auth/drive.readonly'];
+        this.scope2 = 'https://www.googleapis.com/auth/drive.install https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.readonly';
         this.pickerApiLoaded = false;
         this.buttons = buttons;
 
@@ -21,17 +22,33 @@ export default class Google {
                 gapi.client.init({
                     apiKey: _this.developerKey,
                     clientId: _this.clientId,
-                    scope: 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.readonly'
+                    scope: _this.scope2
                 }).then(function () {
                     if (urlParams.has('state')) {
                         const params = JSON.parse(urlParams.get('state'));
-                        for (var i=0; i<params.ids.length; i++)
-                            _this.downloadFile({id:params.ids[i], name:'track.gpx'}, params.hasOwnProperty('userId'));
                         gtag('event', 'button', {'event_category' : 'open-drive'});
+                        if (params.hasOwnProperty('userId')) {
+                            var oauth = gapi.auth2.getAuthInstance();
+                            var user = oauth.currentUser.get();
+                            var isAuthorized = user.hasGrantedScopes(_this.scope2);
+                            if (!isAuthorized || params['userId'] != user.getId()) {
+                                oauth.signIn({
+                                    scope: _this.scope2
+                                }).then(_this.downloadFiles.bind(_this));
+                            } else _this.downloadFiles();
+                        }
                     }
                 });
             }
         });
+    }
+
+    downloadFiles() {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const params = JSON.parse(urlParams.get('state'));
+        for (var i=0; i<params.ids.length; i++)
+            this.downloadFile({id:params.ids[i], name:'track.gpx'}, params.hasOwnProperty('userId'));
     }
 
     loadPicker(folderMode) {
