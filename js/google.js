@@ -21,12 +21,12 @@ export default class Google {
                 gapi.client.init({
                     apiKey: _this.developerKey,
                     clientId: _this.clientId,
-                    scope: 'https://www.googleapis.com/auth/drive.readonly'
+                    scope: 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.readonly'
                 }).then(function () {
                     if (urlParams.has('state')) {
                         const params = JSON.parse(urlParams.get('state'));
                         for (var i=0; i<params.ids.length; i++)
-                            _this.downloadFile({id:params.ids[i], name:'track.gpx'}, params.hasOwnProperty('action'));
+                            _this.downloadFile({id:params.ids[i], name:'track.gpx'}, params.hasOwnProperty('userId'));
                         gtag('event', 'button', {'event_category' : 'open-drive'});
                     }
                 });
