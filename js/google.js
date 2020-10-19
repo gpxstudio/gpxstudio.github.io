@@ -36,7 +36,7 @@ export default class Google {
                                     scope: _this.scope2
                                 }).then(_this.downloadFiles.bind(_this));
                             } else _this.downloadFiles();
-                        }
+                        } else _this.downloadFiles();
                     }
                 });
             }
