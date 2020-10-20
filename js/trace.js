@@ -322,6 +322,7 @@ export default class Trace {
 
     showElevation() {
         this.buttons.elev.clear();
+        this.buttons.elev.options.imperial = !this.buttons.km;
         this.addElevation();
     }
 

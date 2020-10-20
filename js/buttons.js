@@ -671,8 +671,9 @@ export default class Buttons {
                 buttons.kms.classList.remove("selected");
                 buttons.mi.classList.add("selected");
             }
-            if (total.hasFocus) total.showData();
-            else total.traces[total.focusOn].showData();
+            const focus = total.hasFocus ? total : total.traces[total.focusOn];
+            focus.showData();
+            focus.showElevation();
         });
         buttons.bike.classList.add("selected");
         this.activity.addEventListener("click", function () {
