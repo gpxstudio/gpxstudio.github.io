@@ -30,6 +30,7 @@ export default class Total {
         this.tab.addEventListener('click', function(e) {
             e.target.trace.updateFocus();
         });
+        this.color_count = 0;
         this.buttons = buttons;
         this.buttons.addHandlersWithTotal(this);
         this.focus();
@@ -355,10 +356,10 @@ export default class Total {
             }
 
             if (!mergeAll || this.traces.length == 1) {
-                const colorOutput = `<extensions>
+                const colorOutput = this.traces[i].set_color ? `<extensions>
     <color>`+this.traces[i].normal_style.color+`</color>
 </extensions>
-`;
+` : '';
                 output.push({
                     name: this.traces[i].name,
                     text: (xmlStart+xmlOutput+xmlEnd1+waypointsOutput+colorOutput+xmlEnd2)

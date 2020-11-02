@@ -20,9 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-const normal_style = { color: '#ff0000', weight: 3 };
-const focus_style = { color: '#ff0000', weight: 5 };
-const preview_style = { color: '#0000ff', weight: 4 };
+const trace_colors = ['#ff0000', '#0000ff', '#33cc33', '#00ccff', '#ff9900', '#ff00ff', '#ffff00', '#9933ff'];
+const normal_style = { weight: 3 };
+const focus_style = { weight: 5 };
 const gpx_options = {
     async: true,
     polyline_options: normal_style,
@@ -48,6 +48,10 @@ export default class Trace {
         this.renaming = false;
         this.normal_style = {...normal_style};
         this.focus_style = {...focus_style};
+
+        this.normal_style.color = trace_colors[total.color_count % trace_colors.length];
+        this.focus_style.color = trace_colors[total.color_count % trace_colors.length];
+        total.color_count++;
 
         this.memory = [];
         this.at = -1;
@@ -128,6 +132,7 @@ export default class Trace {
             if (trace.gpx.missing_elevation) trace.askElevation(trace.getPoints());
         }).on('click', function (e) {
             if (e.layer.sym) return;
+            if (trace.buttons.disable_trace) return; 
             if (!e.target.trace.isEdited) e.target.trace.updateFocus();
         }).on('mousedown', function (e) {
             const trace = e.target.trace;
@@ -169,8 +174,8 @@ export default class Trace {
         }
 
         if (cpy.length > 0) {
-            newTrace.gpx.addLayer(new L.Polyline(cpy, this.gpx.options.polyline_options));
-            newTrace.gpx.setStyle(focus_style);
+            newTrace.gpx.addLayer(new L.Polyline(cpy, newTrace.gpx.options.polyline_options));
+            newTrace.gpx.setStyle(newTrace.focus_style);
             newTrace.recomputeStats();
             newTrace.update();
         }
@@ -488,6 +493,11 @@ export default class Trace {
         const dist = Math.abs(bounds._southWest.lat - bounds._northEast.lat);
         const tol = dist * Math.pow(2, -value);
         if (this.preview) this.preview.clearLayers();
+        const color = this.normal_style.color;
+        const preview_style = {
+            color: `#${color.substring(3,7)}${color.substring(1,3)}`,
+            weight: 4
+        };
         this.preview = new L.GPX(undefined, gpx_options, null).addTo(this.map);
         this.preview.addLayer(new L.Polyline(simplify.douglasPeucker(this.getPoints(), tol), preview_style));
         return this.preview.getLayers()[0]._latlngs.length;
@@ -763,13 +773,22 @@ export default class Trace {
     }
 
     addWaypoint(latlng) {
-        const marker = this.gpx._get_marker(latlng, 0, '', '', '', '', this.gpx.options);
+        const marker = this.gpx._get_marker(
+            latlng,
+            0,
+            this.buttons.clone_wpt ? this.buttons.clone_wpt.sym : '',
+            this.buttons.clone_wpt ? this.buttons.clone_wpt.name : '',
+            this.buttons.clone_wpt ? this.buttons.clone_wpt.desc : '',
+            this.buttons.clone_wpt ? this.buttons.clone_wpt.cmt : '',
+            this.gpx.options
+        );
         marker.addTo(this.map);
         this.waypoints.push(marker);
         marker.fire('click');
-        const test = document.getElementById('edit' + marker._popup._leaflet_id);
-        test.click();
+        const edit_marker = document.getElementById('edit' + marker._popup._leaflet_id);
+        edit_marker.click();
         this.askElevation([marker._latlng], true);
+        this.buttons.clone_wpt = null;
     }
 
     deleteWaypoint(marker) {
