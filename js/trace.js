@@ -173,8 +173,8 @@ export default class Trace {
         }
 
         if (cpy.length > 0) {
-            newTrace.gpx.addLayer(new L.Polyline(cpy, this.gpx.options.polyline_options));
-            newTrace.gpx.setStyle(focus_style);
+            newTrace.gpx.addLayer(new L.Polyline(cpy, newTrace.gpx.options.polyline_options));
+            newTrace.gpx.setStyle(newTrace.focus_style);
             newTrace.recomputeStats();
             newTrace.update();
         }
