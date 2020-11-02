@@ -132,6 +132,7 @@ export default class Trace {
             if (trace.gpx.missing_elevation) trace.askElevation(trace.getPoints());
         }).on('click', function (e) {
             if (e.layer.sym) return;
+            if (trace.buttons.disable_trace) return; 
             if (!e.target.trace.isEdited) e.target.trace.updateFocus();
         }).on('mousedown', function (e) {
             const trace = e.target.trace;

@@ -227,6 +227,29 @@ export default class Buttons {
                         useMapBounds: false
                     }).addTo(_this.map);
 
+                    _this.streetView = L.control({
+                        position: 'topright'
+                    });
+                    _this.streetView.onAdd = function (map) {
+                        var div = L.DomUtil.create('div', 'leaflet-control-layers leaflet-bar');
+                        div.innerHTML = '<i class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;"></i>';
+                        L.DomEvent.disableClickPropagation(div);
+
+                        div.addEventListener('click', function () {
+                            _this.disable_trace = true;
+                            _this.map._container.style.cursor = 'crosshair';
+                            _this.map.addEventListener("click", function (e) {
+                                map._container.style.cursor = '';
+                                map.removeEventListener("click");
+                                _this.disable_trace = false;
+                                window.open('https://maps.google.com/maps?q=&layer=c&cbll='+e.latlng.lat+','+e.latlng.lng+'&cbp=11,0,0,0,0');
+                            });
+                        });
+
+                        return div;
+                    };
+                    _this.streetView.addTo(_this.map);
+
                     _this.stravaHeatmap.on('tileerror', function (e) {
                         _this.stravaHeatmap.remove();
                         if (_this.stravaHeatmap.open) return;
@@ -522,13 +545,14 @@ export default class Buttons {
             gtag('event', 'button', {'event_category' : 'draw'});
         });
         this.add_wpt.addEventListener("click", function () {
+            buttons.disable_trace = true;
             map._container.style.cursor = 'crosshair';
             map.addEventListener("click", function (e) {
-                if (e.originalEvent.target.id != "mapid") return;
                 const trace = total.traces[total.focusOn];
                 trace.addWaypoint(e.latlng);
                 map._container.style.cursor = '';
                 map.removeEventListener("click");
+                buttons.disable_trace = false;
                 gtag('event', 'button', {'event_category' : 'waypoint'});
             });
         });
