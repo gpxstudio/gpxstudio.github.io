@@ -773,8 +773,8 @@ export default class Buttons {
                     trace.updatePoint(marker, e.latlng.lat, e.latlng.lng);
                     trace.refreshEditMarkers();
                     map._container.style.cursor = 'crosshair';
-                } else if (marker._latlng != marker._latlng_origin) {
-                    trace.askElevation([marker._latlng], true);
+                } else {
+                    if (marker._latlng != marker._latlng_origin) trace.askElevation([marker._latlng], true);
                     map._container.style.cursor = '';
                 }
                 map._draggedMarker = null;

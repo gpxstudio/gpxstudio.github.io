@@ -772,13 +772,22 @@ export default class Trace {
     }
 
     addWaypoint(latlng) {
-        const marker = this.gpx._get_marker(latlng, 0, '', '', '', '', this.gpx.options);
+        const marker = this.gpx._get_marker(
+            latlng,
+            0,
+            this.buttons.clone_wpt ? this.buttons.clone_wpt.sym : '',
+            this.buttons.clone_wpt ? this.buttons.clone_wpt.name : '',
+            this.buttons.clone_wpt ? this.buttons.clone_wpt.desc : '',
+            this.buttons.clone_wpt ? this.buttons.clone_wpt.cmt : '',
+            this.gpx.options
+        );
         marker.addTo(this.map);
         this.waypoints.push(marker);
         marker.fire('click');
-        const test = document.getElementById('edit' + marker._popup._leaflet_id);
-        test.click();
+        const edit_marker = document.getElementById('edit' + marker._popup._leaflet_id);
+        edit_marker.click();
         this.askElevation([marker._latlng], true);
+        this.buttons.clone_wpt = null;
     }
 
     deleteWaypoint(marker) {

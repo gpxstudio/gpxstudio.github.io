@@ -772,7 +772,7 @@ L.GPX = L.FeatureGroup.extend({
                   });
                   marker.bindPopup(popup).openPopup();
                   popup.setContent(`<div>
-                                        <div style="`+(trace.buttons.embedding ? `min-width: 30px; width: auto; max-` : '')+`width: 188px; display: inline-block"><b>`+(marker.name.length > 0 ? marker.name : 'empty title')+`</b></div>`+(trace.buttons.embedding ? '' : (`<i id="edit`+popup._leaflet_id+`" class="fas fa-pencil-alt custom-button" style="display: inline-block"></i>`))+`<br>
+                                        <div style="`+(trace.buttons.embedding ? `min-width: 30px; width: auto; max-` : '')+`width: 188px; display: inline-block"><b>`+(marker.name.length > 0 ? marker.name : 'empty title')+`</b></div>`+(trace.buttons.embedding ? '' : (`<i id="clone`+popup._leaflet_id+`" class="far fa-copy custom-button" style="display: inline-block" title="Duplicate"></i> <i id="edit`+popup._leaflet_id+`" class="fas fa-pencil-alt custom-button" style="display: inline-block" title="Edit info"></i>`))+`<br>
                                         <div>`+(marker.cmt.length > 0 ? (marker.cmt + '<br>') : '')+`<i>`+marker.desc+`</i></div>
                                     </div>`);
                   if (!trace.buttons.embedding) {
@@ -824,6 +824,12 @@ L.GPX = L.FeatureGroup.extend({
 
                   popup.addEventListener('remove', function () {
                       marker.unbindPopup();
+                  });
+
+                  const clone = document.getElementById('clone' + popup._leaflet_id);
+                  clone.addEventListener('click', function () {
+                      trace.buttons.add_wpt.click();
+                      trace.buttons.clone_wpt = marker;
                   });
               }
           }
