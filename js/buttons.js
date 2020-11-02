@@ -917,6 +917,7 @@ export default class Buttons {
             trace.focus_style.color = color;
             trace.gpx.setStyle(trace.focus_style);
             trace.popup.remove();
+            trace.set_color = true;
             gtag('event', 'button', {'event_category' : 'color'});
         });
         this.about.addEventListener("click", function () {

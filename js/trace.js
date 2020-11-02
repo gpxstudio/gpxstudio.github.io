@@ -20,8 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-const normal_style = { color: '#ff0000', weight: 3 };
-const focus_style = { color: '#ff0000', weight: 5 };
+const trace_colors = ['#ff0000', '#0000ff', '#33cc33', '#00ccff', '#ff9900', '#ff00ff', '#ffff00', '#9933ff'];
+const normal_style = { weight: 3 };
+const focus_style = { weight: 5 };
 const gpx_options = {
     async: true,
     polyline_options: normal_style,
@@ -47,6 +48,10 @@ export default class Trace {
         this.renaming = false;
         this.normal_style = {...normal_style};
         this.focus_style = {...focus_style};
+
+        this.normal_style.color = trace_colors[total.color_count % trace_colors.length];
+        this.focus_style.color = trace_colors[total.color_count % trace_colors.length];
+        total.color_count++;
 
         this.memory = [];
         this.at = -1;

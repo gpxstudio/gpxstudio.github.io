@@ -625,6 +625,7 @@ L.GPX = L.FeatureGroup.extend({
         if (s.color !== '') {
             this._trace.normal_style.color = color[0].textContent;
             this._trace.focus_style.color = color[0].textContent;
+            this._trace.set_color = true;
         }
     }
 
