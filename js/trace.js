@@ -22,7 +22,6 @@
 
 const normal_style = { color: '#ff0000', weight: 3 };
 const focus_style = { color: '#ff0000', weight: 5 };
-const preview_style = { color: '#0000ff', weight: 4 };
 const gpx_options = {
     async: true,
     polyline_options: normal_style,
@@ -488,6 +487,11 @@ export default class Trace {
         const dist = Math.abs(bounds._southWest.lat - bounds._northEast.lat);
         const tol = dist * Math.pow(2, -value);
         if (this.preview) this.preview.clearLayers();
+        const color = this.normal_style.color;
+        const preview_style = {
+            color: `#${color.substring(3,7)}${color.substring(1,3)}`,
+            weight: 4
+        };
         this.preview = new L.GPX(undefined, gpx_options, null).addTo(this.map);
         this.preview.addLayer(new L.Polyline(simplify.douglasPeucker(this.getPoints(), tol), preview_style));
         return this.preview.getLayers()[0]._latlngs.length;
