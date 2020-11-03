@@ -336,7 +336,7 @@ export default class Trace {
 
     addElevation() {
         if (this.hasPoints()) {
-            const layers = this.gpx.getLayers()[0].getLayers();
+            const layers = this.getLayers();
             for (var i=0; i<layers.length; i++) if(layers[i]._latlngs) {
                 this.buttons.elev.addData(layers[i]);
             }
@@ -761,6 +761,7 @@ export default class Trace {
     extract_segments() {
         const layers = this.getLayers();
         var count = 1;
+        var lastTrace = null;
         for (var l=0; l<layers.length; l++) if (layers[l]._latlngs) {
             const newTrace = this.total.addTrace(undefined, this.name);
             newTrace.gpx.addLayer(new L.FeatureGroup());
@@ -781,9 +782,14 @@ export default class Trace {
             }
 
             newTrace.recomputeStats();
-            newTrace.rename(newTrace.name + "_" + count);
+            newTrace.rename(newTrace.name.split('.')[0] + "_" + count);
             count++;
+
+            lastTrace = newTrace;
         }
+
+        lastTrace.gpx.setStyle(lastTrace.focus_style);
+        lastTrace.update();
     }
 
     addEndPoint(lat, lng) {
