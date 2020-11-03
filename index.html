@@ -32,14 +32,14 @@
             ],
             "screenshot": "https://gpxstudio.github.io/preview.png",
             "genre": "outdoors",
-            "keywords": "gpx, gps, file, viewer, editor, merge, reverse, timestamps, waypoints",
+            "keywords": "gpx, gps, file, viewer, editor, merge, reverse, timestamps, waypoints, segments",
             "browserRequirements": "Requires JavaScript. Requires HTML5.",
             "softwareHelp": {
                 "@type": "CreativeWork",
                 "url": "https://gpxstudio.github.io/about.html"
             },
             "operatingSystem": "All",
-            "featureList": "edit gpx files online, view gpx files online, merge gpx files online, reverse gpx file online, add timestamps to gpx file online, view and add waypoints gpx file online"
+            "featureList": "edit gpx files online, view gpx files online, merge gpx files online, reverse gpx file online, add timestamps to gpx file online, extract segments, view and add waypoints gpx file online"
         }
         </script>
         <link rel="icon" href="favicon.png">
@@ -130,6 +130,7 @@
             <div class="panels-button" id="edit-time" title="Edit time"><i class="fas fa-stopwatch custom-button"></i></div><br>
             <div class="panels-button" id="reverse" title="Reverse"><i class="fas fa-exchange-alt custom-button"></i></div><br>
             <div class="panels-button" id="combine" title="Merge with another trace"><i class="fas fa-plus-circle custom-button"></i></div><br>
+            <div class="panels-button" id="extract" title="Extract segments"><i class="fas fa-list-ul custom-button"></i></div><br>
             <div class="panels-button" id="duplicate" title="Duplicate"><i class="far fa-copy custom-button"></i></div><br>
             <div class="panels-button" id="color" title="Change color"><i class="fas fa-palette custom-button"></i></div><br>
             <div class="panels-button" id="add-wpt" title="Add waypoint"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
@@ -198,6 +199,10 @@
             <tr>
                 <td><i class="fas fa-plus-circle"></i></td>
                 <td>Merge with another trace (automatically extends time, heart rate, cadence and temperature data)</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-list-ul"></i></td>
+                <td>Extract all segments and creates one trace for each</td>
             </tr>
             <tr>
                 <td><i class="far fa-copy"></i></td>
@@ -337,6 +342,7 @@
         <h1 style="display: none">edit gpx files online</h1>
         <h1 style="display: none">view gpx files online</h1>
         <h1 style="display: none">merge gpx files online</h1>
+        <h1 style="display: none">extract segments gpx file online</h1>
         <h1 style="display: none">reverse gpx file online</h1>
         <h1 style="display: none">add timestamps to gpx file online</h1>
         <h1 style="display: none">compress simplify reduce number points gpx file online</h1>

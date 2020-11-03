@@ -142,8 +142,8 @@ export default class Trace {
         if (file === undefined) this.gpx.fire('loaded');
     }
 
-    rename() {
-        var newname = this.tabname.value;
+    rename(name) {
+        var newname = name ? name : this.tabname.value;
         if (newname.length == 0) this.tab.innerHTML = this.name;
         else {
             newname += '.gpx';
@@ -756,6 +756,34 @@ export default class Trace {
         this.recomputeStats();
         this.update();
         this.redraw();
+    }
+
+    extract_segments() {
+        const layers = this.getLayers();
+        var count = 1;
+        for (var l=0; l<layers.length; l++) if (layers[l]._latlngs) {
+            const newTrace = this.total.addTrace(undefined, this.name);
+            newTrace.gpx.addLayer(new L.FeatureGroup());
+
+            const points = layers[l]._latlngs;
+            const cpy = [];
+            for (var i=0; i<points.length; i++) {
+                const pt = points[i].clone();
+                pt.meta = JSON.parse(JSON.stringify(points[i].meta));
+                pt.meta.time = new Date(pt.meta.time);
+                pt.index = points[i].index;
+                pt.routing = points[i].routing;
+                cpy.push(pt);
+            }
+
+            if (cpy.length > 0) {
+                newTrace.gpx.getLayers()[0].addLayer(new L.Polyline(cpy, newTrace.gpx.options.polyline_options));
+            }
+
+            newTrace.recomputeStats();
+            newTrace.rename(newTrace.name + "_" + count);
+            count++;
+        }
     }
 
     addEndPoint(lat, lng) {

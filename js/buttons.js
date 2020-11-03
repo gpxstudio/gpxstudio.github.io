@@ -66,6 +66,7 @@ export default class Buttons {
         this.delete = document.getElementById("delete");
         this.delete2 = document.getElementById("delete2");
         this.reverse = document.getElementById("reverse");
+        this.extract = document.getElementById("extract");
         this.reduce = document.getElementById("reduce");
         this.reduce_ok = document.getElementById("reduce-ok");
         this.reduce_cancel = document.getElementById("reduce-cancel");
@@ -370,6 +371,7 @@ export default class Buttons {
         this.time.classList.add('unselected','no-click');
         this.duplicate.classList.add('unselected','no-click');
         this.combine.classList.add('unselected','no-click');
+        this.extract.classList.add('unselected','no-click');
         this.color.classList.add('unselected','no-click');
         this.add_wpt.classList.add('unselected','no-click');
         this.reduce.classList.add('unselected','no-click');
@@ -383,6 +385,7 @@ export default class Buttons {
         this.time.classList.remove('unselected','no-click');
         this.duplicate.classList.remove('unselected','no-click');
         this.combine.classList.remove('unselected','no-click');
+        this.extract.classList.remove('unselected','no-click');
         this.color.classList.remove('unselected','no-click');
         this.add_wpt.classList.remove('unselected','no-click');
         this.reduce.classList.remove('unselected','no-click');
@@ -395,6 +398,7 @@ export default class Buttons {
         this.time.classList.add('unselected','no-click');
         this.duplicate.classList.add('unselected','no-click');
         this.combine.classList.add('unselected','no-click');
+        this.extract.classList.add('unselected','no-click');
         this.color.classList.add('unselected','no-click');
         this.add_wpt.classList.add('unselected','no-click');
         this.reduce.classList.add('unselected','no-click');
@@ -407,6 +411,7 @@ export default class Buttons {
         this.time.classList.remove('unselected','no-click');
         this.duplicate.classList.remove('unselected','no-click');
         this.combine.classList.remove('unselected','no-click');
+        this.extract.classList.remove('unselected','no-click');
         this.color.classList.remove('unselected','no-click');
         this.add_wpt.classList.remove('unselected','no-click');
         this.reduce.classList.remove('unselected','no-click');
@@ -746,6 +751,12 @@ export default class Buttons {
             var trace = total.traces[total.focusOn];
             trace.reverse();
             gtag('event', 'button', {'event_category' : 'reverse'});
+        });
+        this.extract.addEventListener("click", function() {
+            if (total.hasFocus) return;
+            var trace = total.traces[total.focusOn];
+            trace.extract_segments();
+            gtag('event', 'button', {'event_category' : 'extract'});
         });
         const sliderCallback = function() {
             const npoints = buttons.reduce.trace.previewSimplify(buttons.reduce_slider.value);
