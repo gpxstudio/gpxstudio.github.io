@@ -599,7 +599,7 @@ L.GPX = L.FeatureGroup.extend({
   },
 
   _parse_gpx_data: function(xml, options) {
-    var i, t, l, el, layers = [];
+    var i, j, t, l, el, layers = [];
 
     var name = xml.getElementsByTagName('name');
     if (name.length > 0) {
@@ -729,6 +729,7 @@ L.GPX = L.FeatureGroup.extend({
       marker.on({
           mousedown: function (e) {
               if (trace.buttons.embedding) return;
+              if (trace.total.hasFocus) return;
               if (e.originalEvent !== undefined && e.originalEvent.which == 3) return false;
               map.dragging.disable();
               marker._latlng_origin = marker._latlng;

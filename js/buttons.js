@@ -29,7 +29,6 @@ export default class Buttons {
         this.km = true;
         this.cycling = true;
         this.routing = true;
-        this.openroute = false;
 
         // EMBEDDING
         const queryString = window.location.search;
@@ -102,6 +101,7 @@ export default class Buttons {
         this.strava_ok = document.getElementById("strava-ok");
         this.copy_link = document.getElementById("copy-link");
         this.copy_embed = document.getElementById("copy-embed");
+        this.merge_as_segments = document.getElementById("merge-as-segments");
         this.merge_cancel = document.getElementById("merge-cancel");
 
         // DISPLAYS
@@ -990,13 +990,13 @@ export default class Buttons {
             popup.openOn(map);
             buttons.disableMap();
             popup.addEventListener('remove', function (e) {
+                total.to_merge = null;
                 buttons.combine.open = false;
                 buttons.merge_content.style.display = 'none';
                 buttons.enableMap();
             });
         });
         this.merge_cancel.addEventListener("click", function () {
-            total.to_merge = null;
             buttons.combine.popup.remove();
         });
     }
