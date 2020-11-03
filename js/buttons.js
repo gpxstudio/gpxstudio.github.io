@@ -1023,7 +1023,7 @@ export default class Buttons {
 
     updateTabWidth() {
         const offset = 3;
-        const remaining_width = Math.floor(this.trace_info_grid.offsetWidth) - Math.ceil(this.total_tab.offsetWidth);
+        const remaining_width = Math.floor(this.trace_info_grid.offsetWidth) - Math.ceil(this.total_tab.offsetWidth) - 1;
         var tabs_width = 0;
         for (var i=offset; i<this.tabs.childNodes.length; i++) {
             this.tabs.childNodes[i].style.width = 'auto';
