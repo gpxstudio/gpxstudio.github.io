@@ -738,31 +738,6 @@ L.GPX = L.FeatureGroup.extend({
               map._draggedMarker = marker;
               map._container.style.cursor = 'grabbing';
           },
-          contextmenu: function (e) {
-              const popup2 = L.popup({
-                  closeButton: false
-              }).setContent(`<div id="remove-waypoint" class="custom-button" style="display: inline-block">Remove waypoint</div>
-              <div class="custom-button" style="display: inline-block; width: 4px"></i></div>
-              <div id="close-popup" class="custom-button" style="display: inline-block"><i class="fas fa-times"></i></div>`);
-              marker.bindPopup(popup2).openPopup();
-              popup2.addEventListener('remove', function () {
-                  marker.unbindPopup();
-              });
-
-              var button = document.getElementById("remove-waypoint");
-              button.addEventListener("click", function () {
-                  trace.deleteWaypoint(marker);
-                  marker.closePopup();
-                  marker.remove();
-              });
-
-              var close = document.getElementById("close-popup");
-              close.addEventListener("click", function () {
-                  marker.closePopup();
-              });
-
-              return false;
-          },
           click: function () {
               if (this.isPopupOpen()) {
                   this.closePopup();
@@ -772,7 +747,7 @@ L.GPX = L.FeatureGroup.extend({
                   });
                   marker.bindPopup(popup).openPopup();
                   popup.setContent(`<div>
-                                        <div style="`+(trace.buttons.embedding ? `min-width: 30px; width: auto; max-` : '')+`width: 188px; display: inline-block"><b>`+(marker.name.length > 0 ? marker.name : 'empty title')+`</b></div>`+(trace.buttons.embedding ? '' : (`<i id="clone`+popup._leaflet_id+`" class="far fa-copy custom-button" style="display: inline-block" title="Duplicate"></i> <i id="edit`+popup._leaflet_id+`" class="fas fa-pencil-alt custom-button" style="display: inline-block" title="Edit info"></i>`))+`<br>
+                                        <div style="`+(trace.buttons.embedding ? `min-width: 30px; width: auto; max-` : '')+`width: 188px; display: inline-block; overflow-wrap: break-word;"><b>`+(marker.name.length > 0 ? marker.name : 'empty title')+`</b></div>`+(trace.buttons.embedding ? '' : (` <i id="edit`+popup._leaflet_id+`" class="fas fa-pencil-alt custom-button" style="display: inline-block" title="Edit info"></i> <i id="clone`+popup._leaflet_id+`" class="far fa-copy custom-button" style="display: inline-block" title="Duplicate"></i> <i id="delete`+popup._leaflet_id+`" class="fas fa-trash-alt custom-button" style="display: inline-block" title="Delete"></i>`))+`<br>
                                         <div>`+(marker.cmt.length > 0 ? (marker.cmt + '<br>') : '')+`<i>`+marker.desc+`</i></div>
                                     </div>`);
                   if (!trace.buttons.embedding) {
@@ -818,6 +793,7 @@ L.GPX = L.FeatureGroup.extend({
                           });
                           cancel.addEventListener('click', function () {
                               marker.closePopup();
+                              marker.fire('click');
                           });
                       });
                   }
@@ -830,6 +806,14 @@ L.GPX = L.FeatureGroup.extend({
                   clone.addEventListener('click', function () {
                       trace.buttons.add_wpt.click();
                       trace.buttons.clone_wpt = marker;
+                      popup.remove();
+                  });
+
+                  const remove = document.getElementById('delete' + popup._leaflet_id);
+                  remove.addEventListener("click", function () {
+                      trace.deleteWaypoint(marker);
+                      marker.closePopup();
+                      marker.remove();
                   });
               }
           }
