@@ -29,7 +29,6 @@ export default class Buttons {
         this.km = true;
         this.cycling = true;
         this.routing = true;
-        this.openroute = false;
 
         // EMBEDDING
         const queryString = window.location.search;
@@ -67,6 +66,7 @@ export default class Buttons {
         this.delete = document.getElementById("delete");
         this.delete2 = document.getElementById("delete2");
         this.reverse = document.getElementById("reverse");
+        this.extract = document.getElementById("extract");
         this.reduce = document.getElementById("reduce");
         this.reduce_ok = document.getElementById("reduce-ok");
         this.reduce_cancel = document.getElementById("reduce-cancel");
@@ -102,6 +102,7 @@ export default class Buttons {
         this.strava_ok = document.getElementById("strava-ok");
         this.copy_link = document.getElementById("copy-link");
         this.copy_embed = document.getElementById("copy-embed");
+        this.merge_as_segments = document.getElementById("merge-as-segments");
         this.merge_cancel = document.getElementById("merge-cancel");
 
         // DISPLAYS
@@ -370,6 +371,7 @@ export default class Buttons {
         this.time.classList.add('unselected','no-click');
         this.duplicate.classList.add('unselected','no-click');
         this.combine.classList.add('unselected','no-click');
+        this.extract.classList.add('unselected','no-click');
         this.color.classList.add('unselected','no-click');
         this.add_wpt.classList.add('unselected','no-click');
         this.reduce.classList.add('unselected','no-click');
@@ -383,6 +385,7 @@ export default class Buttons {
         this.time.classList.remove('unselected','no-click');
         this.duplicate.classList.remove('unselected','no-click');
         this.combine.classList.remove('unselected','no-click');
+        this.extract.classList.remove('unselected','no-click');
         this.color.classList.remove('unselected','no-click');
         this.add_wpt.classList.remove('unselected','no-click');
         this.reduce.classList.remove('unselected','no-click');
@@ -395,6 +398,7 @@ export default class Buttons {
         this.time.classList.add('unselected','no-click');
         this.duplicate.classList.add('unselected','no-click');
         this.combine.classList.add('unselected','no-click');
+        this.extract.classList.add('unselected','no-click');
         this.color.classList.add('unselected','no-click');
         this.add_wpt.classList.add('unselected','no-click');
         this.reduce.classList.add('unselected','no-click');
@@ -407,6 +411,7 @@ export default class Buttons {
         this.time.classList.remove('unselected','no-click');
         this.duplicate.classList.remove('unselected','no-click');
         this.combine.classList.remove('unselected','no-click');
+        this.extract.classList.remove('unselected','no-click');
         this.color.classList.remove('unselected','no-click');
         this.add_wpt.classList.remove('unselected','no-click');
         this.reduce.classList.remove('unselected','no-click');
@@ -747,6 +752,12 @@ export default class Buttons {
             trace.reverse();
             gtag('event', 'button', {'event_category' : 'reverse'});
         });
+        this.extract.addEventListener("click", function() {
+            if (total.hasFocus) return;
+            var trace = total.traces[total.focusOn];
+            trace.extract_segments();
+            gtag('event', 'button', {'event_category' : 'extract'});
+        });
         const sliderCallback = function() {
             const npoints = buttons.reduce.trace.previewSimplify(buttons.reduce_slider.value);
             buttons.reduce_npoints.innerHTML = npoints + '/' + buttons.reduce.trace.getPoints().length;
@@ -990,13 +1001,13 @@ export default class Buttons {
             popup.openOn(map);
             buttons.disableMap();
             popup.addEventListener('remove', function (e) {
+                total.to_merge = null;
                 buttons.combine.open = false;
                 buttons.merge_content.style.display = 'none';
                 buttons.enableMap();
             });
         });
         this.merge_cancel.addEventListener("click", function () {
-            total.to_merge = null;
             buttons.combine.popup.remove();
         });
     }
@@ -1012,7 +1023,7 @@ export default class Buttons {
 
     updateTabWidth() {
         const offset = 3;
-        const remaining_width = Math.floor(this.trace_info_grid.offsetWidth) - Math.ceil(this.total_tab.offsetWidth);
+        const remaining_width = Math.floor(this.trace_info_grid.offsetWidth) - Math.ceil(this.total_tab.offsetWidth) - 1;
         var tabs_width = 0;
         for (var i=offset; i<this.tabs.childNodes.length; i++) {
             this.tabs.childNodes[i].style.width = 'auto';

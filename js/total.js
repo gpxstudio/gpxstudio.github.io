@@ -259,11 +259,9 @@ export default class Total {
     <link>https://gpxstudio.github.io</link>
 </metadata>
 <trk>
-    <trkseg>
     `;
 
-        const xmlEnd1 = `</trkseg>
-</trk>
+        const xmlEnd1 = `</trk>
 `;
         const xmlEnd2 = `</gpx>`;
 
@@ -278,55 +276,63 @@ export default class Total {
             const atemp = data.atemp ? data.atemp : totalData.atemp;
             const cad = data.cad ? data.cad : totalData.cad;
 
-            const points = this.traces[i].getPoints();
-            for (var j=0; j<points.length; j++) {
-                const point = points[j];
-                xmlOutput += `<trkpt lat="${point.lat.toFixed(6)}" lon="${point.lng.toFixed(6)}">
+            const layers = this.traces[i].getLayers();
+            for (var l=0; l<layers.length; l++) if (layers[l]._latlngs) {
+                xmlOutput += `<trkseg>
     `;
-                if (point.meta) {
-                    if (point.meta.ele) {
-                        xmlOutput += `    <ele>${point.meta.ele.toFixed(1)}</ele>
+                const points = layers[l]._latlngs;
+                for (var j=0; j<points.length; j++) {
+                    const point = points[j];
+                    xmlOutput += `<trkpt lat="${point.lat.toFixed(6)}" lon="${point.lng.toFixed(6)}">
     `;
-                    }
-                    if (incl_time && point.meta.time) {
-                        xmlOutput += `    <time>${point.meta.time.toISOString()}</time>
+                    if (point.meta) {
+                        if (point.meta.ele) {
+                            xmlOutput += `    <ele>${point.meta.ele.toFixed(1)}</ele>
     `;
-                    }
-                    xmlOutput += `    <extensions>
+                        }
+                        if (incl_time && point.meta.time) {
+                            xmlOutput += `    <time>${point.meta.time.toISOString()}</time>
+    `;
+                        }
+                        xmlOutput += `    <extensions>
         <gpxtpx:TrackPointExtension>
     `;
-                    if (incl_hr) {
-                        if (point.meta.hr) {
-                            xmlOutput += `    <gpxtpx:hr>${point.meta.hr}</gpxtpx:hr>
+                        if (incl_hr) {
+                            if (point.meta.hr) {
+                                xmlOutput += `    <gpxtpx:hr>${point.meta.hr}</gpxtpx:hr>
     `;
-                        } else if (hr) {
-                            xmlOutput += `    <gpxtpx:hr>${hr}</gpxtpx:hr>
+                            } else if (hr) {
+                                xmlOutput += `    <gpxtpx:hr>${hr}</gpxtpx:hr>
     `;
+                            }
                         }
-                    }
-                    if (incl_atemp) {
-                        if (point.meta.atemp) {
-                            xmlOutput += `    <gpxtpx:atemp>${point.meta.atemp}</gpxtpx:atemp>
+                        if (incl_atemp) {
+                            if (point.meta.atemp) {
+                                xmlOutput += `    <gpxtpx:atemp>${point.meta.atemp}</gpxtpx:atemp>
     `;
-                        } else if (atemp) {
-                            xmlOutput += `    <gpxtpx:atemp>${atemp}</gpxtpx:atemp>
+                            } else if (atemp) {
+                                xmlOutput += `    <gpxtpx:atemp>${atemp}</gpxtpx:atemp>
     `;
+                            }
                         }
-                    }
-                    if (incl_cad) {
-                        if (point.meta.cad) {
-                            xmlOutput += `    <gpxtpx:cad>${point.meta.cad}</gpxtpx:cad>
+                        if (incl_cad) {
+                            if (point.meta.cad) {
+                                xmlOutput += `    <gpxtpx:cad>${point.meta.cad}</gpxtpx:cad>
     `;
-                        } else if (cad) {
-                            xmlOutput += `    <gpxtpx:cad>${cad}</gpxtpx:cad>
+                            } else if (cad) {
+                                xmlOutput += `    <gpxtpx:cad>${cad}</gpxtpx:cad>
     `;
+                            }
                         }
-                    }
-                    xmlOutput += `    </gpxtpx:TrackPointExtension>
+                        xmlOutput += `    </gpxtpx:TrackPointExtension>
         </extensions>
     `;
+                    }
+                    xmlOutput += `</trkpt>
+    `;
                 }
-                xmlOutput += `</trkpt>
+
+                xmlOutput += `</trkseg>
     `;
             }
 
