@@ -214,6 +214,7 @@ export default class Total {
 
     outputGPX(mergeAll, incl_time, incl_hr, incl_atemp, incl_cad) {
         if (incl_time && this.getMovingTime() > 0) { // at least one track has time data
+            for (var i=0; i<this.traces.length; i++) this.traces[i].timeConsistency();
             const avg = this.getMovingSpeed(true);
             var lastPoints = null;
             for (var i=0; i<this.traces.length; i++) {
@@ -245,7 +246,8 @@ export default class Total {
                     const b = points[0];
                     const dist = this.traces[i].gpx._dist2d(a, b);
                     const startTime = new Date(a.meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
-                    this.traces[i].changeTimeData(startTime, this.traces[i].getMovingSpeed(true));
+                    const curAvg = this.traces[i].getMovingSpeed(true);
+                    this.traces[i].changeTimeData(startTime, curAvg > 0 ? curAvg : avg);
                 }
                 lastPoints = points;
             }

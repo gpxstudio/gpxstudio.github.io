@@ -977,8 +977,9 @@ export default class Trace {
 
     changeTimeData(start, avg) {
         const points = this.getPoints();
+        const curAvg = this.getMovingSpeed(true);
         const index = this.firstTimeData();
-        if (index != -1) {
+        if (index != -1 && curAvg > 0) {
             this.extendTimeData();
             this.shiftAndCompressTime(start, avg);
         } else {
@@ -991,6 +992,7 @@ export default class Trace {
     }
 
     shiftAndCompressTime(start, avg) {
+        if (avg <= 0) return;
         const points = this.getPoints();
         const curAvg = this.getMovingSpeed(true);
         var last = points[0].meta.time;
@@ -1005,9 +1007,9 @@ export default class Trace {
     extendTimeData() {
         const points = this.getPoints();
         const index = this.firstTimeData();
-        const avg = this.getMovingSpeed(true);
+        var avg = this.getMovingSpeed(true);
 
-        if (index == -1) return;
+        if (index == -1 || avg <= 0) return;
         else if (index > 0) {
             const dist = this.gpx._dist2d(points[0], points[index]);
             points[0].meta.time = new Date(points[index].meta.time.getTime() - 1000 * 60 * 60 * dist/(1000 * avg));
@@ -1024,6 +1026,26 @@ export default class Trace {
                 last = points[i].meta.time;
                 points[i].meta.time = newTime;
             }
+        }
+    }
+
+    timeConsistency() {
+        if (this.firstTimeData() == -1) return;
+
+        const points = this.getPoints();
+        if (this.getMovingSpeed(true) <= 0) {
+            for (var i=0; i<points.length; i++) {
+                points[i].meta.time = null;
+            }
+        } else {
+            var lastTime = null;
+            for (var i=0; i<points.length; i++) {
+                if (points[i].meta.time) {
+                    if (lastTime && lastTime > points[i].meta.time) points[i].meta.time = lastTime;
+                    lastTime = points[i].meta.time;
+                }
+            }
+            this.extendTimeData();
         }
     }
 
