@@ -778,6 +778,7 @@ export default class Buttons {
         this.extract.addEventListener("click", function() {
             if (total.hasFocus) return;
             var trace = total.traces[total.focusOn];
+            if (!trace.can_extract) return;
             trace.extract_segments();
             gtag('event', 'button', {'event_category' : 'extract'});
         });

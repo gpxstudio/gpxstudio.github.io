@@ -207,6 +207,7 @@ export default class Trace {
         this.showData();
         this.showElevation();
         this.showWaypoints();
+        this.updateExtract();
     }
 
     unfocus() {
@@ -229,6 +230,7 @@ export default class Trace {
     update() {
         this.showData();
         this.showElevation();
+        this.updateExtract();
     }
 
     updateUndoRedo() {
@@ -236,6 +238,19 @@ export default class Trace {
         else this.buttons.undo.classList.add('unselected','no-click2');
         if (this.at < this.memory.length-1) this.buttons.redo.classList.remove('unselected','no-click2');
         else this.buttons.redo.classList.add('unselected','no-click2');
+    }
+
+    updateExtract() {
+        const layers = this.getLayers();
+        var count = 0;
+        for (var i=0; i<layers.length; i++) if (layers[i]._latlngs) count++;
+        if (count == 1) {
+            this.buttons.extract.classList.add('unselected','no-click');
+            this.can_extract = false;
+        } else {
+            this.buttons.extract.classList.remove('unselected','no-click');
+            this.can_extract = true;
+        }
     }
 
     showWaypoints() {
