@@ -1,26 +1,23 @@
-// MIT License
+// gpx.studio is an online GPX file editor which can be found at https://gpxstudio.github.io
+// Copyright (C) 2020  Vianney Coppé
 //
-// Copyright (c) 2020 Vianney Coppé https://github.com/vcoppe
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
 //
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
+// You should have received a copy of the GNU General Public License along
+// with this program; if not, write to the Free Software Foundation, Inc.,
+// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 import Trace from './trace.js';
+
+const trace_colors = ['#ff0000', '#0000ff', '#33cc33', '#00ccff', '#ff9900', '#ff00ff', '#ffff00', '#9933ff'];
 
 export default class Total {
     constructor(buttons) {
@@ -30,10 +27,10 @@ export default class Total {
         this.tab.addEventListener('click', function(e) {
             e.target.trace.updateFocus();
         });
-        this.color_count = 0;
         this.buttons = buttons;
         this.buttons.addHandlersWithTotal(this);
         this.focus();
+        this.initColors();
     }
 
     /*** LOGIC ***/
@@ -214,6 +211,7 @@ export default class Total {
 
     outputGPX(mergeAll, incl_time, incl_hr, incl_atemp, incl_cad) {
         if (incl_time && this.getMovingTime() > 0) { // at least one track has time data
+            for (var i=0; i<this.traces.length; i++) this.traces[i].timeConsistency();
             const avg = this.getMovingSpeed(true);
             var lastPoints = null;
             for (var i=0; i<this.traces.length; i++) {
@@ -245,7 +243,8 @@ export default class Total {
                     const b = points[0];
                     const dist = this.traces[i].gpx._dist2d(a, b);
                     const startTime = new Date(a.meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
-                    this.traces[i].changeTimeData(startTime, this.traces[i].getMovingSpeed(true));
+                    const curAvg = this.traces[i].getMovingSpeed(true);
+                    this.traces[i].changeTimeData(startTime, curAvg > 0 ? curAvg : avg);
                 }
                 lastPoints = points;
             }
@@ -406,5 +405,43 @@ export default class Total {
       seconds = (seconds < 10) ? "0" + seconds : seconds;
 
       return minutes + ":" + seconds;
+    }
+
+    // COLORS
+
+    initColors() {
+        this.colors = [];
+        for (var i=0; i<trace_colors.length; i++) {
+            this.colors.push({
+                color: trace_colors[i],
+                count: 0
+            });
+        }
+    }
+
+    getColor() {
+        var lowest_count = Infinity;
+        var lowest_index = 0;
+        for (var i=0; i<this.colors.length; i++) if (this.colors[i].count < lowest_count) {
+            lowest_count = this.colors[i].count;
+            lowest_index = i;
+        }
+        this.colors[lowest_index].count++;
+        return this.colors[lowest_index].color;
+    }
+
+    removeColor(color) {
+        for (var i=0; i<this.colors.length; i++) if (this.colors[i].color == color) {
+            this.colors[i].count--;
+            break;
+        }
+    }
+
+    changeColor(oldColor, newColor) {
+        this.removeColor(oldColor);
+        for (var i=0; i<this.colors.length; i++) if (this.colors[i].color == newColor) {
+            this.colors[i].count++;
+            break;
+        }
     }
 }

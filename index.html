@@ -228,7 +228,7 @@
         </table>
         <!--<div style="color: rgb(140, 40, 40); text-align:center"><i class="fas fa-exclamation-triangle"></i> <b>It is your own responsability not to use this website for <i>digital doping</i> purposes.</b></div>-->
         </div>
-        <div id="export-content">
+        <div id="export-content" class="popup-content">
             <table style="width: 100%; text-align: left">
                 <colgroup>
                    <col span="1" style="width: 10%;">
@@ -262,7 +262,7 @@
             <div id="donate-2" class="panels custom-button fancy-button"><b>Donate</b> <i class="fas fa-heart"></i></div>
             <div id="save-drive" class="panels custom-button fancy-button">Save to Google Drive <img src="drive.png" style="height: 15px; vertical-align: bottom"></i></div>
         </div>
-        <div id="clear-content">
+        <div id="clear-content" class="popup-content">
             This will delete all open traces.<br>Do you wish to continue?
             <table style="width: 100%">
                 <colgroup>
@@ -281,7 +281,7 @@
                 </tbody>
             </table>
         </div>
-        <div id="delete-content">
+        <div id="delete-content" class="popup-content">
             This will delete the current trace.<br>Do you wish to continue?
             <table style="width: 100%">
                 <colgroup>
@@ -300,30 +300,35 @@
                 </tbody>
             </table>
         </div>
-        <div id="strava-content">
+        <div id="strava-content" class="popup-content">
             Please log in to<br><a href="https://www.strava.com/heatmap" target="_blank">Strava Global Heatmap</a> and retry.<br>
             <div id="strava-ok" class="panels custom-button normal-button" style="margin-top: 4px;">Got it</div>
         </div>
-        <div id="color-content">
+        <div id="color-content" class="popup-content">
             Pick a new color<br><div><input type="color" id="color-picker" class="input-minimal" value="#ff0000"><div class="panels-button" id="validate-color" style="transform: translate(0px, -3px)"><i class="fas fa-check custom-button"></i></div></div>
         </div>
-        <div id="load-content">
+        <div id="load-content" class="popup-content">
             Choose file(s) from<br>
             <div id="load2" class="panels custom-button normal-button">Desktop</div>
             <div id="load-drive" class="panels custom-button normal-button">Google Drive <img src="drive.png" style="height: 15px; vertical-align: bottom"></i></div><br>
             (or drag and drop anywhere in the window)
         </div>
-        <div id="share-content">
+        <div id="share-content" class="popup-content">
             Done!<br>
             <div id="copy-link" class="panels custom-button fancy-button">Copy link <i class="fas fa-link"></i></div><br>
             <div id="copy-embed" class="panels custom-button fancy-button">Copy embedding code <i class="fas fa-code"></i></div><br>
         </div>
-        <div id="merge-content">
+        <div id="merge-content" class="popup-content">
             Click on another tab to merge the traces<br>
             <input type="checkbox" id="merge-as-segments">Merge as track segments<br>
             <div id="merge-cancel" class="panels custom-button normal-button">Cancel</div>
         </div>
-        <div id="reduce-content">
+        <div id="crop-content" class="popup-content">
+            <input type="checkbox" id="crop-keep">Keep cropped parts in new files<br>
+            <div id="crop-ok" class="panels custom-button normal-button">Proceed</div>
+            <div id="crop-cancel" class="panels custom-button normal-button">Cancel</div>
+        </div>
+        <div id="reduce-content" class="popup-content">
             Choose the amount of detail to keep<br>
             Number of points : <span id="reduce-npoints">0</span><br>
             <input type="range" min="0" max="1000" id="reduce-slider" style="width: 100%"><br>
@@ -334,7 +339,7 @@
             <a href="https://facebook.com/gpx.studio" target="_blank"><i class="fab fa-facebook-square"></i></a>
             <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank"><i class="fab fa-github-square"></i></a>
         </div>
-        <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
+        <div id="embed-content" class="panels-container custom-button popup-content" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
             <b>Open in</b> <img src="logo.png" height="20" style="vertical-align: bottom;" alt="logo of gpx.studio, the online GPX file editor">
         </div>
         <h1 style="display: none">online gpx editor</h1>

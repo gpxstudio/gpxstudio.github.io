@@ -459,52 +459,25 @@ ul {
 }
 
 #export-content {
-    text-align: center;
     width: 310px;
-    display: none;
 }
 
 #clear-content {
-    text-align: center;
     width: 170px;
-    display: none;
 }
 
 #delete-content {
-    text-align: center;
     width: 180px;
-    display: none;
 }
 
 #strava-content {
-    text-align: center;
     width: 180px;
-    display: none;
 }
 
-#color-content {
+.popup-content {
     text-align: center;
     display: none;
-}
-
-#load-content {
-    text-align: center;
-    display: none;
-}
-
-#share-content {
-    text-align: center;
-    display: none;
-}
-
-#merge-content {
-    text-align: center;
-    display: none;
-}
-
-#reduce-content {
-    text-align: center;
-    display: none;
+    width: auto;
 }
 
 .fancy-button {

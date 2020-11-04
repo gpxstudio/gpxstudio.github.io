@@ -1,26 +1,20 @@
-// MIT License
+// gpx.studio is an online GPX file editor which can be found at https://gpxstudio.github.io
+// Copyright (C) 2020  Vianney Coppé
 //
-// Copyright (c) 2020 Vianney Coppé https://github.com/vcoppe
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
 //
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
+// You should have received a copy of the GNU General Public License along
+// with this program; if not, write to the Free Software Foundation, Inc.,
+// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-const trace_colors = ['#ff0000', '#0000ff', '#33cc33', '#00ccff', '#ff9900', '#ff00ff', '#ffff00', '#9933ff'];
 const normal_style = { weight: 3 };
 const focus_style = { weight: 5 };
 const options = {
@@ -52,9 +46,9 @@ export default class Trace {
         this.normal_style = {...normal_style};
         this.focus_style = {...focus_style};
 
-        this.normal_style.color = trace_colors[total.color_count % trace_colors.length];
-        this.focus_style.color = trace_colors[total.color_count % trace_colors.length];
-        total.color_count++;
+        const color = total.getColor();
+        this.normal_style.color = color;
+        this.focus_style.color = color;
 
         this.memory = [];
         this.at = -1;
@@ -186,11 +180,14 @@ export default class Trace {
             newTrace.gpx.addLayer(newMarker);
             newTrace.waypoints.push(newMarker);
         }
+
+        return newTrace;
     }
 
     /*** LOGIC ***/
 
     remove() {
+        this.total.removeColor(this.normal_style.color);
         this.unfocus();
         this.gpx.clearLayers();
         if (document.body.contains(this.tab)) this.buttons.tabs.removeChild(this.tab);
@@ -210,6 +207,7 @@ export default class Trace {
         this.showData();
         this.showElevation();
         this.showWaypoints();
+        this.updateExtract();
     }
 
     unfocus() {
@@ -232,6 +230,7 @@ export default class Trace {
     update() {
         this.showData();
         this.showElevation();
+        this.updateExtract();
     }
 
     updateUndoRedo() {
@@ -239,6 +238,19 @@ export default class Trace {
         else this.buttons.undo.classList.add('unselected','no-click2');
         if (this.at < this.memory.length-1) this.buttons.redo.classList.remove('unselected','no-click2');
         else this.buttons.redo.classList.add('unselected','no-click2');
+    }
+
+    updateExtract() {
+        const layers = this.getLayers();
+        var count = 0;
+        for (var i=0; i<layers.length; i++) if (layers[i]._latlngs) count++;
+        if (count == 1) {
+            this.buttons.extract.classList.add('unselected','no-click');
+            this.can_extract = false;
+        } else {
+            this.buttons.extract.classList.remove('unselected','no-click');
+            this.can_extract = true;
+        }
     }
 
     showWaypoints() {
@@ -633,7 +645,12 @@ export default class Trace {
 
     /*** MODIFIERS ***/
 
-    crop(start, end) {
+    crop(start, end, no_recursion) {
+        var copy = null;
+        if (!no_recursion) {
+            copy = this.clone();
+        }
+
         const layers = this.getLayers();
         var cumul = 0;
         for (var i=0; i<layers.length; i++) if (layers[i]._latlngs) {
@@ -649,11 +666,24 @@ export default class Trace {
             cumul += len;
         }
 
+        if (!no_recursion) {
+            if (start > 0 && end < cumul-1) {
+                const copy2 = copy.clone();
+                copy.crop(0, start, true);
+                copy2.crop(end, cumul, true);
+            } else if (start > 0) {
+                copy.crop(0, start, true);
+            } else if (end < cumul-1) {
+                copy.crop(end, cumul, true);
+            }
+        }
+
         this.recomputeStats();
         this.redraw();
         this.showData();
         this.showElevation();
         this.buttons.slider.reset();
+        this.focus();
     }
 
     reverse() {
@@ -977,8 +1007,9 @@ export default class Trace {
 
     changeTimeData(start, avg) {
         const points = this.getPoints();
+        const curAvg = this.getMovingSpeed(true);
         const index = this.firstTimeData();
-        if (index != -1) {
+        if (index != -1 && curAvg > 0) {
             this.extendTimeData();
             this.shiftAndCompressTime(start, avg);
         } else {
@@ -991,6 +1022,7 @@ export default class Trace {
     }
 
     shiftAndCompressTime(start, avg) {
+        if (avg <= 0) return;
         const points = this.getPoints();
         const curAvg = this.getMovingSpeed(true);
         var last = points[0].meta.time;
@@ -1005,9 +1037,9 @@ export default class Trace {
     extendTimeData() {
         const points = this.getPoints();
         const index = this.firstTimeData();
-        const avg = this.getMovingSpeed(true);
+        var avg = this.getMovingSpeed(true);
 
-        if (index == -1) return;
+        if (index == -1 || avg <= 0) return;
         else if (index > 0) {
             const dist = this.gpx._dist2d(points[0], points[index]);
             points[0].meta.time = new Date(points[index].meta.time.getTime() - 1000 * 60 * 60 * dist/(1000 * avg));
@@ -1024,6 +1056,26 @@ export default class Trace {
                 last = points[i].meta.time;
                 points[i].meta.time = newTime;
             }
+        }
+    }
+
+    timeConsistency() {
+        if (this.firstTimeData() == -1) return;
+
+        const points = this.getPoints();
+        if (this.getMovingSpeed(true) <= 0) {
+            for (var i=0; i<points.length; i++) {
+                points[i].meta.time = null;
+            }
+        } else {
+            var lastTime = null;
+            for (var i=0; i<points.length; i++) {
+                if (points[i].meta.time) {
+                    if (lastTime && lastTime > points[i].meta.time) points[i].meta.time = lastTime;
+                    lastTime = points[i].meta.time;
+                }
+            }
+            this.extendTimeData();
         }
     }
 

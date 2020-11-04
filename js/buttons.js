@@ -1,24 +1,19 @@
-// MIT License
+// gpx.studio is an online GPX file editor which can be found at https://gpxstudio.github.io
+// Copyright (C) 2020  Vianney Coppé
 //
-// Copyright (c) 2020 Vianney Coppé https://github.com/vcoppe
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
 //
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
+// You should have received a copy of the GNU General Public License along
+// with this program; if not, write to the Free Software Foundation, Inc.,
+// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 import Slider from './slider.js';
 import Google from './google.js';
@@ -82,6 +77,9 @@ export default class Buttons {
         this.edit = document.getElementById("edit");
         this.validate = document.getElementById("validate");
         this.unvalidate = document.getElementById("unvalidate");
+        this.crop_ok = document.getElementById("crop-ok");
+        this.crop_cancel = document.getElementById("crop-cancel");
+        this.crop_keep = document.getElementById("crop-keep");
         this.export = document.getElementById("export");
         this.export2 = document.getElementById("export-2");
         this.save_drive = document.getElementById("save-drive");
@@ -126,6 +124,7 @@ export default class Buttons {
         this.load_content = document.getElementById('load-content');
         this.share_content = document.getElementById('share-content');
         this.merge_content = document.getElementById('merge-content');
+        this.crop_content = document.getElementById('crop-content');
         this.embed_content = document.getElementById('embed-content');
         this.social_content = document.getElementById('social');
         this.trace_info_content = document.getElementById('info');
@@ -687,8 +686,32 @@ export default class Buttons {
         });
         this.validate.addEventListener("click", function () {
             if (total.hasFocus) return;
+            if (buttons.validate.open) return;
+            buttons.validate.open = true;
+            const popup = L.popup({
+                className: "centered-popup custom-popup",
+                closeButton: false,
+                autoPan: false
+            });
+            buttons.validate.popup = popup;
+            popup.setLatLng(map.getCenter());
+            popup.setContent(buttons.crop_content);
+            buttons.crop_content.style.display = 'block';
+            popup.openOn(map);
+            buttons.disableMap();
+            popup.addEventListener('remove', function (e) {
+                buttons.validate.open = false;
+                buttons.crop_content.style.display = 'none';
+                buttons.enableMap();
+            });
+        });
+        this.crop_ok.addEventListener("click", function () {
+            total.traces[total.focusOn].crop(total.buttons.slider.getIndexStart(), total.buttons.slider.getIndexEnd(), !buttons.crop_keep.checked);
             gtag('event', 'button', {'event_category' : 'crop'});
-            total.traces[total.focusOn].crop(total.buttons.slider.getIndexStart(), total.buttons.slider.getIndexEnd());
+            buttons.validate.popup.remove();
+        });
+        this.crop_cancel.addEventListener("click", function () {
+            buttons.validate.popup.remove();
         });
         buttons.kms.classList.add("selected");
         this.units.addEventListener("click", function () {
@@ -755,6 +778,7 @@ export default class Buttons {
         this.extract.addEventListener("click", function() {
             if (total.hasFocus) return;
             var trace = total.traces[total.focusOn];
+            if (!trace.can_extract) return;
             trace.extract_segments();
             gtag('event', 'button', {'event_category' : 'extract'});
         });
@@ -948,6 +972,7 @@ export default class Buttons {
         this.color_ok.addEventListener("click", function () {
             const trace = total.traces[total.focusOn];
             const color = buttons.color_picker.value;
+            total.changeColor(trace.normal_style.color, color);
             trace.normal_style.color = color;
             trace.focus_style.color = color;
             trace.gpx.setStyle(trace.focus_style);
