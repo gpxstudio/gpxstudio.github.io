@@ -180,6 +180,8 @@ export default class Trace {
             newTrace.gpx.addLayer(newMarker);
             newTrace.waypoints.push(newMarker);
         }
+
+        return newTrace;
     }
 
     /*** LOGIC ***/
@@ -628,7 +630,12 @@ export default class Trace {
 
     /*** MODIFIERS ***/
 
-    crop(start, end) {
+    crop(start, end, no_recursion) {
+        var copy = null;
+        if (!no_recursion) {
+            copy = this.clone();
+        }
+
         const layers = this.getLayers();
         var cumul = 0;
         for (var i=0; i<layers.length; i++) if (layers[i]._latlngs) {
@@ -644,11 +651,24 @@ export default class Trace {
             cumul += len;
         }
 
+        if (!no_recursion) {
+            if (start > 0 && end < cumul-1) {
+                const copy2 = copy.clone();
+                copy.crop(0, start, true);
+                copy2.crop(end, cumul, true);
+            } else if (start > 0) {
+                copy.crop(0, start, true);
+            } else if (end < cumul-1) {
+                copy.crop(end, cumul, true);
+            }
+        }
+
         this.recomputeStats();
         this.redraw();
         this.showData();
         this.showElevation();
         this.buttons.slider.reset();
+        this.focus();
     }
 
     reverse() {

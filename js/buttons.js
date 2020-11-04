@@ -77,6 +77,9 @@ export default class Buttons {
         this.edit = document.getElementById("edit");
         this.validate = document.getElementById("validate");
         this.unvalidate = document.getElementById("unvalidate");
+        this.crop_ok = document.getElementById("crop-ok");
+        this.crop_cancel = document.getElementById("crop-cancel");
+        this.crop_keep = document.getElementById("crop-keep");
         this.export = document.getElementById("export");
         this.export2 = document.getElementById("export-2");
         this.save_drive = document.getElementById("save-drive");
@@ -121,6 +124,7 @@ export default class Buttons {
         this.load_content = document.getElementById('load-content');
         this.share_content = document.getElementById('share-content');
         this.merge_content = document.getElementById('merge-content');
+        this.crop_content = document.getElementById('crop-content');
         this.embed_content = document.getElementById('embed-content');
         this.social_content = document.getElementById('social');
         this.trace_info_content = document.getElementById('info');
@@ -682,8 +686,32 @@ export default class Buttons {
         });
         this.validate.addEventListener("click", function () {
             if (total.hasFocus) return;
+            if (buttons.validate.open) return;
+            buttons.validate.open = true;
+            const popup = L.popup({
+                className: "centered-popup custom-popup",
+                closeButton: false,
+                autoPan: false
+            });
+            buttons.validate.popup = popup;
+            popup.setLatLng(map.getCenter());
+            popup.setContent(buttons.crop_content);
+            buttons.crop_content.style.display = 'block';
+            popup.openOn(map);
+            buttons.disableMap();
+            popup.addEventListener('remove', function (e) {
+                buttons.validate.open = false;
+                buttons.crop_content.style.display = 'none';
+                buttons.enableMap();
+            });
+        });
+        this.crop_ok.addEventListener("click", function () {
+            total.traces[total.focusOn].crop(total.buttons.slider.getIndexStart(), total.buttons.slider.getIndexEnd(), !buttons.crop_keep.checked);
             gtag('event', 'button', {'event_category' : 'crop'});
-            total.traces[total.focusOn].crop(total.buttons.slider.getIndexStart(), total.buttons.slider.getIndexEnd());
+            buttons.validate.popup.remove();
+        });
+        this.crop_cancel.addEventListener("click", function () {
+            buttons.validate.popup.remove();
         });
         buttons.kms.classList.add("selected");
         this.units.addEventListener("click", function () {
