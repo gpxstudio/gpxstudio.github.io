@@ -623,6 +623,7 @@ L.GPX = L.FeatureGroup.extend({
         var s = new Option().style;
         s.color = color[0].textContent;
         if (s.color !== '') {
+            this._trace.total.changeColor(this._trace.normal_style.color, color[0].textContent);
             this._trace.normal_style.color = color[0].textContent;
             this._trace.focus_style.color = color[0].textContent;
             this._trace.set_color = true;

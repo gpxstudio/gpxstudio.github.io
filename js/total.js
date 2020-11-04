@@ -17,6 +17,8 @@
 
 import Trace from './trace.js';
 
+const trace_colors = ['#ff0000', '#0000ff', '#33cc33', '#00ccff', '#ff9900', '#ff00ff', '#ffff00', '#9933ff'];
+
 export default class Total {
     constructor(buttons) {
         this.traces = [];
@@ -25,10 +27,10 @@ export default class Total {
         this.tab.addEventListener('click', function(e) {
             e.target.trace.updateFocus();
         });
-        this.color_count = 0;
         this.buttons = buttons;
         this.buttons.addHandlersWithTotal(this);
         this.focus();
+        this.initColors();
     }
 
     /*** LOGIC ***/
@@ -403,5 +405,43 @@ export default class Total {
       seconds = (seconds < 10) ? "0" + seconds : seconds;
 
       return minutes + ":" + seconds;
+    }
+
+    // COLORS
+
+    initColors() {
+        this.colors = [];
+        for (var i=0; i<trace_colors.length; i++) {
+            this.colors.push({
+                color: trace_colors[i],
+                count: 0
+            });
+        }
+    }
+
+    getColor() {
+        var lowest_count = Infinity;
+        var lowest_index = 0;
+        for (var i=0; i<this.colors.length; i++) if (this.colors[i].count < lowest_count) {
+            lowest_count = this.colors[i].count;
+            lowest_index = i;
+        }
+        this.colors[lowest_index].count++;
+        return this.colors[lowest_index].color;
+    }
+
+    removeColor(color) {
+        for (var i=0; i<this.colors.length; i++) if (this.colors[i].color == color) {
+            this.colors[i].count--;
+            break;
+        }
+    }
+
+    changeColor(oldColor, newColor) {
+        this.removeColor(oldColor);
+        for (var i=0; i<this.colors.length; i++) if (this.colors[i].color == newColor) {
+            this.colors[i].count++;
+            break;
+        }
     }
 }

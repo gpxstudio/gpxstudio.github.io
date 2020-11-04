@@ -943,6 +943,7 @@ export default class Buttons {
         this.color_ok.addEventListener("click", function () {
             const trace = total.traces[total.focusOn];
             const color = buttons.color_picker.value;
+            total.changeColor(trace.normal_style.color, color);
             trace.normal_style.color = color;
             trace.focus_style.color = color;
             trace.gpx.setStyle(trace.focus_style);

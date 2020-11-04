@@ -15,7 +15,6 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-const trace_colors = ['#ff0000', '#0000ff', '#33cc33', '#00ccff', '#ff9900', '#ff00ff', '#ffff00', '#9933ff'];
 const normal_style = { weight: 3 };
 const focus_style = { weight: 5 };
 const options = {
@@ -47,9 +46,9 @@ export default class Trace {
         this.normal_style = {...normal_style};
         this.focus_style = {...focus_style};
 
-        this.normal_style.color = trace_colors[total.color_count % trace_colors.length];
-        this.focus_style.color = trace_colors[total.color_count % trace_colors.length];
-        total.color_count++;
+        const color = total.getColor();
+        this.normal_style.color = color;
+        this.focus_style.color = color;
 
         this.memory = [];
         this.at = -1;
@@ -186,6 +185,7 @@ export default class Trace {
     /*** LOGIC ***/
 
     remove() {
+        this.total.removeColor(this.normal_style.color);
         this.unfocus();
         this.gpx.clearLayers();
         if (document.body.contains(this.tab)) this.buttons.tabs.removeChild(this.tab);
