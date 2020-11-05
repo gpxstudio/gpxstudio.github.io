@@ -66,16 +66,12 @@ export default class Trace {
 
             if (this.getLayers().length > 0) {
                 var layers = this.getLayers()[0].getLayers();
-                var mergedLayer = null;
+                var wptMissingEle = [];
                 for (var i=0; i<layers.length; i++) {
                     if (layers[i]._latlng) { // wpt
                         trace.waypoints.push(layers[i]);
+                        if (layers[i]._latlng.ele == -1) wptMissingEle.push(layers[i]._latlng);
                     }
-                }
-
-                var wptMissingEle = [];
-                for (var i=0; i<trace.waypoints.length; i++) {
-                    if (trace.waypoints[i].ele == -1) wptMissingEle.push(trace.waypoints[i]._latlng);
                 }
                 if (wptMissingEle.length > 0) trace.askElevation(wptMissingEle, true);
             }
@@ -127,7 +123,7 @@ export default class Trace {
             const trace = e.target.trace;
             if (trace.isEdited) {
                 if (e.originalEvent.which == 3) return;
-                trace.insertMarker = true;
+                if (e.layer._latlng) return;
                 const marker = trace.insertEditMarker(e.layer, e.layerPoint);
                 marker.fire('mousedown');
             }
@@ -176,8 +172,8 @@ export default class Trace {
 
         for (var i=0; i<this.waypoints.length; i++) {
             const marker = this.waypoints[i];
-            const newMarker = this.gpx._get_marker(marker._latlng, marker.ele, marker.sym, marker.name, marker.desc, marker.cmt, this.gpx.options);
-            newTrace.gpx.addLayer(newMarker);
+            const newMarker = newTrace.gpx._get_marker(marker._latlng, marker.ele, marker.sym, marker.name, marker.desc, marker.cmt, this.gpx.options);
+            newTrace.gpx.getLayers()[0].addLayer(newMarker);
             newTrace.waypoints.push(newMarker);
         }
 
@@ -254,13 +250,13 @@ export default class Trace {
     }
 
     showWaypoints() {
-        for (var i=0; i<this.waypoints.length; i++) if (!this.waypoints[i]._map){
+        for (var i=0; i<this.waypoints.length; i++) {
             this.waypoints[i].addTo(this.map);
         }
     }
 
     hideWaypoints() {
-        for (var i=0; i<this.waypoints.length; i++) if (this.waypoints[i]._map) {
+        for (var i=0; i<this.waypoints.length; i++) {
             this.waypoints[i].remove();
         }
     }
@@ -299,13 +295,13 @@ export default class Trace {
     draw() {
         this.edit();
         this.drawing = true;
+        this._draggingWaypoint = false;
         this.buttons.map._container.style.cursor = 'crosshair';
-        this.insertMarker = false;
         const _this = this;
         this.buttons.map.addEventListener("click", function (e) {
             if (e.originalEvent.target.id != "mapid") return;
-            if (!_this.insertMarker) _this.addEndPoint(e.latlng.lat, e.latlng.lng);
-            _this.insertMarker = false;
+            if (!_this._draggingWaypoint) _this.addEndPoint(e.latlng.lat, e.latlng.lng);
+            _this._draggingWaypoint = false;
         });
     }
 
@@ -758,14 +754,13 @@ export default class Trace {
             }
         }
 
+        const layers = trace.getLayers();
         if (as_segments) {
-            const layers = trace.getLayers();
             for (var l=0; l<layers.length; l++) if (layers[l]._latlngs)
                 this.gpx.getLayers()[0].addLayer(new L.Polyline(layers[l]._latlngs, this.gpx.options.polyline_options));
         } else {
             if (this.hasPoints()) {
                 points.push(...otherPoints);
-                const layers = this.getLayers();
                 for (var l=0; l<layers.length; l++) if (layers[l]._latlngs)
                     this.gpx.getLayers()[0].removeLayer(layers[l]);
                 this.gpx.getLayers()[0].addLayer(new L.Polyline(points, this.gpx.options.polyline_options));
@@ -779,7 +774,7 @@ export default class Trace {
         for (var i=0; i<trace.waypoints.length; i++) {
             const marker = trace.waypoints[i];
             const newMarker = this.gpx._get_marker(marker._latlng, marker.ele, marker.sym, marker.name, marker.desc, marker.cmt, this.gpx.options);
-            this.gpx.addLayer(newMarker);
+            this.gpx.getLayers()[0].addLayer(newMarker);
             this.waypoints.push(newMarker);
         }
 
@@ -900,7 +895,7 @@ export default class Trace {
             this.buttons.clone_wpt ? this.buttons.clone_wpt.cmt : '',
             this.gpx.options
         );
-        marker.addTo(this.map);
+        this.gpx.getLayers()[0].addLayer(marker);
         this.waypoints.push(marker);
         marker.fire('click');
         const edit_marker = document.getElementById('edit' + marker._popup._leaflet_id);
@@ -912,6 +907,7 @@ export default class Trace {
     deleteWaypoint(marker) {
         for (var i=0; i<this.waypoints.length; i++) if (this.waypoints[i] == marker) {
             this.waypoints.splice(i, 1);
+            this.gpx.getLayers()[0].removeLayer(marker);
             return;
         }
     }
@@ -956,6 +952,52 @@ export default class Trace {
             this.update();
             this.redraw();
             this.buttons.elev._removeSliderCircles();
+        }
+    }
+
+    deleteZone(bounds, deletePts, deleteWpts, inside) {
+        const layers = this.getLayers();
+        for (var l=0; l<layers.length; l++) {
+            if (deletePts && layers[l]._latlngs) { // points
+                if ((inside && bounds.intersects(layers[l].getBounds())) ||
+                (!inside && !bounds.contains(layers[l].getBounds()))) {
+                    var remove = true;
+                    var start = 0;
+                    while (remove) {
+                        const points = layers[l]._latlngs;
+                        var first = -1;
+                        remove = false;
+                        for (var i=start; i<points.length; i++) {
+                            const contains = bounds.contains(points[i]);
+                            if (inside == contains) {
+                                if (first == -1) first = i;
+                            } else if (first != -1) {
+                                points.splice(first, i-first);
+                                remove = true;
+                                start = first;
+                                break;
+                            }
+                        }
+                        if (!remove && first != -1) {
+                            if (first == 0) this.gpx.getLayers()[0].removeLayer(layers[l]);
+                            else points.splice(first);
+                        }
+                    }
+                    layers[l]._latlngs[0].routing = false;
+                    layers[l]._latlngs[layers[l]._latlngs.length-1].routing = false;
+                }
+            } else if (deleteWpts && layers[l]._latlng) { // waypoints
+                const contains = bounds.contains(layers[l]._latlng);
+                if (inside == contains) this.deleteWaypoint(layers[l]);
+            }
+        }
+
+        if (this.getLayers().length == 0) {
+            this.total.removeTrace(this.index);
+        } else {
+            this.recomputeStats();
+            this.update();
+            this.redraw();
         }
     }
 

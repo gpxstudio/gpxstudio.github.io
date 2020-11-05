@@ -135,13 +135,14 @@
             <div class="panels-button" id="color" title="Change color"><i class="fas fa-palette custom-button"></i></div><br>
             <div class="panels-button" id="add-wpt" title="Add waypoint"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
             <div class="panels-button" id="reduce" title="Reduce number of points"><i class="fas fa-compress-alt custom-button"></i></div><br>
+            <div class="panels-button" id="zone-delete" title="Delete all inside/outside rectangle selection"><i class="fas fa-vector-square custom-button"></i></div><br>
             <div class="panels-button" id="delete" title="Delete"><i class="fas fa-trash-alt custom-button"></i></div><br>
         </div>
         <div id="help-text">
         <table style="width: 100%">
             <colgroup>
-               <col span="1" style="width: 15%;">
-               <col span="1" style="width: 85%;">
+               <col span="1" style="width: 10%;">
+               <col span="1" style="width: 90%;">
             </colgroup>
             <tbody>
             <tr>
@@ -180,8 +181,8 @@
         Use the <b>slider</b> to move the start/end point and cut the route.<br>
         <table style="width: 100%">
             <colgroup>
-               <col span="1" align="center" style="width:15%;">
-               <col span="1" style="width: 85%;">
+               <col span="1" align="center" style="width:10%;">
+               <col span="1" style="width: 90%;">
             </colgroup>
             <tbody>
             <tr>
@@ -219,6 +220,10 @@
             <tr>
                 <td><i class="fas fa-compress-alt"></i></td>
                 <td>Reduce the number of points</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-vector-square"></i></td>
+                <td>Delete points and/or waypoints inside/outside rectangle selection</td>
             </tr>
             <tr>
                 <td><i class="fas fa-trash-alt"></i></td>
@@ -334,6 +339,15 @@
             <input type="range" min="0" max="1000" id="reduce-slider" style="width: 100%"><br>
             <div id="reduce-ok" class="panels custom-button normal-button">Ok</div>
             <div id="reduce-cancel" class="panels custom-button normal-button">Cancel</div>
+        </div>
+        <div id="zone-delete-content" class="popup-content">
+            Choose what to delete<br>
+            <input type="checkbox" id="zone-delete-points" checked>Points
+            <input type="checkbox" id="zone-delete-waypoints" checked>Waypoints<br>
+            <input type="radio" name="where" value="inside" checked>Inside selection
+            <input type="radio" name="where" value="outside">Outside selection<br>
+            <div id="zone-delete-ok" class="panels custom-button normal-button">Proceed</div>
+            <div id="zone-delete-cancel" class="panels custom-button normal-button">Cancel</div>
         </div>
         <div id="social" style="font-size: 30px">
             <a href="https://facebook.com/gpx.studio" target="_blank"><i class="fab fa-facebook-square"></i></a>

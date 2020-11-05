@@ -36,10 +36,12 @@ export default class Total {
     /*** LOGIC ***/
 
     addTrace(file, name) {
+        if (this.traces.length == 1) this.buttons.combine.classList.remove('unselected','no-click');
         return new Trace(file, name, this.buttons.map, this);
     }
 
     removeTrace(index) {
+        if (this.traces.length == 2) this.buttons.combine.classList.add('unselected','no-click');
         this.traces[index].remove();
         this.traces.splice(index, 1);
         for (var i=index; i<this.traces.length; i++)

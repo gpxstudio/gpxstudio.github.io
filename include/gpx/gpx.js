@@ -739,6 +739,7 @@ L.GPX = L.FeatureGroup.extend({
               });
               map._draggedMarker = marker;
               map._container.style.cursor = 'grabbing';
+              trace._draggingWaypoint = true;
           },
           click: function () {
               if (this.isPopupOpen()) {
@@ -814,8 +815,7 @@ L.GPX = L.FeatureGroup.extend({
                   const remove = document.getElementById('delete' + popup._leaflet_id);
                   remove.addEventListener("click", function () {
                       trace.deleteWaypoint(marker);
-                      marker.closePopup();
-                      marker.remove();
+                      popup.remove();
                   });
               }
           }
