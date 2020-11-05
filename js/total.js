@@ -348,11 +348,11 @@ export default class Total {
 `;
                 }
 
-                waypointsOutput += `    <name>${point.name}</name>
+                waypointsOutput += `    <name>`+this.encodeString(point.name)+`</name>
 `;
-                waypointsOutput += `    <desc>${point.desc}</desc>
+                waypointsOutput += `    <desc>`+this.encodeString(point.desc)+`</desc>
 `;
-                waypointsOutput += `    <cmt>${point.cmt}</cmt>
+                waypointsOutput += `    <cmt>`+this.encodeString(point.cmt)+`</cmt>
 `;
                 waypointsOutput += `    <sym>${point.sym}</sym>
 `;
@@ -382,6 +382,14 @@ export default class Total {
         }
 
         return output;
+    }
+
+    encodeString(value) {
+        return value.replaceAll(/&/g, '&amp;')
+            .replaceAll(/</g, '&lt;')
+            .replaceAll(/>/g, '&gt;')
+            .replaceAll(/"/g, '&quot;')
+            .replaceAll(/'/g, '&apos;');
     }
 
     /*** HELPER FUNCTIONS ***/
