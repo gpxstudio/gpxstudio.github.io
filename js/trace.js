@@ -240,7 +240,7 @@ export default class Trace {
         const layers = this.getLayers();
         var count = 0;
         for (var i=0; i<layers.length; i++) if (layers[i]._latlngs) count++;
-        if (count == 1) {
+        if (count < 2) {
             this.buttons.extract.classList.add('unselected','no-click');
             this.can_extract = false;
         } else {
@@ -997,6 +997,7 @@ export default class Trace {
         } else {
             this.recomputeStats();
             this.update();
+            this.updateExtract();
             this.redraw();
         }
     }
