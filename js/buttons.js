@@ -846,6 +846,13 @@ export default class Buttons {
                 gtag('event', 'button', {'event_category' : 'edit-trace'});
             } else trace.draw();
         });
+        document.addEventListener("keydown", ({key}) => {
+            if (key === "Escape") {
+                if (total.hasFocus) return;
+                var trace = total.traces[total.focusOn];
+                if (trace.isEdited) buttons.edit.click();
+            }
+        });
         this.reverse.addEventListener("click", function() {
             if (total.hasFocus) return;
             var trace = total.traces[total.focusOn];
