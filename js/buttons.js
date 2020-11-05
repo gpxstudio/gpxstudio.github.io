@@ -689,6 +689,7 @@ export default class Buttons {
                 buttons.zone_delete_pts.checked,
                 buttons.zone_delete_wpts.checked,
                 document.querySelector('input[name="where"]:checked').value == 'inside');
+            gtag('event', 'button', {'event_category' : 'zone-delete'});
         });
         this.zone_delete_cancel.addEventListener("click", function () {
             buttons.zone_delete.popup.remove();
