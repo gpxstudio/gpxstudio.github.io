@@ -60,6 +60,11 @@ export default class Buttons {
         this.donate2 = document.getElementById("donate-2");
         this.delete = document.getElementById("delete");
         this.delete2 = document.getElementById("delete2");
+        this.zone_delete = document.getElementById("zone-delete");
+        this.zone_delete_ok = document.getElementById("zone-delete-ok");
+        this.zone_delete_cancel = document.getElementById("zone-delete-cancel");
+        this.zone_delete_pts = document.getElementById("zone-delete-points");
+        this.zone_delete_wpts = document.getElementById("zone-delete-waypoints");
         this.reverse = document.getElementById("reverse");
         this.extract = document.getElementById("extract");
         this.reduce = document.getElementById("reduce");
@@ -117,6 +122,7 @@ export default class Buttons {
         this.export_content = document.getElementById('export-content');
         this.clear_content = document.getElementById('clear-content');
         this.delete_content = document.getElementById('delete-content');
+        this.zone_delete_content = document.getElementById("zone-delete-content");
         this.strava_content = document.getElementById('strava-content');
         this.color_content = document.getElementById('color-content');
         this.reduce_content = document.getElementById('reduce-content');
@@ -365,6 +371,7 @@ export default class Buttons {
     hideTraceButtons() {
         this.slider.hide();
         this.delete.classList.add('unselected','no-click');
+        this.zone_delete.classList.add('unselected','no-click');
         this.reverse.classList.add('unselected','no-click');
         this.edit.classList.add('unselected','no-click');
         this.time.classList.add('unselected','no-click');
@@ -379,20 +386,22 @@ export default class Buttons {
     showTraceButtons() {
         this.slider.show();
         this.delete.classList.remove('unselected','no-click');
+        this.zone_delete.classList.remove('unselected','no-click');
         this.reverse.classList.remove('unselected','no-click');
         this.edit.classList.remove('unselected','no-click');
         this.time.classList.remove('unselected','no-click');
         this.duplicate.classList.remove('unselected','no-click');
-        this.combine.classList.remove('unselected','no-click');
         this.extract.classList.remove('unselected','no-click');
         this.color.classList.remove('unselected','no-click');
         this.add_wpt.classList.remove('unselected','no-click');
         this.reduce.classList.remove('unselected','no-click');
+        if (this.total.traces.length > 1) this.combine.classList.remove('unselected','no-click');
     }
 
     greyTraceButtons() {
         this.slider.hide();
         this.delete.classList.add('unselected','no-click');
+        this.zone_delete.classList.add('unselected','no-click');
         this.reverse.classList.add('unselected','no-click');
         this.time.classList.add('unselected','no-click');
         this.duplicate.classList.add('unselected','no-click');
@@ -406,14 +415,15 @@ export default class Buttons {
     blackTraceButtons() {
         this.slider.show();
         this.delete.classList.remove('unselected','no-click');
+        this.zone_delete.classList.remove('unselected','no-click');
         this.reverse.classList.remove('unselected','no-click');
         this.time.classList.remove('unselected','no-click');
         this.duplicate.classList.remove('unselected','no-click');
-        this.combine.classList.remove('unselected','no-click');
         this.extract.classList.remove('unselected','no-click');
         this.color.classList.remove('unselected','no-click');
         this.add_wpt.classList.remove('unselected','no-click');
         this.reduce.classList.remove('unselected','no-click');
+        if (this.total.traces.length > 1) this.combine.classList.remove('unselected','no-click');
     }
 
     hideToolbars() {
@@ -615,6 +625,73 @@ export default class Buttons {
         });
         this.cancel_delete.addEventListener("click", function () {
             buttons.delete.popup.remove();
+        });
+        this.zone_delete.addEventListener("click", function () {
+            if (total.hasFocus) return;
+            if (buttons.zone_delete.open) return;
+
+            map._container.style.cursor = 'crosshair';
+            map.dragging.disable();
+
+            buttons.zone_delete.rect = null;
+            var start_pt = null;
+
+            const createRect = function (e) {
+                buttons.zone_delete.rect = L.rectangle([
+                    [e.latlng.lat, e.latlng.lng],
+                    [e.latlng.lat, e.latlng.lng]
+                ]).addTo(map);
+                start_pt = e.latlng;
+            };
+            const extendRect = function (e) {
+                if (buttons.zone_delete.rect) {
+                    buttons.zone_delete.rect.setBounds(L.latLngBounds(start_pt, e.latlng));
+                }
+            };
+            const endRect = function (e) {
+                if (buttons.zone_delete.rect) {
+                    map._container.style.cursor = '';
+                    map.removeEventListener("mousedown", createRect);
+                    map.removeEventListener("mousemove", extendRect);
+                    map.removeEventListener("mouseup", endRect);
+
+                    buttons.zone_delete.open = true;
+                    const popup = L.popup({
+                        className: "centered-popup custom-popup",
+                        closeButton: false,
+                        closeOnClick: false,
+                        autoPan: false
+                    });
+                    buttons.zone_delete.popup = popup;
+                    popup.setLatLng(map.getCenter());
+                    popup.setContent(buttons.zone_delete_content);
+                    buttons.zone_delete_content.style.display = 'block';
+                    popup.openOn(map);
+                    buttons.disableMap();
+                    popup.addEventListener('remove', function (e) {
+                        buttons.zone_delete.open = false;
+                        buttons.zone_delete_content.style.display = 'none';
+                        buttons.enableMap();
+                        buttons.zone_delete.rect.remove();
+                    });
+                }
+            };
+
+            map.addEventListener("mousedown", createRect);
+            map.addEventListener("mousemove", extendRect);
+            map.addEventListener("mouseup", endRect);
+        });
+        this.zone_delete_ok.addEventListener("click", function () {
+            if (total.hasFocus) return;
+            var trace = total.traces[total.focusOn];
+            buttons.zone_delete.popup.remove();
+            trace.deleteZone(buttons.zone_delete.rect.getBounds(),
+                buttons.zone_delete_pts.checked,
+                buttons.zone_delete_wpts.checked,
+                document.querySelector('input[name="where"]:checked').value == 'inside');
+        });
+        this.zone_delete_cancel.addEventListener("click", function () {
+            buttons.zone_delete.popup.remove();
         });
         this.export.addEventListener("click", function () {
             if (total.traces.length > 0) {
@@ -834,7 +911,8 @@ export default class Buttons {
                     map._container.style.cursor = 'crosshair';
                 } else {
                     if (marker._latlng != marker._latlng_origin) trace.askElevation([marker._latlng], true);
-                    map._container.style.cursor = '';
+                    if (trace.isEdited) map._container.style.cursor = 'crosshair';
+                    else map._container.style.cursor = '';
                 }
                 map._draggedMarker = null;
             }

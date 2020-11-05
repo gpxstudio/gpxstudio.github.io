@@ -15,7 +15,7 @@ html, body {
 }
 
 .vcenter-leaflet {
-    margin-top: 20vh !important;
+    margin-top: 12vh !important;
 }
 
 .leaflet-left .leaflet-control {
@@ -64,7 +64,7 @@ html, body {
 }
 
 .centered-popup .leaflet-popup-close-button {
-    transform: translateY(710%);
+    transform: translateY(680%);
 }
 
 .cross .leaflet-popup-close-button {
@@ -455,7 +455,7 @@ ul {
     text-align: justify;
     width: 750px;
     display: none;
-    line-height: 1.2;
+    line-height: 1;
 }
 
 #export-content {
