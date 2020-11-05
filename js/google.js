@@ -55,17 +55,24 @@ export default class Google {
                             } else _this.downloadFiles();
                         } else _this.downloadFiles();
                     }
+                }, function () {
+                    // private browsing, try to retrieve public files without gapi
+                    if (urlParams.has('state')) {
+                        const params = JSON.parse(urlParams.get('state'));
+                        _this.downloadFiles(true);
+                        gtag('event', 'button', {'event_category' : 'open-drive'});
+                    }
                 });
             }
         });
     }
 
-    downloadFiles() {
+    downloadFiles(private_mode) {
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const params = JSON.parse(urlParams.get('state'));
         for (var i=0; i<params.ids.length; i++)
-            this.downloadFile({id:params.ids[i], name:'track.gpx'}, params.hasOwnProperty('userId'));
+            this.downloadFile({id:params.ids[i], name:'track.gpx'}, params.hasOwnProperty('userId') && !private_mode);
     }
 
     loadPicker(folderMode) {
