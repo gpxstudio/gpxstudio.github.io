@@ -101,7 +101,9 @@ export default class Trace {
                 trace.tabname.addEventListener('keydown', function (e) {
                     if(e.key === 'Enter') trace.rename();
                 });
-                trace.tabname.addEventListener('focusout', trace.rename.bind(trace));
+                trace.tabname.addEventListener('focusout', function (e) {
+                    trace.rename();
+                });
                 trace.tabname.focus();
                 trace.tabname.value = trace.name.substring(0, trace.name.length-4);
             });
@@ -753,13 +755,14 @@ export default class Trace {
             }
         }
 
-        const layers = trace.getLayers();
         if (as_segments) {
+            const layers = trace.getLayers();
             for (var l=0; l<layers.length; l++) if (layers[l]._latlngs)
                 this.gpx.getLayers()[0].addLayer(new L.Polyline(layers[l]._latlngs, this.gpx.options.polyline_options));
         } else {
             if (this.hasPoints()) {
                 points.push(...otherPoints);
+                const layers = this.getLayers();
                 for (var l=0; l<layers.length; l++) if (layers[l]._latlngs)
                     this.gpx.getLayers()[0].removeLayer(layers[l]);
                 this.gpx.getLayers()[0].addLayer(new L.Polyline(points, this.gpx.options.polyline_options));
