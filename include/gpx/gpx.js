@@ -329,7 +329,7 @@ const icons = [
 	["Water Source",{prefix: "fas", glyph: "faucet"}],
 	["Waterfowl",{prefix: "", glyph: ""}],
 	["Waypoint",{prefix: "fas", glyph: "map-sign"}],
-	["Webcam Cache",{prefix: "fas", glyph: "search"}],
+	["Webcam Cache",{prefix: "fas", glyph: "camera"}],
 	["Weed Bed",{prefix: "fas", glyph: "bed"}],
 	["Winery",{prefix: "fas", glyph: "wine-glass"}],
 	["Wrecker",{prefix: "", glyph: ""}],
