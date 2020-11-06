@@ -287,7 +287,7 @@ export default class Total {
                     xmlOutput += `<trkpt lat="${point.lat.toFixed(6)}" lon="${point.lng.toFixed(6)}">
     `;
                     if (point.meta) {
-                        if (point.meta.ele) {
+                        if (point.meta.ele || point.meta.ele == 0) {
                             xmlOutput += `    <ele>${point.meta.ele.toFixed(1)}</ele>
     `;
                         }
