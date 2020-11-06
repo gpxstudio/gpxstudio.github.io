@@ -101,7 +101,9 @@ export default class Trace {
                 trace.tabname.addEventListener('keydown', function (e) {
                     if(e.key === 'Enter') trace.rename();
                 });
-                trace.tabname.addEventListener('focusout', trace.rename.bind(trace));
+                trace.tabname.addEventListener('focusout', function (e) {
+                    trace.rename();
+                });
                 trace.tabname.focus();
                 trace.tabname.value = trace.name.substring(0, trace.name.length-4);
             });
