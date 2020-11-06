@@ -710,10 +710,14 @@ L.GPX = L.FeatureGroup.extend({
   },
 
   _get_marker: function(ll, ele, sym, name, desc, cmt, options) {
+      const trace = this._trace;
+      const map = trace.map;
+
       var icon = iconMap.get(sym);
       if (!icon) icon = {prefix: '', glyph: ''};
       var marker = new L.Marker(ll, {
         clickable: options.marker_options.clickable,
+        draggable: !trace.buttons.embedding,
         title: name,
         icon: L.icon.glyph(icon)
       });
@@ -724,11 +728,8 @@ L.GPX = L.FeatureGroup.extend({
       marker.cmt = cmt;
       marker.sym = sym;
 
-      const trace = this._trace;
-      const map = trace.map;
-
       marker.on({
-          mousedown: function (e) {
+          dragstart: function (e) {
               if (trace.buttons.embedding) return;
               if (trace.total.hasFocus) return;
               if (e.originalEvent !== undefined && e.originalEvent.which == 3) return false;
@@ -739,6 +740,7 @@ L.GPX = L.FeatureGroup.extend({
               });
               map._draggedMarker = marker;
               map._container.style.cursor = 'grabbing';
+              marker.getElement().style.cursor = 'grabbing';
               trace._draggingWaypoint = true;
           },
           click: function () {
@@ -799,23 +801,23 @@ L.GPX = L.FeatureGroup.extend({
                               marker.fire('click');
                           });
                       });
+
+                      const clone = document.getElementById('clone' + popup._leaflet_id);
+                      clone.addEventListener('click', function () {
+                          trace.buttons.add_wpt.click();
+                          trace.buttons.clone_wpt = marker;
+                          popup.remove();
+                      });
+
+                      const remove = document.getElementById('delete' + popup._leaflet_id);
+                      remove.addEventListener("click", function () {
+                          trace.deleteWaypoint(marker);
+                          popup.remove();
+                      });
                   }
 
                   popup.addEventListener('remove', function () {
                       marker.unbindPopup();
-                  });
-
-                  const clone = document.getElementById('clone' + popup._leaflet_id);
-                  clone.addEventListener('click', function () {
-                      trace.buttons.add_wpt.click();
-                      trace.buttons.clone_wpt = marker;
-                      popup.remove();
-                  });
-
-                  const remove = document.getElementById('delete' + popup._leaflet_id);
-                  remove.addEventListener("click", function () {
-                      trace.deleteWaypoint(marker);
-                      popup.remove();
                   });
               }
           }
