@@ -59,11 +59,12 @@ export default class Trace {
         this.gpx.trace = this;
         this.waypoints = [];
 
+        this.index = total.traces.length;
+        total.traces.push(this);
+
         const trace = this;
 
         this.gpx.on('loaded', function(e) {
-            trace.index = total.traces.length;
-
             if (this.getLayers().length > 0) {
                 var layers = this.getLayers()[0].getLayers();
                 var wptMissingEle = [];
@@ -75,8 +76,6 @@ export default class Trace {
                 }
                 if (wptMissingEle.length > 0) trace.askElevation(wptMissingEle, true);
             }
-
-            total.traces.push(trace);
             if (this.getLayers().length > 0) total.buttons.updateBounds();
 
             var ul = document.getElementById("sortable");
