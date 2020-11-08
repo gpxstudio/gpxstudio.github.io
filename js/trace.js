@@ -122,6 +122,7 @@ export default class Trace {
             if (!e.target.trace.isEdited) e.target.trace.updateFocus();
         }).on('mousedown', function (e) {
             const trace = e.target.trace;
+            if (trace.buttons.disable_trace) return;
             if (trace.isEdited) {
                 if (e.originalEvent.which == 3) return;
                 if (e.layer._latlng) return;
