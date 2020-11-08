@@ -122,6 +122,7 @@ export default class Trace {
             if (!e.target.trace.isEdited) e.target.trace.updateFocus();
         }).on('mousedown', function (e) {
             const trace = e.target.trace;
+            if (trace.buttons.disable_trace) return;
             if (trace.isEdited) {
                 if (e.originalEvent.which == 3) return;
                 if (e.layer._latlng) return;
@@ -341,6 +342,7 @@ export default class Trace {
         this.buttons.elev.clear();
         this.buttons.elev.options.imperial = !this.buttons.km;
         this.addElevation();
+        if (this.isEdited) this.buttons.elev._removeSliderCircles();
     }
 
     addElevation() {
@@ -882,7 +884,6 @@ export default class Trace {
                 this.recomputeStats();
                 this.update();
                 this.redraw();
-                this.buttons.elev._removeSliderCircles();
             }
         }
     }
@@ -953,7 +954,6 @@ export default class Trace {
             this.recomputeStats();
             this.update();
             this.redraw();
-            this.buttons.elev._removeSliderCircles();
         }
     }
 
@@ -1005,7 +1005,7 @@ export default class Trace {
     }
 
     updatePointManual(marker, lat, lng) {
-        const points = this.getPoints();
+        const points = marker._layer._latlngs;
 
         const prec_idx = marker._prec.index;
         const this_idx = marker._pt.index;
@@ -1233,7 +1233,6 @@ export default class Trace {
                     trace.recomputeStats();
 
                     trace.update();
-                    if (trace.isEdited) trace.buttons.elev._removeSliderCircles();
                 } else trace.askPointsElevation(requests.slice(1), step, 0);
             } else if (this.readyState == 4 && this.status != 200) {
                 console.log('elevation query timeout : retry');
@@ -1414,6 +1413,5 @@ export default class Trace {
         this.update();
         this.redraw();
         this.updateEditMarkers();
-        this.buttons.elev._removeSliderCircles();
     }
 }

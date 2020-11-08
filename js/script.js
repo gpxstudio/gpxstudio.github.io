@@ -16,7 +16,5 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 import Buttons from './buttons.js';
-import Total from './total.js';
 
 const buttons = new Buttons();
-const total =  new Total(buttons);

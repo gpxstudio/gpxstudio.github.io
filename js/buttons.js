@@ -15,6 +15,7 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+import Total from './total.js';
 import Slider from './slider.js';
 import Google from './google.js';
 
@@ -24,6 +25,7 @@ export default class Buttons {
         this.km = true;
         this.cycling = true;
         this.routing = true;
+        this.disable_trace = false;
 
         // EMBEDDING
         const queryString = window.location.search;
@@ -142,6 +144,90 @@ export default class Buttons {
         }).addTo(this.map);
 
         var _this = this;
+        var xhr2 = new XMLHttpRequest();
+        xhr2.onreadystatechange = function() {
+            if (xhr2.readyState == 4 && xhr2.status == 200) {
+                _this.airmap_token = xhr2.responseText;
+            }
+        }
+        xhr2.open('GET', './airmap_token.txt');
+        xhr2.send();
+
+        // ELEVATION PROFILE
+        this.elev = L.control.elevation({
+            theme: "steelblue-theme",
+            useHeightIndicator: true,
+            width: Math.max(100, Math.min((window.innerWidth - 270) * 2 / 3, 400)),
+        	height: 100,
+            margins:{
+                top:20,
+                right:30,
+                bottom:18,
+                left:40
+            }
+        }).addTo(this.map);
+        this.elev.buttons = this;
+        this.elevation_profile = document.getElementsByClassName('elevation')[0];
+
+        // OVERLAY COMPONENTS
+        if (this.embedding) {
+            this.buttons_bar.style.display = 'none';
+            this.social_content.style.display = 'none';
+            this.toolbar_content.style.display = 'none';
+            this.trace_info_grid.style.height = '106px';
+
+            this.toolbar = L.control({position: 'topleft'});
+            this.toolbar.onAdd = function (map) {
+                var div = _this.embed_content;
+                L.DomEvent.disableClickPropagation(div);
+                return div;
+            };
+            this.toolbar.addTo(this.map);
+
+            this.embed_content.addEventListener('click', function () {
+                window.open('https://gpxstudio.github.io/?state='+urlParams.get('state'));
+            });
+        } else {
+            this.toolbar = L.control({position: 'topleft'});
+            this.toolbar.onAdd = function (map) {
+                var div = _this.toolbar_content;
+                L.DomEvent.disableClickPropagation(div);
+                return div;
+            };
+            this.toolbar.addTo(this.map);
+
+            this.buttonbar = L.control({position: 'topleft'});
+            this.buttonbar.onAdd = function (map) {
+                var div = _this.buttons_bar;
+                L.DomEvent.disableClickPropagation(div);
+                return div;
+            };
+            this.buttonbar.addTo(this.map);
+
+            this.social = L.control({position: 'bottomright'});
+            this.social.onAdd = function (map) {
+                var div = _this.social_content;
+                return div;
+            };
+            this.social.addTo(this.map);
+
+            this.embed_content.style.display = 'none';
+        }
+
+        this.trace_info = L.control({position: 'bottomleft'});
+        this.trace_info.onAdd = function (map) {
+            var div = _this.trace_info_content;
+            L.DomEvent.disableClickPropagation(div);
+            return div;
+        };
+        this.trace_info.addTo(this.map);
+        this.trace_info_grid.appendChild(this.elevation_profile);
+
+        this.slider = new Slider(this);
+        this.google = new Google(this);
+
+        this.addHandlers();
+
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
@@ -240,18 +326,7 @@ export default class Buttons {
                         var div = L.DomUtil.create('div', 'leaflet-control-layers leaflet-bar');
                         div.innerHTML = '<i class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;"></i>';
                         L.DomEvent.disableClickPropagation(div);
-
-                        div.addEventListener('click', function () {
-                            _this.disable_trace = true;
-                            _this.map._container.style.cursor = 'crosshair';
-                            _this.map.addEventListener("click", function (e) {
-                                map._container.style.cursor = '';
-                                map.removeEventListener("click");
-                                _this.disable_trace = false;
-                                window.open('https://maps.google.com/maps?q=&layer=c&cbll='+e.latlng.lat+','+e.latlng.lng+'&cbp=11,0,0,0,0');
-                            });
-                        });
-
+                        _this.googleStreetView = div;
                         return div;
                     };
                     _this.streetView.addTo(_this.map);
@@ -278,94 +353,11 @@ export default class Buttons {
                         });
                     });
                 }
+                _this.total = new Total(_this);
             }
         }
         xhr.open('GET', './mapbox_token.txt');
         xhr.send();
-
-        var xhr2 = new XMLHttpRequest();
-        xhr2.onreadystatechange = function() {
-            if (xhr2.readyState == 4 && xhr2.status == 200) {
-                _this.airmap_token = xhr2.responseText;
-            }
-        }
-        xhr2.open('GET', './airmap_token.txt');
-        xhr2.send();
-
-        // ELEVATION PROFILE
-        this.elev = L.control.elevation({
-            theme: "steelblue-theme",
-            useHeightIndicator: true,
-            width: Math.max(100, Math.min((window.innerWidth - 270) * 2 / 3, 400)),
-        	height: 100,
-            margins:{
-                top:20,
-                right:30,
-                bottom:18,
-                left:40
-            }
-        }).addTo(this.map);
-        this.elev.buttons = this;
-        this.elevation_profile = document.getElementsByClassName('elevation')[0];
-
-        // OVERLAY COMPONENTS
-        if (this.embedding) {
-            this.buttons_bar.style.display = 'none';
-            this.social_content.style.display = 'none';
-            this.toolbar_content.style.display = 'none';
-            this.trace_info_grid.style.height = '106px';
-
-            this.toolbar = L.control({position: 'topleft'});
-            this.toolbar.onAdd = function (map) {
-                var div = _this.embed_content;
-                L.DomEvent.disableClickPropagation(div);
-                return div;
-            };
-            this.toolbar.addTo(this.map);
-
-            this.embed_content.addEventListener('click', function () {
-                window.open('https://gpxstudio.github.io/?state='+urlParams.get('state'));
-            });
-        } else {
-            this.toolbar = L.control({position: 'topleft'});
-            this.toolbar.onAdd = function (map) {
-                var div = _this.toolbar_content;
-                L.DomEvent.disableClickPropagation(div);
-                return div;
-            };
-            this.toolbar.addTo(this.map);
-
-            this.buttonbar = L.control({position: 'topleft'});
-            this.buttonbar.onAdd = function (map) {
-                var div = _this.buttons_bar;
-                L.DomEvent.disableClickPropagation(div);
-                return div;
-            };
-            this.buttonbar.addTo(this.map);
-
-            this.social = L.control({position: 'bottomright'});
-            this.social.onAdd = function (map) {
-                var div = _this.social_content;
-                return div;
-            };
-            this.social.addTo(this.map);
-
-            this.embed_content.style.display = 'none';
-        }
-
-        this.trace_info = L.control({position: 'bottomleft'});
-        this.trace_info.onAdd = function (map) {
-            var div = _this.trace_info_content;
-            L.DomEvent.disableClickPropagation(div);
-            return div;
-        };
-        this.trace_info.addTo(this.map);
-        this.trace_info_grid.appendChild(this.elevation_profile);
-
-        this.slider = new Slider(this);
-        this.google = new Google(this);
-
-        this.addHandlers();
     }
 
     hideTraceButtons() {
@@ -552,7 +544,17 @@ export default class Buttons {
 
             if (total.hasFocus) total.update();
         });
-
+        const openStreetView = function (e) {
+            if (total.hasFocus || !total.traces[total.focusOn].isEdited) map._container.style.cursor = '';
+            map.removeEventListener("click", openStreetView);
+            buttons.disable_trace = false;
+            window.open('https://maps.google.com/maps?q=&layer=c&cbll='+e.latlng.lat+','+e.latlng.lng+'&cbp=11,0,0,0,0');
+        };
+        this.googleStreetView.addEventListener('click', function () {
+            buttons.disable_trace = true;
+            map._container.style.cursor = 'crosshair';
+            map.addEventListener("click", openStreetView);
+        });
         this.draw.addEventListener("click", function () {
             const newTrace = total.addTrace(undefined, "new.gpx");
             newTrace.draw();
