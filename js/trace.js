@@ -1006,7 +1006,7 @@ export default class Trace {
     }
 
     updatePointManual(marker, lat, lng) {
-        const points = this.getPoints();
+        const points = marker._layer._latlngs;
 
         const prec_idx = marker._prec.index;
         const this_idx = marker._pt.index;
