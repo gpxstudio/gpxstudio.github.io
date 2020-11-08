@@ -342,6 +342,7 @@ export default class Trace {
         this.buttons.elev.clear();
         this.buttons.elev.options.imperial = !this.buttons.km;
         this.addElevation();
+        if (this.isEdited) this.buttons.elev._removeSliderCircles();
     }
 
     addElevation() {
@@ -883,7 +884,6 @@ export default class Trace {
                 this.recomputeStats();
                 this.update();
                 this.redraw();
-                this.buttons.elev._removeSliderCircles();
             }
         }
     }
@@ -954,7 +954,6 @@ export default class Trace {
             this.recomputeStats();
             this.update();
             this.redraw();
-            this.buttons.elev._removeSliderCircles();
         }
     }
 
@@ -1234,7 +1233,6 @@ export default class Trace {
                     trace.recomputeStats();
 
                     trace.update();
-                    if (trace.isEdited) trace.buttons.elev._removeSliderCircles();
                 } else trace.askPointsElevation(requests.slice(1), step, 0);
             } else if (this.readyState == 4 && this.status != 200) {
                 console.log('elevation query timeout : retry');
@@ -1415,6 +1413,5 @@ export default class Trace {
         this.update();
         this.redraw();
         this.updateEditMarkers();
-        this.buttons.elev._removeSliderCircles();
     }
 }
