@@ -544,17 +544,6 @@ export default class Buttons {
 
             if (total.hasFocus) total.update();
         });
-        const openStreetView = function (e) {
-            if (total.hasFocus || !total.traces[total.focusOn].isEdited) map._container.style.cursor = '';
-            map.removeEventListener("click", openStreetView);
-            buttons.disable_trace = false;
-            window.open('https://maps.google.com/maps?q=&layer=c&cbll='+e.latlng.lat+','+e.latlng.lng+'&cbp=11,0,0,0,0');
-        };
-        this.googleStreetView.addEventListener('click', function () {
-            buttons.disable_trace = true;
-            map._container.style.cursor = 'crosshair';
-            map.addEventListener("click", openStreetView);
-        });
         this.draw.addEventListener("click", function () {
             const newTrace = total.addTrace(undefined, "new.gpx");
             newTrace.draw();
@@ -1123,6 +1112,19 @@ export default class Buttons {
         this.merge_cancel.addEventListener("click", function () {
             buttons.combine.popup.remove();
         });
+        if (!this.embedding) {
+            const openStreetView = function (e) {
+                if (total.hasFocus || !total.traces[total.focusOn].isEdited) map._container.style.cursor = '';
+                map.removeEventListener("click", openStreetView);
+                buttons.disable_trace = false;
+                window.open('https://maps.google.com/maps?q=&layer=c&cbll='+e.latlng.lat+','+e.latlng.lng+'&cbp=11,0,0,0,0');
+            };
+            this.googleStreetView.addEventListener('click', function () {
+                buttons.disable_trace = true;
+                map._container.style.cursor = 'crosshair';
+                map.addEventListener("click", openStreetView);
+            });
+        }
     }
 
     focusTabElement(tab) {
