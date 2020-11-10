@@ -18,6 +18,8 @@ This repository contains the source code of the website [gpx.studio](https://gpx
 * Simplify trace
 * Merge traces
 * Support for waypoints
+* Support for track segments (trkseg) : extraction and merge as track segments
+* Delete points and/or waypoints inside or outside a rectangle selection
 * Export multiple traces as one or separately in the chosen order and respecting time precedence constraints (if any time data)
 * Preserve and automatically extend speed, heart rate, cadence and temperature data
 * Cycling and hiking maps, and Strava Heatmap layer
@@ -25,7 +27,6 @@ This repository contains the source code of the website [gpx.studio](https://gpx
 
 ## Future developments
 * Extend time data based on the slope and the existing uploaded data
-* Allow more file formats
 * Snap trace on road network
 
 ## Acknowledgements
