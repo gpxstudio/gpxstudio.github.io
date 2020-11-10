@@ -226,6 +226,8 @@ export default class Buttons {
         this.slider = new Slider(this);
         this.google = new Google(this);
 
+        this.hideTraceButtons();
+
         this.addHandlers();
 
         var xhr = new XMLHttpRequest();
