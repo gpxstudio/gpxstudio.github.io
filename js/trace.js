@@ -81,6 +81,7 @@ export default class Trace {
             var ul = document.getElementById("sortable");
             var li = document.createElement("li");
             li.innerHTML = name;
+            li.title = name;
             li.classList.add('tab');
             li.trace = trace;
             li.addEventListener('click', function (e) {
@@ -141,6 +142,7 @@ export default class Trace {
             newname += '.gpx';
             this.name = newname;
             this.tab.innerHTML = newname;
+            this.tab.title = newname;
             this.total.buttons.updateTabWidth();
         }
         this.renaming = false;
