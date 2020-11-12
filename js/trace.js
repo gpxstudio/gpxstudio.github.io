@@ -754,6 +754,17 @@ export default class Trace {
                 const dist = this.gpx._dist2d(a, b) + this.getDistance(true);
                 const startTime = new Date(b.meta.time.getTime() - 1000 * 60 * 60 * dist/(1000 * avg));
                 this.changeTimeData(startTime, avg);
+            } else {
+                const avg1 = this.getMovingSpeed();
+                const avg2 = trace.getMovingSpeed();
+                const dist1 = this.getMovingDistance();
+                const dist2 = trace.getMovingDistance();
+                const avg = (dist1 * avg1 + dist2 * avg2) / (dist1 + dist2);
+                const a = points[points.length-1];
+                const b = otherPoints[0];
+                const dist = this.gpx._dist2d(a, b);
+                const startTime = new Date(a.meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
+                trace.changeTimeData(startTime, avg2);
             }
         }
 
