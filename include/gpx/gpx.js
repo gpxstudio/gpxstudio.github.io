@@ -746,11 +746,11 @@ L.GPX = L.FeatureGroup.extend({
               var best_pt = null;
               for (var l=0; l<layers.length; l++) if (layers[l]._latlngs) {
                   const closest_pt = layers[l].closestLayerPoint(pt);
-                  if (!best_pt || closest_pt.distance < best_pt.distance) {
+                  if (closest_pt && (!best_pt || closest_pt.distance < best_pt.distance)) {
                       best_pt = closest_pt;
                   }
               }
-              if (best_pt.distance < 15) {
+              if (best_pt && best_pt.distance < 15) {
                   marker.setLatLng(map.layerPointToLatLng(best_pt));
               }
           },
