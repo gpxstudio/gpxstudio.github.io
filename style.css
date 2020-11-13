@@ -355,7 +355,7 @@ html, body {
     padding: 0;
 }
 .tab {
-    padding: 2px 6px;
+    padding: 2px 4px;
     font-size: 10px;
     color: #777777;
     display:block;
@@ -377,6 +377,11 @@ html, body {
 .tab-focus {
     box-shadow: #BCBCBC 2px 2px 2px, #BCBCBC inset 0px 0px 0px;
     background-color: #fcfcfc;
+}
+.tab-color {
+    position: inherit;
+    margin: 0px -4px -2px -4px;
+    height: 2px;
 }
 
 .leaflet-interactive.mouseDown {

@@ -1055,6 +1055,7 @@ export default class Buttons {
             trace.normal_style.color = color;
             trace.focus_style.color = color;
             trace.gpx.setStyle(trace.focus_style);
+            trace.tab.innerHTML = trace.name+'<div class="tab-color" style="background:'+trace.normal_style.color+';">';
             trace.popup.remove();
             trace.set_color = true;
             gtag('event', 'button', {'event_category' : 'color'});
