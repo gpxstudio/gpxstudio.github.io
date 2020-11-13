@@ -735,13 +735,24 @@ L.GPX = L.FeatureGroup.extend({
               if (e.originalEvent !== undefined && e.originalEvent.which == 3) return false;
               map.dragging.disable();
               marker._latlng_origin = marker._latlng;
-              map.on('mousemove', function (e) {
-                  marker.setLatLng(e.latlng);
-              });
               map._draggedMarker = marker;
               map._container.style.cursor = 'grabbing';
               marker.getElement().style.cursor = 'grabbing';
               trace._draggingWaypoint = true;
+          },
+          drag: function (e) {
+              const pt = map.latLngToLayerPoint(e.latlng);
+              const layers = trace.getLayers();
+              var best_pt = null;
+              for (var l=0; l<layers.length; l++) if (layers[l]._latlngs) {
+                  const closest_pt = layers[l].closestLayerPoint(pt);
+                  if (closest_pt && (!best_pt || closest_pt.distance < best_pt.distance)) {
+                      best_pt = closest_pt;
+                  }
+              }
+              if (best_pt && best_pt.distance < 15) {
+                  marker.setLatLng(map.layerPointToLatLng(best_pt));
+              }
           },
           click: function () {
               if (this.isPopupOpen()) {

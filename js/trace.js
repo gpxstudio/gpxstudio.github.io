@@ -80,7 +80,7 @@ export default class Trace {
 
             var ul = document.getElementById("sortable");
             var li = document.createElement("li");
-            li.innerHTML = name;
+            li.innerHTML = name+'<div class="tab-color" style="background:'+trace.normal_style.color+';">';
             li.title = name;
             li.classList.add('tab');
             li.trace = trace;
@@ -130,6 +130,25 @@ export default class Trace {
                 const marker = trace.insertEditMarker(e.layer, e.layerPoint);
                 marker.fire('mousedown');
             }
+        }).on('mouseover', function (e) {
+            if (!trace.hasFocus) return;
+            if (e.layer._latlngs) {
+                const featureGroup = trace.gpx.getLayers()[0];
+                const color = total.getChevronColor(trace.normal_style.color);
+                featureGroup.setText('       ►       ', {
+                    repeat: true,
+                    attributes: {
+                        fill: color,
+                        'font-size': '6px',
+                        dy: '2px'
+                    }
+                });
+            }
+        }).on('mouseout', function (e) {
+            if (e.layer._latlngs) {
+                const featureGroup = trace.gpx.getLayers()[0];
+                featureGroup.setText(null);
+            }
         });
 
         if (file === undefined) this.gpx.fire('loaded');
@@ -137,11 +156,11 @@ export default class Trace {
 
     rename(name) {
         var newname = name ? name : this.tabname.value;
-        if (newname.length == 0) this.tab.innerHTML = this.name;
+        if (newname.length == 0) this.tab.innerHTML = this.name+'<div class="tab-color" style="background:'+this.normal_style.color+';">';
         else {
             newname += '.gpx';
             this.name = newname;
-            this.tab.innerHTML = newname;
+            this.tab.innerHTML = newname+'<div class="tab-color" style="background:'+this.normal_style.color+';">';
             this.tab.title = newname;
             this.total.buttons.updateTabWidth();
         }

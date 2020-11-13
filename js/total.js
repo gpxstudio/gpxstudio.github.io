@@ -17,7 +17,8 @@
 
 import Trace from './trace.js';
 
-const trace_colors = ['#ff0000', '#0000ff', '#33cc33', '#00ccff', '#ff9900', '#ff00ff', '#ffff00', '#9933ff'];
+const trace_colors = ['#ff0000', '#0000ff', '#46e646', '#00ccff', '#ff9900', '#ff00ff', '#ffff00', '#288228', '#9933ff', '#50f0be', '#8c645a'];
+const chevron_colors = ['#ffdf9e', '#9eefff', '#2d632d', '#2d157d', '#bf130a', '#570a4f', '#ab7011', '#97de97', '#e7d4fa', '#416e5f', '#fa947a'];
 
 export default class Total {
     constructor(buttons) {
@@ -453,5 +454,11 @@ export default class Total {
             this.colors[i].count++;
             break;
         }
+    }
+
+    getChevronColor(color) {
+        const idx = trace_colors.indexOf(color);
+        if (idx == -1 || idx >= chevron_colors.length) return 'white';
+        else return chevron_colors[idx];
     }
 }
