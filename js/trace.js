@@ -133,7 +133,7 @@ export default class Trace {
         }).on('mouseover', function (e) {
             if (!trace.hasFocus) return;
             if (e.layer._latlngs) {
-                const featureGroup = trace.getLayers()[0];
+                const featureGroup = trace.gpx.getLayers()[0];
                 const color = total.getChevronColor(trace.normal_style.color);
                 featureGroup.setText('       ►       ', {
                     repeat: true,
@@ -146,7 +146,7 @@ export default class Trace {
             }
         }).on('mouseout', function (e) {
             if (e.layer._latlngs) {
-                const featureGroup = trace.getLayers()[0];
+                const featureGroup = trace.gpx.getLayers()[0];
                 featureGroup.setText(null);
             }
         });
