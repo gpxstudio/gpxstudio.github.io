@@ -95,6 +95,7 @@ export default class Trace {
                 } else if (!trace.hasFocus) trace.focus();
             });
             li.addEventListener('dblclick', function (e) {
+                if (trace.buttons.embedding) return;
                 if (trace.renaming) return;
                 trace.renaming = true;
                 li.innerHTML = '<input type="text" id="tabname" class="input-minimal" minlength="1" size="'+(trace.name.length-5)+'">.gpx';
@@ -131,18 +132,17 @@ export default class Trace {
                 marker.fire('mousedown');
             }
         }).on('mouseover', function (e) {
-            if (!trace.hasFocus) return;
             if (e.layer._latlngs) {
                 const featureGroup = trace.gpx.getLayers()[0];
                 const color = total.getChevronColor(trace.normal_style.color);
-                featureGroup.setText('       ►       ', {
+                /*featureGroup.setText('       ►       ', {
                     repeat: true,
                     attributes: {
                         fill: color,
                         'font-size': '6px',
                         dy: '2px'
                     }
-                });
+                });*/
             }
         }).on('mouseout', function (e) {
             if (e.layer._latlngs) {
