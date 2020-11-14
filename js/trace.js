@@ -135,14 +135,14 @@ export default class Trace {
             if (e.layer._latlngs) {
                 const featureGroup = trace.gpx.getLayers()[0];
                 const color = total.getChevronColor(trace.normal_style.color);
-                featureGroup.setText('       ►       ', {
+                /*featureGroup.setText('       ►       ', {
                     repeat: true,
                     attributes: {
                         fill: color,
                         'font-size': '6px',
                         dy: '2px'
                     }
-                });
+                });*/
             }
         }).on('mouseout', function (e) {
             if (e.layer._latlngs) {
