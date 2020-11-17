@@ -131,24 +131,6 @@ export default class Trace {
                 const marker = trace.insertEditMarker(e.layer, e.layerPoint);
                 marker.fire('mousedown');
             }
-        }).on('mouseover', function (e) {
-            if (e.layer._latlngs) {
-                const featureGroup = trace.gpx.getLayers()[0];
-                const color = total.getChevronColor(trace.normal_style.color);
-                /*featureGroup.setText('       ►       ', {
-                    repeat: true,
-                    attributes: {
-                        fill: color,
-                        'font-size': '6px',
-                        dy: '2px'
-                    }
-                });*/
-            }
-        }).on('mouseout', function (e) {
-            if (e.layer._latlngs) {
-                const featureGroup = trace.gpx.getLayers()[0];
-                featureGroup.setText(null);
-            }
         });
 
         if (file === undefined) this.gpx.fire('loaded');
