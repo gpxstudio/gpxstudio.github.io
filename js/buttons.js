@@ -43,7 +43,7 @@ export default class Buttons {
         this.map.addEventListener("locationfound", function (e) {
             e.target.setView(e.latlng,12);
         });
-        if (!this.embedding && !urlParams.has('state')) this.map.locate();
+        if (!this.embedding && !urlParams.has('state')) this.map.locate({setView: true, maximumAge: 100000});
 
         // BUTTONS
         this.input = document.getElementById("input-file");
@@ -235,8 +235,6 @@ export default class Buttons {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 _this.mapbox_token = xhr.responseText;
 
-                const cacheAge = 30 * 24 * 60 * 60 * 1000;
-
                 // TILES
 
                 _this.openStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -252,9 +250,7 @@ export default class Buttons {
                     tileSize: 512,
                     zoomOffset: -1,
                     accessToken: _this.mapbox_token,
-                    useCache: true,
-	                crossOrigin: true,
-                    cacheMaxAge: cacheAge
+	                crossOrigin: true
                 });
 
                 _this.mapboxOutdoors = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -264,9 +260,7 @@ export default class Buttons {
                     tileSize: 512,
                     zoomOffset: -1,
                     accessToken: _this.mapbox_token,
-                    useCache: true,
-	                crossOrigin: true,
-                    cacheMaxAge: cacheAge
+	                crossOrigin: true
                 });
 
                 _this.mapboxSatellite = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -276,18 +270,14 @@ export default class Buttons {
                     tileSize: 512,
                     zoomOffset: -1,
                     accessToken: _this.mapbox_token,
-                    useCache: true,
-	                crossOrigin: true,
-                    cacheMaxAge: cacheAge
+	                crossOrigin: true
                 });
 
                 _this.openCycleMap = L.tileLayer('https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey={apikey}', {
                     attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                     apikey: '67774cfadfeb42d2ac42bc38fda667c0',
                     maxZoom: 20,
-                    useCache: true,
-	                crossOrigin: true,
-                    cacheMaxAge: cacheAge
+	                crossOrigin: true
                 });
 
                 _this.openHikingMap = L.tileLayer('https://maps.refuges.info/hiking/{z}/{x}/{y}.png', {
