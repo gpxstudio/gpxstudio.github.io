@@ -47,8 +47,9 @@ export default class Total {
         this.traces.splice(index, 1);
         for (var i=index; i<this.traces.length; i++)
             this.traces[i].index--;
-        this.focus();
         this.buttons.updateTabWidth();
+        if (index > 0) this.traces[index-1].focus();
+        else this.focus();
     }
 
     clear() {
@@ -369,7 +370,7 @@ export default class Total {
 </extensions>
 ` : '';
                 output.push({
-                    name: this.traces[i].name,
+                    name: this.traces[i].name + '.gpx',
                     text: (xmlStart+xmlOutput+xmlEnd1+waypointsOutput+colorOutput+xmlEnd2)
                 });
                 xmlOutput = '';

@@ -34,6 +34,7 @@ const options = {
 
 export default class Trace {
     constructor(file, name, map, total) {
+        name = name.split('.')[0];
         this.name = name;
         this.map = map;
         this.total = total;
@@ -98,16 +99,16 @@ export default class Trace {
                 if (trace.buttons.embedding) return;
                 if (trace.renaming) return;
                 trace.renaming = true;
-                li.innerHTML = '<input type="text" id="tabname" class="input-minimal" minlength="1" size="'+(trace.name.length-5)+'">.gpx';
+                li.innerHTML = '<input type="text" id="tabname" class="input-minimal" minlength="1" size="'+(trace.name.length)+'"> ';
                 trace.tabname = document.getElementById("tabname");
                 trace.tabname.addEventListener('keydown', function (e) {
-                    if(e.key === 'Enter') trace.rename();
+                    if (e.key === 'Enter') trace.rename();
                 });
                 trace.tabname.addEventListener('focusout', function (e) {
                     trace.rename();
                 });
                 trace.tabname.focus();
-                trace.tabname.value = trace.name.substring(0, trace.name.length-4);
+                trace.tabname.value = trace.name;
             });
             ul.appendChild(li);
 
@@ -140,7 +141,6 @@ export default class Trace {
         var newname = name ? name : this.tabname.value;
         if (newname.length == 0) this.tab.innerHTML = this.name+'<div class="tab-color" style="background:'+this.normal_style.color+';">';
         else {
-            newname += '.gpx';
             this.name = newname;
             this.tab.innerHTML = newname+'<div class="tab-color" style="background:'+this.normal_style.color+';">';
             this.tab.title = newname;
