@@ -853,8 +853,7 @@ export default class Trace {
             for (var i=layers.length-1; i>=0; i--) if (layers[i]._latlngs) {
                 pt.index = layers[i]._latlngs.length;
                 layer = layers[i];
-                //layers[i]._latlngs.push(pt);
-                layers[i].addLatLng(pt);
+                layers[i]._latlngs.push(pt);
                 break;
             }
         }
