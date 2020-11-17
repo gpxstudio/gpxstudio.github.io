@@ -1004,7 +1004,6 @@ export default class Buttons {
             var start = document.getElementById("start-time");
             if (trace.hasPoints()) {
                 const points = trace.getPoints();
-                console.log(points[0]);
                 if (points[0].meta.time) start.value = (new Date(points[0].meta.time.getTime() + offset * 60 * 60 * 1000)).toISOString().substring(0, 16);
                 else start.value = new Date().toISOString().substring(0, 16);
             }

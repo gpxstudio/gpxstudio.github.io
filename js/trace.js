@@ -160,7 +160,7 @@ export default class Trace {
             for (var i=0; i<points.length; i++) {
                 const pt = points[i].clone();
                 pt.meta = JSON.parse(JSON.stringify(points[i].meta));
-                pt.meta.time = new Date(pt.meta.time);
+                if (pt.meta.time) pt.meta.time = new Date(pt.meta.time);
                 pt.index = points[i].index;
                 pt.routing = points[i].routing;
                 cpy.push(pt);
@@ -766,7 +766,6 @@ export default class Trace {
 
         if (this.hasPoints() && trace.hasPoints()) {
             if (this.firstTimeData() >= 0 && trace.firstTimeData() == -1) {
-                console.log("a");
                 const avg = this.getMovingSpeed();
                 const a = points[points.length-1];
                 const b = otherPoints[0];
@@ -774,7 +773,6 @@ export default class Trace {
                 const startTime = new Date(a.meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
                 trace.changeTimeData(startTime, avg);
             } else if (this.firstTimeData() == -1 && trace.firstTimeData() >= 0) {
-                console.log("b");
                 const avg = trace.getMovingSpeed();
                 const a = points[points.length-1];
                 const b = otherPoints[0];
@@ -1082,7 +1080,6 @@ export default class Trace {
         const points = this.getPoints();
         for (var i=0; i<points.length; i++) {
             if (points[i].meta.time != null) {
-                console.log(i, points[i].meta);
                 return i;
             }
         }
