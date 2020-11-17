@@ -997,6 +997,7 @@ export default class Trace {
         const layers = this.getLayers();
         for (var l=0; l<layers.length; l++) {
             if (deletePts && layers[l]._latlngs) { // points
+                layers[l]._bounds = L.latLngBounds(layers[l]._latlngs);
                 if ((inside && bounds.intersects(layers[l].getBounds())) ||
                 (!inside && !bounds.contains(layers[l].getBounds()))) {
                     var remove = true;
