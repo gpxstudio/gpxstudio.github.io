@@ -350,7 +350,6 @@ export default class Buttons {
                         _this.disableMap();
                         popup.addEventListener('remove', function (e) {
                             _this.stravaHeatmap.open = false;
-                            _this.strava_content.style.display = 'none';
                             _this.enableMap();
                         });
                     });
@@ -497,7 +496,6 @@ export default class Buttons {
             buttons.disableMap();
             popup.addEventListener('remove', function (e) {
                 buttons.load.open = false;
-                buttons.load_content.style.display = 'none';
                 buttons.enableMap();
             });
         });
@@ -580,7 +578,6 @@ export default class Buttons {
             buttons.disableMap();
             popup.addEventListener('remove', function (e) {
                 buttons.clear.open = false;
-                buttons.clear_content.style.display = 'none';
                 buttons.enableMap();
             });
         });
@@ -608,7 +605,6 @@ export default class Buttons {
             buttons.disableMap();
             popup.addEventListener('remove', function (e) {
                 buttons.delete.open = false;
-                buttons.delete_content.style.display = 'none';
                 buttons.enableMap();
             });
         });
@@ -663,7 +659,6 @@ export default class Buttons {
                     buttons.disableMap();
                     popup.addEventListener('remove', function (e) {
                         buttons.zone_delete.open = false;
-                        buttons.zone_delete_content.style.display = 'none';
                         buttons.enableMap();
                         buttons.zone_delete.rect.remove();
                     });
@@ -733,7 +728,6 @@ export default class Buttons {
                 buttons.disableMap();
                 popup.addEventListener('remove', function (e) {
                     buttons.export.open = false;
-                    buttons.export_content.style.display = 'none';
                     buttons.enableMap();
                 });
             }
@@ -772,7 +766,6 @@ export default class Buttons {
             buttons.disableMap();
             popup.addEventListener('remove', function (e) {
                 buttons.validate.open = false;
-                buttons.crop_content.style.display = 'none';
                 buttons.enableMap();
             });
         });
@@ -882,7 +875,6 @@ export default class Buttons {
             buttons.disableMap();
             popup.addEventListener('remove', function (e) {
                 buttons.reduce.open = false;
-                buttons.reduce_content.style.display = 'none';
                 buttons.reduce.trace.cancelSimplify();
                 buttons.enableMap();
             });
@@ -1043,7 +1035,6 @@ export default class Buttons {
             popup.addEventListener('remove', function (e) {
                 trace.closePopup();
                 buttons.enableMap();
-                buttons.color_content.style.display = 'none';
             });
             trace.popup = popup;
             buttons.disableMap();
@@ -1076,7 +1067,6 @@ export default class Buttons {
             popup.openOn(map);
             buttons.disableMap();
             popup.addEventListener('remove', function (e) {
-                buttons.help_text.style.display = 'none';
                 buttons.help.open = false;
                 buttons.enableMap();
             });
@@ -1108,7 +1098,6 @@ export default class Buttons {
             popup.addEventListener('remove', function (e) {
                 total.to_merge = null;
                 buttons.combine.open = false;
-                buttons.merge_content.style.display = 'none';
                 buttons.enableMap();
             });
         });
