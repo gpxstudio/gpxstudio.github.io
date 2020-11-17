@@ -51,6 +51,7 @@
         <script src="https://kit.fontawesome.com/0b26f70058.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="include/elevation/leaflet.elevation-0.0.4-d3v4.css"/>
         <script type="text/javascript" src="include/elevation/leaflet.elevation-0.0.4-d3v4.min.js"></script>
+        <script type="text/javascript" src="include/textpath/leaflet.textpath.js"></script>
         <script src="https://unpkg.com/esri-leaflet"></script>
         <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css"/>
         <script src="https://unpkg.com/esri-leaflet-geocoder"></script>
@@ -89,9 +90,6 @@
             <div class="panels custom-button unselected no-click2" id="undo"><i class="fas fa-reply"></i></div>
             <div class="panels custom-button unselected no-click2" id="redo"><i class="fas fa-share"></i></div>
             <div id="clear" class="panels custom-button">Clear all</div>
-            <div id="activity" class="panels custom-button unselected"><i id="bike" class="fas fa-biking"></i> <i class="fas fa-arrows-alt-h"></i> <i id="run" class="fas fa-running"></i></div>
-            <div id="units" class="panels custom-button unselected"><span id="km" class="unit"><b>km</b> </span><i class="fas fa-arrows-alt-h"></i><span id="mi" class="unit"> <b>mi</b></span></div>
-            <div id="method" class="panels custom-button unselected"><i id="route" class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i id="crow" class="fas fa-dove"></i></div>
             <div id="help" class="panels custom-button">Help</div>
             <div id="about" class="panels custom-button">About</div>
             <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Donate</b> <i class="fas fa-heart"></i></div>
@@ -136,6 +134,10 @@
             <div class="panels-button" id="zone-delete" title="Delete all inside/outside rectangle selection"><i class="fas fa-vector-square custom-button"></i></div><br>
             <div class="panels-button" id="delete" title="Delete"><i class="fas fa-trash-alt custom-button"></i></div><br>
         </div>
+        <div id="activity" class="custom-button dontselect">Activity: <span class="unselected"><i id="bike" class="fas fa-biking"></i> <i class="fas fa-arrows-alt-h"></i> <i id="run" class="fas fa-running"></i></span></div>
+        <div id="units" class="custom-button dontselect">Units: <span class="unselected"><span id="km">km </span><i class="fas fa-arrows-alt-h"></i><span id="mi"> mi</span></span></div>
+        <div id="method" class="custom-button dontselect">Routing: <span class="unselected"><i id="route" class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i id="crow" class="fas fa-dove"></i></span></div>
+        <div id="chevrons" class="custom-button dontselect">Chevrons: <input type="checkbox" id="show-chevrons" style="vertical-align: middle;"></div>
         <div id="help-text">
         <table style="width: 100%">
             <colgroup>

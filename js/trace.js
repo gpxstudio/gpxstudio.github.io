@@ -174,6 +174,7 @@ export default class Trace {
         newTrace.recomputeStats();
         newTrace.update();
         newTrace.gpx.setStyle(newTrace.focus_style);
+        if (newTrace.buttons.show_direction) newTrace.showChevrons();
 
         for (var i=0; i<this.waypoints.length; i++) {
             const marker = this.waypoints[i];
@@ -209,6 +210,7 @@ export default class Trace {
         this.showElevation();
         this.showWaypoints();
         this.updateExtract();
+        if (this.buttons.show_direction) this.showChevrons();
     }
 
     unfocus() {
@@ -216,6 +218,7 @@ export default class Trace {
         this.gpx.setStyle(this.normal_style);
         this.closePopup();
         this.hideWaypoints();
+        this.hideChevrons();
         if (this.isEdited) this.stopEdit();
         if (this.drawing) this.stopDraw();
         if (this.renaming) this.rename();
@@ -355,6 +358,26 @@ export default class Trace {
                 this.buttons.elev.addData(layers[i]);
             }
         } else this.buttons.elev.clear();
+    }
+
+    showChevrons() {
+        if (this.buttons.show_direction) {
+            this.hideChevrons();
+            this.gpx.setText('     ➜     ', {
+                repeat: true,
+                attributes: {
+                    fill: this.normal_style.color,
+                    dy: '5px',
+                    'font-size': '14px',
+                    style: `text-shadow: 1px 1px 0 white, -1px 1px 0 white, 1px -1px 0 white, -1px -1px 0 white, 0px 1px 0 white, 0px -1px 0 white, -1px 0px 0 white, 1px 0px 0 white, 2px 2px 0 white, -2px 2px 0 white, 2px -2px 0 white, -2px -2px 0 white, 0px 2px 0 white, 0px -2px 0 white, -2px 0px 0 white, 2px 0px 0 white, 1px 2px 0 white, -1px 2px 0 white, 1px -2px 0 white, -1px -2px 0 white, 2px 1px 0 white, -2px 1px 0 white, 2px -1px 0 white, -2px -1px 0 white;
+                            -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;`
+                }
+            });
+        }
+    }
+
+    hideChevrons() {
+        this.gpx.setText(null);
     }
 
     getBounds() {
@@ -699,8 +722,6 @@ export default class Trace {
         for (var l=layers.length-1; l>=0; l--) if (layers[l]._latlngs)
             this.gpx.getLayers()[0].addLayer(new L.Polyline(layers[l]._latlngs, this.gpx.options.polyline_options));
 
-        this.gpx.setStyle(this.focus_style);
-
         if (this.firstTimeData() != -1) {
             const points = this.getPoints();
 
@@ -718,10 +739,11 @@ export default class Trace {
                 points[i].meta.time = tmp;
             }
         }
-
+        this.gpx.setStyle(this.focus_style);
         this.recomputeStats();
         this.update();
         this.redraw();
+        if (this.buttons.show_direction) this.showChevrons();
     }
 
     merge(trace, as_segments) {
@@ -744,6 +766,7 @@ export default class Trace {
 
         if (this.hasPoints() && trace.hasPoints()) {
             if (this.firstTimeData() >= 0 && trace.firstTimeData() == -1) {
+                console.log("a");
                 const avg = this.getMovingSpeed();
                 const a = points[points.length-1];
                 const b = otherPoints[0];
@@ -751,13 +774,14 @@ export default class Trace {
                 const startTime = new Date(a.meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
                 trace.changeTimeData(startTime, avg);
             } else if (this.firstTimeData() == -1 && trace.firstTimeData() >= 0) {
+                console.log("b");
                 const avg = trace.getMovingSpeed();
                 const a = points[points.length-1];
                 const b = otherPoints[0];
                 const dist = this.gpx._dist2d(a, b) + this.getDistance(true);
                 const startTime = new Date(b.meta.time.getTime() - 1000 * 60 * 60 * dist/(1000 * avg));
                 this.changeTimeData(startTime, avg);
-            } else {
+            } else if (this.firstTimeData() >= 0 && trace.firstTimeData() >= 0) {
                 const avg1 = this.getMovingSpeed();
                 const avg2 = trace.getMovingSpeed();
                 const dist1 = this.getMovingDistance();
@@ -846,6 +870,7 @@ export default class Trace {
             this.gpx.addLayer(new L.FeatureGroup());
             this.gpx.getLayers()[0].addLayer(new L.Polyline([pt], this.gpx.options.polyline_options));
             this.gpx.setStyle(this.focus_style);
+            if (this.buttons.show_direction) this.showChevrons();
             pt.index = 0;
             layer = this.gpx.getLayers()[0].getLayers()[0];
         } else {
@@ -1055,10 +1080,11 @@ export default class Trace {
 
     firstTimeData() {
         const points = this.getPoints();
-        var hasTimeInfo = false;
         for (var i=0; i<points.length; i++) {
-            if (points[i].meta.time != null)
+            if (points[i].meta.time != null) {
+                console.log(i, points[i].meta);
                 return i;
+            }
         }
         return -1;
     }

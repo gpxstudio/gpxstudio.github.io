@@ -71,6 +71,25 @@ html, body {
     transform: translateY(350%) !important;
 }
 
+.leaflet-control-layers-toggle {
+    background-image: none !important;
+    background-size: auto !important;
+    width: auto;
+    height: auto;
+    padding: 6px 7px;
+    font-size: 14px;
+    color: inherit !important;
+}
+
+.dontselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; 
+}
+
 .panels-container {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -386,11 +405,6 @@ html, body {
 
 .leaflet-interactive.mouseDown {
     cursor: grabbing !important;
-}
-
-.unit {
-    font-size: 11px;
-    vertical-align: top;
 }
 
 .selected {
