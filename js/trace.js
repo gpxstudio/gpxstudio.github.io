@@ -34,6 +34,7 @@ const options = {
 
 export default class Trace {
     constructor(file, name, map, total) {
+        name = name.split('.')[0];
         this.name = name;
         this.map = map;
         this.total = total;
@@ -98,16 +99,16 @@ export default class Trace {
                 if (trace.buttons.embedding) return;
                 if (trace.renaming) return;
                 trace.renaming = true;
-                li.innerHTML = '<input type="text" id="tabname" class="input-minimal" minlength="1" size="'+(trace.name.length-5)+'">.gpx';
+                li.innerHTML = '<input type="text" id="tabname" class="input-minimal" minlength="1" size="'+(trace.name.length)+'"> ';
                 trace.tabname = document.getElementById("tabname");
                 trace.tabname.addEventListener('keydown', function (e) {
-                    if(e.key === 'Enter') trace.rename();
+                    if (e.key === 'Enter') trace.rename();
                 });
                 trace.tabname.addEventListener('focusout', function (e) {
                     trace.rename();
                 });
                 trace.tabname.focus();
-                trace.tabname.value = trace.name.substring(0, trace.name.length-4);
+                trace.tabname.value = trace.name;
             });
             ul.appendChild(li);
 
@@ -131,24 +132,6 @@ export default class Trace {
                 const marker = trace.insertEditMarker(e.layer, e.layerPoint);
                 marker.fire('mousedown');
             }
-        }).on('mouseover', function (e) {
-            if (e.layer._latlngs) {
-                const featureGroup = trace.gpx.getLayers()[0];
-                const color = total.getChevronColor(trace.normal_style.color);
-                /*featureGroup.setText('       ►       ', {
-                    repeat: true,
-                    attributes: {
-                        fill: color,
-                        'font-size': '6px',
-                        dy: '2px'
-                    }
-                });*/
-            }
-        }).on('mouseout', function (e) {
-            if (e.layer._latlngs) {
-                const featureGroup = trace.gpx.getLayers()[0];
-                featureGroup.setText(null);
-            }
         });
 
         if (file === undefined) this.gpx.fire('loaded');
@@ -158,7 +141,6 @@ export default class Trace {
         var newname = name ? name : this.tabname.value;
         if (newname.length == 0) this.tab.innerHTML = this.name+'<div class="tab-color" style="background:'+this.normal_style.color+';">';
         else {
-            newname += '.gpx';
             this.name = newname;
             this.tab.innerHTML = newname+'<div class="tab-color" style="background:'+this.normal_style.color+';">';
             this.tab.title = newname;
@@ -178,7 +160,7 @@ export default class Trace {
             for (var i=0; i<points.length; i++) {
                 const pt = points[i].clone();
                 pt.meta = JSON.parse(JSON.stringify(points[i].meta));
-                pt.meta.time = new Date(pt.meta.time);
+                if (pt.meta.time) pt.meta.time = new Date(pt.meta.time);
                 pt.index = points[i].index;
                 pt.routing = points[i].routing;
                 cpy.push(pt);
@@ -192,6 +174,7 @@ export default class Trace {
         newTrace.recomputeStats();
         newTrace.update();
         newTrace.gpx.setStyle(newTrace.focus_style);
+        if (newTrace.buttons.show_direction) newTrace.showChevrons();
 
         for (var i=0; i<this.waypoints.length; i++) {
             const marker = this.waypoints[i];
@@ -227,6 +210,7 @@ export default class Trace {
         this.showElevation();
         this.showWaypoints();
         this.updateExtract();
+        if (this.buttons.show_direction) this.showChevrons();
     }
 
     unfocus() {
@@ -234,6 +218,7 @@ export default class Trace {
         this.gpx.setStyle(this.normal_style);
         this.closePopup();
         this.hideWaypoints();
+        this.hideChevrons();
         if (this.isEdited) this.stopEdit();
         if (this.drawing) this.stopDraw();
         if (this.renaming) this.rename();
@@ -373,6 +358,26 @@ export default class Trace {
                 this.buttons.elev.addData(layers[i]);
             }
         } else this.buttons.elev.clear();
+    }
+
+    showChevrons() {
+        if (this.buttons.show_direction) {
+            this.hideChevrons();
+            this.gpx.setText('     ➜     ', {
+                repeat: true,
+                attributes: {
+                    fill: this.normal_style.color,
+                    dy: '5px',
+                    'font-size': '14px',
+                    style: `text-shadow: 1px 1px 0 white, -1px 1px 0 white, 1px -1px 0 white, -1px -1px 0 white, 0px 1px 0 white, 0px -1px 0 white, -1px 0px 0 white, 1px 0px 0 white, 2px 2px 0 white, -2px 2px 0 white, 2px -2px 0 white, -2px -2px 0 white, 0px 2px 0 white, 0px -2px 0 white, -2px 0px 0 white, 2px 0px 0 white, 1px 2px 0 white, -1px 2px 0 white, 1px -2px 0 white, -1px -2px 0 white, 2px 1px 0 white, -2px 1px 0 white, 2px -1px 0 white, -2px -1px 0 white;
+                            -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;`
+                }
+            });
+        }
+    }
+
+    hideChevrons() {
+        this.gpx.setText(null);
     }
 
     getBounds() {
@@ -717,8 +722,6 @@ export default class Trace {
         for (var l=layers.length-1; l>=0; l--) if (layers[l]._latlngs)
             this.gpx.getLayers()[0].addLayer(new L.Polyline(layers[l]._latlngs, this.gpx.options.polyline_options));
 
-        this.gpx.setStyle(this.focus_style);
-
         if (this.firstTimeData() != -1) {
             const points = this.getPoints();
 
@@ -736,10 +739,11 @@ export default class Trace {
                 points[i].meta.time = tmp;
             }
         }
-
+        this.gpx.setStyle(this.focus_style);
         this.recomputeStats();
         this.update();
         this.redraw();
+        if (this.buttons.show_direction) this.showChevrons();
     }
 
     merge(trace, as_segments) {
@@ -775,7 +779,7 @@ export default class Trace {
                 const dist = this.gpx._dist2d(a, b) + this.getDistance(true);
                 const startTime = new Date(b.meta.time.getTime() - 1000 * 60 * 60 * dist/(1000 * avg));
                 this.changeTimeData(startTime, avg);
-            } else {
+            } else if (this.firstTimeData() >= 0 && trace.firstTimeData() >= 0) {
                 const avg1 = this.getMovingSpeed();
                 const avg2 = trace.getMovingSpeed();
                 const dist1 = this.getMovingDistance();
@@ -864,6 +868,7 @@ export default class Trace {
             this.gpx.addLayer(new L.FeatureGroup());
             this.gpx.getLayers()[0].addLayer(new L.Polyline([pt], this.gpx.options.polyline_options));
             this.gpx.setStyle(this.focus_style);
+            if (this.buttons.show_direction) this.showChevrons();
             pt.index = 0;
             layer = this.gpx.getLayers()[0].getLayers()[0];
         } else {
@@ -871,8 +876,7 @@ export default class Trace {
             for (var i=layers.length-1; i>=0; i--) if (layers[i]._latlngs) {
                 pt.index = layers[i]._latlngs.length;
                 layer = layers[i];
-                //layers[i]._latlngs.push(pt);
-                layers[i].addLatLng(pt);
+                layers[i]._latlngs.push(pt);
                 break;
             }
         }
@@ -993,6 +997,7 @@ export default class Trace {
         const layers = this.getLayers();
         for (var l=0; l<layers.length; l++) {
             if (deletePts && layers[l]._latlngs) { // points
+                layers[l]._bounds = L.latLngBounds(layers[l]._latlngs);
                 if ((inside && bounds.intersects(layers[l].getBounds())) ||
                 (!inside && !bounds.contains(layers[l].getBounds()))) {
                     var remove = true;
@@ -1074,10 +1079,10 @@ export default class Trace {
 
     firstTimeData() {
         const points = this.getPoints();
-        var hasTimeInfo = false;
         for (var i=0; i<points.length; i++) {
-            if (points[i].meta.time != null)
+            if (points[i].meta.time != null) {
                 return i;
+            }
         }
         return -1;
     }

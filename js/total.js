@@ -18,7 +18,6 @@
 import Trace from './trace.js';
 
 const trace_colors = ['#ff0000', '#0000ff', '#46e646', '#00ccff', '#ff9900', '#ff00ff', '#ffff00', '#288228', '#9933ff', '#50f0be', '#8c645a'];
-const chevron_colors = ['#ffdf9e', '#9eefff', '#2d632d', '#2d157d', '#bf130a', '#570a4f', '#ab7011', '#97de97', '#e7d4fa', '#416e5f', '#fa947a'];
 
 export default class Total {
     constructor(buttons) {
@@ -47,8 +46,9 @@ export default class Total {
         this.traces.splice(index, 1);
         for (var i=index; i<this.traces.length; i++)
             this.traces[i].index--;
-        this.focus();
         this.buttons.updateTabWidth();
+        if (index > 0) this.traces[index-1].focus();
+        else this.focus();
     }
 
     clear() {
@@ -369,7 +369,7 @@ export default class Total {
 </extensions>
 ` : '';
                 output.push({
-                    name: this.traces[i].name,
+                    name: this.traces[i].name + '.gpx',
                     text: (xmlStart+xmlOutput+xmlEnd1+waypointsOutput+colorOutput+xmlEnd2)
                 });
                 xmlOutput = '';
@@ -454,11 +454,5 @@ export default class Total {
             this.colors[i].count++;
             break;
         }
-    }
-
-    getChevronColor(color) {
-        const idx = trace_colors.indexOf(color);
-        if (idx == -1 || idx >= chevron_colors.length) return 'white';
-        else return chevron_colors[idx];
     }
 }

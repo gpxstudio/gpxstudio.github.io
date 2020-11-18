@@ -39,21 +39,19 @@
                 "url": "https://gpxstudio.github.io/about.html"
             },
             "operatingSystem": "All",
-            "featureList": "edit gpx files online, view gpx files online, merge gpx files online, reverse gpx file online, add timestamps to gpx file online, extract segments, view and add waypoints gpx file online"
+            "featureList": "edit gpx files online, view gpx files online, merge gpx files online, reverse gpx file online, add timestamps to gpx file online, extract track segments, view and add waypoints gpx file online"
         }
         </script>
         <link rel="icon" href="favicon.png">
         <link rel="stylesheet" href="include/leaflet/leaflet.css">
         <script src="include/leaflet/leaflet.js"></script>
-        <script src="include/textpath/leaflet.textpath.js"></script>
-        <script src="include/pouchdb/pouchdb-7.1.1.min.js"></script>
-	    <script src="include/pouchdb/L.TileLayer.PouchDBCached.js"></script>
         <script type="text/javascript" src="include/icon/Leaflet.Icon.Glyph.js"></script>
         <script type="module" src="include/gpx/gpx.js"></script>
         <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
         <script src="https://kit.fontawesome.com/0b26f70058.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="include/elevation/leaflet.elevation-0.0.4-d3v4.css"/>
         <script type="text/javascript" src="include/elevation/leaflet.elevation-0.0.4-d3v4.min.js"></script>
+        <script type="text/javascript" src="include/textpath/leaflet.textpath.js"></script>
         <script src="https://unpkg.com/esri-leaflet"></script>
         <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css"/>
         <script src="https://unpkg.com/esri-leaflet-geocoder"></script>
@@ -92,9 +90,6 @@
             <div class="panels custom-button unselected no-click2" id="undo"><i class="fas fa-reply"></i></div>
             <div class="panels custom-button unselected no-click2" id="redo"><i class="fas fa-share"></i></div>
             <div id="clear" class="panels custom-button">Clear all</div>
-            <div id="activity" class="panels custom-button unselected"><i id="bike" class="fas fa-biking"></i> <i class="fas fa-arrows-alt-h"></i> <i id="run" class="fas fa-running"></i></div>
-            <div id="units" class="panels custom-button unselected"><span id="km" class="unit"><b>km</b> </span><i class="fas fa-arrows-alt-h"></i><span id="mi" class="unit"> <b>mi</b></span></div>
-            <div id="method" class="panels custom-button unselected"><i id="route" class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i id="crow" class="fas fa-dove"></i></div>
             <div id="help" class="panels custom-button">Help</div>
             <div id="about" class="panels custom-button">About</div>
             <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Donate</b> <i class="fas fa-heart"></i></div>
@@ -131,7 +126,7 @@
             <div class="panels-button" id="edit-time" title="Edit time"><i class="fas fa-stopwatch custom-button"></i></div><br>
             <div class="panels-button" id="reverse" title="Reverse"><i class="fas fa-exchange-alt custom-button"></i></div><br>
             <div class="panels-button" id="combine" title="Merge with another trace"><i class="fas fa-plus-circle custom-button"></i></div><br>
-            <div class="panels-button" id="extract" title="Extract segments"><i class="fas fa-list-ul custom-button"></i></div><br>
+            <div class="panels-button" id="extract" title="Extract track segments"><i class="fas fa-list-ul custom-button"></i></div><br>
             <div class="panels-button" id="duplicate" title="Duplicate"><i class="far fa-copy custom-button"></i></div><br>
             <div class="panels-button" id="color" title="Change color"><i class="fas fa-palette custom-button"></i></div><br>
             <div class="panels-button" id="add-wpt" title="Add waypoint"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
@@ -139,6 +134,10 @@
             <div class="panels-button" id="zone-delete" title="Delete all inside/outside rectangle selection"><i class="fas fa-vector-square custom-button"></i></div><br>
             <div class="panels-button" id="delete" title="Delete"><i class="fas fa-trash-alt custom-button"></i></div><br>
         </div>
+        <li id="activity" class="custom-button dontselect">Activity: <span class="unselected"><i id="bike" class="fas fa-biking"></i> <i class="fas fa-arrows-alt-h"></i> <i id="run" class="fas fa-running"></i></span></li>
+        <li id="units" class="custom-button dontselect">Units: <span class="unselected"><span id="km">km </span><i class="fas fa-arrows-alt-h"></i><span id="mi"> mi</span></span></li>
+        <li id="method" class="custom-button dontselect">Routing: <span class="unselected"><i id="route" class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i id="crow" class="fas fa-dove"></i></span></li>
+        <li id="chevrons" class="custom-button dontselect">Chevrons: <input type="checkbox" id="show-chevrons" style="vertical-align: middle;"></li>
         <div id="help-text">
         <table style="width: 100%">
             <colgroup>
@@ -156,12 +155,21 @@
             </tr>
             <tr>
                 <td><b>Export</b></td>
-                <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Time, heart rate, cadence and temperature data is automatically extended. Optionally, merge all files <b>in the chosen order</b>.</td>
+                <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Time, heart rate, cadence and temperature data can be automatically extended. Optionally, merge all files <b>in the chosen order</b>.</td>
             </tr>
             <tr>
                 <td><b>Clear all</b></td>
                 <td>Delete all traces</td>
             </tr>
+            </tbody>
+        </table><br>
+        Below the search bar <i class="fas fa-search"></i> and the Google Street View tool <i class="fas fa-street-view"></i>, you can find a dropdown menu <i class="fas fa-bars"></i> with the maps available and some settings.
+        <table style="width: 100%">
+            <colgroup>
+               <col span="1" style="width: 10%;">
+               <col span="1" style="width: 90%;">
+            </colgroup>
+            <tbody>
             <tr>
                 <td><i class="fas fa-biking"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-running"></i></td>
                 <td>Switch between cycling and running mode (impacts the routing)</td>
@@ -175,11 +183,12 @@
                 <td>Switch between routing and <i>as the crow flies</i> when creating and editing traces</td>
             </tr>
             </tbody>
-        </table>
-        Below, you can see a panel with information about the traces you import.
+        </table><br>
+        At the bottom, you can see a panel with information about the traces you import.
         The <b>Total</b> tab displays information about all open traces merged into one.
         <b>Swap the tabs</b> to define the order in which the traces should appear and <b>double-click</b> on them to change their names.
-        Use the <b>slider</b> to move the start/end point and cut the route.<br>
+        Use the <b>slider</b> to move the start/end point and cut the route.<br><br>
+        The menu on the left contains all the editing tools described below.<br>
         <table style="width: 100%">
             <colgroup>
                <col span="1" align="center" style="width:10%;">
@@ -204,7 +213,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-list-ul"></i></td>
-                <td>Extract all segments and creates one trace for each</td>
+                <td>Extract all track segments and creates one trace for each</td>
             </tr>
             <tr>
                 <td><i class="far fa-copy"></i></td>
@@ -269,42 +278,14 @@
             <div id="save-drive" class="panels custom-button fancy-button">Save to Google Drive <img src="drive.png" style="height: 15px; vertical-align: bottom"></i></div>
         </div>
         <div id="clear-content" class="popup-content">
-            This will delete all open traces.<br>Do you wish to continue?
-            <table style="width: 100%">
-                <colgroup>
-                   <col span="1" style="width: 30%;">
-                   <col span="1" style="width: 20%;">
-                   <col span="1" style="width: 20%;">
-                   <col span="1" style="width: 30%;">
-                </colgroup>
-                <tbody>
-                <tr>
-                    <td></td>
-                    <td><div id="clear2" class="panels custom-button normal-button">Yes</div></td>
-                    <td><div id="cancelclear" class="panels custom-button normal-button"><b>Cancel</b></div></td>
-                    <td></td>
-                </tr>
-                </tbody>
-            </table>
+            This will delete all open traces.<br>Do you wish to continue?<br>
+            <div id="clear2" class="panels custom-button normal-button">Yes</div>
+            <div id="cancelclear" class="panels custom-button normal-button"><b>Cancel</b></div>
         </div>
         <div id="delete-content" class="popup-content">
-            This will delete the current trace.<br>Do you wish to continue?
-            <table style="width: 100%">
-                <colgroup>
-                   <col span="1" style="width: 30%;">
-                   <col span="1" style="width: 20%;">
-                   <col span="1" style="width: 20%;">
-                   <col span="1" style="width: 30%;">
-                </colgroup>
-                <tbody>
-                <tr>
-                    <td></td>
-                    <td><div id="delete2" class="panels custom-button normal-button">Yes</div></td>
-                    <td><div id="canceldelete" class="panels custom-button normal-button"><b>Cancel</b></div></td>
-                    <td></td>
-                </tr>
-                </tbody>
-            </table>
+            This will delete the current trace.<br>Do you wish to continue?<br>
+            <div id="delete2" class="panels custom-button normal-button">Yes</div>
+            <div id="canceldelete" class="panels custom-button normal-button"><b>Cancel</b></div>
         </div>
         <div id="strava-content" class="popup-content">
             Please log in to the<br><a href="https://www.strava.com/heatmap" target="_blank">Strava Global Heatmap</a> and retry.<br>

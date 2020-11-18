@@ -262,7 +262,6 @@ export default class Google {
                     _this.buttons.share_content.popup = _this.popup;
                     _this.buttons.disableMap();
                     _this.popup.addEventListener('remove', function (e) {
-                        _this.buttons.share_content.style.display = 'none';
                         _this.buttons.enableMap();
                     });
                     _this.popup.openOn(_this.buttons.map);

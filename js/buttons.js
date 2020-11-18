@@ -26,6 +26,7 @@ export default class Buttons {
         this.cycling = true;
         this.routing = true;
         this.disable_trace = false;
+        this.show_direction = false;
 
         // EMBEDDING
         const queryString = window.location.search;
@@ -43,7 +44,7 @@ export default class Buttons {
         this.map.addEventListener("locationfound", function (e) {
             e.target.setView(e.latlng,12);
         });
-        if (!this.embedding && !urlParams.has('state')) this.map.locate();
+        if (!this.embedding && !urlParams.has('state')) this.map.locate({setView: true, maximumAge: 100000});
 
         // BUTTONS
         this.input = document.getElementById("input-file");
@@ -93,12 +94,14 @@ export default class Buttons {
         this.units = document.getElementById("units");
         this.activity = document.getElementById("activity");
         this.method = document.getElementById("method");
+        this.chevrons = document.getElementById("chevrons");
         this.bike = document.getElementById("bike");
         this.run = document.getElementById("run");
         this.kms = document.getElementById("km");
         this.mi = document.getElementById("mi");
         this.route = document.getElementById("route");
         this.crow = document.getElementById("crow");
+        this.show_chevrons = document.getElementById("show-chevrons");
         this.merge = document.getElementById("merge");
         this.include_time = document.getElementById("include-time");
         this.include_hr = document.getElementById("include-hr");
@@ -174,6 +177,10 @@ export default class Buttons {
             this.buttons_bar.style.display = 'none';
             this.social_content.style.display = 'none';
             this.toolbar_content.style.display = 'none';
+            this.units.style.display = 'none';
+            this.activity.style.display = 'none';
+            this.method.style.display = 'none';
+            this.chevrons.style.display = 'none';
             this.trace_info_grid.style.height = '106px';
 
             this.toolbar = L.control({position: 'topleft'});
@@ -212,6 +219,23 @@ export default class Buttons {
             this.social.addTo(this.map);
 
             this.embed_content.style.display = 'none';
+
+            this.searchControl = new L.esri.Geocoding.geosearch({
+                position: 'topright',
+                useMapBounds: false
+            }).addTo(this.map);
+
+            this.streetView = L.control({
+                position: 'topright'
+            });
+            this.streetView.onAdd = function (map) {
+                var div = L.DomUtil.create('div', 'leaflet-control-layers leaflet-bar');
+                div.innerHTML = '<i class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;"></i>';
+                L.DomEvent.disableClickPropagation(div);
+                _this.googleStreetView = div;
+                return div;
+            };
+            this.streetView.addTo(this.map);
         }
 
         this.trace_info = L.control({position: 'bottomleft'});
@@ -235,8 +259,6 @@ export default class Buttons {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 _this.mapbox_token = xhr.responseText;
 
-                const cacheAge = 30 * 24 * 60 * 60 * 1000;
-
                 // TILES
 
                 _this.openStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -252,9 +274,7 @@ export default class Buttons {
                     tileSize: 512,
                     zoomOffset: -1,
                     accessToken: _this.mapbox_token,
-                    useCache: true,
-	                crossOrigin: true,
-                    cacheMaxAge: cacheAge
+	                crossOrigin: true
                 });
 
                 _this.mapboxOutdoors = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -264,9 +284,7 @@ export default class Buttons {
                     tileSize: 512,
                     zoomOffset: -1,
                     accessToken: _this.mapbox_token,
-                    useCache: true,
-	                crossOrigin: true,
-                    cacheMaxAge: cacheAge
+	                crossOrigin: true
                 });
 
                 _this.mapboxSatellite = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -276,18 +294,14 @@ export default class Buttons {
                     tileSize: 512,
                     zoomOffset: -1,
                     accessToken: _this.mapbox_token,
-                    useCache: true,
-	                crossOrigin: true,
-                    cacheMaxAge: cacheAge
+	                crossOrigin: true
                 });
 
                 _this.openCycleMap = L.tileLayer('https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey={apikey}', {
                     attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                     apikey: '67774cfadfeb42d2ac42bc38fda667c0',
                     maxZoom: 20,
-                    useCache: true,
-	                crossOrigin: true,
-                    cacheMaxAge: cacheAge
+	                crossOrigin: true
                 });
 
                 _this.openHikingMap = L.tileLayer('https://maps.refuges.info/hiking/{z}/{x}/{y}.png', {
@@ -316,23 +330,6 @@ export default class Buttons {
                         "Strava Heatmap" : _this.stravaHeatmap
                     }).addTo(_this.map);
 
-                    _this.searchControl = new L.esri.Geocoding.geosearch({
-                        position: 'topright',
-                        useMapBounds: false
-                    }).addTo(_this.map);
-
-                    _this.streetView = L.control({
-                        position: 'topright'
-                    });
-                    _this.streetView.onAdd = function (map) {
-                        var div = L.DomUtil.create('div', 'leaflet-control-layers leaflet-bar');
-                        div.innerHTML = '<i class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;"></i>';
-                        L.DomEvent.disableClickPropagation(div);
-                        _this.googleStreetView = div;
-                        return div;
-                    };
-                    _this.streetView.addTo(_this.map);
-
                     _this.stravaHeatmap.on('tileerror', function (e) {
                         _this.stravaHeatmap.remove();
                         if (_this.stravaHeatmap.open) return;
@@ -350,10 +347,40 @@ export default class Buttons {
                         _this.disableMap();
                         popup.addEventListener('remove', function (e) {
                             _this.stravaHeatmap.open = false;
-                            _this.strava_content.style.display = 'none';
                             _this.enableMap();
                         });
                     });
+
+                    const toggle = document.getElementsByClassName('leaflet-control-layers-toggle')[0];
+                    toggle.removeAttribute("href");
+                    toggle.classList.add('fas','fa-bars','custom-button');
+
+                    const settings_container = document.getElementsByClassName('leaflet-control-layers-list')[0];
+                    const base = settings_container.childNodes[0];
+                    const separator = settings_container.childNodes[1];
+                    const overlays = settings_container.childNodes[2];
+
+                    settings_container.appendChild(separator); // move separator after maps
+
+                    const maps_title = document.createElement('div');
+                    maps_title.innerHTML = '<b>Maps</b>';
+                    maps_title.classList.add('dontselect');
+                    settings_container.insertBefore(maps_title, base);
+
+                    const settings_title = document.createElement('div');
+                    settings_title.innerHTML = '<b>Settings</b>';
+                    settings_title.classList.add('dontselect');
+                    settings_container.appendChild(settings_title, base);
+
+                    const settings_list = document.createElement('ul');
+                    settings_list.style = 'padding-inline-start: 20px;';
+
+                    settings_list.appendChild(_this.units);
+                    settings_list.appendChild(_this.activity);
+                    settings_list.appendChild(_this.method);
+                    settings_list.appendChild(_this.chevrons);
+
+                    settings_container.appendChild(settings_list);
                 }
                 _this.total = new Total(_this);
             }
@@ -497,7 +524,6 @@ export default class Buttons {
             buttons.disableMap();
             popup.addEventListener('remove', function (e) {
                 buttons.load.open = false;
-                buttons.load_content.style.display = 'none';
                 buttons.enableMap();
             });
         });
@@ -580,7 +606,6 @@ export default class Buttons {
             buttons.disableMap();
             popup.addEventListener('remove', function (e) {
                 buttons.clear.open = false;
-                buttons.clear_content.style.display = 'none';
                 buttons.enableMap();
             });
         });
@@ -608,7 +633,6 @@ export default class Buttons {
             buttons.disableMap();
             popup.addEventListener('remove', function (e) {
                 buttons.delete.open = false;
-                buttons.delete_content.style.display = 'none';
                 buttons.enableMap();
             });
         });
@@ -663,7 +687,6 @@ export default class Buttons {
                     buttons.disableMap();
                     popup.addEventListener('remove', function (e) {
                         buttons.zone_delete.open = false;
-                        buttons.zone_delete_content.style.display = 'none';
                         buttons.enableMap();
                         buttons.zone_delete.rect.remove();
                     });
@@ -733,7 +756,6 @@ export default class Buttons {
                 buttons.disableMap();
                 popup.addEventListener('remove', function (e) {
                     buttons.export.open = false;
-                    buttons.export_content.style.display = 'none';
                     buttons.enableMap();
                 });
             }
@@ -772,7 +794,6 @@ export default class Buttons {
             buttons.disableMap();
             popup.addEventListener('remove', function (e) {
                 buttons.validate.open = false;
-                buttons.crop_content.style.display = 'none';
                 buttons.enableMap();
             });
         });
@@ -882,7 +903,6 @@ export default class Buttons {
             buttons.disableMap();
             popup.addEventListener('remove', function (e) {
                 buttons.reduce.open = false;
-                buttons.reduce_content.style.display = 'none';
                 buttons.reduce.trace.cancelSimplify();
                 buttons.enableMap();
             });
@@ -1043,7 +1063,6 @@ export default class Buttons {
             popup.addEventListener('remove', function (e) {
                 trace.closePopup();
                 buttons.enableMap();
-                buttons.color_content.style.display = 'none';
             });
             trace.popup = popup;
             buttons.disableMap();
@@ -1055,6 +1074,7 @@ export default class Buttons {
             trace.normal_style.color = color;
             trace.focus_style.color = color;
             trace.gpx.setStyle(trace.focus_style);
+            if (buttons.show_direction) trace.showChevrons();
             trace.tab.innerHTML = trace.name+'<div class="tab-color" style="background:'+trace.normal_style.color+';">';
             trace.popup.remove();
             trace.set_color = true;
@@ -1076,7 +1096,6 @@ export default class Buttons {
             popup.openOn(map);
             buttons.disableMap();
             popup.addEventListener('remove', function (e) {
-                buttons.help_text.style.display = 'none';
                 buttons.help.open = false;
                 buttons.enableMap();
             });
@@ -1108,7 +1127,6 @@ export default class Buttons {
             popup.addEventListener('remove', function (e) {
                 total.to_merge = null;
                 buttons.combine.open = false;
-                buttons.merge_content.style.display = 'none';
                 buttons.enableMap();
             });
         });
@@ -1128,6 +1146,13 @@ export default class Buttons {
                 map.addEventListener("click", openStreetView);
             });
         }
+        this.show_chevrons.addEventListener('input', function (e) {
+            buttons.show_direction = buttons.show_chevrons.checked;
+            if (total.hasFocus) return;
+            const trace = total.traces[total.focusOn];
+            if (buttons.show_direction) trace.showChevrons();
+            else trace.hideChevrons();
+        });
     }
 
     focusTabElement(tab) {
