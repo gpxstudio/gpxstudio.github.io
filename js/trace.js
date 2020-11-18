@@ -34,8 +34,6 @@ const options = {
 
 export default class Trace {
     constructor(file, name, map, total) {
-        map.stopLocate();
-        
         name = name.split('.')[0];
         this.name = name;
         this.map = map;

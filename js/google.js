@@ -32,7 +32,6 @@ export default class Google {
 
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
-        if (urlParams.has('state')) _this.buttons.map.stopLocate();
 
         gapi.load('client:auth', {
             callback: function () {
