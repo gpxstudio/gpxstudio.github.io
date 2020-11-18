@@ -74,8 +74,8 @@ html, body {
 .leaflet-control-layers-toggle {
     background-image: none !important;
     background-size: auto !important;
-    width: auto;
-    height: auto;
+    width: auto !important;
+    height: auto !important;
     padding: 6px 7px;
     font-size: 14px;
     color: inherit !important;
