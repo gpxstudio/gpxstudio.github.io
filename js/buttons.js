@@ -372,10 +372,15 @@ export default class Buttons {
                     settings_title.classList.add('dontselect');
                     settings_container.appendChild(settings_title, base);
 
-                    settings_container.appendChild(_this.units);
-                    settings_container.appendChild(_this.activity);
-                    settings_container.appendChild(_this.method);
-                    settings_container.appendChild(_this.chevrons);
+                    const settings_list = document.createElement('ul');
+                    settings_list.style = 'padding-inline-start: 20px;';
+
+                    settings_list.appendChild(_this.units);
+                    settings_list.appendChild(_this.activity);
+                    settings_list.appendChild(_this.method);
+                    settings_list.appendChild(_this.chevrons);
+
+                    settings_container.appendChild(settings_list);
                 }
                 _this.total = new Total(_this);
             }

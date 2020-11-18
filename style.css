@@ -60,15 +60,15 @@ html, body {
 }
 
 .centered-popup .leaflet-popup-content-wrapper {
-    transform: translateY(35%);
+    transform: translateY(37%);
 }
 
 .centered-popup .leaflet-popup-close-button {
-    transform: translateY(680%);
+    transform: translateY(850%);
 }
 
 .cross .leaflet-popup-close-button {
-    transform: translateY(350%) !important;
+    transform: translateY(360%) !important;
 }
 
 .leaflet-control-layers-toggle {
@@ -87,7 +87,7 @@ html, body {
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none; 
+    user-select: none;
 }
 
 .panels-container {
