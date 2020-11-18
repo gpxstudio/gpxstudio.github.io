@@ -736,7 +736,6 @@ L.GPX = L.FeatureGroup.extend({
               map.dragging.disable();
               marker._latlng_origin = marker._latlng;
               map._draggedMarker = marker;
-              map._container.style.cursor = 'grabbing';
               marker.getElement().style.cursor = 'grabbing';
               trace._draggingWaypoint = true;
           },

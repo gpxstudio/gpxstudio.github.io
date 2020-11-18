@@ -39,7 +39,8 @@ export default class Buttons {
 
         // MAIN MAP
         this.map = L.map('mapid', {
-            zoomControl: false
+            zoomControl: false,
+            minZoom: 1
         }).setView([0, 0], 2);
         this.map.addEventListener("locationfound", function (e) {
             e.target.setView(e.latlng,12);
@@ -265,61 +266,101 @@ export default class Buttons {
                     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                     maxZoom: 20,
                     maxNativeZoom: 19
-                }).addTo(_this.map);
-
-                _this.mapboxStreets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                    maxZoom: 20,
-                    id: 'mapbox/streets-v11',
-                    tileSize: 512,
-                    zoomOffset: -1,
-                    accessToken: _this.mapbox_token,
-	                crossOrigin: true
-                });
-
-                _this.mapboxOutdoors = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                    maxZoom: 20,
-                    id: 'mapbox/outdoors-v11',
-                    tileSize: 512,
-                    zoomOffset: -1,
-                    accessToken: _this.mapbox_token,
-	                crossOrigin: true
-                });
-
-                _this.mapboxSatellite = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                    maxZoom: 20,
-                    id: 'mapbox/satellite-v9',
-                    tileSize: 512,
-                    zoomOffset: -1,
-                    accessToken: _this.mapbox_token,
-	                crossOrigin: true
-                });
-
-                _this.openCycleMap = L.tileLayer('https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey={apikey}', {
-                    attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-                    apikey: '67774cfadfeb42d2ac42bc38fda667c0',
-                    maxZoom: 20,
-	                crossOrigin: true
-                });
-
-                _this.openHikingMap = L.tileLayer('https://maps.refuges.info/hiking/{z}/{x}/{y}.png', {
-                    maxZoom: 20,
-                    maxNativeZoom: 18,
-                    attribution: '<a href="https://wiki.openstreetmap.org/wiki/Hiking/mri">MRI</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                });
-
-                _this.stravaHeatmap = L.tileLayer('https://heatmap-external-{s}.strava.com/tiles-auth/cycling/bluered/{z}/{x}/{y}.png', {
-                    maxZoom: 20,
-                    maxNativeZoom: 15,
-                    attribution: 'Heatmap: &copy; <a href="https://www.strava.com">Strava</a>'
                 });
 
                 if (_this.embedding) {
                     _this.openStreetMap.addTo(_this.map);
                 } else {
-                    L.control.layers({
+                    if (_this.supportsWebGL()) {
+                        _this.mapboxStreets = L.mapboxGL({
+                            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                            maxZoom: 20,
+                            accessToken: _this.mapbox_token,
+                            style: 'mapbox://styles/mapbox/streets-v11',
+                            interactive: true,
+                            minZoom: 1,
+                            dragRotate: false,
+                            touchZoomRotate: false,
+                            boxZoom: false,
+                            dragPan: false,
+                            touchPitch: false,
+                            doubleClickZoom: false,
+                            scrollZoom: false,
+                            boxZoom: false,
+                            keyboard: false
+                        });
+
+                        _this.mapboxOutdoors = L.mapboxGL({
+                            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                            maxZoom: 20,
+                            accessToken: _this.mapbox_token,
+                            style: 'mapbox://styles/mapbox/outdoors-v11',
+                            interactive: true,
+                            minZoom: 1,
+                            dragRotate: false,
+                            touchZoomRotate: false,
+                            boxZoom: false,
+                            dragPan: false,
+                            touchPitch: false,
+                            doubleClickZoom: false,
+                            scrollZoom: false,
+                            boxZoom: false,
+                            keyboard: false
+                        }).addTo(_this.map);
+                    } else {
+                        _this.openStreetMap.addTo(_this.map);
+
+                        _this.mapboxStreets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+                            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                            maxZoom: 20,
+                            id: 'mapbox/streets-v11',
+                            tileSize: 512,
+                            zoomOffset: -1,
+                            accessToken: _this.mapbox_token,
+        	                crossOrigin: true
+                        });
+
+                        _this.mapboxOutdoors = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+                            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                            maxZoom: 20,
+                            id: 'mapbox/outdoors-v11',
+                            tileSize: 512,
+                            zoomOffset: -1,
+                            accessToken: _this.mapbox_token,
+        	                crossOrigin: true
+                        });
+                    }
+
+                    _this.mapboxSatellite = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+                        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                        maxZoom: 20,
+                        id: 'mapbox/satellite-v9',
+                        tileSize: 512,
+                        zoomOffset: -1,
+                        accessToken: _this.mapbox_token,
+    	                crossOrigin: true
+                    });
+
+                    _this.openCycleMap = L.tileLayer('https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey={apikey}', {
+                        attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                        apikey: '67774cfadfeb42d2ac42bc38fda667c0',
+                        maxZoom: 20,
+    	                crossOrigin: true
+                    });
+
+                    _this.openHikingMap = L.tileLayer('https://maps.refuges.info/hiking/{z}/{x}/{y}.png', {
+                        maxZoom: 20,
+                        maxNativeZoom: 18,
+                        attribution: '<a href="https://wiki.openstreetmap.org/wiki/Hiking/mri">MRI</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    });
+
+                    _this.stravaHeatmap = L.tileLayer('https://heatmap-external-{s}.strava.com/tiles-auth/cycling/bluered/{z}/{x}/{y}.png', {
+                        maxZoom: 20,
+                        maxNativeZoom: 15,
+                        attribution: 'Heatmap: &copy; <a href="https://www.strava.com">Strava</a>'
+                    });
+
+                    _this.controlLayers = L.control.layers({
                         "OpenStreetMap" : _this.openStreetMap,
                         "OpenCycleMap" : _this.openCycleMap,
                         "OpenHikingMap" : _this.openHikingMap,
@@ -361,16 +402,6 @@ export default class Buttons {
                     const overlays = settings_container.childNodes[2];
 
                     settings_container.appendChild(separator); // move separator after maps
-
-                    const maps_title = document.createElement('div');
-                    maps_title.innerHTML = '<b>Maps</b>';
-                    maps_title.classList.add('dontselect');
-                    settings_container.insertBefore(maps_title, base);
-
-                    const settings_title = document.createElement('div');
-                    settings_title.innerHTML = '<b>Settings</b>';
-                    settings_title.classList.add('dontselect');
-                    settings_container.appendChild(settings_title, base);
 
                     const settings_list = document.createElement('ul');
                     settings_list.style = 'padding-inline-start: 20px;';
@@ -580,10 +611,16 @@ export default class Buttons {
         this.add_wpt.addEventListener("click", function () {
             buttons.disable_trace = true;
             map._container.style.cursor = 'crosshair';
+            var mapboxgl_canvas = document.getElementsByClassName('mapboxgl-canvas');
+            if (mapboxgl_canvas.length > 0) {
+                mapboxgl_canvas = mapboxgl_canvas[0];
+                mapboxgl_canvas.style.cursor = 'crosshair';
+            } else mapboxgl_canvas = null;
             map.addEventListener("click", function (e) {
                 const trace = total.traces[total.focusOn];
                 trace.addWaypoint(e.latlng);
                 map._container.style.cursor = '';
+                if (mapboxgl_canvas) mapboxgl_canvas.style.cursor = '';
                 map.removeEventListener("click");
                 buttons.disable_trace = false;
                 gtag('event', 'button', {'event_category' : 'waypoint'});
@@ -648,12 +685,19 @@ export default class Buttons {
             if (buttons.zone_delete.open) return;
 
             map._container.style.cursor = 'crosshair';
+            var mapboxgl_canvas = document.getElementsByClassName('mapboxgl-canvas');
+            if (mapboxgl_canvas.length > 0) {
+                mapboxgl_canvas = mapboxgl_canvas[0];
+                mapboxgl_canvas.style.cursor = 'crosshair';
+            } else mapboxgl_canvas = null;
             map.dragging.disable();
 
             buttons.zone_delete.rect = null;
             var start_pt = null;
 
             const createRect = function (e) {
+                map._container.style.cursor = '';
+                if (mapboxgl_canvas) mapboxgl_canvas.style.cursor = '';
                 buttons.zone_delete.rect = L.rectangle([
                     [e.latlng.lat, e.latlng.lng],
                     [e.latlng.lat, e.latlng.lng]
@@ -667,7 +711,6 @@ export default class Buttons {
             };
             const endRect = function (e) {
                 if (buttons.zone_delete.rect) {
-                    map._container.style.cursor = '';
                     map.removeEventListener("mousedown", createRect);
                     map.removeEventListener("mousemove", extendRect);
                     map.removeEventListener("mouseup", endRect);
@@ -1135,7 +1178,10 @@ export default class Buttons {
         });
         if (!this.embedding) {
             const openStreetView = function (e) {
-                if (total.hasFocus || !total.traces[total.focusOn].isEdited) map._container.style.cursor = '';
+                if (total.hasFocus || !total.traces[total.focusOn].isEdited) {
+                    map._container.style.cursor = '';
+                    if (buttons.googleStreetView.mapboxgl_canvas) buttons.googleStreetView.mapboxgl_canvas.style.cursor = '';
+                }
                 map.removeEventListener("click", openStreetView);
                 buttons.disable_trace = false;
                 window.open('https://maps.google.com/maps?q=&layer=c&cbll='+e.latlng.lat+','+e.latlng.lng+'&cbp=11,0,0,0,0');
@@ -1143,6 +1189,11 @@ export default class Buttons {
             this.googleStreetView.addEventListener('click', function () {
                 buttons.disable_trace = true;
                 map._container.style.cursor = 'crosshair';
+                var mapboxgl_canvas = document.getElementsByClassName('mapboxgl-canvas');
+                if (mapboxgl_canvas.length > 0) {
+                    buttons.googleStreetView.mapboxgl_canvas = mapboxgl_canvas[0];
+                    buttons.googleStreetView.mapboxgl_canvas.style.cursor = 'crosshair';
+                } else buttons.googleStreetView.mapboxgl_canvas = null;
                 map.addEventListener("click", openStreetView);
             });
         }
@@ -1217,15 +1268,25 @@ export default class Buttons {
     }
 
     download(filename, text) {
-      var element = document.createElement('a');
-      element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-      element.setAttribute('download', filename);
-
-      element.style.display = 'none';
-      document.body.appendChild(element);
-
-      element.click();
-
-      document.body.removeChild(element);
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', filename);
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
     }
+
+     supportsWebGL() {
+       var canvas = document.createElement('canvas');
+       var supports = 'probablySupportsContext' in canvas
+           ? 'probablySupportsContext'
+           :  'supportsContext';
+
+       if (supports in canvas) {
+         return canvas[supports]('webgl') || canvas[supports]('experimental-webgl');
+       }
+
+       return 'WebGLRenderingContext' in window;
+   };
 }
