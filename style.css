@@ -81,6 +81,10 @@ html, body {
     color: inherit !important;
 }
 
+.mapboxgl-canvas {
+    cursor: grab;
+}
+
 .dontselect {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -359,7 +363,7 @@ html, body {
     stroke-width: 1;
 }
 
-.leaflet-image-layer {
+.end-circle {
     width: 10px !important;
     height: 10px !important;
     border-radius: 7px;

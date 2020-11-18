@@ -34,6 +34,8 @@ const options = {
 
 export default class Trace {
     constructor(file, name, map, total) {
+        map.stopLocate();
+        
         name = name.split('.')[0];
         this.name = name;
         this.map = map;
@@ -305,9 +307,15 @@ export default class Trace {
         this.drawing = true;
         this._draggingWaypoint = false;
         this.buttons.map._container.style.cursor = 'crosshair';
+        var mapboxgl_canvas = document.getElementsByClassName('mapboxgl-canvas');
+        if (mapboxgl_canvas.length > 0) {
+            mapboxgl_canvas = mapboxgl_canvas[0];
+            mapboxgl_canvas.style.cursor = 'crosshair';
+            this.mapboxgl_canvas = mapboxgl_canvas;
+        } else this.mapboxgl_canvas = null;
         const _this = this;
         this.buttons.map.addEventListener("click", function (e) {
-            if (e.originalEvent.target.id != "mapid") return;
+            if (e.originalEvent.target.id != "mapid" && !e.originalEvent.target.classList.contains('mapboxgl-canvas')) return;
             if (!_this._draggingWaypoint) _this.addEndPoint(e.latlng.lat, e.latlng.lng);
             _this._draggingWaypoint = false;
         });
@@ -315,6 +323,8 @@ export default class Trace {
 
     stopDraw() {
         this.buttons.map._container.style.cursor = '';
+        var mapboxgl_canvas = document.getElementsByClassName('mapboxgl-canvas');
+        if (this.mapboxgl_canvas) this.mapboxgl_canvas.style.cursor = '';
         this.buttons.map.removeEventListener("click");
         this.drawing = false;
         if (this.getPoints().length == 0) {
