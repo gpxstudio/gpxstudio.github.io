@@ -362,16 +362,6 @@ export default class Buttons {
 
                     settings_container.appendChild(separator); // move separator after maps
 
-                    const maps_title = document.createElement('div');
-                    maps_title.innerHTML = '<b>Maps</b>';
-                    maps_title.classList.add('dontselect');
-                    settings_container.insertBefore(maps_title, base);
-
-                    const settings_title = document.createElement('div');
-                    settings_title.innerHTML = '<b>Settings</b>';
-                    settings_title.classList.add('dontselect');
-                    settings_container.appendChild(settings_title, base);
-
                     const settings_list = document.createElement('ul');
                     settings_list.style = 'padding-inline-start: 20px;';
 
