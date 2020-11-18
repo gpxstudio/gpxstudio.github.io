@@ -17,7 +17,7 @@ This repository contains the source code of the website [gpx.studio](https://gpx
 * Reverse trace
 * Simplify trace
 * Merge traces
-* Support for waypoints
+* Support for waypoints : place and drag, edit information, duplicate
 * Support for track segments (trkseg) : extraction and merge as track segments
 * Delete points and/or waypoints inside or outside a rectangle selection
 * Export multiple traces as one or separately in the chosen order and respecting time precedence constraints (if any time data)
@@ -35,6 +35,7 @@ This project would not have been possible without the following amazing projects
 * [leaflet-gpx](https://github.com/mpetazzoni/leaflet-gpx) : parsing and displaying GPX files
 * [Leaflet.Elevation](https://github.com/MrMufflon/Leaflet.Elevation) : elevation profiles
 * [Leaflet.Icon.Glyph](https://github.com/Leaflet/Leaflet.Icon.Glyph) : markers with icons for the waypoints
+* [Leaflet.TextPath](https://github.com/makinacorpus/Leaflet.TextPath) : direction markers
 * [simplify2](https://github.com/geonome/simplify2-js) : line simplification algorithm
 * [Font Awesome](https://fontawesome.com/) : nice icons
 
