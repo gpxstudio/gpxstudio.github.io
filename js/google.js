@@ -42,7 +42,6 @@ export default class Google {
                 }).then(function () {
                     if (urlParams.has('state')) {
                         const params = JSON.parse(urlParams.get('state'));
-                        gtag('event', 'button', {'event_category' : 'open-drive'});
                         if (params.hasOwnProperty('userId')) {
                             var oauth = gapi.auth2.getAuthInstance();
                             var user = oauth.currentUser.get();
@@ -53,6 +52,7 @@ export default class Google {
                                 }).then(_this.downloadFiles.bind(_this));
                             } else _this.downloadFiles();
                         } else _this.downloadFiles();
+                        gtag('event', 'button', {'event_category' : 'open-drive'});
                     }
                 }, function () {
                     // private browsing, try to retrieve public files without gapi
@@ -160,8 +160,6 @@ export default class Google {
             this.fileIds = [];
             this.checkAllFilesInFolder(data.docs[0].id, buttons.total.outputGPX(mergeAll, time, hr, atemp, cad));
 
-            gtag('event', 'button', {'event_category' : 'save-drive'});
-
             const popup = L.popup({
                 className: "centered-popup custom-popup",
                 closeButton: false,
@@ -174,6 +172,8 @@ export default class Google {
             popup.setContent('Uploading...');
             popup.openOn(buttons.map);
             this.popup = popup;
+
+            gtag('event', 'button', {'event_category' : 'save-drive'});
         }
     }
 

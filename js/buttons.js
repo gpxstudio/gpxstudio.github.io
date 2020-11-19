@@ -842,8 +842,8 @@ export default class Buttons {
         });
         this.crop_ok.addEventListener("click", function () {
             total.traces[total.focusOn].crop(total.buttons.slider.getIndexStart(), total.buttons.slider.getIndexEnd(), !buttons.crop_keep.checked);
-            gtag('event', 'button', {'event_category' : 'crop'});
             buttons.validate.popup.remove();
+            gtag('event', 'button', {'event_category' : 'crop'});
         });
         this.crop_cancel.addEventListener("click", function () {
             buttons.validate.popup.remove();
