@@ -711,14 +711,12 @@ export default class Buttons {
                 if (buttons.zone_delete.rect) {
                     map.removeEventListener("mousedown", createRect);
                     map.removeEventListener("mousemove", extendRect);
-                    map.removeEventListener("mouseup", endRect);
+                    map.removeEventListener("click", endRect);
 
                     buttons.zone_delete.open = true;
                     const popup = L.popup({
                         className: "centered-popup custom-popup",
-                        closeButton: false,
-                        closeOnClick: false,
-                        autoPan: false
+                        closeButton: false
                     });
                     buttons.zone_delete.popup = popup;
                     popup.setLatLng(map.getCenter());
@@ -736,7 +734,7 @@ export default class Buttons {
 
             map.addEventListener("mousedown", createRect);
             map.addEventListener("mousemove", extendRect);
-            map.addEventListener("mouseup", endRect);
+            map.addEventListener("click", endRect);
         });
         this.zone_delete_ok.addEventListener("click", function () {
             if (total.hasFocus) return;
@@ -907,7 +905,7 @@ export default class Buttons {
                 if (total.hasFocus) return;
                 var trace = total.traces[total.focusOn];
                 if (trace.isEdited) buttons.edit.click();
-            } else return false;
+            }
         });
         this.reverse.addEventListener("click", function() {
             if (total.hasFocus) return;
