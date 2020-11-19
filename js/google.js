@@ -238,6 +238,8 @@ export default class Google {
                     });
 
                     _this.window.close();
+                    if (_this.buttons.window_open) _this.buttons.window_open.hide();
+                    _this.buttons.window_open = _this.buttons.share_window;
                     _this.buttons.share_window.show();
                 }
             }

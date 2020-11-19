@@ -388,6 +388,8 @@ export default class Buttons {
 
                     _this.stravaHeatmap.on('tileerror', function (e) {
                         _this.stravaHeatmap.remove();
+                        if (_this.window_open) _this.window_open.hide();
+                        _this.window_open = _this.strava_window;
                         _this.strava_window.show();
                     });
 
@@ -537,6 +539,8 @@ export default class Buttons {
             buttons.loadFiles(this.files)
         };
         this.load.addEventListener("click", function () {
+            if (buttons.window_open) buttons.window_open.hide();
+            buttons.window_open = buttons.load_window;
             buttons.load_window.show();
         });
         this.load2.addEventListener("click", function () {
@@ -609,6 +613,8 @@ export default class Buttons {
         });
         this.clear.addEventListener("click", function () {
             if (total.traces.length == 0) return;
+            if (buttons.window_open) buttons.window_open.hide();
+            buttons.window_open = buttons.clear_window;
             buttons.clear_window.show();
         });
         this.clear2.addEventListener("click", function () {
@@ -620,6 +626,8 @@ export default class Buttons {
         });
         this.delete.addEventListener("click", function () {
             if (total.hasFocus) return;
+            if (buttons.window_open) buttons.window_open.hide();
+            buttons.window_open = buttons.delete_window;
             buttons.delete_window.show();
         });
         this.delete2.addEventListener("click", function () {
@@ -663,6 +671,8 @@ export default class Buttons {
                     map.removeEventListener("mousemove", extendRect);
                     map.removeEventListener("click", endRect);
 
+                    if (buttons.window_open) buttons.window_open.hide();
+                    buttons.window_open = buttons.zone_delete_window;
                     buttons.zone_delete_window.show();
                     buttons.zone_delete_window.addEventListener('hide', function (e) {
                         buttons.zone_delete.rect.remove();
@@ -719,6 +729,8 @@ export default class Buttons {
                     buttons.include_atemp.checked = true;
                     buttons.include_atemp.disabled = false;
                 }
+                if (buttons.window_open) buttons.window_open.hide();
+                buttons.window_open = buttons.export_window;
                 buttons.export_window.show();
             }
         });
@@ -742,6 +754,8 @@ export default class Buttons {
         });
         this.validate.addEventListener("click", function () {
             if (total.hasFocus) return;
+            if (buttons.window_open) buttons.window_open.hide();
+            buttons.window_open = buttons.crop_window;
             buttons.crop_window.show();
         });
         this.crop_ok.addEventListener("click", function () {
@@ -835,6 +849,8 @@ export default class Buttons {
         this.reduce.addEventListener("click", function() {
             if (total.hasFocus) return;
             buttons.reduce.trace = total.traces[total.focusOn];
+            if (buttons.window_open) buttons.window_open.hide();
+            buttons.window_open = buttons.reduce_window;
             buttons.reduce_window.show();
             buttons.reduce_window.addEventListener('hide', function (e) {
                 buttons.reduce.trace.cancelSimplify();
@@ -898,6 +914,8 @@ export default class Buttons {
             buttons.time.window.addEventListener('hide', function () {
                 buttons.time.window.remove();
             });
+            if (buttons.window_open) buttons.window_open.hide();
+            buttons.window_open = buttons.time.window;
 
             var offset = -(new Date().getTimezoneOffset() / 60);
 
@@ -966,6 +984,8 @@ export default class Buttons {
             const trace = total.traces[total.focusOn];
 
             buttons.color_picker.value = trace.normal_style.color;
+            if (buttons.window_open) buttons.window_open.hide();
+            buttons.window_open = buttons.color_window;
             buttons.color_window.show();
         });
         this.color_ok.addEventListener("click", function () {
@@ -988,6 +1008,8 @@ export default class Buttons {
             window.open('./about.html');
         });
         this.help.addEventListener("click", function () {
+            if (buttons.window_open) buttons.window_open.hide();
+            buttons.window_open = buttons.help_window;
             buttons.help_window.show();
             gtag('event', 'button', {'event_category' : 'help'});
         });
@@ -1001,6 +1023,8 @@ export default class Buttons {
             if (total.traces.length <= 1) return;
             const trace = total.traces[total.focusOn];
             total.to_merge = trace;
+            if (buttons.window_open) buttons.window_open.hide();
+            buttons.window_open = buttons.merge_window;
             buttons.merge_window.show();
             buttons.merge_window.addEventListener('hide', function (e) {
                 total.to_merge = null;
