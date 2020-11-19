@@ -91,7 +91,7 @@ export default class Trace {
                     total.removeTrace(trace.index);
                     total.to_merge.focus();
                     total.to_merge = null;
-                    total.buttons.combine.popup.remove();
+                    total.buttons.merge_window.hide();
                     gtag('event', 'button', {'event_category' : 'merge'});
                 } else if (!trace.hasFocus) trace.focus();
             });

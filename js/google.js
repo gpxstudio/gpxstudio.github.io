@@ -155,23 +155,11 @@ export default class Google {
             const atemp = buttons.include_atemp.checked;
             const cad = buttons.include_cad.checked;
 
-            buttons.export.popup.remove();
-
             this.fileIds = [];
             this.checkAllFilesInFolder(data.docs[0].id, buttons.total.outputGPX(mergeAll, time, hr, atemp, cad));
 
-            const popup = L.popup({
-                className: "centered-popup custom-popup",
-                closeButton: false,
-                autoPan: false,
-                closeOnEscapeKey: false,
-                closeOnClick: false,
-                autoClose: false
-            });
-            popup.setLatLng(buttons.map.getCenter());
-            popup.setContent('Uploading...');
-            popup.openOn(buttons.map);
-            this.popup = popup;
+            buttons.export_window.hide();
+            this.window = L.control.window(this.buttons.map,{title:'',content:'Uploading...',className:'panels-container',closeButton:false,visible:true});
 
             gtag('event', 'button', {'event_category' : 'save-drive'});
         }
@@ -249,21 +237,8 @@ export default class Google {
                         navigator.clipboard.writeText(code);
                     });
 
-                    _this.popup.remove();
-                    _this.popup = L.popup({
-                        className: "centered-popup custom-popup",
-                        closeButton: false,
-                        autoPan: false
-                    });
-                    _this.buttons.share_content.style.display = 'block';
-                    _this.popup.setContent(_this.buttons.share_content);
-                    _this.popup.setLatLng(_this.buttons.map.getCenter());
-                    _this.buttons.share_content.popup = _this.popup;
-                    _this.buttons.disableMap();
-                    _this.popup.addEventListener('remove', function (e) {
-                        _this.buttons.enableMap();
-                    });
-                    _this.popup.openOn(_this.buttons.map);
+                    _this.window.close();
+                    _this.buttons.share_window.show();
                 }
             }
         };

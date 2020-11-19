@@ -56,6 +56,8 @@
         <script type="text/javascript" src="include/elevation/leaflet.elevation-0.0.4-d3v4.min.js"></script>
         <script type="text/javascript" src="include/textpath/leaflet.textpath.js"></script>
         <script type="text/javascript" src="include/mapboxgl/leaflet-mapbox-gl.js"></script>
+        <script type="text/javascript" src="include/controlwindow/L.Control.Window.js"></script>
+        <link rel="stylesheet" href="include/controlwindow/L.Control.Window.css">
         <script src="https://unpkg.com/esri-leaflet"></script>
         <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css"/>
         <script src="https://unpkg.com/esri-leaflet-geocoder"></script>
@@ -297,7 +299,9 @@
             <div id="strava-ok" class="panels custom-button normal-button" style="margin-top: 4px;">Got it</div>
         </div>
         <div id="color-content" class="popup-content">
-            Pick a new color<br><div><input type="color" id="color-picker" class="input-minimal" value="#ff0000"><div class="panels-button" id="validate-color" style="transform: translate(0px, -3px)"><i class="fas fa-check custom-button"></i></div></div>
+            Pick a new color <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
+            <div id="validate-color" class="panels custom-button normal-button">Ok</div>
+            <div id="cancel-color" class="panels custom-button normal-button">Cancel</div>
         </div>
         <div id="load-content" class="popup-content">
             Choose file(s) from<br>

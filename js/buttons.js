@@ -82,6 +82,7 @@ export default class Buttons {
         this.add_wpt = document.getElementById("add-wpt");
         this.color = document.getElementById("color");
         this.color_ok = document.getElementById("validate-color");
+        this.color_cancel = document.getElementById("cancel-color");
         this.color_picker = document.getElementById("color-picker");
         this.edit = document.getElementById("edit");
         this.validate = document.getElementById("validate");
@@ -113,6 +114,7 @@ export default class Buttons {
         this.copy_embed = document.getElementById("copy-embed");
         this.merge_as_segments = document.getElementById("merge-as-segments");
         this.merge_cancel = document.getElementById("merge-cancel");
+        this.buttons_bar = document.getElementById('buttons-bar');
 
         // DISPLAYS
         this.distance = document.getElementById("distance-val");
@@ -141,7 +143,20 @@ export default class Buttons {
         this.social_content = document.getElementById('social');
         this.trace_info_content = document.getElementById('info');
         this.toolbar_content = document.getElementById('toolbar');
-        this.buttons_bar = document.getElementById('buttons-bar');
+
+        // WINDOWS
+        this.help_window = L.control.window(this.map,{title:'',content:this.help_text,className:'panels-container'});
+        this.export_window = L.control.window(this.map,{title:'',content:this.export_content,className:'panels-container'});
+        this.clear_window = L.control.window(this.map,{title:'',content:this.clear_content,className:'panels-container',closeButton:false});
+        this.delete_window = L.control.window(this.map,{title:'',content:this.delete_content,className:'panels-container',closeButton:false});
+        this.zone_delete_window = L.control.window(this.map,{title:'',content:this.zone_delete_content,className:'panels-container',closeButton:false});
+        this.strava_window = L.control.window(this.map,{title:'',content:this.strava_content,className:'panels-container',closeButton:false});
+        this.color_window = L.control.window(this.map,{title:'',content:this.color_content,className:'panels-container',closeButton:false});
+        this.reduce_window = L.control.window(this.map,{title:'',content:this.reduce_content,className:'panels-container',closeButton:false});
+        this.load_window = L.control.window(this.map,{title:'',content:this.load_content,className:'panels-container'});
+        this.share_window = L.control.window(this.map,{title:'',content:this.share_content,className:'panels-container'});
+        this.merge_window = L.control.window(this.map,{title:'',content:this.merge_content,className:'panels-container',closeButton:false});
+        this.crop_window = L.control.window(this.map,{title:'',content:this.crop_content,className:'panels-container',closeButton:false});
 
         this.zoom = L.control.zoom({
             position: 'topright'
@@ -373,23 +388,7 @@ export default class Buttons {
 
                     _this.stravaHeatmap.on('tileerror', function (e) {
                         _this.stravaHeatmap.remove();
-                        if (_this.stravaHeatmap.open) return;
-                        _this.stravaHeatmap.open = true;
-                        const popup = L.popup({
-                            className: "centered-popup custom-popup",
-                            autoPan: false,
-                            closeButton: false
-                        });
-                        _this.stravaHeatmap.popup = popup;
-                        popup.setLatLng(_this.map.getCenter());
-                        popup.setContent(_this.strava_content);
-                        _this.strava_content.style.display = 'block';
-                        popup.openOn(_this.map);
-                        _this.disableMap();
-                        popup.addEventListener('remove', function (e) {
-                            _this.stravaHeatmap.open = false;
-                            _this.enableMap();
-                        });
+                        _this.strava_window.show();
                     });
 
                     const toggle = document.getElementsByClassName('leaflet-control-layers-toggle')[0];
@@ -538,31 +537,15 @@ export default class Buttons {
             buttons.loadFiles(this.files)
         };
         this.load.addEventListener("click", function () {
-            if (buttons.load.open) return;
-            buttons.load.open = true;
-            const popup = L.popup({
-                className: "centered-popup custom-popup",
-                closeButton: false,
-                autoPan: false
-            });
-            buttons.load.popup = popup;
-            popup.setLatLng(map.getCenter());
-            popup.setContent(buttons.load_content);
-            buttons.load_content.style.display = 'block';
-            popup.openOn(map);
-            buttons.disableMap();
-            popup.addEventListener('remove', function (e) {
-                buttons.load.open = false;
-                buttons.enableMap();
-            });
+            buttons.load_window.show();
         });
         this.load2.addEventListener("click", function () {
             buttons.input.click();
-            buttons.load.popup.remove();
+            buttons.load_window.hide();
         });
         this.load_drive.addEventListener("click", function () {
             buttons.google.loadPicker(false);
-            buttons.load.popup.remove();
+            buttons.load_window.hide();
         });
         this.donate.addEventListener("click", function () {
             buttons.donation();
@@ -574,7 +557,7 @@ export default class Buttons {
             buttons.slider.reset();
         });
         this.strava_ok.addEventListener("click", function () {
-            buttons.stravaHeatmap.popup.remove();
+            buttons.strava_window.hide();
         });
 
         window.addEventListener('dragover', function (e) {
@@ -626,61 +609,28 @@ export default class Buttons {
         });
         this.clear.addEventListener("click", function () {
             if (total.traces.length == 0) return;
-            if (buttons.clear.open) return;
-            buttons.clear.open = true;
-            const popup = L.popup({
-                className: "centered-popup custom-popup",
-                closeButton: false,
-                autoPan: false
-            });
-            buttons.clear.popup = popup;
-            popup.setLatLng(map.getCenter());
-            popup.setContent(buttons.clear_content);
-            buttons.clear_content.style.display = 'block';
-            popup.openOn(map);
-            buttons.disableMap();
-            popup.addEventListener('remove', function (e) {
-                buttons.clear.open = false;
-                buttons.enableMap();
-            });
+            buttons.clear_window.show();
         });
         this.clear2.addEventListener("click", function () {
             total.clear();
-            buttons.clear.popup.remove();
+            buttons.clear_window.hide();
         });
         this.cancel_clear.addEventListener("click", function () {
-            buttons.clear.popup.remove();
+            buttons.clear_window.hide();
         });
         this.delete.addEventListener("click", function () {
             if (total.hasFocus) return;
-            if (buttons.delete.open) return;
-            buttons.delete.open = true;
-            const popup = L.popup({
-                className: "centered-popup custom-popup",
-                closeButton: false,
-                autoPan: false
-            });
-            buttons.delete.popup = popup;
-            popup.setLatLng(map.getCenter());
-            popup.setContent(buttons.delete_content);
-            buttons.delete_content.style.display = 'block';
-            popup.openOn(map);
-            buttons.disableMap();
-            popup.addEventListener('remove', function (e) {
-                buttons.delete.open = false;
-                buttons.enableMap();
-            });
+            buttons.delete_window.show();
         });
         this.delete2.addEventListener("click", function () {
             total.removeTrace(total.focusOn);
-            buttons.delete.popup.remove();
+            buttons.delete_window.hide();
         });
         this.cancel_delete.addEventListener("click", function () {
-            buttons.delete.popup.remove();
+            buttons.delete_window.hide();
         });
         this.zone_delete.addEventListener("click", function () {
             if (total.hasFocus) return;
-            if (buttons.zone_delete.open) return;
 
             map._container.style.cursor = 'crosshair';
             var mapboxgl_canvas = document.getElementsByClassName('mapboxgl-canvas');
@@ -713,20 +663,8 @@ export default class Buttons {
                     map.removeEventListener("mousemove", extendRect);
                     map.removeEventListener("click", endRect);
 
-                    buttons.zone_delete.open = true;
-                    const popup = L.popup({
-                        className: "centered-popup custom-popup",
-                        closeButton: false
-                    });
-                    buttons.zone_delete.popup = popup;
-                    popup.setLatLng(map.getCenter());
-                    popup.setContent(buttons.zone_delete_content);
-                    buttons.zone_delete_content.style.display = 'block';
-                    popup.openOn(map);
-                    buttons.disableMap();
-                    popup.addEventListener('remove', function (e) {
-                        buttons.zone_delete.open = false;
-                        buttons.enableMap();
+                    buttons.zone_delete_window.show();
+                    buttons.zone_delete_window.addEventListener('hide', function (e) {
                         buttons.zone_delete.rect.remove();
                     });
                 }
@@ -739,7 +677,7 @@ export default class Buttons {
         this.zone_delete_ok.addEventListener("click", function () {
             if (total.hasFocus) return;
             var trace = total.traces[total.focusOn];
-            buttons.zone_delete.popup.remove();
+            buttons.zone_delete_window.hide();
             trace.deleteZone(buttons.zone_delete.rect.getBounds(),
                 buttons.zone_delete_pts.checked,
                 buttons.zone_delete_wpts.checked,
@@ -747,16 +685,10 @@ export default class Buttons {
             gtag('event', 'button', {'event_category' : 'zone-delete'});
         });
         this.zone_delete_cancel.addEventListener("click", function () {
-            buttons.zone_delete.popup.remove();
+            buttons.zone_delete_window.hide();
         });
         this.export.addEventListener("click", function () {
             if (total.traces.length > 0) {
-                if (buttons.export.open) return;
-                buttons.export.open = true;
-                const popup = L.popup({
-                    className: "centered-popup custom-popup cross",
-                    autoPan: false
-                });
                 buttons.merge.checked = false;
                 if (total.getMovingTime() == 0) {
                     buttons.include_time.checked = false;
@@ -787,16 +719,7 @@ export default class Buttons {
                     buttons.include_atemp.checked = true;
                     buttons.include_atemp.disabled = false;
                 }
-                buttons.export.popup = popup;
-                popup.setLatLng(map.getCenter());
-                popup.setContent(buttons.export_content);
-                buttons.export_content.style.display = 'block';
-                popup.openOn(map);
-                buttons.disableMap();
-                popup.addEventListener('remove', function (e) {
-                    buttons.export.open = false;
-                    buttons.enableMap();
-                });
+                buttons.export_window.show();
             }
         });
         this.export2.addEventListener("click", function () {
@@ -810,39 +733,24 @@ export default class Buttons {
             for (var i=0; i<output.length; i++)
                 buttons.download(output[i].name, output[i].text);
 
-            buttons.export.popup.remove();
+            buttons.export_window.hide();
             gtag('event', 'button', {'event_category' : 'export'});
         });
         this.save_drive.addEventListener("click", function () {
+            buttons.export_window.hide();
             buttons.google.loadPicker(true);
         });
         this.validate.addEventListener("click", function () {
             if (total.hasFocus) return;
-            if (buttons.validate.open) return;
-            buttons.validate.open = true;
-            const popup = L.popup({
-                className: "centered-popup custom-popup",
-                closeButton: false,
-                autoPan: false
-            });
-            buttons.validate.popup = popup;
-            popup.setLatLng(map.getCenter());
-            popup.setContent(buttons.crop_content);
-            buttons.crop_content.style.display = 'block';
-            popup.openOn(map);
-            buttons.disableMap();
-            popup.addEventListener('remove', function (e) {
-                buttons.validate.open = false;
-                buttons.enableMap();
-            });
+            buttons.crop_window.show();
         });
         this.crop_ok.addEventListener("click", function () {
             total.traces[total.focusOn].crop(total.buttons.slider.getIndexStart(), total.buttons.slider.getIndexEnd(), !buttons.crop_keep.checked);
-            buttons.validate.popup.remove();
+            buttons.crop_window.hide();
             gtag('event', 'button', {'event_category' : 'crop'});
         });
         this.crop_cancel.addEventListener("click", function () {
-            buttons.validate.popup.remove();
+            buttons.crop_window.hide();
         });
         buttons.kms.classList.add("selected");
         this.units.addEventListener("click", function () {
@@ -926,35 +834,21 @@ export default class Buttons {
         };
         this.reduce.addEventListener("click", function() {
             if (total.hasFocus) return;
-            if (buttons.reduce.open) return;
-            buttons.reduce.open = true;
-            const popup = L.popup({
-                className: "centered-popup custom-popup",
-                closeButton: false,
-                autoPan: false
-            });
-            buttons.reduce.popup = popup;
             buttons.reduce.trace = total.traces[total.focusOn];
-            popup.setLatLng(map.getCenter());
-            popup.setContent(buttons.reduce_content);
-            buttons.reduce_content.style.display = 'block';
-            popup.openOn(map);
-            buttons.disableMap();
-            popup.addEventListener('remove', function (e) {
-                buttons.reduce.open = false;
+            buttons.reduce_window.show();
+            buttons.reduce_window.addEventListener('hide', function (e) {
                 buttons.reduce.trace.cancelSimplify();
-                buttons.enableMap();
             });
             buttons.reduce_slider.value = 500;
             sliderCallback();
         });
         this.reduce_ok.addEventListener("click", function() {
             buttons.reduce.trace.simplify();
-            buttons.reduce.popup.remove();
+            buttons.reduce_window.hide();
             gtag('event', 'button', {'event_category' : 'simplify'});
         });
         this.reduce_cancel.addEventListener("click", function() {
-            buttons.reduce.popup.remove();
+            buttons.reduce_window.hide();
         });
         this.reduce_slider.addEventListener("input", sliderCallback);
         map.on('mouseup', function (e) {
@@ -979,14 +873,11 @@ export default class Buttons {
         });
         this.time.addEventListener("click", function (e) {
             if (total.hasFocus) return;
-            const trace = total.traces[total.focusOn];
-            if (trace.popup) return;
 
-            var content = `<div id="popup-grid">
-                           <div id="speed-change">`;
+            var content = `<div id="speed-change" style="padding-bottom:4px;">`;
 
             if (buttons.cycling) {
-                content += `Speed <input type="number" id="speed" min="1.0" max="99.9" step="0.1" lang="en-150"> `;
+                content += `Speed <input type="number" id="speed-input" min="1.0" max="99.9" step="0.1" lang="en-150"> `;
                 if (buttons.km) content += `km/h</div>`;
                 else content += `mi/h</div>`;
             } else {
@@ -998,31 +889,19 @@ export default class Buttons {
             }
 
             content += `<div id="start-change">Start
-                        <input type="datetime-local" id="start-time"></div>
-                        <div id="ok-dialog"><i class="fas fa-check custom-button"></i></div>
-                        <div id="close-dialog"><i class="fas fa-times custom-button"></i></div>
-                        </div>`;
+                        <input type="datetime-local" id="start-time"></div></div>
+                        <div id="edit-speed" class="panels custom-button normal-button">Ok</div>
+                        <div id="cancel-speed" class="panels custom-button normal-button"><b>Cancel</b></div>`;
 
-            const popup = L.popup({
-                closeButton: false,
-                autoPan: false,
-                className: "custom-popup"
+            const trace = total.traces[total.focusOn];
+            buttons.time.window = L.control.window(map,{title:'','content':content,className:'panels-container',visible:true,closeButton:false});
+            buttons.time.window.addEventListener('hide', function () {
+                buttons.time.window.remove();
             });
-
-            popup.setContent(content);
-            popup.setLatLng(map.getCenter());
-            popup.openOn(map);
-            popup.update();
-            popup.addEventListener('remove', function (e) {
-                trace.closePopup();
-                buttons.enableMap();
-            });
-            trace.popup = popup;
-            buttons.disableMap();
 
             var offset = -(new Date().getTimezoneOffset() / 60);
 
-            var speed = document.getElementById("speed");
+            var speed = document.getElementById("speed-input");
             var minutes = document.getElementById("minutes");
             var seconds = document.getElementById("seconds");
 
@@ -1052,7 +931,7 @@ export default class Buttons {
                 else start.value = new Date().toISOString().substring(0, 16);
             }
 
-            var ok = document.getElementById("ok-dialog");
+            const ok = document.getElementById("edit-speed");
             ok.addEventListener("click", function () {
                 var v = trace.getMovingSpeed();
                 if (speedChange) {
@@ -1070,41 +949,24 @@ export default class Buttons {
 
                 const startTime = new Date(new Date(start.value).getTime());
 
-                trace.closePopup();
                 trace.changeTimeData(startTime, v);
-
                 trace.recomputeStats();
                 trace.update();
+
+                buttons.time.window.close();
                 gtag('event', 'button', {'event_category' : 'edit-time'});
             });
-
-            var close = document.getElementById("close-dialog");
-            close.addEventListener("click", function () {
-                trace.closePopup();
+            const cancel = document.getElementById("cancel-speed");
+            cancel.addEventListener("click", function () {
+                buttons.time.window.close();
             });
         });
         this.color.addEventListener("click", function () {
             if (total.hasFocus) return;
             const trace = total.traces[total.focusOn];
-            if (trace.popup) return;
-
-            const popup = L.popup({
-                closeButton: false,
-                autoPan: false,
-                className: "custom-popup"
-            });
 
             buttons.color_picker.value = trace.normal_style.color;
-            popup.setContent(buttons.color_content);
-            buttons.color_content.style.display = 'block';
-            popup.setLatLng(map.getCenter());
-            popup.openOn(map);
-            popup.addEventListener('remove', function (e) {
-                trace.closePopup();
-                buttons.enableMap();
-            });
-            trace.popup = popup;
-            buttons.disableMap();
+            buttons.color_window.show();
         });
         this.color_ok.addEventListener("click", function () {
             const trace = total.traces[total.focusOn];
@@ -1115,29 +977,18 @@ export default class Buttons {
             trace.gpx.setStyle(trace.focus_style);
             if (buttons.show_direction) trace.showChevrons();
             trace.tab.innerHTML = trace.name+'<div class="tab-color" style="background:'+trace.normal_style.color+';">';
-            trace.popup.remove();
             trace.set_color = true;
+            buttons.color_window.hide();
             gtag('event', 'button', {'event_category' : 'color'});
+        });
+        this.color_cancel.addEventListener("click", function () {
+            buttons.color_window.hide();
         });
         this.about.addEventListener("click", function () {
             window.open('./about.html');
         });
         this.help.addEventListener("click", function () {
-            if (buttons.help.open) return;
-            buttons.help.open = true;
-            const popup = L.popup({
-                className: "centered-popup custom-popup",
-                autoPan: false
-            });
-            popup.setLatLng(map.getCenter());
-            popup.setContent(buttons.help_text);
-            buttons.help_text.style.display = 'block';
-            popup.openOn(map);
-            buttons.disableMap();
-            popup.addEventListener('remove', function (e) {
-                buttons.help.open = false;
-                buttons.enableMap();
-            });
+            buttons.help_window.show();
             gtag('event', 'button', {'event_category' : 'help'});
         });
         this.duplicate.addEventListener("click", function () {
@@ -1150,27 +1001,13 @@ export default class Buttons {
             if (total.traces.length <= 1) return;
             const trace = total.traces[total.focusOn];
             total.to_merge = trace;
-            if (buttons.combine.open) return;
-            buttons.combine.open = true;
-            const popup = L.popup({
-                className: "centered-popup custom-popup",
-                closeButton: false,
-                autoPan: false
-            });
-            buttons.combine.popup = popup;
-            popup.setLatLng(map.getCenter());
-            popup.setContent(buttons.merge_content);
-            buttons.merge_content.style.display = 'block';
-            popup.openOn(map);
-            buttons.disableMap();
-            popup.addEventListener('remove', function (e) {
+            buttons.merge_window.show();
+            buttons.merge_window.addEventListener('hide', function (e) {
                 total.to_merge = null;
-                buttons.combine.open = false;
-                buttons.enableMap();
             });
         });
         this.merge_cancel.addEventListener("click", function () {
-            buttons.combine.popup.remove();
+            buttons.merge_window.hide();
         });
         if (!this.embedding) {
             const openStreetView = function (e) {
