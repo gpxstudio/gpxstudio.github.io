@@ -500,7 +500,6 @@ export default class Buttons {
         this.map.doubleClickZoom.disable();
         this.map.scrollWheelZoom.disable();
         this.map.boxZoom.disable();
-        this.map.keyboard.disable();
         this.zoom.disable();
         if (this.map.tap) this.map.tap.disable();
     }
@@ -511,7 +510,6 @@ export default class Buttons {
         this.map.doubleClickZoom.enable();
         this.map.scrollWheelZoom.enable();
         this.map.boxZoom.enable();
-        this.map.keyboard.enable();
         this.zoom.enable();
         if (this.map.tap) this.map.tap.enable();
     }
@@ -909,7 +907,7 @@ export default class Buttons {
                 if (total.hasFocus) return;
                 var trace = total.traces[total.focusOn];
                 if (trace.isEdited) buttons.edit.click();
-            }
+            } else return false;
         });
         this.reverse.addEventListener("click", function() {
             if (total.hasFocus) return;
