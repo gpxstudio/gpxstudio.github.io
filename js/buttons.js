@@ -920,12 +920,12 @@ export default class Buttons {
                         <div id="cancel-speed" class="panels custom-button normal-button"><b>Cancel</b></div>`;
 
             const trace = total.traces[total.focusOn];
+            if (buttons.window_open) buttons.window_open.hide();
             buttons.time.window = L.control.window(map,{title:'','content':content,className:'panels-container',visible:true,closeButton:false});
+            buttons.window_open = buttons.time.window;
             buttons.time.window.addEventListener('hide', function () {
                 buttons.time.window.remove();
             });
-            if (buttons.window_open) buttons.window_open.hide();
-            buttons.window_open = buttons.time.window;
 
             var offset = -(new Date().getTimezoneOffset() / 60);
 
