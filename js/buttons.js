@@ -27,6 +27,7 @@ export default class Buttons {
         this.routing = true;
         this.disable_trace = false;
         this.show_direction = false;
+        this.show_distance = false;
 
         // EMBEDDING
         const queryString = window.location.search;
@@ -97,13 +98,15 @@ export default class Buttons {
         this.activity = document.getElementById("activity");
         this.method = document.getElementById("method");
         this.chevrons = document.getElementById("chevrons");
+        this.show_chevrons = document.getElementById("show-chevrons");
+        this.dist_markers = document.getElementById("dist-markers");
+        this.show_dist_markers = document.getElementById("show-dist-markers");
         this.bike = document.getElementById("bike");
         this.run = document.getElementById("run");
         this.kms = document.getElementById("km");
         this.mi = document.getElementById("mi");
         this.route = document.getElementById("route");
         this.crow = document.getElementById("crow");
-        this.show_chevrons = document.getElementById("show-chevrons");
         this.merge = document.getElementById("merge");
         this.include_time = document.getElementById("include-time");
         this.include_hr = document.getElementById("include-hr");
@@ -197,6 +200,7 @@ export default class Buttons {
             this.activity.style.display = 'none';
             this.method.style.display = 'none';
             this.chevrons.style.display = 'none';
+            this.dist_markers.style.display = 'none';
             this.trace_info_grid.style.height = '106px';
 
             this.toolbar = L.control({position: 'topleft'});
@@ -411,6 +415,7 @@ export default class Buttons {
                     settings_list.appendChild(_this.activity);
                     settings_list.appendChild(_this.method);
                     settings_list.appendChild(_this.chevrons);
+                    settings_list.appendChild(_this.dist_markers);
 
                     settings_container.appendChild(settings_list);
                 }
@@ -785,6 +790,7 @@ export default class Buttons {
             const focus = total.hasFocus ? total : total.traces[total.focusOn];
             focus.showData();
             focus.showElevation();
+            if (buttons.show_distance && !total.hasFocus) focus.showDistanceMarkers();
         });
         buttons.bike.classList.add("selected");
         this.activity.addEventListener("click", function () {
@@ -1006,6 +1012,7 @@ export default class Buttons {
             trace.focus_style.color = color;
             trace.gpx.setStyle(trace.focus_style);
             if (buttons.show_direction) trace.showChevrons();
+            if (buttons.show_distance) trace.showDistanceMarkers();
             trace.tab.innerHTML = trace.name+'<div class="tab-color" style="background:'+trace.normal_style.color+';">';
             trace.set_color = true;
             buttons.color_window.hide();
@@ -1070,6 +1077,13 @@ export default class Buttons {
             const trace = total.traces[total.focusOn];
             if (buttons.show_direction) trace.showChevrons();
             else trace.hideChevrons();
+        });
+        this.show_dist_markers.addEventListener('input', function (e) {
+            buttons.show_distance = buttons.show_dist_markers.checked;
+            if (total.hasFocus) return;
+            const trace = total.traces[total.focusOn];
+            if (buttons.show_distance) trace.showDistanceMarkers();
+            else trace.hideDistanceMarkers();
         });
     }
 

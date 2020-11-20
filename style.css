@@ -490,3 +490,16 @@ ul {
 .waypoint-input {
     width: 200px;
 }
+
+.dist-marker {
+	font-size: 8px;
+	color: #000;
+	background: #fff;
+	border-radius: 40%;
+	text-align: center;
+    padding: 0px 2px;
+    z-index: 1000 !important;
+    margin-top: -7px !important;
+    width: fit-content !important;
+    height: fit-content !important;
+}
