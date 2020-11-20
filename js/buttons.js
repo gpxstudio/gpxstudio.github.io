@@ -36,6 +36,8 @@ export default class Buttons {
         if (this.embedding) {
             if (urlParams.has('imperial')) this.km = false;
             if (urlParams.has('running')) this.cycling = false;
+            if (urlParams.has('direction')) this.show_direction = true;
+            if (urlParams.has('distance')) this.show_distance = true;
         }
 
         // MAIN MAP
