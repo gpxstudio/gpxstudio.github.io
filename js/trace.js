@@ -91,7 +91,7 @@ export default class Trace {
                     total.removeTrace(trace.index);
                     total.to_merge.focus();
                     total.to_merge = null;
-                    total.buttons.combine.popup.remove();
+                    total.buttons.merge_window.hide();
                     gtag('event', 'button', {'event_category' : 'merge'});
                 } else if (!trace.hasFocus) trace.focus();
             });
@@ -175,6 +175,7 @@ export default class Trace {
         newTrace.update();
         newTrace.gpx.setStyle(newTrace.focus_style);
         if (newTrace.buttons.show_direction) newTrace.showChevrons();
+        if (newTrace.buttons.show_dist_markers) newTrace.showDistanceMarkers();
 
         for (var i=0; i<this.waypoints.length; i++) {
             const marker = this.waypoints[i];
@@ -211,6 +212,7 @@ export default class Trace {
         this.showWaypoints();
         this.updateExtract();
         if (this.buttons.show_direction) this.showChevrons();
+        if (this.buttons.show_dist_markers) this.showDistanceMarkers();
     }
 
     unfocus() {
@@ -219,6 +221,7 @@ export default class Trace {
         this.closePopup();
         this.hideWaypoints();
         this.hideChevrons();
+        this.hideDistanceMarkers();
         if (this.isEdited) this.stopEdit();
         if (this.drawing) this.stopDraw();
         if (this.renaming) this.rename();
@@ -388,6 +391,17 @@ export default class Trace {
         this.gpx.setText(null);
     }
 
+    showDistanceMarkers() {
+        if (this.buttons.show_distance) {
+            if (this.buttons.km) this.gpx.addDistanceMarkers();
+            else this.gpx.addDistanceMarkers({ offset: 1609.344});
+        }
+    }
+
+    hideDistanceMarkers() {
+        this.gpx.removeDistanceMarkers();
+    }
+
     getBounds() {
         return this.gpx.getBounds();
     }
@@ -397,7 +411,8 @@ export default class Trace {
         const map = this.map;
         const marker = L.circleMarker([point.lat, point.lng], {
             className: 'edit-marker',
-            radius: 4
+            radius: 4,
+            pane: 'markerPane'
         }).addTo(map);
         marker._pt = point;
         marker._prec = point;
@@ -752,6 +767,7 @@ export default class Trace {
         this.update();
         this.redraw();
         if (this.buttons.show_direction) this.showChevrons();
+        if (this.buttons.show_dist_markers) this.showDistanceMarkers();
     }
 
     merge(trace, as_segments) {
@@ -861,8 +877,7 @@ export default class Trace {
             lastTrace = newTrace;
         }
 
-        lastTrace.gpx.setStyle(lastTrace.focus_style);
-        lastTrace.update();
+        lastTrace.focus();
     }
 
     addEndPoint(lat, lng) {
@@ -877,6 +892,7 @@ export default class Trace {
             this.gpx.getLayers()[0].addLayer(new L.Polyline([pt], this.gpx.options.polyline_options));
             this.gpx.setStyle(this.focus_style);
             if (this.buttons.show_direction) this.showChevrons();
+            if (this.buttons.show_dist_markers) this.showDistanceMarkers();
             pt.index = 0;
             layer = this.gpx.getLayers()[0].getLayers()[0];
         } else {

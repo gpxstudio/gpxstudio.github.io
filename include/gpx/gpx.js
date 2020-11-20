@@ -718,6 +718,7 @@ L.GPX = L.FeatureGroup.extend({
       var marker = new L.Marker(ll, {
         clickable: options.marker_options.clickable,
         draggable: !trace.buttons.embedding,
+        keyboard: false,
         title: name,
         icon: L.icon.glyph(icon)
       });
