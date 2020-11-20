@@ -639,6 +639,8 @@ export default class Buttons {
         });
         this.zone_delete.addEventListener("click", function () {
             if (total.hasFocus) return;
+            if (buttons.window_open) buttons.window_open.hide();
+            buttons.window_open = buttons.zone_delete_window;
 
             map._container.style.cursor = 'crosshair';
             var mapboxgl_canvas = document.getElementsByClassName('mapboxgl-canvas');
@@ -648,12 +650,17 @@ export default class Buttons {
             } else mapboxgl_canvas = null;
             map.dragging.disable();
 
-            buttons.zone_delete.rect = null;
             var start_pt = null;
 
             const createRect = function (e) {
                 map._container.style.cursor = '';
                 if (mapboxgl_canvas) mapboxgl_canvas.style.cursor = '';
+                if (buttons.window_open != buttons.zone_delete_window) {
+                    map.removeEventListener("mousedown", createRect);
+                    map.removeEventListener("mousemove", extendRect);
+                    map.removeEventListener("click", endRect);
+                    return;
+                }
                 buttons.zone_delete.rect = L.rectangle([
                     [e.latlng.lat, e.latlng.lng],
                     [e.latlng.lat, e.latlng.lng]
@@ -671,11 +678,10 @@ export default class Buttons {
                     map.removeEventListener("mousemove", extendRect);
                     map.removeEventListener("click", endRect);
 
-                    if (buttons.window_open) buttons.window_open.hide();
-                    buttons.window_open = buttons.zone_delete_window;
                     buttons.zone_delete_window.show();
                     buttons.zone_delete_window.addEventListener('hide', function (e) {
-                        buttons.zone_delete.rect.remove();
+                        if (buttons.zone_delete.rect) buttons.zone_delete.rect.remove();
+                        buttons.zone_delete.rect = null;
                     });
                 }
             };
@@ -687,11 +693,11 @@ export default class Buttons {
         this.zone_delete_ok.addEventListener("click", function () {
             if (total.hasFocus) return;
             var trace = total.traces[total.focusOn];
-            buttons.zone_delete_window.hide();
             trace.deleteZone(buttons.zone_delete.rect.getBounds(),
                 buttons.zone_delete_pts.checked,
                 buttons.zone_delete_wpts.checked,
                 document.querySelector('input[name="where"]:checked').value == 'inside');
+            buttons.zone_delete_window.hide();
             gtag('event', 'button', {'event_category' : 'zone-delete'});
         });
         this.zone_delete_cancel.addEventListener("click", function () {
