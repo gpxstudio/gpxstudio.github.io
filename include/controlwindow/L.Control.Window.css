@@ -46,13 +46,13 @@
 
 .leaflet-control-window .close {
     position: absolute;
-    right: 8px;
+    right: 4px;
     cursor: pointer;
     z-index:30;
 
     font-size: 14pt;
     text-align: center;
-    line-height: 0.9em;
+    line-height: 0.3;
 }
 
 .leaflet-control-window .content{
