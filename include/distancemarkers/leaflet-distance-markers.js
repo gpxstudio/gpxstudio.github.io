@@ -63,7 +63,7 @@ L.DistanceMarkers = L.LayerGroup.extend({
 			var ratio = (distance - accumulated[j - 1]) / (accumulated[j] - accumulated[j - 1]);
 			var position = L.GeometryUtil.interpolateOnLine(map, m_line, ratio);
 			var text = textFunction.call(this, distance, i, offset);
-    		var iconSize = [4+5*text.toString().length,8];
+    		var iconSize = [4+6*text.toString().length,16];
 			var icon = L.divIcon({ className: cssClass, html: text, iconSize: iconSize });
 			var marker = L.marker(position.latLng, { title: text, icon: icon, pane: 'overlayPane' });
 
