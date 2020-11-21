@@ -792,7 +792,7 @@ export default class Buttons {
             const focus = total.hasFocus ? total : total.traces[total.focusOn];
             focus.showData();
             focus.showElevation();
-            if (buttons.show_distance && !total.hasFocus) focus.showDistanceMarkers();
+            if (!total.hasFocus) focus.showDistanceMarkers();
         });
         buttons.bike.classList.add("selected");
         this.activity.addEventListener("click", function () {
@@ -1013,8 +1013,8 @@ export default class Buttons {
             trace.normal_style.color = color;
             trace.focus_style.color = color;
             trace.gpx.setStyle(trace.focus_style);
-            if (buttons.show_direction) trace.showChevrons();
-            if (buttons.show_distance) trace.showDistanceMarkers();
+            trace.showChevrons();
+            trace.showDistanceMarkers();
             trace.tab.innerHTML = trace.name+'<div class="tab-color" style="background:'+trace.normal_style.color+';">';
             trace.set_color = true;
             buttons.color_window.hide();

@@ -174,8 +174,8 @@ export default class Trace {
         newTrace.recomputeStats();
         newTrace.update();
         newTrace.gpx.setStyle(newTrace.focus_style);
-        if (newTrace.buttons.show_direction) newTrace.showChevrons();
-        if (newTrace.buttons.show_dist_markers) newTrace.showDistanceMarkers();
+        newTrace.showChevrons();
+        newTrace.showDistanceMarkers();
 
         for (var i=0; i<this.waypoints.length; i++) {
             const marker = this.waypoints[i];
@@ -211,8 +211,8 @@ export default class Trace {
         this.showElevation();
         this.showWaypoints();
         this.updateExtract();
-        if (this.buttons.show_direction) this.showChevrons();
-        if (this.buttons.show_dist_markers) this.showDistanceMarkers();
+        this.showChevrons();
+        this.showDistanceMarkers();
     }
 
     unfocus() {
@@ -766,8 +766,8 @@ export default class Trace {
         this.recomputeStats();
         this.update();
         this.redraw();
-        if (this.buttons.show_direction) this.showChevrons();
-        if (this.buttons.show_dist_markers) this.showDistanceMarkers();
+        this.showChevrons();
+        this.showDistanceMarkers();
     }
 
     merge(trace, as_segments) {
@@ -891,8 +891,8 @@ export default class Trace {
             this.gpx.addLayer(new L.FeatureGroup());
             this.gpx.getLayers()[0].addLayer(new L.Polyline([pt], this.gpx.options.polyline_options));
             this.gpx.setStyle(this.focus_style);
-            if (this.buttons.show_direction) this.showChevrons();
-            if (this.buttons.show_dist_markers) this.showDistanceMarkers();
+            this.showChevrons();
+            this.showDistanceMarkers();
             pt.index = 0;
             layer = this.gpx.getLayers()[0].getLayers()[0];
         } else {
@@ -1086,6 +1086,7 @@ export default class Trace {
 
         this.redraw();
         this.askElevation([b]);
+        this.showDistanceMarkers();
     }
 
     updatePointRouting(marker, lat, lng) {
