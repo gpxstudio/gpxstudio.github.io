@@ -24,7 +24,7 @@
  */
 
 L.DistanceMarkers = L.LayerGroup.extend({
-	initialize: function (line, map, options) {
+	initialize: function (line, map, options, cumul) {
 		options = options || {};
 		var offset = options.offset || 1000;
 		var showAll = Math.min(map.getMaxZoom(), options.showAll || 13);
@@ -62,7 +62,7 @@ L.DistanceMarkers = L.LayerGroup.extend({
 			var m_line = L.polyline([p1, p2]);
 			var ratio = (distance - accumulated[j - 1]) / (accumulated[j] - accumulated[j - 1]);
 			var position = L.GeometryUtil.interpolateOnLine(map, m_line, ratio);
-			var text = textFunction.call(this, distance, i, offset);
+			var text = textFunction.call(this, distance, i, offset) + Math.round(cumul);
     		var iconSize = [4+6*text.toString().length,16];
 			var icon = L.divIcon({ className: cssClass, html: text, iconSize: iconSize });
 			var marker = L.marker(position.latLng, { title: text, icon: icon, pane: 'overlayPane' });
@@ -98,6 +98,7 @@ L.DistanceMarkers = L.LayerGroup.extend({
 		map.on('zoomend', updateMarkerVisibility);
 
 		this._layers = {}; // need to initialize before adding markers to this LayerGroup
+        this._cumul = cumul + length / 1000;
 		updateMarkerVisibility();
 	},
 
@@ -118,13 +119,15 @@ L.Polyline.include({
 	_originalOnRemove: L.Polyline.prototype.onRemove,
     _originalUpdatePath: L.Polyline.prototype._updatePath,
 
-	addDistanceMarkers: function (options) {
+	addDistanceMarkers: function (options, cumul) {
 		if (this._map) {
             if (this._distanceMarkers) this.removeDistanceMarkers();
-            this._distanceMarkers = new L.DistanceMarkers(this, this._map, options);
+            this._distanceMarkers = new L.DistanceMarkers(this, this._map, options, cumul);
 			this._map.addLayer(this._distanceMarkers);
             this._nPoints = this._latlngs.length;
+            return this._distanceMarkers._cumul;
 		}
+        return 0;
 	},
 
 	removeDistanceMarkers: function () {
@@ -142,8 +145,7 @@ L.Polyline.include({
     _updatePath: function () {
         this._originalUpdatePath();
         if (this._distanceMarkers && this._latlngs.length != this._nPoints) {
-            this.removeDistanceMarkers();
-            this.addDistanceMarkers();
+            this._parent.addDistanceMarkers();
         }
     }
 
@@ -151,9 +153,11 @@ L.Polyline.include({
 
 L.LayerGroup.include({
     addDistanceMarkers: function(options) {
+        var cumul = 0;
         for (var layer in this._layers) {
             if (typeof this._layers[layer].addDistanceMarkers === 'function') {
-                this._layers[layer].addDistanceMarkers(options);
+                cumul = this._layers[layer].addDistanceMarkers(options, cumul);
+                this._layers[layer]._parent = this;
             }
         }
         return this;
