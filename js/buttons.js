@@ -899,7 +899,8 @@ export default class Buttons {
             }
 
             content += `<div id="start-change">Start
-                        <input type="datetime-local" id="start-time"></div></div>
+                        <input type="datetime-local" id="start-time"></div></div><br>
+                        <div><b style="color:red">Experimental</b> Generate speed considering<br>the slope (erases all existing time data) <input type="checkbox" id="slope-speed"></div><br>
                         <div id="edit-speed" class="panels custom-button normal-button">Ok</div>
                         <div id="cancel-speed" class="panels custom-button normal-button"><b>Cancel</b></div>`;
 
@@ -916,6 +917,7 @@ export default class Buttons {
             var speed = document.getElementById("speed-input");
             var minutes = document.getElementById("minutes");
             var seconds = document.getElementById("seconds");
+            var slope_speed = document.getElementById("slope-speed");
 
             var speedChange = false;
 
@@ -960,6 +962,8 @@ export default class Buttons {
                 }
 
                 const startTime = new Date(new Date(start.value).getTime());
+
+                if (slope_speed.checked) trace.generateTimeData(startTime, v);
 
                 trace.changeTimeData(startTime, v);
                 trace.recomputeStats();
