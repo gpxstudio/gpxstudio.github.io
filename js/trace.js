@@ -1190,6 +1190,40 @@ export default class Trace {
         }
     }
 
+    generateTimeData(start, avg) {
+        const alpha = 0.2;
+        const squash = function (x) {
+            x /= 100;
+            return x / (1 + Math.abs(x));
+        };
+        const points = this.getPoints();
+        points[0].meta.time = start;
+        var last_speed = 0;
+        for (var i=1; i<points.length; i++) {
+            const prev = Math.max(0, i-10);
+            if (!points[i].meta.ele || !points[prev].meta.ele) {
+                console.log(":'(");
+                this.changeTimeData(start, avg);
+                return;
+            }
+            const dist = this.gpx._dist2d(points[i-1], points[i]);
+            if (dist == 0) {
+                points[i].meta.time = points[i-1].meta.time;
+                continue;
+            }
+            const slope = 100 * (points[i].meta.ele - points[prev].meta.ele) / dist;
+            var speed = avg * (1 - 0.5 * squash(slope));
+
+            // smoothing
+            if (last_speed != 0) speed = alpha * speed + (1 - alpha) * last_speed;
+            last_speed = speed;
+
+            points[i].meta.time = new Date(points[i-1].meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * speed));
+        }
+
+        this.recomputeStats();
+    }
+
     timeConsistency() {
         if (this.firstTimeData() == -1) return;
 

@@ -242,22 +242,6 @@ export default class Buttons {
 
             this.embed_content.style.display = 'none';
 
-            this.searchControl = new L.esri.Geocoding.geosearch({
-                position: 'topright',
-                useMapBounds: false
-            }).addTo(this.map);
-
-            this.streetView = L.control({
-                position: 'topright'
-            });
-            this.streetView.onAdd = function (map) {
-                var div = L.DomUtil.create('div', 'leaflet-control-layers leaflet-bar');
-                div.innerHTML = '<i class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;"></i>';
-                L.DomEvent.disableClickPropagation(div);
-                _this.googleStreetView = div;
-                return div;
-            };
-            this.streetView.addTo(this.map);
         }
 
         this.trace_info = L.control({position: 'bottomleft'});
@@ -280,11 +264,32 @@ export default class Buttons {
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 _this.mapbox_token = xhr.responseText;
+                _this.mapbox_token = _this.mapbox_token.replace(/\s/g, '');
+
+                L.Control.geocoder({
+                    geocoder: new L.Control.Geocoder.Mapbox(_this.mapbox_token),
+                    defaultMarkGeocode: false
+                }).on('markgeocode', function(e) {
+                    var bbox = e.geocode.bbox;
+                    _this.map.fitBounds(bbox);
+                  }).addTo(_this.map);
+
+                _this.streetView = L.control({
+                    position: 'topright'
+                });
+                _this.streetView.onAdd = function (map) {
+                    var div = L.DomUtil.create('div', 'leaflet-control-layers leaflet-bar');
+                    div.innerHTML = '<i class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;"></i>';
+                    L.DomEvent.disableClickPropagation(div);
+                    _this.googleStreetView = div;
+                    return div;
+                };
+                _this.streetView.addTo(_this.map);
 
                 // TILES
 
                 _this.openStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
                     maxZoom: 20,
                     maxNativeZoom: 19
                 });
@@ -293,26 +298,8 @@ export default class Buttons {
                     _this.openStreetMap.addTo(_this.map);
                 } else {
                     if (_this.supportsWebGL()) {
-                        _this.mapboxStreets = L.mapboxGL({
-                            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                            maxZoom: 20,
-                            accessToken: _this.mapbox_token,
-                            style: 'mapbox://styles/mapbox/streets-v11',
-                            interactive: true,
-                            minZoom: 1,
-                            dragRotate: false,
-                            touchZoomRotate: false,
-                            boxZoom: false,
-                            dragPan: false,
-                            touchPitch: false,
-                            doubleClickZoom: false,
-                            scrollZoom: false,
-                            boxZoom: false,
-                            keyboard: false
-                        });
-
                         _this.mapboxOutdoors = L.mapboxGL({
-                            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                            attribution: '&copy; <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
                             maxZoom: 20,
                             accessToken: _this.mapbox_token,
                             style: 'mapbox://styles/mapbox/outdoors-v11',
@@ -331,18 +318,8 @@ export default class Buttons {
                     } else {
                         _this.openStreetMap.addTo(_this.map);
 
-                        _this.mapboxStreets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-                            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                            maxZoom: 20,
-                            id: 'mapbox/streets-v11',
-                            tileSize: 512,
-                            zoomOffset: -1,
-                            accessToken: _this.mapbox_token,
-        	                crossOrigin: true
-                        });
-
                         _this.mapboxOutdoors = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-                            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                            attribution: '&copy; <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
                             maxZoom: 20,
                             id: 'mapbox/outdoors-v11',
                             tileSize: 512,
@@ -353,7 +330,7 @@ export default class Buttons {
                     }
 
                     _this.mapboxSatellite = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-                        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                        attribution: '&copy; <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
                         maxZoom: 20,
                         id: 'mapbox/satellite-v9',
                         tileSize: 512,
@@ -363,7 +340,7 @@ export default class Buttons {
                     });
 
                     _this.openCycleMap = L.tileLayer('https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey={apikey}', {
-                        attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                        attribution: '&copy; <a href="http://www.thunderforest.com/" target="_blank">Thunderforest</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
                         apikey: '67774cfadfeb42d2ac42bc38fda667c0',
                         maxZoom: 20,
     	                crossOrigin: true
@@ -372,20 +349,19 @@ export default class Buttons {
                     _this.openHikingMap = L.tileLayer('https://maps.refuges.info/hiking/{z}/{x}/{y}.png', {
                         maxZoom: 20,
                         maxNativeZoom: 18,
-                        attribution: '<a href="https://wiki.openstreetmap.org/wiki/Hiking/mri">MRI</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        attribution: '&copy; <a href="https://wiki.openstreetmap.org/wiki/Hiking/mri" target="_blank">sly</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
                     });
 
                     _this.stravaHeatmap = L.tileLayer('https://heatmap-external-{s}.strava.com/tiles-auth/cycling/bluered/{z}/{x}/{y}.png', {
                         maxZoom: 20,
                         maxNativeZoom: 15,
-                        attribution: 'Heatmap: &copy; <a href="https://www.strava.com">Strava</a>'
+                        attribution: '&copy; <a href="https://www.strava.com" target="_blank">Strava</a>'
                     });
 
                     _this.controlLayers = L.control.layers({
                         "OpenStreetMap" : _this.openStreetMap,
                         "OpenCycleMap" : _this.openCycleMap,
                         "OpenHikingMap" : _this.openHikingMap,
-                        "Mapbox Streets" : _this.mapboxStreets,
                         "Mapbox Outdoors" : _this.mapboxOutdoors,
                         "Mapbox Satellite" : _this.mapboxSatellite
                     },{
@@ -923,7 +899,8 @@ export default class Buttons {
             }
 
             content += `<div id="start-change">Start
-                        <input type="datetime-local" id="start-time"></div></div>
+                        <input type="datetime-local" id="start-time"></div></div><br>
+                        <div><b style="color:red">Experimental</b> Generate speed considering<br>the slope (erases all existing time data) <input type="checkbox" id="slope-speed"></div><br>
                         <div id="edit-speed" class="panels custom-button normal-button">Ok</div>
                         <div id="cancel-speed" class="panels custom-button normal-button"><b>Cancel</b></div>`;
 
@@ -940,6 +917,7 @@ export default class Buttons {
             var speed = document.getElementById("speed-input");
             var minutes = document.getElementById("minutes");
             var seconds = document.getElementById("seconds");
+            var slope_speed = document.getElementById("slope-speed");
 
             var speedChange = false;
 
@@ -984,6 +962,8 @@ export default class Buttons {
                 }
 
                 const startTime = new Date(new Date(start.value).getTime());
+
+                if (slope_speed.checked) trace.generateTimeData(startTime, v);
 
                 trace.changeTimeData(startTime, v);
                 trace.recomputeStats();
