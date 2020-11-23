@@ -36,6 +36,7 @@ This project would not have been possible without the following amazing projects
 * [Leaflet.Elevation](https://github.com/MrMufflon/Leaflet.Elevation) : elevation profiles
 * [Leaflet.Icon.Glyph](https://github.com/Leaflet/Leaflet.Icon.Glyph) : markers with icons for the waypoints
 * [Leaflet.TextPath](https://github.com/makinacorpus/Leaflet.TextPath) : direction markers
+* [leaflet-control-geocoder](https://github.com/perliedman/leaflet-control-geocoder) : search for locations with chosen API
 * [simplify2](https://github.com/geonome/simplify2-js) : line simplification algorithm
 * [Font Awesome](https://fontawesome.com/) : nice icons
 
