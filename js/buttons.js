@@ -293,24 +293,6 @@ export default class Buttons {
                     _this.openStreetMap.addTo(_this.map);
                 } else {
                     if (_this.supportsWebGL()) {
-                        _this.mapboxStreets = L.mapboxGL({
-                            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                            maxZoom: 20,
-                            accessToken: _this.mapbox_token,
-                            style: 'mapbox://styles/mapbox/streets-v11',
-                            interactive: true,
-                            minZoom: 1,
-                            dragRotate: false,
-                            touchZoomRotate: false,
-                            boxZoom: false,
-                            dragPan: false,
-                            touchPitch: false,
-                            doubleClickZoom: false,
-                            scrollZoom: false,
-                            boxZoom: false,
-                            keyboard: false
-                        });
-
                         _this.mapboxOutdoors = L.mapboxGL({
                             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
                             maxZoom: 20,
@@ -330,16 +312,6 @@ export default class Buttons {
                         }).addTo(_this.map);
                     } else {
                         _this.openStreetMap.addTo(_this.map);
-
-                        _this.mapboxStreets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-                            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                            maxZoom: 20,
-                            id: 'mapbox/streets-v11',
-                            tileSize: 512,
-                            zoomOffset: -1,
-                            accessToken: _this.mapbox_token,
-        	                crossOrigin: true
-                        });
 
                         _this.mapboxOutdoors = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
                             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -385,7 +357,6 @@ export default class Buttons {
                         "OpenStreetMap" : _this.openStreetMap,
                         "OpenCycleMap" : _this.openCycleMap,
                         "OpenHikingMap" : _this.openHikingMap,
-                        "Mapbox Streets" : _this.mapboxStreets,
                         "Mapbox Outdoors" : _this.mapboxOutdoors,
                         "Mapbox Satellite" : _this.mapboxSatellite
                     },{
