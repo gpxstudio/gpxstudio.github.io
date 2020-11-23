@@ -242,22 +242,6 @@ export default class Buttons {
 
             this.embed_content.style.display = 'none';
 
-            this.searchControl = new L.esri.Geocoding.geosearch({
-                position: 'topright',
-                useMapBounds: false
-            }).addTo(this.map);
-
-            this.streetView = L.control({
-                position: 'topright'
-            });
-            this.streetView.onAdd = function (map) {
-                var div = L.DomUtil.create('div', 'leaflet-control-layers leaflet-bar');
-                div.innerHTML = '<i class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;"></i>';
-                L.DomEvent.disableClickPropagation(div);
-                _this.googleStreetView = div;
-                return div;
-            };
-            this.streetView.addTo(this.map);
         }
 
         this.trace_info = L.control({position: 'bottomleft'});
@@ -280,6 +264,27 @@ export default class Buttons {
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 _this.mapbox_token = xhr.responseText;
+                _this.mapbox_token = _this.mapbox_token.replace(/\s/g, '');
+
+                L.Control.geocoder({
+                    geocoder: new L.Control.Geocoder.Mapbox(_this.mapbox_token),
+                    defaultMarkGeocode: false
+                }).on('markgeocode', function(e) {
+                    var bbox = e.geocode.bbox;
+                    _this.map.fitBounds(bbox);
+                  }).addTo(_this.map);
+
+                _this.streetView = L.control({
+                    position: 'topright'
+                });
+                _this.streetView.onAdd = function (map) {
+                    var div = L.DomUtil.create('div', 'leaflet-control-layers leaflet-bar');
+                    div.innerHTML = '<i class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;"></i>';
+                    L.DomEvent.disableClickPropagation(div);
+                    _this.googleStreetView = div;
+                    return div;
+                };
+                _this.streetView.addTo(_this.map);
 
                 // TILES
 
