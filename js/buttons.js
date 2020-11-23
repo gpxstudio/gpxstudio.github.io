@@ -289,7 +289,7 @@ export default class Buttons {
                 // TILES
 
                 _this.openStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
                     maxZoom: 20,
                     maxNativeZoom: 19
                 });
@@ -299,7 +299,7 @@ export default class Buttons {
                 } else {
                     if (_this.supportsWebGL()) {
                         _this.mapboxOutdoors = L.mapboxGL({
-                            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                            attribution: '&copy; <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
                             maxZoom: 20,
                             accessToken: _this.mapbox_token,
                             style: 'mapbox://styles/mapbox/outdoors-v11',
@@ -319,7 +319,7 @@ export default class Buttons {
                         _this.openStreetMap.addTo(_this.map);
 
                         _this.mapboxOutdoors = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-                            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                            attribution: '&copy; <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
                             maxZoom: 20,
                             id: 'mapbox/outdoors-v11',
                             tileSize: 512,
@@ -330,7 +330,7 @@ export default class Buttons {
                     }
 
                     _this.mapboxSatellite = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-                        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                        attribution: '&copy; <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
                         maxZoom: 20,
                         id: 'mapbox/satellite-v9',
                         tileSize: 512,
@@ -340,7 +340,7 @@ export default class Buttons {
                     });
 
                     _this.openCycleMap = L.tileLayer('https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey={apikey}', {
-                        attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                        attribution: '&copy; <a href="http://www.thunderforest.com/" target="_blank">Thunderforest</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
                         apikey: '67774cfadfeb42d2ac42bc38fda667c0',
                         maxZoom: 20,
     	                crossOrigin: true
@@ -349,13 +349,13 @@ export default class Buttons {
                     _this.openHikingMap = L.tileLayer('https://maps.refuges.info/hiking/{z}/{x}/{y}.png', {
                         maxZoom: 20,
                         maxNativeZoom: 18,
-                        attribution: '<a href="https://wiki.openstreetmap.org/wiki/Hiking/mri">MRI</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        attribution: '&copy; <a href="https://wiki.openstreetmap.org/wiki/Hiking/mri" target="_blank">sly</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
                     });
 
                     _this.stravaHeatmap = L.tileLayer('https://heatmap-external-{s}.strava.com/tiles-auth/cycling/bluered/{z}/{x}/{y}.png', {
                         maxZoom: 20,
                         maxNativeZoom: 15,
-                        attribution: 'Heatmap: &copy; <a href="https://www.strava.com">Strava</a>'
+                        attribution: '&copy; <a href="https://www.strava.com" target="_blank">Strava</a>'
                     });
 
                     _this.controlLayers = L.control.layers({
