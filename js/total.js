@@ -258,6 +258,7 @@ export default class Total {
 <metadata>
     <name>Activity</name>
     <author>gpx.studio</author>
+    <type>`+(this.buttons.cycling ? 'Cycling' : 'Running')+`</type>
     <link>https://gpxstudio.github.io</link>
 </metadata>
 <trk>
