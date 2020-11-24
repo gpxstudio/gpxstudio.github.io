@@ -266,26 +266,6 @@ export default class Buttons {
                 _this.mapbox_token = xhr.responseText;
                 _this.mapbox_token = _this.mapbox_token.replace(/\s/g, '');
 
-                L.Control.geocoder({
-                    geocoder: new L.Control.Geocoder.Mapbox(_this.mapbox_token),
-                    defaultMarkGeocode: false
-                }).on('markgeocode', function(e) {
-                    var bbox = e.geocode.bbox;
-                    _this.map.fitBounds(bbox);
-                  }).addTo(_this.map);
-
-                _this.streetView = L.control({
-                    position: 'topright'
-                });
-                _this.streetView.onAdd = function (map) {
-                    var div = L.DomUtil.create('div', 'leaflet-control-layers leaflet-bar');
-                    div.innerHTML = '<i class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;"></i>';
-                    L.DomEvent.disableClickPropagation(div);
-                    _this.googleStreetView = div;
-                    return div;
-                };
-                _this.streetView.addTo(_this.map);
-
                 // TILES
 
                 _this.openStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -297,6 +277,26 @@ export default class Buttons {
                 if (_this.embedding) {
                     _this.openStreetMap.addTo(_this.map);
                 } else {
+                    L.Control.geocoder({
+                        geocoder: new L.Control.Geocoder.Mapbox(_this.mapbox_token),
+                        defaultMarkGeocode: false
+                    }).on('markgeocode', function(e) {
+                        var bbox = e.geocode.bbox;
+                        _this.map.fitBounds(bbox);
+                      }).addTo(_this.map);
+
+                    _this.streetView = L.control({
+                        position: 'topright'
+                    });
+                    _this.streetView.onAdd = function (map) {
+                        var div = L.DomUtil.create('div', 'leaflet-control-layers leaflet-bar');
+                        div.innerHTML = '<i class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;"></i>';
+                        L.DomEvent.disableClickPropagation(div);
+                        _this.googleStreetView = div;
+                        return div;
+                    };
+                    _this.streetView.addTo(_this.map);
+                    
                     if (_this.supportsWebGL()) {
                         _this.mapboxOutdoors = L.mapboxGL({
                             attribution: '&copy; <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
