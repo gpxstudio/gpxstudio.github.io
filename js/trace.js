@@ -86,6 +86,7 @@ export default class Trace {
             li.classList.add('tab');
             li.trace = trace;
             li.addEventListener('click', function (e) {
+                if (total.buttons.window_open != total.buttons.merge_window) return;
                 if (total.to_merge && total.to_merge != trace) {
                     total.to_merge.merge(trace, total.buttons.merge_as_segments.checked);
                     total.removeTrace(trace.index);
@@ -362,12 +363,15 @@ export default class Trace {
         if (this.isEdited) this.buttons.elev._removeSliderCircles();
     }
 
-    addElevation() {
-        if (this.hasPoints()) {
-            const layers = this.getLayers();
-            for (var i=0; i<layers.length; i++) if(layers[i]._latlngs) {
-                this.buttons.elev.addData(layers[i]);
-            }
+    addElevation(total_points) {
+        const points = this.getPoints();
+        if (points.length) {
+            this.buttons.elev.addData(
+                points,
+                Math.round(this.gpx._info.length/1e3*1e5)/1e5,
+                this.gpx._info.elevation.max,
+                total_points ? total_points : points.length
+            );
         } else this.buttons.elev.clear();
     }
 
@@ -1271,6 +1275,7 @@ export default class Trace {
                 if (last != null) {
                     const dist = this.gpx._dist2d(last, ll);
                     this.gpx._info.length += dist;
+                    ll._dist = Math.round(this.gpx._info.length/1e3*1e5)/1e5;
 
                     var t = ll.meta.ele - last.meta.ele;
                     if (t > 0) {
@@ -1285,8 +1290,11 @@ export default class Trace {
                       this.gpx._info.duration.moving += t;
                       this.gpx._info.moving_length += dist;
                     }
-                } else if (this.gpx._info.duration.start == null) {
-                    this.gpx._info.duration.start = ll.meta.time;
+                } else {
+                    ll._dist = 0;
+                    if (this.gpx._info.duration.start == null) {
+                        this.gpx._info.duration.start = ll.meta.time;
+                    }
                 }
 
                 last = ll;
@@ -1351,7 +1359,6 @@ export default class Trace {
                 if (requests.length == 1) {
                     // update trace info
                     trace.recomputeStats();
-
                     trace.update();
                 } else trace.askPointsElevation(requests.slice(1), step, 0);
             } else if (this.readyState == 4 && this.status != 200) {

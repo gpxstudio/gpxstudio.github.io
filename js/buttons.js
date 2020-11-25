@@ -296,7 +296,7 @@ export default class Buttons {
                         return div;
                     };
                     _this.streetView.addTo(_this.map);
-                    
+
                     if (_this.supportsWebGL()) {
                         _this.mapboxOutdoors = L.mapboxGL({
                             attribution: '&copy; <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
@@ -1020,9 +1020,9 @@ export default class Buttons {
         });
         this.combine.addEventListener("click", function () {
             if (total.traces.length <= 1) return;
+            if (buttons.window_open) buttons.window_open.hide();
             const trace = total.traces[total.focusOn];
             total.to_merge = trace;
-            if (buttons.window_open) buttons.window_open.hide();
             buttons.window_open = buttons.merge_window;
             buttons.merge_window.show();
             buttons.merge_window.addEventListener('hide', function (e) {

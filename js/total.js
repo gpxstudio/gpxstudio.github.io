@@ -124,8 +124,11 @@ export default class Total {
     showElevation() {
         this.buttons.elev.clear();
         this.buttons.elev.options.imperial = !this.buttons.km;
+        var total_points = 0;
         for (var i=0; i<this.traces.length; i++)
-            this.traces[i].addElevation();
+            total_points += this.traces[i].getPoints().length;
+        for (var i=0; i<this.traces.length; i++)
+            this.traces[i].addElevation(total_points);
         this.buttons.elev._removeSliderCircles();
     }
 
