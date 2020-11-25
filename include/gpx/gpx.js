@@ -915,7 +915,6 @@ L.GPX = L.FeatureGroup.extend({
       if (last != null) {
         const dist = this._dist2d(last, ll);
         this._info.length += dist;
-        ll._dist = Math.round(this._info.length/1e3*1e5)/1e5;
 
         var t = ll.meta.ele - last.meta.ele;
         if (t > 0) {
@@ -930,12 +929,10 @@ L.GPX = L.FeatureGroup.extend({
           this._info.duration.moving += t;
           this._info.moving_length += dist;
         }
-      } else {
-        ll._dist = 0;
-        if (this._info.duration.start == null) {
-          this._info.duration.start = ll.meta.time;
-        }
+      } else if (this._info.duration.start == null) {
+        this._info.duration.start = ll.meta.time;
       }
+      ll._dist = Math.round(this._info.length/1e3*1e5)/1e5;
 
       last = ll;
       coords.push(ll);

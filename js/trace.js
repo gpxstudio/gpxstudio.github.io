@@ -1276,7 +1276,6 @@ export default class Trace {
                 if (last != null) {
                     const dist = this.gpx._dist2d(last, ll);
                     this.gpx._info.length += dist;
-                    ll._dist = Math.round(this.gpx._info.length/1e3*1e5)/1e5;
 
                     var t = ll.meta.ele - last.meta.ele;
                     if (t > 0) {
@@ -1291,12 +1290,10 @@ export default class Trace {
                       this.gpx._info.duration.moving += t;
                       this.gpx._info.moving_length += dist;
                     }
-                } else {
-                    ll._dist = 0;
-                    if (this.gpx._info.duration.start == null) {
-                        this.gpx._info.duration.start = ll.meta.time;
-                    }
+                } else if (this.gpx._info.duration.start == null) {
+                    this.gpx._info.duration.start = ll.meta.time;
                 }
+                ll._dist = Math.round(this.gpx._info.length/1e3*1e5)/1e5;
 
                 last = ll;
             }
