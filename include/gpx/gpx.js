@@ -932,6 +932,7 @@ L.GPX = L.FeatureGroup.extend({
       } else if (this._info.duration.start == null) {
         this._info.duration.start = ll.meta.time;
       }
+      ll._dist = Math.round(this._info.length/1e3*1e5)/1e5;
 
       last = ll;
       coords.push(ll);

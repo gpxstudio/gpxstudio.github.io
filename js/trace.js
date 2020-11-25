@@ -86,7 +86,7 @@ export default class Trace {
             li.classList.add('tab');
             li.trace = trace;
             li.addEventListener('click', function (e) {
-                if (total.to_merge && total.to_merge != trace) {
+                if (total.to_merge && total.to_merge != trace && total.buttons.window_open == total.buttons.merge_window) {
                     total.to_merge.merge(trace, total.buttons.merge_as_segments.checked);
                     total.removeTrace(trace.index);
                     total.to_merge.focus();
@@ -362,12 +362,15 @@ export default class Trace {
         if (this.isEdited) this.buttons.elev._removeSliderCircles();
     }
 
-    addElevation() {
-        if (this.hasPoints()) {
-            const layers = this.getLayers();
-            for (var i=0; i<layers.length; i++) if(layers[i]._latlngs) {
-                this.buttons.elev.addData(layers[i]);
-            }
+    addElevation(total_points) {
+        const points = this.getPoints();
+        if (points.length) {
+            this.buttons.elev.addData(
+                points,
+                Math.round(this.gpx._info.length/1e3*1e5)/1e5,
+                this.gpx._info.elevation.max,
+                total_points ? total_points : points.length
+            );
         } else this.buttons.elev.clear();
     }
 
@@ -858,8 +861,10 @@ export default class Trace {
         }
 
         for (var l=0; l<layers.length; l++) if (layers[l]._latlngs) {
-            for (var w=0; w<this.waypoints.length; w++) {
-                const pt = layers[l].closestLayerPoint(this.map.latLngToLayerPoint(this.waypoints[w]._latlng));
+            const bounds = layers[l].getBounds().pad(0.2);
+            for (var w=0; w<this.waypoints.length; w++) if (bounds.contains(this.waypoints[w]._latlng)) {
+                var pt = layers[l].closestLayerPoint(this.map.latLngToLayerPoint(this.waypoints[w]._latlng));
+                if (!pt) pt = L.GeometryUtil.closest(this.map, layers[l]._latlngs, this.waypoints[w]._latlng, true);
                 if (pt && pt.distance < closestLayers[w].distance) {
                     closestLayers[w] = { distance: pt.distance, layers: [layers[l]] };
                 } else if (pt && pt.distance == closestLayers[w].distance) {
@@ -1288,6 +1293,7 @@ export default class Trace {
                 } else if (this.gpx._info.duration.start == null) {
                     this.gpx._info.duration.start = ll.meta.time;
                 }
+                ll._dist = Math.round(this.gpx._info.length/1e3*1e5)/1e5;
 
                 last = ll;
             }
@@ -1351,7 +1357,6 @@ export default class Trace {
                 if (requests.length == 1) {
                     // update trace info
                     trace.recomputeStats();
-
                     trace.update();
                 } else trace.askPointsElevation(requests.slice(1), step, 0);
             } else if (this.readyState == 4 && this.status != 200) {
