@@ -86,8 +86,7 @@ export default class Trace {
             li.classList.add('tab');
             li.trace = trace;
             li.addEventListener('click', function (e) {
-                if (total.buttons.window_open != total.buttons.merge_window) return;
-                if (total.to_merge && total.to_merge != trace) {
+                if (total.to_merge && total.to_merge != trace && total.buttons.window_open == total.buttons.merge_window) {
                     total.to_merge.merge(trace, total.buttons.merge_as_segments.checked);
                     total.removeTrace(trace.index);
                     total.to_merge.focus();
@@ -862,8 +861,10 @@ export default class Trace {
         }
 
         for (var l=0; l<layers.length; l++) if (layers[l]._latlngs) {
-            for (var w=0; w<this.waypoints.length; w++) {
-                const pt = layers[l].closestLayerPoint(this.map.latLngToLayerPoint(this.waypoints[w]._latlng));
+            const bounds = layers[l].getBounds().pad(0.2);
+            for (var w=0; w<this.waypoints.length; w++) if (bounds.contains(this.waypoints[w]._latlng)) {
+                var pt = layers[l].closestLayerPoint(this.map.latLngToLayerPoint(this.waypoints[w]._latlng));
+                if (!pt) pt = L.GeometryUtil.closest(this.map, layers[l]._latlngs, this.waypoints[w]._latlng, true);
                 if (pt && pt.distance < closestLayers[w].distance) {
                     closestLayers[w] = { distance: pt.distance, layers: [layers[l]] };
                 } else if (pt && pt.distance == closestLayers[w].distance) {
