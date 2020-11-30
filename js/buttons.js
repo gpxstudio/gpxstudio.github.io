@@ -818,10 +818,7 @@ export default class Buttons {
         });
         document.addEventListener("keydown", ({key}) => {
             if (key === "Escape") {
-                if (buttons.window_open) {
-                    buttons.window_open.hide();
-                    return;
-                }
+                if (buttons.window_open) buttons.window_open.hide();
                 if (total.hasFocus) return;
                 var trace = total.traces[total.focusOn];
                 if (trace.isEdited) buttons.edit.click();
