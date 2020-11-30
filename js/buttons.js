@@ -825,6 +825,11 @@ export default class Buttons {
                 if (total.hasFocus) return;
                 var trace = total.traces[total.focusOn];
                 if (trace.isEdited) buttons.edit.click();
+            } else if (key === "F1") {
+                buttons.method.click();
+            } else if (key === "F2") {
+                if (map.hasLayer(buttons.stravaHeatmap)) buttons.stravaHeatmap.remove();
+                else buttons.stravaHeatmap.addTo(map);
             }
         });
         this.reverse.addEventListener("click", function() {
