@@ -104,11 +104,15 @@ export default class Slider {
         return this.buttons.elev._findItemForX(parseInt(val)/this.start.max * this.buttons.elev._width());
     }
 
+    getTraceIndex(val) {
+        return this.buttons.elev._findIndexForX(parseInt(val)/this.start.max * this.buttons.elev._width());
+    }
+
     getIndexStart() {
-        return this.getIndex(this.start.value);
+        return this.getTraceIndex(this.start.value);
     }
 
     getIndexEnd() {
-        return this.getIndex(this.end.value);
+        return this.getTraceIndex(this.end.value);
     }
 }

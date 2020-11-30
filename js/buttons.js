@@ -748,7 +748,11 @@ export default class Buttons {
             buttons.crop_window.show();
         });
         this.crop_ok.addEventListener("click", function () {
-            total.traces[total.focusOn].crop(total.buttons.slider.getIndexStart(), total.buttons.slider.getIndexEnd(), !buttons.crop_keep.checked);
+            if (total.hasFocus) return;
+            const trace = total.traces[total.focusOn];
+            const start = Math.max(0, total.buttons.slider.getIndexStart()-1);
+            const end = Math.min(trace.getPoints().length-1, total.buttons.slider.getIndexEnd()+1);
+            total.traces[total.focusOn].crop(start, end, !buttons.crop_keep.checked);
             buttons.crop_window.hide();
             gtag('event', 'button', {'event_category' : 'crop'});
         });
