@@ -762,7 +762,7 @@ L.GPX = L.FeatureGroup.extend({
                       closeButton: false
                   });
                   marker.bindPopup(popup).openPopup();
-                  popup.setContent(`<div style="`+(trace.buttons.embedding ? `min-width: 30px; width: auto; max-` : '')+`width: 188px; display: inline-block; overflow-wrap: break-word;">
+                  popup.setContent(`<div style="width: 200px; display: inline-block; overflow-wrap: break-word;">
                                         `+(trace.buttons.embedding ? '' : (`<div style="text-align: right;"><i id="edit`+popup._leaflet_id+`" class="fas fa-pencil-alt custom-button" style="display: inline-block" title="Edit info"></i> <i id="clone`+popup._leaflet_id+`" class="far fa-copy custom-button" style="display: inline-block" title="Duplicate"></i> <i id="delete`+popup._leaflet_id+`" class="fas fa-trash-alt custom-button" style="display: inline-block" title="Delete"></i></div>`))+`
                                         <div`+(trace.buttons.embedding ? '' : ' style="flex-grow: 1;"')+`><b>`+(marker.name.length > 0 ? marker.name : 'empty title')+`</b></div>
                                         <div class="wpt-cmt">`+(marker.cmt.length > 0 ? (marker.cmt + '<br>') : '')+`<i class="wpt-cmt">`+marker.desc+`</i></div>
