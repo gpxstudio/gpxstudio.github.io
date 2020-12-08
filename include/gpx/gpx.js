@@ -724,9 +724,9 @@ L.GPX = L.FeatureGroup.extend({
       });
 
       marker.ele = ele;
-      marker.name = name;
-      marker.desc = desc;
-      marker.cmt = cmt;
+      marker.name = filterXSS(name);
+      marker.desc = filterXSS(desc);
+      marker.cmt = filterXSS(cmt);
       marker.sym = sym;
 
       marker.on({
@@ -803,9 +803,9 @@ L.GPX = L.FeatureGroup.extend({
                           select.value = marker.sym.length > 0 ? marker.sym : " ";
 
                           change.addEventListener('click', function () {
-                              marker.name = name.innerText;
-                              marker.cmt = cmt.innerText;
-                              marker.desc = desc.innerText;
+                              marker.name = filterXSS(name.innerText);
+                              marker.cmt = filterXSS(cmt.innerText);
+                              marker.desc = filterXSS(desc.innerText);
                               marker.sym = select.value;
                               marker.setIcon(L.icon.glyph(iconMap.get(marker.sym)));
 
