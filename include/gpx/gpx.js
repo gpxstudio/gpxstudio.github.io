@@ -763,22 +763,26 @@ L.GPX = L.FeatureGroup.extend({
                   });
                   marker.bindPopup(popup).openPopup();
                   popup.setContent(`<div style="width: 200px; display: inline-block; overflow-wrap: break-word;">
-                                        `+(trace.buttons.embedding ? '' : (`<div style="text-align: right;"><i id="edit`+popup._leaflet_id+`" class="fas fa-pencil-alt custom-button" style="display: inline-block" title="Edit info"></i> <i id="clone`+popup._leaflet_id+`" class="far fa-copy custom-button" style="display: inline-block" title="Duplicate"></i> <i id="delete`+popup._leaflet_id+`" class="fas fa-trash-alt custom-button" style="display: inline-block" title="Delete"></i></div>`))+`
-                                        <div`+(trace.buttons.embedding ? '' : ' style="flex-grow: 1;"')+`><b>`+(marker.name.length > 0 ? marker.name : 'empty title')+`</b></div>
+                                        `+(trace.buttons.embedding ? '' : (`<div style="float: right;"><i id="edit`+popup._leaflet_id+`" class="fas fa-pencil-alt custom-button" style="display: inline-block" title="Edit info"></i> <i id="clone`+popup._leaflet_id+`" class="far fa-copy custom-button" style="display: inline-block" title="Duplicate"></i> <i id="delete`+popup._leaflet_id+`" class="fas fa-trash-alt custom-button" style="display: inline-block" title="Delete"></i></div>`))+`
+                                        <div class="wpt-cmt"><b>`+(marker.name.length > 0 ? marker.name : 'empty title')+`</b></div>
                                         <div class="wpt-cmt">`+(marker.cmt.length > 0 ? (marker.cmt + '<br>') : '')+`<i class="wpt-cmt">`+marker.desc+`</i></div>
                                     </div>`);
                   if (!trace.buttons.embedding) {
                       const edit = document.getElementById('edit' + popup._leaflet_id);
                       edit.addEventListener('click', function () {
-                          popup.setContent(`<label for="name`+popup._leaflet_id+`">Name</label><br>
-                                         <input type="text" id="name`+popup._leaflet_id+`" name="name`+popup._leaflet_id+`" class="waypoint-input"><br>
-                                         <label for="cmt`+popup._leaflet_id+`">Comment (for GPS devices)</label><br>
-                                         <input type="text" id="cmt`+popup._leaflet_id+`" name="cmt`+popup._leaflet_id+`" class="waypoint-input"><br>
-                                         <label for="desc`+popup._leaflet_id+`">Description (for users)</label><br>
-                                         <input type="text" id="desc`+popup._leaflet_id+`" name="desc`+popup._leaflet_id+`" class="waypoint-input"><br>
+                          popup.setContent(`<div style="width: 300px; display: inline-block; overflow-wrap: break-word;">
+                                         <div>Name</div>
+                                         <div id="name`+popup._leaflet_id+`" contenteditable class="wpt-input"></div>
+                                         <div>Comment (for GPS devices)</div>
+                                         <div id="cmt`+popup._leaflet_id+`" contenteditable class="wpt-input"></div>
+                                         <div>Description (for users)</div>
+                                         <div id="desc`+popup._leaflet_id+`" contenteditable class="wpt-input"></div>
                                          <label for="sym`+popup._leaflet_id+`">Symbol</label><br>
-                                         <select type="text" id="sym`+popup._leaflet_id+`" name="sym`+popup._leaflet_id+`" class="waypoint-input"></select><br>
-                                         <table class="waypoint-input"><colgroup><col span="1" style="width: 30%;"><col span="1" style="width: 20%;"><col span="1" style="width: 20%;"><col span="1" style="width: 30%;"></colgroup><tbody><tr><td></td><td><div id="change`+popup._leaflet_id+`" class="panels custom-button normal-button">Ok</div></td><td><div id="cancel`+popup._leaflet_id+`" class="panels custom-button normal-button"><b>Cancel</b></div></td><td></td></tr></tbody></table>`);
+                                         <select type="text" id="sym`+popup._leaflet_id+`" name="sym`+popup._leaflet_id+`" style="width: 100%"></select><br>
+                                         <div style="text-align: center">
+                                            <div id="change`+popup._leaflet_id+`" class="panels custom-button normal-button">Ok</div>
+                                            <div id="cancel`+popup._leaflet_id+`" class="panels custom-button normal-button"><b>Cancel</b></div>
+                                         </div></div>`);
                           const name = document.getElementById('name'+popup._leaflet_id);
                           const cmt = document.getElementById('cmt'+popup._leaflet_id);
                           const desc = document.getElementById('desc'+popup._leaflet_id);
@@ -793,15 +797,15 @@ L.GPX = L.FeatureGroup.extend({
                               select.appendChild(opt);
                           }
 
-                          name.value = marker.name;
-                          cmt.value = marker.cmt;
-                          desc.value = marker.desc;
+                          name.innerHTML = trace.total.encodeString(marker.name);
+                          cmt.innerHTML = trace.total.encodeString(marker.cmt);
+                          desc.innerHTML = trace.total.encodeString(marker.desc);
                           select.value = marker.sym.length > 0 ? marker.sym : " ";
 
                           change.addEventListener('click', function () {
-                              marker.name = name.value;
-                              marker.cmt = cmt.value;
-                              marker.desc = desc.value;
+                              marker.name = name.innerText;
+                              marker.cmt = cmt.innerText;
+                              marker.desc = desc.innerText;
                               marker.sym = select.value;
                               marker.setIcon(L.icon.glyph(iconMap.get(marker.sym)));
 

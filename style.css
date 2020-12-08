@@ -487,10 +487,6 @@ ul {
     background: inherit;
 }
 
-.waypoint-input {
-    width: 200px;
-}
-
 .dist-marker {
 	font-size: 10px;
 	color: #000;
@@ -507,4 +503,10 @@ ul {
 
 .wpt-cmt img {
    width: 100%;
+}
+
+.wpt-input {
+    background: white;
+    border: solid 1px;
+    border-radius: 3px;
 }
