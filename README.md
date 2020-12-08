@@ -33,15 +33,16 @@ This repository contains the source code of the website [gpx.studio](https://gpx
 
 ## Acknowledgements
 This project would not have been possible without the following amazing projects :
-* [Leaflet](https://leafletjs.com/) : awesome and easy map library
-* [leaflet-gpx](https://github.com/mpetazzoni/leaflet-gpx) : parsing and displaying GPX files
-* [Leaflet.Elevation](https://github.com/MrMufflon/Leaflet.Elevation) : elevation profiles
+* [Leaflet](https://leafletjs.com/) : awesome map library
+* [leaflet-gpx](https://github.com/mpetazzoni/leaflet-gpx) : parsing GPX files
+* [Leaflet.Elevation](https://github.com/MrMufflon/Leaflet.Elevation) : elevation profile
 * [Leaflet.Icon.Glyph](https://github.com/Leaflet/Leaflet.Icon.Glyph) : markers with icons for the waypoints
 * [Leaflet.TextPath](https://github.com/makinacorpus/Leaflet.TextPath) : direction markers
 * [leaflet-distance-markers](https://github.com/adoroszlai/leaflet-distance-markers) : distance markers
-* [leaflet-control-window](https://github.com/mapshakers/leaflet-control-window) : centered windows
+* [leaflet-control-window](https://github.com/mapshakers/leaflet-control-window) : centered windows for all dialogs
 * [leaflet-control-geocoder](https://github.com/perliedman/leaflet-control-geocoder) : search for locations with chosen API
 * [simplify2](https://github.com/geonome/simplify2-js) : line simplification algorithm
+* [js-xss](https://github.com/leizongmin/js-xss) : HTML sanitizer for waypoint text fields
 * [Font Awesome](https://fontawesome.com/) : nice icons
 
 And the data, maps and APIs from [OpenStreetMap](https://www.openstreetmap.org/), [Mapbox](https://www.mapbox.com/), [Thunderforest](https://www.thunderforest.com/), [Maps.Refuges.Info](https://wiki.openstreetmap.org/wiki/Hiking/mri), [Strava](https://strava.com) and [AirMap](https://www.airmap.com/).

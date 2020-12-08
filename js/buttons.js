@@ -368,11 +368,17 @@ export default class Buttons {
                         "Strava Heatmap" : _this.stravaHeatmap
                     }).addTo(_this.map);
 
+                    _this.stravaHeatmap.on('tileload', function (e) {
+                        _this.stravaHeatmap.is_loading = true;
+                    });
+
                     _this.stravaHeatmap.on('tileerror', function (e) {
-                        _this.stravaHeatmap.remove();
-                        if (_this.window_open) _this.window_open.hide();
-                        _this.window_open = _this.strava_window;
-                        _this.strava_window.show();
+                        if (!_this.stravaHeatmap.is_loading) {
+                            _this.stravaHeatmap.remove();
+                            if (_this.window_open) _this.window_open.hide();
+                            _this.window_open = _this.strava_window;
+                            _this.strava_window.show();
+                        }
                     });
 
                     const toggle = document.getElementsByClassName('leaflet-control-layers-toggle')[0];
