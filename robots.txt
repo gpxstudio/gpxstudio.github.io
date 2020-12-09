@@ -1,4 +1,4 @@
 User-agent: *
-Disallow: /about.html
 Disallow: /thank-you.html
 Disallow: /?
+Sitemap: https://gpxstudio.github.io/sitemap.txt
