@@ -395,9 +395,9 @@ export default class Buttons {
                     const settings_list = document.createElement('ul');
                     settings_list.style = 'padding-inline-start: 20px;';
 
-                    settings_list.appendChild(_this.units);
-                    settings_list.appendChild(_this.activity);
                     settings_list.appendChild(_this.method);
+                    settings_list.appendChild(_this.activity);
+                    settings_list.appendChild(_this.units);
                     settings_list.appendChild(_this.chevrons);
                     settings_list.appendChild(_this.dist_markers);
 
