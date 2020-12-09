@@ -822,17 +822,39 @@ export default class Buttons {
                 gtag('event', 'button', {'event_category' : 'edit-trace'});
             } else trace.draw();
         });
-        document.addEventListener("keydown", ({key}) => {
-            if (key === "Escape") {
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") {
                 if (buttons.window_open) buttons.window_open.hide();
                 if (total.hasFocus) return;
                 var trace = total.traces[total.focusOn];
                 if (trace.isEdited) buttons.edit.click();
-            } else if (key === "F1") {
-                buttons.method.click();
-            } else if (key === "F2") {
+            } else if (e.key === "F1") {
                 if (map.hasLayer(buttons.stravaHeatmap)) buttons.stravaHeatmap.remove();
                 else buttons.stravaHeatmap.addTo(map);
+            } else if (e.key === "F2") {
+                buttons.method.click();
+            } else if (e.key === "F3") {
+                buttons.activity.click();
+            } else if (e.key === "F4") {
+                buttons.units.click();
+            } else if (e.key == "z" && (e.ctrlKey || e.metaKey)) {
+                buttons.undo.click();
+                e.preventDefault();
+            } else if (e.key == "y" && (e.ctrlKey || e.metaKey)) {
+                buttons.redo.click();
+                e.preventDefault();
+            } else if (e.key == "s" && (e.ctrlKey || e.metaKey)) {
+                buttons.export.click();
+                e.preventDefault();
+            } else if (e.key == "k" && (e.ctrlKey || e.metaKey)) {
+                buttons.clear.click();
+                e.preventDefault();
+            } else if (e.key == "o" && (e.ctrlKey || e.metaKey)) {
+                buttons.load.click();
+                e.preventDefault();
+            } else if (e.key == "d" && (e.ctrlKey || e.metaKey)) {
+                buttons.draw.click();
+                e.preventDefault();
             }
         });
         this.reverse.addEventListener("click", function() {
