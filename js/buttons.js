@@ -1101,6 +1101,8 @@ export default class Buttons {
             if (buttons.show_distance) trace.showDistanceMarkers();
             else trace.hideDistanceMarkers();
         });
+
+        if (this.embedding && window.parent != window) this.openEmbeddingFiles();
     }
 
     focusTabElement(tab) {
@@ -1157,6 +1159,27 @@ export default class Buttons {
         }
         this.input.value = "";
         gtag('event', 'button', {'event_category' : 'load'});
+    }
+
+    openEmbeddingFiles() {
+        const _this = this;
+        const parent_document = window.parent.document;
+        const files = parent_document.getElementsByClassName('gpx');
+        for (var i=0; i<files.length; i++) {
+            const href = files[i].getAttribute("href");
+            if (href) {
+                const xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        const path = href.split('/');
+                        const name = path.length ? path[path.length-1] : href;
+                        _this.total.addTrace(xhr.responseText, name);
+                    }
+                }
+                xhr.open('GET', href);
+                xhr.send();
+            }
+        }
     }
 
     donation() {
