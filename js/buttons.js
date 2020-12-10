@@ -214,7 +214,7 @@ export default class Buttons {
             this.toolbar.addTo(this.map);
 
             this.embed_content.addEventListener('click', function () {
-                window.open('./?state='+urlParams.get('state'));
+                window.open(queryString);
             });
         } else {
             this.toolbar = L.control({position: 'topleft'});
