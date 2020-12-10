@@ -1164,7 +1164,7 @@ export default class Buttons {
     openEmbeddingFiles() {
         const _this = this;
         const parent_document = window.parent.document;
-        const files = parent_document.getElementsByClassName('gpx');
+        const files = parent_document.getElementsByClassName("gpx.studio");
         for (var i=0; i<files.length; i++) {
             const href = files[i].getAttribute("href");
             if (href) {
