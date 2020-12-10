@@ -70,6 +70,7 @@ export default class Google {
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const params = JSON.parse(urlParams.get('state'));
+        if (!params.ids) return;
         for (var i=0; i<params.ids.length; i++)
             this.downloadFile({id:params.ids[i], name:'track.gpx'}, params.hasOwnProperty('userId') && !private_mode);
     }
