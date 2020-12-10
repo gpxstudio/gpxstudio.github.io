@@ -214,7 +214,7 @@ export default class Buttons {
             this.toolbar.addTo(this.map);
 
             this.embed_content.addEventListener('click', function () {
-                window.open('https://gpxstudio.github.io/?state='+urlParams.get('state'));
+                window.open('./?state='+urlParams.get('state'));
             });
         } else {
             this.toolbar = L.control({position: 'topleft'});
@@ -404,6 +404,7 @@ export default class Buttons {
                     settings_container.appendChild(settings_list);
                 }
                 _this.total = new Total(_this);
+                _this.openURLs();
             }
         }
         xhr.open('GET', './mapbox_token.txt');
@@ -1101,8 +1102,6 @@ export default class Buttons {
             if (buttons.show_distance) trace.showDistanceMarkers();
             else trace.hideDistanceMarkers();
         });
-
-        if (this.embedding && window.parent != window) this.openEmbeddingFiles();
     }
 
     focusTabElement(tab) {
@@ -1161,12 +1160,14 @@ export default class Buttons {
         gtag('event', 'button', {'event_category' : 'load'});
     }
 
-    openEmbeddingFiles() {
+    openURLs() {
         const _this = this;
-        const parent_document = window.parent.document;
-        const files = parent_document.getElementsByClassName("gpx.studio");
-        for (var i=0; i<files.length; i++) {
-            const href = files[i].getAttribute("href");
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const params = JSON.parse(urlParams.get('state'));
+        if (!params.urls) return;
+        for (var i=0; i<params.urls.length; i++) {
+            const href = params.urls[i];
             if (href) {
                 const xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function() {

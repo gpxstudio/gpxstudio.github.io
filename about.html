@@ -47,8 +47,8 @@
                 <h1><a name="embed"></a>Embedding</h1>
                 <p>You are very welcome to display traces on your website with <b>gpx.studio</b>. There are two ways to do it: the first one with files stored on a server and the second one with Google Drive.</p>
                 <ul>
-                    <li><b>File URL:</b> Add HTML elements with the class <code>gpx.studio</code> and with the link to the file in the <code>href</code> attribute. Make sure that <b>gpx.studio</b> is allowed to request the files, otherwise the requests will be blocked by the CORS policy.</li>
-                    <li><b>Google Drive:</b> Just save the files to your Google Drive when exporting and copy the code provided! If you want to display files that you already have on your Google Drive, make sure they are available to all users with the link.</li>
+                    <li><b>File URL:</b> Add the link to the file in the <code>urls</code> attribute of the <code>state</code> parameter of the query string. Make sure that <b>gpx.studio</b> is allowed to request the files, otherwise the requests will be blocked by the CORS policy.</li>
+                    <li><b>Google Drive:</b> Just save the files to your Google Drive when exporting and copy the code provided! If you want to display files that you already have on your Google Drive, add the ID of the file in the <code>ids</code> attribute of the <code>state</code> parameter of the query string and make sure they are available to all users with the link.</li>
                 </ul>
                 <p>You can optionally add parameters to the source URL : <code>imperial</code> to get data in miles and feet, <code>running</code> to display the pace in minutes by unit of distance, <code>distance</code> to show distance markers and <code>direction</code> to show direction markers. Below is a playground to play with the parameters, see a preview and get the HTML code.</p>
                 <div style="padding:10px; border: 1px solid black;">
@@ -100,7 +100,6 @@
                     No other files than those you create with the tool or decide to open with it (either by opening from Google Drive or visiting its associated URL on the tool) will be accessed, and none will ever be stored.</p>
                 <p>Last updated October 16, 2020.</p>
             </div>
-            <div id="urls"></div>
         </font>
         <script>
         function showPreview() {
@@ -112,35 +111,31 @@
             const direction = document.getElementById("direction").checked;
 
             const preview = document.getElementById("preview");
-            preview.src = './?'
-                + (file_ids.length ? ('state=%7B%22ids%22:%5B%22' + file_ids + '%22%5D%7D') : '')
-                + '&embed'
+            preview.src = './?state=%7B'
+                + (file_ids.length ? ('%22ids%22:%5B%22' + file_ids + '%22%5D') : '')
+                + (file_ids.length && file_urls.length ? ',' : '')
+                + (file_urls.length ? ('%22urls%22:%5B%22' + file_urls + '%22%5D') : '')
+                + '%7D&embed'
                 + (running ? '&running' : '')
                 + (imperial ? '&imperial' : '')
                 + (distance ? '&distance' : '')
                 + (direction ? '&direction' : '');
 
-            const urls = document.getElementById("urls");
             const code = document.getElementById("embedding-code");
-            urls.innerHTML = '';
-            code.innerHTML = '';
-            if (file_urls.length) {
-                const files = file_urls.split(',');
-                for (var i=0; i<files.length; i++) {
-                    code.innerHTML += '&lt;span class="gpx.studio" href="'+files[i]+'"&gt;&lt;/span&gt;<br>';
-                    urls.innerHTML += '<span class="gpx.studio" href="'+files[i]+'"></span>';
-                }
-            }
-            code.innerHTML += '&lt;iframe src="https://gpxstudio.github.io/?'
-                + (file_ids.length ? ('state=%7B%22ids%22:%5B%22' + file_ids + '%22%5D%7D') : '')
-                + '&embed'
+            code.innerHTML = '&lt;iframe src="https://gpxstudio.github.io/?state=%7B'
+                + (file_ids.length ? ('%22ids%22:%5B%22' + file_ids + '%22%5D') : '')
+                + (file_ids.length && file_urls.length ? ',' : '')
+                + (file_urls.length ? ('%22urls%22:%5B%22' + file_urls + '%22%5D') : '')
+                + '%7D&embed'
                 + (running ? '&running' : '')
                 + (imperial ? '&imperial' : '')
                 + (distance ? '&distance' : '')
                 + (direction ? '&direction' : '')
-                + '" width="100%" height="500" frameborder="0" allowfullscreen&gt;&lt;p&gt;&lt;a href="https://gpxstudio.github.io/'
-                + (file_ids.length ? ('?state=%7B%22ids%22:%5B%22' + file_ids + '%22%5D%7D"') : '')
-                + '&gt;&lt;/a&gt;&lt;/p&gt;&lt;/iframe&gt;';
+                + '" width="100%" height="500" frameborder="0" allowfullscreen&gt;&lt;p&gt;&lt;a href="https://gpxstudio.github.io/?state=%7B'
+                + (file_ids.length ? ('%22ids%22:%5B%22' + file_ids + '%22%5D') : '')
+                + (file_ids.length && file_urls.length ? ',' : '')
+                + (file_urls.length ? ('%22urls%22:%5B%22' + file_urls + '%22%5D') : '')
+                + '%7D&gt;&lt;/a&gt;&lt;/p&gt;&lt;/iframe&gt;';
         }
         </script>
     </body>
