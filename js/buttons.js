@@ -1168,7 +1168,7 @@ export default class Buttons {
         const params = JSON.parse(urlParams.get('state'));
         if (!params.urls) return;
         for (var i=0; i<params.urls.length; i++) {
-            const href = params.urls[i];
+            const href = decodeURIComponent(params.urls[i]);
             if (href) {
                 const xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function() {
