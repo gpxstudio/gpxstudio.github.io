@@ -110,32 +110,48 @@
             const distance = document.getElementById("distance").checked;
             const direction = document.getElementById("direction").checked;
 
+            var query = '?state=%7B';
+            if (file_ids.length) {
+                query += '%22ids%22:%5B';
+                const files = file_ids.split(',');
+                for (var i=0; i<files.length; i++) {
+                    if (i) query += ',';
+                    query += '%22' + files[i] + '%22';
+                }
+                query += '%5D';
+                if (file_urls.length) query += ',';
+            }
+            if (file_urls.length) {
+                query += '%22urls%22:%5B';
+                const files = file_urls.split(',');
+                for (var i=0; i<files.length; i++) {
+                    if (i) query += ',';
+                    query += '%22' + files[i] + '%22';
+                }
+                query += '%5D';
+            }
+            query += '%7D';
+
             const preview = document.getElementById("preview");
-            preview.src = './?state=%7B'
-                + (file_ids.length ? ('%22ids%22:%5B%22' + file_ids + '%22%5D') : '')
-                + (file_ids.length && file_urls.length ? ',' : '')
-                + (file_urls.length ? ('%22urls%22:%5B%22' + file_urls + '%22%5D') : '')
-                + '%7D&embed'
+            preview.src = './'
+                + query
+                + '&embed'
                 + (running ? '&running' : '')
                 + (imperial ? '&imperial' : '')
                 + (distance ? '&distance' : '')
                 + (direction ? '&direction' : '');
 
             const code = document.getElementById("embedding-code");
-            code.innerHTML = '&lt;iframe src="https://gpxstudio.github.io/?state=%7B'
-                + (file_ids.length ? ('%22ids%22:%5B%22' + file_ids + '%22%5D') : '')
-                + (file_ids.length && file_urls.length ? ',' : '')
-                + (file_urls.length ? ('%22urls%22:%5B%22' + file_urls + '%22%5D') : '')
-                + '%7D&embed'
+            code.innerHTML = '&lt;iframe src="https://gpxstudio.github.io/'
+                + query
+                + '&embed'
                 + (running ? '&running' : '')
                 + (imperial ? '&imperial' : '')
                 + (distance ? '&distance' : '')
                 + (direction ? '&direction' : '')
-                + '" width="100%" height="500" frameborder="0" allowfullscreen&gt;&lt;p&gt;&lt;a href="https://gpxstudio.github.io/?state=%7B'
-                + (file_ids.length ? ('%22ids%22:%5B%22' + file_ids + '%22%5D') : '')
-                + (file_ids.length && file_urls.length ? ',' : '')
-                + (file_urls.length ? ('%22urls%22:%5B%22' + file_urls + '%22%5D') : '')
-                + '%7D&gt;&lt;/a&gt;&lt;/p&gt;&lt;/iframe&gt;';
+                + '" width="100%" height="500" frameborder="0" allowfullscreen&gt;&lt;p&gt;&lt;a href="https://gpxstudio.github.io/'
+                + query
+                + '&gt;&lt;/a&gt;&lt;/p&gt;&lt;/iframe&gt;';
         }
         </script>
     </body>

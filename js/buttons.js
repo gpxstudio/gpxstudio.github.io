@@ -1164,6 +1164,7 @@ export default class Buttons {
         const _this = this;
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
+        if (!urlParams.has('state')) return;
         const params = JSON.parse(urlParams.get('state'));
         if (!params.urls) return;
         for (var i=0; i<params.urls.length; i++) {
