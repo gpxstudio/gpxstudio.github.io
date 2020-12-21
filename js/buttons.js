@@ -1185,7 +1185,7 @@ export default class Buttons {
     }
 
     donation() {
-        window.open('https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TCK9RME3XUV9N&source=url');
+        window.open('https://ko-fi.com/gpxstudio');
         gtag('event', 'button', {'event_category' : 'donate'});
     }
 

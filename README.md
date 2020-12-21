@@ -1,4 +1,5 @@
 # gpx.studio - the online GPX file editor
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/F1F1303GH)
 
 This repository contains the source code of the website [gpx.studio](https://gpxstudio.github.io), an online tool for GPX editing.
 
