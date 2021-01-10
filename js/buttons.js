@@ -24,6 +24,7 @@ export default class Buttons {
         // SETTINGS
         this.km = true;
         this.cycling = true;
+        this.driving = false;
         this.routing = true;
         this.disable_trace = false;
         this.show_direction = false;
@@ -105,6 +106,7 @@ export default class Buttons {
         this.show_dist_markers = document.getElementById("show-dist-markers");
         this.bike = document.getElementById("bike");
         this.run = document.getElementById("run");
+        this.drive = document.getElementById("drive");
         this.kms = document.getElementById("km");
         this.mi = document.getElementById("mi");
         this.route = document.getElementById("route");
@@ -783,13 +785,21 @@ export default class Buttons {
         });
         buttons.bike.classList.add("selected");
         this.activity.addEventListener("click", function () {
-            buttons.cycling = !buttons.cycling;
             if (buttons.cycling) {
-                buttons.bike.classList.add("selected");
-                buttons.run.classList.remove("selected");
+                if (buttons.driving) buttons.driving = false;
+                else buttons.cycling = false;
+            } else {
+                buttons.cycling = true;
+                buttons.driving = true;
+            }
+            buttons.bike.classList.remove("selected");
+            buttons.run.classList.remove("selected");
+            buttons.drive.classList.remove("selected");
+            if (buttons.cycling) {
+                if (buttons.driving) buttons.drive.classList.add("selected");
+                else buttons.bike.classList.add("selected");
                 buttons.stravaHeatmap.setUrl('https://heatmap-external-{s}.strava.com/tiles-auth/cycling/bluered/{z}/{x}/{y}.png');
             } else {
-                buttons.bike.classList.remove("selected");
                 buttons.run.classList.add("selected");
                 buttons.stravaHeatmap.setUrl('https://heatmap-external-{s}.strava.com/tiles-auth/running/bluered/{z}/{x}/{y}.png');
             }
