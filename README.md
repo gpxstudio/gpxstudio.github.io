@@ -1,9 +1,19 @@
-# gpx.studio - the online GPX file editor
+![logo of gpx.studio](https://github.com/vcoppe/gpx-tool/raw/master/logo.png "Logo")
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/F1F1303GH)
 
 This repository contains the source code of the website [gpx.studio](https://gpxstudio.github.io), an online tool for GPX editing.
 
 ![Preview of the online app.](preview.png)
+
+## Disclaimer
+You are welcome to use parts of the code for your personal projects but **please do not host a clone of the website**.
+If you think something is missing from the website, please create an issue to discuss it or make a pull request if you can implement it yourself.
+
+To play with the code locally:
+* Get your own tokens at [Mapbox](https://www.mapbox.com/) and [AirMap](https://www.airmap.com/) and put them in the root directory as `mapbox_token.txt` and `airmap_token.txt`.
+* Remove the Google Analytics code (at the top of `index.html` and `about.html`).
+
+**If you wish to integrate this project in your own website, _please first get in touch_.**
 
 ## Features
 * Import GPX files
