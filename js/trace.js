@@ -1368,7 +1368,7 @@ export default class Trace {
 
     askRoute(a, b, c, layer) {
         const Http = new XMLHttpRequest();
-        var url = "https://api.mapbox.com/directions/v5/mapbox/" + (this.buttons.cycling ? "cycling" : "walking") + "/";
+        var url = "https://api.mapbox.com/directions/v5/mapbox/" + (this.buttons.cycling ? (this.buttons.driving ? "driving" : "cycling") : "walking") + "/";
         url += a.lng.toFixed(6) + ',' + a.lat.toFixed(6) + ';';
         if (!a.equals(b) && !b.equals(c)) url += b.lng.toFixed(6) + ',' + b.lat.toFixed(6) + ';';
         url += c.lng.toFixed(6) + ',' + c.lat.toFixed(6) ;
@@ -1420,7 +1420,7 @@ export default class Trace {
 
     askRoute2(a, b, layer) {
         const Http = new XMLHttpRequest();
-        var url = "https://api.mapbox.com/directions/v5/mapbox/" + (this.buttons.cycling ? "cycling" : "walking") + "/";
+        var url = "https://api.mapbox.com/directions/v5/mapbox/" + (this.buttons.cycling ? (this.buttons.driving ? "driving" : "cycling") : "walking") + "/";
         url += a.lng.toFixed(6) + ',' + a.lat.toFixed(6) + ';';
         url += b.lng.toFixed(6) + ',' + b.lat.toFixed(6);
         url += "?geometries=geojson&access_token="+this.buttons.mapbox_token+"&overview=full";
