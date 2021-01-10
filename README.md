@@ -13,7 +13,7 @@ To play with the code locally:
 * Get your own tokens at [Mapbox](https://www.mapbox.com/) and [AirMap](https://www.airmap.com/) and put them in the root directory as `mapbox_token.txt` and `airmap_token.txt`.
 * Remove the Google Analytics code (at the top of `index.html` and `about.html`).
 
-**If you wish to integrate this project in your own website, _please first get in touch_.**
+**If you wish to integrate this project in your own website, _please first get in touch_ (except for the embedding mode of course).**
 
 ## Features
 * Import GPX files
