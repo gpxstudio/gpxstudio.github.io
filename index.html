@@ -17,7 +17,7 @@
         <meta property="og:description" content="View, edit and create GPX files online : add, move and delete points, merge multiple files, reverse, add timestamps, edit waypoints and more!" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://gpxstudio.github.io/" />
-        <meta property="og:image" content="https://gpxstudio.github.io/og_logo.png" />
+        <meta property="og:image" content="https://gpxstudio.github.io/res/og_logo.png" />
         <meta name="twitter:card" content="summary_large_image">
         <script type="application/ld+json">
         {
@@ -31,7 +31,7 @@
             "sameAs" : [
                 "https://www.facebook.com/gpx.studio"
             ],
-            "screenshot": "https://gpxstudio.github.io/preview.png",
+            "screenshot": "https://gpxstudio.github.io/res/preview.png",
             "genre": "outdoors",
             "keywords": "gpx, gps, file, viewer, editor, merge, reverse, timestamps, waypoints, segments",
             "browserRequirements": "Requires JavaScript. Requires HTML5.",
@@ -43,7 +43,7 @@
             "featureList": "edit gpx files online, view gpx files online, merge gpx files online, reverse gpx file online, add timestamps to gpx file online, extract track segments, view and add waypoints gpx file online"
         }
         </script>
-        <link rel="icon" href="favicon.png">
+        <link rel="icon" href="res/favicon.png">
         <link rel="stylesheet" href="include/leaflet/leaflet.css">
         <script src="include/leaflet/leaflet.js"></script>
         <script type="text/javascript" src="include/icon/Leaflet.Icon.Glyph.js"></script>
@@ -91,7 +91,7 @@
         <input id="input-file" type="file" accept=".gpx" multiple style="display: none"/>
         <div id="mapid"></div>
         <div id="toolbar" class="panels-container center-leaflet">
-            <img src="logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 2px 4px" alt="logo of gpx.studio, the online GPX file editor">
+            <img src="res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 2px 4px" alt="logo of gpx.studio, the online GPX file editor">
             <div id="load" class="panels custom-button">Load GPX</div>
             <div id="manual" class="panels custom-button">Draw</div>
             <div id="export" class="panels custom-button">Export</div>
@@ -283,8 +283,8 @@
                 <colgroup>
                    <col span="1" style="width: 10%;">
                    <col span="1" style="width: 40%;">
-                   <col span="1" style="width: 40%;">
-                   <col span="1" style="width: 10%;">
+                   <col span="1" style="width: 45%;">
+                   <col span="1" style="width: 5%;">
                 </colgroup>
                 <tbody>
                     <td></td>
@@ -306,11 +306,10 @@
                 </tr>
                 </tbody>
             </table>
-            <div></div>
-            <div style="color:rgb(50,170,210); size:6">The tool is <b>free</b> to use but <b>not free</b> to run so if you use it frequently, please consider donating as to cover bills from API calls (map display, routing and elevation features).<br>Thank you for your support!</div>
+            <div style="color:rgb(30,110,140);">&#9888;&#65039; The tool is <b>free</b> to use but <b>not free</b> to run &#9888;&#65039;<br>Each map display, track point added or moved is billed.</div>
+            <div id="donate-2" class="panels custom-button fancy-button"><b>Help keep the website free</b> &#128591;</div><br>
             <div id="export-2" class="panels custom-button fancy-button">Download</div>
-            <div id="donate-2" class="panels custom-button fancy-button"><b>Donate</b> <i class="fas fa-heart"></i></div>
-            <div id="save-drive" class="panels custom-button fancy-button">Save to Google Drive <img src="drive.png" style="height: 15px; vertical-align: bottom"></i></div>
+            <div id="save-drive" class="panels custom-button fancy-button">Save to Google Drive <img src="res/drive.png" style="height: 15px; vertical-align: bottom"></i></div>
         </div>
         <div id="clear-content" class="popup-content">
             This will delete all open traces.<br>Do you wish to continue?<br>
@@ -335,7 +334,7 @@
         <div id="load-content" class="popup-content">
             Choose files from<br>
             <div id="load2" class="panels custom-button normal-button">Desktop</div>
-            <div id="load-drive" class="panels custom-button normal-button">Google Drive <img src="drive.png" style="height: 15px; vertical-align: bottom"></i></div><br>
+            <div id="load-drive" class="panels custom-button normal-button">Google Drive <img src="res/drive.png" style="height: 15px; vertical-align: bottom"></i></div><br>
             (or drag and drop anywhere in the window)
         </div>
         <div id="share-content" class="popup-content">
@@ -374,7 +373,7 @@
             <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank"><i class="fab fa-github-square"></i></a>
         </div>
         <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
-            <b>Open in</b> <img src="logo.png" height="20" style="vertical-align: bottom;" alt="logo of gpx.studio, the online GPX file editor">
+            <b>Open in</b> <img src="res/logo.png" height="20" style="vertical-align: bottom;" alt="logo of gpx.studio, the online GPX file editor">
         </div>
         <h1 style="display: none">online gpx editor</h1>
         <h1 style="display: none">online gpx viewer</h1>

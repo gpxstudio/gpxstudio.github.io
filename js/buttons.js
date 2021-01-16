@@ -176,7 +176,7 @@ export default class Buttons {
                 _this.airmap_token = xhr2.responseText;
             }
         }
-        xhr2.open('GET', './airmap_token.txt');
+        xhr2.open('GET', './res/airmap_token.txt');
         xhr2.send();
 
         // ELEVATION PROFILE
@@ -407,7 +407,7 @@ export default class Buttons {
                 _this.openURLs();
             }
         }
-        xhr.open('GET', './mapbox_token.txt');
+        xhr.open('GET', './res/mapbox_token.txt');
         xhr.send();
     }
 
