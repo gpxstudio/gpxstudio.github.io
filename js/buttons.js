@@ -341,6 +341,11 @@ export default class Buttons {
     	                crossOrigin: true
                     });
 
+                    _this.cyclOSM = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
+                        maxZoom: 20,
+                        attribution: '&copy; <a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                    });
+
                     _this.openHikingMap = L.tileLayer('https://maps.refuges.info/hiking/{z}/{x}/{y}.png', {
                         maxZoom: 20,
                         maxNativeZoom: 18,
@@ -354,10 +359,11 @@ export default class Buttons {
                     });
 
                     _this.controlLayers = L.control.layers({
+                        "Mapbox Outdoors" : _this.mapboxOutdoors,
+                        "Mapbox Satellite" : _this.mapboxSatellite,
                         "OpenStreetMap" : _this.openStreetMap,
                         "OpenHikingMap" : _this.openHikingMap,
-                        "Mapbox Outdoors" : _this.mapboxOutdoors,
-                        "Mapbox Satellite" : _this.mapboxSatellite
+                        "CyclOSM" : _this.cyclOSM
                     },{
                         "Strava Heatmap" : _this.stravaHeatmap
                     }).addTo(_this.map);
