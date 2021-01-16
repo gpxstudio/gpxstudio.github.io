@@ -56,4 +56,4 @@ This project would not have been possible without the following amazing projects
 * [js-xss](https://github.com/leizongmin/js-xss) : HTML sanitizer for waypoint text fields
 * [Font Awesome](https://fontawesome.com/) : nice icons
 
-And the data, maps and APIs from [OpenStreetMap](https://www.openstreetmap.org/), [Mapbox](https://www.mapbox.com/), [Maps.Refuges.Info](https://wiki.openstreetmap.org/wiki/Hiking/mri), [Strava](https://strava.com) and [AirMap](https://www.airmap.com/).
+And the data, maps and APIs from [Mapbox](https://www.mapbox.com/), [OpenStreetMap](https://www.openstreetmap.org/), [Maps.Refuges.Info](https://wiki.openstreetmap.org/wiki/Hiking/mri), [CyclOSM](https://www.cyclosm.org/), [Strava](https://strava.com) and [AirMap](https://www.airmap.com/).
