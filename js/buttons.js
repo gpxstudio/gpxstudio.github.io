@@ -23,8 +23,7 @@ export default class Buttons {
     constructor() {
         // SETTINGS
         this.km = true;
-        this.cycling = true;
-        this.driving = false;
+        this.selectedActivity = "cycling";
         this.routing = true;
         this.disable_trace = false;
         this.show_direction = false;
@@ -36,7 +35,7 @@ export default class Buttons {
         this.embedding = urlParams.has('embed');
         if (this.embedding) {
             if (urlParams.has('imperial')) this.km = false;
-            if (urlParams.has('running')) this.cycling = false;
+            if (urlParams.has('running')) this.selectedActivity = "running";
             if (urlParams.has('direction')) this.show_direction = true;
             if (urlParams.has('distance')) this.show_distance = true;
         }
@@ -785,24 +784,32 @@ export default class Buttons {
         });
         buttons.bike.classList.add("selected");
         this.activity.addEventListener("click", function () {
-            if (buttons.cycling) {
-                if (buttons.driving) buttons.driving = false;
-                else buttons.cycling = false;
+
+            // Cycle through the activities:
+            if (buttons.selectedActivity === "cycling") {
+                buttons.selectedActivity = "running";
+            } else if (buttons.selectedActivity === "running") {
+                buttons.selectedActivity = "driving";
+            } else if (buttons.selectedActivity === "driving") {
+                buttons.selectedActivity = "cycling";
             } else {
-                buttons.cycling = true;
-                buttons.driving = true;
+                // Fallback, this should never really happen
+                buttons.selectedActivity = "cycling";
             }
-            buttons.bike.classList.remove("selected");
-            buttons.run.classList.remove("selected");
-            buttons.drive.classList.remove("selected");
-            if (buttons.cycling) {
-                if (buttons.driving) buttons.drive.classList.add("selected");
-                else buttons.bike.classList.add("selected");
-                buttons.stravaHeatmap.setUrl('https://heatmap-external-{s}.strava.com/tiles-auth/cycling/bluered/{z}/{x}/{y}.png');
-            } else {
-                buttons.run.classList.add("selected");
-                buttons.stravaHeatmap.setUrl('https://heatmap-external-{s}.strava.com/tiles-auth/running/bluered/{z}/{x}/{y}.png');
+
+            const map = {
+                running: { heatmapType: 'running', button: buttons.run },
+                cycling: { heatmapType: 'cycling', button: buttons.bike },
+                driving: { heatmapType: 'driving', button: buttons.drive },
             }
+            for (const action of Object.values(map)) {
+                action.button.classList.remove("selected");
+            }
+
+            const action = map[buttons.selectedActivity] || map.cycling
+            action.button.classList.add("selected");
+            buttons.stravaHeatmap.setUrl('https://heatmap-external-{s}.strava.com/tiles-auth/'+action.heatmapType+'/bluered/{z}/{x}/{y}.png');
+
             if (total.hasFocus) total.showData();
             else total.traces[total.focusOn].showData();
         });
@@ -931,7 +938,7 @@ export default class Buttons {
 
             var content = `<div id="speed-change" style="padding-bottom:4px;">`;
 
-            if (buttons.cycling) {
+            if (buttons.selectedActivity === 'cycling') {
                 content += `Speed <input type="number" id="speed-input" min="1.0" max="99.9" step="0.1" lang="en-150"> `;
                 if (buttons.km) content += `km/h</div>`;
                 else content += `mi/h</div>`;
@@ -966,7 +973,7 @@ export default class Buttons {
 
             var speedChange = false;
 
-            if (buttons.cycling) {
+            if (buttons.selectedActivity === 'cycling') {
                 speed.value = Math.max(1, trace.getMovingSpeed().toFixed(1));
                 speed.addEventListener("change", function () {
                     speedChange = true;
@@ -994,7 +1001,7 @@ export default class Buttons {
             ok.addEventListener("click", function () {
                 var v = trace.getMovingSpeed();
                 if (speedChange) {
-                    if (buttons.cycling) {
+                    if (buttons.selectedActivity === 'cycling') {
                         v = Number(speed.value);
                         if (!buttons.km) v *= 1.60934;
                     } else {
