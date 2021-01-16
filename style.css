@@ -290,14 +290,14 @@ html, body {
 
 #end-point.slider::-webkit-slider-thumb {
   background: #f74848;
-  background-image: url('end.png');
+  background-image: url('./res/end.png');
   background-size: 20px;
   background-position: center center;
 }
 
 #end-point.slider::-moz-range-thumb {
   background: #f74848;
-  background-image: url('end.png');
+  background-image: url('./res/end.png');
   background-size: 20px;
   background-position: center center;
 }

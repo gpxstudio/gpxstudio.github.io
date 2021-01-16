@@ -1,16 +1,16 @@
-![logo of gpx.studio](https://github.com/vcoppe/gpx-tool/raw/master/logo.png "Logo")
+![logo of gpx.studio](res/logo.png)
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/F1F1303GH)
 
 This repository contains the source code of the website [gpx.studio](https://gpxstudio.github.io), an online tool for GPX editing.
 
-![Preview of the online app.](preview.png)
+![Preview of the online app.](res/preview.png)
 
 ## Disclaimer
 You are welcome to use parts of the code for your personal projects but **please do not host a clone of the website**.
 If you think something is missing from the website, please create an issue to discuss it or make a pull request if you can implement it yourself.
 
 To play with the code locally:
-* Get your own tokens at [Mapbox](https://www.mapbox.com/) and [AirMap](https://www.airmap.com/) and put them in the root directory as `mapbox_token.txt` and `airmap_token.txt`.
+* Get your own tokens at [Mapbox](https://www.mapbox.com/) and [AirMap](https://www.airmap.com/) and put them in the directory `res` under `mapbox_token.txt` and `airmap_token.txt`.
 * Remove the Google Analytics code (at the top of `index.html` and `about.html`).
 
 **If you wish to integrate this project in your own website, _please first get in touch_ (except for the embedding mode of course).**
@@ -56,4 +56,4 @@ This project would not have been possible without the following amazing projects
 * [js-xss](https://github.com/leizongmin/js-xss) : HTML sanitizer for waypoint text fields
 * [Font Awesome](https://fontawesome.com/) : nice icons
 
-And the data, maps and APIs from [OpenStreetMap](https://www.openstreetmap.org/), [Mapbox](https://www.mapbox.com/), [Thunderforest](https://www.thunderforest.com/), [Maps.Refuges.Info](https://wiki.openstreetmap.org/wiki/Hiking/mri), [Strava](https://strava.com) and [AirMap](https://www.airmap.com/).
+And the data, maps and APIs from [Mapbox](https://www.mapbox.com/), [OpenStreetMap](https://www.openstreetmap.org/), [Maps.Refuges.Info](https://wiki.openstreetmap.org/wiki/Hiking/mri), [CyclOSM](https://www.cyclosm.org/), [Strava](https://strava.com) and [AirMap](https://www.airmap.com/).

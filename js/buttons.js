@@ -176,7 +176,7 @@ export default class Buttons {
                 _this.airmap_token = xhr2.responseText;
             }
         }
-        xhr2.open('GET', './airmap_token.txt');
+        xhr2.open('GET', './res/airmap_token.txt');
         xhr2.send();
 
         // ELEVATION PROFILE
@@ -334,18 +334,16 @@ export default class Buttons {
                     _this.mapboxSatellite = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
                         attribution: '&copy; <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
                         maxZoom: 20,
-                        id: 'mapbox/satellite-v9',
+                        id: 'mapbox/satellite-streets-v11',
                         tileSize: 512,
                         zoomOffset: -1,
                         accessToken: _this.mapbox_token,
     	                crossOrigin: true
                     });
 
-                    _this.openCycleMap = L.tileLayer('https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey={apikey}', {
-                        attribution: '&copy; <a href="http://www.thunderforest.com/" target="_blank">Thunderforest</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
-                        apikey: '67774cfadfeb42d2ac42bc38fda667c0',
+                    _this.cyclOSM = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
                         maxZoom: 20,
-    	                crossOrigin: true
+                        attribution: '&copy; <a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                     });
 
                     _this.openHikingMap = L.tileLayer('https://maps.refuges.info/hiking/{z}/{x}/{y}.png', {
@@ -361,11 +359,11 @@ export default class Buttons {
                     });
 
                     _this.controlLayers = L.control.layers({
-                        "OpenStreetMap" : _this.openStreetMap,
-                        "OpenCycleMap" : _this.openCycleMap,
-                        "OpenHikingMap" : _this.openHikingMap,
                         "Mapbox Outdoors" : _this.mapboxOutdoors,
-                        "Mapbox Satellite" : _this.mapboxSatellite
+                        "Mapbox Satellite" : _this.mapboxSatellite,
+                        "OpenStreetMap" : _this.openStreetMap,
+                        "OpenHikingMap" : _this.openHikingMap,
+                        "CyclOSM" : _this.cyclOSM
                     },{
                         "Strava Heatmap" : _this.stravaHeatmap
                     }).addTo(_this.map);
@@ -409,7 +407,7 @@ export default class Buttons {
                 _this.openURLs();
             }
         }
-        xhr.open('GET', './mapbox_token.txt');
+        xhr.open('GET', './res/mapbox_token.txt');
         xhr.send();
     }
 

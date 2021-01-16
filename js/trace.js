@@ -24,7 +24,7 @@ const options = {
         startIconUrl: '',
         endIconUrl: '',
         shadowUrl: '',
-        wptIconUrls : { '': '../favicon.png' }
+        wptIconUrls : { '': './res/favicon.png' }
     },
     max_point_interval: 10 * 60000,
     gpx_options: {
