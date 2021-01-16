@@ -83,7 +83,7 @@ export default class Trace {
             var li = document.createElement("li");
             li.innerHTML = name+'<div class="tab-color" style="background:'+trace.normal_style.color+';">';
             li.title = name;
-            li.classList.add('tab');
+            li.classList.add('tab','tab-draggable');
             li.trace = trace;
             li.addEventListener('click', function (e) {
                 if (total.to_merge && total.to_merge != trace && total.buttons.window_open == total.buttons.merge_window) {

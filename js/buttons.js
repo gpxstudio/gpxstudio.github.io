@@ -122,6 +122,7 @@ export default class Buttons {
         this.merge_as_segments = document.getElementById("merge-as-segments");
         this.merge_cancel = document.getElementById("merge-cancel");
         this.buttons_bar = document.getElementById('buttons-bar');
+        this.tabs = document.getElementById('sortable');
 
         // DISPLAYS
         this.distance = document.getElementById("distance-val");
@@ -569,14 +570,25 @@ export default class Buttons {
         const buttons = this;
         const map = this.map;
 
-        $( ".sortable" ).on( "sortupdate", function( event, ui ) {
-            const order = total.buttons.tabs.childNodes;
-            const offset = 3;
+        this.sortable = Sortable.create(this.tabs, {
+            draggable: ".tab-draggable",
+            setData: function (dataTransfer, dragEl) {
+                const avgData = dragEl.trace.getAverageAdditionalData();
+                const data = total.outputGPX(false, true, avgData.hr, avgData.atemp, avgData.cad, dragEl.trace.index);
 
-            for (var i=offset; i<order.length; i++)
-                total.swapTraces(i-offset, order[i].trace.index);
+                dataTransfer.setData('DownloadURL', 'application/gpx+xml:'+data[0].name+':data:text/plain;charset=utf-8,'+encodeURIComponent(data[0].text));
+                dataTransfer.dropEffect = 'copy';
+                dataTransfer.effectAllowed = 'copy';
+            },
+            onEnd: function (e) {
+                const order = total.buttons.tabs.childNodes;
+                const offset = 3;
 
-            if (total.hasFocus) total.update();
+                for (var i=offset; i<order.length; i++)
+                    total.swapTraces(i-offset, order[i].trace.index);
+
+                if (total.hasFocus) total.update();
+            }
         });
         this.draw.addEventListener("click", function () {
             const newTrace = total.addTrace(undefined, "new.gpx");

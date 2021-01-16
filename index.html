@@ -62,8 +62,7 @@
         <script type="text/javascript" src="include/distancemarkers/leaflet-distance-markers.js"></script>
         <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.css" />
         <script src="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.js"></script>
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.13.0/Sortable.min.js"></script>
         <script src="include/sanitize/xss.min.js"></script>
         <link rel="stylesheet" type="text/css" href="style.css">
         <script type="module" src="include/simplify/simplify.js"></script>
@@ -74,17 +73,6 @@
         <script type="module" src="js/total.js"></script>
         <script type="module" src="js/google.js"></script>
         <script type="module" src="js/script.js"></script>
-        <script>
-            $( function() {
-                $( "#sortable" ).sortable({
-                    axis: "x",
-                    items: "li:not(.no-drag)",
-                    containment: 'parent',
-                    cursor: "grabbing"
-                });
-                $( "#sortable" ).disableSelection();
-            });
-        </script>
         <script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
     </head>
     <body>
@@ -125,8 +113,8 @@
                     <input type="range" min="0" max="10000000" value="10000000" class="slider visible" id="end-point">
                 </div>
             </div>
-            <ul id="sortable" class="sortable">
-              <li class="tab no-drag tab-focus" id="total-tab">Total</li>
+            <ul id="sortable">
+              <li class="tab tab-focus" id="total-tab">Total</li>
             </ul>
         </div>
         <div id="buttons-bar" class="panels-container vcenter-leaflet">
@@ -176,7 +164,7 @@
             <tr>
                 <td><b>Export</b></td>
                 <td>Ctrl+S</td>
-                <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Time, heart rate, cadence and temperature data are automatically extended. Optionally, merge all files <b>in the chosen order</b>.</td>
+                <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Time, heart rate, cadence and temperature data are automatically extended. Optionally, merge all files <b>in the chosen order</b>. You can also drag a tab to your desktop to download the file.</td>
             </tr>
             <tr>
                 <td><i class="fas fa-reply"></i> <i class="fas fa-share"></i></td>
