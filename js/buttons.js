@@ -341,13 +341,6 @@ export default class Buttons {
     	                crossOrigin: true
                     });
 
-                    _this.openCycleMap = L.tileLayer('https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey={apikey}', {
-                        attribution: '&copy; <a href="http://www.thunderforest.com/" target="_blank">Thunderforest</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
-                        apikey: '67774cfadfeb42d2ac42bc38fda667c0',
-                        maxZoom: 20,
-    	                crossOrigin: true
-                    });
-
                     _this.openHikingMap = L.tileLayer('https://maps.refuges.info/hiking/{z}/{x}/{y}.png', {
                         maxZoom: 20,
                         maxNativeZoom: 18,
@@ -362,7 +355,6 @@ export default class Buttons {
 
                     _this.controlLayers = L.control.layers({
                         "OpenStreetMap" : _this.openStreetMap,
-                        "OpenCycleMap" : _this.openCycleMap,
                         "OpenHikingMap" : _this.openHikingMap,
                         "Mapbox Outdoors" : _this.mapboxOutdoors,
                         "Mapbox Satellite" : _this.mapboxSatellite
