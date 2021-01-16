@@ -106,6 +106,8 @@ export default class Buttons {
         this.bike = document.getElementById("bike");
         this.run = document.getElementById("run");
         this.drive = document.getElementById("drive");
+        this.winter = document.getElementById("winter");
+        this.water = document.getElementById("water");
         this.kms = document.getElementById("km");
         this.mi = document.getElementById("mi");
         this.route = document.getElementById("route");
@@ -791,6 +793,10 @@ export default class Buttons {
             } else if (buttons.selectedActivity === "running") {
                 buttons.selectedActivity = "driving";
             } else if (buttons.selectedActivity === "driving") {
+                buttons.selectedActivity = "winter";
+            } else if (buttons.selectedActivity === "winter") {
+                buttons.selectedActivity = "water";
+            } else if (buttons.selectedActivity === "water") {
                 buttons.selectedActivity = "cycling";
             } else {
                 // Fallback, this should never really happen
@@ -801,6 +807,8 @@ export default class Buttons {
                 running: { heatmapType: 'running', button: buttons.run },
                 cycling: { heatmapType: 'cycling', button: buttons.bike },
                 driving: { heatmapType: 'driving', button: buttons.drive },
+                winter: { heatmapType: 'winter', button: buttons.winter },
+                water: { heatmapType: 'water', button: buttons.water },
             }
             for (const action of Object.values(map)) {
                 action.button.classList.remove("selected");
