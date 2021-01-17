@@ -256,6 +256,8 @@ export default class Buttons {
         this.trace_info.addTo(this.map);
         this.trace_info_grid.appendChild(this.elevation_profile);
 
+        this.tabs.style.width = this.trace_info_grid.getBoundingClientRect().width+'px';
+
         this.slider = new Slider(this);
         this.google = new Google(this);
 
@@ -590,6 +592,7 @@ export default class Buttons {
                 if (total.hasFocus) total.update();
             }
         });
+        L.DomEvent.on(this.tabs,"mousewheel",L.DomEvent.stopPropagation);
         this.draw.addEventListener("click", function () {
             const newTrace = total.addTrace(undefined, "new.gpx");
             newTrace.draw();
@@ -1131,36 +1134,6 @@ export default class Buttons {
 
     updateBounds() {
         this.map.fitBounds(this.total.getBounds());
-    }
-
-    updateTabWidth() {
-        const offset = 3;
-        const remaining_width = Math.floor(this.trace_info_grid.offsetWidth) - Math.ceil(this.total_tab.offsetWidth) - 1;
-        var tabs_width = 0;
-        for (var i=offset; i<this.tabs.childNodes.length; i++) {
-            this.tabs.childNodes[i].style.width = 'auto';
-            tabs_width += this.tabs.childNodes[i].offsetWidth;
-        }
-        if (tabs_width > remaining_width) {
-            const avg_tab_width = remaining_width / (this.tabs.childNodes.length - offset);
-            var cnt = 0;
-            var to_divide = remaining_width;
-            for (var i=offset; i<this.tabs.childNodes.length; i++) {
-                if (this.tabs.childNodes[i].offsetWidth >= avg_tab_width) cnt++;
-                else to_divide -= this.tabs.childNodes[i].offsetWidth;
-            }
-            const padding = 2 * parseFloat(window.getComputedStyle(this.total_tab, null).getPropertyValue('padding-left'));
-            const new_tab_width = Math.floor(to_divide / cnt - padding);
-            var first = true;
-            for (var i=offset; i<this.tabs.childNodes.length; i++) {
-                if (this.tabs.childNodes[i].offsetWidth >= avg_tab_width) {
-                    if (first) {
-                        first = false;
-                        this.tabs.childNodes[i].style.width = (to_divide - (cnt - 1) * (new_tab_width + padding) - padding - 1) + 'px';
-                    } else this.tabs.childNodes[i].style.width = new_tab_width + 'px';
-                }
-            }
-        }
     }
 
     loadFiles(files) {

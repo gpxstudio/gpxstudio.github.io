@@ -46,7 +46,6 @@ export default class Total {
         this.traces.splice(index, 1);
         for (var i=index; i<this.traces.length; i++)
             this.traces[i].index--;
-        this.buttons.updateTabWidth();
         if (index > 0) this.traces[index-1].focus();
         else this.focus();
     }

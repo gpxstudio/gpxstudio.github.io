@@ -113,7 +113,6 @@ export default class Trace {
             ul.appendChild(li);
 
             trace.tab = li;
-            total.buttons.updateTabWidth();
             total.buttons.circlesToFront();
 
             trace.focus();
@@ -144,7 +143,6 @@ export default class Trace {
             this.name = newname;
             this.tab.innerHTML = newname+'<div class="tab-color" style="background:'+this.normal_style.color+';">';
             this.tab.title = newname;
-            this.total.buttons.updateTabWidth();
         }
         this.renaming = false;
     }
@@ -213,6 +211,7 @@ export default class Trace {
         this.updateExtract();
         this.showChevrons();
         this.showDistanceMarkers();
+        if (!this.buttons.embedding) this.tab.scrollIntoView();
     }
 
     unfocus() {
