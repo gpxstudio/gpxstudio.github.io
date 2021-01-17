@@ -275,7 +275,7 @@ export default class Total {
         var waypointsOutput = '';
 
         const totalData = this.additionalAvgData;
-        for (var i=(trace_idx ? trace_idx : 0); i<(trace_idx ? trace_idx+1 : this.traces.length); i++) {
+        for (var i=(trace_idx!==undefined ? trace_idx : 0); i<(trace_idx!==undefined ? trace_idx+1 : this.traces.length); i++) {
             const data = this.traces[i].additionalAvgData;
             const hr = data.hr ? data.hr : (totalData ? totalData.hr : null);
             const atemp = data.atemp ? data.atemp : (totalData ? totalData.atemp : null);
