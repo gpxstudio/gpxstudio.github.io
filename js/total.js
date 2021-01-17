@@ -46,7 +46,6 @@ export default class Total {
         this.traces.splice(index, 1);
         for (var i=index; i<this.traces.length; i++)
             this.traces[i].index--;
-        this.buttons.updateTabWidth();
         if (index > 0) this.traces[index-1].focus();
         else this.focus();
     }
@@ -215,8 +214,8 @@ export default class Total {
 
     /*** OUTPUT ***/
 
-    outputGPX(mergeAll, incl_time, incl_hr, incl_atemp, incl_cad) {
-        if (incl_time && this.getMovingTime() > 0) { // at least one track has time data
+    outputGPX(mergeAll, incl_time, incl_hr, incl_atemp, incl_cad, trace_idx) {
+        if (incl_time && this.getMovingTime() > 0 && trace_idx === null) { // at least one track has time data
             for (var i=0; i<this.traces.length; i++) this.traces[i].timeConsistency();
             const avg = this.getMovingSpeed(true);
             var lastPoints = null;
@@ -276,11 +275,11 @@ export default class Total {
         var waypointsOutput = '';
 
         const totalData = this.additionalAvgData;
-        for (var i=0; i<this.traces.length; i++) {
+        for (var i=(trace_idx ? trace_idx : 0); i<(trace_idx ? trace_idx+1 : this.traces.length); i++) {
             const data = this.traces[i].additionalAvgData;
-            const hr = data.hr ? data.hr : totalData.hr;
-            const atemp = data.atemp ? data.atemp : totalData.atemp;
-            const cad = data.cad ? data.cad : totalData.cad;
+            const hr = data.hr ? data.hr : (totalData ? totalData.hr : null);
+            const atemp = data.atemp ? data.atemp : (totalData ? totalData.atemp : null);
+            const cad = data.cad ? data.cad : (totalData ? totalData.cad : null);
 
             const layers = this.traces[i].getLayers();
             for (var l=0; l<layers.length; l++) if (layers[l]._latlngs) {

@@ -44,12 +44,14 @@
         }
         </script>
         <link rel="icon" href="res/favicon.png">
+        <link rel="stylesheet" href="include/fontawesome/css/fontawesome.min.css"/>
+        <link rel="stylesheet" href="include/fontawesome/css/brands.min.css"/>
+        <link rel="stylesheet" href="include/fontawesome/css/solid.min.css"/>
         <link rel="stylesheet" href="include/leaflet/leaflet.css">
         <script src="include/leaflet/leaflet.js"></script>
         <script type="text/javascript" src="include/icon/Leaflet.Icon.Glyph.js"></script>
         <script type="module" src="include/gpx/gpx.js"></script>
         <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
-        <script src="https://kit.fontawesome.com/0b26f70058.js" crossorigin="anonymous"></script>
         <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
         <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
         <link rel="stylesheet" href="include/elevation/leaflet.elevation-0.0.4-d3v4.css"/>
@@ -62,8 +64,7 @@
         <script type="text/javascript" src="include/distancemarkers/leaflet-distance-markers.js"></script>
         <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.css" />
         <script src="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.js"></script>
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.13.0/Sortable.min.js"></script>
         <script src="include/sanitize/xss.min.js"></script>
         <link rel="stylesheet" type="text/css" href="style.css">
         <script type="module" src="include/simplify/simplify.js"></script>
@@ -74,17 +75,6 @@
         <script type="module" src="js/total.js"></script>
         <script type="module" src="js/google.js"></script>
         <script type="module" src="js/script.js"></script>
-        <script>
-            $( function() {
-                $( "#sortable" ).sortable({
-                    axis: "x",
-                    items: "li:not(.no-drag)",
-                    containment: 'parent',
-                    cursor: "grabbing"
-                });
-                $( "#sortable" ).disableSelection();
-            });
-        </script>
         <script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
     </head>
     <body>
@@ -125,8 +115,8 @@
                     <input type="range" min="0" max="10000000" value="10000000" class="slider visible" id="end-point">
                 </div>
             </div>
-            <ul id="sortable" class="sortable">
-              <li class="tab no-drag tab-focus" id="total-tab">Total</li>
+            <ul id="sortable">
+              <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">Total</li>
             </ul>
         </div>
         <div id="buttons-bar" class="panels-container vcenter-leaflet">
@@ -135,7 +125,7 @@
             <div class="panels-button" id="reverse" title="Reverse"><i class="fas fa-exchange-alt custom-button"></i></div><br>
             <div class="panels-button" id="combine" title="Merge with another trace"><i class="fas fa-plus-circle custom-button"></i></div><br>
             <div class="panels-button" id="extract" title="Extract track segments"><i class="fas fa-list-ul custom-button"></i></div><br>
-            <div class="panels-button" id="duplicate" title="Duplicate"><i class="far fa-copy custom-button"></i></div><br>
+            <div class="panels-button" id="duplicate" title="Duplicate"><i class="fas fa-copy custom-button"></i></div><br>
             <div class="panels-button" id="color" title="Change color"><i class="fas fa-palette custom-button"></i></div><br>
             <div class="panels-button" id="add-wpt" title="Add waypoint"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
             <div class="panels-button" id="reduce" title="Reduce number of track points"><i class="fas fa-compress-alt custom-button"></i></div><br>
@@ -176,7 +166,7 @@
             <tr>
                 <td><b>Export</b></td>
                 <td>Ctrl+S</td>
-                <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Time, heart rate, cadence and temperature data are automatically extended. Optionally, merge all files <b>in the chosen order</b>.</td>
+                <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Time, heart rate, cadence and temperature data are automatically extended. Optionally, merge all files <b>in the chosen order</b>. You can also drag a tab to your desktop to download the file.</td>
             </tr>
             <tr>
                 <td><i class="fas fa-reply"></i> <i class="fas fa-share"></i></td>
@@ -248,7 +238,7 @@
                 <td>Extract all track segments and creates one trace for each</td>
             </tr>
             <tr>
-                <td><i class="far fa-copy"></i></td>
+                <td><i class="fas fa-copy"></i></td>
                 <td>Duplicate the trace</td>
             </tr>
             <tr>
@@ -276,6 +266,7 @@
         At the bottom, you can see a panel with information about the traces you import.
         The <b>Total</b> tab displays information about all open traces merged into one.
         <b>Swap the tabs</b> to define the order in which the traces should appear and <b>double-click</b> on them to change their names.
+        When you have many tabs, navigate through them by scrolling horizontally.
         Use the <b>slider</b> to move the start/end point and cut the route.
         </div>
         <div id="export-content" class="popup-content">
@@ -306,9 +297,9 @@
                 </tr>
                 </tbody>
             </table>
-            <div style="color:rgb(30,110,140);">&#9888;&#65039; The tool is <b>free</b> to use but <b>not free</b> to run &#9888;&#65039;<br>Each map display, track point added or moved is billed.</div>
+            <div style="color:#0f92c5;">&#9888;&#65039; The tool is <b>free</b> to use but <b>not free</b> to run &#9888;&#65039;<br>Each map display, track point added or moved is billed.</div>
             <div id="donate-2" class="panels custom-button fancy-button"><b>Help keep the website free</b> &#128591;</div><br>
-            <div id="export-2" class="panels custom-button fancy-button">Download</div>
+            <div id="export-2" class="panels custom-button fancy-button">Download <i class="fas fa-download"></i></div>
             <div id="save-drive" class="panels custom-button fancy-button">Save to Google Drive <img src="res/drive.png" style="height: 15px; vertical-align: bottom"></i></div>
         </div>
         <div id="clear-content" class="popup-content">

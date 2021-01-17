@@ -83,7 +83,7 @@ export default class Trace {
             var li = document.createElement("li");
             li.innerHTML = name+'<div class="tab-color" style="background:'+trace.normal_style.color+';">';
             li.title = name;
-            li.classList.add('tab');
+            li.classList.add('tab','tab-draggable');
             li.trace = trace;
             li.addEventListener('click', function (e) {
                 if (total.to_merge && total.to_merge != trace && total.buttons.window_open == total.buttons.merge_window) {
@@ -113,7 +113,6 @@ export default class Trace {
             ul.appendChild(li);
 
             trace.tab = li;
-            total.buttons.updateTabWidth();
             total.buttons.circlesToFront();
 
             trace.focus();
@@ -144,7 +143,6 @@ export default class Trace {
             this.name = newname;
             this.tab.innerHTML = newname+'<div class="tab-color" style="background:'+this.normal_style.color+';">';
             this.tab.title = newname;
-            this.total.buttons.updateTabWidth();
         }
         this.renaming = false;
     }
@@ -213,6 +211,7 @@ export default class Trace {
         this.updateExtract();
         this.showChevrons();
         this.showDistanceMarkers();
+        if (!this.buttons.embedding) this.tab.scrollIntoView();
     }
 
     unfocus() {
