@@ -44,12 +44,14 @@
         }
         </script>
         <link rel="icon" href="res/favicon.png">
+        <link rel="stylesheet" href="include/fontawesome/css/fontawesome.min.css"/>
+        <link rel="stylesheet" href="include/fontawesome/css/brands.min.css"/>
+        <link rel="stylesheet" href="include/fontawesome/css/solid.min.css"/>
         <link rel="stylesheet" href="include/leaflet/leaflet.css">
         <script src="include/leaflet/leaflet.js"></script>
         <script type="text/javascript" src="include/icon/Leaflet.Icon.Glyph.js"></script>
         <script type="module" src="include/gpx/gpx.js"></script>
         <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
-        <script src="https://kit.fontawesome.com/0b26f70058.js" crossorigin="anonymous"></script>
         <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
         <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
         <link rel="stylesheet" href="include/elevation/leaflet.elevation-0.0.4-d3v4.css"/>
@@ -123,7 +125,7 @@
             <div class="panels-button" id="reverse" title="Reverse"><i class="fas fa-exchange-alt custom-button"></i></div><br>
             <div class="panels-button" id="combine" title="Merge with another trace"><i class="fas fa-plus-circle custom-button"></i></div><br>
             <div class="panels-button" id="extract" title="Extract track segments"><i class="fas fa-list-ul custom-button"></i></div><br>
-            <div class="panels-button" id="duplicate" title="Duplicate"><i class="far fa-copy custom-button"></i></div><br>
+            <div class="panels-button" id="duplicate" title="Duplicate"><i class="fas fa-copy custom-button"></i></div><br>
             <div class="panels-button" id="color" title="Change color"><i class="fas fa-palette custom-button"></i></div><br>
             <div class="panels-button" id="add-wpt" title="Add waypoint"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
             <div class="panels-button" id="reduce" title="Reduce number of track points"><i class="fas fa-compress-alt custom-button"></i></div><br>
@@ -236,7 +238,7 @@
                 <td>Extract all track segments and creates one trace for each</td>
             </tr>
             <tr>
-                <td><i class="far fa-copy"></i></td>
+                <td><i class="fas fa-copy"></i></td>
                 <td>Duplicate the trace</td>
             </tr>
             <tr>
@@ -295,9 +297,9 @@
                 </tr>
                 </tbody>
             </table>
-            <div style="color:rgb(30,110,140);">&#9888;&#65039; The tool is <b>free</b> to use but <b>not free</b> to run &#9888;&#65039;<br>Each map display, track point added or moved is billed.</div>
+            <div style="color:#0f92c5;">&#9888;&#65039; The tool is <b>free</b> to use but <b>not free</b> to run &#9888;&#65039;<br>Each map display, track point added or moved is billed.</div>
             <div id="donate-2" class="panels custom-button fancy-button"><b>Help keep the website free</b> &#128591;</div><br>
-            <div id="export-2" class="panels custom-button fancy-button">Download</div>
+            <div id="export-2" class="panels custom-button fancy-button">Download <i class="fas fa-download"></i></div>
             <div id="save-drive" class="panels custom-button fancy-button">Save to Google Drive <img src="res/drive.png" style="height: 15px; vertical-align: bottom"></i></div>
         </div>
         <div id="clear-content" class="popup-content">
