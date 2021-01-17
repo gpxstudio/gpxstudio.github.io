@@ -32,15 +32,16 @@ To play with the code locally:
 * Delete points and/or waypoints inside or outside a rectangle selection
 * Export multiple traces as one or separately in the chosen order and respecting time precedence constraints (if any time data)
 * Preserve and automatically extend speed, heart rate, cadence and temperature data
+* Drag and drop to load and export files
+* Support as many traces as you want with scrollable tabs
 * Cycling and hiking maps, and Strava Heatmap layer
 * Google Drive integration : select a file, save the new version and get a shareable link as well as code to embed the map
 
 ## Future developments
-* Snap trace on road network
+* Snap trace on road network or smooth trace
 * Color lines with elevation or speed data
 * Show/hide trace
 * Show/hide elevation profile
-* Refactor interface for better files management (when a lot of them)
 
 ## Acknowledgements
 This project would not have been possible without the following amazing projects :
