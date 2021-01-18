@@ -592,7 +592,17 @@ export default class Buttons {
                 if (total.hasFocus) total.update();
             }
         });
+        this.tabs.addEventListener('wheel', function(e) {
+            if(e.type != 'wheel') {
+                return;
+            }
+            let delta = ((e.deltaY || -e.wheelDelta || e.detail) >> 10) || 1;
+            delta = delta * (-100);
+            buttons.tabs.scrollLeft -= delta;
+            e.preventDefault();
+        });
         L.DomEvent.on(this.tabs,"mousewheel",L.DomEvent.stopPropagation);
+        L.DomEvent.on(this.tabs,"MozMousePixelScroll",L.DomEvent.stopPropagation);
         this.draw.addEventListener("click", function () {
             const newTrace = total.addTrace(undefined, "new.gpx");
             newTrace.draw();
