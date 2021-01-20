@@ -132,6 +132,7 @@ export default class Trace {
                 marker.fire('mousedown');
             }
         });
+        L.DomEvent.on(this.gpx, 'dblclick', L.DomEvent.stopPropagation);
 
         if (file === undefined) this.gpx.fire('loaded');
     }

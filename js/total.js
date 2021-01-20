@@ -255,10 +255,11 @@ export default class Total {
             }
         }
 
-        const xmlStart = `<?xml version="1.0" encoding="UTF-8"?>
+        const xmlStart1 = `<?xml version="1.0" encoding="UTF-8"?>
 <gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" version="1.1" creator="https://gpxstudio.github.io">
 <metadata>
-    <name>Activity</name>
+    <name>`;
+        const xmlStart2 = `</name>
     <author>gpx.studio</author>
     <type>`+(this.buttons.cycling ? 'Cycling' : 'Running')+`</type>
     <link>https://gpxstudio.github.io</link>
@@ -373,7 +374,7 @@ export default class Total {
 ` : '';
                 output.push({
                     name: this.traces[i].name + '.gpx',
-                    text: (xmlStart+xmlOutput+xmlEnd1+waypointsOutput+colorOutput+xmlEnd2)
+                    text: (xmlStart1+this.traces[i].name+xmlStart2+xmlOutput+xmlEnd1+waypointsOutput+colorOutput+xmlEnd2)
                 });
                 xmlOutput = '';
                 waypointsOutput = '';
@@ -383,7 +384,7 @@ export default class Total {
         if (mergeAll && this.traces.length > 1) {
             output.push({
                 name: 'track.gpx',
-                text: (xmlStart+xmlOutput+xmlEnd1+waypointsOutput+xmlEnd2)
+                text: (xmlStart1+'Activity'+xmlStart2+xmlOutput+xmlEnd1+waypointsOutput+xmlEnd2)
             });
         }
 
