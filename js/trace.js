@@ -31,6 +31,7 @@ const options = {
         joinTrackSegments: false
     }
 };
+const ELEVATION_ZOOM = 9;
 
 export default class Trace {
     constructor(file, name, map, total) {
@@ -1303,65 +1304,70 @@ export default class Trace {
     /*** REQUESTS ***/
 
     askElevation(points, wpt) {
-        var step = Math.max(10, Math.ceil(points.length / 1000));
-        if (wpt) step = 1;
-        const maxpoints = 2000;
-        var pts = [], start = -1, requests = [];
-        for (var i=0; i<points.length; i += step) {
-            pts.push(points[i]);
-            if (start == -1) start = i;
-            if (pts.length == maxpoints) {
-                requests.push([points.slice(start, i + step - 1), pts]);
-                pts = [];
-                start = -1;
-            }
+        const _this = this;
+
+        const toID = function(tile) {
+            var dim = 2 * (1 << tile[2]);
+            return ((dim * tile[1] + tile[0]) * 32) + tile[2];
         }
-        if (pts.length > 0) {
-            pts.push(points[points.length-1]);
-            requests.push([points.slice(start, i + step - 1), pts]);
-        }
-        this.askPointsElevation(requests, step, 0);
-    }
 
-    askPointsElevation(requests, step, depth) {
-        const trace_points = requests[0][0], points = requests[0][1];
-        const Http = new XMLHttpRequest();
-        var url = 'https://api.airmap.com/elevation/v1/ele?points=';
-        for (var i=0; i<points.length; i++) {
-            url += points[i].lat + ',' + points[i].lng;
-            if (i < points.length-1) url += ',';
-        }
-        Http.open("GET", url);
-        Http.setRequestHeader('X-API-Key', this.buttons.airmap_token);
-        Http.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-        Http.send();
+        const decodeElevation = function (start) {
+            for (var i=(start ? start : 0); i<points.length; i++) {
+                const png = _this.buttons.terrain_cache.get(points[i].tile);
+                if (png === true) { // request not ended
+                    setTimeout(decodeElevation, 500);
+                    return;
+                } else if (png === false) { // tile not found (sea)
+                    points[i].meta.ele = 0;
+                } else { // decode
+                    const x = Math.floor(points[i].tf[0]*png.width);
+                    const y = Math.floor(points[i].tf[1]*png.height);
 
-        const trace = this;
-        Http.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                var ans = JSON.parse(this.responseText);
+                    const pixel = png.getPixel(x, y);
+                    const R = pixel[0];
+                    const G = pixel[1];
+                    const B = pixel[2];
 
-                for (var i=0; i<trace_points.length; i++) {
-                    if (!trace_points[i].meta) trace_points[i].meta = {ele: 0};
-                    if (Math.floor(i/step) + 1 < ans["data"].length) {
-                        const s = Math.min(step, trace_points.length-step*Math.floor(i/step));
-                        trace_points[i].meta.ele =
-                            (
-                                (s - i % s) * ans["data"][Math.floor(i/step)]
-                                + (i % s) * ans["data"][Math.floor(i/step) + 1]
-                            ) / s;
-
-                    } else trace_points[i].meta.ele = ans["data"][Math.floor(i/step)];
+                    points[i].meta.ele = -10000 + ((R * 256 * 256 + G * 256 + B) * 0.1);
                 }
+            }
 
-                if (requests.length == 1) {
-                    // update trace info
-                    trace.recomputeStats();
-                    trace.update();
-                } else trace.askPointsElevation(requests.slice(1), step, 0);
-            } else if (this.readyState == 4 && this.status != 200) {
-                console.log('elevation query timeout : retry');
-                if (depth < 10) trace.askPointsElevation(requests, step, depth+1);
+            _this.recomputeStats();
+            _this.update();
+        };
+
+        var found = 0;
+        for (var i=0; i<points.length; i++) {
+            const tf = this.buttons.tilebelt.pointToTileFraction(points[i].lng, points[i].lat, ELEVATION_ZOOM);
+            const tile = tf.map(Math.floor);
+            const tile_id = toID(tile);
+            points[i].tile = tile_id;
+            points[i].tf = [tf[0]-tile[0], tf[1]-tile[1]];
+            if (this.buttons.terrain_cache.has(tile_id)) { // check in cache
+                found++;
+                if (found == points.length) decodeElevation();
+            } else { // request
+                this.buttons.terrain_cache.set(tile_id, true); // already set so only one query
+                const Http = new XMLHttpRequest();
+                Http.responseType = 'arraybuffer';
+                const url = 'https://api.mapbox.com/v4/mapbox.terrain-rgb/'+tile[2]+'/'+tile[0]+'/'+tile[1]+'@2x.pngraw?access_token='+this.buttons.mapbox_token;
+                Http.open("GET", url);
+                Http.send();
+                Http.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var reader = new _this.buttons.PNGReader(this.response);
+                        reader.parse(function(err, png){
+                			if (err) console.log('Error parsing terrain PNG:', err);
+                			else _this.buttons.terrain_cache.set(tile_id, png);
+                            found++;
+                            if (found == points.length) decodeElevation();
+                		});
+                    } else if (this.readyState == 4 && this.status == 404) {
+                        found++;
+                        _this.buttons.terrain_cache.set(tile_id, false);
+                        if (found == points.length) decodeElevation();
+                    }
+                }
             }
         }
     }

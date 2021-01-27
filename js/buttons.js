@@ -30,6 +30,10 @@ export default class Buttons {
         this.show_direction = false;
         this.show_distance = false;
 
+        this.terrain_cache = new Map();
+        this.tilebelt = require('/include/tilebelt/index.js');
+        this.PNGReader = require('/include/png/PNGReader.js');
+
         // EMBEDDING
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
