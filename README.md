@@ -10,7 +10,7 @@ You are welcome to use parts of the code for your personal projects but **please
 If you think something is missing from the website, please create an issue to discuss it or make a pull request if you can implement it yourself.
 
 To play with the code locally:
-* Get your own tokens at [Mapbox](https://www.mapbox.com/) and [AirMap](https://www.airmap.com/) and put them in the directory `res` under `mapbox_token.txt` and `airmap_token.txt`.
+* Get your own token at [Mapbox](https://www.mapbox.com/) and put it in the directory `res` under `mapbox_token.txt`.
 * Remove the Google Analytics code (at the top of `index.html` and `about.html`).
 
 **If you wish to integrate this project in your own website, _please first get in touch_ (except for the embedding mode of course).**
@@ -53,8 +53,10 @@ This project would not have been possible without the following amazing projects
 * [leaflet-distance-markers](https://github.com/adoroszlai/leaflet-distance-markers) : distance markers
 * [leaflet-control-window](https://github.com/mapshakers/leaflet-control-window) : centered windows for all dialogs
 * [leaflet-control-geocoder](https://github.com/perliedman/leaflet-control-geocoder) : search for locations with chosen API
+* [tilebelt](https://github.com/mapbox/tilebelt) : find correct tiles to request and access elevation data
+* [PNG.js](https://github.com/arian/pngjs) : read raw PNG data to decode elevation from [Mapbox Terrain-RGB tiles](https://docs.mapbox.com/help/troubleshooting/access-elevation-data/#mapbox-terrain-rgb)
 * [simplify2](https://github.com/geonome/simplify2-js) : line simplification algorithm
 * [js-xss](https://github.com/leizongmin/js-xss) : HTML sanitizer for waypoint text fields
 * [Font Awesome](https://fontawesome.com/) : nice icons
 
-And the data, maps and APIs from [Mapbox](https://www.mapbox.com/), [OpenStreetMap](https://www.openstreetmap.org/), [Maps.Refuges.Info](https://wiki.openstreetmap.org/wiki/Hiking/mri), [CyclOSM](https://www.cyclosm.org/), [Strava](https://strava.com) and [AirMap](https://www.airmap.com/).
+And the data, maps and APIs from [Mapbox](https://www.mapbox.com/), [OpenStreetMap](https://www.openstreetmap.org/), [Maps.Refuges.Info](https://wiki.openstreetmap.org/wiki/Hiking/mri), [CyclOSM](https://www.cyclosm.org/) and [Strava](https://strava.com).

@@ -30,6 +30,10 @@ export default class Buttons {
         this.show_direction = false;
         this.show_distance = false;
 
+        this.terrain_cache = new Map();
+        this.tilebelt = require('/include/tilebelt/index.js');
+        this.PNGReader = require('/include/png/PNGReader.js');
+
         // EMBEDDING
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
@@ -171,14 +175,6 @@ export default class Buttons {
         }).addTo(this.map);
 
         var _this = this;
-        var xhr2 = new XMLHttpRequest();
-        xhr2.onreadystatechange = function() {
-            if (xhr2.readyState == 4 && xhr2.status == 200) {
-                _this.airmap_token = xhr2.responseText;
-            }
-        }
-        xhr2.open('GET', './res/airmap_token.txt');
-        xhr2.send();
 
         // ELEVATION PROFILE
         this.elev = L.control.elevation({
