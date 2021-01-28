@@ -31,7 +31,7 @@ const options = {
         joinTrackSegments: false
     }
 };
-const ELEVATION_ZOOM = 9;
+const ELEVATION_ZOOM = 8;
 
 export default class Trace {
     constructor(file, name, map, total) {
@@ -1320,15 +1320,26 @@ export default class Trace {
                 } else if (png === false) { // tile not found (sea)
                     points[i].meta.ele = 0;
                 } else { // decode
-                    const x = Math.floor(points[i].tf[0]*png.width);
-                    const y = Math.floor(points[i].tf[1]*png.height);
+                    const x = points[i].tf[0]*png.width;
+                    const _x = Math.floor(x);
+                    const y = points[i].tf[1]*png.height;
+                    const _y = Math.floor(y);
 
-                    const pixel = png.getPixel(x, y);
-                    const R = pixel[0];
-                    const G = pixel[1];
-                    const B = pixel[2];
+                    const dx = x - _x;
+                    const dy = y - _y;
 
-                    points[i].meta.ele = -10000 + ((R * 256 * 256 + G * 256 + B) * 0.1);
+                    // bilinear interpolation
+                    const p00 = png.getPixel(_x, _y);
+                    const p01 = png.getPixel(_x, _y+(_y == 511 ? 0 : 1));
+                    const p10 = png.getPixel(_x+(_x == 511 ? 0 : 1), _y);
+                    const p11 = png.getPixel(_x+(_x == 511 ? 0 : 1), _y+(_y == 511 ? 0 : 1));
+
+                    const ele00 = -10000 + ((p00[0] * 256 * 256 + p00[1] * 256 + p00[2]) * 0.1);
+                    const ele01 = -10000 + ((p01[0] * 256 * 256 + p01[1] * 256 + p01[2]) * 0.1);
+                    const ele10 = -10000 + ((p10[0] * 256 * 256 + p10[1] * 256 + p10[2]) * 0.1);
+                    const ele11 = -10000 + ((p11[0] * 256 * 256 + p11[1] * 256 + p11[2]) * 0.1);
+
+                    points[i].meta.ele = ele00 * (1 - dx) * (1 - dy) + ele01 * (1 - dx) * dy + ele10 * dx * (1 - dy) + + ele11 * dx * dy;
                 }
             }
 
