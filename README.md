@@ -57,6 +57,7 @@ This project would not have been possible without the following amazing projects
 * [PNG.js](https://github.com/arian/pngjs) : read raw PNG data to decode elevation from [Mapbox Terrain-RGB tiles](https://docs.mapbox.com/help/troubleshooting/access-elevation-data/#mapbox-terrain-rgb)
 * [simplify2](https://github.com/geonome/simplify2-js) : line simplification algorithm
 * [js-xss](https://github.com/leizongmin/js-xss) : HTML sanitizer for waypoint text fields
+* [SortableJS](https://github.com/SortableJS/Sortable) : for swapping the tabs
 * [Font Awesome](https://fontawesome.com/) : nice icons
 
 And the data, maps and APIs from [Mapbox](https://www.mapbox.com/), [OpenStreetMap](https://www.openstreetmap.org/), [Maps.Refuges.Info](https://wiki.openstreetmap.org/wiki/Hiking/mri), [CyclOSM](https://www.cyclosm.org/) and [Strava](https://strava.com).
