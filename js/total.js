@@ -347,14 +347,8 @@ export default class Total {
                 const point = waypoints[j];
                 waypointsOutput += `<wpt lat="${point._latlng.lat.toFixed(6)}" lon="${point._latlng.lng.toFixed(6)}">
 `;
-                if (point._latlng.meta) {
-                    waypointsOutput += `    <ele>${point._latlng.meta.ele.toFixed(1)}</ele>
+                waypointsOutput += `    <ele>${point._latlng.meta.ele.toFixed(1)}</ele>
 `;
-                } else if (point.ele >= 0) {
-                    waypointsOutput += `    <ele>${point.ele.toFixed(1)}</ele>
-`;
-                }
-
                 waypointsOutput += `    <name>`+this.encodeString(point.name)+`</name>
 `;
                 waypointsOutput += `    <desc>`+this.encodeString(point.desc)+`</desc>

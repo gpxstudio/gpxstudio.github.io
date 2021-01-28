@@ -73,10 +73,10 @@ export default class Trace {
                 for (var i=0; i<layers.length; i++) {
                     if (layers[i]._latlng) { // wpt
                         trace.waypoints.push(layers[i]);
-                        if (layers[i]._latlng.ele == -1) wptMissingEle.push(layers[i]._latlng);
+                        if (layers[i]._latlng.meta && layers[i]._latlng.meta.ele == -1) wptMissingEle.push(layers[i]._latlng);
                     }
                 }
-                if (wptMissingEle.length > 0) trace.askElevation(wptMissingEle, true);
+                if (wptMissingEle.length > 0) trace.askElevation(wptMissingEle);
             }
             if (this.getLayers().length > 0) total.buttons.updateBounds();
 
@@ -179,7 +179,7 @@ export default class Trace {
 
         for (var i=0; i<this.waypoints.length; i++) {
             const marker = this.waypoints[i];
-            const newMarker = newTrace.gpx._get_marker(marker._latlng, marker.ele, marker.sym, marker.name, marker.desc, marker.cmt, this.gpx.options);
+            const newMarker = newTrace.gpx._get_marker(marker._latlng, marker.sym, marker.name, marker.desc, marker.cmt, this.gpx.options);
             newTrace.gpx.getLayers()[0].addLayer(newMarker);
             newTrace.waypoints.push(newMarker);
         }
@@ -841,7 +841,7 @@ export default class Trace {
 
         for (var i=0; i<trace.waypoints.length; i++) {
             const marker = trace.waypoints[i];
-            const newMarker = this.gpx._get_marker(marker._latlng, marker.ele, marker.sym, marker.name, marker.desc, marker.cmt, this.gpx.options);
+            const newMarker = this.gpx._get_marker(marker._latlng, marker.sym, marker.name, marker.desc, marker.cmt, this.gpx.options);
             this.gpx.getLayers()[0].addLayer(newMarker);
             this.waypoints.push(newMarker);
         }
@@ -895,7 +895,7 @@ export default class Trace {
 
             for (var w=0; w<this.waypoints.length; w++) if (closestLayers[w].layers.includes(layers[l])) {
                 const marker = this.waypoints[w];
-                const newMarker = newTrace.gpx._get_marker(marker._latlng, marker.ele, marker.sym, marker.name, marker.desc, marker.cmt, this.gpx.options);
+                const newMarker = newTrace.gpx._get_marker(marker._latlng, marker.sym, marker.name, marker.desc, marker.cmt, this.gpx.options);
                 newTrace.gpx.getLayers()[0].addLayer(newMarker);
                 newTrace.waypoints.push(newMarker);
             }
@@ -979,9 +979,9 @@ export default class Trace {
     }
 
     addWaypoint(latlng) {
+        latlng.meta = {'ele': 0};
         const marker = this.gpx._get_marker(
             latlng,
-            0,
             this.buttons.clone_wpt ? this.buttons.clone_wpt.sym : '',
             this.buttons.clone_wpt ? this.buttons.clone_wpt.name : '',
             this.buttons.clone_wpt ? this.buttons.clone_wpt.desc : '',
@@ -993,7 +993,7 @@ export default class Trace {
         marker.fire('click');
         const edit_marker = document.getElementById('edit' + marker._popup._leaflet_id);
         edit_marker.click();
-        this.askElevation([marker._latlng], true);
+        this.askElevation([marker._latlng]);
         this.buttons.clone_wpt = null;
     }
 
@@ -1303,7 +1303,7 @@ export default class Trace {
 
     /*** REQUESTS ***/
 
-    askElevation(points, wpt) {
+    askElevation(points) {
         const _this = this;
 
         const toID = function(tile) {
@@ -1339,7 +1339,7 @@ export default class Trace {
                     const ele10 = -10000 + ((p10[0] * 256 * 256 + p10[1] * 256 + p10[2]) * 0.1);
                     const ele11 = -10000 + ((p11[0] * 256 * 256 + p11[1] * 256 + p11[2]) * 0.1);
 
-                    points[i].meta.ele = ele00 * (1 - dx) * (1 - dy) + ele01 * (1 - dx) * dy + ele10 * dx * (1 - dy) + + ele11 * dx * dy;
+                    points[i].meta.ele = ele00 * (1 - dx) * (1 - dy) + ele01 * (1 - dx) * dy + ele10 * dx * (1 - dy) + ele11 * dx * dy;
                 }
             }
 

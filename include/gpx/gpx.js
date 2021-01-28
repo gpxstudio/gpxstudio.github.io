@@ -673,7 +673,9 @@ L.GPX = L.FeatureGroup.extend({
         var ele = -1;
         if (eleEl.length > 0) {
           ele = parseFloat(eleEl[0].textContent);
+          if (Number.isNaN(ele)) ele = -1;
         }
+        ll.meta = {'ele': ele};
 
         var nameEl = el[i].getElementsByTagName('name');
         var name = '';
@@ -699,7 +701,7 @@ L.GPX = L.FeatureGroup.extend({
           sym = symEl[0].textContent;
         }
 
-        var marker = this._get_marker(ll, ele, sym, name, desc, cmt, options);
+        var marker = this._get_marker(ll, sym, name, desc, cmt, options);
         this.fire('addpoint', { point: marker, point_type: 'waypoint', element: el[i] });
         layers.push(marker);
       }
@@ -709,7 +711,7 @@ L.GPX = L.FeatureGroup.extend({
     return new L.FeatureGroup(layers);
   },
 
-  _get_marker: function(ll, ele, sym, name, desc, cmt, options) {
+  _get_marker: function(ll, sym, name, desc, cmt, options) {
       const trace = this._trace;
       const map = trace.map;
 
@@ -726,7 +728,6 @@ L.GPX = L.FeatureGroup.extend({
         icon: L.icon.glyph(icon)
       });
 
-      marker.ele = ele;
       marker.name = filterXSS(name);
       marker.desc = filterXSS(desc);
       marker.cmt = filterXSS(cmt);
