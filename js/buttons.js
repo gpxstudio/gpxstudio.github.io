@@ -938,7 +938,10 @@ export default class Buttons {
                     trace.refreshEditMarkers();
                     map._container.style.cursor = 'crosshair';
                 } else {
-                    if (marker._latlng != marker._latlng_origin) trace.askElevation([marker._latlng], true);
+                    if (marker._latlng != marker._latlng_origin) {
+                        marker._latlng.meta = {'ele': 0};
+                        trace.askElevation([marker._latlng], true);
+                    }
                     if (trace.isEdited) map._container.style.cursor = 'crosshair';
                     else map._container.style.cursor = '';
                 }
