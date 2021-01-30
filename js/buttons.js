@@ -48,7 +48,7 @@ export default class Buttons {
         // MAIN MAP
         this.map = L.map('mapid', {
             zoomControl: false,
-            minZoom: 1
+            minZoom: 2
         }).setView([0, 0], 2);
         this.map.addEventListener("locationfound", function (e) {
             e.target.setView(e.latlng,12);

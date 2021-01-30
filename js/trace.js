@@ -945,8 +945,8 @@ export default class Trace {
 
         if (this.buttons.routing && len > 1) this.askRoute2(this._editMarkers[len-2]._pt, this._editMarkers[len-1]._pt, layer);
         else {
-            this.redraw();
-            this.askElevation([pt]);
+            const prec_pt = this._editMarkers[len-1]._prec;
+            this.addRoute2(this.getIntermediatePoints(prec_pt, pt), prec_pt, pt, layer);
         }
     }
 
@@ -1096,27 +1096,38 @@ export default class Trace {
     }
 
     updatePointManual(marker, lat, lng) {
-        const points = marker._layer._latlngs;
+        marker._pt.lat = lat;
+        marker._pt.lng = lng;
 
-        const prec_idx = marker._prec.index;
-        const this_idx = marker._pt.index;
-        const succ_idx = marker._succ.index;
+        const new_points = [];
+        if (marker._prec == marker._pt || marker._pt == marker._succ) { // start or end of line
+            new_points.splice(new_points.length, 0, ...this.getIntermediatePoints(marker._prec, marker._succ));
+        } else {
+            new_points.push(marker._pt);
+            new_points.splice(0, 0, ...this.getIntermediatePoints(marker._prec, marker._pt));
+            new_points.splice(new_points.length, 0, ...this.getIntermediatePoints(marker._pt, marker._succ));
+        }
 
-        var a = marker._prec;
-        var b = marker._pt;
-        var c = marker._succ;
+        this.addRoute(new_points, marker._prec, marker._succ, marker._layer);
+    }
 
-        b.lat = lat;
-        b.lng = lng;
+    getIntermediatePoints(a, b) {
+        const pt1 = L.Projection.SphericalMercator.project(a);
+        const pt2 = L.Projection.SphericalMercator.project(b);
 
-        if (succ_idx-this_idx-1 > 0) points.splice(this_idx+1, succ_idx-this_idx-1);
-        if (this_idx-prec_idx-1 > 0) points.splice(prec_idx+1, this_idx-prec_idx-1);
-        this.updatePointIndices();
-        //this.updateEditMarkers();
+        const origin = L.point(0,0);
+        const step = L.point(100, 100);
+        var d_pt = pt2.subtract(pt1);
+        d_pt = d_pt.divideBy(d_pt.distanceTo(origin)/step.distanceTo(origin));
 
-        this.redraw();
-        this.askElevation([b]);
-        this.showDistanceMarkers();
+        const pts = [];
+        for (var i=1; pt1.distanceTo(pt1.add(d_pt.multiplyBy(i))) < pt1.distanceTo(pt2); i++) {
+            const pt = L.Projection.SphericalMercator.unproject(pt1.add(d_pt.multiplyBy(i)));
+            pt.meta = {"time":null, "ele":0};
+            pts.push(pt);
+        }
+
+        return pts;
     }
 
     updatePointRouting(marker, lat, lng) {
@@ -1449,19 +1460,19 @@ export default class Trace {
         Http.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 var ans = JSON.parse(this.responseText);
-                trace.addRoute2(ans['routes'][0]['geometry']['coordinates'], a, b, layer);
+                const new_pts = ans['routes'][0]['geometry']['coordinates'];
+                const new_points = [];
+                for (var i=0; i<new_pts.length; i++) {
+                    new_points.push(L.latLng(new_pts[i][1],new_pts[i][0]));
+                    new_points[i].meta = {"time":null, "ele":0};
+                    new_points[i].routing = true;
+                }
+                trace.addRoute2(new_points, a, b, layer);
             }
         }
     }
 
-    addRoute2(new_pts, a, b, layer) {
-        const new_points = [];
-        for (var i=0; i<new_pts.length; i++) {
-            new_points.push(L.latLng(new_pts[i][1],new_pts[i][0]));
-            new_points[i].meta = {"time":null, "ele":0};
-            new_points[i].routing = true;
-        }
-
+    addRoute2(new_points, a, b, layer) {
         const pts = layer._latlngs;
         // add new
         pts.splice(a.index+1, 0, ...new_points);
