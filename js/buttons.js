@@ -362,7 +362,7 @@ export default class Buttons {
                         maxZoom : 18,
                         tileSize : 256,
                         attribution : "IGN-F/Géoportail"
-                    }).addTo(map);
+                    });
 
                     _this.stravaHeatmap = L.tileLayer('https://heatmap-external-{s}.strava.com/tiles-auth/cycling/bluered/{z}/{x}/{y}.png', {
                         maxZoom: 20,
