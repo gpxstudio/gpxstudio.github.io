@@ -357,6 +357,13 @@ export default class Buttons {
                         attribution: '&copy; <a href="https://www.opentopomap.org" target="_blank">OpenTopoMap</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
                     });
 
+                    _this.ignMap = L.tileLayer('https://wxs.ign.fr/j5d7l46t2yri7bbc67krgo2b/geoportail/wmts?service=WMTS&request=GetTile&version=1.0.0&tilematrixset=PM&tilematrix={z}&tilecol={x}&tilerow={y}&layer=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN-EXPRESS.STANDARD&format=image/jpeg&style=normal', {
+                        minZoom : 0,
+                        maxZoom : 18,
+                        tileSize : 256,
+                        attribution : "IGN-F/Géoportail"
+                    }).addTo(map);
+
                     _this.stravaHeatmap = L.tileLayer('https://heatmap-external-{s}.strava.com/tiles-auth/cycling/bluered/{z}/{x}/{y}.png', {
                         maxZoom: 20,
                         maxNativeZoom: 15,
@@ -369,6 +376,7 @@ export default class Buttons {
                         "OpenStreetMap" : _this.openStreetMap,
                         "OpenTopoMap" : _this.openTopoMap,
                         "OpenHikingMap" : _this.openHikingMap,
+                        "Topo IGN (FR)" : _this.ignMap,
                         "CyclOSM" : _this.cyclOSM
                     },{
                         "Strava Heatmap" : _this.stravaHeatmap
