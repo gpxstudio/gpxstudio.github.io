@@ -351,6 +351,12 @@ export default class Buttons {
                         attribution: '&copy; <a href="https://wiki.openstreetmap.org/wiki/Hiking/mri" target="_blank">sly</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
                     });
 
+                    _this.openTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+                        maxZoom: 20,
+                        maxNativeZoom: 17,
+                        attribution: '&copy; <a href="https://www.opentopomap.org" target="_blank">OpenTopoMap</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
+                    });
+
                     _this.stravaHeatmap = L.tileLayer('https://heatmap-external-{s}.strava.com/tiles-auth/cycling/bluered/{z}/{x}/{y}.png', {
                         maxZoom: 20,
                         maxNativeZoom: 15,
@@ -361,6 +367,7 @@ export default class Buttons {
                         "Mapbox Outdoors" : _this.mapboxOutdoors,
                         "Mapbox Satellite" : _this.mapboxSatellite,
                         "OpenStreetMap" : _this.openStreetMap,
+                        "OpenTopoMap" : _this.openTopoMap,
                         "OpenHikingMap" : _this.openHikingMap,
                         "CyclOSM" : _this.cyclOSM
                     },{
