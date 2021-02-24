@@ -357,7 +357,7 @@ export default class Buttons {
                         attribution: '&copy; <a href="https://www.opentopomap.org" target="_blank">OpenTopoMap</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
                     });
 
-                    _this.ignMap = L.tileLayer('https://wxs.ign.fr/j5d7l46t2yri7bbc67krgo2b/geoportail/wmts?service=WMTS&request=GetTile&version=1.0.0&tilematrixset=PM&tilematrix={z}&tilecol={x}&tilerow={y}&layer=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN-EXPRESS.STANDARD&format=image/jpeg&style=normal', {
+                    _this.ignMap = L.tileLayer('https://wxs.ign.fr/j5d7l46t2yri7bbc67krgo2b/geoportail/wmts?service=WMTS&request=GetTile&version=1.0.0&tilematrixset=PM&tilematrix={z}&tilecol={x}&tilerow={y}&layer=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR.CV&format=image/jpeg&style=normal', {
                         minZoom : 0,
                         maxZoom : 18,
                         tileSize : 256,
