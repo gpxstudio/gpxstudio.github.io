@@ -513,3 +513,8 @@ ul {
     border: solid 1px;
     border-radius: 2px;
 }
+
+[contenteditable] {
+    -webkit-user-select: text;
+    user-select: text;
+}
