@@ -1149,7 +1149,7 @@ export default class Buttons {
         var total = this.total;
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
-            if (file.name.split('.').pop() != 'gpx') continue;
+            if (file.name.split('.').pop().toLowerCase() != 'gpx') continue;
             var reader = new FileReader();
             reader.onload = (function(f, name) {
                 return function(e) {
