@@ -260,11 +260,13 @@ export default class Total {
 <metadata>
     <name>`;
         const xmlStart2 = `</name>
-    <author>gpx.studio</author>
-    <type>`+(this.buttons.cycling ? 'Cycling' : 'Running')+`</type>
-    <link>https://gpxstudio.github.io</link>
+    <author>
+        <name>gpx.studio</name>
+        <link href="https://gpxstudio.github.io"></link>
+    </author>
 </metadata>
 <trk>
+    <type>`+(this.buttons.cycling ? 'Cycling' : 'Running')+`</type>
     `;
 
         const xmlEnd1 = `</trk>
