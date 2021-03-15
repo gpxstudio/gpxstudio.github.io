@@ -31,7 +31,7 @@ const options = {
         joinTrackSegments: false
     }
 };
-const ELEVATION_ZOOM = 8;
+const ELEVATION_ZOOM = 9;
 
 export default class Trace {
     constructor(file, name, map, total) {
@@ -1277,7 +1277,7 @@ export default class Trace {
         // recompute on remaining data
         const layers = this.getLayers();
         for (var l=0; l<layers.length; l++) if (layers[l]._latlngs) {
-            var ll = null, last = null;
+            var ll = null, last = null, last_ele = null;
             const points = layers[l]._latlngs;
             for (var i=0; i<points.length; i++) {
                 ll = points[i];
@@ -1289,11 +1289,16 @@ export default class Trace {
                     const dist = this.gpx._dist2d(last, ll);
                     this.gpx._info.length += dist;
 
-                    var t = ll.meta.ele - last.meta.ele;
-                    if (t > 0) {
-                      this.gpx._info.elevation.gain += t;
-                    } else {
-                      this.gpx._info.elevation.loss += Math.abs(t);
+                    if (last_ele == null) last_ele = ll;
+                    var t = ll.meta.ele - last_ele.meta.ele;
+                    const dist_to_last_ele = this.gpx._dist2d(last_ele, ll);
+                    if (Math.abs(t) > 20 || dist_to_last_ele > 120) {
+                        if (t > 0) {
+                          this.gpx._info.elevation.gain += t;
+                        } else {
+                          this.gpx._info.elevation.loss += Math.abs(t);
+                        }
+                        last_ele = ll;
                     }
 
                     t = Math.abs(ll.meta.time - last.meta.time);
