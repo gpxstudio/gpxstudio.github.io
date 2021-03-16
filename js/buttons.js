@@ -255,7 +255,6 @@ export default class Buttons {
         this.tabs.style.width = this.trace_info_grid.getBoundingClientRect().width+'px';
 
         this.slider = new Slider(this);
-        this.google = new Google(this);
 
         this.hideTraceButtons();
 
@@ -578,6 +577,7 @@ export default class Buttons {
     }
 
     addHandlersWithTotal(total) {
+        this.google = new Google(this);
         this.total = total;
         this.elev.total = total;
         const buttons = this;
