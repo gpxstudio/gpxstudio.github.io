@@ -194,7 +194,6 @@ export default class Google {
             const atemp = buttons.include_atemp.checked;
             const cad = buttons.include_cad.checked;
 
-            this.fileIds = [];
             this.checkAllFilesInFolder(data.docs[0].id, buttons.total.outputGPX(mergeAll, time, hr, atemp, cad));
 
             buttons.export_window.hide();
@@ -211,22 +210,24 @@ export default class Google {
             'method': 'GET',
             'params': {'q': "'" + folderId + "' in parents and trashed=false"},
             callback: function (resp) {
+                _this.fileIds = [];
+                _this.completed = 0;
                 for (var i=0; i<output.length; i++) {
                     var replace = false;
                     for (var j=0; j<resp.items.length; j++) {
                         if (resp.items[j].title == output[i].name) {
-                            _this.saveFile(output[i].name, output[i].text, folderId, output.length, resp.items[j].id);
+                            _this.saveFile(output[i].name, output[i].text, folderId, i, output.length, resp.items[j].id);
                             replace = true;
                             break;
                         }
                     }
-                    if (!replace) _this.saveFile(output[i].name, output[i].text,  folderId, output.length);
+                    if (!replace) _this.saveFile(output[i].name, output[i].text,  folderId, i, output.length);
                 }
             }
         });
     }
 
-    saveFile(filename, filecontent, folderid, number, fileId) {
+    saveFile(filename, filecontent, folderid, index, number, fileId) {
         var file = new Blob([filecontent], {type: 'text/xml'});
         var metadata = {
             'title': filename,
@@ -243,7 +244,8 @@ export default class Google {
             metadata: metadata,
             onComplete: function (resp) {
                 const ans = JSON.parse(resp);
-                _this.fileIds.push(ans.id);
+                _this.completed++;
+                _this.fileIds[index] = ans.id;
                 var request = gapi.client.request({
                     'path': '/drive/v3/files/' + ans.id + '/permissions',
                     'method': 'POST',
@@ -258,7 +260,7 @@ export default class Google {
                 });
                 request.execute();
 
-                if (_this.fileIds.length == number) {
+                if (_this.completed == number) {
                     var url = 'https://gpxstudio.github.io/?state=%7B%22ids%22:%5B%22';
                     for (var i=0; i<_this.fileIds.length; i++) {
                         url += _this.fileIds[i];
