@@ -34,7 +34,7 @@ const options = {
 const ELEVATION_ZOOM = 9;
 
 export default class Trace {
-    constructor(file, name, map, total) {
+    constructor(file, name, map, total, callback) {
         name = name.split('.')[0];
         this.name = name;
         this.map = map;
@@ -119,6 +119,8 @@ export default class Trace {
             trace.focus();
 
             if (trace.gpx.missing_elevation) trace.askElevation(trace.getPoints());
+
+            if (callback) callback(trace);
         }).on('click', function (e) {
             if (e.layer.sym) return;
             if (trace.buttons.disable_trace) return;
@@ -236,9 +238,11 @@ export default class Trace {
     }
 
     update() {
-        this.showData();
-        this.showElevation();
-        this.updateExtract();
+        if (this.hasFocus) {
+            this.showData();
+            this.showElevation();
+            this.updateExtract();
+        }
     }
 
     updateUndoRedo() {

@@ -1184,15 +1184,48 @@ export default class Buttons {
         if (!urlParams.has('state')) return;
         const params = JSON.parse(urlParams.get('state'));
         if (!params.urls) return;
+
+        params.urls = [...new Set(params.urls)];
+
+        const sortable = this.sortable;
+        const total = this.total;
+        var count = 0;
+
+        const index = {};
         for (var i=0; i<params.urls.length; i++) {
-            const href = decodeURIComponent(params.urls[i]);
+            index[params.urls[i]] = i;
+        }
+
+        for (var i=0; i<params.urls.length; i++) {
+            const file_url = params.urls[i];
+            const href = decodeURIComponent(file_url);
             if (href) {
                 const xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function() {
+                xhr.onreadystatechange = function () {
                     if (xhr.readyState == 4 && xhr.status == 200) {
                         const path = href.split('/');
                         const name = path.length ? path[path.length-1] : href;
-                        _this.total.addTrace(xhr.responseText, name);
+                        _this.total.addTrace(xhr.responseText, name, function (trace) {
+                            trace.key = file_url;
+                            count++;
+                            for (var j=total.traces.length-count; j<total.traces.length-1; j++) {
+                                if (index[total.traces[j].key] > index[file_url]) {
+                                    sortable.el.appendChild(total.traces[j].tab);
+                                }
+                            }
+                            if (count == params.urls.length) {
+                                for (var j=1; j<sortable.el.children.length; j++) {
+                                    const tab = sortable.el.children[j];
+                                    const trace = tab.trace;
+                                    trace.index = j-1;
+                                    trace.key = null;
+                                    total.traces[trace.index] = trace;
+                                    if (trace.hasFocus) {
+                                        total.focusOn = trace.index;
+                                    }
+                                }
+                            }
+                        });
                     }
                 }
                 xhr.open('GET', href);

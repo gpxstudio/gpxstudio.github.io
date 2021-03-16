@@ -71,8 +71,46 @@ export default class Google {
         const urlParams = new URLSearchParams(queryString);
         const params = JSON.parse(urlParams.get('state'));
         if (!params.ids) return;
-        for (var i=0; i<params.ids.length; i++)
-            this.downloadFile({id:params.ids[i], name:'track.gpx'}, params.hasOwnProperty('userId') && !private_mode);
+
+        params.ids = [...new Set(params.ids)];
+
+        const sortable = this.buttons.sortable;
+        const total = this.buttons.total;
+        var count = 0;
+
+        const index = {};
+        for (var i=0; i<params.ids.length; i++) if (index[params.ids[i]] === undefined) {
+            index[params.ids[i]] = i;
+        }
+
+        for (var i=0; i<params.ids.length; i++) {
+            const file_id = params.ids[i];
+            this.downloadFile(
+                {id:file_id, name:'track.gpx'},
+                params.hasOwnProperty('userId') && !private_mode,
+                function (trace) {
+                    trace.key = file_id;
+                    count++;
+                    for (var j=total.traces.length-count; j<total.traces.length-1; j++) {
+                        if (index[total.traces[j].key] > index[file_id]) {
+                            sortable.el.appendChild(total.traces[j].tab);
+                        }
+                    }
+                    if (count == params.ids.length) {
+                        for (var j=1; j<sortable.el.children.length; j++) {
+                            const tab = sortable.el.children[j];
+                            const trace = tab.trace;
+                            trace.index = j-1;
+                            trace.key = null;
+                            total.traces[trace.index] = trace;
+                            if (trace.hasFocus) {
+                                total.focusOn = trace.index;
+                            }
+                        }
+                    }
+                }
+            );
+        }
     }
 
     loadPicker(folderMode) {
@@ -254,7 +292,7 @@ export default class Google {
         uploader.upload();
     }
 
-    downloadFile(file, auth) {
+    downloadFile(file, auth, callback) {
         if (file.name.split('.').pop() != 'gpx') return;
         const buttons = this.buttons;
 
@@ -279,7 +317,7 @@ export default class Google {
                     }
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState == 4 && xhr.status == 200) {
-                            buttons.total.addTrace(xhr.response, resp.title);
+                            const trace = buttons.total.addTrace(xhr.response, resp.title, callback);
                         }
                     }
                     xhr.send();
