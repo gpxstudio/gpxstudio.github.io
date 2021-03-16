@@ -43,7 +43,7 @@ export default class Trace {
         this.hasFocus = false;
         this.isEdited = false;
         this.drawing = false;
-        this.popup = null;
+        this.popup = L.popup({closeButton: false});
         this.renaming = false;
         this.normal_style = {...normal_style};
         this.focus_style = {...focus_style};
@@ -126,7 +126,6 @@ export default class Trace {
             if (trace.buttons.disable_trace) return;
             if (!e.target.trace.isEdited) e.target.trace.updateFocus();
         }).on('mousedown', function (e) {
-            const trace = e.target.trace;
             if (trace.buttons.disable_trace) return;
             if (trace.isEdited) {
                 if (e.originalEvent.which == 3) return;
@@ -134,6 +133,45 @@ export default class Trace {
                 const marker = trace.insertEditMarker(e.layer, e.layerPoint);
                 marker.fire('mousedown');
             }
+        }).on('contextmenu', function (e) {
+            if (!trace.isEdited) return;
+
+            var best_idx = -1, best_dist = null;
+            const points = trace.getPoints();
+            for (var i=0; i<points.length; i++) {
+                const dist = points[i].distanceTo(e.latlng);
+                if (best_idx == -1 || dist < best_dist) {
+                    best_idx = i;
+                    best_dist = dist;
+                }
+            }
+
+            if (!best_idx) return;
+
+            trace.popup.setContent(`<div id="split" class="custom-button" style="display: inline-block">Split here</div>
+                                    <div style="display: inline-block; width: 4px"></i></div>
+                                    <div id="close-popup" class="custom-button" style="display: inline-block"><i class="fas fa-times"></i></div><br>`);
+            trace.popup.setLatLng(e.latlng);
+            trace.popup.openOn(map);
+            trace.popup.addEventListener('remove', function (e) {
+                trace.closePopup();
+            });
+
+            var button = document.getElementById("split");
+            button.addEventListener("click", function () {
+                const copy = trace.clone();
+                copy.crop(best_idx, copy.getPoints().length, true);
+                trace.crop(0, best_idx+1, true);
+                trace.closePopup();
+                trace.edit();
+            });
+
+            var close = document.getElementById("close-popup");
+            close.addEventListener("click", function () {
+                trace.closePopup();
+            });
+
+            return false;
         });
         L.DomEvent.on(this.gpx, 'dblclick', L.DomEvent.stopPropagation);
 
@@ -341,7 +379,6 @@ export default class Trace {
     closePopup() {
         if (this.popup) {
             this.popup.remove();
-            this.popup = null;
         }
     }
 
@@ -438,14 +475,18 @@ export default class Trace {
             },
             contextmenu: function (e) {
                 if (trace._editMarkers.length == 1) return;
-                const popup = L.popup({
-                    closeButton: false
-                }).setContent(`<div id="remove-waypoint" class="custom-button" style="display: inline-block">Remove point</div>
-                <div class="custom-button" style="display: inline-block; width: 4px"></i></div>
-                <div id="close-popup" class="custom-button" style="display: inline-block"><i class="fas fa-times"></i></div>`);
-                popup.setLatLng(e.latlng);
-                popup.openOn(map);
-                popup.addEventListener('remove', function (e) {
+                var content = `<div id="remove-waypoint" class="custom-button" style="display: inline-block">Remove point</div>
+                <div style="display: inline-block; width: 4px"></i></div>
+                <div id="close-popup" class="custom-button" style="display: inline-block"><i class="fas fa-times"></i></div><br>`;
+
+                if (marker != trace._editMarkers[0] && marker != trace._editMarkers[trace._editMarkers.length-1]) {
+                    content += '<div id="split-waypoint" class="custom-button" style="display: inline-block">Split here</div>';
+                }
+
+                trace.popup.setContent(content);
+                trace.popup.setLatLng(e.latlng);
+                trace.popup.openOn(map);
+                trace.popup.addEventListener('remove', function (e) {
                     trace.closePopup();
                 });
 
@@ -456,13 +497,22 @@ export default class Trace {
                     trace.closePopup();
                 });
 
+                if (marker != trace._editMarkers[0] && marker != trace._editMarkers[trace._editMarkers.length-1]) {
+                    var button2 = document.getElementById("split-waypoint");
+                    button2.addEventListener("click", function () {
+                        const copy = trace.clone();
+                        copy.crop(marker._pt.trace_index, copy.getPoints().length, true);
+                        trace.crop(0, marker._pt.trace_index+1, true);
+                        marker.remove();
+                        trace.closePopup();
+                        trace.edit();
+                    });
+                }
+
                 var close = document.getElementById("close-popup");
                 close.addEventListener("click", function () {
                     trace.closePopup();
                 });
-
-                trace.closePopup();
-                trace.popup = popup;
 
                 return false;
             }
@@ -556,10 +606,13 @@ export default class Trace {
 
     updatePointIndices() {
         const layers = this.getLayers();
+        var k = 0;
         for (var l=0; l<layers.length; l++) if (layers[l]._latlngs) {
             const points = layers[l]._latlngs;
-            for (var i=0; i<points.length; i++)
+            for (var i=0; i<points.length; i++) {
                 points[i].index = i;
+                points[i].trace_index = k++;
+            }
         }
     }
 
@@ -712,7 +765,7 @@ export default class Trace {
         for (var i=0; i<layers.length; i++) if (layers[i]._latlngs) {
             const len = layers[i]._latlngs.length;
             if (start >= cumul+len) this.gpx.getLayers()[0].removeLayer(layers[i]);
-            else if (end < cumul) this.gpx.getLayers()[0].removeLayer(layers[i]);
+            else if (end <= cumul) this.gpx.getLayers()[0].removeLayer(layers[i]);
             else {
                 if (end-cumul < len) layers[i]._latlngs.splice(end-cumul);
                 if (start >= cumul) layers[i]._latlngs.splice(0, start-cumul);
@@ -1223,7 +1276,6 @@ export default class Trace {
         for (var i=1; i<points.length; i++) {
             const prev = Math.max(0, i-10);
             if (!points[i].meta.ele || !points[prev].meta.ele) {
-                console.log(":'(");
                 this.changeTimeData(start, avg);
                 return;
             }
