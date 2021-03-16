@@ -76,7 +76,7 @@ export default class Google {
 
         const sortable = this.buttons.sortable;
         const total = this.buttons.total;
-        var count = 0;
+        var countDone = 0, countOk = 0;
 
         const index = {};
         for (var i=0; i<params.ids.length; i++) if (index[params.ids[i]] === undefined) {
@@ -89,14 +89,17 @@ export default class Google {
                 {id:file_id, name:'track.gpx'},
                 params.hasOwnProperty('userId') && !private_mode,
                 function (trace) {
-                    trace.key = file_id;
-                    count++;
-                    for (var j=total.traces.length-count; j<total.traces.length-1; j++) {
-                        if (index[total.traces[j].key] > index[file_id]) {
-                            sortable.el.appendChild(total.traces[j].tab);
+                    countDone++;
+                    if (trace) {
+                        countOk++;
+                        trace.key = file_id;
+                        for (var j=total.traces.length-countOk; j<total.traces.length-1; j++) {
+                            if (index[total.traces[j].key] > index[file_id]) {
+                                sortable.el.appendChild(total.traces[j].tab);
+                            }
                         }
                     }
-                    if (count == params.ids.length) {
+                    if (countDone == params.ids.length) {
                         for (var j=1; j<sortable.el.children.length; j++) {
                             const tab = sortable.el.children[j];
                             const trace = tab.trace;
@@ -320,6 +323,8 @@ export default class Google {
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState == 4 && xhr.status == 200) {
                             const trace = buttons.total.addTrace(xhr.response, resp.title, callback);
+                        } else if (xhr.readyState == 4 && xhr.status != 200) {
+                            if (callback) callback();
                         }
                     }
                     xhr.send();
