@@ -1189,7 +1189,19 @@ export default class Buttons {
 
         const sortable = this.sortable;
         const total = this.total;
-        var count = 0;
+        var countDone = 0, countOk = 0;
+        const onFinish = function () {
+            for (var j=1; j<sortable.el.children.length; j++) {
+                const tab = sortable.el.children[j];
+                const trace = tab.trace;
+                trace.index = j-1;
+                trace.key = null;
+                total.traces[trace.index] = trace;
+                if (trace.hasFocus) {
+                    total.focusOn = trace.index;
+                }
+            }
+        };
 
         const index = {};
         for (var i=0; i<params.urls.length; i++) {
@@ -1207,25 +1219,18 @@ export default class Buttons {
                         const name = path.length ? path[path.length-1] : href;
                         _this.total.addTrace(xhr.responseText, name, function (trace) {
                             trace.key = file_url;
-                            count++;
-                            for (var j=total.traces.length-count; j<total.traces.length-1; j++) {
+                            countOk++;
+                            countDone++;
+                            for (var j=total.traces.length-countOk; j<total.traces.length-1; j++) {
                                 if (index[total.traces[j].key] > index[file_url]) {
                                     sortable.el.appendChild(total.traces[j].tab);
                                 }
                             }
-                            if (count == params.urls.length) {
-                                for (var j=1; j<sortable.el.children.length; j++) {
-                                    const tab = sortable.el.children[j];
-                                    const trace = tab.trace;
-                                    trace.index = j-1;
-                                    trace.key = null;
-                                    total.traces[trace.index] = trace;
-                                    if (trace.hasFocus) {
-                                        total.focusOn = trace.index;
-                                    }
-                                }
-                            }
+                            if (count == params.urls.length) onFinish();
                         });
+                    } else if (xhr.readyState == 4 && xhr.status != 200) {
+                        countDone++;
+                        if (count == params.urls.length) onFinish();
                     }
                 }
                 xhr.open('GET', href);
