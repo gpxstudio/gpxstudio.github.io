@@ -35,9 +35,9 @@ export default class Total {
 
     /*** LOGIC ***/
 
-    addTrace(file, name) {
+    addTrace(file, name, callback) {
         if (this.traces.length == 1) this.buttons.combine.classList.remove('unselected','no-click');
-        return new Trace(file, name, this.buttons.map, this);
+        return new Trace(file, name, this.buttons.map, this, callback);
     }
 
     removeTrace(index) {
