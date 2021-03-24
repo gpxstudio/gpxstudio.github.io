@@ -297,38 +297,6 @@ export default class Buttons {
                     };
                     _this.streetView.addTo(_this.map);
 
-                    if (_this.supportsWebGL()) {
-                        _this.mapboxOutdoors = L.mapboxGL({
-                            attribution: '&copy; <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
-                            maxZoom: 20,
-                            accessToken: _this.mapbox_token,
-                            style: 'mapbox://styles/mapbox/outdoors-v11',
-                            interactive: true,
-                            minZoom: 1,
-                            dragRotate: false,
-                            touchZoomRotate: false,
-                            boxZoom: false,
-                            dragPan: false,
-                            touchPitch: false,
-                            doubleClickZoom: false,
-                            scrollZoom: false,
-                            boxZoom: false,
-                            keyboard: false
-                        }).addTo(_this.map);
-                    } else {
-                        _this.openStreetMap.addTo(_this.map);
-
-                        _this.mapboxOutdoors = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-                            attribution: '&copy; <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
-                            maxZoom: 20,
-                            id: 'mapbox/outdoors-v11',
-                            tileSize: 512,
-                            zoomOffset: -1,
-                            accessToken: _this.mapbox_token,
-        	                crossOrigin: true
-                        });
-                    }
-
                     _this.mapboxSatellite = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
                         attribution: '&copy; <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
                         maxZoom: 20,
@@ -369,17 +337,50 @@ export default class Buttons {
                         attribution: '&copy; <a href="https://www.strava.com" target="_blank">Strava</a>'
                     });
 
-                    _this.controlLayers = L.control.layers({
-                        "Mapbox Outdoors" : _this.mapboxOutdoors,
-                        "Mapbox Satellite" : _this.mapboxSatellite,
-                        "OpenStreetMap" : _this.openStreetMap,
-                        "OpenTopoMap" : _this.openTopoMap,
-                        "OpenHikingMap" : _this.openHikingMap,
-                        "IGN (FR)" : _this.ignMap,
-                        "CyclOSM" : _this.cyclOSM
-                    },{
-                        "Strava Heatmap" : _this.stravaHeatmap
-                    }).addTo(_this.map);
+                    if (_this.supportsWebGL()) {
+                        _this.mapboxOutdoors = L.mapboxGL({
+                            attribution: '&copy; <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
+                            maxZoom: 20,
+                            accessToken: _this.mapbox_token,
+                            style: 'mapbox://styles/mapbox/outdoors-v11',
+                            interactive: true,
+                            minZoom: 1,
+                            dragRotate: false,
+                            touchZoomRotate: false,
+                            boxZoom: false,
+                            dragPan: false,
+                            touchPitch: false,
+                            doubleClickZoom: false,
+                            scrollZoom: false,
+                            boxZoom: false,
+                            keyboard: false
+                        }).addTo(_this.map);
+
+                        _this.controlLayers = L.control.layers({
+                            "Mapbox Outdoors" : _this.mapboxOutdoors,
+                            "Mapbox Satellite" : _this.mapboxSatellite,
+                            "OpenStreetMap" : _this.openStreetMap,
+                            "OpenTopoMap" : _this.openTopoMap,
+                            "OpenHikingMap" : _this.openHikingMap,
+                            "CyclOSM" : _this.cyclOSM,
+                            "IGN (FR)" : _this.ignMap
+                        },{
+                            "Strava Heatmap" : _this.stravaHeatmap
+                        }).addTo(_this.map);
+                    } else {
+                        _this.openStreetMap.addTo(_this.map);
+
+                        _this.controlLayers = L.control.layers({
+                            "OpenStreetMap" : _this.openStreetMap,
+                            "OpenTopoMap" : _this.openTopoMap,
+                            "OpenHikingMap" : _this.openHikingMap,
+                            "IGN (FR)" : _this.ignMap,
+                            "CyclOSM" : _this.cyclOSM,
+                            "Mapbox Satellite" : _this.mapboxSatellite
+                        },{
+                            "Strava Heatmap" : _this.stravaHeatmap
+                        }).addTo(_this.map);
+                    }
 
                     _this.stravaHeatmap.on('tileload', function (e) {
                         _this.stravaHeatmap.is_loading = true;
@@ -1254,16 +1255,9 @@ export default class Buttons {
         document.body.removeChild(element);
     }
 
-     supportsWebGL() {
-       var canvas = document.createElement('canvas');
-       var supports = 'probablySupportsContext' in canvas
-           ? 'probablySupportsContext'
-           :  'supportsContext';
-
-       if (supports in canvas) {
-         return canvas[supports]('webgl') || canvas[supports]('experimental-webgl');
-       }
-
-       return 'WebGLRenderingContext' in window;
+    supportsWebGL() {
+        var canvas = document.createElement("canvas");
+        var gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+        return (gl && gl instanceof WebGLRenderingContext);
    };
 }
