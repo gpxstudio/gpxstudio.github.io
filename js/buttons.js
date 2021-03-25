@@ -297,14 +297,10 @@ export default class Buttons {
                     };
                     _this.streetView.addTo(_this.map);
 
-                    _this.mapboxSatellite = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+                    _this.mapboxSatellite = L.tileLayer('https://api.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}@2x.jpg90?access_token={accessToken}', {
                         attribution: '&copy; <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
                         maxZoom: 20,
-                        id: 'mapbox/satellite-v9',
-                        tileSize: 512,
-                        zoomOffset: -1,
-                        accessToken: _this.mapbox_token,
-    	                crossOrigin: true
+                        accessToken: _this.mapbox_token
                     });
 
                     _this.cyclOSM = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
