@@ -874,7 +874,7 @@ export default class Trace {
                 const b = otherPoints[0];
                 const dist = this.gpx._dist2d(a, b);
                 const startTime = new Date(a.meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
-                trace.changeTimeData(startTime, avg2);
+                if (startTime > b.meta.time.getTime()) trace.changeTimeData(startTime, avg2);
             }
         }
 
