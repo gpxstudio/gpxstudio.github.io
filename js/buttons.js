@@ -300,6 +300,8 @@ export default class Buttons {
                     _this.mapboxSatellite = L.tileLayer('https://api.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}@2x.jpg90?access_token={accessToken}', {
                         attribution: '&copy; <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
                         maxZoom: 20,
+                        tileSize: 512,
+                        zoomOffset: -1,
                         accessToken: _this.mapbox_token
                     });
 
