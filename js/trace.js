@@ -163,7 +163,7 @@ export default class Trace {
                 copy.crop(best_idx, copy.getPoints().length, true);
                 trace.crop(0, best_idx+1, true);
                 trace.closePopup();
-                trace.edit();
+                trace.draw();
             });
 
             var close = document.getElementById("close-popup");
@@ -505,7 +505,7 @@ export default class Trace {
                         trace.crop(0, marker._pt.trace_index+1, true);
                         marker.remove();
                         trace.closePopup();
-                        trace.edit();
+                        trace.draw();
                     });
                 }
 
