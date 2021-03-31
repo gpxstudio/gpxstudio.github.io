@@ -163,7 +163,7 @@ export default class Trace {
                 copy.crop(best_idx, copy.getPoints().length, true);
                 trace.crop(0, best_idx+1, true);
                 trace.closePopup();
-                trace.edit();
+                trace.draw();
             });
 
             var close = document.getElementById("close-popup");
@@ -395,6 +395,8 @@ export default class Trace {
         if (this.buttons.cycling) this.buttons.speed.innerHTML = this.getMovingSpeed().toFixed(1).toString() + ' ' + (this.buttons.km ? ' km' : ' mi') + '/h';
         else this.buttons.speed.innerHTML = this.total.msToTimeMin(this.getMovingPace()) + ' min/' + (this.buttons.km ? 'km' : 'mi');
         this.buttons.duration.innerHTML = this.total.msToTime(this.getMovingTime());
+        this.buttons.points.innerHTML = this.getPoints().length;
+        this.buttons.segments.innerHTML = this.getSegments().length;
     }
 
     showElevation() {
@@ -505,7 +507,7 @@ export default class Trace {
                         trace.crop(0, marker._pt.trace_index+1, true);
                         marker.remove();
                         trace.closePopup();
-                        trace.edit();
+                        trace.draw();
                     });
                 }
 
@@ -674,6 +676,15 @@ export default class Trace {
     getLayers() {
         if (this.gpx.getLayers().length == 0) return [];
         else return this.gpx.getLayers()[0].getLayers();
+    }
+
+    getSegments() {
+        const layers = this.getLayers();
+        const segments = [];
+        for (var l=0; l<layers.length; l++) if (layers[l]._latlngs) {
+            segments.push(layers[l]);
+        }
+        return segments;
     }
 
     hasPoints() {
