@@ -219,7 +219,8 @@ export default class Buttons {
             this.chevrons.style.display = 'none';
             this.dist_markers.style.display = 'none';
             this.profile.style.display = 'none';
-            this.trace_info_grid.style.height = '106px';
+            this.crop_container.style.display = 'none';
+            this.slide_container.style.display = 'none';
 
             this.toolbar = L.control({position: 'topleft'});
             this.toolbar.onAdd = function (map) {
