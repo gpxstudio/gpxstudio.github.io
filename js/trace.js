@@ -684,7 +684,7 @@ export default class Trace {
         for (var l=0; l<layers.length; l++) if (layers[l]._latlngs) {
             segments.push(layers[l]);
         }
-        return segments
+        return segments;
     }
 
     hasPoints() {
