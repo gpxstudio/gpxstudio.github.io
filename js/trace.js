@@ -395,6 +395,8 @@ export default class Trace {
         if (this.buttons.cycling) this.buttons.speed.innerHTML = this.getMovingSpeed().toFixed(1).toString() + ' ' + (this.buttons.km ? ' km' : ' mi') + '/h';
         else this.buttons.speed.innerHTML = this.total.msToTimeMin(this.getMovingPace()) + ' min/' + (this.buttons.km ? 'km' : 'mi');
         this.buttons.duration.innerHTML = this.total.msToTime(this.getMovingTime());
+        this.buttons.points.innerHTML = this.getPoints().length;
+        this.buttons.segments.innerHTML = this.getSegments().length;
     }
 
     showElevation() {
@@ -674,6 +676,15 @@ export default class Trace {
     getLayers() {
         if (this.gpx.getLayers().length == 0) return [];
         else return this.gpx.getLayers()[0].getLayers();
+    }
+
+    getSegments() {
+        const layers = this.getLayers();
+        const segments = [];
+        for (var l=0; l<layers.length; l++) if (layers[l]._latlngs) {
+            segments.push(layers[l]);
+        }
+        return segments
     }
 
     hasPoints() {

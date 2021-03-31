@@ -95,6 +95,7 @@ export default class Buttons {
         this.edit = document.getElementById("edit");
         this.validate = document.getElementById("validate");
         this.unvalidate = document.getElementById("unvalidate");
+        this.crop_container = document.getElementById("crop-container");
         this.crop_ok = document.getElementById("crop-ok");
         this.crop_cancel = document.getElementById("crop-cancel");
         this.crop_keep = document.getElementById("crop-keep");
@@ -108,6 +109,8 @@ export default class Buttons {
         this.show_chevrons = document.getElementById("show-chevrons");
         this.dist_markers = document.getElementById("dist-markers");
         this.show_dist_markers = document.getElementById("show-dist-markers");
+        this.profile = document.getElementById("profile");
+        this.show_profile = document.getElementById("show-profile");
         this.bike = document.getElementById("bike");
         this.run = document.getElementById("run");
         this.drive = document.getElementById("drive");
@@ -129,11 +132,24 @@ export default class Buttons {
         this.tabs = document.getElementById('sortable');
 
         // DISPLAYS
+        this.distance_info = document.getElementById("distance");
         this.distance = document.getElementById("distance-val");
+        this.elevation_info = document.getElementById("elevation");
         this.elevation = document.getElementById("elevation-val");
+        this.duration_info = document.getElementById("duration");
         this.duration = document.getElementById("duration-val");
+        this.speed_info = document.getElementById("speed");
         this.speed = document.getElementById("speed-val");
+        this.points_info = document.getElementById("points");
+        this.points = document.getElementById("points-val");
+        this.segments_info = document.getElementById("segments");
+        this.segments = document.getElementById("segments-val");
+        this.live_distance = document.getElementById("live-distance");
+        this.live_speed = document.getElementById("live-speed");
+        this.live_elevation = document.getElementById("live-elevation");
+        this.live_slope = document.getElementById("live-slope");
         this.trace_info_grid = document.getElementById('info-grid');
+        this.slide_container = document.getElementById('slide-container');
         this.start_slider = document.getElementById('start-point');
         this.end_slider = document.getElementById('end-point');
         this.total_tab = document.getElementById('total-tab');
@@ -202,6 +218,7 @@ export default class Buttons {
             this.method.style.display = 'none';
             this.chevrons.style.display = 'none';
             this.dist_markers.style.display = 'none';
+            this.profile.style.display = 'none';
             this.trace_info_grid.style.height = '106px';
 
             this.toolbar = L.control({position: 'topleft'});
@@ -410,6 +427,7 @@ export default class Buttons {
                     settings_list.appendChild(_this.method);
                     settings_list.appendChild(_this.activity);
                     settings_list.appendChild(_this.units);
+                    settings_list.appendChild(_this.profile);
                     settings_list.appendChild(_this.chevrons);
                     settings_list.appendChild(_this.dist_markers);
 
@@ -881,6 +899,8 @@ export default class Buttons {
                 buttons.activity.click();
             } else if (e.key === "F4") {
                 buttons.units.click();
+            } else if (e.key === "F5") {
+                buttons.show_profile.click();
             } else if (e.key == "z" && (e.ctrlKey || e.metaKey)) {
                 buttons.undo.click();
                 e.preventDefault();
@@ -1147,6 +1167,56 @@ export default class Buttons {
             const trace = total.traces[total.focusOn];
             if (buttons.show_distance) trace.showDistanceMarkers();
             else trace.hideDistanceMarkers();
+        });
+        this.show_profile.addEventListener('input', function (e) {
+            if (buttons.show_profile.checked) {
+                buttons.trace_info_grid.style.gridAutoColumns = '';
+                buttons.elevation_profile.style.display = '';
+                buttons.live_distance.style.display = '';
+                buttons.live_elevation.style.display = '';
+                buttons.live_speed.style.display = '';
+                buttons.live_slope.style.display = '';
+                buttons.slide_container.style.display = '';
+                buttons.crop_container.style.display = 'block';
+
+                buttons.points.style.display = 'none';
+                buttons.points_info.style.display = 'none';
+                buttons.segments.style.display = 'none';
+                buttons.segments_info.style.display = 'none';
+
+                buttons.speed.style.gridColumn = '';
+                buttons.speed.style.gridRow = '';
+                buttons.speed_info.style.gridColumn = '';
+                buttons.speed_info.style.gridRow = '';
+                buttons.duration.style.gridColumn = '';
+                buttons.duration.style.gridRow = '';
+                buttons.duration_info.style.gridColumn = '';
+                buttons.duration_info.style.gridRow = '';
+
+            } else {
+                buttons.trace_info_grid.style.gridAutoColumns = 'auto';
+                buttons.elevation_profile.style.display = 'none';
+                buttons.live_distance.style.display = 'none';
+                buttons.live_elevation.style.display = 'none';
+                buttons.live_speed.style.display = 'none';
+                buttons.live_slope.style.display = 'none';
+                buttons.slide_container.style.display = 'none';
+                buttons.crop_container.style.display = 'none';
+
+                buttons.points.style.display = '';
+                buttons.points_info.style.display = '';
+                buttons.segments.style.display = '';
+                buttons.segments_info.style.display = '';
+
+                buttons.speed.style.gridColumn = '3 / span 1';
+                buttons.speed.style.gridRow = '1 / span 1';
+                buttons.speed_info.style.gridColumn = '3 / span 1';
+                buttons.speed_info.style.gridRow = '2 / span 1';
+                buttons.duration.style.gridColumn = '4 / span 1';
+                buttons.duration.style.gridRow = '1 / span 1';
+                buttons.duration_info.style.gridColumn = '4 / span 1';
+                buttons.duration_info.style.gridRow = '2 / span 1';
+            }
         });
     }
 

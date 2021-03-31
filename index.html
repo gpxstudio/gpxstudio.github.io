@@ -103,6 +103,10 @@
                 <div class="panels panels-val" id="speed-val">- km/h</div>
                 <div class="panels panels-info" id="duration">Moving time</div>
                 <div class="panels panels-val" id="duration-val">- h -</div>
+                <div class="panels panels-info" id="points" style="display: none">Track points</div>
+                <div class="panels panels-val" id="points-val" style="display: none">0</div>
+                <div class="panels panels-info" id="segments" style="display: none">Segments</div>
+                <div class="panels panels-val" id="segments-val" style="display: none">0</div>
                 <div class="panels panels-val panels-live" id="live-distance">--</div>
                 <div class="panels panels-val panels-live" id="live-speed">--</div>
                 <div class="panels panels-val panels-live" id="live-elevation">--</div>
@@ -111,7 +115,7 @@
                     <div class="panels-button" id="validate"><i class="fas fa-check custom-button"></i></div>
                     <div class="panels-button" id="unvalidate"><i class="fas fa-ban custom-button"></i></div>
                 </div>
-                <div class="slidecontainer">
+                <div id="slide-container">
                     <input type="range" min="0" max="10000000" value="0" class="slider" id="start-point">
                     <input type="range" min="0" max="10000000" value="10000000" class="slider visible" id="end-point">
                 </div>
@@ -146,6 +150,7 @@
         <li id="method" class="dontselect">Routing: <span class="unselected custom-button"><i id="route" class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i id="crow" class="fas fa-dove"></i></span></li>
         <li id="chevrons" class="dontselect">Chevrons: <input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"></li>
         <li id="dist-markers" class="dontselect">Distance markers: <input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"></li>
+        <li id="profile" class="dontselect">Elevation profile: <input type="checkbox" checked id="show-profile" class="custom-button" style="vertical-align: middle;"></li>
         <div id="help-text">
         <table style="width: 100%">
             <colgroup>

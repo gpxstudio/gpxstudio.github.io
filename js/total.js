@@ -118,6 +118,8 @@ export default class Total {
         if (this.buttons.cycling) this.buttons.speed.innerHTML = this.getMovingSpeed().toFixed(1).toString() + ' ' + (this.buttons.km ? ' km' : ' mi') + '/h';
         else this.buttons.speed.innerHTML = this.msToTimeMin(this.getMovingPace()) + ' min/' + (this.buttons.km ? 'km' : 'mi');
         this.buttons.duration.innerHTML = this.msToTime(this.getMovingTime());
+        this.buttons.points.innerHTML = this.getPoints();
+        this.buttons.segments.innerHTML = this.getSegments();
     }
 
     showElevation() {
@@ -141,6 +143,20 @@ export default class Total {
     }
 
     /*** GPX DATA ***/
+
+    getPoints() {
+        var tot = 0;
+        for (var i=0; i<this.traces.length; i++)
+            tot += this.traces[i].getPoints().length;
+        return tot;
+    }
+
+    getSegments() {
+        var tot = 0;
+        for (var i=0; i<this.traces.length; i++)
+            tot += this.traces[i].getSegments().length;
+        return tot;
+    }
 
     getDistance() {
         var tot = 0;
