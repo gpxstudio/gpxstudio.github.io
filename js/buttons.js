@@ -907,8 +907,9 @@ export default class Buttons {
                 buttons.activity.click();
             } else if (e.key === "F4") {
                 buttons.units.click();
-            } else if (e.key === "F5") {
+            } else if (e.key == "h" && (e.ctrlKey || e.metaKey)) {
                 buttons.show_profile.click();
+                e.preventDefault();
             } else if (e.key == "z" && (e.ctrlKey || e.metaKey)) {
                 buttons.undo.click();
                 e.preventDefault();
