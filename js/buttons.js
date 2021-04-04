@@ -315,14 +315,6 @@ export default class Buttons {
                     };
                     _this.streetView.addTo(_this.map);
 
-                    _this.mapboxSatellite = L.tileLayer('https://api.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}@2x.jpg90?access_token={accessToken}', {
-                        attribution: '&copy; <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
-                        maxZoom: 20,
-                        tileSize: 512,
-                        zoomOffset: -1,
-                        accessToken: _this.mapbox_token
-                    });
-
                     _this.cyclOSM = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
                         maxZoom: 20,
                         attribution: '&copy; <a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -354,7 +346,7 @@ export default class Buttons {
                     });
 
                     if (_this.supportsWebGL()) {
-                        _this.mapboxOutdoors = L.mapboxGL({
+                        _this.mapboxMap = L.mapboxGL({
                             attribution: '&copy; <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
                             maxZoom: 20,
                             accessToken: _this.mapbox_token,
@@ -373,8 +365,8 @@ export default class Buttons {
                         }).addTo(_this.map);
 
                         _this.controlLayers = L.control.layers({
-                            "Mapbox Outdoors" : _this.mapboxOutdoors,
-                            "Mapbox Satellite" : _this.mapboxSatellite,
+                            "Mapbox Outdoors" : _this.mapboxMap,
+                            "Mapbox Satellite" : _this.mapboxMap,
                             "OpenStreetMap" : _this.openStreetMap,
                             "OpenTopoMap" : _this.openTopoMap,
                             "OpenHikingMap" : _this.openHikingMap,
@@ -383,6 +375,22 @@ export default class Buttons {
                         },{
                             "Strava Heatmap" : _this.stravaHeatmap
                         }).addTo(_this.map);
+
+                        const layerSelectors = _this.controlLayers._layerControlInputs;
+                        for (var i=0; i<layerSelectors.length; i++) {
+                            const span = layerSelectors[i].nextSibling;
+                            if (span.textContent.endsWith("Outdoors")) {
+                                layerSelectors[i].checked = true;
+                                span.addEventListener('click', function () {
+                                    _this.mapboxMap.options.style = 'mapbox://styles/mapbox/outdoors-v11';
+                                });
+                            } else if (span.textContent.endsWith("Satellite")) {
+                                layerSelectors[i].checked = false;
+                                span.addEventListener('click', function () {
+                                    _this.mapboxMap.options.style = 'mapbox://styles/mapbox/satellite-v9';
+                                });
+                            }
+                        }
                     } else {
                         _this.openStreetMap.addTo(_this.map);
 
@@ -391,8 +399,7 @@ export default class Buttons {
                             "OpenTopoMap" : _this.openTopoMap,
                             "OpenHikingMap" : _this.openHikingMap,
                             "IGN (FR)" : _this.ignMap,
-                            "CyclOSM" : _this.cyclOSM,
-                            "Mapbox Satellite" : _this.mapboxSatellite
+                            "CyclOSM" : _this.cyclOSM
                         },{
                             "Strava Heatmap" : _this.stravaHeatmap
                         }).addTo(_this.map);
