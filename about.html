@@ -195,7 +195,7 @@
                     <ul>
                         <li>Use the slider in the bottom panel to move the start and end points of the trace. Click on <i class="fas fa-check button"></i> to validate the selection. You can choose whether you want to keep cropped parts in separate files.</li>
                         <li>Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, right-click on a track point or on the line to split the trace at a chosen location.</li>
-                        <li>Click on <i class="fas fa-vector-square button"></i> and select an area containing the track points you want to keep or delete. Uncheck the box <i class="far fa-check-square"></i> Waypoints if you do not want to remove waypoints at the same time. Then, choose whether you want to delete track points inside our outside of the selection. Finally, click on <span class="button">Proceed</span>.</li>
+                        <li>Click on <i class="fas fa-vector-square button"></i> and select an area containing the track points you want to keep or delete. Uncheck the box <i class="far fa-check-square"></i> Waypoints if you do not want to remove waypoints at the same time. Then, choose whether you want to delete track points inside or outside of the selection. Finally, click on <span class="button">Proceed</span>.</li>
                     </ul>
                 </div></div>
                 <div class="guide-item"><a name="split-file" href="#split-file" class="my-anchor"><div class="guide-title" onclick="toggle('split')">Split a GPX file</div></a>
@@ -280,7 +280,7 @@
                 </div></div>
                 <div class="guide-item"><a name="remove-waypoint" href="#remove-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('rmv-wpt')">Remove waypoints of a GPX file</div></a>
                 <div id="rmv-wpt" style="display: none">To remove a single waypoint, click on it and press <i class="fas fa-trash-alt button"></i> inside the popup.<br>
-                    To remove all waypoints inside or outside an area, click on <i class="fas fa-vector-square button"></i> and select an area containing the waypoints you want to keep or delete. Uncheck the box <i class="far fa-check-square"></i> Track points if you do not want to remove track points at the same time. Then, choose whether you want to delete waypoints inside our outside of the selection. Finally, click on <span class="button">Proceed</span>.
+                    To remove all waypoints inside or outside an area, click on <i class="fas fa-vector-square button"></i> and select an area containing the waypoints you want to keep or delete. Uncheck the box <i class="far fa-check-square"></i> Track points if you do not want to remove track points at the same time. Then, choose whether you want to delete waypoints inside or outside of the selection. Finally, click on <span class="button">Proceed</span>.
                 </div></div>
                 <div class="guide-item"><a name="reduce-points" href="#reduce-points" class="my-anchor"><div class="guide-title" onclick="toggle('reduce')">Reduce the number of track points of a GPX file</div></a>
                 <div id="reduce" style="display: none">
@@ -289,6 +289,15 @@
                         <li>Use the slider to choose the number of track points to keep. You can see a live preview of the GPX file with the reduced number of points.</li>
                         <li>Click on <span class="button">Ok</span>.</li>
                     </ol>
+                </div></div>
+                <div class="guide-item"><a name="delete-points-in-zone" href="#delete-points-in-zone" class="my-anchor"><div class="guide-title" onclick="toggle('delete-zone')">Remove all track points and/or waypoints inside/outside an area</div></a>
+                <div id="delete-zone" style="display: none">
+                    <ol>
+                        <li>Click on <i class="fas fa-vector-square button"></i>.
+                        <li>Select an area containing the track points and/or waypoints you want to keep or delete.</li>
+                        <li>Choose whether you want to delete track points and/or waypoints, inside or outside of the selection.</li>
+                        <li>Finally, click on <span class="button">Proceed</span>.</li>
+                   </ol>
                 </div></div>
                 <div class="guide-item"><a name="delete-file" href="#delete-file" class="my-anchor"><div class="guide-title" onclick="toggle('delete')">Remove GPX files</div></a>
                 <div id="delete" style="display: none">Below the bottom panel, select the tab of the file you want to delete and click on <i class="fas fa-trash-alt button"></i>.<br>
@@ -427,7 +436,7 @@
             color: inherit;
             text-decoration: inherit;
         }
-        div:active, div:focus {
+        a:active, a:focus {
             outline: 0;
             border: none;
             -moz-outline-style: none;
