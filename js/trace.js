@@ -148,7 +148,7 @@ export default class Trace {
 
             if (!best_idx) return;
 
-            trace.popup.setContent(`<div id="split" class="custom-button" style="display: inline-block">Split here</div>
+            trace.popup.setContent(`<div id="split" class="custom-button" style="display: inline-block">`+trace.buttons.split_text+`</div>
                                     <div style="display: inline-block; width: 4px"></i></div>
                                     <div id="close-popup" class="custom-button" style="display: inline-block"><i class="fas fa-times"></i></div><br>`);
             trace.popup.setLatLng(e.latlng);
@@ -390,10 +390,10 @@ export default class Trace {
     }
 
     showData() {
-        this.buttons.distance.innerHTML = (this.getDistance() / 1000).toFixed(1).toString() + (this.buttons.km ? ' km' : ' mi');
-        this.buttons.elevation.innerHTML = this.getElevation().toFixed(0).toString() + (this.buttons.km ? ' m' : ' ft');
-        if (this.buttons.cycling) this.buttons.speed.innerHTML = this.getMovingSpeed().toFixed(1).toString() + ' ' + (this.buttons.km ? ' km' : ' mi') + '/h';
-        else this.buttons.speed.innerHTML = this.total.msToTimeMin(this.getMovingPace()) + ' min/' + (this.buttons.km ? 'km' : 'mi');
+        this.buttons.distance.innerHTML = (this.getDistance() / 1000).toFixed(1).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text);
+        this.buttons.elevation.innerHTML = this.getElevation().toFixed(0).toString() + ' ' + (this.buttons.km ? this.buttons.unit_meters_text : this.buttons.unit_feet_text);
+        if (this.buttons.cycling) this.buttons.speed.innerHTML = this.getMovingSpeed().toFixed(1).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text) + '/' + this.buttons.unit_hours_text;
+        else this.buttons.speed.innerHTML = this.total.msToTimeMin(this.getMovingPace()) + ' ' + this.buttons.unit_minutes_text + '/' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text);
         this.buttons.duration.innerHTML = this.total.msToTime(this.getMovingTime());
         this.buttons.points.innerHTML = this.getPoints().length;
         this.buttons.segments.innerHTML = this.getSegments().length;
@@ -477,12 +477,12 @@ export default class Trace {
             },
             contextmenu: function (e) {
                 if (trace._editMarkers.length == 1) return;
-                var content = `<div id="remove-waypoint" class="custom-button" style="display: inline-block">Remove point</div>
+                var content = `<div id="remove-waypoint" class="custom-button" style="display: inline-block">`+trace.buttons.remove_pt_text+`</div>
                 <div style="display: inline-block; width: 4px"></i></div>
                 <div id="close-popup" class="custom-button" style="display: inline-block"><i class="fas fa-times"></i></div><br>`;
 
                 if (marker != trace._editMarkers[0] && marker != trace._editMarkers[trace._editMarkers.length-1]) {
-                    content += '<div id="split-waypoint" class="custom-button" style="display: inline-block">Split here</div>';
+                    content += '<div id="split-waypoint" class="custom-button" style="display: inline-block">'+trace.buttons.split_text+'</div>';
                 }
 
                 trace.popup.setContent(content);

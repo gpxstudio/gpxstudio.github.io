@@ -172,6 +172,31 @@ export default class Buttons {
         this.trace_info_content = document.getElementById('info');
         this.toolbar_content = document.getElementById('toolbar');
 
+        // TRANSLATED TEXT
+        this.ok_button_text = document.getElementById('ok-button-text').textContent;
+        this.cancel_button_text = document.getElementById('cancel-button-text').textContent;
+        this.unit_kilometers_text = document.getElementById('unit-kilometers-text').textContent;
+        this.unit_miles_text = document.getElementById('unit-miles-text').textContent;
+        this.unit_meters_text = document.getElementById('unit-meters-text').textContent;
+        this.unit_feet_text = document.getElementById('unit-feet-text').textContent;
+        this.unit_hours_text = document.getElementById('unit-hours-text').textContent;
+        this.unit_minutes_text = document.getElementById('unit-minutes-text').textContent;
+        this.edit_info_text = document.getElementById('edit-info-text').textContent;
+        this.duplicate_text = document.getElementById('duplicate-text').textContent;
+        this.delete_text = document.getElementById('delete-text').textContent;
+        this.split_text = document.getElementById('split-text').textContent;
+        this.remove_pt_text = document.getElementById('remove-pt-text').textContent;
+        this.speed_text = document.getElementById('speed-text').textContent;
+        this.pace_text = document.getElementById('pace-text').textContent;
+        this.start_text = document.getElementById('start-text').textContent;
+        this.experimental_text = document.getElementById('experimental-text').textContent;
+        this.experimental_info_text = document.getElementById('experimental-info-text').textContent;
+        this.name_text = document.getElementById('name-text').textContent;
+        this.comment_text = document.getElementById('comment-text').textContent;
+        this.description_text = document.getElementById('description-text').textContent;
+        this.symbol_text = document.getElementById('symbol-text').textContent;
+        this.empty_title_text = document.getElementById('empty-title-text').textContent;
+
         // WINDOWS
         this.help_window = L.control.window(this.map,{title:'',content:this.help_text,className:'panels-container'});
         this.export_window = L.control.window(this.map,{title:'',content:this.export_content,className:'panels-container'});
@@ -997,22 +1022,22 @@ export default class Buttons {
             var content = `<div id="speed-change" style="padding-bottom:4px;">`;
 
             if (buttons.cycling) {
-                content += `Speed <input type="number" id="speed-input" min="1.0" max="99.9" step="0.1" lang="en-150"> `;
-                if (buttons.km) content += `km/h</div>`;
-                else content += `mi/h</div>`;
+                content += buttons.speed_text + ` <input type="number" id="speed-input" min="1.0" max="99.9" step="0.1" lang="en-150"> `;
+                if (buttons.km) content += buttons.unit_kilometers_text + '/' + buttons.unit_hours_text + `</div>`;
+                else content += buttons.unit_miles_text + '/' + buttons.unit_hours_text + `</div>`;
             } else {
-                content += `Pace <input type="number" id="minutes" min="1" max="59" step="1">
+                content += buttons.pace_text + ` <input type="number" id="minutes" min="1" max="59" step="1">
                             :
                             <input type="number" id="seconds" min="0" max="59" step="1"> `;
-                if (buttons.km) content += `min/km</div>`;
-                else content += `min/mi</div>`;
+                if (buttons.km) content += buttons.unit_minutes_text + '/' + buttons.unit_kilometers_text + `</div>`;
+                else content += buttons.unit_minutes_text + '/' + buttons.unit_miles_text + `</div>`;
             }
 
-            content += `<div id="start-change">Start
+            content += `<div id="start-change">`+buttons.start_text+`
                         <input type="datetime-local" id="start-time"></div></div><br>
-                        <div><b style="color:red">Experimental</b> Generate speed considering<br>the slope (erases all existing time data) <input type="checkbox" id="slope-speed"></div><br>
-                        <div id="edit-speed" class="panels custom-button normal-button">Ok</div>
-                        <div id="cancel-speed" class="panels custom-button normal-button"><b>Cancel</b></div>`;
+                        <div><b style="color:red; vertical-align:top">`+buttons.experimental_text+`</b>  <div style="max-width: 200px;display: inline-block;white-space: normal;">`+buttons.experimental_info_text+`</div><input type="checkbox" id="slope-speed" style="vertical-align:top"></div><br>
+                        <div id="edit-speed" class="panels custom-button normal-button">`+buttons.ok_button_text+`</div>
+                        <div id="cancel-speed" class="panels custom-button normal-button"><b>`+buttons.cancel_button_text+`</b></div>`;
 
             const trace = total.traces[total.focusOn];
             if (buttons.window_open) buttons.window_open.hide();

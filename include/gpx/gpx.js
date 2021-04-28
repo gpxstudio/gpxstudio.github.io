@@ -767,25 +767,25 @@ L.GPX = L.FeatureGroup.extend({
                   });
                   marker.bindPopup(popup).openPopup();
                   popup.setContent(`<div style="width: 200px; display: inline-block; overflow-wrap: break-word;">
-                                        `+(trace.buttons.embedding ? '' : (`<div style="float: right;"><i id="edit`+popup._leaflet_id+`" class="fas fa-pencil-alt custom-button" style="display: inline-block" title="Edit info"></i> <i id="clone`+popup._leaflet_id+`" class="fas fa-copy custom-button" style="display: inline-block" title="Duplicate"></i> <i id="delete`+popup._leaflet_id+`" class="fas fa-trash-alt custom-button" style="display: inline-block" title="Delete"></i></div>`))+`
-                                        <div class="wpt-cmt"><b>`+(marker.name.length > 0 ? marker.name : 'empty title')+`</b></div>
+                                        `+(trace.buttons.embedding ? '' : (`<div style="float: right;"><i id="edit`+popup._leaflet_id+`" class="fas fa-pencil-alt custom-button" style="display: inline-block" title="`+trace.buttons.edit_info_text+`"></i> <i id="clone`+popup._leaflet_id+`" class="fas fa-copy custom-button" style="display: inline-block" title="`+trace.buttons.duplicate_text+`"></i> <i id="delete`+popup._leaflet_id+`" class="fas fa-trash-alt custom-button" style="display: inline-block" title="`+trace.buttons.delete_text+`"></i></div>`))+`
+                                        <div class="wpt-cmt"><b>`+(marker.name.length > 0 ? marker.name : trace.buttons.empty_title_text)+`</b></div>
                                         <div class="wpt-cmt">`+(marker.cmt.length > 0 ? (marker.cmt + '<br>') : '')+`<i class="wpt-cmt">`+marker.desc+`</i></div>
                                     </div>`);
                   if (!trace.buttons.embedding) {
                       const edit = document.getElementById('edit' + popup._leaflet_id);
                       edit.addEventListener('click', function () {
                           popup.setContent(`<div style="width: 300px; display: inline-block; overflow-wrap: break-word;">
-                                         <div>Name</div>
+                                         <div>`+trace.buttons.name_text+`</div>
                                          <div id="name`+popup._leaflet_id+`" contenteditable class="wpt-input"></div>
-                                         <div>Comment (for GPS devices)</div>
+                                         <div>`+trace.buttons.comment_text+`</div>
                                          <div id="cmt`+popup._leaflet_id+`" contenteditable class="wpt-input"></div>
-                                         <div>Description (for users)</div>
+                                         <div>`+trace.buttons.description_text+`</div>
                                          <div id="desc`+popup._leaflet_id+`" contenteditable class="wpt-input"></div>
-                                         <label for="sym`+popup._leaflet_id+`">Symbol</label><br>
+                                         <label for="sym`+popup._leaflet_id+`">`+trace.buttons.symbol_text+`</label><br>
                                          <select type="text" id="sym`+popup._leaflet_id+`" name="sym`+popup._leaflet_id+`" style="width: 100%"></select><br>
                                          <div style="text-align: center">
-                                            <div id="change`+popup._leaflet_id+`" class="panels custom-button normal-button">Ok</div>
-                                            <div id="cancel`+popup._leaflet_id+`" class="panels custom-button normal-button"><b>Cancel</b></div>
+                                            <div id="change`+popup._leaflet_id+`" class="panels custom-button normal-button">`+trace.buttons.ok_button_text+`</div>
+                                            <div id="cancel`+popup._leaflet_id+`" class="panels custom-button normal-button"><b>`+trace.buttons.cancel_button_text+`</b></div>
                                          </div></div>`);
                           const name = document.getElementById('name'+popup._leaflet_id);
                           const cmt = document.getElementById('cmt'+popup._leaflet_id);
