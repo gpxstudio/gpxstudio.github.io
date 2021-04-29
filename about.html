@@ -331,6 +331,20 @@
                         <li><a href="https://www.cyclosm.org/legend.html" target="_blank">CyclOSM</a></li>
                     </ul>
                 </div></div>
+                <div class="guide-item"><a name="strava-heatmap" href="#strava-heatmap" class="my-anchor"><div class="guide-title weblate" onclick="toggle('strava-hm')">Load the Strava Heatmap</div></a>
+                <div id="strava-hm" style="display: none">
+                    <ol>
+                        <li><span class="weblate">Log in to the</span> <a href="https://www.strava.com/heatmap" target="_blank">Strava Global Heatmap</a> <span class="weblate">with your Strava account.</span></li>
+                        <li><span class="weblate">In the settings</span> <i class="fas fa-bars button"></i>, <span class="weblate">check the box</span> <i class="far fa-check-square"></i> Strava Heatmap.</li>
+                        <li><span class="weblate">If it does not load correctly:</span>
+                            <ul>
+                                <li><span class="weblate">On Chrome, disable the following setting: </span> <code><a href="chrome://flags/#same-site-by-default-cookies" target="_blank">chrome://flags/#same-site-by-default-cookies</a></code></li>
+                                <li><span class="weblate">On Edge, disable the following setting: </span> <code><a href="edge://flags/#same-site-by-default-cookies" target="_blank">edge://flags/#same-site-by-default-cookies</a></code></li>
+                                <li class="weblate"><a href="#support" class="weblate">Get in touch</a> <span class="weblate">if you have troubles in other browsers.</span></li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div></div>
             </div>
             <a name="embed"></a><h1><span class="weblate">Embedding</span> &#128506;</h1>
             <div>
@@ -507,7 +521,9 @@
 
         if (window.location.hash) {
             const anchors = document.getElementsByName(window.location.hash.substring(1));
-            if (anchors.length == 1) anchors[0].children[0].click();
+            if (anchors.length == 1 && anchors[0].children.length > 0) {
+                anchors[0].children[0].click();
+            }
         }
         </script>
     </body>
