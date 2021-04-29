@@ -41,7 +41,6 @@ To play with the code locally:
 * Snap trace on road network or smooth trace
 * Color lines with elevation or speed data
 * Show/hide trace
-* Show/hide elevation profile
 
 ## Acknowledgements
 This project would not have been possible without the following amazing projects :

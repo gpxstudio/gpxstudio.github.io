@@ -172,6 +172,31 @@ export default class Buttons {
         this.trace_info_content = document.getElementById('info');
         this.toolbar_content = document.getElementById('toolbar');
 
+        // TRANSLATED TEXT
+        this.ok_button_text = document.getElementById('ok-button-text').textContent;
+        this.cancel_button_text = document.getElementById('cancel-button-text').textContent;
+        this.unit_kilometers_text = document.getElementById('unit-kilometers-text').textContent;
+        this.unit_miles_text = document.getElementById('unit-miles-text').textContent;
+        this.unit_meters_text = document.getElementById('unit-meters-text').textContent;
+        this.unit_feet_text = document.getElementById('unit-feet-text').textContent;
+        this.unit_hours_text = document.getElementById('unit-hours-text').textContent;
+        this.unit_minutes_text = document.getElementById('unit-minutes-text').textContent;
+        this.edit_info_text = document.getElementById('edit-info-text').textContent;
+        this.duplicate_text = document.getElementById('duplicate-text').textContent;
+        this.delete_text = document.getElementById('delete-text').textContent;
+        this.split_text = document.getElementById('split-text').textContent;
+        this.remove_pt_text = document.getElementById('remove-pt-text').textContent;
+        this.speed_text = document.getElementById('speed-text').textContent;
+        this.pace_text = document.getElementById('pace-text').textContent;
+        this.start_text = document.getElementById('start-text').textContent;
+        this.experimental_text = document.getElementById('experimental-text').textContent;
+        this.experimental_info_text = document.getElementById('experimental-info-text').textContent;
+        this.name_text = document.getElementById('name-text').textContent;
+        this.comment_text = document.getElementById('comment-text').textContent;
+        this.description_text = document.getElementById('description-text').textContent;
+        this.symbol_text = document.getElementById('symbol-text').textContent;
+        this.empty_title_text = document.getElementById('empty-title-text').textContent;
+
         // WINDOWS
         this.help_window = L.control.window(this.map,{title:'',content:this.help_text,className:'panels-container'});
         this.export_window = L.control.window(this.map,{title:'',content:this.export_content,className:'panels-container'});
@@ -231,7 +256,7 @@ export default class Buttons {
             this.toolbar.addTo(this.map);
 
             this.embed_content.addEventListener('click', function () {
-                window.open(queryString.replace('&embed',''));
+                window.open(queryString.replace('&embed','').replace('embed&','').replace('embed',''));
             });
         } else {
             this.toolbar = L.control({position: 'topleft'});
@@ -281,8 +306,11 @@ export default class Buttons {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
-                _this.mapbox_token = xhr.responseText;
-                _this.mapbox_token = _this.mapbox_token.replace(/\s/g, '');
+                if (urlParams.has('token')) _this.mapbox_token = urlParams.get('token');
+                else {
+                    _this.mapbox_token = xhr.responseText;
+                    _this.mapbox_token = _this.mapbox_token.replace(/\s/g, '');
+                }
 
                 // TILES
 
@@ -292,8 +320,87 @@ export default class Buttons {
                     maxNativeZoom: 19
                 });
 
+                _this.cyclOSM = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
+                    maxZoom: 20,
+                    attribution: '&copy; <a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                });
+
+                _this.openHikingMap = L.tileLayer('https://maps.refuges.info/hiking/{z}/{x}/{y}.png', {
+                    maxZoom: 20,
+                    maxNativeZoom: 18,
+                    attribution: '&copy; <a href="https://wiki.openstreetmap.org/wiki/Hiking/mri" target="_blank">sly</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
+                });
+
+                _this.openTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 20,
+                    maxNativeZoom: 17,
+                    attribution: '&copy; <a href="https://www.opentopomap.org" target="_blank">OpenTopoMap</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
+                });
+
+                _this.ignMap = L.tileLayer('https://wxs.ign.fr/j5d7l46t2yri7bbc67krgo2b/geoportail/wmts?service=WMTS&request=GetTile&version=1.0.0&tilematrixset=PM&tilematrix={z}&tilecol={x}&tilerow={y}&layer=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&format=image/png&style=normal', {
+                    minZoom : 0,
+                    maxZoom : 18,
+                    tileSize : 256,
+                    attribution : "IGN-F/Géoportail"
+                });
+
                 if (_this.embedding) {
-                    _this.openStreetMap.addTo(_this.map);
+                    if (urlParams.has('token') && _this.supportsWebGL()) {
+                        _this.mapboxMap = L.mapboxGL({
+                            attribution: '&copy; <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
+                            maxZoom: 20,
+                            accessToken: _this.mapbox_token,
+                            style: 'mapbox://styles/mapbox/outdoors-v11',
+                            interactive: true,
+                            minZoom: 1,
+                            dragRotate: false,
+                            touchZoomRotate: false,
+                            boxZoom: false,
+                            dragPan: false,
+                            touchPitch: false,
+                            doubleClickZoom: false,
+                            scrollZoom: false,
+                            boxZoom: false,
+                            keyboard: false
+                        });
+                    }
+
+                    if (urlParams.has('source')) {
+                        const mapSource = urlParams.get('source');
+                        if (mapSource == 'osm') _this.openStreetMap.addTo(_this.map);
+                        else if (mapSource == 'otm') _this.openTopoMap.addTo(_this.map);
+                        else if (mapSource == 'ohm') _this.openHikingMap.addTo(_this.map);
+                        else if (mapSource == 'cosm') _this.cyclOSM.addTo(_this.map);
+                        else if (mapSource == 'ign') _this.ignMap.addTo(_this.map);
+                        else if (mapSource == 'outdoors' && urlParams.has('token') && _this.supportsWebGL()) _this.mapboxMap.addTo(_this.map);
+                        else if (mapSource == 'satellite' && urlParams.has('token') && _this.supportsWebGL()) {
+                            _this.mapboxMap.addTo(_this.map);
+                            _this.mapboxMap.options.style = "mapbox://styles/mapbox/satellite-v9";
+                            _this.mapboxMap.getMapboxMap().setStyle("mapbox://styles/mapbox/satellite-v9", {diff: false});
+                        } else _this.openStreetMap.addTo(_this.map);
+                    } else _this.openStreetMap.addTo(_this.map);
+
+                    if (urlParams.has('token') && _this.supportsWebGL()) {
+                        _this.controlLayers = L.control.layers({
+                            "Mapbox Outdoors" : _this.mapboxMap,
+                            "Mapbox Satellite" : _this.mapboxMap,
+                            "OpenStreetMap" : _this.openStreetMap,
+                            "OpenTopoMap" : _this.openTopoMap,
+                            "OpenHikingMap" : _this.openHikingMap,
+                            "CyclOSM" : _this.cyclOSM,
+                            "IGN (FR)" : _this.ignMap
+                        }).addTo(_this.map);
+
+                        _this.addSwitchMapboxLayers();
+                    } else {
+                        _this.controlLayers = L.control.layers({
+                            "OpenStreetMap" : _this.openStreetMap,
+                            "OpenTopoMap" : _this.openTopoMap,
+                            "OpenHikingMap" : _this.openHikingMap,
+                            "CyclOSM" : _this.cyclOSM,
+                            "IGN (FR)" : _this.ignMap
+                        }).addTo(_this.map);
+                    }
                 } else {
                     L.Control.geocoder({
                         geocoder: new L.Control.Geocoder.Mapbox(_this.mapbox_token),
@@ -301,7 +408,7 @@ export default class Buttons {
                     }).on('markgeocode', function(e) {
                         var bbox = e.geocode.bbox;
                         _this.map.fitBounds(bbox);
-                      }).addTo(_this.map);
+                    }).addTo(_this.map);
 
                     _this.streetView = L.control({
                         position: 'topright'
@@ -314,30 +421,6 @@ export default class Buttons {
                         return div;
                     };
                     _this.streetView.addTo(_this.map);
-
-                    _this.cyclOSM = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
-                        maxZoom: 20,
-                        attribution: '&copy; <a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                    });
-
-                    _this.openHikingMap = L.tileLayer('https://maps.refuges.info/hiking/{z}/{x}/{y}.png', {
-                        maxZoom: 20,
-                        maxNativeZoom: 18,
-                        attribution: '&copy; <a href="https://wiki.openstreetmap.org/wiki/Hiking/mri" target="_blank">sly</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
-                    });
-
-                    _this.openTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-                        maxZoom: 20,
-                        maxNativeZoom: 17,
-                        attribution: '&copy; <a href="https://www.opentopomap.org" target="_blank">OpenTopoMap</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
-                    });
-
-                    _this.ignMap = L.tileLayer('https://wxs.ign.fr/j5d7l46t2yri7bbc67krgo2b/geoportail/wmts?service=WMTS&request=GetTile&version=1.0.0&tilematrixset=PM&tilematrix={z}&tilecol={x}&tilerow={y}&layer=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&format=image/png&style=normal', {
-                        minZoom : 0,
-                        maxZoom : 18,
-                        tileSize : 256,
-                        attribution : "IGN-F/Géoportail"
-                    });
 
                     _this.stravaHeatmap = L.tileLayer('https://heatmap-external-{s}.strava.com/tiles-auth/cycling/bluered/{z}/{x}/{y}.png', {
                         maxZoom: 20,
@@ -376,21 +459,7 @@ export default class Buttons {
                             "Strava Heatmap" : _this.stravaHeatmap
                         }).addTo(_this.map);
 
-                        const layerSelectors = _this.controlLayers._layerControlInputs;
-                        for (var i=0; i<layerSelectors.length; i++) {
-                            const span = layerSelectors[i].nextSibling;
-                            if (span.textContent.endsWith("Outdoors")) {
-                                layerSelectors[i].checked = true;
-                                span.addEventListener('click', function () {
-                                    _this.mapboxMap.options.style = 'mapbox://styles/mapbox/outdoors-v11';
-                                });
-                            } else if (span.textContent.endsWith("Satellite")) {
-                                layerSelectors[i].checked = false;
-                                span.addEventListener('click', function () {
-                                    _this.mapboxMap.options.style = 'mapbox://styles/mapbox/satellite-v9';
-                                });
-                            }
-                        }
+                        _this.addSwitchMapboxLayers();
                     } else {
                         _this.openStreetMap.addTo(_this.map);
 
@@ -398,8 +467,8 @@ export default class Buttons {
                             "OpenStreetMap" : _this.openStreetMap,
                             "OpenTopoMap" : _this.openTopoMap,
                             "OpenHikingMap" : _this.openHikingMap,
-                            "IGN (FR)" : _this.ignMap,
-                            "CyclOSM" : _this.cyclOSM
+                            "CyclOSM" : _this.cyclOSM,
+                            "IGN (FR)" : _this.ignMap
                         },{
                             "Strava Heatmap" : _this.stravaHeatmap
                         }).addTo(_this.map);
@@ -417,11 +486,13 @@ export default class Buttons {
                             _this.strava_window.show();
                         }
                     });
+                }
 
-                    const toggle = document.getElementsByClassName('leaflet-control-layers-toggle')[0];
-                    toggle.removeAttribute("href");
-                    toggle.classList.add('fas','fa-bars','custom-button');
+                const toggle = document.getElementsByClassName('leaflet-control-layers-toggle')[0];
+                toggle.removeAttribute("href");
+                toggle.classList.add('fas','fa-bars','custom-button');
 
+                if (!_this.embedding) {
                     const settings_container = document.getElementsByClassName('leaflet-control-layers-list')[0];
                     const base = settings_container.childNodes[0];
                     const separator = settings_container.childNodes[1];
@@ -441,12 +512,34 @@ export default class Buttons {
 
                     settings_container.appendChild(settings_list);
                 }
+
                 _this.total = new Total(_this);
                 _this.openURLs();
             }
         }
         xhr.open('GET', './res/mapbox_token.txt');
         xhr.send();
+    }
+
+    addSwitchMapboxLayers() {
+        const _this = this;
+        const layerSelectors = _this.controlLayers._layerControlInputs;
+        for (var i=0; i<layerSelectors.length; i++) {
+            const span = layerSelectors[i].nextSibling;
+            if (span.textContent.endsWith("Outdoors")) {
+                _this.mapboxOutdoorsSelector = layerSelectors[i];
+                _this.mapboxOutdoorsSelector.checked = (_this.mapboxMap == Object.values(_this.map._layers)[0]) && (_this.mapboxMap.options.style == "mapbox://styles/mapbox/outdoors-v11");
+                _this.mapboxOutdoorsSelector.addEventListener('click', function () {
+                    _this.mapboxMap.getMapboxMap().setStyle("mapbox://styles/mapbox/outdoors-v11", {diff: false});
+                });
+            } else if (span.textContent.endsWith("Satellite")) {
+                _this.mapboxSatelliteSelector = layerSelectors[i];
+                _this.mapboxSatelliteSelector.checked = (_this.mapboxMap == Object.values(_this.map._layers)[0]) && (_this.mapboxMap.options.style == "mapbox://styles/mapbox/satellite-v9");
+                _this.mapboxSatelliteSelector.addEventListener('click', function () {
+                    _this.mapboxMap.getMapboxMap().setStyle("mapbox://styles/mapbox/satellite-v9", {diff: false});
+                });
+            }
+        }
     }
 
     hideTraceButtons() {
@@ -997,22 +1090,22 @@ export default class Buttons {
             var content = `<div id="speed-change" style="padding-bottom:4px;">`;
 
             if (buttons.cycling) {
-                content += `Speed <input type="number" id="speed-input" min="1.0" max="99.9" step="0.1" lang="en-150"> `;
-                if (buttons.km) content += `km/h</div>`;
-                else content += `mi/h</div>`;
+                content += buttons.speed_text + ` <input type="number" id="speed-input" min="1.0" max="99.9" step="0.1" lang="en-150"> `;
+                if (buttons.km) content += buttons.unit_kilometers_text + '/' + buttons.unit_hours_text + `</div>`;
+                else content += buttons.unit_miles_text + '/' + buttons.unit_hours_text + `</div>`;
             } else {
-                content += `Pace <input type="number" id="minutes" min="1" max="59" step="1">
+                content += buttons.pace_text + ` <input type="number" id="minutes" min="1" max="59" step="1">
                             :
                             <input type="number" id="seconds" min="0" max="59" step="1"> `;
-                if (buttons.km) content += `min/km</div>`;
-                else content += `min/mi</div>`;
+                if (buttons.km) content += buttons.unit_minutes_text + '/' + buttons.unit_kilometers_text + `</div>`;
+                else content += buttons.unit_minutes_text + '/' + buttons.unit_miles_text + `</div>`;
             }
 
-            content += `<div id="start-change">Start
+            content += `<div id="start-change">`+buttons.start_text+`
                         <input type="datetime-local" id="start-time"></div></div><br>
-                        <div><b style="color:red">Experimental</b> Generate speed considering<br>the slope (erases all existing time data) <input type="checkbox" id="slope-speed"></div><br>
-                        <div id="edit-speed" class="panels custom-button normal-button">Ok</div>
-                        <div id="cancel-speed" class="panels custom-button normal-button"><b>Cancel</b></div>`;
+                        <div><b style="color:red; vertical-align:top">`+buttons.experimental_text+`</b>  <div style="max-width: 200px;display: inline-block;white-space: normal;">`+buttons.experimental_info_text+`</div><input type="checkbox" id="slope-speed" style="vertical-align:top"></div><br>
+                        <div id="edit-speed" class="panels custom-button normal-button">`+buttons.ok_button_text+`</div>
+                        <div id="cancel-speed" class="panels custom-button normal-button"><b>`+buttons.cancel_button_text+`</b></div>`;
 
             const trace = total.traces[total.focusOn];
             if (buttons.window_open) buttons.window_open.hide();
