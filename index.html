@@ -11,7 +11,7 @@
             }
         </script>
         <meta charset="utf-8">
-        <title class="weblate">gpx.studio — the online GPX file editor</title>
+        <title>gpx.studio — the online GPX file editor</title>
         <meta name="description" content="View, edit and create GPX files online: add, move and delete points, merge multiple files, reverse, add timestamps, edit waypoints and more!">
         <meta property="og:title" content="gpx.studio — the online GPX file editor" />
         <meta property="og:description" content="View, edit and create GPX files online: add, move and delete points, merge multiple files, reverse, add timestamps, edit waypoints and more!" />
@@ -83,29 +83,29 @@
         <div id="mapid"></div>
         <div id="toolbar" class="panels-container center-leaflet">
             <a href="./about.html" target="_blank"><img src="res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 2px 4px" alt="logo of gpx.studio, the online GPX file editor"></a>
-            <div id="load" class="panels custom-button weblate">Load GPX</div>
-            <div id="manual" class="panels custom-button weblate">Draw</div>
-            <div id="export" class="panels custom-button weblate">Export</div>
+            <div id="load" class="panels custom-button">Load GPX</div>
+            <div id="manual" class="panels custom-button">Draw</div>
+            <div id="export" class="panels custom-button">Export</div>
             <div class="panels custom-button unselected no-click2" id="undo"><i class="fas fa-reply"></i></div>
             <div class="panels custom-button unselected no-click2" id="redo"><i class="fas fa-share"></i></div>
-            <div id="clear" class="panels custom-button weblate">Clear all</div>
-            <div id="help" class="panels custom-button weblate">Help</div>
-            <div id="about" class="panels custom-button weblate">About</div>
-            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b class="weblate">Donate</b> <i class="fas fa-heart"></i></div>
+            <div id="clear" class="panels custom-button">Clear all</div>
+            <div id="help" class="panels custom-button">Help</div>
+            <div id="about" class="panels custom-button">About</div>
+            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Donate</b> <i class="fas fa-heart"></i></div>
         </div>
         <div id="info" class="padding-container center-leaflet">
             <div id="info-grid" class="panels-container trace-info">
-                <div class="panels panels-info weblate" id="distance">Distance</div>
-                <div class="panels panels-val" id="distance-val">- <span class="weblate">km</span></div>
-                <div class="panels panels-info weblate" id="elevation">Elevation gain</div>
-                <div class="panels panels-val" id="elevation-val">- <span class="weblate">m</span></div>
-                <div class="panels panels-info weblate" id="speed">Speed</div>
-                <div class="panels panels-val" id="speed-val">- <span class="weblate">km/h</span></div>
-                <div class="panels panels-info weblate" id="duration">Moving time</div>
-                <div class="panels panels-val" id="duration-val">- <span>h</span> -</div>
-                <div class="panels panels-info weblate" id="points" style="display: none">Track points</div>
+                <div class="panels panels-info" id="distance">Distance</div>
+                <div class="panels panels-val" id="distance-val">- km</div>
+                <div class="panels panels-info" id="elevation">Elevation gain</div>
+                <div class="panels panels-val" id="elevation-val">- m</div>
+                <div class="panels panels-info" id="speed">Speed</div>
+                <div class="panels panels-val" id="speed-val">- km/h</div>
+                <div class="panels panels-info" id="duration">Moving time</div>
+                <div class="panels panels-val" id="duration-val">- h -</div>
+                <div class="panels panels-info" id="points" style="display: none">Track points</div>
                 <div class="panels panels-val" id="points-val" style="display: none">0</div>
-                <div class="panels panels-info weblate" id="segments" style="display: none">Segments</div>
+                <div class="panels panels-info" id="segments" style="display: none">Segments</div>
                 <div class="panels panels-val" id="segments-val" style="display: none">0</div>
                 <div class="panels panels-val panels-live" id="live-distance">--</div>
                 <div class="panels panels-val panels-live" id="live-speed">--</div>
@@ -121,10 +121,10 @@
                 </div>
             </div>
             <ul id="sortable">
-              <li class="tab tab-focus weblate" id="total-tab" style="margin-right:-3px;">Total</li>
+              <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">Total</li>
             </ul>
         </div>
-        <div id="buttons-bar" class="panels-container vcenter-leaflet weblate">
+        <div id="buttons-bar" class="panels-container vcenter-leaflet">
             <div class="panels-button" id="edit" title="Edit track points"><i class="fas fa-pencil-alt custom-button"></i></div><br>
             <div class="panels-button" id="edit-time" title="Edit time"><i class="fas fa-stopwatch custom-button"></i></div><br>
             <div class="panels-button" id="reverse" title="Reverse"><i class="fas fa-exchange-alt custom-button"></i></div><br>
@@ -137,7 +137,7 @@
             <div class="panels-button" id="zone-delete" title="Delete all inside/outside rectangle selection"><i class="fas fa-vector-square custom-button"></i></div><br>
             <div class="panels-button" id="delete" title="Delete"><i class="fas fa-trash-alt custom-button"></i></div><br>
         </div>
-        <li id="activity" class="dontselect"><span class="weblate">Activity</span>:
+        <li id="activity" class="dontselect">Activity:
             <span class="unselected custom-button">
                 <i id="bike" class="fas fa-biking"></i>
                 <i class="fas fa-arrows-alt-h"></i>
@@ -146,11 +146,11 @@
                 <i id="drive" class="fas fa-motorcycle"></i>
             </span>
         </li>
-        <li id="units" class="dontselect"><span class="weblate">Units</span>: <span class="unselected custom-button"><span id="km" class="weblate">km </span><i class="fas fa-arrows-alt-h"></i><span id="mi" class="weblate"> mi</span></span></li>
-        <li id="method" class="dontselect"><span class="weblate">Routing</span>: <span class="unselected custom-button"><i id="route" class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i id="crow" class="fas fa-dove"></i></span></li>
-        <li id="chevrons" class="dontselect"><span class="weblate">Chevrons</span>: <input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"></li>
-        <li id="dist-markers" class="dontselect"><span class="weblate">Distance markers</span>: <input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"></li>
-        <li id="profile" class="dontselect"><span class="weblate">Elevation profile</span>: <input type="checkbox" checked id="show-profile" class="custom-button" style="vertical-align: middle;"></li>
+        <li id="units" class="dontselect">Units: <span class="unselected custom-button"><span id="km">km </span><i class="fas fa-arrows-alt-h"></i><span id="mi"> mi</span></span></li>
+        <li id="method" class="dontselect">Routing: <span class="unselected custom-button"><i id="route" class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i id="crow" class="fas fa-dove"></i></span></li>
+        <li id="chevrons" class="dontselect">Chevrons: <input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"></li>
+        <li id="dist-markers" class="dontselect">Distance markers: <input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"></li>
+        <li id="profile" class="dontselect">Elevation profile: <input type="checkbox" checked id="show-profile" class="custom-button" style="vertical-align: middle;"></li>
         <div id="help-text">
         <table style="width: 100%">
             <colgroup>
@@ -160,38 +160,38 @@
             </colgroup>
             <tbody>
             <tr>
-                <td><b class="weblate">Load GPX</b></td>
-                <td class="weblate">Ctrl+O</td>
-                <td class="weblate">Import and visualize GPX files (or drag and drop anywhere in the window)</td>
+                <td><b>Load GPX</b></td>
+                <td>Ctrl+O</td>
+                <td>Import and visualize GPX files (or drag and drop anywhere in the window)</td>
             </tr>
             <tr>
-                <td><b class="weblate">Draw</b></td>
-                <td class="weblate">Ctrl+D</td>
-                <td class="weblate">Start drawing a new route by placing track points on the map</td>
+                <td><b>Draw</b></td>
+                <td>Ctrl+D</td>
+                <td>Start drawing a new route by placing track points on the map</td>
             </tr>
             <tr>
-                <td><b class="weblate">Export</b></td>
-                <td class="weblate">Ctrl+S</td>
-                <td class="weblate">Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Time, heart rate, cadence and temperature data are automatically extended. Optionally, merge all files <b>in the chosen order</b>. You can also drag a tab to your desktop to download the file.</td>
+                <td><b>Export</b></td>
+                <td>Ctrl+S</td>
+                <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Time, heart rate, cadence and temperature data are automatically extended. Optionally, merge all files <b>in the chosen order</b>. You can also drag a tab to your desktop to download the file.</td>
             </tr>
             <tr>
                 <td><i class="fas fa-reply"></i> <i class="fas fa-share"></i></td>
-                <td class="weblate">Ctrl+Z/Y</td>
-                <td class="weblate">Undo and redo actions in edition mode</td>
+                <td>Ctrl+Z/Y</td>
+                <td>Undo and redo actions in edition mode</td>
             </tr>
             <tr>
-                <td><b class="weblate">Clear all</b></td>
-                <td class="weblate">Ctrl+K</td>
-                <td class="weblate">Delete all traces</td>
+                <td><b>Clear all</b></td>
+                <td>Ctrl+K</td>
+                <td>Delete all traces</td>
             </tr>
             <tr>
                 <td></td>
-                <td class="weblate">Escape</td>
-                <td class="weblate">Exit current menu or tool</td>
+                <td>Escape</td>
+                <td>Exit current menu or tool</td>
             </tr>
             </tbody>
         </table><br>
-        <span class="weblate">Below the search bar</span> <i class="fas fa-search"></i> <span class="weblate">and the Google Street View tool</span> <i class="fas fa-street-view"></i><span class="weblate">, you can find a dropdown menu</span> <i class="fas fa-bars"></i> <span class="weblate">with the maps available and some settings.</span>
+        Below the search bar <i class="fas fa-search"></i> and the Google Street View tool <i class="fas fa-street-view"></i>, you can find a dropdown menu <i class="fas fa-bars"></i> with the maps available and some settings.
         <table style="width: 100%">
             <colgroup>
                <col span="1" style="width: 11%;">
@@ -201,32 +201,32 @@
             <tbody>
             <tr>
                 <td></td>
-                <td class="weblate">F1</td>
-                <td class="weblate">Show or hide the Strava Heatmap</td>
+                <td>F1</td>
+                <td>Show or hide the Strava Heatmap</td>
             </tr>
             <tr>
                 <td><i class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-dove"></i></td>
-                <td class="weblate">F2</td>
-                <td class="weblate">Switch between routing and <i>as the crow flies</i> (straight lines between track points) when editing traces</td>
+                <td>F2</td>
+                <td>Switch between routing and <i>as the crow flies</i> (straight lines between track points) when editing traces</td>
             </tr>
             <tr>
                 <td><i class="fas fa-biking"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-running"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-motorcycle"></i></td>
-                <td class="weblate">F3</td>
-                <td class="weblate">Switch between cycling, running and driving mode (impacts the routing and the Strava Heatmap displayed)</td>
+                <td>F3</td>
+                <td>Switch between cycling, running and driving mode (impacts the routing and the Strava Heatmap displayed)</td>
             </tr>
             <tr>
-                <td><span id="km" class="unit"><b class="weblate">km</b> </span><i class="fas fa-arrows-alt-h"></i><span id="mi" class="unit"> <b class="weblate">mi</b></span></td>
-                <td class="weblate">F4</td>
-                <td class="weblate">Change units displayed</td>
+                <td><b>km</b> <i class="fas fa-arrows-alt-h"></i> <b>mi</b></td>
+                <td>F4</td>
+                <td>Change units displayed</td>
             </tr>
             <tr>
                 <td></td>
-                <td class="weblate">Ctrl+H</td>
-                <td class="weblate">Show or hide the elevation profile</td>
+                <td>Ctrl+H</td>
+                <td>Show or hide the elevation profile</td>
             </tr>
             </tbody>
         </table><br>
-        <span class="weblate">The menu on the left contains all the editing tools described below.</span><br>
+        The menu on the left contains all the editing tools described below.<br>
         <table style="width: 100%">
             <colgroup>
                <col span="1" align="center" style="width:11%;">
@@ -235,59 +235,58 @@
             <tbody>
             <tr>
                 <td><i class="fas fa-pencil-alt"></i></td>
-                <td class="weblate">Enter edition mode to add, move, insert (by dragging the line), delete or split (right-click) track points</td>
+                <td>Enter edition mode to add, move, insert (by dragging the line), delete or split (right-click) track points</td>
             </tr>
             <tr>
                 <td><i class="fas fa-stopwatch"></i></td>
-                <td class="weblate">Change the speed and starting time of the trace</td>
+                <td>Change the speed and starting time of the trace</td>
             </tr>
             <tr>
                 <td><i class="fas fa-exchange-alt"></i></td>
-                <td class="weblate">Reverse the trace and adapt the timestamps</td>
+                <td>Reverse the trace and adapt the timestamps</td>
             </tr>
             <tr>
                 <td><i class="fas fa-plus-circle"></i></td>
-                <td class="weblate">Merge with another trace (automatically extends time, heart rate, cadence and temperature data)</td>
+                <td>Merge with another trace (automatically extends time, heart rate, cadence and temperature data)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-list-ul"></i></td>
-                <td class="weblate">Extract all track segments and creates one trace for each</td>
+                <td>Extract all track segments and creates one trace for each</td>
             </tr>
             <tr>
                 <td><i class="fas fa-copy"></i></td>
-                <td class="weblate">Duplicate the trace</td>
+                <td>Duplicate the trace</td>
             </tr>
             <tr>
                 <td><i class="fas fa-palette"></i></td>
-                <td class="weblate">Change the display color, this color will be exported and detected when re-imported</td>
+                <td>Change the display color, this color will be exported and detected when re-imported</td>
             </tr>
             <tr>
                 <td><i class="fas fa-map-marker-alt"></i></td>
-                <td class="weblate">Add a waypoint (drag to change its location and use the buttons to edit info, duplicate or remove)</td>
+                <td>Add a waypoint (drag to change its location and use the buttons to edit info, duplicate or remove)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-compress-alt"></i></td>
-                <td class="weblate">Reduce the number of track points</td>
+                <td>Reduce the number of track points</td>
             </tr>
             <tr>
                 <td><i class="fas fa-vector-square"></i></td>
-                <td class="weblate">Delete track points and/or waypoints inside/outside rectangle selection</td>
+                <td>Delete track points and/or waypoints inside/outside rectangle selection</td>
             </tr>
             <tr>
                 <td><i class="fas fa-trash-alt"></i></td>
-                <td class="weblate">Delete the trace</td>
+                <td>Delete the trace</td>
             </tr>
             </tbody>
         </table><br>
-        <span class="weblate">
         At the bottom, you can see a panel with information about the traces you import.
         The <b>Total</b> tab displays information about all open traces merged into one.
         <b>Swap the tabs</b> to define the order in which the traces should appear and <b>double-click</b> on them to change their names.
         When you have many tabs, navigate through them by scrolling horizontally.
         Use the <b>slider</b> to move the start/end point and cut the route.
-        </span><br><br>
+        <br><br>
         <div style="text-align: center; font-size: 10pt; color: #476947">
-            <b class="weblate">Check the <a href="./about.html#guide" target="_blank">User Guide</a> for more info and small tutorials!</b>
+            <b>Check the <a href="./about.html#guide" target="_blank">User Guide</a> for more info and small tutorials!</b>
         </div>
         </div>
         <div id="export-content" class="popup-content">
@@ -300,85 +299,85 @@
                 </colgroup>
                 <tbody>
                     <td></td>
-                    <td><b class="weblate">Export settings</b></td>
-                    <td><span class="weblate">Merge all traces</span><input type="checkbox" id="merge"></td>
+                    <td><b>Export settings</b></td>
+                    <td>Merge all traces<input type="checkbox" id="merge"></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td><span class="weblate">Time</span><input type="checkbox" id="include-time" checked></td>
-                    <td><span class="weblate">Temperature</span><input type="checkbox" id="include-atemp" checked></td>
+                    <td>Time<input type="checkbox" id="include-time" checked></td>
+                    <td>Temperature<input type="checkbox" id="include-atemp" checked></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td><span class="weblate">Heartrate</span><input type="checkbox" id="include-hr" checked></td>
-                    <td><span class="weblate">Cadence</span><input type="checkbox" id="include-cad" checked></td>
+                    <td>Heartrate<input type="checkbox" id="include-hr" checked></td>
+                    <td>Cadence<input type="checkbox" id="include-cad" checked></td>
                     <td></td>
                 </tr>
                 </tbody>
             </table>
-            <div style="color:#0f92c5;">&#9888;&#65039; <span class="weblate">The tool is <b>free</b> to use but <b>not free</b> to run</span> &#9888;&#65039;<br><span class="weblate">Each map display, track point added or moved is billed.</span></div>
-            <div id="donate-2" class="panels custom-button fancy-button"><b class="weblate">Help keep the website free</b> &#128591;</div><br>
-            <div id="export-2" class="panels custom-button fancy-button weblate">Download <i class="fas fa-download"></i></div>
-            <div id="save-drive" class="panels custom-button fancy-button"><span class="weblate">Save to Google Drive</span> <img src="res/drive.png" style="height: 15px; vertical-align: bottom"></i></div>
+            <div style="color:#0f92c5;">&#9888;&#65039; The tool is <b>free</b> to use but <b>not free</b> to run &#9888;&#65039;<br>Each map display, track point added or moved is billed.</div>
+            <div id="donate-2" class="panels custom-button fancy-button"><b>Help keep the website free</b> &#128591;</div><br>
+            <div id="export-2" class="panels custom-button fancy-button">Download <i class="fas fa-download"></i></div>
+            <div id="save-drive" class="panels custom-button fancy-button">Save to Google Drive <img src="res/drive.png" style="height: 15px; vertical-align: bottom"></div>
         </div>
         <div id="clear-content" class="popup-content">
-            <span class="weblate">This will delete all open traces.</span><br><span class="weblate">Do you wish to continue?</span><br>
-            <div id="clear2" class="panels custom-button normal-button weblate">Yes</div>
-            <div id="cancelclear" class="panels custom-button normal-button weblate"><b>Cancel</b></div>
+            This will delete all open traces.<br>Do you wish to continue?<br>
+            <div id="clear2" class="panels custom-button normal-button">Yes</div>
+            <div id="cancelclear" class="panels custom-button normal-button"><b>Cancel</b></div>
         </div>
         <div id="delete-content" class="popup-content">
-            <span class="weblate">This will delete the current trace.</span><br><span class="weblate">Do you wish to continue?</span><br>
-            <div id="delete2" class="panels custom-button normal-button weblate">Yes</div>
-            <div id="canceldelete" class="panels custom-button normal-button weblate"><b>Cancel</b></div>
+            This will delete the current trace.<br>Do you wish to continue?<br>
+            <div id="delete2" class="panels custom-button normal-button">Yes</div>
+            <div id="canceldelete" class="panels custom-button normal-button"><b>Cancel</b></div>
         </div>
         <div id="strava-content" class="popup-content">
-            <span class="weblate">Please log in to the</span><br><a href="https://www.strava.com/heatmap" target="_blank">Strava Global Heatmap</a> <span class="weblate">and retry.</span><br>
-            <span class="weblate">Still not working? Check <a href="./about.html#strava-heatmap" target="_blank">this post</a>.</span><br>
-            <div id="strava-ok" class="panels custom-button normal-button weblate" style="margin-top: 4px;">Got it</div>
+            Please log in to the<br><a href="https://www.strava.com/heatmap" target="_blank">Strava Global Heatmap</a> and retry.<br>
+            Still not working? Check <a href="./about.html#strava-heatmap" target="_blank">this post</a>.<br>
+            <div id="strava-ok" class="panels custom-button normal-button" style="margin-top: 4px;">Got it</div>
         </div>
         <div id="color-content" class="popup-content">
-            <span class="weblate">Pick a new color</span> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
-            <div id="validate-color" class="panels custom-button normal-button weblate">Ok</div>
-            <div id="cancel-color" class="panels custom-button normal-button weblate">Cancel</div>
+            Pick a new color <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
+            <div id="validate-color" class="panels custom-button normal-button">Ok</div>
+            <div id="cancel-color" class="panels custom-button normal-button">Cancel</div>
         </div>
         <div id="load-content" class="popup-content">
-            <span class="weblate">Choose files from</span><br>
-            <div id="load2" class="panels custom-button normal-button weblate">Desktop</div>
-            <div id="load-drive" class="panels custom-button normal-button">Google Drive <img src="res/drive.png" style="height: 15px; vertical-align: bottom"></i></div><br>
-            <span class="weblate">(or drag and drop anywhere in the window)</span>
+            Choose files from<br>
+            <div id="load2" class="panels custom-button normal-button">Desktop</div>
+            <div id="load-drive" class="panels custom-button normal-button">Google Drive <img src="res/drive.png" style="height: 15px; vertical-align: bottom"></div><br>
+            (or drag and drop anywhere in the window)
         </div>
         <div id="share-content" class="popup-content">
-            <span class="weblate">Done!</span><br>
-            <div id="copy-link" class="panels custom-button fancy-button"><span class="weblate">Copy link</span> <i class="fas fa-link"></i></div><br>
-            <div id="copy-embed" class="panels custom-button fancy-button"><span class="weblate">Copy embedding code</span> <i class="fas fa-code"></i></div><br>
+            Done!<br>
+            <div id="copy-link" class="panels custom-button fancy-button">Copy link <i class="fas fa-link"></i></div><br>
+            <div id="copy-embed" class="panels custom-button fancy-button">Copy embedding code <i class="fas fa-code"></i></div><br>
         </div>
         <div id="merge-content" class="popup-content">
-            <span class="weblate">Click on another tab to merge the traces</span><br>
-            <input type="checkbox" id="merge-as-segments"><span class="weblate">Merge as track segments</span><br>
-            <div id="merge-cancel" class="panels custom-button normal-button weblate">Cancel</div>
+            Click on another tab to merge the traces<br>
+            <input type="checkbox" id="merge-as-segments">Merge as track segments<br>
+            <div id="merge-cancel" class="panels custom-button normal-button">Cancel</div>
         </div>
         <div id="crop-content" class="popup-content">
-            <input type="checkbox" id="crop-keep"><span class="weblate">Keep cropped parts in new files</span><br>
-            <div id="crop-ok" class="panels custom-button normal-button weblate">Proceed</div>
-            <div id="crop-cancel" class="panels custom-button normal-button weblate">Cancel</div>
+            <input type="checkbox" id="crop-keep">Keep cropped parts in new files<br>
+            <div id="crop-ok" class="panels custom-button normal-button">Proceed</div>
+            <div id="crop-cancel" class="panels custom-button normal-button">Cancel</div>
         </div>
         <div id="reduce-content" class="popup-content">
-            <span class="weblate">Choose the amount of detail to keep</span><br>
-            <span class="weblate">Number of track points:</span> <span id="reduce-npoints">0</span><br>
+            Choose the amount of detail to keep<br>
+            Number of track points: <span id="reduce-npoints">0</span><br>
             <input type="range" min="0" max="1000" id="reduce-slider" style="width: 100%"><br>
-            <div id="reduce-ok" class="panels custom-button normal-button weblate">Ok</div>
-            <div id="reduce-cancel" class="panels custom-button normal-button weblate">Cancel</div>
+            <div id="reduce-ok" class="panels custom-button normal-button">Ok</div>
+            <div id="reduce-cancel" class="panels custom-button normal-button">Cancel</div>
         </div>
         <div id="zone-delete-content" class="popup-content">
-            <span class="weblate">Choose what to delete</span><br>
-            <input type="checkbox" id="zone-delete-points" checked><span class="weblate">Track points</span>
-            <input type="checkbox" id="zone-delete-waypoints" checked><span class="weblate">Waypoints</span><br>
-            <input type="radio" name="where" value="inside" checked><span class="weblate">Inside selection</span>
-            <input type="radio" name="where" value="outside"><span class="weblate">Outside selection</span><br>
-            <div id="zone-delete-ok" class="panels custom-button normal-button weblate">Proceed</div>
-            <div id="zone-delete-cancel" class="panels custom-button normal-button weblate">Cancel</div>
+            Choose what to delete<br>
+            <input type="checkbox" id="zone-delete-points" checked>Track points
+            <input type="checkbox" id="zone-delete-waypoints" checked>Waypoints<br>
+            <input type="radio" name="where" value="inside" checked>Inside selection
+            <input type="radio" name="where" value="outside">Outside selection<br>
+            <div id="zone-delete-ok" class="panels custom-button normal-button">Proceed</div>
+            <div id="zone-delete-cancel" class="panels custom-button normal-button">Cancel</div>
         </div>
         <div id="social" style="font-size: 30px">
             <a href="https://facebook.com/gpx.studio" target="_blank"><i class="fab fa-facebook-square"></i></a>
