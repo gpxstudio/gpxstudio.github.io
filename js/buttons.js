@@ -1405,11 +1405,11 @@ export default class Buttons {
                                     sortable.el.appendChild(total.traces[j].tab);
                                 }
                             }
-                            if (count == params.urls.length) onFinish();
+                            if (countDone == params.urls.length) onFinish();
                         });
                     } else if (xhr.readyState == 4 && xhr.status != 200) {
                         countDone++;
-                        if (count == params.urls.length) onFinish();
+                        if (countDone == params.urls.length) onFinish();
                     }
                 }
                 xhr.open('GET', href);
