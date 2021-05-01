@@ -218,10 +218,18 @@ export default class Buttons {
         var _this = this;
 
         // ELEVATION PROFILE
+        var elevation_profile_width = Math.min((window.innerWidth - 270) * 2 / 3, 400);
+        if (this.embedding && elevation_profile_width < 200) {
+            elevation_profile_width = Math.min((window.innerWidth - 180) * 4 / 5, 400);
+            this.live_distance.style.display = 'none';
+            this.live_speed.style.display = 'none';
+            this.live_elevation.style.display = 'none';
+            this.live_slope.style.display = 'none';
+        }
         this.elev = L.control.elevation({
             theme: "steelblue-theme",
             useHeightIndicator: true,
-            width: Math.max(100, Math.min((window.innerWidth - 270) * 2 / 3, 400)),
+            width: elevation_profile_width,
         	height: 100,
             margins:{
                 top:20,
