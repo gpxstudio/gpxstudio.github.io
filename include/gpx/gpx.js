@@ -630,6 +630,18 @@ L.GPX = L.FeatureGroup.extend({
         }
     }
 
+    var opacity = xml.getElementsByTagName('opacity');
+    if (opacity.length > 0) {
+        var op = parseFloat(opacity[0].textContent);
+        if (op >= 0 && op <= 1) {
+            this._trace.normal_style.opacity = op;
+            this._trace.focus_style.opacity = op;
+        } else if (op >= 0 && op <= 100) {
+            this._trace.normal_style.opacity = op/100;
+            this._trace.focus_style.opacity = op/100;
+        }
+    }
+
     var parseElements = options.gpx_options.parseElements;
     if (parseElements.indexOf('route') > -1) {
       // routes are <rtept> tags inside <rte> sections

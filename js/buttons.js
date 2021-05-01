@@ -93,6 +93,9 @@ export default class Buttons {
         this.color_ok = document.getElementById("validate-color");
         this.color_cancel = document.getElementById("cancel-color");
         this.color_picker = document.getElementById("color-picker");
+        this.color_checkbox = document.getElementById("color-checkbox");
+        this.opacity_slider = document.getElementById("opacity-slider");
+        this.opacity_checkbox = document.getElementById("opacity-checkbox");
         this.edit = document.getElementById("edit");
         this.validate = document.getElementById("validate");
         this.unvalidate = document.getElementById("unvalidate");
@@ -1225,6 +1228,7 @@ export default class Buttons {
             if (!trace.visible) trace.hideUnhide();
 
             buttons.color_picker.value = trace.normal_style.color;
+            buttons.opacity_slider.value = trace.normal_style.opacity;
             if (buttons.window_open) buttons.window_open.hide();
             buttons.window_open = buttons.color_window;
             buttons.color_window.show();
@@ -1232,9 +1236,34 @@ export default class Buttons {
         this.color_ok.addEventListener("click", function () {
             const trace = total.traces[total.focusOn];
             const color = buttons.color_picker.value;
+            const opacity = buttons.opacity_slider.value;
             total.changeColor(trace.normal_style.color, color);
             trace.normal_style.color = color;
             trace.focus_style.color = color;
+            trace.normal_style.opacity = opacity;
+            trace.focus_style.opacity = opacity;
+            if (buttons.color_checkbox.checked) total.same_color = true;
+            if (buttons.color_checkbox.checked || buttons.opacity_checkbox.checked) {
+                for (var i=0; i<total.traces.length; i++) {
+                    if (buttons.color_checkbox.checked) {
+                        total.traces[i].normal_style.color = color;
+                        total.traces[i].focus_style.color = color;
+                    }
+                    if (buttons.opacity_checkbox.checked) {
+                        total.traces[i].normal_style.opacity = opacity;
+                        total.traces[i].focus_style.opacity = opacity;
+                    }
+                    total.traces[i].gpx.setStyle(total.traces[i].normal_style);
+                }
+                if (buttons.color_checkbox.checked) {
+                    total.normal_style.color = color;
+                    total.focus_style.color = color;
+                }
+                if (buttons.opacity_checkbox.checked) {
+                    total.normal_style.opacity = opacity;
+                    total.focus_style.opacity = opacity;
+                }
+            }
             trace.gpx.setStyle(trace.focus_style);
             trace.showChevrons();
             trace.showDistanceMarkers();

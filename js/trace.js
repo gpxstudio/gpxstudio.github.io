@@ -15,11 +15,9 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-const normal_style = { weight: 3 };
-const focus_style = { weight: 5 };
 const options = {
     async: true,
-    polyline_options: normal_style,
+    polyline_options: { weight: 3, opacity: 1 },
     marker_options: {
         startIconUrl: '',
         endIconUrl: '',
@@ -46,8 +44,8 @@ export default class Trace {
         this.visible = true;
         this.popup = L.popup({closeButton: false});
         this.renaming = false;
-        this.normal_style = {...normal_style};
-        this.focus_style = {...focus_style};
+        this.normal_style = {...total.normal_style};
+        this.focus_style = {...total.focus_style};
 
         const color = total.getColor();
         this.normal_style.color = color;
@@ -463,6 +461,7 @@ export default class Trace {
                 repeat: true,
                 attributes: {
                     fill: this.normal_style.color,
+                    opacity: this.normal_style.opacity,
                     dy: '5px',
                     'font-size': '14px',
                     style: `text-shadow: 1px 1px 0 white, -1px 1px 0 white, 1px -1px 0 white, -1px -1px 0 white, 0px 1px 0 white, 0px -1px 0 white, -1px 0px 0 white, 1px 0px 0 white, 2px 2px 0 white, -2px 2px 0 white, 2px -2px 0 white, -2px -2px 0 white, 0px 2px 0 white, 0px -2px 0 white, -2px 0px 0 white, 2px 0px 0 white, 1px 2px 0 white, -1px 2px 0 white, 1px -2px 0 white, -1px -2px 0 white, 2px 1px 0 white, -2px 1px 0 white, 2px -1px 0 white, -2px -1px 0 white;
