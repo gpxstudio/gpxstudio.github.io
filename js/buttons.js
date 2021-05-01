@@ -1282,6 +1282,7 @@ export default class Buttons {
             if (total.hasFocus) return;
             const trace = total.traces[total.focusOn];
             trace.hideUnhide();
+            gtag('event', 'button', {'event_category' : 'hide'});
         });
         if (!this.embedding) {
             const openStreetView = function (e) {
