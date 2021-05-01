@@ -146,6 +146,7 @@ html, body {
     padding: 3px 6px;
     color: #535353;
     white-space: nowrap;
+    width: 15px;
 }
 
 .panels-info {

@@ -77,6 +77,7 @@ export default class Buttons {
         this.zone_delete_cancel = document.getElementById("zone-delete-cancel");
         this.zone_delete_pts = document.getElementById("zone-delete-points");
         this.zone_delete_wpts = document.getElementById("zone-delete-waypoints");
+        this.hide = document.getElementById("hide");
         this.reverse = document.getElementById("reverse");
         this.extract = document.getElementById("extract");
         this.reduce = document.getElementById("reduce");
@@ -563,6 +564,7 @@ export default class Buttons {
         this.color.classList.add('unselected','no-click');
         this.add_wpt.classList.add('unselected','no-click');
         this.reduce.classList.add('unselected','no-click');
+        this.hide.classList.add('unselected','no-click');
     }
 
     showTraceButtons() {
@@ -577,6 +579,7 @@ export default class Buttons {
         this.color.classList.remove('unselected','no-click');
         this.add_wpt.classList.remove('unselected','no-click');
         this.reduce.classList.remove('unselected','no-click');
+        this.hide.classList.remove('unselected','no-click');
         if (this.total.traces.length > 1) this.combine.classList.remove('unselected','no-click');
     }
 
@@ -652,6 +655,16 @@ export default class Buttons {
     validateToEdit() {
         this.edit.childNodes[0].classList.remove('fa-check');
         this.edit.childNodes[0].classList.add('fa-pencil-alt');
+    }
+
+    hideToUnhide() {
+        this.hide.childNodes[0].classList.remove('fa-eye-slash');
+        this.hide.childNodes[0].classList.add('fa-eye');
+    }
+
+    unhideToHide() {
+        this.hide.childNodes[0].classList.remove('fa-eye');
+        this.hide.childNodes[0].classList.add('fa-eye-slash');
     }
 
     circlesToFront() {
@@ -746,6 +759,10 @@ export default class Buttons {
             gtag('event', 'button', {'event_category' : 'draw'});
         });
         this.add_wpt.addEventListener("click", function () {
+            if (total.hasFocus) return;
+            const trace = total.traces[total.focusOn];
+            if (trace.isEdited) return;
+            if (!trace.visible) trace.hideUnhide();
             buttons.disable_trace = true;
             map._container.style.cursor = 'crosshair';
             var mapboxgl_canvas = document.getElementsByClassName('mapboxgl-canvas');
@@ -778,6 +795,8 @@ export default class Buttons {
         });
         this.delete.addEventListener("click", function () {
             if (total.hasFocus) return;
+            const trace = total.traces[total.focusOn];
+            if (trace.isEdited) return;
             if (buttons.window_open) buttons.window_open.hide();
             buttons.window_open = buttons.delete_window;
             buttons.delete_window.show();
@@ -791,6 +810,9 @@ export default class Buttons {
         });
         this.zone_delete.addEventListener("click", function () {
             if (total.hasFocus) return;
+            const trace = total.traces[total.focusOn];
+            if (trace.isEdited) return;
+            if (!trace.visible) trace.hideUnhide();
             if (buttons.window_open) buttons.window_open.hide();
             buttons.window_open = buttons.zone_delete_window;
 
@@ -1033,13 +1055,16 @@ export default class Buttons {
         });
         this.reverse.addEventListener("click", function() {
             if (total.hasFocus) return;
-            var trace = total.traces[total.focusOn];
+            const trace = total.traces[total.focusOn];
+            if (trace.isEdited) return;
+            if (!trace.visible) trace.hideUnhide();
             trace.reverse();
             gtag('event', 'button', {'event_category' : 'reverse'});
         });
         this.extract.addEventListener("click", function() {
             if (total.hasFocus) return;
-            var trace = total.traces[total.focusOn];
+            const trace = total.traces[total.focusOn];
+            if (trace.isEdited) return;
             if (!trace.can_extract) return;
             trace.extract_segments();
             gtag('event', 'button', {'event_category' : 'extract'});
@@ -1050,6 +1075,9 @@ export default class Buttons {
         };
         this.reduce.addEventListener("click", function() {
             if (total.hasFocus) return;
+            const trace = total.traces[total.focusOn];
+            if (trace.isEdited) return;
+            if (!trace.visible) trace.hideUnhide();
             buttons.reduce.trace = total.traces[total.focusOn];
             if (buttons.window_open) buttons.window_open.hide();
             buttons.window_open = buttons.reduce_window;
@@ -1094,6 +1122,9 @@ export default class Buttons {
         });
         this.time.addEventListener("click", function (e) {
             if (total.hasFocus) return;
+            const trace = total.traces[total.focusOn];
+            if (trace.isEdited) return;
+            if (!trace.visible) trace.hideUnhide();
 
             var content = `<div id="speed-change" style="padding-bottom:4px;">`;
 
@@ -1115,7 +1146,6 @@ export default class Buttons {
                         <div id="edit-speed" class="panels custom-button normal-button">`+buttons.ok_button_text+`</div>
                         <div id="cancel-speed" class="panels custom-button normal-button"><b>`+buttons.cancel_button_text+`</b></div>`;
 
-            const trace = total.traces[total.focusOn];
             if (buttons.window_open) buttons.window_open.hide();
             buttons.time.window = L.control.window(map,{title:'','content':content,className:'panels-container',visible:true,closeButton:false});
             buttons.window_open = buttons.time.window;
@@ -1191,6 +1221,8 @@ export default class Buttons {
         this.color.addEventListener("click", function () {
             if (total.hasFocus) return;
             const trace = total.traces[total.focusOn];
+            if (trace.isEdited) return;
+            if (!trace.visible) trace.hideUnhide();
 
             buttons.color_picker.value = trace.normal_style.color;
             if (buttons.window_open) buttons.window_open.hide();
@@ -1226,13 +1258,16 @@ export default class Buttons {
         this.duplicate.addEventListener("click", function () {
             if (total.hasFocus) return;
             const trace = total.traces[total.focusOn];
+            if (trace.isEdited) return;
             trace.clone();
             gtag('event', 'button', {'event_category' : 'duplicate'});
         });
         this.combine.addEventListener("click", function () {
             if (total.traces.length <= 1) return;
-            if (buttons.window_open) buttons.window_open.hide();
             const trace = total.traces[total.focusOn];
+            if (trace.isEdited) return;
+            if (!trace.visible) trace.hideUnhide();
+            if (buttons.window_open) buttons.window_open.hide();
             total.to_merge = trace;
             buttons.window_open = buttons.merge_window;
             buttons.merge_window.show();
@@ -1242,6 +1277,11 @@ export default class Buttons {
         });
         this.merge_cancel.addEventListener("click", function () {
             buttons.merge_window.hide();
+        });
+        this.hide.addEventListener("click", function () {
+            if (total.hasFocus) return;
+            const trace = total.traces[total.focusOn];
+            trace.hideUnhide();
         });
         if (!this.embedding) {
             const openStreetView = function (e) {

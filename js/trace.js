@@ -43,6 +43,7 @@ export default class Trace {
         this.hasFocus = false;
         this.isEdited = false;
         this.drawing = false;
+        this.visible = true;
         this.popup = L.popup({closeButton: false});
         this.renaming = false;
         this.normal_style = {...normal_style};
@@ -59,7 +60,6 @@ export default class Trace {
 
         this.gpx = new L.GPX(file, options, this).addTo(map);
         this.gpx.trace = this;
-        this.waypoints = [];
 
         this.index = total.traces.length;
         total.traces.push(this);
@@ -72,7 +72,6 @@ export default class Trace {
                 var wptMissingEle = [];
                 for (var i=0; i<layers.length; i++) {
                     if (layers[i]._latlng) { // wpt
-                        trace.waypoints.push(layers[i]);
                         if (layers[i]._latlng.meta && layers[i]._latlng.meta.ele == -1) wptMissingEle.push(layers[i]._latlng);
                     }
                 }
@@ -193,9 +192,9 @@ export default class Trace {
         const newTrace = this.total.addTrace(undefined, this.name);
         newTrace.gpx.addLayer(new L.FeatureGroup());
 
-        const layers = this.getLayers();
-        for (var l=0; l<layers.length; l++) if (layers[l]._latlngs) {
-            const points = layers[l]._latlngs;
+        const segments = this.getSegments();
+        for (var l=0; l<segments.length; l++) {
+            const points = segments[l]._latlngs;
             const cpy = [];
             for (var i=0; i<points.length; i++) {
                 const pt = points[i].clone();
@@ -217,11 +216,11 @@ export default class Trace {
         newTrace.showChevrons();
         newTrace.showDistanceMarkers();
 
-        for (var i=0; i<this.waypoints.length; i++) {
-            const marker = this.waypoints[i];
+        const waypoints = this.getWaypoints();
+        for (var i=0; i<waypoints.length; i++) {
+            const marker = waypoints[i];
             const newMarker = newTrace.gpx._get_marker(marker._latlng, marker.sym, marker.name, marker.desc, marker.cmt, this.gpx.options);
             newTrace.gpx.getLayers()[0].addLayer(newMarker);
-            newTrace.waypoints.push(newMarker);
         }
 
         return newTrace;
@@ -249,10 +248,13 @@ export default class Trace {
         this.buttons.slider.reset();
         this.showData();
         this.showElevation();
-        this.showWaypoints();
         this.updateExtract();
-        this.showChevrons();
-        this.showDistanceMarkers();
+        if (this.visible) {
+            this.buttons.unhideToHide();
+            this.showWaypoints();
+            this.showChevrons();
+            this.showDistanceMarkers();
+        } else this.buttons.hideToUnhide();
         if (!this.buttons.embedding) this.tab.scrollIntoView();
     }
 
@@ -283,6 +285,27 @@ export default class Trace {
         }
     }
 
+    hideUnhide() {
+        this.visible = !this.visible;
+        if (this.visible) {
+            this.buttons.unhideToHide();
+            this.showSegments();
+            this.showWaypoints();
+            this.showChevrons();
+            this.showDistanceMarkers();
+            if (this.isEdited) this.updateEditMarkers();
+            else this.buttons.elev._addSliderCircles();
+        } else {
+            this.buttons.hideToUnhide();
+            this.hideSegments();
+            this.hideWaypoints();
+            this.hideChevrons();
+            this.hideDistanceMarkers();
+            this.removeEditMarkers();
+            this.buttons.elev._removeSliderCircles();
+        }
+    }
+
     updateUndoRedo() {
         if (this.at >= 0 && !this.backToZero) this.buttons.undo.classList.remove('unselected','no-click2');
         else this.buttons.undo.classList.add('unselected','no-click2');
@@ -291,9 +314,7 @@ export default class Trace {
     }
 
     updateExtract() {
-        const layers = this.getLayers();
-        var count = 0;
-        for (var i=0; i<layers.length; i++) if (layers[i]._latlngs) count++;
+        const count = this.getSegments().length;
         if (count < 2) {
             this.buttons.extract.classList.add('unselected','no-click');
             this.can_extract = false;
@@ -303,15 +324,31 @@ export default class Trace {
         }
     }
 
+    showSegments() {
+        const segments = this.getSegments();
+        for (var i=0; i<segments.length; i++) {
+            segments[i]._path.style.display = '';
+        }
+    }
+
+    hideSegments() {
+        const segments = this.getSegments();
+        for (var i=0; i<segments.length; i++) {
+            segments[i]._path.style.display = 'none';
+        }
+    }
+
     showWaypoints() {
-        for (var i=0; i<this.waypoints.length; i++) {
-            this.waypoints[i].addTo(this.map);
+        const waypoints = this.getWaypoints();
+        for (var i=0; i<waypoints.length; i++) {
+            waypoints[i]._icon.style.display = '';
         }
     }
 
     hideWaypoints() {
-        for (var i=0; i<this.waypoints.length; i++) {
-            this.waypoints[i].remove();
+        const waypoints = this.getWaypoints();
+        for (var i=0; i<waypoints.length; i++) {
+            waypoints[i]._icon.style.display = 'none';
         }
     }
 
@@ -333,9 +370,10 @@ export default class Trace {
         this.isEdited = false;
         this.removeEditMarkers();
         this.buttons.blackTraceButtons();
-        this.buttons.elev._addSliderCircles();
+        if (this.visible) this.buttons.elev._addSliderCircles();
         this.buttons.validateToEdit();
         this.closePopup();
+        this.updateExtract();
 
         this.buttons.undo.classList.add('unselected');
         this.buttons.redo.classList.add('unselected');
@@ -383,9 +421,9 @@ export default class Trace {
     }
 
     redraw() {
-        const layers = this.getLayers();
-        for (var i=0; i<layers.length; i++) if (layers[i]._latlngs) {
-            layers[i].redraw();
+        const segments = this.getSegments();
+        for (var i=0; i<segments.length; i++) {
+            segments[i].redraw();
         }
     }
 
@@ -403,7 +441,7 @@ export default class Trace {
         this.buttons.elev.clear();
         this.buttons.elev.options.imperial = !this.buttons.km;
         this.addElevation();
-        if (this.isEdited) this.buttons.elev._removeSliderCircles();
+        if (this.isEdited || !this.visible) this.buttons.elev._removeSliderCircles();
     }
 
     addElevation(total_points) {
@@ -574,13 +612,13 @@ export default class Trace {
     }
 
     updateEditMarkers() {
-        if (this.isEdited) {
+        if (this.isEdited && this.visible) {
             this.removeEditMarkers();
             const bounds = this.map.getBounds();
             const dist = Math.abs(bounds._southWest.lat - bounds._northEast.lat);
-            const layers = this.getLayers();
-            for (var l=0; l<layers.length; l++) if (layers[l]._latlngs) {
-                const points = layers[l]._latlngs;
+            const segments = this.getSegments();
+            for (var l=0; l<segments.length; l++) {
+                const points = segments[l]._latlngs;
                 var start = -1, simplifiedPoints = [];
                 for (var i=0; i<points.length; i++) {
                     if (!points[i].routing && start == -1) start = i;
@@ -595,7 +633,7 @@ export default class Trace {
                     else simplifiedPoints = simplifiedPoints.concat(simplify.douglasPeucker(points.slice(start, points.length), dist/20));
                 }
                 for (var i=0; i<simplifiedPoints.length; i++) {
-                    this._editMarkers.push(this.newEditMarker(simplifiedPoints[i], layers[l]));
+                    this._editMarkers.push(this.newEditMarker(simplifiedPoints[i], segments[l]));
                     if (i > 0) {
                         const len = this._editMarkers.length;
                         this._editMarkers[len-1]._prec = this._editMarkers[len-2]._pt;
@@ -607,10 +645,10 @@ export default class Trace {
     }
 
     updatePointIndices() {
-        const layers = this.getLayers();
+        const segments = this.getSegments();
         var k = 0;
-        for (var l=0; l<layers.length; l++) if (layers[l]._latlngs) {
-            const points = layers[l]._latlngs;
+        for (var l=0; l<segments.length; l++) {
+            const points = segments[l]._latlngs;
             for (var i=0; i<points.length; i++) {
                 points[i].index = i;
                 points[i].trace_index = k++;
@@ -635,13 +673,13 @@ export default class Trace {
             weight: 4
         };
         this.preview = new L.GPX(undefined, options, null).addTo(this.map);
-        const layers = this.getLayers();
+        const segments = this.getSegments();
         var totalPoints = 0;
-        for (var l=0; l<layers.length; l++) if (layers[l]._latlngs) {
-            const simplifiedPoints = simplify.douglasPeucker(layers[l]._latlngs, tol);
+        for (var l=0; l<segments.length; l++) {
+            const simplifiedPoints = simplify.douglasPeucker(segments[l]._latlngs, tol);
             const preview_layer = new L.Polyline(simplifiedPoints, preview_style);
             this.preview.addLayer(preview_layer);
-            preview_layer.layer = layers[l];
+            preview_layer.segment = segments[l];
             totalPoints += simplifiedPoints.length;
         }
         return totalPoints;
@@ -656,7 +694,7 @@ export default class Trace {
 
     simplify() {
         const preview_layers = this.preview.getLayers();
-        for (var l=0; l<preview_layers.length; l++) preview_layers[l].layer._latlngs = preview_layers[l]._latlngs;
+        for (var l=0; l<preview_layers.length; l++) preview_layers[l].segment._latlngs = preview_layers[l]._latlngs;
 
         const points = this.getPoints();
         for (var i=0; i<points.length; i++) {
@@ -687,6 +725,15 @@ export default class Trace {
         return segments;
     }
 
+    getWaypoints() {
+        const layers = this.getLayers();
+        const waypoints = [];
+        for (var l=0; l<layers.length; l++) if (layers[l]._latlng) {
+            waypoints.push(layers[l]);
+        }
+        return waypoints;
+    }
+
     hasPoints() {
         const layers = this.getLayers();
         for (var i=0; i<layers.length; i++) if (layers[i]._latlngs)
@@ -695,10 +742,10 @@ export default class Trace {
     }
 
     getPoints() {
-        const layers = this.getLayers();
+        const segments = this.getSegments();
         var points = [];
-        for (var i=0; i<layers.length; i++) if (layers[i]._latlngs)
-            points = points.concat(layers[i]._latlngs);
+        for (var i=0; i<segments.length; i++)
+            points = points.concat(segments[i]._latlngs);
         return points;
     }
 
@@ -771,17 +818,17 @@ export default class Trace {
             copy = this.clone();
         }
 
-        const layers = this.getLayers();
+        const segments = this.getSegments();
         var cumul = 0;
-        for (var i=0; i<layers.length; i++) if (layers[i]._latlngs) {
-            const len = layers[i]._latlngs.length;
-            if (start >= cumul+len) this.gpx.getLayers()[0].removeLayer(layers[i]);
-            else if (end <= cumul) this.gpx.getLayers()[0].removeLayer(layers[i]);
+        for (var i=0; i<segments.length; i++) {
+            const len = segments[i]._latlngs.length;
+            if (start >= cumul+len) this.gpx.getLayers()[0].removeLayer(segments[i]);
+            else if (end <= cumul) this.gpx.getLayers()[0].removeLayer(segments[i]);
             else {
-                if (end-cumul < len) layers[i]._latlngs.splice(end-cumul);
-                if (start >= cumul) layers[i]._latlngs.splice(0, start-cumul);
-                layers[i]._latlngs[0].routing = false;
-                layers[i]._latlngs[layers[i]._latlngs.length-1].routing = false;
+                if (end-cumul < len) segments[i]._latlngs.splice(end-cumul);
+                if (start >= cumul) segments[i]._latlngs.splice(0, start-cumul);
+                segments[i]._latlngs[0].routing = false;
+                segments[i]._latlngs[segments[i]._latlngs.length-1].routing = false;
             }
             cumul += len;
         }
@@ -807,15 +854,15 @@ export default class Trace {
     }
 
     reverse() {
-        const layers = this.getLayers();
-        for (var l=0; l<layers.length; l++) if (layers[l]._latlngs)
-            layers[l]._latlngs.reverse();
+        const segments = this.getSegments();
+        for (var l=0; l<segments.length; l++)
+            segments[l]._latlngs.reverse();
 
-        for (var l=0; l<layers.length; l++) if (layers[l]._latlngs)
-            this.gpx.getLayers()[0].removeLayer(layers[l]);
+        for (var l=0; l<segments.length; l++)
+            this.gpx.getLayers()[0].removeLayer(segments[l]);
 
-        for (var l=layers.length-1; l>=0; l--) if (layers[l]._latlngs)
-            this.gpx.getLayers()[0].addLayer(new L.Polyline(layers[l]._latlngs, this.gpx.options.polyline_options));
+        for (var l=segments.length-1; l>=0; l--)
+            this.gpx.getLayers()[0].addLayer(new L.Polyline(segments[l]._latlngs, this.gpx.options.polyline_options));
 
         if (this.firstTimeData() != -1) {
             const points = this.getPoints();
@@ -890,15 +937,15 @@ export default class Trace {
         }
 
         if (as_segments) {
-            const layers = trace.getLayers();
-            for (var l=0; l<layers.length; l++) if (layers[l]._latlngs)
-                this.gpx.getLayers()[0].addLayer(new L.Polyline(layers[l]._latlngs, this.gpx.options.polyline_options));
+            const segments = trace.getSegments();
+            for (var l=0; l<segments.length; l++)
+                this.gpx.getLayers()[0].addLayer(new L.Polyline(segments[l]._latlngs, this.gpx.options.polyline_options));
         } else {
             if (this.hasPoints()) {
                 points.push(...otherPoints);
-                const layers = this.getLayers();
-                for (var l=0; l<layers.length; l++) if (layers[l]._latlngs)
-                    this.gpx.getLayers()[0].removeLayer(layers[l]);
+                const segments = this.getSegments();
+                for (var l=0; l<segments.length; l++)
+                    this.gpx.getLayers()[0].removeLayer(segments[l]);
                 this.gpx.getLayers()[0].addLayer(new L.Polyline(points, this.gpx.options.polyline_options));
             } else {
                 this.gpx.getLayers()[0].addLayer(new L.Polyline(otherPoints, this.gpx.options.polyline_options));
@@ -907,11 +954,11 @@ export default class Trace {
 
         this.gpx.setStyle(this.focus_style);
 
-        for (var i=0; i<trace.waypoints.length; i++) {
-            const marker = trace.waypoints[i];
+        const waypoints = trace.getWaypoints();
+        for (var i=0; i<waypoints.length; i++) {
+            const marker = waypoints[i];
             const newMarker = this.gpx._get_marker(marker._latlng, marker.sym, marker.name, marker.desc, marker.cmt, this.gpx.options);
             this.gpx.getLayers()[0].addLayer(newMarker);
-            this.waypoints.push(newMarker);
         }
 
         this.recomputeStats();
@@ -920,33 +967,34 @@ export default class Trace {
     }
 
     extract_segments() {
-        const layers = this.getLayers();
+        const segments = this.getSegments();
+        const waypoints = this.getWaypoints();
         var count = 1;
         var lastTrace = null;
 
-        var closestLayers = [];
-        for (var w=0; w<this.waypoints.length; w++) {
-            closestLayers.push({distance: Infinity, layers: []});
+        var closestSegments = [];
+        for (var w=0; w<waypoints.length; w++) {
+            closestSegments.push({distance: Infinity, segments: []});
         }
 
-        for (var l=0; l<layers.length; l++) if (layers[l]._latlngs) {
-            const bounds = layers[l].getBounds().pad(0.2);
-            for (var w=0; w<this.waypoints.length; w++) if (bounds.contains(this.waypoints[w]._latlng)) {
-                var pt = layers[l].closestLayerPoint(this.map.latLngToLayerPoint(this.waypoints[w]._latlng));
-                if (!pt) pt = L.GeometryUtil.closest(this.map, layers[l]._latlngs, this.waypoints[w]._latlng, true);
-                if (pt && pt.distance < closestLayers[w].distance) {
-                    closestLayers[w] = { distance: pt.distance, layers: [layers[l]] };
-                } else if (pt && pt.distance == closestLayers[w].distance) {
-                    closestLayers[w].layers.push(layers[l]);
+        for (var l=0; l<segments.length; l++) {
+            const bounds = segments[l].getBounds().pad(0.2);
+            for (var w=0; w<waypoints.length; w++) if (bounds.contains(waypoints[w]._latlng)) {
+                var pt = segments[l].closestLayerPoint(this.map.latLngToLayerPoint(waypoints[w]._latlng));
+                if (!pt) pt = L.GeometryUtil.closest(this.map, segments[l]._latlngs, waypoints[w]._latlng, true);
+                if (pt && pt.distance < closestSegments[w].distance) {
+                    closestSegments[w] = { distance: pt.distance, segments: [segments[l]] };
+                } else if (pt && pt.distance == closestSegments[w].distance) {
+                    closestSegments[w].segments.push(segments[l]);
                 }
             }
         }
 
-        for (var l=0; l<layers.length; l++) if (layers[l]._latlngs) {
+        for (var l=0; l<segments.length; l++) {
             const newTrace = this.total.addTrace(undefined, this.name);
             newTrace.gpx.addLayer(new L.FeatureGroup());
 
-            const points = layers[l]._latlngs;
+            const points = segments[l]._latlngs;
             const cpy = [];
             for (var i=0; i<points.length; i++) {
                 const pt = points[i].clone();
@@ -961,11 +1009,10 @@ export default class Trace {
                 newTrace.gpx.getLayers()[0].addLayer(new L.Polyline(cpy, newTrace.gpx.options.polyline_options));
             }
 
-            for (var w=0; w<this.waypoints.length; w++) if (closestLayers[w].layers.includes(layers[l])) {
-                const marker = this.waypoints[w];
+            for (var w=0; w<waypoints.length; w++) if (closestSegments[w].segments.includes(segments[l])) {
+                const marker = waypoints[w];
                 const newMarker = newTrace.gpx._get_marker(marker._latlng, marker.sym, marker.name, marker.desc, marker.cmt, this.gpx.options);
                 newTrace.gpx.getLayers()[0].addLayer(newMarker);
-                newTrace.waypoints.push(newMarker);
             }
 
             newTrace.recomputeStats();
@@ -979,11 +1026,13 @@ export default class Trace {
     }
 
     addEndPoint(lat, lng) {
+        if (!this.visible) this.hideUnhide();
+
         this.save();
 
         const pt = new L.LatLng(lat, lng);
         pt.meta = {"time":null, "ele":0};
-        var layer = null;
+        var segment = null;
 
         if (!this.hasPoints()) {
             this.gpx.addLayer(new L.FeatureGroup());
@@ -992,18 +1041,18 @@ export default class Trace {
             this.showChevrons();
             this.showDistanceMarkers();
             pt.index = 0;
-            layer = this.gpx.getLayers()[0].getLayers()[0];
+            segment = this.gpx.getLayers()[0].getLayers()[0];
         } else {
-            const layers = this.getLayers();
-            for (var i=layers.length-1; i>=0; i--) if (layers[i]._latlngs) {
-                pt.index = layers[i]._latlngs.length;
-                layer = layers[i];
-                layers[i]._latlngs.push(pt);
+            const segments = this.getSegments();
+            for (var i=segments.length-1; i>=0; i--) {
+                pt.index = segments[i]._latlngs.length;
+                segment = segments[i];
+                segments[i]._latlngs.push(pt);
                 break;
             }
         }
 
-        const marker = this.newEditMarker(pt, layer);
+        const marker = this.newEditMarker(pt, segment);
         this._editMarkers.push(marker);
         const len = this._editMarkers.length;
         if (len > 1) {
@@ -1011,10 +1060,10 @@ export default class Trace {
             this._editMarkers[len-2]._succ = this._editMarkers[len-1]._pt;
         }
 
-        if (this.buttons.routing && len > 1) this.askRoute2(this._editMarkers[len-2]._pt, this._editMarkers[len-1]._pt, layer);
+        if (this.buttons.routing && len > 1) this.askRoute2(this._editMarkers[len-2]._pt, this._editMarkers[len-1]._pt, segment);
         else {
             const prec_pt = this._editMarkers[len-1]._prec;
-            this.addRoute2(this.getIntermediatePoints(prec_pt, pt), prec_pt, pt, layer);
+            this.addRoute2(this.getIntermediatePoints(prec_pt, pt), prec_pt, pt, segment);
         }
     }
 
@@ -1057,7 +1106,6 @@ export default class Trace {
             this.gpx.options
         );
         this.gpx.getLayers()[0].addLayer(marker);
-        this.waypoints.push(marker);
         marker.fire('click');
         const edit_marker = document.getElementById('edit' + marker._popup._leaflet_id);
         edit_marker.click();
@@ -1066,11 +1114,7 @@ export default class Trace {
     }
 
     deleteWaypoint(marker) {
-        for (var i=0; i<this.waypoints.length; i++) if (this.waypoints[i] == marker) {
-            this.waypoints.splice(i, 1);
-            this.gpx.getLayers()[0].removeLayer(marker);
-            return;
-        }
+        this.gpx.getLayers()[0].removeLayer(marker);
     }
 
     deletePointManual(marker) {
@@ -1342,10 +1386,10 @@ export default class Trace {
         this.gpx._info.duration.total = 0;
 
         // recompute on remaining data
-        const layers = this.getLayers();
-        for (var l=0; l<layers.length; l++) if (layers[l]._latlngs) {
+        const segments = this.getSegments();
+        for (var l=0; l<segments.length; l++) {
             var ll = null, last = null, last_ele = null;
-            const points = layers[l]._latlngs;
+            const points = segments[l]._latlngs;
             for (var i=0; i<points.length; i++) {
                 ll = points[i];
                 this.gpx._info.elevation.max = Math.max(ll.meta.ele, this.gpx._info.elevation.max);
@@ -1568,21 +1612,21 @@ export default class Trace {
         if (this.at != this.memory.length-1) this.memory.splice(this.at+1, this.memory.length);
         if (this.lastSaveIsNew) {
             const mem = [];
-            const layers = this.getLayers();
-            for (var l=0; l<layers.length; l++) if (layers[l]._latlngs) {
-                const layer_mem = {
+            const segments = this.getSegments();
+            for (var l=0; l<segments.length; l++) {
+                const segment_mem = {
                     index: l,
                     points: []
                 };
-                const points = layers[l]._latlngs;
+                const points = segments[l]._latlngs;
                 for (var i=0; i<points.length; i++) {
                     const pt = points[i].clone();
                     pt.meta = points[i].meta;
                     pt.index = points[i].index;
                     pt.routing = points[i].routing;
-                    layer_mem.points.push(pt);
+                    segment_mem.points.push(pt);
                 }
-                mem.push(layer_mem);
+                mem.push(segment_mem);
             }
             this.memory.push(mem);
             this.at++;
@@ -1617,7 +1661,7 @@ export default class Trace {
     }
 
     do() {
-        const layers = this.getLayers();
+        const segments = this.getSegments();
         const mem = this.memory[this.at];
         for (var l=0; l<mem.length; l++) {
             const index = mem[l].index;
@@ -1630,7 +1674,7 @@ export default class Trace {
                 pt.routing = points[i].routing;
                 cpy.push(pt);
             }
-            layers[index]._latlngs = cpy;
+            segments[index]._latlngs = cpy;
         }
 
         this.updateUndoRedo();
