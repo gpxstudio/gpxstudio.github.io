@@ -79,8 +79,9 @@ export default class Total {
         this.buttons.focusTabElement(this.tab);
         this.buttons.hideTraceButtons();
         this.buttons.elev._removeSliderCircles();
+        this.buttons.unhideToHide();
 
-        for (var i=0; i<this.traces.length; i++) {
+        for (var i=0; i<this.traces.length; i++) if (this.traces[i].visible) {
             this.traces[i].showWaypoints();
         }
     }
@@ -300,11 +301,11 @@ export default class Total {
             const atemp = data.atemp ? data.atemp : (totalData ? totalData.atemp : null);
             const cad = data.cad ? data.cad : (totalData ? totalData.cad : null);
 
-            const layers = this.traces[i].getLayers();
-            for (var l=0; l<layers.length; l++) if (layers[l]._latlngs) {
+            const segments = this.traces[i].getSegments();
+            for (var l=0; l<segments.length; l++) {
                 xmlOutput += `<trkseg>
     `;
-                const points = layers[l]._latlngs;
+                const points = segments[l]._latlngs;
                 for (var j=0; j<points.length; j++) {
                     const point = points[j];
                     xmlOutput += `<trkpt lat="${point.lat.toFixed(6)}" lon="${point.lng.toFixed(6)}">
@@ -360,7 +361,7 @@ export default class Total {
     `;
             }
 
-            const waypoints = this.traces[i].waypoints;
+            const waypoints = this.traces[i].getWaypoints();
             for (var j=0; j<waypoints.length; j++) {
                 const point = waypoints[j];
                 waypointsOutput += `<wpt lat="${point._latlng.lat.toFixed(6)}" lon="${point._latlng.lng.toFixed(6)}">
@@ -379,9 +380,10 @@ export default class Total {
 `;
             }
 
-            if (!mergeAll || this.traces.length == 1) {
+            if (!mergeAll || this.traces.length == 1 || trace_idx!==undefined) {
                 const colorOutput = this.traces[i].set_color ? `<extensions>
     <color>`+this.traces[i].normal_style.color+`</color>
+    <opacity>`+this.traces[i].normal_style.opacity+`</opacity>
 </extensions>
 ` : '';
                 output.push({
@@ -444,9 +446,13 @@ export default class Total {
                 count: 0
             });
         }
+        this.normal_style = { weight: 3, opacity: 1 };
+        this.focus_style = { weight: 5, opacity: 1 };
+        this.same_color = false;
     }
 
     getColor() {
+        if (this.same_color) return this.normal_style.color;
         var lowest_count = Infinity;
         var lowest_index = 0;
         for (var i=0; i<this.colors.length; i++) if (this.colors[i].count < lowest_count) {

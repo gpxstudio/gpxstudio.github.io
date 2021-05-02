@@ -40,7 +40,6 @@ To play with the code locally:
 ## Future developments
 * Snap trace on road network or smooth trace
 * Color lines with elevation or speed data
-* Show/hide trace
 
 ## Acknowledgements
 This project would not have been possible without the following amazing projects :
