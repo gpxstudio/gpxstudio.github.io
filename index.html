@@ -43,46 +43,46 @@
             "featureList": "edit gpx files online, view gpx files online, merge gpx files online, reverse gpx file online, add timestamps to gpx file online, extract track segments, view and add waypoints gpx file online"
         }
         </script>
-        <link rel="icon" href="res/favicon.png">
-        <link rel="stylesheet" href="include/fontawesome/css/fontawesome.min.css"/>
-        <link rel="stylesheet" href="include/fontawesome/css/brands.min.css"/>
-        <link rel="stylesheet" href="include/fontawesome/css/solid.min.css"/>
-        <link rel="stylesheet" href="include/leaflet/leaflet.css">
-        <script src="include/leaflet/leaflet.js"></script>
-        <script type="text/javascript" src="include/icon/Leaflet.Icon.Glyph.js"></script>
-        <script type="module" src="include/gpx/gpx.js"></script>
+        <link rel="icon" href="/res/favicon.png">
+        <link rel="stylesheet" href="/include/fontawesome/css/fontawesome.min.css"/>
+        <link rel="stylesheet" href="/include/fontawesome/css/brands.min.css"/>
+        <link rel="stylesheet" href="/include/fontawesome/css/solid.min.css"/>
+        <link rel="stylesheet" href="/include/leaflet/leaflet.css">
+        <script src="/include/leaflet/leaflet.js"></script>
+        <script type="text/javascript" src="/include/icon/Leaflet.Icon.Glyph.js"></script>
+        <script type="module" src="/include/gpx/gpx.js"></script>
         <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
         <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
         <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
-        <link rel="stylesheet" href="include/elevation/leaflet.elevation-0.0.4-d3v4.css"/>
-        <script type="text/javascript" src="include/elevation/leaflet.elevation-0.0.4-d3v4.min.js"></script>
-        <script type="text/javascript" src="include/textpath/leaflet.textpath.js"></script>
-        <script type="text/javascript" src="include/mapboxgl/leaflet-mapbox-gl.js"></script>
-        <script type="text/javascript" src="include/controlwindow/L.Control.Window.js"></script>
-        <link rel="stylesheet" href="include/controlwindow/L.Control.Window.css">
-        <script type="text/javascript" src="include/geometryutil/leaflet.geometryutil.js"></script>
-        <script type="text/javascript" src="include/distancemarkers/leaflet-distance-markers.js"></script>
+        <link rel="stylesheet" href="/include/elevation/leaflet.elevation-0.0.4-d3v4.css"/>
+        <script type="text/javascript" src="/include/elevation/leaflet.elevation-0.0.4-d3v4.min.js"></script>
+        <script type="text/javascript" src="/include/textpath/leaflet.textpath.js"></script>
+        <script type="text/javascript" src="/include/mapboxgl/leaflet-mapbox-gl.js"></script>
+        <script type="text/javascript" src="/include/controlwindow/L.Control.Window.js"></script>
+        <link rel="stylesheet" href="/include/controlwindow/L.Control.Window.css">
+        <script type="text/javascript" src="/include/geometryutil/leaflet.geometryutil.js"></script>
+        <script type="text/javascript" src="/include/distancemarkers/leaflet-distance-markers.js"></script>
         <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.css" />
         <script src="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.13.0/Sortable.min.js"></script>
-        <script src="include/sanitize/xss.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="style.css">
-        <script type="module" src="include/simplify/simplify.js"></script>
-        <script src="include/driveutils/upload.js"></script>
-        <script type="module" src="include/node/bundle.js"></script>
-        <script type="module" src="js/slider.js"></script>
-        <script type="module" src="js/buttons.js"></script>
-        <script type="module" src="js/trace.js"></script>
-        <script type="module" src="js/total.js"></script>
-        <script type="module" src="js/google.js"></script>
-        <script type="module" src="js/script.js"></script>
+        <script src="/include/sanitize/xss.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/style.css">
+        <script type="module" src="/include/simplify/simplify.js"></script>
+        <script src="/include/driveutils/upload.js"></script>
+        <script type="module" src="/include/node/bundle.js"></script>
+        <script type="module" src="/js/slider.js"></script>
+        <script type="module" src="/js/buttons.js"></script>
+        <script type="module" src="/js/trace.js"></script>
+        <script type="module" src="/js/total.js"></script>
+        <script type="module" src="/js/google.js"></script>
+        <script type="module" src="/js/script.js"></script>
         <script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
     </head>
     <body>
         <input id="input-file" type="file" accept=".gpx" multiple style="display: none"/>
         <div id="mapid"></div>
         <div id="toolbar" class="panels-container center-leaflet">
-            <a href="./about.html" target="_blank"><img src="res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 2px 4px" alt="logo of gpx.studio, the online GPX file editor"></a>
+            <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 2px 4px" alt="logo of gpx.studio, the online GPX file editor"></a>
             <div id="load" class="panels custom-button">Load GPX</div>
             <div id="manual" class="panels custom-button">Draw</div>
             <div id="export" class="panels custom-button">Export</div>
@@ -325,7 +325,7 @@
             <div style="color:#0f92c5;">&#9888;&#65039; The tool is <b>free</b> to use but <b>not free</b> to run &#9888;&#65039;<br>Each map display, track point added or moved is billed.</div>
             <div id="donate-2" class="panels custom-button fancy-button"><b>Help keep the website free</b> &#128591;</div><br>
             <div id="export-2" class="panels custom-button fancy-button">Download <i class="fas fa-download"></i></div>
-            <div id="save-drive" class="panels custom-button fancy-button">Save to Google Drive <img src="res/drive.png" style="height: 15px; vertical-align: bottom"></div>
+            <div id="save-drive" class="panels custom-button fancy-button">Save to Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
         </div>
         <div id="clear-content" class="popup-content">
             This will delete all open traces.<br>Do you wish to continue?<br>
@@ -355,7 +355,7 @@
         <div id="load-content" class="popup-content">
             Choose files from<br>
             <div id="load2" class="panels custom-button normal-button">Desktop</div>
-            <div id="load-drive" class="panels custom-button normal-button">Google Drive <img src="res/drive.png" style="height: 15px; vertical-align: bottom"></div><br>
+            <div id="load-drive" class="panels custom-button normal-button">Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div><br>
             (or drag and drop anywhere in the window)
         </div>
         <div id="share-content" class="popup-content">
@@ -394,7 +394,7 @@
             <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank"><i class="fab fa-github-square"></i></a>
         </div>
         <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
-            <b>Open in</b> <img src="res/logo.png" height="20" style="vertical-align: bottom;" alt="logo of gpx.studio, the online GPX file editor">
+            <b>Open in</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logo of gpx.studio, the online GPX file editor">
         </div>
         <div style="display: none">
             <div id="unit-kilometers-text">km</div>
