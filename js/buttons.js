@@ -222,9 +222,10 @@ export default class Buttons {
         var _this = this;
 
         // ELEVATION PROFILE
-        var elevation_profile_width = Math.min((window.innerWidth - 270) * 2 / 3, 400);
+        const mapWidth = this.map._container.offsetWidth;
+        var elevation_profile_width = Math.min((mapWidth - 270) * 2 / 3, 400);
         var mobileEmbeddingStyle = this.embedding && elevation_profile_width < 200;
-        if (mobileEmbeddingStyle) elevation_profile_width = Math.max(360, window.innerWidth * 4/5);
+        if (mobileEmbeddingStyle) elevation_profile_width = Math.max(360, mapWidth * 4/5);
         this.elev = L.control.elevation({
             theme: "steelblue-theme",
             useHeightIndicator: true,
