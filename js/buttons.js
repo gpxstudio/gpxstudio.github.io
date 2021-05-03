@@ -412,8 +412,7 @@ export default class Buttons {
                             touchPitch: false,
                             doubleClickZoom: false,
                             scrollZoom: false,
-                            boxZoom: false,
-                            keyboard: false
+                            boxZoom: false
                         });
                     }
 
@@ -495,8 +494,7 @@ export default class Buttons {
                             touchPitch: false,
                             doubleClickZoom: false,
                             scrollZoom: false,
-                            boxZoom: false,
-                            keyboard: false
+                            boxZoom: false
                         }).addTo(_this.map);
 
                         _this.controlLayers = L.control.layers({
