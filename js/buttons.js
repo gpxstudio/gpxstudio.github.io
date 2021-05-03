@@ -551,7 +551,7 @@ export default class Buttons {
                 _this.openURLs();
             }
         }
-        xhr.open('GET', './res/mapbox_token.txt');
+        xhr.open('GET', '/res/mapbox_token.txt');
         xhr.send();
     }
 
