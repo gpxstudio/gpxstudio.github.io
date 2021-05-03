@@ -225,7 +225,7 @@ export default class Buttons {
         const mapWidth = this.map._container.offsetWidth;
         var elevation_profile_width = Math.min((mapWidth - 270) * 2 / 3, 400);
         var mobileEmbeddingStyle = this.embedding && elevation_profile_width < 200;
-        if (mobileEmbeddingStyle) elevation_profile_width = Math.max(360, mapWidth * 4/5);
+        if (mobileEmbeddingStyle) elevation_profile_width = mapWidth * 4/5;
         this.elev = L.control.elevation({
             theme: "steelblue-theme",
             useHeightIndicator: true,
@@ -246,8 +246,6 @@ export default class Buttons {
             this.live_elevation.style.display = 'none';
             this.live_slope.style.display = 'none';
 
-            this.trace_info_grid.style.gridAutoColumns = 'auto';
-
             this.elevation_profile.style.gridColumn = '1 / span 4';
             this.elevation_profile.style.gridRow = '1 / span 1';
             this.distance.style.gridColumn = '1 / span 1';
@@ -266,6 +264,25 @@ export default class Buttons {
             this.duration.style.gridRow = '2 / span 1';
             this.duration_info.style.gridColumn = '4 / span 1';
             this.duration_info.style.gridRow = '3 / span 1';
+
+            if (elevation_profile_width < 360) {
+                this.distance.style.minWidth = 0;
+                this.elevation.style.minWidth = 0;
+                this.speed.style.minWidth = 0;
+                this.duration.style.minWidth = 0;
+            }
+
+            if (elevation_profile_width < 300) {
+                this.duration.style.display = 'none';
+                this.duration_info.style.display = 'none';
+                this.elevation_profile.style.gridColumn = '1 / span 3';
+            }
+
+            if (elevation_profile_width < 200) {
+                this.speed.style.display = 'none';
+                this.speed_info.style.display = 'none';
+                this.elevation_profile.style.gridColumn = '1 / span 2';
+            }
         }
 
         // OVERLAY COMPONENTS
