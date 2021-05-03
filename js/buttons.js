@@ -223,13 +223,8 @@ export default class Buttons {
 
         // ELEVATION PROFILE
         var elevation_profile_width = Math.min((window.innerWidth - 270) * 2 / 3, 400);
-        if (this.embedding && elevation_profile_width < 200) {
-            elevation_profile_width = Math.min((window.innerWidth - 180) * 4 / 5, 400);
-            this.live_distance.style.display = 'none';
-            this.live_speed.style.display = 'none';
-            this.live_elevation.style.display = 'none';
-            this.live_slope.style.display = 'none';
-        }
+        var mobileEmbeddingStyle = this.embedding && elevation_profile_width < 200;
+        if (mobileEmbeddingStyle) elevation_profile_width = Math.max(360, window.innerWidth * 4/5);
         this.elev = L.control.elevation({
             theme: "steelblue-theme",
             useHeightIndicator: true,
@@ -244,6 +239,33 @@ export default class Buttons {
         }).addTo(this.map);
         this.elev.buttons = this;
         this.elevation_profile = document.getElementsByClassName('elevation')[0];
+        if (mobileEmbeddingStyle) {
+            this.live_distance.style.display = 'none';
+            this.live_speed.style.display = 'none';
+            this.live_elevation.style.display = 'none';
+            this.live_slope.style.display = 'none';
+
+            this.trace_info_grid.style.gridAutoColumns = 'auto';
+
+            this.elevation_profile.style.gridColumn = '1 / span 4';
+            this.elevation_profile.style.gridRow = '1 / span 1';
+            this.distance.style.gridColumn = '1 / span 1';
+            this.distance.style.gridRow = '2 / span 1';
+            this.distance_info.style.gridColumn = '1 / span 1';
+            this.distance_info.style.gridRow = '3 / span 1';
+            this.elevation.style.gridColumn = '2 / span 1';
+            this.elevation.style.gridRow = '2 / span 1';
+            this.elevation_info.style.gridColumn = '2 / span 1';
+            this.elevation_info.style.gridRow = '3 / span 1';
+            this.speed.style.gridColumn = '3 / span 1';
+            this.speed.style.gridRow = '2 / span 1';
+            this.speed_info.style.gridColumn = '3 / span 1';
+            this.speed_info.style.gridRow = '3 / span 1';
+            this.duration.style.gridColumn = '4 / span 1';
+            this.duration.style.gridRow = '2 / span 1';
+            this.duration_info.style.gridColumn = '4 / span 1';
+            this.duration_info.style.gridRow = '3 / span 1';
+        }
 
         // OVERLAY COMPONENTS
         if (this.embedding) {
