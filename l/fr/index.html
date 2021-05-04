@@ -344,10 +344,10 @@
         </div>
         <div id="color-content" class="popup-content">
             <div style="text-align: left">
-                Nouvelle couleur <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
-                <input id="color-checkbox" type="checkbox"> Appliquer la couleur à toutes les traces<br>
-                Opacité <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
-                <input id="opacity-checkbox" type="checkbox"> Appliquer l'opacité à toutes les traces
+                <label for="color-picker">Nouvelle couleur</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
+                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Appliquer la couleur à toutes les traces</label><br>
+                <label for="opacity-slider">Opacité</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
+                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Appliquer l'opacité à toutes les traces</label>
             </div>
             <div id="validate-color" class="panels custom-button normal-button">Ok</div>
             <div id="cancel-color" class="panels custom-button normal-button">Annuler</div>
@@ -382,10 +382,10 @@
         </div>
         <div id="zone-delete-content" class="popup-content">
             Sélectionnez quoi supprimer<br>
-            <input type="checkbox" id="zone-delete-points" checked>Points de passage
-            <input type="checkbox" id="zone-delete-waypoints" checked>Points d'intérêt<br>
-            <input type="radio" name="where" value="inside" checked>À l'intérieur de la sélection
-            <input type="radio" name="where" value="outside">En dehors de la sélection<br>
+            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Points de passage</label>
+            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Points d'intérêt</label><br>
+            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">À l'intérieur de la sélection</label>
+            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">En dehors de la sélection</label><br>
             <div id="zone-delete-ok" class="panels custom-button normal-button">Appliquer</div>
             <div id="zone-delete-cancel" class="panels custom-button normal-button">Annuler</div>
         </div>
