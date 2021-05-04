@@ -9,11 +9,13 @@ This repository contains the source code of the website [gpx.studio](https://gpx
 You are welcome to use parts of the code for your personal projects but **please do not host a clone of the website**.
 If you think something is missing from the website, please create an issue to discuss it or make a pull request if you can implement it yourself.
 
+**If you wish to integrate this project in your own website, _please first get in touch_ (except for the embedding mode of course).**
+
+## Run the code
+
 To play with the code locally:
 * Get your own token at [Mapbox](https://www.mapbox.com/) and put it in the directory `res` under `mapbox_token.txt`.
-* Remove the Google Analytics code (at the top of `index.html` and `about.html`).
-
-**If you wish to integrate this project in your own website, _please first get in touch_ (except for the embedding mode of course).**
+* Launch a local server in the root directory, for example using `python3 -m http.server`.
 
 ## Features
 * Import GPX files
@@ -40,6 +42,12 @@ To play with the code locally:
 ## Future developments
 * Snap trace on road network or smooth trace
 * Color lines with elevation or speed data
+
+## Translation
+
+The website is translated by volunteers on a collaborative translation platform.
+You can help improve the translations or add new languages by joining the [Crowdin project](https://crowdin.com/project/gpxstudio).
+Apart from a good understanding of **gpx.studio**, some basic knowledge of HTML can be useful. Any help is greatly appreciated!
 
 ## Acknowledgements
 This project would not have been possible without the following amazing projects :

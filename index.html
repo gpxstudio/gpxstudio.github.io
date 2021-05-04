@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <link rel="alternate" hreflang="x-default" href="https://gpxstudio.github.io/"/>
+        <link rel="alternate" hreflang="fr" href="https://gpxstudio.github.io/l/fr/"/>
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167421374-1"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
@@ -344,10 +346,10 @@
         </div>
         <div id="color-content" class="popup-content">
             <div style="text-align: left">
-                Pick a new color <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
-                <input id="color-checkbox" type="checkbox"> Apply color to all traces<br>
-                Opacity <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
-                <input id="opacity-checkbox" type="checkbox"> Apply opacity to all traces
+                <label for="color-picker">Pick a new color</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
+                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Apply color to all traces</label><br>
+                <label for="opacity-slider">Opacity</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
+                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Apply opacity to all traces</label>
             </div>
             <div id="validate-color" class="panels custom-button normal-button">Ok</div>
             <div id="cancel-color" class="panels custom-button normal-button">Cancel</div>
@@ -382,10 +384,10 @@
         </div>
         <div id="zone-delete-content" class="popup-content">
             Choose what to delete<br>
-            <input type="checkbox" id="zone-delete-points" checked>Track points
-            <input type="checkbox" id="zone-delete-waypoints" checked>Waypoints<br>
-            <input type="radio" name="where" value="inside" checked>Inside selection
-            <input type="radio" name="where" value="outside">Outside selection<br>
+            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Track points</label>
+            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
+            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inside selection</label>
+            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
             <div id="zone-delete-ok" class="panels custom-button normal-button">Proceed</div>
             <div id="zone-delete-cancel" class="panels custom-button normal-button">Cancel</div>
         </div>

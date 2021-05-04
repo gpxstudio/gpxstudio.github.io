@@ -77,6 +77,10 @@ export default class Buttons {
         this.zone_delete_cancel = document.getElementById("zone-delete-cancel");
         this.zone_delete_pts = document.getElementById("zone-delete-points");
         this.zone_delete_wpts = document.getElementById("zone-delete-waypoints");
+        this.zone_delete_inside = document.getElementById("zone-delete-inside");
+        this.zone_delete_inside.value = 'inside';
+        this.zone_delete_outside = document.getElementById("zone-delete-outside");
+        this.zone_delete_outside.value = 'outside';
         this.hide = document.getElementById("hide");
         this.reverse = document.getElementById("reverse");
         this.extract = document.getElementById("extract");
@@ -911,7 +915,7 @@ export default class Buttons {
             trace.deleteZone(buttons.zone_delete.rect.getBounds(),
                 buttons.zone_delete_pts.checked,
                 buttons.zone_delete_wpts.checked,
-                document.querySelector('input[name="where"]:checked').value == 'inside');
+                buttons.zone_delete_inside.checked);
             buttons.zone_delete_window.hide();
             gtag('event', 'button', {'event_category' : 'zone-delete'});
         });

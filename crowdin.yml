@@ -1,0 +1,3 @@
+files:
+  - source: /*.html
+    translation: /l/%two_letters_code%/%original_file_name%
