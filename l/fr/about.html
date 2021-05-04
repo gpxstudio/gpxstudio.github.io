@@ -91,7 +91,7 @@
                     <li>visualiser, ajouter, modifier et supprimer des points d'intérêt</li>
                     <li>réduire le nombre de points de passage</li>
                     <li>ajouter automatiquement les données d'altitude aux traces si elles sont absentes</li>
-                    <li>fusionner plusieurs traces, en étendant les données de temps, fréquence cardiaque, cadence et température si nécessaire</li>
+                    <li>fusionner plusieurs traces, en étendant les données de temps, fréquence cardiaque, cadence, puissance et température si nécessaire</li>
                     <li>extraire les segments des traces et utiliser tous les autres outils en respectant les segments contenus dans les fichiers</li>
                     <li>sauver le résultat sur votre bureau ou sauvegarder sur Google Drive™ pour obtenir un lien de partage et un code d'intégration</li>
                 </ul>
@@ -166,7 +166,7 @@
                         <li>Cliquer sur <span class="button">Exporter</span> et puis choisissez s'il faut :
                            <ul>
                                <li>fusionner tous les fichiers GPX ouverts ou les exporter séparément.</li>
-                               <li>inclure les données de temps, température, fréquence cardiaque et cadence.</li>
+                               <li>inclure les données de temps, température, fréquence cardiaque, cadence et puissance.</li>
                            </ul>
                            Ensuite, cliquez sur <span class="button">Télécharger <i class="fas fa-download"></i></span> pour télécharger les fichiers sur votre ordinateur ou sur <span class="button">Enregistrer dans Google Drive</span> pour les enregistrer dans le cloud.
                         </li>
@@ -180,7 +180,7 @@
                         <li>Cliquer sur <span class="button">Exporter</span> et puis choisissez s'il faut :
                            <ul>
                                <li>fusionner tous les fichiers GPX ouverts ou les exporter séparément.</li>
-                               <li>inclure les données de temps, température, fréquence cardiaque et cadence.</li>
+                               <li>inclure les données de temps, température, fréquence cardiaque, cadence et puissance.</li>
                            </ul>
                         </li>
                         <li>Cliquez sur <span class="button">Enregistrer dans Google Drive</span>.</li>
@@ -212,7 +212,7 @@
                         </li>
                         <li>utilisez <span class="button"><i class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-dove"></i></span> pour alterner le routage (suivre les chemins) ou "vol d'oiseau" (lignes droites entre les points de passage).</li>
                     </ul>
-                    Si vous modifiez un fichier GPX contenant des données de temps, température, fréquence cardiaque ou cadence, les nouveaux points de passage contiendront automatiquement la valeur moyenne pour chacun de ces champs.
+                    Si vous modifiez un fichier GPX contenant des données de temps, température, fréquence cardiaque, cadence ou puissance, les nouveaux points de passage contiendront automatiquement la valeur moyenne pour chacun de ces champs.
                 </div></div>
                 <div class="guide-item"><a name="crop-file" href="#crop-file" class="my-anchor"><div class="guide-title" onclick="toggle('crop')">Rogner un fichier GPX</div></a>
                 <div id="crop" style="display: none">Vous avez 3 options :
@@ -273,7 +273,7 @@
                         <li>Cochez la case <i class="far fa-check-square"></i> Fusionner toutes les traces.</li>
                         <li>Cliquez sur <span class="button">Télécharger <i class="fas fa-download"></i></span> pour télécharger les fichiers sur votre ordinateur ou sur <span class="button">Enregistrer dans Google Drive</span> pour les enregistrer dans le cloud.</li>
                     </ol>
-                    Lors de la fusion de plusieurs fichiers GPX : les données manquantes de temps, température, fréquence cardiaque ou cadence seront automatiquement étendues avec leur valeur moyenne sur les fichiers fusionnés.
+                    Lors de la fusion de plusieurs fichiers GPX : les données manquantes de temps, température, fréquence cardiaque, cadence ou puissance seront automatiquement étendues avec leur valeur moyenne sur les fichiers fusionnés.
                     Si certains fichiers GPX contiennent des données de temps, on s'assure que les données de temps du fichier fusionné seront strictement croissantes (les données de temps de certains fichiers sont décalées si nécessaire).
                 </div></div>
                 <div class="guide-item"><a name="extract-segments" href="#extract-segments" class="my-anchor"><div class="guide-title" onclick="toggle('extract')">Extraire les segments d'un fichier GPX</div></a>
@@ -419,10 +419,10 @@
                     <input id="mapbox-token" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
                     <h3>Code HTML</h3>
                     <div style="text-align: left; overflow-wrap: break-word; padding:10px; border: 1px solid #ccc; background: #f5f5f5;">
-                    <code id="embedding-code">&lt;iframe src="https://gpxstudio.github.io/?state=%7B%22ids%22:%5B%2210IbXh7W7QDO7ZKmapJYdcgN3vhdN2Q-e%22%5D%7D&embed&distance" width="100%" height="500" frameborder="0" allowfullscreen&gt;&lt;p&gt;&lt;a href="https://gpxstudio.github.io/?state=%7B%22ids%22:%5B%2210IbXh7W7QDO7ZKmapJYdcgN3vhdN2Q-e%22%5D%7D"&gt;&lt;/a&gt;&lt;/p&gt;&lt;/iframe&gt;</code>
+                    <code id="embedding-code"></code>
                     </div>
                     <h3>Aperçu</h3>
-                    <iframe id="preview" src="./?state=%7B%22ids%22:%5B%2210IbXh7W7QDO7ZKmapJYdcgN3vhdN2Q-e%22%5D%7D&embed&distance" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
+                    <iframe id="preview" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
             <a name="legal"></a><a name="terms"></a><h1>Conditions d'utilisation &#128214;</h1>
@@ -554,7 +554,8 @@
                 + (direction ? '&direction' : '');
 
             const code = document.getElementById("embedding-code");
-            code.innerHTML = '&lt;iframe src="https://gpxstudio.github.io/'
+            code.innerHTML = '&lt;iframe src="https://gpxstudio.github.io'
+                + window.location.pathname.replace('about.html','')
                 + query
                 + '&embed'
                 + (mapbox_token ? '&token='+mapbox_token : '')
@@ -563,7 +564,8 @@
                 + (imperial ? '&imperial' : '')
                 + (distance ? '&distance' : '')
                 + (direction ? '&direction' : '')
-                + '" width="100%" height="500" frameborder="0" allowfullscreen&gt;&lt;p&gt;&lt;a href="https://gpxstudio.github.io/'
+                + '" width="100%" height="500" frameborder="0" allowfullscreen&gt;&lt;p&gt;&lt;a href="https://gpxstudio.github.io'
+                + window.location.pathname.replace('about.html','')
                 + query
                 + '&gt;&lt;/a&gt;&lt;/p&gt;&lt;/iframe&gt;';
         }
@@ -584,6 +586,8 @@
                 anchors[0].children[0].click();
             }
         }
+
+        showPreview();
         </script>
     </body>
 </html>
