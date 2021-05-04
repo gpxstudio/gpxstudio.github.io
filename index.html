@@ -382,10 +382,10 @@
         </div>
         <div id="zone-delete-content" class="popup-content">
             Choose what to delete<br>
-            <input type="checkbox" id="zone-delete-points" checked>Track points
-            <input type="checkbox" id="zone-delete-waypoints" checked>Waypoints<br>
-            <input type="radio" name="where" value="inside" checked>Inside selection
-            <input type="radio" name="where" value="outside">Outside selection<br>
+            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Track points</label>
+            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
+            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inside selection</label>
+            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
             <div id="zone-delete-ok" class="panels custom-button normal-button">Proceed</div>
             <div id="zone-delete-cancel" class="panels custom-button normal-button">Cancel</div>
         </div>
