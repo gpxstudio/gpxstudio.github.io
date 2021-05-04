@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <link rel="alternate" hreflang="x-default" href="https://gpxstudio.github.io/about.html"/>
+        <link rel="alternate" hreflang="fr" href="https://gpxstudio.github.io/l/fr/about.html"/>
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167421374-1"></script>
         <script>
             if(window.location.hostname != "localhost") {
@@ -54,21 +56,33 @@
             <div style="display: flex; justify-content: space-between; margin: 10px 3% 0% 3%; ">
                 <a href="./"><img src="/res/logo.png" style="height: 40px"></a>
                 <a href="#about" class="my-anchor">About</a>
-                <a href="#mapbox" class="my-anchor">Mapbox Community</a>
                 <a href="#funding" class="my-anchor">Funding</a>
+                <a href="#support" class="my-anchor">Support</a>
                 <a href="#guide" class="my-anchor">User Guide</a>
                 <a href="#embed" class="my-anchor">Embedding</a>
-                <a href="#support" class="my-anchor">Support</a>
                 <a href="#legal" class="my-anchor">Legal</a>
             </div>
         </div>
         <div style="position:absolute; top:60px; height:1px; left:0px; right:0px; background-color: #dedede; overflow:hidden;"></div>
-        <div style="position:absolute; top:61px; bottom:0px; left:0px; right:0px; overflow: auto;">
+        <div style="position:absolute; bottom:0px; left:0px; overflow:hidden;">
+            <div style="display: flex; justify-content: space-between; margin: 10px 3% 0% 3%; ">
+                <a href="/about.html" class="footer">en</a>
+                <a href="/l/fr/about.html" class="footer">fr</a>
+            </div>
+        </div>
+        <div style="position:absolute; bottom:0px; right:0px; overflow:hidden;">
+            <div style="display: flex; justify-content: space-between; margin: 10px 3% 0% 3%; ">
+                <a href="https://facebook.com/gpx.studio" target="_blank" class="footer">Facebook</a>
+                <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank" class="footer">GitHub</a>
+            </div>
+        </div>
+        <div style="position:absolute; bottom:22px; height:1px; left:0px; right:0px; background-color: #dedede; overflow:hidden;"></div>
+        <div style="position:absolute; top:61px; bottom:22px; left:0px; right:0px; overflow: auto;">
             <a name="about"></a>
             <div style="margin: 0% 10% 0% 10%; text-align: justify;">
             <h1>About &#128692;</h1>
             <div>
-                <a href="https://gpxstudio.github.io"><b>gpx.studio</b></a> is a free online GPX viewer and editor which allows to:
+                <a href="./"><b>gpx.studio</b></a> is a free online GPX viewer and editor which allows to:
                 <ul>
                     <li>visualize multiple traces in different colors and aided by many different maps (cycling, hiking, satellite, <a href="https://www.strava.com/heatmap" target="_blank">Strava heatmap</a> overlay, etc)</li>
                     <li>edit traces by adding, inserting, moving or deleting track points</li>
@@ -83,11 +97,17 @@
                 </ul>
                 It is a one-person side project created after messing with GPX files for some time. The project source code is publicly available on <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank">GitHub</a>. Follow us on <a href="https://facebook.com/gpx.studio" target="_blank">Facebook</a> to be notified about updates of the tool.
             </div>
-            <a name="mapbox"></a><h1>Mapbox Community &#129309;<a href="https://www.mapbox.com/" target="_blank"><img src="/res/mapbox.svg" style="height: 40px; vertical-align: bottom; float: right;"></a></h1>
+            <a name="mapbox"></a><h2>Mapbox Community &#129309;<a href="https://www.mapbox.com/" target="_blank"><img src="/res/mapbox.svg" style="height: 40px; vertical-align: bottom; float: right;"></a></h2>
             <div>
                 <a href="https://www.mapbox.com/" target="_blank">Mapbox</a> is the company providing some of the beautiful maps on this website. We also rely on their services to retrieve routes between points you add or move, to add precise elevation data to the traces and to take you to the right location when you type in the search bar.<br><br>
                 They created a program called <a href="https://www.mapbox.com/community/" target="_blank">Mapbox Community</a> to support non-profits, educational institutions, and positive-impact organizations (see the <a href="https://www.mapbox.com/community/" target="_blank"> official page</a> where they showcase some of their collaborations). We are <b>very lucky</b> to have joined this program and to benefit from a great discount on all API rates. Thanks to them, funding this project only through donations should be sustainable in the long term.<br><br>
                 I am (and all users of the website can be) very grateful for their support and availability.
+            </div>
+            <a name="translation"></a><h2>Translation &#128483;&#65039;</h2>
+            <div>
+                The website is translated by volunteers on a collaborative translation platform.
+                You can help improve the translations or add new languages by joining the <a href="https://crowdin.com/project/gpxstudio">Crowdin project</a>.
+                Apart from a good understanding of <b>gpx.studio</b>, some basic knowledge of HTML can be useful. Any help is greatly appreciated!
             </div>
             <a name="funding"></a><h1>Help keep the website free (and ad-free) &#128591;</h1>
             <div>
@@ -95,6 +115,11 @@
                 Unfortunately this is not free even with Mapbox's support (see <a href="#mapbox">Mapbox Community</a> above). Other billable operations include map loads and geocoding requests (looking for a place in the search bar).<br><br>
                 So if you like the tool and use it frequently, please consider making even a small donation so that this website can stay <b>free to use</b> and <b>ad-free</b>. Thanks for your support!<br><br>
                 <div style="text-align: center;"><script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support gpx.studio on Ko-fi', '#29abe0', 'F1F1303GH');kofiwidget2.draw();</script></div>
+            </div>
+            <a name="support"></a><h1>Support &#128172;</h1>
+            <div>
+                The <span class="button">Help</span> dialog and the <a href="#guide">User Guide</a> should answer most questions about the functionalities, but feel free to ask for help, report any issues or send suggestions on the <a href="https://facebook.com/gpx.studio" target="_blank">Facebook page</a> or by email at <a href="mailto:contact.gpxstudio@gmail.com">contact.gpxstudio@gmail.com</a>.<br><br>
+                For developers, the <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank">Github repository</a> is also a good place to report issues or share ideas.
             </div>
             <a name="guide"></a><h1>User Guide &#127891;</h1>
             <div class="guide">
@@ -400,11 +425,6 @@
                     <iframe id="preview" src="./?state=%7B%22ids%22:%5B%2210IbXh7W7QDO7ZKmapJYdcgN3vhdN2Q-e%22%5D%7D&embed&distance" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
-            <a name="support"></a><h1>Support &#128172;</h1>
-            <div>
-                The <span class="button">Help</span> dialog and the <a href="#guide">User Guide</a> should answer most questions about the functionalities, but feel free to ask for help, report any issues or send suggestions on the <a href="https://facebook.com/gpx.studio" target="_blank">Facebook page</a> or by email at <a href="mailto:contact.gpxstudio@gmail.com">contact.gpxstudio@gmail.com</a>.<br><br>
-                For developers, the <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank">Github repository</a> is also a good place to report issues or share ideas.
-            </div>
             <a name="legal"></a><a name="terms"></a><h1>Terms of Services &#128214;</h1>
             <p>Thank you for using <b>gpx.studio</b>. These terms of service (Terms) cover your use and access of our website and related software (our Services).</p>
             <p>By accessing this website, you are agreeing to be bound by this website Terms of Services and to review our Privacy Policy. If you do not agree with any of these terms, you are prohibited from using or accessing this site.</p>
@@ -483,6 +503,10 @@
             outline: 0;
             border: none;
             -moz-outline-style: none;
+        }
+        .footer {
+            padding: 2px 10px;
+            font-size: 14px;
         }
         </style>
         <script>
