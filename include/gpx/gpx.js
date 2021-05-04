@@ -553,7 +553,8 @@ L.GPX = L.FeatureGroup.extend({
       hr: {avg: 0, _total: 0, _points: []},
       duration: {start: null, end: null, moving: 0, total: 0},
       atemp: {avg: 0, _total: 0, _points: []},
-      cad: {avg: 0, _total: 0, _points: []}
+      cad: {avg: 0, _total: 0, _points: []},
+      power: {avg: 0, _total: 0, _points: []}
     };
   },
 
@@ -925,6 +926,20 @@ L.GPX = L.FeatureGroup.extend({
         ll.meta.atemp = parseInt(_[0].textContent);
         this._info.atemp._points.push([this._info.length, ll.meta.atemp]);
         this._info.atemp._total += ll.meta.atemp;
+      }
+
+      _ = el[i].getElementsByTagNameNS('*', 'power');
+      if (_.length > 0) {
+        ll.meta.power = parseInt(_[0].textContent);
+        this._info.power._points.push([this._info.length, ll.meta.power]);
+        this._info.power._total += ll.meta.power;
+      } else {
+          _ = el[i].getElementsByTagNameNS('*', 'PowerInWatts');
+          if (_.length > 0) {
+            ll.meta.power = parseInt(_[0].textContent);
+            this._info.power._points.push([this._info.length, ll.meta.power]);
+            this._info.power._total += ll.meta.power;
+          }
       }
 
       if (ll.meta.ele > this._info.elevation.max) {

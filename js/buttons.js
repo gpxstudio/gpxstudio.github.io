@@ -131,6 +131,7 @@ export default class Buttons {
         this.include_hr = document.getElementById("include-hr");
         this.include_cad = document.getElementById("include-cad");
         this.include_atemp = document.getElementById("include-atemp");
+        this.include_power = document.getElementById("include-power");
         this.strava_ok = document.getElementById("strava-ok");
         this.copy_link = document.getElementById("copy-link");
         this.copy_embed = document.getElementById("copy-embed");
@@ -771,7 +772,7 @@ export default class Buttons {
             draggable: ".tab-draggable",
             setData: function (dataTransfer, dragEl) {
                 const avgData = dragEl.trace.getAverageAdditionalData();
-                const data = total.outputGPX(false, true, avgData.hr, avgData.atemp, avgData.cad, dragEl.trace.index);
+                const data = total.outputGPX(false, true, avgData.hr, avgData.atemp, avgData.cad, avgData.power, dragEl.trace.index);
 
                 dataTransfer.setData('DownloadURL', 'application/gpx+xml:'+data[0].name+':data:text/plain;charset=utf-8,'+encodeURIComponent(data[0].text));
                 dataTransfer.dropEffect = 'copy';
@@ -947,6 +948,13 @@ export default class Buttons {
                     buttons.include_cad.checked = true;
                     buttons.include_cad.disabled = false;
                 }
+                if (!additionalData.power) {
+                    buttons.include_power.checked = false;
+                    buttons.include_power.disabled = true;
+                } else {
+                    buttons.include_power.checked = true;
+                    buttons.include_power.disabled = false;
+                }
                 if (!additionalData.atemp) {
                     buttons.include_atemp.checked = false;
                     buttons.include_atemp.disabled = true;
@@ -965,8 +973,9 @@ export default class Buttons {
             const hr = buttons.include_hr.checked;
             const atemp = buttons.include_atemp.checked;
             const cad = buttons.include_cad.checked;
+            const power = buttons.include_power.checked;
 
-            const output = total.outputGPX(mergeAll, time, hr, atemp, cad);
+            const output = total.outputGPX(mergeAll, time, hr, atemp, cad, power);
             for (var i=0; i<output.length; i++)
                 buttons.download(output[i].name, output[i].text);
 

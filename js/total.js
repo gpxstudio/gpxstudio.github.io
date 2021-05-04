@@ -168,7 +168,7 @@ export default class Total {
 
     getMovingDistance(noConversion) {
         var tot = 0;
-        for (var i=0; i<this.traces.length; i++)
+        for (var i=0; i<this.traces.length; i++) if (this.traces[i].firstTimeData() != -1)
             tot += this.traces[i].getMovingDistance(noConversion);
         return tot;
     }
@@ -203,6 +203,7 @@ export default class Total {
         var cntHr = 0, totHr = 0;
         var cntTemp = 0, totTemp = 0;
         var cntCad = 0, totCad = 0;
+        var cntPower = 0, totPower = 0;
 
         for (var i=0; i<this.traces.length; i++) {
             const data = this.traces[i].getAverageAdditionalData();
@@ -219,20 +220,25 @@ export default class Total {
                 totCad += data.cad * duration;
                 cntCad += duration;
             }
+            if (data.power) {
+                totPower += data.power * duration;
+                cntPower += duration;
+            }
         }
 
         this.additionalAvgData = {
             hr: cntHr > 0 ? Math.round((totHr/cntHr) * 10) / 10 : null,
             atemp: cntTemp > 0 ? Math.round((totTemp/cntTemp) * 10) / 10 : null,
             cad: cntCad > 0 ? Math.round((totCad/cntCad) * 10) / 10 : null,
+            power: cntPower > 0 ? Math.round(totPower/cntPower) : null
         };
         return this.additionalAvgData;
     }
 
     /*** OUTPUT ***/
 
-    outputGPX(mergeAll, incl_time, incl_hr, incl_atemp, incl_cad, trace_idx) {
-        if (incl_time && this.getMovingTime() > 0 && trace_idx === null) { // at least one track has time data
+    outputGPX(mergeAll, incl_time, incl_hr, incl_atemp, incl_cad, incl_power, trace_idx) {
+        if (incl_time && this.getMovingTime() > 0 && trace_idx === undefined) { // at least one track has time data
             for (var i=0; i<this.traces.length; i++) this.traces[i].timeConsistency();
             const avg = this.getMovingSpeed(true);
             var lastPoints = null;
@@ -300,6 +306,7 @@ export default class Total {
             const hr = data.hr ? data.hr : (totalData ? totalData.hr : null);
             const atemp = data.atemp ? data.atemp : (totalData ? totalData.atemp : null);
             const cad = data.cad ? data.cad : (totalData ? totalData.cad : null);
+            const power = data.power ? data.power : (totalData ? totalData.power : null);
 
             const segments = this.traces[i].getSegments();
             for (var l=0; l<segments.length; l++) {
@@ -350,7 +357,17 @@ export default class Total {
                             }
                         }
                         xmlOutput += `    </gpxtpx:TrackPointExtension>
-        </extensions>
+    `;
+                        if (incl_power) {
+                            if (point.meta.power) {
+                                xmlOutput += `    <power>${point.meta.power}</power>
+    `;
+                            } else if (power) {
+                                xmlOutput += `    <power>${power}</power>
+    `;
+                            }
+                        }
+                        xmlOutput += `</extensions>
     `;
                     }
                     xmlOutput += `</trkpt>
