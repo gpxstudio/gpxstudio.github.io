@@ -165,7 +165,7 @@
                     </ol>
                     Si vous voulez utiliser <b>gpx.studio</b> pour ouvrir des fichiers GPX stockés sur votre Google Drive, vous pouvez installer <a href="https://gsuite.google.com/marketplace/app/gpxstudio_the_online_gpx_editor/666808960580" target="_blank">l'add-on Google Drive</a>.
                 </div></div>
-                <div class="guide-item"><a name="edit-track-points" href="#edit-track-points" class="my-anchor"><div class="guide-title" onclick="toggle('edit-track')">Editer les points de passage d'un fichier GPX</div></a>
+                <div class="guide-item"><a name="edit-track-points" href="#edit-track-points" class="my-anchor"><div class="guide-title" onclick="toggle('edit-track')">Éditer les points de passage d'un fichier GPX</div></a>
                 <div id="edit-track" style="display: none">Cliquez sur <i class="fas fa-pencil-alt button"></i> pour passer en mode édition. Vous pouvez alors :
                     <ul>
                         <li>ajouter des points de passage en fin de trace en cliquant sur la carte à l'endroit où vous souhaitez passer.</li>
@@ -273,9 +273,9 @@
                         <li>Remplissez quelques informations sur le point d'intérêt (vous pouvez utiliser du HTML pour formater ces informations, et donc même ajouter des images).</li>
                         <li>Cliquez sur <span class="button">Ok</span>.</li>
                     </ol>
-                    Si vous voulez réutiliser un point d'intérêt à un autre endroit, cliquez sur le waypoint et appuyez sur <i class="fas fa-copy button"></i> dans le popup. Ensuite, cliquez sur la carte pour ajouter une copie du waypoint à l'emplacement choisi.
+                    Si vous voulez réutiliser un point d'intérêt à un autre endroit, cliquez sur le point d'intérêt et appuyez sur <i class="fas fa-copy button"></i> dans le popup. Ensuite, cliquez sur la carte pour ajouter une copie du point d'intérêt à l'emplacement choisi.
                 </div></div>
-                <div class="guide-item"><a name="edit-waypoint" href="#edit-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('edit-wpt')">Editer les points d'intérêt d'un fichier GPX</div></a>
+                <div class="guide-item"><a name="edit-waypoint" href="#edit-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('edit-wpt')">Éditer les points d'intérêt d'un fichier GPX</div></a>
                 <div id="edit-wpt" style="display: none">Pour changer la position d'un point d'intérêt, vous pouvez simplement le faire glisser vers un nouvel emplacement. Lorsque vous faites glisser un point d'intérêt près de la trace, il est automatiquement attiré pour que vous puissiez le placer parfaitement sur la trace. Faites un zoom avant ou arrière pour changer la distance à laquelle les points d'intérêt sont attirés.<br>
                     Pour éditer les données d'un point d'intérêt, cliquez dessus et appuyez sur <i class="fas fa-pencil-alt button"></i> dans le popup. Modifiez les informations puis cliquez sur <span class="button">Ok</span>.
                 </div></div>
@@ -352,12 +352,12 @@
             </div>
             <a name="embed"></a><h1>Intégration &#128506;</h1>
             <div>
-                You are very welcome to display traces on your website with <b>gpx.studio</b>. There are two ways to do it: the first one with files stored on a server and the second one with Google Drive.
+                Vous pouvez afficher des traces sur votre site web avec <b>gpx.studio</b>. Il y a deux façons de le faire: avec des fichiers stockés sur un serveur ou avec Google Drive.
                 <ul>
-                    <li><b>File URL:</b> Add the link to the file in the <code>urls</code> attribute of the <code>state</code> parameter of the query string. Make sure to use <code>https</code>, to encode any special characters and that <b>gpx.studio</b> is allowed to request the files, otherwise the requests will be blocked by the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">CORS policy</a>.</li>
-                    <li><b>Google Drive:</b> Just save the files to your Google Drive when exporting and copy the code provided! If you want to display files that you already have on your Google Drive, add the ID of the file in the <code>ids</code> attribute of the <code>state</code> parameter of the query string and make sure they are available to all users with the link.</li>
+                    <li><b>URL de fichier:</b>Ajoutez le lien du fichier dans l'attribut <code>urls</code> du paramètre <code>state</code>. Assurez-vous d'utiliser <code>https</code>, d'encoder tous les caractères spéciaux et que les requêtes de <b>gpx.studio</b> ne soient pas bloquées par la <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">politique CORS</a>.</li>
+                    <li><b>Google Drive :</b> Il suffit de sauvegarder les fichiers dans votre Google Drive lors de l'exportation et de copier le code fourni ! Si vous voulez afficher des fichiers que vous avez déjà sur votre Google Drive, ajoutez l'ID du fichier dans l'attribut <code>ids</code> du paramètre <code>state</code> et assurez-vous qu'ils soient disponibles pour tous les utilisateurs avec le lien.</li>
                 </ul>
-                <p>Choose the map shown by default with the parameter <code>source</code> among the following values:</p>
+                <p>Choisissez la carte affichée par défaut avec le paramètre <code>source</code> parmi les valeurs suivantes :</p>
                 <ul>
                     <li><code>outdoors</code>: Mapbox Outdoors</li>
                     <li><code>satellite</code>: Mapbox Satellite</li>
@@ -367,21 +367,21 @@
                     <li><code>cosm</code>: CyclOSM</li>
                     <li><code>ign</code>: IGN (FR)</li>
                 </ul>
-                <p>To use Mapbox maps, you need to specify the <code>token</code> parameter with a valid <a href="https://account.mapbox.com/access-tokens/" target="_blank">Mapbox token</a>.</p>
-                <p>You can optionally add parameters to the source URL: <code>imperial</code> to get data in miles and feet, <code>running</code> to display the pace in minutes by unit of distance, <code>distance</code> to show distance markers and <code>direction</code> to show direction markers. Below is a playground to play with the parameters, see a preview and get the HTML code.</p>
+                <p>Pour utiliser les cartes Mapbox, vous devez spécifier le paramètre <code>token</code> avec une <a href="https://account.mapbox.com/access-tokens/" target="_blank">clef Mapbox</a> valide.</p>
+                <p>Vous pouvez éventuellement ajouter des paramètres à l'URL : <code>imperial</code> pour obtenir des données en miles et pieds, <code>running</code> pour afficher l'allure en minutes par unité de distance, <code>distance</code> pour afficher les marqueurs de distance et <code>direction</code> pour afficher les marqueurs de direction. Ci-dessous se trouve un formulaire pour tester les paramètres avec un aperçu en direct et le code HTML directement généré.</p>
                 <div class="guide-item">
-                    <h3 style="margin-block-start: 0em;">Parameters</h3>
-                    <p>File URLs (separated by commas)<br>
+                    <h3 style="margin-block-start: 0em;">Paramètres</h3>
+                    <p>URLs des fichiers (séparées par des virgules)<br>
                     <input id="file-urls" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
-                    <p>Google Drive file IDs (separated by commas)<br>
+                    <p>IDs des fichiers Google Drive (séparés par des virgules)<br>
                     <input id="file-ids" type="text" oninput="showPreview()" value="10IbXh7W7QDO7ZKmapJYdcgN3vhdN2Q-e" style="width: 96%; margin: 5px;"></p>
                     <div style="display: flex; justify-content: space-between">
-                        <span>Running <input id="running" type="checkbox" oninput="showPreview()"></span>
-                        <span>Imperial <input id="imperial" type="checkbox" oninput="showPreview()"></span>
-                        <span>Distance markers <input id="distance" type="checkbox" oninput="showPreview()" checked></span>
-                        <span>Direction markers <input id="direction" type="checkbox" oninput="showPreview()"></span>
+                        <span>Course à pied <input id="running" type="checkbox" oninput="showPreview()"></span>
+                        <span>Impérial <input id="imperial" type="checkbox" oninput="showPreview()"></span>
+                        <span>Marqueurs de distance <input id="distance" type="checkbox" oninput="showPreview()" checked></span>
+                        <span>Marqueurs de direction <input id="direction" type="checkbox" oninput="showPreview()"></span>
                     </div>
-                    <p>Default map <select id="sources" oninput="showPreview()">
+                    <p>Carte affichée par défaut <select id="sources" oninput="showPreview()">
                         <option value="outdoors">Mapbox Outdoors</option>
                         <option value="satellite">Mapbox Satellite</option>
                         <option value="osm" selected="selected">OpenStreetMap</option>
@@ -390,48 +390,48 @@
                         <option value="cosm">CyclOSM</option>
                         <option value="ign">IGN (FR)</option>
                     </select></p>
-                    <p>Mapbox token<br>
+                    <p>Clef Mapbox<br>
                     <input id="mapbox-token" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
-                    <h3>HTML code</h3>
+                    <h3>Code HTML</h3>
                     <div style="text-align: left; overflow-wrap: break-word; padding:10px; border: 1px solid #ccc; background: #f5f5f5;">
                     <code id="embedding-code">&lt;iframe src="https://gpxstudio.github.io/?state=%7B%22ids%22:%5B%2210IbXh7W7QDO7ZKmapJYdcgN3vhdN2Q-e%22%5D%7D&embed&distance" width="100%" height="500" frameborder="0" allowfullscreen&gt;&lt;p&gt;&lt;a href="https://gpxstudio.github.io/?state=%7B%22ids%22:%5B%2210IbXh7W7QDO7ZKmapJYdcgN3vhdN2Q-e%22%5D%7D"&gt;&lt;/a&gt;&lt;/p&gt;&lt;/iframe&gt;</code>
                     </div>
-                    <h3>Preview</h3>
+                    <h3>Aperçu</h3>
                     <iframe id="preview" src="./?state=%7B%22ids%22:%5B%2210IbXh7W7QDO7ZKmapJYdcgN3vhdN2Q-e%22%5D%7D&embed&distance" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
             <a name="support"></a><h1>Support &#128172;</h1>
             <div>
-                The <span class="button">Help</span> dialog and the <a href="#guide">User Guide</a> should answer most questions about the functionalities, but feel free to ask for help, report any issues or send suggestions on the <a href="https://facebook.com/gpx.studio" target="_blank">Facebook page</a> or by email at <a href="mailto:contact.gpxstudio@gmail.com">contact.gpxstudio@gmail.com</a>.<br><br>
-                For developers, the <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank">Github repository</a> is also a good place to report issues or share ideas.
+                Le menu <span class="button">Aide</span> et le <a href="#guide">Guide utilisateur</a> devraient répondre à la plupart de vos questions sur les fonctionnalités, mais n'hésitez pas à demander de l'aide, signaler tout problème ou envoyer des suggestions sur la <a href="https://facebook.com/gpx.studio" target="_blank">page Facebook</a> ou par e-mail à <a href="mailto:contact.gpxstudio@gmail.com">contact. pxstudio@gmail.com</a>.<br><br>
+                Pour les développeurs, le <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank">dépôt Github</a> est également un bon endroit pour signaler des problèmes ou partager des idées.
             </div>
-            <a name="legal"></a><a name="terms"></a><h1>Terms of Services &#128214;</h1>
-            <p>Thank you for using <b>gpx.studio</b>. These terms of service (Terms) cover your use and access of our website and related software (our Services).</p>
-            <p>By accessing this website, you are agreeing to be bound by this website Terms of Services and to review our Privacy Policy. If you do not agree with any of these terms, you are prohibited from using or accessing this site.</p>
-            <h2>Changes to the Services</h2>
-            <p>We may change the features of our Services, withdraw or add new features from time to time.</p>
-            <h2>Pricing</h2>
-            <p>Our Services are offered for free and without advertisement. We solely rely on donations to fund the paying components on which the website relies.</p>
-            <h2>Warranties</h2>
-            <p>The services on the website are provided "as is". To the fullest extend permitted by law, we make no warranties either implied or expressed about the Services. We do not make any promise about the accuracy of specific functions of the services, their reliability or availability.</p>
-            <h2>Limitation of Liability</h2>
-            <p>To the fullest extent permitted by law, in no event shall we be liable for any damages or loss of data, business, profits, computer hardware or software.</p>
-            <h2>Changes to Terms</h2>
-            <p>We reserve the right to modify these Terms at any time. By continuing to use the Services after the changes become effective, you agree to the revised Terms.</p>
-            <a name="privacy"></a><h1>Privacy Policy &#128373;&#65039;</h1>
-            <p><b>gpx.studio</b> is an online GPX file editor which allows users to create, view and edit files.
-                We respect the privacy of our users and do not collect any personal information except anonymous information such as the number of page views and clicks on buttons to help us enhance your overall experience.</p>
-            <p>The files created, visualized or edited on the website are only read once and never stored on a server.
-                We only access the data contained in the files and handle all computations from your local browser (it is a pure client-side application).</p>
-            <p>The code of the website is open-source (see <a href="#about">About</a>), we have nothing to hide.</p>
+            <a name="legal"></a><a name="terms"></a><h1>Conditions d'utilisation &#128214;</h1>
+            <p>Merci d'utiliser <b>gpx.studio</b>. Les présentes conditions d'utilisation (Conditions) couvrent votre utilisation et votre accès à notre site Web et à notre logiciel (nos Services).</p>
+            <p>En accédant à ce site Web, vous acceptez d'être lié par les présentes conditions d'utilisation du site Web et de consulter notre politique de confidentialité. Si vous n'êtes pas d'accord avec l'une ou l'autre de ces modalités, il vous est interdit d'utiliser ou d'accéder à ce site.</p>
+            <h2>Changements des Services</h2>
+            <p>Nous pouvons modifier les fonctionnalités de nos Services, retirer ou ajouter de nouvelles fonctionnalités à n'importe quel moment.</p>
+            <h2>Tarification</h2>
+            <p>Nos Services sont offerts gratuitement et sans publicité. Nous comptons uniquement sur des dons pour financer les éléments payants du site.</p>
+            <h2>Garantie</h2>
+            <p>Les services proposés sur le site sont fournis "tels quels". Nous ne donnons aucune garantie ni implicite ni exprimée au sujet des Services. Nous ne faisons aucune promesse quant à la précision des fonctions spécifiques des services, leur fiabilité ou leur disponibilité.</p>
+            <h2>Limitation de Responsabilité</h2>
+            <p>Dans toute la mesure permise par la loi, en aucun cas nous ne serons responsables des dommages ou de la perte de données, de profits, de matériel informatique ou de logiciels.</p>
+            <h2>Modifications des conditions d'utilisation</h2>
+            <p>Nous nous réservons le droit de modifier ces Conditions à tout moment. En continuant à utiliser les Services après l'entrée en vigueur des modifications, vous acceptez les conditions révisées.</p>
+            <a name="privacy"></a><h1>Politique de confidentialité &#128373;&#65039;</h1>
+            <p><b>gpx.studio</b> est un éditeur de fichiers GPX en ligne qui permet aux utilisateurs de créer, visualiser et éditer des fichiers.
+                Nous respectons la vie privée de nos utilisateurs et ne recueillons aucune information personnelle, sauf des renseignements anonymes tels que le nombre de vues des pages et les clics sur les boutons pour nous aider à améliorer votre expérience globale.</p>
+            <p>Les fichiers créés, visualisés ou édités sur le site ne sont lus qu'une seule fois et ne sont jamais stockés sur un serveur.
+                Nous n'accédons qu'aux données contenues dans les fichiers et nous gérons tous les calculs à partir de votre navigateur (c'est une application purement client).</p>
+            <p>Le code du site web est open-source (voir <a href="#about">À propos</a>), nous n'avons rien à cacher.</p>
             <h2>Google Drive</h2>
-            <p>The website offers the possibility to log in with Google Drive to upload and save files in order to facilitate the storage, versioning and sharing of GPX files.
-                That service authenticates you directly with your Google account, and an authentication token identifying you as the file owner is stored in your local browser session profile.
-                This information is used to browse GPX files in your Google Drive and to open only those you choose to open.
-                Furthermore, it is used to automatically authenticate users visiting the website again but it is never stored on our side.</p>
-            <p>We use standard Google Drive sharing functionality when you decide to share the file, and standard Google Drive authentication, authorization mechanisms for access control.
-                No other files than those you create with the tool or decide to open with it (either by opening from Google Drive or visiting its associated URL on the tool) will be accessed, and none will ever be stored.</p>
-            <p>Last updated October 16, 2020.</p>
+            <p>Le site Web offre la possibilité de se connecter avec Google Drive pour télécharger et enregistrer des fichiers afin de faciliter le stockage, le versionnage et le partage des fichiers GPX.
+                Ce service vous authentifie directement avec votre compte Google, et un jeton d'authentification vous identifiant en tant que propriétaire du fichier est stocké dans le profil de session de votre navigateur local.
+                Cette information est utilisée pour parcourir les fichiers GPX dans votre Google Drive et pour ouvrir seulement ceux que vous choisirez d'ouvrir.
+                De plus, elle est utilisée pour authentifier automatiquement les utilisateurs qui visitent le site web mais n'est jamais stockée de notre côté.</p>
+            <p>Nous utilisons les fonctionnalités standards de partage de Google Drive lorsque vous décidez de partager le fichier, et les mécanismes standards d'authentification et d'autorisation d'accès de Google Drive.
+                Aucun autre fichier que ceux que vous créez avec l'outil ou que vous décidez d'ouvrir avec celui-ci (soit en ouvrant depuis Google Drive ou en visitant son URL associée sur l'outil) ne sera accédé, et aucun ne sera stocké.</p>
+            <p>Dernière mise à jour le 16 octobre 2020.</p>
             <br><br><br>
         </div></div>
         <style>
