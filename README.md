@@ -33,7 +33,7 @@ To play with the code locally:
 * Support for track segments (trkseg) : extraction with smart waypoints matching and merge as track segments
 * Delete points and/or waypoints inside or outside a rectangle selection
 * Export multiple traces as one or separately in the chosen order and respecting time precedence constraints (if any time data)
-* Preserve and automatically extend speed, heart rate, cadence and temperature data
+* Preserve and automatically extend speed, heart rate, cadence, power and temperature data
 * Drag and drop to load and export files
 * Support as many traces as you want with scrollable tabs
 * Cycling and hiking maps, and Strava Heatmap layer

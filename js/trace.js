@@ -783,6 +783,7 @@ export default class Trace {
         var cntHr = 0, totHr = 0;
         var cntTemp = 0, totTemp = 0;
         var cntCad = 0, totCad = 0;
+        var cntPower = 0, totPower = 0;
 
         const points = this.getPoints();
 
@@ -799,12 +800,17 @@ export default class Trace {
                 totCad += points[i].meta.cad;
                 cntCad++;
             }
+            if (points[i].meta.power) {
+                totPower += points[i].meta.power;
+                cntPower++;
+            }
         }
 
         this.additionalAvgData = {
             hr: cntHr > 0 ? Math.round((totHr/cntHr) * 10) / 10 : null,
             atemp: cntTemp > 0 ? Math.round((totTemp/cntTemp) * 10) / 10 : null,
             cad: cntCad > 0 ? Math.round((totCad/cntCad) * 10) / 10 : null,
+            power: cntPower > 0 ? Math.round(totPower/cntPower) : null
         };
         return this.additionalAvgData;
     }
@@ -899,11 +905,13 @@ export default class Trace {
             if (!data.hr && otherData.hr) points[i].meta.hr = otherData.hr;
             if (!data.atemp && otherData.atemp) points[i].meta.atemp = otherData.atemp;
             if (!data.cad && otherData.cad) points[i].meta.cad = otherData.cad;
+            if (!data.power && otherData.power) points[i].meta.power = otherData.power;
         }
         for (var i=0; i<otherPoints.length; i++) {
             if (data.hr && !otherData.hr) otherPoints[i].meta.hr = data.hr;
             if (data.atemp && !otherData.atemp) otherPoints[i].meta.atemp = data.atemp;
             if (data.cad && !otherData.cad) otherPoints[i].meta.cad = data.cad;
+            if (data.power && !otherData.power) otherPoints[i].meta.power = data.power;
         }
 
         if (this.hasPoints() && trace.hasPoints()) {
