@@ -175,7 +175,7 @@
             <tr>
                 <td><b>Exporter</b></td>
                 <td>Ctrl+S</td>
-                <td>Télécharger les fichiers sur votre bureau ou sauvegardez sur Google Drive™ pour obtenir un <b>lien de partage</b> et un <b>code d'intégration</b>. Les données de temps, fréquence cardiaque, cadence et température sont automatiquement étendues. Optionnellement, fusionnez tous les fichiers <b>dans l'ordre choisi</b>. Vous pouvez également glisser et déposer un onglet sur votre bureau pour télécharger le fichier.</td>
+                <td>Télécharger les fichiers sur votre bureau ou sauvegardez sur Google Drive™ pour obtenir un <b>lien de partage</b> et un <b>code d'intégration</b>. Time, heart rate, cadence, power and temperature data are automatically extended. Optionnellement, fusionnez tous les fichiers <b>dans l'ordre choisi</b>. Vous pouvez également glisser et déposer un onglet sur votre bureau pour télécharger le fichier.</td>
             </tr>
             <tr>
                 <td><i class="fas fa-reply"></i> <i class="fas fa-share"></i></td>
@@ -250,7 +250,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-plus-circle"></i></td>
-                <td>Fusionner avec une autre trace (étend automatiquement les données de temps, fréquence cardiaque, cadence et température)</td>
+                <td>Merge with another trace (automatically extends time, heart rate, cadence, power and temperature data)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-list-ul"></i></td>
@@ -306,20 +306,20 @@
                 </colgroup>
                 <tbody>
                     <td></td>
-                    <td><b>Paramètres d'exportation</b></td>
-                    <td>Fusionner toutes les traces<input type="checkbox" id="merge"></td>
+                    <td>Merge all traces<input type="checkbox" id="merge"></td>
+                    <td>Time<input type="checkbox" id="include-time" checked></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td>Temps<input type="checkbox" id="include-time" checked></td>
-                    <td>Température<input type="checkbox" id="include-atemp" checked></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Fréquence cardiaque<input type="checkbox" id="include-hr" checked></td>
+                    <td>Heartrate<input type="checkbox" id="include-hr" checked></td>
                     <td>Cadence<input type="checkbox" id="include-cad" checked></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Power<input type="checkbox" id="include-power" checked></td>
+                    <td>Temperature<input type="checkbox" id="include-atemp" checked></td>
                     <td></td>
                 </tr>
                 </tbody>
