@@ -249,7 +249,7 @@ L.Control.Window = L.Control.extend({
     },
 
     setContentMaxHeight : function(){
-        var margin = 10;
+        var margin = 40;
 
         if (typeof(this.options.prompt) == 'object'){
             margin += this._containerPromptButtons.offsetHeight-20
