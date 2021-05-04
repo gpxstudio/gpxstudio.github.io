@@ -91,7 +91,7 @@
                     <li>view, add, edit and remove waypoints</li>
                     <li>reduce the number of track points</li>
                     <li>automatically add elevation data to traces if missing</li>
-                    <li>merge multiple traces, extending time, heart rate, cadence and temperature data where needed</li>
+                    <li>merge multiple traces, extending time, heart rate, cadence, power and temperature data where needed</li>
                     <li>extract segments from traces and perform any other action while maintaining the segments' structure within files</li>
                     <li>save the result on your computer or to your Google Drive™ to get a shareable link and embedding code</li>
                 </ul>
@@ -166,7 +166,7 @@
                         <li>Click on <span class="button">Export</span> and then choose whether to:
                            <ul>
                                <li>merge all open GPX files or export them separately.</li>
-                               <li>include time, temperature, heartrate and cadence data or not.</li>
+                               <li>include time, temperature, heartrate, cadence and power data or not.</li>
                            </ul>
                            Then, click on <span class="button">Download <i class="fas fa-download"></i></span> to download the files on your computer or on <span class="button">Save to Google Drive</span> to save it in the cloud.
                         </li>
@@ -180,7 +180,7 @@
                         <li>Click on <span class="button">Export</span> and then choose whether to:
                            <ul>
                                <li>merge all open GPX files or export them separately.</li>
-                               <li>include time, temperature, heartrate and cadence data or not.</li>
+                               <li>include time, temperature, heartrate, cadence and power data or not.</li>
                            </ul>
                         </li>
                         <li>Click on <span class="button">Save to Google Drive</span>.</li>
@@ -212,7 +212,7 @@
                         </li>
                         <li>use <span class="button"><i class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-dove"></i></span> to alternate between routing (following real paths) or "as-the-crow-flies" (straight lines between track points).</li>
                     </ul>
-                    If you edit a GPX file containing time, temperature, heartrate or cadence data, new track points will automatically contain the average value for each of those fields.
+                    If you edit a GPX file containing time, temperature, heartrate, cadence or power data, new track points will automatically contain the average value for each of those fields.
                 </div></div>
                 <div class="guide-item"><a name="crop-file" href="#crop-file" class="my-anchor"><div class="guide-title" onclick="toggle('crop')">Crop a GPX file</div></a>
                 <div id="crop" style="display: none">There are three options:
@@ -273,7 +273,7 @@
                         <li>Check the box <i class="far fa-check-square"></i> Merge all traces.</li>
                         <li>Click on <span class="button">Download <i class="fas fa-download"></i></span> to download the files on your computer or on <span class="button">Save to Google Drive</span> to save it in the cloud.</li>
                     </ol>
-                    When merging multiple GPX files: missing time, temperature, heartrate or cadence data will be automatically extended with the average value across merged files.
+                    When merging multiple GPX files: missing time, temperature, heartrate, cadence or power data will be automatically extended with the average value across merged files.
                     If some GPX files contains timestamps, it is ensured that the timestamps of the merged file are strictly increasing (the timestamps of some files are shifted if necessary).
                 </div></div>
                 <div class="guide-item"><a name="extract-segments" href="#extract-segments" class="my-anchor"><div class="guide-title" onclick="toggle('extract')">Extract track segments of a GPX file</div></a>
