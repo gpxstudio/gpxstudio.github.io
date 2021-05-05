@@ -46,7 +46,8 @@ To play with the code locally:
 ## Translation
 
 The website is translated by volunteers on a collaborative translation platform.
-You can help improve the translations or add new languages by joining the [Crowdin project](https://crowdin.com/project/gpxstudio).
+You can help complete and improve the translations by joining the [Crowdin project](https://crowdin.com/project/gpxstudio).
+If you would like to start the translation in a new language, contact me or create an issue.
 Apart from a good understanding of **gpx.studio**, some basic knowledge of HTML can be useful. Any help is greatly appreciated!
 
 ## Acknowledgements
