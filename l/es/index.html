@@ -356,37 +356,37 @@
             Elegir archivos de<br>
             <div id="load2" class="panels custom-button normal-button">Escritorio</div>
             <div id="load-drive" class="panels custom-button normal-button">Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div><br>
-            (or drag and drop anywhere in the window)
+            (o arrastre y suelte en cualquier lugar de la ventana)
         </div>
         <div id="share-content" class="popup-content">
-            Done!<br>
-            <div id="copy-link" class="panels custom-button fancy-button">Copy link <i class="fas fa-link"></i></div><br>
-            <div id="copy-embed" class="panels custom-button fancy-button">Copy embedding code <i class="fas fa-code"></i></div><br>
+            ¡Hecho!<br>
+            <div id="copy-link" class="panels custom-button fancy-button">Copiar enlace <i class="fas fa-link"></i></div><br>
+            <div id="copy-embed" class="panels custom-button fancy-button">Copiar código incrustado <i class="fas fa-code"></i></div><br>
         </div>
         <div id="merge-content" class="popup-content">
-            Click on another tab to merge the traces<br>
-            <input type="checkbox" id="merge-as-segments">Merge as track segments<br>
+            Haga clic en otra pestaña para combinar los tracks<br>
+            <input type="checkbox" id="merge-as-segments">Combinar como segmentos del track<br>
             <div id="merge-cancel" class="panels custom-button normal-button">Cancelar</div>
         </div>
         <div id="crop-content" class="popup-content">
-            <input type="checkbox" id="crop-keep">Keep cropped parts in new files<br>
-            <div id="crop-ok" class="panels custom-button normal-button">Proceed</div>
+            <input type="checkbox" id="crop-keep">Mantener partes recortadas en nuevos archivos<br>
+            <div id="crop-ok" class="panels custom-button normal-button">Continúe</div>
             <div id="crop-cancel" class="panels custom-button normal-button">Cancelar</div>
         </div>
         <div id="reduce-content" class="popup-content">
-            Choose the amount of detail to keep<br>
-            Number of track points: <span id="reduce-npoints">0</span><br>
+            Elija la cantidad de detalles a mantener<br>
+            Número de puntos de tracks: <span id="reduce-npoints">0</span><br>
             <input type="range" min="0" max="1000" id="reduce-slider" style="width: 100%"><br>
             <div id="reduce-ok" class="panels custom-button normal-button">Aceptar</div>
             <div id="reduce-cancel" class="panels custom-button normal-button">Cancelar</div>
         </div>
         <div id="zone-delete-content" class="popup-content">
-            Choose what to delete<br>
+            Elige qué eliminar<br>
             <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Puntos del track</label>
             <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
-            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inside selection</label>
-            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
-            <div id="zone-delete-ok" class="panels custom-button normal-button">Proceed</div>
+            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Selección interior</label>
+            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Selección exterior</label><br>
+            <div id="zone-delete-ok" class="panels custom-button normal-button">Continúe</div>
             <div id="zone-delete-cancel" class="panels custom-button normal-button">Cancelar</div>
         </div>
         <div id="social" style="font-size: 30px">
@@ -394,7 +394,7 @@
             <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank"><i class="fab fa-github-square"></i></a>
         </div>
         <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
-            <b>Open in</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logo de gpx.studio, el editor de archivos GPX en línea">
+            <b>Abrir en</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logo de gpx.studio, el editor de archivos GPX en línea">
         </div>
         <div style="display: none">
             <div id="unit-kilometers-text">km</div>
@@ -409,33 +409,33 @@
             <div id="cancel-button-text">Cancelar</div>
             <div id="edit-speed-popup-text">
                 <div id="speed-text">Velocidad</div>
-                <div id="pace-text">Pace</div>
-                <div id="start-text">Start</div>
+                <div id="pace-text">Ritmo</div>
+                <div id="start-text">Inicio</div>
                 <div id="experimental-text">Experimental</div>
-                <div id="experimental-info-text">Generate speed considering the slope (erases all existing time data)</div>
+                <div id="experimental-info-text">Genera velocidad considerando la pendiente (borra todos los datos de tiempo existentes)</div>
             </div>
             <div id="waypoint-popup-text">
-                <div id="empty-title-text">empty title</div>
-                <div id="name-text">Name</div>
-                <div id="comment-text">Comment (for GPS devices)</div>
-                <div id="description-text">Description (for users)</div>
-                <div id="symbol-text">Symbol</div>
-                <div id="edit-info-text">Edit info</div>
+                <div id="empty-title-text">titulo vacío</div>
+                <div id="name-text">Nombre</div>
+                <div id="comment-text">Comentario (para dispositivos GPS)</div>
+                <div id="description-text">Descripción (para usuarios)</div>
+                <div id="symbol-text">Símbolo</div>
+                <div id="edit-info-text">Editar información</div>
             </div>
             <div id="right-click-popup-text">
-                <div id="split-text">Split here</div>
-                <div id="remove-pt-text">Remove point</div>
+                <div id="split-text">Dividir aquí</div>
+                <div id="remove-pt-text">Eliminar puntos</div>
             </div>
         </div>
-        <h1 style="display: none">online gpx editor</h1>
-        <h1 style="display: none">online gpx viewer</h1>
-        <h1 style="display: none">edit gpx files online</h1>
-        <h1 style="display: none">view gpx files online</h1>
-        <h1 style="display: none">merge gpx files online</h1>
-        <h1 style="display: none">extract segments gpx file online</h1>
-        <h1 style="display: none">reverse gpx file online</h1>
-        <h1 style="display: none">add timestamps to gpx file online</h1>
-        <h1 style="display: none">compress simplify reduce number points gpx file online</h1>
-        <h1 style="display: none">view and add waypoints gpx file online</h1>
+        <h1 style="display: none">editor gps online</h1>
+        <h1 style="display: none">visor gpx online</h1>
+        <h1 style="display: none">editar archivos gpx online</h1>
+        <h1 style="display: none">ver archivos gpx online</h1>
+        <h1 style="display: none">combinar archivos gpx online</h1>
+        <h1 style="display: none">extraer segmentos gpx del archivo online</h1>
+        <h1 style="display: none">invertir archivo gpx online</h1>
+        <h1 style="display: none">añadir marcas de tiempo al archivo gpx online</h1>
+        <h1 style="display: none">comprimir simplificar reducir número puntos del archivo gpx online</h1>
+        <h1 style="display: none">ver y añadir waypoints al archivo gpx online</h1>
     </body>
 </html>
