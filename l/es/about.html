@@ -592,6 +592,14 @@
         }
 
         showPreview();
+
+        const guideItems = document.getElementsByClassName('guide-item');
+        for (var i=0; i<guideItems.length; i++) {
+            const anchor = guideItems[i].children[0];
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+            });
+        }
         </script>
     </body>
 </html>
