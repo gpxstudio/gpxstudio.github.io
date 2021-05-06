@@ -150,13 +150,13 @@
             </span>
         </li>
         <li id="units" class="dontselect">Unidades: <span class="unselected custom-button"><span id="km">km </span><i class="fas fa-arrows-alt-h"></i><span id="mi"> mi</span></span></li>
-        <li id="method" class="dontselect">Routing: <span class="unselected custom-button"><i id="route" class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i id="crow" class="fas fa-dove"></i></span></li>
-        <li id="chevrons" class="dontselect">Chevrons: <input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"></li>
-        <li id="dist-markers" class="dontselect">Distance markers: <input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"></li>
-        <li id="profile" class="dontselect">Elevation profile: <input type="checkbox" checked id="show-profile" class="custom-button" style="vertical-align: middle;"></li>
+        <li id="method" class="dontselect">Ruteo: <span class="unselected custom-button"><i id="route" class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i id="crow" class="fas fa-dove"></i></span></li>
+        <li id="chevrons" class="dontselect">Dirección: <input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"></li>
+        <li id="dist-markers" class="dontselect">Indicadores de distancia: <input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"></li>
+        <li id="profile" class="dontselect">Perfil de altura: <input type="checkbox" checked id="show-profile" class="custom-button" style="vertical-align: middle;"></li>
         <div id="help-text">
         <div style="text-align: center; font-size: 10pt; color: #476947">
-            <b>Check out the <a href="./about.html#guide" target="_blank">User Guide</a> for more info and small tutorials!</b>
+            <b>¡Echa un vistazo a la <a href="./about.html#guide" target="_blank">Guía de usuario</a> para más información y otros tutoriales!</b>
         </div><br>
         <table style="width: 100%">
             <colgroup>
@@ -168,36 +168,36 @@
             <tr>
                 <td><b>Cargar GPX</b></td>
                 <td>Ctrl+O</td>
-                <td>Import and visualize GPX files (or drag and drop anywhere in the window)</td>
+                <td>Importa y visualiza archivos GPX (o arrastra y suelta en cualquier lugar de la ventana)</td>
             </tr>
             <tr>
                 <td><b>Dibujar</b></td>
                 <td>Ctrl+D</td>
-                <td>Start drawing a new route by placing track points on the map</td>
+                <td>Comienza a dibujar una nueva ruta colocando puntos del track en el mapa</td>
             </tr>
             <tr>
                 <td><b>Exportar</b></td>
                 <td>Ctrl+S</td>
-                <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Time, heart rate, cadence, power and temperature data are automatically extended. Optionally, merge all files <b>in the chosen order</b>. You can also drag a tab to your desktop to download the file.</td>
+                <td>Descargue los archivos en su escritorio o guarde en Google DriveTM para obtener un <b>enlace compartido</b> y <b>código de inserción</b>. Los datos de tiempo, ritmo cardíaco, cadencia, potencia y temperatura se extienden automáticamente. Opcionalmente, combina todos los archivos <b>en el orden</b> elegido. También puedes arrastrar la pestaña a tu escritorio para descargar el archivo.</td>
             </tr>
             <tr>
                 <td><i class="fas fa-reply"></i> <i class="fas fa-share"></i></td>
                 <td>Ctrl+Z/Y</td>
-                <td>Undo and redo actions in edition mode</td>
+                <td>Deshace y rehace acciones en modo edición</td>
             </tr>
             <tr>
                 <td><b>Limpiar</b></td>
                 <td>Ctrl+K</td>
-                <td>Delete all traces</td>
+                <td>Borra todos los trazos</td>
             </tr>
             <tr>
                 <td></td>
-                <td>Escape</td>
-                <td>Exit current menu or tool</td>
+                <td>ESC</td>
+                <td>Salir del menú o herramienta actual</td>
             </tr>
             </tbody>
         </table><br>
-        Below the search bar <i class="fas fa-search"></i> and the Google Street View tool <i class="fas fa-street-view"></i>, you can find a dropdown menu <i class="fas fa-bars"></i> with the maps available and some settings.
+        Debajo de la barra de búsqueda <i class="fas fa-search"></i> y de la herramienta Google Street View <i class="fas fa-street-view"></i>, puedes encontrar un menú desplegable <i class="fas fa-bars"></i> con los mapas disponibles y algunos ajustes.
         <table style="width: 100%">
             <colgroup>
                <col span="1" style="width: 11%;">
@@ -208,27 +208,27 @@
             <tr>
                 <td></td>
                 <td>F1</td>
-                <td>Show or hide the Strava Heatmap</td>
+                <td>Muestra u oculta el mapa de actividad de Strava</td>
             </tr>
             <tr>
                 <td><i class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-dove"></i></td>
                 <td>F2</td>
-                <td>Switch between routing and <i>as the crow flies</i> (straight lines between track points) when editing traces</td>
+                <td>Cambia entre enrutamiento y <i>línea recta entre puntos</i> al editar tracks</td>
             </tr>
             <tr>
                 <td><i class="fas fa-biking"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-running"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-motorcycle"></i></td>
                 <td>F3</td>
-                <td>Switch between cycling, running and driving mode (impacts the routing and the Strava Heatmap displayed)</td>
+                <td>Cambia entre el modo ciclismo, carrera y conducción (afecta al enrutamiento y al mapa de actividad Strava)</td>
             </tr>
             <tr>
                 <td><b>km</b> <i class="fas fa-arrows-alt-h"></i> <b>mi</b></td>
                 <td>F4</td>
-                <td>Change units displayed</td>
+                <td>Cambia las unidades mostradas</td>
             </tr>
             <tr>
                 <td></td>
                 <td>Ctrl+H</td>
-                <td>Show or hide the elevation profile</td>
+                <td>Muestra u oculta el perfil de altura</td>
             </tr>
             </tbody>
         </table><br>
@@ -240,11 +240,11 @@
             <tbody>
             <tr>
                 <td><i class="fas fa-pencil-alt"></i></td>
-                <td>Enter edition mode to add, move, insert (by dragging the line), delete or split (right-click) track points</td>
+                <td>Activa el modo de edición para añadir, mover, insertar (arrastrando la línea), borrar o dividir (clic derecho) puntos del track</td>
             </tr>
             <tr>
                 <td><i class="fas fa-stopwatch"></i></td>
-                <td>Change the speed and starting time of the trace</td>
+                <td>Cambia la velocidad y el tiempo de inicio del track</td>
             </tr>
             <tr>
                 <td><i class="fas fa-exchange-alt"></i></td>
