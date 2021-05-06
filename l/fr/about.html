@@ -2,7 +2,9 @@
 <html lang="fr">
     <head>
         <link rel="alternate" hreflang="x-default" href="https://gpxstudio.github.io/about.html"/>
+        <link rel="alternate" hreflang="en" href="https://gpxstudio.github.io/about.html"/>
         <link rel="alternate" hreflang="fr" href="https://gpxstudio.github.io/l/fr/about.html"/>
+        <link rel="alternate" hreflang="es" href="https://gpxstudio.github.io/l/es/about.html"/>
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167421374-1"></script>
         <script>
             if(window.location.hostname != "localhost") {
@@ -132,7 +134,7 @@
                 <div id="create" style="display: none">
                     <ol>
                         <li>Dans la barre supérieure, cliquez sur <span class="button">Tracer</span>. Un nouvel onglet appelé "new" apparaît sous le panneau inférieur.</li>
-                        <li>Placez des points de passage sur la carte en cliquant sur les endroits que vous souhaitez visiter.</li>
+                        <li>Place anchor points on the map by clicking at the locations you want to go through.</li>
                         <li>Dans les paramètres <i class="fas fa-bars button"></i>, deux paramètres contrôlent la façon dont deux points consécutifs sont reliés :
                             <ul>
                                 <li>utilisez
@@ -144,14 +146,14 @@
                                         <i class="fas fa-motorcycle"></i>
                                     </span> pour sélectionner une activité et utiliser les routes les plus appropriées à celle-ci.
                                 </li>
-                                <li>utilisez <span class="button"><i class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-dove"></i></span> pour alterner le routage (suivre les chemins) ou "vol d'oiseau" (lignes droites entre les points de passage).</li>
+                                <li>use <span class="button"><i class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-dove"></i></span> to alternate between routing (following real paths) or "as-the-crow-flies" (straight lines between anchor points).</li>
                             </ul>
                         </li>
                         <li>Vous pouvez faire glisser un point ou la trace elle-même pour la rediriger.</li>
                         <li>Si vous faites une erreur ou changez d'avis sur l'itinéraire, vous pouvez:
                             <ul>
                                 <li>utiliser les boutons annuler <i class="fas fa-reply button"></i> et rétablir <i class="fas fa-share button"></i>.</li>
-                                <li>faire un clic droit sur un point de passage pour le supprimer.</li>
+                                <li>right-click on an anchor point to remove it.</li>
                             </ul>
                         </li>
                     </ol>
@@ -195,12 +197,12 @@
                     Si vous voulez utiliser <b>gpx.studio</b> pour ouvrir des fichiers GPX stockés sur votre Google Drive, vous pouvez installer <a href="https://gsuite.google.com/marketplace/app/gpxstudio_the_online_gpx_editor/666808960580" target="_blank">l'add-on Google Drive</a>.
                 </div></div>
                 <div class="guide-item"><a name="edit-track-points" href="#edit-track-points" class="my-anchor"><div class="guide-title" onclick="toggle('edit-track')">Éditer les points de passage d'un fichier GPX</div></a>
-                <div id="edit-track" style="display: none">Cliquez sur <i class="fas fa-pencil-alt button"></i> pour passer en mode édition. Vous pouvez alors :
+                <div id="edit-track" style="display: none">Cliquez sur <i class="fas fa-pencil-alt button"></i> pour passer en mode édition. Depending on the zoom level, a set of anchor points appears. The more you zoom in, the more anchor points appear.<br>You can then:
                     <ul>
                         <li>ajouter des points de passage en fin de trace en cliquant sur la carte à l'endroit où vous souhaitez passer.</li>
-                        <li>faire glisser un point ou la ligne elle-même pour rediriger la trace.</li>
-                        <li>faire un clic droit sur un point de passage pour le supprimer.</li>
-                        <li>faire un clic droit sur un point de passage ou sur la trace pour diviser la trace à cet endroit.</li>
+                        <li>drag an editable point or the line itself to re-route the trace through a new location.</li>
+                        <li>right-click on an anchor point to remove it.</li>
+                        <li>right-click on an anchor point or on the line to split the trace at a chosen location.</li>
                     </ul>
                     Si vous faites une erreur ou changez d'avis sur l'itinéraire, utilisez les boutons annuler <i class="fas fa-reply button"></i> et rétablir <i class="fas fa-share button"></i> .<br>
                     Dans les paramètres <i class="fas fa-bars button"></i>, deux options contrôlent la façon dont deux points consécutifs sont reliés :
@@ -214,7 +216,7 @@
                                         <i class="fas fa-motorcycle"></i>
                                     </span> pour sélectionner une activité et utiliser les routes les plus appropriées à celle-ci.
                         </li>
-                        <li>utilisez <span class="button"><i class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-dove"></i></span> pour alterner le routage (suivre les chemins) ou "vol d'oiseau" (lignes droites entre les points de passage).</li>
+                        <li>use <span class="button"><i class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-dove"></i></span> to alternate between routing (following real paths) or "as-the-crow-flies" (straight lines between anchor points).</li>
                     </ul>
                     Si vous modifiez un fichier GPX contenant des données de temps, température, fréquence cardiaque, cadence ou puissance, les nouveaux points de passage contiendront automatiquement la valeur moyenne pour chacun de ces champs.
                 </div></div>
@@ -222,7 +224,7 @@
                 <div id="crop" style="display: none">Vous avez 3 options :
                     <ul>
                         <li>Utilisez le slider dans le panneau inférieur pour déplacer les points de départ et d'arrivée de la trace. Cliquez sur <i class="fas fa-check button"></i> pour valider la sélection. Vous pouvez choisir si vous voulez conserver les parties rognées dans des fichiers séparés.</li>
-                        <li>Passez en mode édition en cliquant sur <i class="fas fa-pencil-alt button"></i>. Ensuite, faites un clic droit sur un point de passage ou sur la trace pour diviser la trace à cet endroit.</li>
+                        <li>Passez en mode édition en cliquant sur <i class="fas fa-pencil-alt button"></i>. Then, right-click on an anchor point or on the line to split the trace at a chosen location.</li>
                         <li>Cliquez sur <i class="fas fa-vector-square button"></i> et sélectionnez une zone contenant les points que vous souhaitez conserver ou supprimer. Décochez la case <i class="far fa-check-square"></i> Points d'intérêt si vous ne voulez pas supprimer des points d'intérêt en même temps. Ensuite, choisissez si vous voulez supprimer les points de passage à l'intérieur ou en-dehors de la sélection. Enfin, cliquez sur <span class="button">Appliquer</span>.</li>
                     </ul>
                 </div></div>
@@ -230,7 +232,7 @@
                 <div id="split" style="display: none">Vous avez 2 options :
                     <ul>
                         <li>Utilisez le slider dans le panneau inférieur pour déplacer les points de départ et d'arrivée de la trace. Cliquez sur <i class="fas fa-check button"></i> pour valider la sélection. Cochez la case <i class="far fa-check-square"></i> Conserver les parties rognées dans de nouveaux fichiers, puis cliquez sur <span class="button">Appliquer</span>.</li>
-                        <li>Passez en mode édition en cliquant sur <i class="fas fa-pencil-alt button"></i>. Ensuite, faites un clic droit sur un point de passage ou sur la trace pour diviser la trace à cet endroit.</li>
+                        <li>Passez en mode édition en cliquant sur <i class="fas fa-pencil-alt button"></i>. Then, right-click on an anchor point or on the line to split the trace at a chosen location.</li>
                     </ul>
                 </div></div>
                 <div class="guide-item"><a name="add-timestamps" href="#add-timestamps" class="my-anchor"><div class="guide-title" onclick="toggle('timestamps')">Ajouter des données de temps à un fichier GPX</div></a>
