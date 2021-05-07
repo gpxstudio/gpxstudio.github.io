@@ -131,16 +131,16 @@
         <div id="buttons-bar" class="panels-container vcenter-leaflet">
             <div class="panels-button" id="edit" title="Editar puntos del track"><i class="fas fa-pencil-alt custom-button"></i></div><br>
             <div class="panels-button" id="edit-time" title="Editar tiempo"><i class="fas fa-stopwatch custom-button"></i></div><br>
-            <div class="panels-button" id="reverse" title="Invertir"><i class="fas fa-exchange-alt custom-button"></i></div><br>
+            <div class="panels-button" id="reverse" title="Invertir track"><i class="fas fa-exchange-alt custom-button"></i></div><br>
             <div class="panels-button" id="combine" title="Combinar con otro track"><i class="fas fa-plus-circle custom-button"></i></div><br>
             <div class="panels-button" id="extract" title="Extraer segmentos del track"><i class="fas fa-list-ul custom-button"></i></div><br>
-            <div class="panels-button" id="duplicate" title="Duplicar"><i class="fas fa-copy custom-button"></i></div><br>
+            <div class="panels-button" id="duplicate" title="Duplicar track"><i class="fas fa-copy custom-button"></i></div><br>
             <div class="panels-button" id="color" title="Cambiar color y opacidad"><i class="fas fa-palette custom-button"></i></div><br>
             <div class="panels-button" id="add-wpt" title="Añadir waypoint"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
-            <div class="panels-button" id="reduce" title="Reduce el número de puntos del track"><i class="fas fa-compress-alt custom-button"></i></div><br>
-            <div class="panels-button" id="zone-delete" title="Borrar todo dentro/fuera de la selección del rectángulo"><i class="fas fa-vector-square custom-button"></i></div><br>
+            <div class="panels-button" id="reduce" title="Reducir número de puntos del track"><i class="fas fa-compress-alt custom-button"></i></div><br>
+            <div class="panels-button" id="zone-delete" title="Borrar todo dentro/fuera de la selección"><i class="fas fa-vector-square custom-button"></i></div><br>
             <div class="panels-button" id="hide" title="Ocultar/mostrar el track"><i class="fas fa-eye-slash custom-button"></i></div><br>
-            <div class="panels-button" id="delete" title="Eliminar"><i class="fas fa-trash-alt custom-button"></i></div><br>
+            <div class="panels-button" id="delete" title="Eliminar track"><i class="fas fa-trash-alt custom-button"></i></div><br>
         </div>
         <li id="activity" class="dontselect">Actividad:
             <span class="unselected custom-button">
@@ -153,7 +153,7 @@
         </li>
         <li id="units" class="dontselect">Unidades: <span class="unselected custom-button"><span id="km">km </span><i class="fas fa-arrows-alt-h"></i><span id="mi"> mi</span></span></li>
         <li id="method" class="dontselect">Ruteo: <span class="unselected custom-button"><i id="route" class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i id="crow" class="fas fa-dove"></i></span></li>
-        <li id="chevrons" class="dontselect">Dirección: <input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"></li>
+        <li id="chevrons" class="dontselect">Indicadores de dirección: <input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"></li>
         <li id="dist-markers" class="dontselect">Indicadores de distancia: <input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"></li>
         <li id="profile" class="dontselect">Perfil de altura: <input type="checkbox" checked id="show-profile" class="custom-button" style="vertical-align: middle;"></li>
         <div id="help-text">
@@ -293,7 +293,7 @@
         En la parte inferior, puede ver un panel con información sobre los tracks importados.
         La pestaña <b>Total</b> muestra información sobre todos los tracks abiertos y combinados en uno.
         <b>Intercambia las pestañas</b> para definir el orden en el que deben aparecer los tracks y <b>haz doble clic</b> en ellos para cambiar sus nombres.
-        Cuando tengas muchas pestañas, navegue a través de ellas desplazándose horizontalmente.
+        Cuando tengas muchas pestañas, navega entre ellas desplazando la barra horizontalmente.
         Usa la <b>barra deslizante</b> para mover el punto de inicio/fin y cortar el track.
         </div>
         <div id="export-content" class="popup-content">
@@ -306,7 +306,7 @@
                 </colgroup>
                 <tbody>
                     <td></td>
-                    <td>Combina todos los tracks<input type="checkbox" id="merge"></td>
+                    <td>Combinar todos los tracks<input type="checkbox" id="merge"></td>
                     <td>Tiempo<input type="checkbox" id="include-time" checked></td>
                     <td></td>
                 </tr>
@@ -324,18 +324,18 @@
                 </tr>
                 </tbody>
             </table>
-            <div style="color:#0f92c5;">&#9888;&#65039; La herramienta es <b>libre</b> de usar pero <b>no libre</b> de ejecutar &#9888;&#65039;<br>Cada visualización del mapa y punto añadido o movido es facturado.</div>
-            <div id="donate-2" class="panels custom-button fancy-button"><b>Ayuda a mantener el sitio web gratis</b> &#128591;</div><br>
+            <div style="color:#0f92c5;">&#9888;&#65039; El uso de la herramienta es <b>gratuito</b> pero su funcionamiento interno <b>no es gratuito</b> &#9888;&#65039;<br>Cada visualización del mapa y cada punto añadido o movido me es facturado.</div>
+            <div id="donate-2" class="panels custom-button fancy-button"><b>Ayuda a que esta herramienta siga siendo gratuita</b> &#128591;</div><br>
             <div id="export-2" class="panels custom-button fancy-button">Descargar <i class="fas fa-download"></i></div>
             <div id="save-drive" class="panels custom-button fancy-button">Guardar en Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
         </div>
         <div id="clear-content" class="popup-content">
-            Esto eliminará todos los tracks abiertos.<br>¿Desea continuar?<br>
+            Se eliminarán todos los tracks abiertos.<br>¿Desea continuar?<br>
             <div id="clear2" class="panels custom-button normal-button">Sí</div>
             <div id="cancelclear" class="panels custom-button normal-button"><b>Cancelar</b></div>
         </div>
         <div id="delete-content" class="popup-content">
-            Esto eliminará el track abierto.<br>¿Desea continuar?<br>
+            Se eliminará el track abierto.<br>¿Desea continuar?<br>
             <div id="delete2" class="panels custom-button normal-button">Sí</div>
             <div id="canceldelete" class="panels custom-button normal-button"><b>Cancelar</b></div>
         </div>
@@ -346,10 +346,10 @@
         </div>
         <div id="color-content" class="popup-content">
             <div style="text-align: left">
-                <label for="color-picker">Escoge un nuevo color</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
-                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Aplica color a todas los tracks</label><br>
+                <label for="color-picker">Establecer color</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
+                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Aplicar color a todos los tracks</label><br>
                 <label for="opacity-slider">Opacidad</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
-                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Aplicar opacidad a todas los tracks</label>
+                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Aplicar opacidad a todos los tracks</label>
             </div>
             <div id="validate-color" class="panels custom-button normal-button">Aceptar</div>
             <div id="cancel-color" class="panels custom-button normal-button">Cancelar</div>
@@ -405,8 +405,8 @@
             <div id="unit-feet-text">ft</div>
             <div id="unit-hours-text">h</div>
             <div id="unit-minutes-text">min</div>
-            <div id="duplicate-text">Duplicar</div>
-            <div id="delete-text">Eliminar</div>
+            <div id="duplicate-text">Duplicar track</div>
+            <div id="delete-text">Eliminar track</div>
             <div id="ok-button-text">Aceptar</div>
             <div id="cancel-button-text">Cancelar</div>
             <div id="edit-speed-popup-text">
