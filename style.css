@@ -364,6 +364,18 @@ html, body {
     -o-transition: opacity 0.3s linear;
 }
 
+#languages {
+    position: absolute;
+    bottom: 0px;
+    padding: 0px 3px;
+    background: rgba(255, 255, 255, 0.7);
+    font-size: 11px;
+}
+
+.footer {
+    padding: 0px 2px;
+}
+
 .fas .far {
     color: #D0D0D0 !important;
 }

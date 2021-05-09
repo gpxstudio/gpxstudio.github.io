@@ -177,9 +177,9 @@ export default class Buttons {
         this.merge_content = document.getElementById('merge-content');
         this.crop_content = document.getElementById('crop-content');
         this.embed_content = document.getElementById('embed-content');
-        this.social_content = document.getElementById('social');
         this.trace_info_content = document.getElementById('info');
         this.toolbar_content = document.getElementById('toolbar');
+        this.languages_content = document.getElementById('languages');
 
         // TRANSLATED TEXT
         this.ok_button_text = document.getElementById('ok-button-text').textContent;
@@ -293,8 +293,8 @@ export default class Buttons {
         // OVERLAY COMPONENTS
         if (this.embedding) {
             this.buttons_bar.style.display = 'none';
-            this.social_content.style.display = 'none';
             this.toolbar_content.style.display = 'none';
+            this.languages_content.style.display = 'none';
             this.units.style.display = 'none';
             this.activity.style.display = 'none';
             this.method.style.display = 'none';
@@ -332,13 +332,6 @@ export default class Buttons {
             };
             this.buttonbar.addTo(this.map);
 
-            this.social = L.control({position: 'bottomright'});
-            this.social.onAdd = function (map) {
-                var div = _this.social_content;
-                return div;
-            };
-            this.social.addTo(this.map);
-
             this.embed_content.style.display = 'none';
 
         }
@@ -357,6 +350,24 @@ export default class Buttons {
         this.slider = new Slider(this);
 
         this.hideTraceButtons();
+
+        const language_list = ['fr', 'es'];
+        var language = 'en';
+        for (var l=0; l<language_list.length; l++)
+            if (window.location.pathname.indexOf(language_list[l]) != -1) {
+                language = language_list[l];
+                break;
+            }
+        this.languages = L.control({position: 'bottomleft'});
+        this.languages.onAdd = function (map) {
+            var div = _this.languages_content;
+            for (var i=0; i<div.children.length; i++) if (div.children[i].textContent == language) {
+                div.children[i].style.display = 'none';
+                break;
+            }
+            return div;
+        };
+        this.languages.addTo(this.map);
 
         this.addHandlers();
 
