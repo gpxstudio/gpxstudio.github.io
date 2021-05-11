@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="nl">
+    <head>
+        <link rel="alternate" hreflang="x-default" href="https://gpxstudio.github.io/about.html"/>
+        <link rel="alternate" hreflang="en" href="https://gpxstudio.github.io/about.html"/>
+        <link rel="alternate" hreflang="fr" href="https://gpxstudio.github.io/l/fr/about.html"/>
+        <link rel="alternate" hreflang="es" href="https://gpxstudio.github.io/l/es/about.html"/>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167421374-1"></script>
+        <script>
+            if(window.location.hostname != "localhost") {
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'UA-167421374-1');
+            }
+        </script>
+        <meta charset="utf-8">
+        <title>gpx.studio — over</title>
+        <meta name="description" content="Bekijk, bewerk en maak GPX bestanden online: maak, verplaats en verwijder punten, voeg meerdere bestanden samen, keer routes om, voeg tijdstempels toe, bewerk routepunten en meer!">
+        <meta property="og:title" content="gpx.studio — de online GPX bestandsbewerker" />
+        <meta property="og:description" content="Bekijk, bewerk en maak GPX bestanden online: maak, verplaats en verwijder punten, voeg meerdere bestanden samen, keer routes om, voeg tijdstempels toe, bewerk routepunten en meer!" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://gpxstudio.github.io/" />
+        <meta property="og:image" content="https://gpxstudio.github.io/res/og_logo.png" />
+        <meta name="twitter:card" content="summary_large_image">
+        <script type="application/ld+json">
+        {
+            "@context" : "http://schema.org",
+            "@type" : "WebApplication",
+            "name" : "gpx.studio",
+            "alternateName": "gpx.studio — the online GPX file editor",
+            "description": "View, edit and create GPX files online: add, move and delete points, merge multiple files, reverse, add timestamps, edit waypoints and more!",
+            "applicationCategory": "Tool, Editor",
+            "url" : "https://gpxstudio.github.io",
+            "sameAs" : [
+                "https://www.facebook.com/gpx.studio"
+            ],
+            "screenshot": "https://gpxstudio.github.io/res/preview.png",
+            "genre": "outdoors",
+            "keywords": "gpx, gps, file, viewer, editor, merge, reverse, timestamps, waypoints, segments",
+            "browserRequirements": "Requires JavaScript. Requires HTML5.",
+            "softwareHelp": {
+                "@type": "CreativeWork",
+                "url": "https://gpxstudio.github.io/about.html"
+            },
+            "operatingSystem": "All",
+            "featureList": "edit gpx files online, view gpx files online, merge gpx files online, reverse gpx file online, add timestamps to gpx file online, extract track segments, view and add waypoints gpx file online"
+        }
+        </script>
+        <link rel="icon" href="/res/favicon.png">
+        <link rel="stylesheet" href="/include/fontawesome/css/fontawesome.min.css"/>
+        <link rel="stylesheet" href="/include/fontawesome/css/brands.min.css"/>
+        <link rel="stylesheet" href="/include/fontawesome/css/regular.min.css"/>
+        <link rel="stylesheet" href="/include/fontawesome/css/solid.min.css"/>
+    </head>
+    <body>
+        <div style="position:absolute; top:0px; height:60px; line-height: 40px; left:0px; right:0px; overflow:hidden;">
+            <div style="display: flex; justify-content: space-between; margin: 10px 3% 0% 3%; ">
+                <a href="./"><img src="/res/logo.png" style="height: 40px"></a>
+                <a href="#about" class="my-anchor">Over</a>
+                <a href="#funding" class="my-anchor">Financiering</a>
+                <a href="#support" class="my-anchor">Ondersteuning</a>
+                <a href="#guide" class="my-anchor">Gebruikersgids</a>
+                <a href="#embed" class="my-anchor">Insluiten</a>
+                <a href="#legal" class="my-anchor">Juridisch</a>
+            </div>
+        </div>
+        <div style="position:absolute; top:60px; height:1px; left:0px; right:0px; background-color: #dedede; overflow:hidden;"></div>
+        <div style="position:absolute; bottom:0px; left:0px; overflow:hidden;">
+            <div style="display: flex; justify-content: space-between;">
+                <span class="footer">Talen:</span>
+                <a href="/about.html" class="footer">en</a>
+                <a href="/l/fr/about.html" class="footer">fr</a>
+            </div>
+        </div>
+        <div style="position:absolute; bottom:0px; right:0px; overflow:hidden;">
+            <div style="display: flex; justify-content: space-between; ">
+                <span class="footer">Contact:</span>
+                <a href="https://facebook.com/gpx.studio" target="_blank" class="footer">Facebook</a>
+                <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank" class="footer">GitHub</a>
+                <a href="mailto:contact.gpxstudio@gmail.com" class="footer">Email</a>
+            </div>
+        </div>
+        <div style="position:absolute; bottom:22px; height:1px; left:0px; right:0px; background-color: #dedede; overflow:hidden;"></div>
+        <div style="position:absolute; top:61px; bottom:22px; left:0px; right:0px; overflow: auto;">
+            <a name="about"></a>
+            <div style="margin: 0% 10% 0% 10%; text-align: justify;">
+            <h1>Over &#128692;</h1>
+            <div>
+                <a href="./"><b>gpx.studio</b></a> is een gratis online GPX viewer en editor die het mogelijk maakt om:
+                <ul>
+                    <li>visualiseer meerdere routes in verschillende kleuren die zijn ondersteund door veel verschillende kaarten (fietsen, wandelen, satelliet, <a href="https://www.strava.com/heatmap" target="_blank">Strava heatmap</a> overlay, etc)</li>
+                    <li>routes bewerken door het toevoegen, invoegen, verplaatsen of verwijderen van routepunten</li>
+                    <li>routes omkeren</li>
+                    <li>voeg tijdstempels toe aan een route</li>
+                    <li>routepunten bekijken, toevoegen, bewerken en verwijderen</li>
+                    <li>verminder het aantal track points</li>
+                    <li>automatisch hoogtegegevens toevoegen aan traces als dit ontbreekt</li>
+                    <li>voeg meerdere sporen samen, verhoog tijd, hartritme, cadans, vermogen- en temperatuurgegevens indien nodig</li>
+                    <li>segmenten uit sporen halen en voer andere acties uit terwijl de structuur van de segmenten in bestanden wordt behouden</li>
+                    <li>sla het resultaat op uw computer of Google Drive™ op om een deelbare link en embedded code te krijgen</li>
+                </ul>
+                Het is een project gemaakt door 1 persoon na het experimenteren met GPX bestanden. De broncode van het project is publiekelijk beschikbaar op <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank">GitHub</a>. Volg ons op <a href="https://facebook.com/gpx.studio" target="_blank">Facebook</a> om te worden geïnformeerd over updates van de tool.
+            </div>
+            <a name="mapbox"></a><h2>Mapbox Gemeenschap &#129309;<a href="https://www.mapbox.com/" target="_blank"><img src="/res/mapbox.svg" style="height: 40px; vertical-align: bottom; float: right;"></a></h2>
+            <div>
+                <a href="https://www.mapbox.com/" target="_blank">Mapbox</a> is het bedrijf dat enkele van de mooie kaarten op deze website aanbiedt. We vertrouwen er ook op dat hun diensten routes ophalen tussen punten die je toevoegt of verplaatst, om precieze hoogtegegevens toe te voegen aan de sporen en om je naar de juiste locatie te brengen wanneer je iets in de zoekbalk typt.<br><br>
+                Ze hebben een programma gemaakt genaamd <a href="https://www.mapbox.com/community/" target="_blank">Mapbox Community</a> om non-profitorganisaties, onderwijsinstellingen en positief-impact organisaties te ondersteunen (zie de <a href="https://www.mapbox.com/community/" target="_blank"> officiële pagina</a> waar ze sommige van hun samenwerkingen laten zien). We hebben <b>veel geluk</b> om deel te hebben genomen aan dit programma en om te profiteren van een grote korting op alle API tarieven. Dankzij hen kan dit project door middel van alleen donaties duurzaam zijn op de lange termijn.<br><br>
+                Ik ben (en alle gebruikers van de website) erg dankbaar voor hun ondersteuning en beschikbaarheid.
+            </div>
+            <a name="translation"></a><h2>Vertaling &#128483;&#65039;</h2>
+            <div>
+                De website wordt vertaald door vrijwilligers op een samenwerkend vertaalplatform.
+                U kunt helpen de vertalingen te voltooien en te verbeteren door deel te nemen aan het <a href="https://crowdin.com/project/gpxstudio">Crowdin-project</a>.
+                Neem contact op met <a href="https://facebook.com/gpx.studio" target="_blank">Facebook</a>, door <a href="mailto:contact.gpxstudio@gmail.com">e-mail</a> of via <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank">GitHub</a> als u de vertaling in een nieuwe taal wilt starten.
+                Naast een goed begrip van <b>gpx.studio</b>, kan sommige basiskennis van HTML nuttig zijn. Elke hulp wordt zeer gewaardeerd!
+            </div>
+            <a name="funding"></a><h1>Help de website gratis te houden (en advertentievrij) &#128591;</h1>
+            <div>
+                Elke keer als je een track punt toevoegt of verplaatst, doen we een verzoek aan de <a href="https://docs.mapbox.com/api/navigation/directions/" target="_blank">Mapbox Directions API</a> om een route op het wegennetwerk op te halen. Daarnaast verzoeken we <a href="https://docs.mapbox.com/help/troubleshooting/access-elevation-data/#mapbox-terrain-rgb">Mapbox Terrain-RGB tegels</a> om precieze hoogte gegevens toe te voegen aan de nieuwe track punten.<br><br>
+                Helaas is dit zelfs niet gratis met Mapbox's ondersteuning (zie <a href="#mapbox">Mapbox Community</a> hierboven). Andere te betalen bewerkingen zijn onder meer mappen laden en geocoding verzoeken (op zoek naar een plaats in de zoekbalk).<br><br>
+                Dus als je de tool leuk vindt en het vaak gebruikt, overweeg om zelfs een kleine donatie te doen, zodat deze website <b>gratis kan blijven gebruiken</b> en <b>advertentievrij</b>. Bedankt voor je steun!<br><br>
+                <div style="text-align: center;"><script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support gpx.studio on Ko-fi', '#29abe0', 'F1F1303GH');kofiwidget2.draw();</script></div>
+            </div>
+            <a name="support"></a><h1>Ondersteuning &#128172;</h1>
+            <div>
+                Het <span class="button">Help-dialoogvenster</span> en de <a href="#guide">gebruikershandleiding</a> moeten de meeste vragen over de functies beantwoorden, maar voel je vrij om hulp te vragen, problemen te melden of suggesties op te sturen naar de  <a href="https://facebook.com/gpx.studio" target="_blank">Facebook pagina</a> of per e-mail via <a href="mailto:contact.gpxstudio@gmail.com">contact.pxstudio@gmail.com</a>.<br><br>
+                Voor ontwikkelaars, de <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank">Github repository</a> is ook een goede plek om problemen te melden of ideeën te delen.
+            </div>
+            <a name="guide"></a><h1>Gebruikersgids &#127891;</h1>
+            <div class="guide">
+                Klik op een onderwerp om meer te leren!<br><br>
+                <div class="guide-item"><a name="create-file" href="#create-file" class="my-anchor"><div class="guide-title" onclick="toggle('create')">Maak een nieuw GPX-bestand aan</div></a>
+                <div id="create" style="display: none">
+                    <ol>
+                        <li>Klik in de bovenste werkbalk op <span class="button">Teken</span>. Een nieuw tabblad genaamd "nieuw" verschijnt onder het onderste paneel.</li>
+                        <li>Plaats ankerpunten op de kaart door te klikken op de locaties die je wilt doorlopen.</li>
+                        <li>In de instellingen <i class="fas fa-bars button"></i>, twee opties bepalen hoe twee opeenvolgende punten zijn aangesloten:
+                            <ul>
+                                <li>use
+                                    <span class="button">
+                                        <i class="fas fa-biking"></i>
+                                        <i class="fas fa-arrows-alt-h"></i>
+                                        <i class="fas fa-running"></i>
+                                        <i class="fas fa-arrows-alt-h"></i>
+                                        <i class="fas fa-motorcycle"></i>
+                                    </span> to select the correct activity and use the most appropriate roads.
+                                </li>
+                                <li>gebruik <span class="button"><i class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-dove"></i></span> om af te wisselen tussen routing (volgens echte paden) of "as-the-crow-flies" (rechte lijnen tussen anker punten).</li>
+                            </ul>
+                        </li>
+                        <li>Je kunt een punt of de lijn zelf verslepen om het spoor door een nieuwe locatie te leiden.</li>
+                        <li>If you make a mistake or change your mind about the itinerary, you can:
+                            <ul>
+                                <li>use the undo <i class="fas fa-reply button"></i> and redo <i class="fas fa-share button"></i> buttons.</li>
+                                <li>right-click on an anchor point to remove it.</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div></div>
+                <div class="guide-item"><a name="load-file" href="#load-file" class="my-anchor"><div class="guide-title" onclick="toggle('load')">Load existing GPX files</div></a>
+                <div id="load" style="display: none">There are two options:
+                    <ul>
+                        <li>Click on <span class="button">Load</span> and select one or more GPX files to load.</li>
+                        <li>Drag and drop GPX files in the window.</li>
+                    </ul>
+                </div></div>
+                <div class="guide-item"><a name="export-file" href="#export-file" class="my-anchor"><div class="guide-title" onclick="toggle('export')">Export GPX files</div></a>
+                <div id="export" style="display: none">
+                    There are two options:
+                    <ul>
+                        <li>Click on <span class="button">Export</span> and then choose whether to:
+                           <ul>
+                               <li>merge all open GPX files or export them separately.</li>
+                               <li>include time, temperature, heartrate, cadence and power data or not.</li>
+                           </ul>
+                           Then, click on <span class="button">Download <i class="fas fa-download"></i></span> to download the files on your computer or on <span class="button">Save to Google Drive</span> to save it in the cloud.
+                        </li>
+                        <li>Drag and drop a tab (below the bottom panel) onto your desktop.</li>
+                    </ul>
+                </div></div>
+                <div class="guide-item"><a name="share-file" href="#share-file" class="my-anchor"><div class="guide-title" onclick="toggle('share')">Share a GPX file</div></a>
+                <div id="share" style="display: none"><b>gpx.studio</b> does not provide GPX file hosting. However, it integrates smoothly with Google Drive.
+                    To share GPX files:
+                    <ol>
+                        <li>Click on <span class="button">Export</span> and then choose whether to:
+                           <ul>
+                               <li>merge all open GPX files or export them separately.</li>
+                               <li>include time, temperature, heartrate, cadence and power data or not.</li>
+                           </ul>
+                        </li>
+                        <li>Click on <span class="button">Save to Google Drive</span>.</li>
+                        <li>Connect to your Google account.</li>
+                        <li>Select the folder where you want to save the files.</li>
+                        <li>When the files are uploaded, click on <span class="button">Copy link <i class="fas fa-link"></i></span> and send it to your friends!</li>
+                    </ol>
+                    If you want to use <b>gpx.studio</b> to open GPX files stored on your Google Drive, you can install the <a href="https://gsuite.google.com/marketplace/app/gpxstudio_the_online_gpx_editor/666808960580" target="_blank">Google Drive Add-on</a>.
+                </div></div>
+                <div class="guide-item"><a name="edit-track-points" href="#edit-track-points" class="my-anchor"><div class="guide-title" onclick="toggle('edit-track')">Edit the track points of a GPX file</div></a>
+                <div id="edit-track" style="display: none">Click on <i class="fas fa-pencil-alt button"></i> to enter the edition mode. Depending on the zoom level, a set of anchor points appears. The more you zoom in, the more anchor points appear.<br>You can then:
+                    <ul>
+                        <li>add track points at the end of the trace by clicking on the map at the locations you want to go through.</li>
+                        <li>drag an anchor point or the line itself to re-route the trace through a new location.</li>
+                        <li>right-click on an anchor point to remove it.</li>
+                        <li>right-click on an anchor point or on the line to split the trace at a chosen location.</li>
+                    </ul>
+                    If you make a mistake or change your mind about the itinerary, use the undo <i class="fas fa-reply button"></i> and redo <i class="fas fa-share button"></i> buttons.<br>
+                    In the settings <i class="fas fa-bars button"></i>, two options control how two consecutive points are connected:
+                    <ul>
+                        <li>use
+                            <span class="button">
+                                <i class="fas fa-biking"></i>
+                                <i class="fas fa-arrows-alt-h"></i>
+                                <i class="fas fa-running"></i>
+                                <i class="fas fa-arrows-alt-h"></i>
+                                <i class="fas fa-motorcycle"></i>
+                            </span> to select the correct activity and use the most appropriate roads.
+                        </li>
+                        <li>gebruik <span class="button"><i class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-dove"></i></span> om af te wisselen tussen routing (volgens echte paden) of "as-the-crow-flies" (rechte lijnen tussen anker punten).</li>
+                    </ul>
+                    If you edit a GPX file containing time, temperature, heartrate, cadence or power data, new track points will automatically contain the average value for each of those fields.
+                </div></div>
+                <div class="guide-item"><a name="crop-file" href="#crop-file" class="my-anchor"><div class="guide-title" onclick="toggle('crop')">Crop a GPX file</div></a>
+                <div id="crop" style="display: none">There are three options:
+                    <ul>
+                        <li>Use the slider in the bottom panel to move the start and end points of the trace. Click on <i class="fas fa-check button"></i> to validate the selection. You can choose whether you want to keep cropped parts in separate files.</li>
+                        <li>Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, right-click on an anchor point or on the line to split the trace at a chosen location.</li>
+                        <li>Click on <i class="fas fa-vector-square button"></i> and select an area containing the track points you want to keep or delete. Uncheck the box <i class="far fa-check-square"></i> Waypoints if you do not want to remove waypoints at the same time. Then, choose whether you want to delete track points inside or outside of the selection. Finally, click on <span class="button">Proceed</span>.</li>
+                    </ul>
+                </div></div>
+                <div class="guide-item"><a name="split-file" href="#split-file" class="my-anchor"><div class="guide-title" onclick="toggle('split')">Split a GPX file</div></a>
+                <div id="split" style="display: none">There are two options:
+                    <ul>
+                        <li>Use the slider in the bottom panel to move the start and end points of the trace. Click on <i class="fas fa-check button"></i> to validate the selection. Check the box <i class="far fa-check-square"></i> Keep cropped parts in new files and then click on <span class="button">Proceed</span>.</li>
+                        <li>Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, right-click on an anchor point or on the line to split the trace at a chosen location.</li>
+                    </ul>
+                </div></div>
+                <div class="guide-item"><a name="add-timestamps" href="#add-timestamps" class="my-anchor"><div class="guide-title" onclick="toggle('timestamps')">Add timestamps to a GPX file</div></a>
+                <div id="timestamps" style="display: none">
+                    <ol>
+                        <li>Click on <i class="fas fa-stopwatch button"></i>.</li>
+                        <li>Enter the average speed.</li>
+                        <li>Select the start time.</li>
+                        <li>Klik op <span class="button">Ok</span>.</li>
+                    </ol>
+                    Als het GPX-bestand geen tijdstempel heeft, wordt een constante snelheid standaard toegepast op het gehele GPX-bestand. Je kunt het selectievakje <i class="far fa-check-square"></i> Experimenteel aanvinken om tijdstempels te genereren die de snelheid afhankelijk maken van de helling.<br>
+                    Als het GPX-bestand al tijdstempels heeft, ze zullen worden verplaatst en gecomprimeerd zodat ze overeenkomen met de gekozen snelheid en start tijd.
+                </div></div>
+                <div class="guide-item"><a name="change-date" href="#change-date" class="my-anchor"><div class="guide-title" onclick="toggle('date')">Wijzig de datum van een GPX-bestand</div></a>
+                <div id="date" style="display: none">
+                    <ol>
+                        <li>Click on <i class="fas fa-stopwatch button"></i>.</li>
+                        <li>Verander de starttijd.</li>
+                        <li>Klik op <span class="button">Ok</span>.</li>
+                    </ol>
+                </div></div>
+                <div class="guide-item"><a name="change-speed" href="#change-speed" class="my-anchor"><div class="guide-title" onclick="toggle('speed')">Wijzig de snelheid van een GPX-bestand</div></a>
+                <div id="speed" style="display: none">
+                    <ol>
+                        <li>Click on <i class="fas fa-stopwatch button"></i>.</li>
+                        <li>Wijzig de gemiddelde snelheid.</li>
+                        <li>Klik op <span class="button">Ok</span>.</li>
+                    </ol>
+                    Als het GPX-bestand geen tijdstempel heeft, wordt een constante snelheid standaard toegepast op het gehele GPX-bestand. Je kunt het selectievakje <i class="far fa-check-square"></i> Experimenteel aanvinken om tijdstempels te genereren die de snelheid afhankelijk maken van de helling.<br>
+                    Als het GPX-bestand al tijdstempels heeft, ze zullen worden verplaatst en gecomprimeerd zodat ze overeenkomen met de gekozen snelheid en start tijd.
+                </div></div>
+                <div class="guide-item"><a name="merge-files" href="#merge-files" class="my-anchor"><div class="guide-title" onclick="toggle('merge')">Meerdere GPX-bestanden samenvoegen</div></a>
+                <div id="merge" style="display: none">
+                    Om twee GPX-bestanden samen te voegen:
+                    <ol>
+                        <li>Onder het onderste paneel selecteert u het tabblad van het eerste GPX bestand dat u wilt samenvoegen.</li>
+                        <li>Klik op <i class="fas fa-plus-circle button"></i> (alleen beschikbaar als er meer dan twee bestanden geopend zijn).</li>
+                        <li>Klik op het tabblad van het tweede GPX-bestand om samen te voegen. De trackpunten van het tweede GPX-bestand komen na die van het eerste GPX-bestand.</li>
+                    </ol>
+                    Als je alle geopende GPX-bestanden tegelijk wilt samenvoegen:
+                    <ol>
+                        <li>Onder het onderste paneel plaats je de tabbladen in de volgorde waarin ze getoond moeten worden in het samengevoegde GPX-bestand.</li>
+                        <li>Klik op <span class="button">Ok</span>.</li>
+                        <li>Vink het vakje <i class="far fa-check-square"></i> aan om alle sporen samen te voegen.</li>
+                        <li>Klik op <span class="button">Download <i class="fas fa-download"></i></span> om de bestanden op uw computer te downloaden of op <span class="button">Opslaan in Google Drive</span> om het in de cloud op te slaan.</li>
+                    </ol>
+                    Bij het samenvoegen van meerdere GPX-bestanden: ontbrekende tijd, temperatuur, hartritme, cadans of vermogensgegevens worden automatisch uitgebreid met de gemiddelde waarde van de samengevoegde bestanden.
+                    Als sommige GPX-bestanden tijdstempels bevatten, is het verzekerd dat de tijdstempels van het samengevoegde bestand strikt toenemen (de tijdstempels van sommige bestanden worden indien nodig verzet).
+                </div></div>
+                <div class="guide-item"><a name="extract-segments" href="#extract-segments" class="my-anchor"><div class="guide-title" onclick="toggle('extract')">Extract track segments of a GPX file</div></a>
+                <div id="extract" style="display: none">Klik op <i class="fas fa-list-ul button"></i> (alleen beschikbaar als het bestand meerdere track segmenten heeft). If the GPX file contains waypoints (points of interest), they are kept in the files for which the traces pass closest.</div></div>
+                <div class="guide-item"><a name="copy-file" href="#copy-file" class="my-anchor"><div class="guide-title" onclick="toggle('copy')">Kopieer een GPX-bestand</div></a>
+                <div id="copy" style="display: none">Klik op <i class="fas fa-copy button"></i> om een GPX-bestand te dupliceren.</div></div>
+                <div class="guide-item"><a name="change-color" href="#change-color" class="my-anchor"><div class="guide-title" onclick="toggle('color')">Wijzig de kleur van een GPX-bestand</div></a>
+                <div id="color" style="display: none">
+                    <ol>
+                        <li>Klik op <i class="fas fa-palette button"></i>.</li>
+                        <li>Klik op de kleur om de kleurenkiezer te openen.</li>
+                        <li>Verplaats de schuifregelaar om de lettergrootte te wijzigen.</li>
+                        <li>Klik op <span class="button">Ok</span>.</li>
+                    </ol>
+                    U kunt optioneel de gekozen kleur en ondoorzichtigheid op alle sporen toepassen met behulp van de selectievakjes.
+                </div></div>
+                <div class="guide-item"><a name="add-waypoint" href="#add-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('add-wpt')">Voeg waypoints (interessante punten) toe aan een GPX bestand</div></a>
+                <div id="add-wpt" style="display: none">
+                    <ol>
+                        <li>Klik op <i class="fas fa-map-marker-alt </i>.</li>
+                        <li>Klik op de kaart op de locatie die je wilt plaatsen.</li>
+                        <li>Vul enkele gegevens in over het waypoint (je kunt HTML gebruiken om informatie op te maken, of zelfs afbeeldingen linken).</li>
+                        <li>Klik op <span class="button">Ok</span>.</li>
+                    </ol>
+                    Als u een waypoint op een andere locatie wilt gebruiken, klikt u op het waypoint en drukt u op <i class="fas fa-copy button"></i> in de popup. Klik vervolgens op de kaart om een kopie van het waypoint op de gekozen locatie toe te voegen.
+                </div></div>
+                <div class="guide-item"><a name="edit-waypoint" href="#edit-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('edit-wpt')">Edit a waypoint of a GPX file</div></a>
+                <div id="edit-wpt" style="display: none">Om de locatie van een waypoint te veranderen, kunt u het naar een nieuwe locatie slepen. Bij het verplaatsen van een waypoint dicht bij het spoor wordt het automatisch aangetrokken zodat u het waypoint perfect op het spoor kunt zetten. Zoom in of uit om de afstand te wijzigen waarmee de waypoints worden aangetrokken.<br>
+                    Om de gegevens van een waypoint te bewerken klik erop en druk op <i class="fas fa-pencil-alt button"></i> binnen de popup. Wijzig de informatie en klik vervolgens op <span class="button">Ok</span>.
+                </div></div>
+                <div class="guide-item"><a name="remove-waypoint" href="#remove-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('rmv-wpt')">Remove waypoints of a GPX file</div></a>
+                <div id="rmv-wpt" style="display: none">Om een enkel waypoint te verwijderen, klik erop en druk op <i class="fas fa-trash-alt button"></i> in de popup.<br>
+                    Om alle waypoints binnen of buiten een gebied te verwijderen klik op <i class="fas fa-vector-square button"></i> en selecteer een gebied met de waypoints die u wilt behouden of verwijderen. Schakel het selectievakje <i class="far fa-check-square"></i> Trackpunten uit als u niet tegelijkertijd de trackpunten wilt verwijderen. Kies vervolgens of u de waypoints binnen of buiten de selectie wilt verwijderen. Finally, click on <span class="button">Proceed</span>.
+                </div></div>
+                <div class="guide-item"><a name="reduce-points" href="#reduce-points" class="my-anchor"><div class="guide-title" onclick="toggle('reduce')">Reduce the number of track points of a GPX file</div></a>
+                <div id="reduce" style="display: none">
+                    <ol>
+                        <li>Klik op <i class="fas fa-compress-alt button"></i>.</li>
+                        <li>Gebruik de schuifregelaar om het aantal te behouden trackpunten te kiezen. Je kunt een live voorbeeld zien van het GPX-bestand met het gereduceerde aantal punten.</li>
+                        <li>Klik op <span class="button">Ok</span>.</li>
+                    </ol>
+                </div></div>
+                <div class="guide-item"><a name="delete-points-in-zone" href="#delete-points-in-zone" class="my-anchor"><div class="guide-title" onclick="toggle('delete-zone')">Verwijder alle track points en/of waypoints binnen/buiten een gebied</div></a>
+                <div id="delete-zone" style="display: none">
+                    <ol>
+                        <li>Click on <i class="fas fa-vector-square button"></i>.
+                        <li>Select an area containing the track points and/or waypoints you want to keep or delete.</li>
+                        <li>Choose whether you want to delete track points and/or waypoints, inside or outside of the selection.</li>
+                        <li>Finally, click on <span class="button">Proceed</span>.</li>
+                   </ol>
+                </div></div>
+                <div class="guide-item"><a name="delete-file" href="#delete-file" class="my-anchor"><div class="guide-title" onclick="toggle('delete')">Remove GPX files</div></a>
+                <div id="delete" style="display: none">Below the bottom panel, select the tab of the file you want to delete and click on <i class="fas fa-trash-alt button"></i>.<br>
+                To remove all GPX files at once, click on <span class="button">Clear all</span> in the top toolbar.</div></div>
+                <div class="guide-item"><a name="open-street-view" href="#open-street-view" class="my-anchor"><div class="guide-title" onclick="toggle('street-view')">Open Google Street View</div></a>
+                <div id="street-view" style="display: none">In the top-right corner, click on <i class="fas fa-street-view button"></i> and then click on the map to open Google Street View at that location.</div></div>
+                <div class="guide-item"><a name="search-location" href="#search-location" class="my-anchor"><div class="guide-title" onclick="toggle('search')">Center the map on a location</div></a>
+                <div id="search" style="display: none">In the top-right corner, click on <i class="fas fa-search button"></i> and then type an address. Choose one of the suggested locations to center the map on it.</div></div>
+                <div class="guide-item"><a name="hide-trace" href="#hide-trace" class="my-anchor"><div class="guide-title" onclick="toggle('hide-gpx')">Hide a GPX file</div></a>
+                <div id="hide-gpx" style="display: none">To hide a GPX file, click on <i class="fas fa-eye-slash button"></i>. To unhide it, click on <i class="fas fa-eye button"></i>.<br>
+                A hidden trace will also unhide when adding a point in edition mode or when using most of the tools.</div></div>
+                <div class="guide-item"><a name="hide-elevation" href="#hide-elevation" class="my-anchor"><div class="guide-title" onclick="toggle('profile')">Hide the elevation profile</div></a>
+                <div id="profile" style="display: none">To hide the elevation profile, go in the settings <i class="fas fa-bars button"></i> and uncheck the box <i class="far fa-check-square"></i> Elevation profile.</div></div>
+                <div class="guide-item"><a name="change-units" href="#change-units" class="my-anchor"><div class="guide-title" onclick="toggle('units')">Change the units</div></a>
+                <div id="units" style="display: none">To change the units, go in the settings <i class="fas fa-bars button"></i> and click on <span class="button">km <i class="fas fa-arrows-alt-h"></i> mi</span>.<br>
+                Click on <span class="button">
+                    <i class="fas fa-biking"></i>
+                    <i class="fas fa-arrows-alt-h"></i>
+                    <i class="fas fa-running"></i>
+                    <i class="fas fa-arrows-alt-h"></i>
+                    <i class="fas fa-motorcycle"></i>
+                </span> to select an activity and see the speed or the running pace in minutes per kilometer or mile.</div></div>
+                <div class="guide-item"><a name="direction-markers" href="#direction-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-direction-markers')">Show direction markers</div></a>
+                <div id="show-direction-markers" style="display: none">To show direction markers, go in the settings <i class="fas fa-bars button"></i> and check the box <i class="far fa-check-square"></i> Direction markers.</div></div>
+                <div class="guide-item"><a name="distance-markers" href="#distance-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-distance-markers')">Show distance markers</div></a>
+                <div id="show-distance-markers" style="display: none">To show direction markers, go in the settings <i class="fas fa-bars button"></i> and check the box <i class="far fa-check-square"></i> Distance markers.</div></div>
+                <div class="guide-item"><a name="map-legends" href="#map-legends" class="my-anchor"><div class="guide-title" onclick="toggle('legend')">Map legends</div></a>
+                <div id="legend" style="display: none">
+                    <ul>
+                        <li><a href="https://footpathapp.com/user-guide/maps/mapbox-outdoors/" target="_blank">Mapbox Outdoors</a></li>
+                        <li><a href="https://wiki.openstreetmap.org/wiki/LinesTab" target="_blank">OpenStreetMap</a></li>
+                        <li><a href="https://opentopomap.org/about" target="_blank">OpenTopoMap</a></li>
+                        <li>OpenHikingMap: same than OpenTopoMap but with hiking trails.</li>
+                        <li><a href="https://www.cyclosm.org/legend.html" target="_blank">CyclOSM</a></li>
+                    </ul>
+                </div></div>
+                <div class="guide-item"><a name="strava-heatmap" href="#strava-heatmap" class="my-anchor"><div class="guide-title" onclick="toggle('strava-hm')">Load the Strava Heatmap</div></a>
+                <div id="strava-hm" style="display: none">
+                    <ol>
+                        <li>Log in to the <a href="https://www.strava.com/heatmap" target="_blank">Strava Global Heatmap</a> with your Strava account.</li>
+                        <li>In the settings <i class="fas fa-bars button"></i>, check the box <i class="far fa-check-square"></i> Strava Heatmap.</li>
+                        <li>If it does not load correctly:
+                            <ul>
+                                <li>On Chrome, disable the following setting: <code><a href="chrome://flags/#same-site-by-default-cookies" target="_blank">chrome://flags/#same-site-by-default-cookies</a></code></li>
+                                <li>On Edge, disable the following setting: <code><a href="edge://flags/#same-site-by-default-cookies" target="_blank">edge://flags/#same-site-by-default-cookies</a></code></li>
+                                <li><a href="#support">Get in touch</a> if you have troubles in other browsers.</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div></div>
+            </div>
+            <a name="embed"></a><h1>Embedding &#128506;</h1>
+            <div>
+                You are very welcome to display traces on your website with <b>gpx.studio</b>. There are two ways to do it: the first one with files stored on a server and the second one with Google Drive.
+                <ul>
+                    <li><b>File URL:</b> Add the link to the file in the <code>urls</code> attribute of the <code>state</code> parameter of the query string. Make sure to use <code>https</code>, to encode any special characters and that <b>gpx.studio</b> is allowed to request the files, otherwise the requests will be blocked by the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">CORS policy</a>.</li>
+                    <li><b>Google Drive:</b> Just save the files to your Google Drive when exporting and copy the code provided! If you want to display files that you already have on your Google Drive, add the ID of the file in the <code>ids</code> attribute of the <code>state</code> parameter of the query string and make sure they are available to all users with the link.</li>
+                </ul>
+                <p>Choose the map shown by default with the parameter <code>source</code> among the following values:</p>
+                <ul>
+                    <li><code>outdoors</code>: Mapbox Outdoors</li>
+                    <li><code>satellite</code>: Mapbox Satellite</li>
+                    <li><code>osm</code>: OpenStreetMap</li>
+                    <li><code>otm</code>: OpenTopoMap</li>
+                    <li><code>ohm</code>: OpenHikingMap</li>
+                    <li><code>cosm</code>: CyclOSM</li>
+                    <li><code>ign</code>: IGN (FR)</li>
+                </ul>
+                <p>To use Mapbox maps, you need to specify the <code>token</code> parameter with a valid <a href="https://account.mapbox.com/access-tokens/" target="_blank">Mapbox token</a>.</p>
+                <p>You can optionally add parameters to the source URL: <code>imperial</code> to get data in miles and feet, <code>running</code> to display the pace in minutes by unit of distance, <code>distance</code> to show distance markers and <code>direction</code> to show direction markers. Below is a playground to play with the parameters, see a preview and get the HTML code.</p>
+                <div class="guide-item">
+                    <h3 style="margin-block-start: 0em;">Parameters</h3>
+                    <p>File URLs (separated by commas)<br>
+                    <input id="file-urls" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
+                    <p>Google Drive file IDs (separated by commas)<br>
+                    <input id="file-ids" type="text" oninput="showPreview()" value="10IbXh7W7QDO7ZKmapJYdcgN3vhdN2Q-e" style="width: 96%; margin: 5px;"></p>
+                    <div style="display: flex; justify-content: space-between">
+                        <span>Running <input id="running" type="checkbox" oninput="showPreview()"></span>
+                        <span>Imperial <input id="imperial" type="checkbox" oninput="showPreview()"></span>
+                        <span>Distance markers <input id="distance" type="checkbox" oninput="showPreview()" checked></span>
+                        <span>Direction markers <input id="direction" type="checkbox" oninput="showPreview()"></span>
+                    </div>
+                    <p>Default map <select id="sources" oninput="showPreview()">
+                        <option value="outdoors">Mapbox Outdoors</option>
+                        <option value="satellite">Mapbox Satellite</option>
+                        <option value="osm" selected="selected">OpenStreetMap</option>
+                        <option value="otm">OpenTopoMap</option>
+                        <option value="ohm">OpenHikingMap</option>
+                        <option value="cosm">CyclOSM</option>
+                        <option value="ign">IGN (FR)</option>
+                    </select></p>
+                    <p>Mapbox token<br>
+                    <input id="mapbox-token" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
+                    <h3>HTML code</h3>
+                    <div style="text-align: left; overflow-wrap: break-word; padding:10px; border: 1px solid #ccc; background: #f5f5f5;">
+                    <code id="embedding-code"></code>
+                    </div>
+                    <h3>Preview</h3>
+                    <iframe id="preview" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+            <a name="legal"></a><a name="terms"></a><h1>Terms of Services &#128214;</h1>
+            <p>Thank you for using <b>gpx.studio</b>. These terms of service (Terms) cover your use and access of our website and related software (our Services).</p>
+            <p>By accessing this website, you are agreeing to be bound by this website Terms of Services and to review our Privacy Policy. If you do not agree with any of these terms, you are prohibited from using or accessing this site.</p>
+            <h2>Changes to the Services</h2>
+            <p>We may change the features of our Services, withdraw or add new features from time to time.</p>
+            <h2>Pricing</h2>
+            <p>Our Services are offered for free and without advertisement. We solely rely on donations to fund the paying components on which the website relies.</p>
+            <h2>Warranties</h2>
+            <p>The services on the website are provided "as is". To the fullest extend permitted by law, we make no warranties either implied or expressed about the Services. We do not make any promise about the accuracy of specific functions of the services, their reliability or availability.</p>
+            <h2>Limitation of Liability</h2>
+            <p>To the fullest extent permitted by law, in no event shall we be liable for any damages or loss of data, business, profits, computer hardware or software.</p>
+            <h2>Changes to Terms</h2>
+            <p>We reserve the right to modify these Terms at any time. By continuing to use the Services after the changes become effective, you agree to the revised Terms.</p>
+            <a name="privacy"></a><h1>Privacy Policy &#128373;&#65039;</h1>
+            <p><b>gpx.studio</b> is an online GPX file editor which allows users to create, view and edit files.
+                We respect the privacy of our users and do not collect any personal information except anonymous information such as the number of page views and clicks on buttons to help us enhance your overall experience.</p>
+            <p>The files created, visualized or edited on the website are only read once and never stored on a server.
+                We only access the data contained in the files and handle all computations from your local browser (it is a pure client-side application).</p>
+            <p>The code of the website is open-source (see <a href="#about">About</a>), we have nothing to hide.</p>
+            <h2>Google Drive</h2>
+            <p>The website offers the possibility to log in with Google Drive to upload and save files in order to facilitate the storage, versioning and sharing of GPX files.
+                That service authenticates you directly with your Google account, and an authentication token identifying you as the file owner is stored in your local browser session profile.
+                This information is used to browse GPX files in your Google Drive and to open only those you choose to open.
+                Furthermore, it is used to automatically authenticate users visiting the website again but it is never stored on our side.</p>
+            <p>We use standard Google Drive sharing functionality when you decide to share the file, and standard Google Drive authentication, authorization mechanisms for access control.
+                No other files than those you create with the tool or decide to open with it (either by opening from Google Drive or visiting its associated URL on the tool) will be accessed, and none will ever be stored.</p>
+            <p>Last updated October 16, 2020.</p>
+            <br><br><br>
+        </div></div>
+        <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.4;
+            color: #3b3735;
+        }
+        div::-webkit-scrollbar { display: none; }
+        div { -ms-overflow-style: none; scrollbar-width: none; }
+        h1 {
+            margin-top: 40px;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .button {
+            font-size: 10pt;
+            color: #535353;
+            background: #f9f9f9;
+            padding: 4px;
+            border: #535353 1px solid;
+            border-radius: 2px;
+        }
+        .guide {
+            line-height: 1.7;
+        }
+        .guide-item {
+            padding:10px; border: 1px solid #dedede;
+            margin-top: -1px;
+        }
+        .guide-title {
+            font-size: 13pt;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .my-anchor {
+            color: inherit;
+            text-decoration: inherit;
+        }
+        a:active, a:focus {
+            outline: 0;
+            border: none;
+            -moz-outline-style: none;
+        }
+        .footer {
+            padding: 2px 10px;
+            font-size: 14px;
+        }
+        </style>
+        <script>
+        function showPreview() {
+            const file_urls = document.getElementById("file-urls").value;
+            const file_ids = document.getElementById("file-ids").value;
+            const running = document.getElementById("running").checked;
+            const imperial = document.getElementById("imperial").checked;
+            const distance = document.getElementById("distance").checked;
+            const direction = document.getElementById("direction").checked;
+            const mapbox_token = document.getElementById("mapbox-token").value;
+            const source = document.getElementById("sources").value;
+
+            var query = '?state=%7B';
+            if (file_ids.length) {
+                query += '%22ids%22:%5B';
+                const files = file_ids.split(',');
+                for (var i=0; i<files.length; i++) {
+                    if (i) query += ',';
+                    query += '%22' + encodeURIComponent(files[i]) + '%22';
+                }
+                query += '%5D';
+                if (file_urls.length) query += ',';
+            }
+            if (file_urls.length) {
+                query += '%22urls%22:%5B';
+                const files = file_urls.split(',');
+                for (var i=0; i<files.length; i++) {
+                    if (i) query += ',';
+                    query += '%22' + encodeURIComponent(files[i]) + '%22';
+                }
+                query += '%5D';
+            }
+            query += '%7D';
+
+            const preview = document.getElementById("preview");
+            preview.src = './'
+                + query
+                + '&embed'
+                + (mapbox_token ? '&token='+mapbox_token : '')
+                + (source != "osm" ? '&source='+source : '')
+                + (running ? '&running' : '')
+                + (imperial ? '&imperial' : '')
+                + (distance ? '&distance' : '')
+                + (direction ? '&direction' : '');
+
+            const code = document.getElementById("embedding-code");
+            code.innerHTML = '&lt;iframe src="https://gpxstudio.github.io'
+                + window.location.pathname.replace('about.html','')
+                + query
+                + '&embed'
+                + (mapbox_token ? '&token='+mapbox_token : '')
+                + (source != "osm" ? '&source='+source : '')
+                + (running ? '&running' : '')
+                + (imperial ? '&imperial' : '')
+                + (distance ? '&distance' : '')
+                + (direction ? '&direction' : '')
+                + '" width="100%" height="500" frameborder="0" allowfullscreen&gt;&lt;p&gt;&lt;a href="https://gpxstudio.github.io'
+                + window.location.pathname.replace('about.html','')
+                + query
+                + '&gt;&lt;/a&gt;&lt;/p&gt;&lt;/iframe&gt;';
+        }
+        var toggledElement = null;
+        function toggle(id) {
+            const element = document.getElementById(id);
+            if (toggledElement) toggledElement.style.display = 'none';
+            if (element == toggledElement) toggledElement = null;
+            else {
+                element.style.display = '';
+                toggledElement = element;
+            }
+        }
+
+        if (window.location.hash) {
+            const anchors = document.getElementsByName(window.location.hash.substring(1));
+            if (anchors.length == 1 && anchors[0].children.length > 0) {
+                anchors[0].children[0].click();
+            }
+        }
+
+        showPreview();
+
+        const guideItems = document.getElementsByClassName('guide-item');
+        for (var i=0; i<guideItems.length; i++) {
+            const anchor = guideItems[i].children[0];
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+            });
+        }
+        </script>
+    </body>
+</html>
