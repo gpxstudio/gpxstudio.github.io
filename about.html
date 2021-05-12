@@ -613,6 +613,7 @@
             const anchor = guideItems[i].children[0];
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
+                history.replaceState({}, '', this.href);
             });
         }
 
