@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
     <head>
+        <!-- ADD_LANGUAGE -->
         <link rel="alternate" hreflang="x-default" href="https://gpxstudio.github.io/about.html"/>
         <link rel="alternate" hreflang="en" href="https://gpxstudio.github.io/about.html"/>
         <link rel="alternate" hreflang="fr" href="https://gpxstudio.github.io/l/fr/about.html"/>
@@ -67,10 +68,12 @@
         </div>
         <div style="position:absolute; top:60px; height:1px; left:0px; right:0px; background-color: #dedede; overflow:hidden;"></div>
         <div style="position:absolute; bottom:0px; left:0px; overflow:hidden;">
-            <div style="display: flex; justify-content: space-between;">
+            <!-- ADD_LANGUAGE -->
+            <div id="languages" style="display: flex; justify-content: space-between;">
                 <span class="footer">Languages:</span>
                 <a href="/about.html" class="footer">en</a>
                 <a href="/l/fr/about.html" class="footer">fr</a>
+                <a href="/l/es/about.html" class="footer">es</a>
             </div>
         </div>
         <div style="position:absolute; bottom:0px; right:0px; overflow:hidden;">
@@ -516,6 +519,15 @@
         }
         </style>
         <script>
+        // ADD_LANGUAGE
+        const language_list = ['fr', 'es'];
+        var language = 'en';
+        for (var l=0; l<language_list.length; l++)
+            if (window.location.pathname.indexOf(language_list[l]) != -1) {
+                language = language_list[l];
+                break;
+            }
+
         function showPreview() {
             const file_urls = document.getElementById("file-urls").value;
             const file_ids = document.getElementById("file-ids").value;
@@ -575,6 +587,7 @@
                 + query
                 + '&gt;&lt;/a&gt;&lt;/p&gt;&lt;/iframe&gt;';
         }
+
         var toggledElement = null;
         function toggle(id) {
             const element = document.getElementById(id);
@@ -600,7 +613,14 @@
             const anchor = guideItems[i].children[0];
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
+                history.replaceState({}, '', this.href);
             });
+        }
+
+        const languageItems = document.getElementById("languages").children;
+        for (var i=0; i<languageItems.length; i++) if (languageItems[i].textContent == language) {
+            languageItems[i].style.display = 'none';
+            break;
         }
         </script>
     </body>
