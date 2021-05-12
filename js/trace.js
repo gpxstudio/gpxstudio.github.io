@@ -395,6 +395,7 @@ export default class Trace {
         } else this.mapboxgl_canvas = null;
         const _this = this;
         this.buttons.map.addEventListener("click", function (e) {
+            if (_this.buttons.disable_trace) return;
             if (e.originalEvent.target.id != "mapid" && !e.originalEvent.target.classList.contains('mapboxgl-canvas')) return;
             if (!_this._draggingWaypoint) _this.addEndPoint(e.latlng.lat, e.latlng.lng);
             _this._draggingWaypoint = false;
