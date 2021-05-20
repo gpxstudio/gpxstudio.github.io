@@ -89,7 +89,7 @@
         <div id="toolbar" class="panels-container center-leaflet">
             <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 2px 4px" alt="logo di gpx.studio, l'editor di file GPX online"></a>
             <div id="load" class="panels custom-button">Carica GPX</div>
-            <div id="manual" class="panels custom-button">Draw</div>
+            <div id="manual" class="panels custom-button">Disegna</div>
             <div id="export" class="panels custom-button">Esporta</div>
             <div class="panels custom-button unselected no-click2" id="undo"><i class="fas fa-reply"></i></div>
             <div class="panels custom-button unselected no-click2" id="redo"><i class="fas fa-share"></i></div>
@@ -108,9 +108,9 @@
                 <div class="panels panels-val" id="speed-val">- km/h</div>
                 <div class="panels panels-info" id="duration">Tempo in movimento</div>
                 <div class="panels panels-val" id="duration-val">- h -</div>
-                <div class="panels panels-info" id="points" style="display: none">Track points</div>
+                <div class="panels panels-info" id="points" style="display: none">Trackpoint</div>
                 <div class="panels panels-val" id="points-val" style="display: none">0</div>
-                <div class="panels panels-info" id="segments" style="display: none">Segments</div>
+                <div class="panels panels-info" id="segments" style="display: none">Segmenti</div>
                 <div class="panels panels-val" id="segments-val" style="display: none">0</div>
                 <div class="panels panels-val panels-live" id="live-distance">--</div>
                 <div class="panels panels-val panels-live" id="live-speed">--</div>
@@ -130,7 +130,7 @@
             </ul>
         </div>
         <div id="buttons-bar" class="panels-container vcenter-leaflet">
-            <div class="panels-button" id="edit" title="Edit track points"><i class="fas fa-pencil-alt custom-button"></i></div><br>
+            <div class="panels-button" id="edit" title="Modifica i trackpoint"><i class="fas fa-pencil-alt custom-button"></i></div><br>
             <div class="panels-button" id="edit-time" title="Edit time"><i class="fas fa-stopwatch custom-button"></i></div><br>
             <div class="panels-button" id="reverse" title="Inverti"><i class="fas fa-exchange-alt custom-button"></i></div><br>
             <div class="panels-button" id="combine" title="Unisci ad un altra traccia"><i class="fas fa-plus-circle custom-button"></i></div><br>
@@ -138,7 +138,7 @@
             <div class="panels-button" id="duplicate" title="Duplica"><i class="fas fa-copy custom-button"></i></div><br>
             <div class="panels-button" id="color" title="Cambia colore e opacità"><i class="fas fa-palette custom-button"></i></div><br>
             <div class="panels-button" id="add-wpt" title="Aggiungi waypoint"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
-            <div class="panels-button" id="reduce" title="Reduce number of track points"><i class="fas fa-compress-alt custom-button"></i></div><br>
+            <div class="panels-button" id="reduce" title="Riduci il numero di trackpoint"><i class="fas fa-compress-alt custom-button"></i></div><br>
             <div class="panels-button" id="zone-delete" title="Delete all inside/outside rectangle selection"><i class="fas fa-vector-square custom-button"></i></div><br>
             <div class="panels-button" id="hide" title="Nascondi/mostra la traccia"><i class="fas fa-eye-slash custom-button"></i></div><br>
             <div class="panels-button" id="delete" title="Elimina"><i class="fas fa-trash-alt custom-button"></i></div><br>
@@ -180,7 +180,7 @@
                 <td>Importa e visualizza i file GPX (o trascinali ovunque nella finestra)</td>
             </tr>
             <tr>
-                <td><b>Draw</b></td>
+                <td><b>Disegna</b></td>
                 <td>Ctrl+D</td>
                 <td>Start drawing a new route by placing track points on the map</td>
             </tr>
@@ -390,16 +390,16 @@
             <div id="reduce-cancel" class="panels custom-button normal-button">Cancel</div>
         </div>
         <div id="zone-delete-content" class="popup-content">
-            Choose what to delete<br>
-            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Track points</label>
-            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
-            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inside selection</label>
-            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
+            Scegli cosa eliminare<br>
+            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Trackpoint</label>
+            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoint</label><br>
+            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Selezione interna</label>
+            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Selezione esterna</label><br>
             <div id="zone-delete-ok" class="panels custom-button normal-button">Proceed</div>
             <div id="zone-delete-cancel" class="panels custom-button normal-button">Cancel</div>
         </div>
         <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
-            <b>Open in</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logo di gpx.studio, l'editor di file GPX online">
+            <b>Apri in</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logo di gpx.studio, l'editor di file GPX online">
         </div>
         <div style="display: none">
             <div id="unit-kilometers-text">km</div>
