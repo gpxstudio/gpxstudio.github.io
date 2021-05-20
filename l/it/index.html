@@ -87,16 +87,16 @@
         <input id="input-file" type="file" accept=".gpx" multiple style="display: none"/>
         <div id="mapid"></div>
         <div id="toolbar" class="panels-container center-leaflet">
-            <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 2px 4px" alt="logo of gpx.studio, the online GPX file editor"></a>
+            <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 2px 4px" alt="logo di gpx.studio, l'editor di file GPX online"></a>
             <div id="load" class="panels custom-button">Carica GPX</div>
             <div id="manual" class="panels custom-button">Draw</div>
             <div id="export" class="panels custom-button">Esporta</div>
             <div class="panels custom-button unselected no-click2" id="undo"><i class="fas fa-reply"></i></div>
             <div class="panels custom-button unselected no-click2" id="redo"><i class="fas fa-share"></i></div>
             <div id="clear" class="panels custom-button">Cancella tutto</div>
-            <div id="help" class="panels custom-button">Help</div>
+            <div id="help" class="panels custom-button">Aiuto</div>
             <div id="about" class="panels custom-button">About</div>
-            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Donate</b> <i class="fas fa-heart"></i></div>
+            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Dona</b> <i class="fas fa-heart"></i></div>
         </div>
         <div id="info" class="padding-container center-leaflet">
             <div id="info-grid" class="panels-container trace-info">
@@ -126,22 +126,22 @@
                 </div>
             </div>
             <ul id="sortable">
-              <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">Total</li>
+              <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">Totale</li>
             </ul>
         </div>
         <div id="buttons-bar" class="panels-container vcenter-leaflet">
             <div class="panels-button" id="edit" title="Edit track points"><i class="fas fa-pencil-alt custom-button"></i></div><br>
             <div class="panels-button" id="edit-time" title="Edit time"><i class="fas fa-stopwatch custom-button"></i></div><br>
-            <div class="panels-button" id="reverse" title="Reverse"><i class="fas fa-exchange-alt custom-button"></i></div><br>
+            <div class="panels-button" id="reverse" title="Inverti"><i class="fas fa-exchange-alt custom-button"></i></div><br>
             <div class="panels-button" id="combine" title="Merge with another trace"><i class="fas fa-plus-circle custom-button"></i></div><br>
             <div class="panels-button" id="extract" title="Extract track segments"><i class="fas fa-list-ul custom-button"></i></div><br>
-            <div class="panels-button" id="duplicate" title="Duplicate"><i class="fas fa-copy custom-button"></i></div><br>
-            <div class="panels-button" id="color" title="Change color and opacity"><i class="fas fa-palette custom-button"></i></div><br>
-            <div class="panels-button" id="add-wpt" title="Add waypoint"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
+            <div class="panels-button" id="duplicate" title="Duplica"><i class="fas fa-copy custom-button"></i></div><br>
+            <div class="panels-button" id="color" title="Cambia colore e opacità"><i class="fas fa-palette custom-button"></i></div><br>
+            <div class="panels-button" id="add-wpt" title="Aggiungi waypoint"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
             <div class="panels-button" id="reduce" title="Reduce number of track points"><i class="fas fa-compress-alt custom-button"></i></div><br>
             <div class="panels-button" id="zone-delete" title="Delete all inside/outside rectangle selection"><i class="fas fa-vector-square custom-button"></i></div><br>
-            <div class="panels-button" id="hide" title="Hide/unhide the trace"><i class="fas fa-eye-slash custom-button"></i></div><br>
-            <div class="panels-button" id="delete" title="Delete"><i class="fas fa-trash-alt custom-button"></i></div><br>
+            <div class="panels-button" id="hide" title="Nascondi/mostra la traccia"><i class="fas fa-eye-slash custom-button"></i></div><br>
+            <div class="panels-button" id="delete" title="Elimina"><i class="fas fa-trash-alt custom-button"></i></div><br>
         </div>
         <li id="activity" class="dontselect">Attività:
             <span class="unselected custom-button">
@@ -165,7 +165,7 @@
         </div>
         <div id="help-text">
         <div style="text-align: center; font-size: 10pt; color: #476947">
-            <b>Check out the <a href="./about.html#guide" target="_blank">User Guide</a> for more info and small tutorials!</b>
+            <b>Consulta la <a href="./about.html#guide" target="_blank">Guida Utente</a> per ulteriori informazioni e suggerimenti!</b>
         </div><br>
         <table style="width: 100%">
             <colgroup>
@@ -177,7 +177,7 @@
             <tr>
                 <td><b>Carica GPX</b></td>
                 <td>Ctrl+O</td>
-                <td>Import and visualize GPX files (or drag and drop anywhere in the window)</td>
+                <td>Importa e visualizza i file GPX (o trascinali ovunque nella finestra)</td>
             </tr>
             <tr>
                 <td><b>Draw</b></td>
@@ -197,12 +197,12 @@
             <tr>
                 <td><b>Cancella tutto</b></td>
                 <td>Ctrl+K</td>
-                <td>Delete all traces</td>
+                <td>Cancella tutte le tracce</td>
             </tr>
             <tr>
                 <td></td>
-                <td>Escape</td>
-                <td>Exit current menu or tool</td>
+                <td>Esc</td>
+                <td>Chiudi il menù o lo strumento corrente</td>
             </tr>
             </tbody>
         </table><br>
@@ -313,37 +313,37 @@
                 </colgroup>
                 <tbody>
                     <td></td>
-                    <td>Merge all traces<input type="checkbox" id="merge"></td>
+                    <td>Unisci tutte le tracce<input type="checkbox" id="merge"></td>
                     <td>Time<input type="checkbox" id="include-time" checked></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td>Heartrate<input type="checkbox" id="include-hr" checked></td>
-                    <td>Cadence<input type="checkbox" id="include-cad" checked></td>
+                    <td>Frequenza cardiaca<input type="checkbox" id="include-hr" checked></td>
+                    <td>Cadenza<input type="checkbox" id="include-cad" checked></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>Power<input type="checkbox" id="include-power" checked></td>
-                    <td>Temperature<input type="checkbox" id="include-atemp" checked></td>
+                    <td>Temperatura<input type="checkbox" id="include-atemp" checked></td>
                     <td></td>
                 </tr>
                 </tbody>
             </table>
             <div style="color:#0f92c5;">&#9888;&#65039; The tool is <b>free</b> to use but <b>not free</b> to run &#9888;&#65039;<br>Each map display, track point added or moved is billed.</div>
-            <div id="donate-2" class="panels custom-button fancy-button"><b>Help keep the website free</b> &#128591;</div><br>
-            <div id="export-2" class="panels custom-button fancy-button">Download <i class="fas fa-download"></i></div>
-            <div id="save-drive" class="panels custom-button fancy-button">Save to Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
+            <div id="donate-2" class="panels custom-button fancy-button"><b>Aiutaci a mantenere il sito gratuito</b> &#128591;</div><br>
+            <div id="export-2" class="panels custom-button fancy-button">Scarica <i class="fas fa-download"></i></div>
+            <div id="save-drive" class="panels custom-button fancy-button">Salva in Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
         </div>
         <div id="clear-content" class="popup-content">
             This will delete all open traces.<br>Do you wish to continue?<br>
-            <div id="clear2" class="panels custom-button normal-button">Yes</div>
+            <div id="clear2" class="panels custom-button normal-button">Sì</div>
             <div id="cancelclear" class="panels custom-button normal-button"><b>Cancel</b></div>
         </div>
         <div id="delete-content" class="popup-content">
             This will delete the current trace.<br>Do you wish to continue?<br>
-            <div id="delete2" class="panels custom-button normal-button">Yes</div>
+            <div id="delete2" class="panels custom-button normal-button">Sì</div>
             <div id="canceldelete" class="panels custom-button normal-button"><b>Cancel</b></div>
         </div>
         <div id="strava-content" class="popup-content">
@@ -353,10 +353,10 @@
         </div>
         <div id="color-content" class="popup-content">
             <div style="text-align: left">
-                <label for="color-picker">Pick a new color</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
-                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Apply color to all traces</label><br>
-                <label for="opacity-slider">Opacity</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
-                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Apply opacity to all traces</label>
+                <label for="color-picker">Scegli un nuovo colore</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
+                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Applica colore a tutte le tracce</label><br>
+                <label for="opacity-slider">Opacità</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
+                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Applica opacità a tutte le tracce</label>
             </div>
             <div id="validate-color" class="panels custom-button normal-button">Ok</div>
             <div id="cancel-color" class="panels custom-button normal-button">Cancel</div>
@@ -399,7 +399,7 @@
             <div id="zone-delete-cancel" class="panels custom-button normal-button">Cancel</div>
         </div>
         <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
-            <b>Open in</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logo of gpx.studio, the online GPX file editor">
+            <b>Open in</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logo di gpx.studio, l'editor di file GPX online">
         </div>
         <div style="display: none">
             <div id="unit-kilometers-text">km</div>
@@ -408,8 +408,8 @@
             <div id="unit-feet-text">ft</div>
             <div id="unit-hours-text">h</div>
             <div id="unit-minutes-text">min</div>
-            <div id="duplicate-text">Duplicate</div>
-            <div id="delete-text">Delete</div>
+            <div id="duplicate-text">Duplica</div>
+            <div id="delete-text">Elimina</div>
             <div id="ok-button-text">Ok</div>
             <div id="cancel-button-text">Cancel</div>
             <div id="edit-speed-popup-text">
