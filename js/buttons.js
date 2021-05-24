@@ -514,6 +514,10 @@ export default class Buttons {
                             boxZoom: false
                         }).addTo(_this.map);
 
+                        _this.mapboxMap.getMapboxMap().on('load', function () {
+                            _this.mapboxSKUToken = this._requestManager._skuToken;
+                        });
+
                         _this.controlLayers = L.control.layers({
                             "Mapbox Outdoors" : _this.mapboxMap,
                             "Mapbox Satellite" : _this.mapboxMap,

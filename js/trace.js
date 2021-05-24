@@ -29,7 +29,7 @@ const options = {
         joinTrackSegments: false
     }
 };
-const ELEVATION_ZOOM = 9;
+const ELEVATION_ZOOM = 14;
 
 export default class Trace {
     constructor(file, name, map, total, callback) {
@@ -1411,7 +1411,7 @@ export default class Trace {
                     if (last_ele == null) last_ele = ll;
                     var t = ll.meta.ele - last_ele.meta.ele;
                     const dist_to_last_ele = this.gpx._dist2d(last_ele, ll);
-                    if (Math.abs(t) > 20 || dist_to_last_ele > 120) {
+                    if (Math.abs(t) > 10 && dist_to_last_ele > 50) {
                         if (t > 0) {
                           this.gpx._info.elevation.gain += t;
                         } else {
@@ -1496,7 +1496,10 @@ export default class Trace {
                 this.buttons.terrain_cache.set(tile_id, true); // already set so only one query
                 const Http = new XMLHttpRequest();
                 Http.responseType = 'arraybuffer';
-                const url = 'https://api.mapbox.com/v4/mapbox.terrain-rgb/'+tile[2]+'/'+tile[0]+'/'+tile[1]+'@2x.pngraw?access_token='+this.buttons.mapbox_token;
+                var url = 'https://api.mapbox.com/v4/mapbox.mapbox-terrain-dem-v1/'+tile[2]+'/'+tile[0]+'/'+tile[1]+'@2x.pngraw?access_token='+this.buttons.mapbox_token;
+                if (this.buttons.mapboxSKUToken) {
+                    url += '&sku=' + this.buttons.mapboxSKUToken;
+                }
                 Http.open("GET", url);
                 Http.send();
                 Http.onreadystatechange = function () {
