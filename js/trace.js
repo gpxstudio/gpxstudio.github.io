@@ -29,7 +29,7 @@ const options = {
         joinTrackSegments: false
     }
 };
-const ELEVATION_ZOOM = 9;
+const ELEVATION_ZOOM = 14;
 
 export default class Trace {
     constructor(file, name, map, total, callback) {
@@ -1496,7 +1496,10 @@ export default class Trace {
                 this.buttons.terrain_cache.set(tile_id, true); // already set so only one query
                 const Http = new XMLHttpRequest();
                 Http.responseType = 'arraybuffer';
-                const url = 'https://api.mapbox.com/v4/mapbox.terrain-rgb/'+tile[2]+'/'+tile[0]+'/'+tile[1]+'@2x.pngraw?access_token='+this.buttons.mapbox_token;
+                var url = 'https://api.mapbox.com/v4/mapbox.mapbox-terrain-dem-v1/'+tile[2]+'/'+tile[0]+'/'+tile[1]+'@2x.pngraw?access_token='+this.buttons.mapbox_token;
+                if (this.buttons.mapboxSKUToken) {
+                    url += '&sku=' + this.buttons.mapboxSKUToken;
+                }
                 Http.open("GET", url);
                 Http.send();
                 Http.onreadystatechange = function () {
