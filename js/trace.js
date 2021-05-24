@@ -115,7 +115,7 @@ export default class Trace {
 
             trace.focus();
 
-            if (trace.gpx.missing_elevation) trace.askElevation(trace.getPoints());
+            if (trace.gpx.missing_elevation && !trace.buttons.embedding) trace.askElevation(trace.getPoints());
 
             if (callback) callback(trace);
         }).on('click', function (e) {
