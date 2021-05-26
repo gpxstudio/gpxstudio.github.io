@@ -131,6 +131,7 @@
 
             // allow GL base map to pan beyond min/max latitudes
             this._glMap.transform.latRange = null;
+            this._transformGL(this._glMap);
 
             if (this._glMap._canvas.canvas) {
                 // older versions of mapbox-gl surfaced the canvas differently
@@ -167,14 +168,7 @@
 
             L.DomUtil.setPosition(container, topLeft);
 
-            var center = this._map.getCenter();
-
-            // gl.setView([center.lat, center.lng], this._map.getZoom() - 1, 0);
-            // calling setView directly causes sync issues because it uses requestAnimFrame
-
-            var tr = gl.transform;
-            tr.center = mapboxgl.LngLat.convert([center.lng, center.lat]);
-            tr.zoom = this._map.getZoom() - 1;
+            this._transformGL(gl);
 
             if (gl.transform.width !== size.x || gl.transform.height !== size.y) {
                 container.style.width  = size.x + 'px';
@@ -192,6 +186,17 @@
                     gl.update();
                 }
             }
+        },
+
+        _transformGL: function (gl) {
+            var center = this._map.getCenter();
+
+            // gl.setView([center.lat, center.lng], this._map.getZoom() - 1, 0);
+            // calling setView directly causes sync issues because it uses requestAnimFrame
+
+            var tr = gl.transform;
+            tr.center = mapboxgl.LngLat.convert([center.lng, center.lat]);
+            tr.zoom = this._map.getZoom() - 1;
         },
 
         // update the map constantly during a pinch zoom
@@ -229,16 +234,12 @@
         },
 
         _zoomEnd: function () {
-            var scale = this._map.getZoomScale(this._map.getZoom()),
-                offset = this._map._latLngToNewLayerPoint(
-                    this._map.getBounds().getNorthWest(),
-                    this._map.getZoom(),
-                    this._map.getCenter()
-                );
+            var scale = this._map.getZoomScale(this._map.getZoom());
 
             L.DomUtil.setTransform(
                 this._glMap._actualCanvas,
-                offset.subtract(this._offset),
+                // https://github.com/mapbox/mapbox-gl-leaflet/pull/130
+                null,
                 scale
             );
 
