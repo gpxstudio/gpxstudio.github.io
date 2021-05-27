@@ -162,6 +162,7 @@ export default class Google {
                     .addView(view)
                     .setDeveloperKey(this.developerKey)
                     .setCallback(this.folderPickerCallback.bind(this))
+                    .setTitle('Select a folder')
                     .build();
                 picker.setVisible(true);
             } else {
