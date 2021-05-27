@@ -1411,7 +1411,7 @@ export default class Trace {
                     if (last_ele == null) last_ele = ll;
                     var t = ll.meta.ele - last_ele.meta.ele;
                     const dist_to_last_ele = this.gpx._dist2d(last_ele, ll);
-                    if (Math.abs(t) > 10 && dist_to_last_ele > 50) {
+                    if (Math.abs(t) > 10 || dist_to_last_ele > 50) {
                         if (t > 0) {
                           this.gpx._info.elevation.gain += t;
                         } else {
