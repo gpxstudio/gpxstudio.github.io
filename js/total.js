@@ -17,7 +17,7 @@
 
 import Trace from './trace.js';
 
-const trace_colors = ['#ff0000', '#0000ff', '#46e646', '#00ccff', '#ff9900', '#ff00ff', '#ffff00', '#288228', '#9933ff', '#50f0be', '#8c645a'];
+const trace_colors = ['#ff0000', '#0000ff', '#46e646', '#00ccff', '#ff9900', '#ff00ff', '#ffff32', '#288228', '#9933ff', '#50f0be', '#8c645a'];
 
 export default class Total {
     constructor(buttons) {
@@ -463,8 +463,8 @@ export default class Total {
                 count: 0
             });
         }
-        this.normal_style = { weight: 3, opacity: 1 };
-        this.focus_style = { weight: 5, opacity: 1 };
+        this.normal_style = { weight: 3, opacity: 0.7 };
+        this.focus_style = { weight: 5, opacity: 0.7 };
         this.same_color = false;
     }
 
