@@ -57,8 +57,8 @@
         <script type="text/javascript" src="/include/icon/Leaflet.Icon.Glyph.js"></script>
         <script type="module" src="/include/gpx/gpx.js"></script>
         <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
-        <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
-        <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
+        <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
         <link rel="stylesheet" href="/include/elevation/leaflet.elevation-0.0.4-d3v4.css"/>
         <script type="text/javascript" src="/include/elevation/leaflet.elevation-0.0.4-d3v4.min.js"></script>
         <script type="text/javascript" src="/include/textpath/leaflet.textpath.js"></script>
@@ -89,7 +89,7 @@
         <div id="toolbar" class="panels-container center-leaflet">
             <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 2px 4px" alt="logo of gpx.studio, the online GPX file editor"></a>
             <div id="load" class="panels custom-button">Load GPX</div>
-            <div id="manual" class="panels custom-button">Draw</div>
+            <div id="manual" class="panels custom-button">New GPX</div>
             <div id="export" class="panels custom-button">Export</div>
             <div class="panels custom-button unselected no-click2" id="undo"><i class="fas fa-reply"></i></div>
             <div class="panels custom-button unselected no-click2" id="redo"><i class="fas fa-share"></i></div>
@@ -160,8 +160,8 @@
         <!-- ADD_LANGUAGE -->
         <div id="languages">
             <a href="/" class="footer" target="_blank">en</a>
-            <a href="/l/fr/" class="footer" target="_blank">fr</a>
             <a href="/l/es/" class="footer" target="_blank">es</a>
+            <a href="/l/fr/" class="footer" target="_blank">fr</a>
         </div>
         <div id="help-text">
         <div style="text-align: center; font-size: 10pt; color: #476947">
@@ -180,7 +180,7 @@
                 <td>Import and visualize GPX files (or drag and drop anywhere in the window)</td>
             </tr>
             <tr>
-                <td><b>Draw</b></td>
+                <td><b>New GPX</b></td>
                 <td>Ctrl+D</td>
                 <td>Start drawing a new route by placing track points on the map</td>
             </tr>

@@ -72,8 +72,8 @@
             <div id="languages" style="display: flex; justify-content: space-between;">
                 <span class="footer">Languages:</span>
                 <a href="/about.html" class="footer">en</a>
-                <a href="/l/fr/about.html" class="footer">fr</a>
                 <a href="/l/es/about.html" class="footer">es</a>
+                <a href="/l/fr/about.html" class="footer">fr</a>
             </div>
         </div>
         <div style="position:absolute; bottom:0px; right:0px; overflow:hidden;">
@@ -136,7 +136,7 @@
                 <div class="guide-item"><a name="create-file" href="#create-file" class="my-anchor"><div class="guide-title" onclick="toggle('create')">Maak een nieuw GPX-bestand aan</div></a>
                 <div id="create" style="display: none">
                     <ol>
-                        <li>Klik in de bovenste werkbalk op <span class="button">Teken</span>. Een nieuw tabblad genaamd "nieuw" verschijnt onder het onderste paneel.</li>
+                        <li>In the top toolbar, click on <span class="button">New GPX</span>. Een nieuw tabblad genaamd "nieuw" verschijnt onder het onderste paneel.</li>
                         <li>Plaats ankerpunten op de kaart door te klikken op de locaties die je wilt doorlopen.</li>
                         <li>In de instellingen <i class="fas fa-bars button"></i>, twee opties bepalen hoe twee opeenvolgende punten zijn aangesloten:
                             <ul>
@@ -520,7 +520,7 @@
         </style>
         <script>
         // ADD_LANGUAGE
-        const language_list = ['fr', 'es'];
+        const language_list = ['es', 'fr'];
         var language = 'en';
         for (var l=0; l<language_list.length; l++)
             if (window.location.pathname.indexOf(language_list[l]) != -1) {
