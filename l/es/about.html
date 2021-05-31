@@ -4,8 +4,9 @@
         <!-- ADD_LANGUAGE -->
         <link rel="alternate" hreflang="x-default" href="https://gpxstudio.github.io/about.html"/>
         <link rel="alternate" hreflang="en" href="https://gpxstudio.github.io/about.html"/>
-        <link rel="alternate" hreflang="fr" href="https://gpxstudio.github.io/l/fr/about.html"/>
         <link rel="alternate" hreflang="es" href="https://gpxstudio.github.io/l/es/about.html"/>
+        <link rel="alternate" hreflang="fr" href="https://gpxstudio.github.io/l/fr/about.html"/>
+        <link rel="alternate" hreflang="it" href="https://gpxstudio.github.io/l/it/about.html"/>
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167421374-1"></script>
         <script>
             if(window.location.hostname != "localhost") {
@@ -71,9 +72,12 @@
             <!-- ADD_LANGUAGE -->
             <div id="languages" style="display: flex; justify-content: space-between;">
                 <span class="footer">Idiomas:</span>
-                <a href="/about.html" class="footer">en</a>
-                <a href="/l/fr/about.html" class="footer">fr</a>
-                <a href="/l/es/about.html" class="footer">es</a>
+                <div>
+                    <a href="/about.html" class="footer">en</a>
+                    <a href="/l/es/about.html" class="footer">es</a>
+                    <a href="/l/fr/about.html" class="footer">fr</a>
+                    <a href="/l/it/about.html" class="footer">it</a>
+                </div>
             </div>
         </div>
         <div style="position:absolute; bottom:0px; right:0px; overflow:hidden;">
@@ -136,7 +140,7 @@
                 <div class="guide-item"><a name="create-file" href="#create-file" class="my-anchor"><div class="guide-title" onclick="toggle('create')">Crear un nuevo archivo GPX</div></a>
                 <div id="create" style="display: none">
                     <ol>
-                        <li>En la barra de herramientas superior, haz clic en <span class="button">Dibujar</span>. Una nueva pestaña llamada "nuevo" aparecerá debajo del panel inferior.</li>
+                        <li>En la barra de herramientas superior, haz clic en <span class="button">Crear GPX</span>. Una nueva pestaña llamada "nuevo" aparecerá debajo del panel inferior.</li>
                         <li>Coloque puntos en el mapa haciendo clic en las ubicaciones que desea recorrer.</li>
                         <li>En los ajustes <i class="fas fa-bars button"></i>, dos opciones controlan cómo se conectan dos puntos consecutivos:
                             <ul>
@@ -339,7 +343,7 @@
                 Para eliminar todos los archivos GPX a la vez, haz clic en <span class="button">Limpiar</span> de la barra de herramientas superior.</div></div>
                 <div class="guide-item"><a name="open-street-view" href="#open-street-view" class="my-anchor"><div class="guide-title" onclick="toggle('street-view')">Abrir Google Street View</div></a>
                 <div id="street-view" style="display: none">En la esquina superior derecha, haz clic en <i class="fas fa-street-view button"></i> y luego haz clic en el mapa para abrir Google Street View en esa ubicación.</div></div>
-                <div class="guide-item"><a name="search-location" href="#search-location" class="my-anchor"><div class="guide-title" onclick="toggle('search')">Coloque el mapa en una ubicación</div></a>
+                <div class="guide-item"><a name="search-location" href="#search-location" class="my-anchor"><div class="guide-title" onclick="toggle('search')">Centrar el mapa en una ubicación</div></a>
                 <div id="search" style="display: none">En la esquina superior derecha, haz clic en <i class="fas fa-search button"></i> y luego escribe una dirección. Elije una de las ubicaciones sugeridas para centrar el mapa en ella.</div></div>
                 <div class="guide-item"><a name="hide-trace" href="#hide-trace" class="my-anchor"><div class="guide-title" onclick="toggle('hide-gpx')">Ocultar un archivo GPX</div></a>
                 <div id="hide-gpx" style="display: none">Para ocultar un archivo GPX, haz clic en <i class="fas fa-eye-slash button"></i>. Para mostrarlo, haz clic en <i class="fas fa-eye button"></i>.<br>
@@ -520,7 +524,7 @@
         </style>
         <script>
         // ADD_LANGUAGE
-        const language_list = ['fr', 'es'];
+        const language_list = ['es', 'fr', 'it'];
         var language = 'en';
         for (var l=0; l<language_list.length; l++)
             if (window.location.pathname.indexOf(language_list[l]) != -1) {

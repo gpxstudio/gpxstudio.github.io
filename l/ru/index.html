@@ -4,8 +4,9 @@
         <!-- ADD_LANGUAGE -->
         <link rel="alternate" hreflang="x-default" href="https://gpxstudio.github.io/"/>
         <link rel="alternate" hreflang="en" href="https://gpxstudio.github.io/"/>
-        <link rel="alternate" hreflang="fr" href="https://gpxstudio.github.io/l/fr/"/>
         <link rel="alternate" hreflang="es" href="https://gpxstudio.github.io/l/es/"/>
+        <link rel="alternate" hreflang="fr" href="https://gpxstudio.github.io/l/fr/"/>
+        <link rel="alternate" hreflang="it" href="https://gpxstudio.github.io/l/it/"/>
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167421374-1"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
@@ -57,8 +58,8 @@
         <script type="text/javascript" src="/include/icon/Leaflet.Icon.Glyph.js"></script>
         <script type="module" src="/include/gpx/gpx.js"></script>
         <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
-        <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
-        <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
+        <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
         <link rel="stylesheet" href="/include/elevation/leaflet.elevation-0.0.4-d3v4.css"/>
         <script type="text/javascript" src="/include/elevation/leaflet.elevation-0.0.4-d3v4.min.js"></script>
         <script type="text/javascript" src="/include/textpath/leaflet.textpath.js"></script>
@@ -87,30 +88,30 @@
         <input id="input-file" type="file" accept=".gpx" multiple style="display: none"/>
         <div id="mapid"></div>
         <div id="toolbar" class="panels-container center-leaflet">
-            <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 2px 4px" alt="logo of gpx.studio, the online GPX file editor"></a>
-            <div id="load" class="panels custom-button">Load GPX</div>
-            <div id="manual" class="panels custom-button">Draw</div>
-            <div id="export" class="panels custom-button">Export</div>
+            <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 2px 4px" alt="логотип gpx.studio, онлайн-редактора файлов GPX"></a>
+            <div id="load" class="panels custom-button">Загрузить GPX</div>
+            <div id="manual" class="panels custom-button">Новый GPX</div>
+            <div id="export" class="panels custom-button">Экспорт</div>
             <div class="panels custom-button unselected no-click2" id="undo"><i class="fas fa-reply"></i></div>
             <div class="panels custom-button unselected no-click2" id="redo"><i class="fas fa-share"></i></div>
-            <div id="clear" class="panels custom-button">Clear all</div>
-            <div id="help" class="panels custom-button">Help</div>
-            <div id="about" class="panels custom-button">About</div>
-            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Donate</b> <i class="fas fa-heart"></i></div>
+            <div id="clear" class="panels custom-button">Очистить всё</div>
+            <div id="help" class="panels custom-button">Помощь</div>
+            <div id="about" class="panels custom-button">О gpx.studio</div>
+            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Пожертвовать</b> <i class="fas fa-heart"></i></div>
         </div>
         <div id="info" class="padding-container center-leaflet">
             <div id="info-grid" class="panels-container trace-info">
-                <div class="panels panels-info" id="distance">Distance</div>
-                <div class="panels panels-val" id="distance-val">- km</div>
-                <div class="panels panels-info" id="elevation">Elevation gain</div>
-                <div class="panels panels-val" id="elevation-val">- m</div>
-                <div class="panels panels-info" id="speed">Speed</div>
-                <div class="panels panels-val" id="speed-val">- km/h</div>
-                <div class="panels panels-info" id="duration">Moving time</div>
-                <div class="panels panels-val" id="duration-val">- h -</div>
-                <div class="panels panels-info" id="points" style="display: none">Track points</div>
+                <div class="panels panels-info" id="distance">Расстояние</div>
+                <div class="panels panels-val" id="distance-val">- км</div>
+                <div class="panels panels-info" id="elevation">Набор высоты</div>
+                <div class="panels panels-val" id="elevation-val">- м</div>
+                <div class="panels panels-info" id="speed">Скорость</div>
+                <div class="panels panels-val" id="speed-val">- км/ч</div>
+                <div class="panels panels-info" id="duration">Время в движении</div>
+                <div class="panels panels-val" id="duration-val">- ч -</div>
+                <div class="panels panels-info" id="points" style="display: none">Точки трека</div>
                 <div class="panels panels-val" id="points-val" style="display: none">0</div>
-                <div class="panels panels-info" id="segments" style="display: none">Segments</div>
+                <div class="panels panels-info" id="segments" style="display: none">Сегменты</div>
                 <div class="panels panels-val" id="segments-val" style="display: none">0</div>
                 <div class="panels panels-val panels-live" id="live-distance">--</div>
                 <div class="panels panels-val panels-live" id="live-speed">--</div>
@@ -130,17 +131,17 @@
             </ul>
         </div>
         <div id="buttons-bar" class="panels-container vcenter-leaflet">
-            <div class="panels-button" id="edit" title="Edit track points"><i class="fas fa-pencil-alt custom-button"></i></div><br>
-            <div class="panels-button" id="edit-time" title="Edit time"><i class="fas fa-stopwatch custom-button"></i></div><br>
-            <div class="panels-button" id="reverse" title="Reverse"><i class="fas fa-exchange-alt custom-button"></i></div><br>
-            <div class="panels-button" id="combine" title="Merge with another trace"><i class="fas fa-plus-circle custom-button"></i></div><br>
-            <div class="panels-button" id="extract" title="Extract track segments"><i class="fas fa-list-ul custom-button"></i></div><br>
+            <div class="panels-button" id="edit" title="Изменить точки трека"><i class="fas fa-pencil-alt custom-button"></i></div><br>
+            <div class="panels-button" id="edit-time" title="Изменить время"><i class="fas fa-stopwatch custom-button"></i></div><br>
+            <div class="panels-button" id="reverse" title="Изменить направление"><i class="fas fa-exchange-alt custom-button"></i></div><br>
+            <div class="panels-button" id="combine" title="Объединение с другим треком"><i class="fas fa-plus-circle custom-button"></i></div><br>
+            <div class="panels-button" id="extract" title="Извлечение сегментов трека"><i class="fas fa-list-ul custom-button"></i></div><br>
             <div class="panels-button" id="duplicate" title="Дубликат"><i class="fas fa-copy custom-button"></i></div><br>
-            <div class="panels-button" id="color" title="Change color and opacity"><i class="fas fa-palette custom-button"></i></div><br>
-            <div class="panels-button" id="add-wpt" title="Add waypoint"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
-            <div class="panels-button" id="reduce" title="Reduce number of track points"><i class="fas fa-compress-alt custom-button"></i></div><br>
+            <div class="panels-button" id="color" title="Изменение цвета и непрозрачности"><i class="fas fa-palette custom-button"></i></div><br>
+            <div class="panels-button" id="add-wpt" title="Добавить путевую точку"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
+            <div class="panels-button" id="reduce" title="Уменьшение количества точек трека"><i class="fas fa-compress-alt custom-button"></i></div><br>
             <div class="panels-button" id="zone-delete" title="Delete all inside/outside rectangle selection"><i class="fas fa-vector-square custom-button"></i></div><br>
-            <div class="panels-button" id="hide" title="Hide/unhide the trace"><i class="fas fa-eye-slash custom-button"></i></div><br>
+            <div class="panels-button" id="hide" title="Скрыть/отобразить трек"><i class="fas fa-eye-slash custom-button"></i></div><br>
             <div class="panels-button" id="delete" title="Удалить"><i class="fas fa-trash-alt custom-button"></i></div><br>
         </div>
         <li id="activity" class="dontselect">Activity:
@@ -152,16 +153,17 @@
                 <i id="drive" class="fas fa-motorcycle"></i>
             </span>
         </li>
-        <li id="units" class="dontselect">Units: <span class="unselected custom-button"><span id="km">km </span><i class="fas fa-arrows-alt-h"></i><span id="mi"> mi</span></span></li>
-        <li id="method" class="dontselect">Routing: <span class="unselected custom-button"><i id="route" class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i id="crow" class="fas fa-dove"></i></span></li>
+        <li id="units" class="dontselect">Единицы измерения: <span class="unselected custom-button"><span id="km">км </span><i class="fas fa-arrows-alt-h"></i><span id="mi"> ми</span></span></li>
+        <li id="method" class="dontselect">Маршрутизация: <span class="unselected custom-button"><i id="route" class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i id="crow" class="fas fa-dove"></i></span></li>
         <li id="chevrons" class="dontselect">Chevrons: <input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"></li>
-        <li id="dist-markers" class="dontselect">Distance markers: <input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"></li>
-        <li id="profile" class="dontselect">Elevation profile: <input type="checkbox" checked id="show-profile" class="custom-button" style="vertical-align: middle;"></li>
+        <li id="dist-markers" class="dontselect">Маркеры расстояния: <input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"></li>
+        <li id="profile" class="dontselect">Профиль рельефа: <input type="checkbox" checked id="show-profile" class="custom-button" style="vertical-align: middle;"></li>
         <!-- ADD_LANGUAGE -->
         <div id="languages">
             <a href="/" class="footer" target="_blank">en</a>
-            <a href="/l/fr/" class="footer" target="_blank">fr</a>
             <a href="/l/es/" class="footer" target="_blank">es</a>
+            <a href="/l/fr/" class="footer" target="_blank">fr</a>
+            <a href="/l/it/" class="footer" target="_blank">it</a>
         </div>
         <div id="help-text">
         <div style="text-align: center; font-size: 10pt; color: #476947">
@@ -175,17 +177,17 @@
             </colgroup>
             <tbody>
             <tr>
-                <td><b>Load GPX</b></td>
+                <td><b>Загрузить GPX</b></td>
                 <td>Ctrl+O</td>
-                <td>Import and visualize GPX files (or drag and drop anywhere in the window)</td>
+                <td>Импортируйте и визуализируйте файлы GPX (или перетащите их в любое место окна)</td>
             </tr>
             <tr>
-                <td><b>Draw</b></td>
+                <td><b>Новый GPX</b></td>
                 <td>Ctrl+D</td>
                 <td>Start drawing a new route by placing track points on the map</td>
             </tr>
             <tr>
-                <td><b>Export</b></td>
+                <td><b>Экспорт</b></td>
                 <td>Ctrl+S</td>
                 <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Time, heart rate, cadence, power and temperature data are automatically extended. Optionally, merge all files <b>in the chosen order</b>. You can also drag a tab to your desktop to download the file.</td>
             </tr>
@@ -195,14 +197,14 @@
                 <td>Undo and redo actions in edition mode</td>
             </tr>
             <tr>
-                <td><b>Clear all</b></td>
+                <td><b>Очистить всё</b></td>
                 <td>Ctrl+K</td>
-                <td>Delete all traces</td>
+                <td>Удалить все треки</td>
             </tr>
             <tr>
                 <td></td>
                 <td>Escape</td>
-                <td>Exit current menu or tool</td>
+                <td>Выход из текущего меню или инструмента</td>
             </tr>
             </tbody>
         </table><br>
@@ -217,7 +219,7 @@
             <tr>
                 <td></td>
                 <td>F1</td>
-                <td>Show or hide the Strava Heatmap</td>
+                <td>Показать или скрыть карту активности Strava</td>
             </tr>
             <tr>
                 <td><i class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-dove"></i></td>
@@ -230,14 +232,14 @@
                 <td>Switch between cycling, running and driving mode (impacts the routing and the Strava Heatmap displayed)</td>
             </tr>
             <tr>
-                <td><b>km</b> <i class="fas fa-arrows-alt-h"></i> <b>mi</b></td>
+                <td><b>км</b> <i class="fas fa-arrows-alt-h"></i> <b>ми</b></td>
                 <td>F4</td>
-                <td>Change units displayed</td>
+                <td>Изменение отображаемых единиц измерения</td>
             </tr>
             <tr>
                 <td></td>
                 <td>Ctrl+H</td>
-                <td>Show or hide the elevation profile</td>
+                <td>Показать или скрыть профиль высоты</td>
             </tr>
             </tbody>
         </table><br>
@@ -257,7 +259,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-exchange-alt"></i></td>
-                <td>Reverse the trace and adapt the timestamps</td>
+                <td>Изменение направления и адаптация временных меток</td>
             </tr>
             <tr>
                 <td><i class="fas fa-plus-circle"></i></td>
@@ -269,7 +271,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-copy"></i></td>
-                <td>Duplicate the trace</td>
+                <td>Дублировать трек</td>
             </tr>
             <tr>
                 <td><i class="fas fa-palette"></i></td>
@@ -289,15 +291,15 @@
             </tr>
             <tr>
                 <td><i class="fas fa-eye-slash"></i></td>
-                <td>Hide or unhide the trace</td>
+                <td>Скрыть или отобразить трек</td>
             </tr>
             <tr>
                 <td><i class="fas fa-trash-alt"></i></td>
-                <td>Delete the trace</td>
+                <td>Удалить трек</td>
             </tr>
             </tbody>
         </table><br>
-        At the bottom, you can see a panel with information about the traces you import.
+        В нижней части вы можете увидеть панель с информацией об импортируемых треках.
         The <b>Total</b> tab displays information about all open traces merged into one.
         <b>Swap the tabs</b> to define the order in which the traces should appear and <b>double-click</b> on them to change their names.
         When you have many tabs, navigate through them by scrolling horizontally.
@@ -313,59 +315,59 @@
                 </colgroup>
                 <tbody>
                     <td></td>
-                    <td>Merge all traces<input type="checkbox" id="merge"></td>
-                    <td>Time<input type="checkbox" id="include-time" checked></td>
+                    <td>Объединить все треки<input type="checkbox" id="merge"></td>
+                    <td>Время<input type="checkbox" id="include-time" checked></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td>Heartrate<input type="checkbox" id="include-hr" checked></td>
-                    <td>Cadence<input type="checkbox" id="include-cad" checked></td>
+                    <td>Cердцебиение<input type="checkbox" id="include-hr" checked></td>
+                    <td>Каденция<input type="checkbox" id="include-cad" checked></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>Power<input type="checkbox" id="include-power" checked></td>
-                    <td>Temperature<input type="checkbox" id="include-atemp" checked></td>
+                    <td>Температура<input type="checkbox" id="include-atemp" checked></td>
                     <td></td>
                 </tr>
                 </tbody>
             </table>
             <div style="color:#0f92c5;">&#9888;&#65039; The tool is <b>free</b> to use but <b>not free</b> to run &#9888;&#65039;<br>Each map display, track point added or moved is billed.</div>
-            <div id="donate-2" class="panels custom-button fancy-button"><b>Help keep the website free</b> &#128591;</div><br>
-            <div id="export-2" class="panels custom-button fancy-button">Download <i class="fas fa-download"></i></div>
+            <div id="donate-2" class="panels custom-button fancy-button"><b>Помогите сохранить сайт бесплатным</b> &#128591;</div><br>
+            <div id="export-2" class="panels custom-button fancy-button">Скачать <i class="fas fa-download"></i></div>
             <div id="save-drive" class="panels custom-button fancy-button">Сохранить на Google Диске <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
         </div>
         <div id="clear-content" class="popup-content">
-            This will delete all open traces.<br>Do you wish to continue?<br>
+            Это приведет к удалению всех открытых треков.<br>Вы хотите продолжить?<br>
             <div id="clear2" class="panels custom-button normal-button">Да</div>
             <div id="cancelclear" class="panels custom-button normal-button"><b>Отмена</b></div>
         </div>
         <div id="delete-content" class="popup-content">
-            This will delete the current trace.<br>Do you wish to continue?<br>
+            Это приведет к удалению текущего трека.<br>Вы хотите продолжить?<br>
             <div id="delete2" class="panels custom-button normal-button">Да</div>
             <div id="canceldelete" class="panels custom-button normal-button"><b>Отмена</b></div>
         </div>
         <div id="strava-content" class="popup-content">
-            Please log in to the<br><a href="https://www.strava.com/heatmap" target="_blank">Strava Global Heatmap</a> and retry.<br>
-            Still not working? Check <a href="./about.html#strava-heatmap" target="_blank">this post</a>.<br>
-            <div id="strava-ok" class="panels custom-button normal-button" style="margin-top: 4px;">Got it</div>
+            Пожалуйста, войдите в<br><a href="https://www.strava.com/heatmap" target="_blank">глобальную карту активности Strava</a> и повторите попытку.<br>
+            Все еще не работает? Проверьте <a href="./about.html#strava-heatmap" target="_blank">этот пост</a>.<br>
+            <div id="strava-ok" class="panels custom-button normal-button" style="margin-top: 4px;">ОК</div>
         </div>
         <div id="color-content" class="popup-content">
             <div style="text-align: left">
-                <label for="color-picker">Pick a new color</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
-                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Apply color to all traces</label><br>
-                <label for="opacity-slider">Opacity</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
-                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Apply opacity to all traces</label>
+                <label for="color-picker">Выбирать новый цвет</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
+                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Применить цвет ко всем трекам</label><br>
+                <label for="opacity-slider">Непрозрачность</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
+                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Применить непрозрачность ко всем трекам</label>
             </div>
-            <div id="validate-color" class="panels custom-button normal-button">Ok</div>
+            <div id="validate-color" class="panels custom-button normal-button">Ок</div>
             <div id="cancel-color" class="panels custom-button normal-button">Отмена</div>
         </div>
         <div id="load-content" class="popup-content">
-            Choose files from<br>
-            <div id="load2" class="panels custom-button normal-button">Desktop</div>
+            Выберите файлы из<br>
+            <div id="load2" class="panels custom-button normal-button">Компьютер</div>
             <div id="load-drive" class="panels custom-button normal-button">Google Диск <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div><br>
-            (or drag and drop anywhere in the window)
+            (или перетащите в любое место окна)
         </div>
         <div id="share-content" class="popup-content">
             Готово!<br>
@@ -373,51 +375,51 @@
             <div id="copy-embed" class="panels custom-button fancy-button">Copy embedding code <i class="fas fa-code"></i></div><br>
         </div>
         <div id="merge-content" class="popup-content">
-            Click on another tab to merge the traces<br>
+            Нажмите на другую вкладку, чтобы объединить треки<br>
             <input type="checkbox" id="merge-as-segments">Merge as track segments<br>
             <div id="merge-cancel" class="panels custom-button normal-button">Отмена</div>
         </div>
         <div id="crop-content" class="popup-content">
             <input type="checkbox" id="crop-keep">Keep cropped parts in new files<br>
-            <div id="crop-ok" class="panels custom-button normal-button">Proceed</div>
+            <div id="crop-ok" class="panels custom-button normal-button">Продолжить</div>
             <div id="crop-cancel" class="panels custom-button normal-button">Отмена</div>
         </div>
         <div id="reduce-content" class="popup-content">
             Choose the amount of detail to keep<br>
             Number of track points: <span id="reduce-npoints">0</span><br>
             <input type="range" min="0" max="1000" id="reduce-slider" style="width: 100%"><br>
-            <div id="reduce-ok" class="panels custom-button normal-button">Ok</div>
+            <div id="reduce-ok" class="panels custom-button normal-button">Ок</div>
             <div id="reduce-cancel" class="panels custom-button normal-button">Отмена</div>
         </div>
         <div id="zone-delete-content" class="popup-content">
             Choose what to delete<br>
-            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Track points</label>
-            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
+            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Точки трека</label>
+            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Путевые точки</label><br>
             <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inside selection</label>
             <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
-            <div id="zone-delete-ok" class="panels custom-button normal-button">Proceed</div>
+            <div id="zone-delete-ok" class="panels custom-button normal-button">Продолжить</div>
             <div id="zone-delete-cancel" class="panels custom-button normal-button">Отмена</div>
         </div>
         <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
-            <b>Open in</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logo of gpx.studio, the online GPX file editor">
+            <b>Открыть в</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="логотип gpx.studio, онлайн-редактора файлов GPX">
         </div>
         <div style="display: none">
             <div id="unit-kilometers-text">км</div>
-            <div id="unit-miles-text">mi</div>
+            <div id="unit-miles-text">ми</div>
             <div id="unit-meters-text">м</div>
-            <div id="unit-feet-text">ft</div>
+            <div id="unit-feet-text">фт</div>
             <div id="unit-hours-text">ч</div>
             <div id="unit-minutes-text">мин</div>
             <div id="duplicate-text">Дубликат</div>
             <div id="delete-text">Удалить</div>
-            <div id="ok-button-text">Ok</div>
+            <div id="ok-button-text">Ок</div>
             <div id="cancel-button-text">Отмена</div>
             <div id="edit-speed-popup-text">
-                <div id="speed-text">Speed</div>
+                <div id="speed-text">Скорость</div>
                 <div id="pace-text">Pace</div>
                 <div id="start-text">Start</div>
                 <div id="experimental-text">Experimental</div>
-                <div id="experimental-info-text">Generate speed considering the slope (erases all existing time data)</div>
+                <div id="experimental-info-text">Сгенерировать скорость, учитывая наклон (стирает все существующие данные о времени)</div>
             </div>
             <div id="waypoint-popup-text">
                 <div id="empty-title-text">пустой заголовок</div>
@@ -428,7 +430,7 @@
                 <div id="edit-info-text">Редактировать информацию</div>
             </div>
             <div id="right-click-popup-text">
-                <div id="split-text">Split here</div>
+                <div id="split-text">Разделить здесь</div>
                 <div id="remove-pt-text">Удалить точку</div>
             </div>
         </div>
@@ -437,10 +439,10 @@
         <h1 style="display: none">редактирование gpx файлов онлайн</h1>
         <h1 style="display: none">просмотр файлов gpx онлайн</h1>
         <h1 style="display: none">объединение файлов gpx онлайн</h1>
-        <h1 style="display: none">extract segments gpx file online</h1>
-        <h1 style="display: none">reverse gpx file online</h1>
-        <h1 style="display: none">add timestamps to gpx file online</h1>
+        <h1 style="display: none">извлечение сегментов из файл gpx онлайн</h1>
+        <h1 style="display: none">изменить направление файла gpx онлайн</h1>
+        <h1 style="display: none">добавление временных меток в файл gpx онлайн</h1>
         <h1 style="display: none">compress simplify reduce number points gpx file online</h1>
-        <h1 style="display: none">view and add waypoints gpx file online</h1>
+        <h1 style="display: none">просмотр и добавление путевых точек в gpx файл онлайн</h1>
     </body>
 </html>

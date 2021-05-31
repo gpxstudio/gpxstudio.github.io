@@ -4,8 +4,9 @@
         <!-- ADD_LANGUAGE -->
         <link rel="alternate" hreflang="x-default" href="https://gpxstudio.github.io/about.html"/>
         <link rel="alternate" hreflang="en" href="https://gpxstudio.github.io/about.html"/>
-        <link rel="alternate" hreflang="fr" href="https://gpxstudio.github.io/l/fr/about.html"/>
         <link rel="alternate" hreflang="es" href="https://gpxstudio.github.io/l/es/about.html"/>
+        <link rel="alternate" hreflang="fr" href="https://gpxstudio.github.io/l/fr/about.html"/>
+        <link rel="alternate" hreflang="it" href="https://gpxstudio.github.io/l/it/about.html"/>
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167421374-1"></script>
         <script>
             if(window.location.hostname != "localhost") {
@@ -70,10 +71,13 @@
         <div style="position:absolute; bottom:0px; left:0px; overflow:hidden;">
             <!-- ADD_LANGUAGE -->
             <div id="languages" style="display: flex; justify-content: space-between;">
-                <span class="footer">Langues:</span>
-                <a href="/about.html" class="footer">en</a>
-                <a href="/l/fr/about.html" class="footer">fr</a>
-                <a href="/l/es/about.html" class="footer">es</a>
+                <span class="footer">Langues :</span>
+                <div>
+                    <a href="/about.html" class="footer">en</a>
+                    <a href="/l/es/about.html" class="footer">es</a>
+                    <a href="/l/fr/about.html" class="footer">fr</a>
+                    <a href="/l/it/about.html" class="footer">it</a>
+                </div>
             </div>
         </div>
         <div style="position:absolute; bottom:0px; right:0px; overflow:hidden;">
@@ -127,7 +131,7 @@
             </div>
             <a name="support"></a><h1>Support &#128172;</h1>
             <div>
-                Le menu <span class="button">Aide</span> et le <a href="#guide">Guide utilisateur</a> devraient répondre à la plupart de vos questions sur les fonctionnalités, mais n'hésitez pas à demander de l'aide, signaler tout problème ou envoyer des suggestions sur la <a href="https://facebook.com/gpx.studio" target="_blank">page Facebook</a> ou par e-mail à <a href="mailto:contact.gpxstudio@gmail.com">contact. pxstudio@gmail.com</a>.<br><br>
+                Le menu <span class="button">Aide</span> et le <a href="#guide">Guide utilisateur</a> devraient répondre à la plupart de vos questions sur les fonctionnalités, mais n'hésitez pas à demander de l'aide, signaler tout problème ou envoyer des suggestions sur la <a href="https://facebook.com/gpx.studio" target="_blank">page Facebook</a> ou par e-mail à <a href="mailto:contact.gpxstudio@gmail.com">contact.gpxstudio@gmail.com</a>.<br><br>
                 Pour les développeurs, le <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank">dépôt Github</a> est également un bon endroit pour signaler des problèmes ou partager des idées.
             </div>
             <a name="guide"></a><h1>Guide utilisateur &#127891;</h1>
@@ -136,7 +140,7 @@
                 <div class="guide-item"><a name="create-file" href="#create-file" class="my-anchor"><div class="guide-title" onclick="toggle('create')">Créer un nouveau fichier GPX</div></a>
                 <div id="create" style="display: none">
                     <ol>
-                        <li>Dans la barre supérieure, cliquez sur <span class="button">Tracer</span>. Un nouvel onglet appelé "new" apparaît sous le panneau inférieur.</li>
+                        <li>Dans la barre supérieure, cliquez sur <span class="button">Créer GPX</span>. Un nouvel onglet appelé "new" apparaît sous le panneau inférieur.</li>
                         <li>Placez des points de passage sur la carte en cliquant sur les endroits que vous souhaitez visiter.</li>
                         <li>Dans les paramètres <i class="fas fa-bars button"></i>, deux paramètres contrôlent la façon dont deux points consécutifs sont reliés :
                             <ul>
@@ -520,7 +524,7 @@
         </style>
         <script>
         // ADD_LANGUAGE
-        const language_list = ['fr', 'es'];
+        const language_list = ['es', 'fr', 'it'];
         var language = 'en';
         for (var l=0; l<language_list.length; l++)
             if (window.location.pathname.indexOf(language_list[l]) != -1) {

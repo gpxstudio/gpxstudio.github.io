@@ -4,8 +4,9 @@
         <!-- ADD_LANGUAGE -->
         <link rel="alternate" hreflang="x-default" href="https://gpxstudio.github.io/"/>
         <link rel="alternate" hreflang="en" href="https://gpxstudio.github.io/"/>
-        <link rel="alternate" hreflang="fr" href="https://gpxstudio.github.io/l/fr/"/>
         <link rel="alternate" hreflang="es" href="https://gpxstudio.github.io/l/es/"/>
+        <link rel="alternate" hreflang="fr" href="https://gpxstudio.github.io/l/fr/"/>
+        <link rel="alternate" hreflang="it" href="https://gpxstudio.github.io/l/it/"/>
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167421374-1"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
@@ -57,8 +58,8 @@
         <script type="text/javascript" src="/include/icon/Leaflet.Icon.Glyph.js"></script>
         <script type="module" src="/include/gpx/gpx.js"></script>
         <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
-        <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
-        <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
+        <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
         <link rel="stylesheet" href="/include/elevation/leaflet.elevation-0.0.4-d3v4.css"/>
         <script type="text/javascript" src="/include/elevation/leaflet.elevation-0.0.4-d3v4.min.js"></script>
         <script type="text/javascript" src="/include/textpath/leaflet.textpath.js"></script>
@@ -89,7 +90,7 @@
         <div id="toolbar" class="panels-container center-leaflet">
             <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 2px 4px" alt="logo de gpx.studio, el editor de archivos GPX en línea"></a>
             <div id="load" class="panels custom-button">Cargar GPX</div>
-            <div id="manual" class="panels custom-button">Dibujar</div>
+            <div id="manual" class="panels custom-button">Crear GPX</div>
             <div id="export" class="panels custom-button">Exportar</div>
             <div class="panels custom-button unselected no-click2" id="undo"><i class="fas fa-reply"></i></div>
             <div class="panels custom-button unselected no-click2" id="redo"><i class="fas fa-share"></i></div>
@@ -160,8 +161,9 @@
         <!-- ADD_LANGUAGE -->
         <div id="languages">
             <a href="/" class="footer" target="_blank">en</a>
-            <a href="/l/fr/" class="footer" target="_blank">fr</a>
             <a href="/l/es/" class="footer" target="_blank">es</a>
+            <a href="/l/fr/" class="footer" target="_blank">fr</a>
+            <a href="/l/it/" class="footer" target="_blank">it</a>
         </div>
         <div id="help-text">
         <div style="text-align: center; font-size: 10pt; color: #476947">
@@ -180,7 +182,7 @@
                 <td>Importa y visualiza archivos GPX (o arrastra y suelta en cualquier lugar de la ventana)</td>
             </tr>
             <tr>
-                <td><b>Dibujar</b></td>
+                <td><b>Crear GPX</b></td>
                 <td>Ctrl+D</td>
                 <td>Comienza a dibujar una nueva ruta colocando puntos del track en el mapa</td>
             </tr>

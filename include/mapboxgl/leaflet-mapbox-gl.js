@@ -58,9 +58,6 @@
             }
             var paneName = this.getPaneName();
             map.getPane(paneName).removeChild(this._container);
-
-            this._glMap.remove();
-            this._glMap = null;
         },
 
         getEvents: function () {
@@ -127,7 +124,11 @@
                 attributionControl: false
             });
 
-            this._glMap = new mapboxgl.Map(options);
+            if (!this._glMap) this._glMap = new mapboxgl.Map(options);
+            else {
+                this._glMap.setCenter(options.center);
+                this._glMap.setZoom(options.zoom);
+            }
 
             // allow GL base map to pan beyond min/max latitudes
             this._glMap.transform.latRange = null;
