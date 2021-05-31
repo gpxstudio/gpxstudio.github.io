@@ -4,8 +4,9 @@
         <!-- ADD_LANGUAGE -->
         <link rel="alternate" hreflang="x-default" href="https://gpxstudio.github.io/about.html"/>
         <link rel="alternate" hreflang="en" href="https://gpxstudio.github.io/about.html"/>
-        <link rel="alternate" hreflang="fr" href="https://gpxstudio.github.io/l/fr/about.html"/>
         <link rel="alternate" hreflang="es" href="https://gpxstudio.github.io/l/es/about.html"/>
+        <link rel="alternate" hreflang="fr" href="https://gpxstudio.github.io/l/fr/about.html"/>
+        <link rel="alternate" hreflang="it" href="https://gpxstudio.github.io/l/it/about.html"/>
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167421374-1"></script>
         <script>
             if(window.location.hostname != "localhost") {
@@ -71,9 +72,12 @@
             <!-- ADD_LANGUAGE -->
             <div id="languages" style="display: flex; justify-content: space-between;">
                 <span class="footer">Idiomas:</span>
-                <a href="/about.html" class="footer">en</a>
-                <a href="/l/es/about.html" class="footer">es</a>
-                <a href="/l/fr/about.html" class="footer">fr</a>
+                <div>
+                    <a href="/about.html" class="footer">en</a>
+                    <a href="/l/es/about.html" class="footer">es</a>
+                    <a href="/l/fr/about.html" class="footer">fr</a>
+                    <a href="/l/it/about.html" class="footer">it</a>
+                </div>
             </div>
         </div>
         <div style="position:absolute; bottom:0px; right:0px; overflow:hidden;">
@@ -520,7 +524,7 @@
         </style>
         <script>
         // ADD_LANGUAGE
-        const language_list = ['es', 'fr'];
+        const language_list = ['es', 'fr', 'it'];
         var language = 'en';
         for (var l=0; l<language_list.length; l++)
             if (window.location.pathname.indexOf(language_list[l]) != -1) {
