@@ -79,7 +79,7 @@ export default class Trace {
 
             var ul = document.getElementById("sortable");
             var li = document.createElement("li");
-            li.innerHTML = name+'<div class="tab-color" style="background:'+trace.normal_style.color+';">';
+            li.innerHTML = name+'<div class="tab-color" style="background:'+trace.normal_style.color+Math.round(trace.normal_style.opacity * 255).toString(16)+';">';
             li.title = name;
             li.classList.add('tab','tab-draggable');
             li.trace = trace;
@@ -1060,19 +1060,10 @@ export default class Trace {
             }
         }
 
-        const marker = this.newEditMarker(pt, segment);
-        this._editMarkers.push(marker);
         const len = this._editMarkers.length;
-        if (len > 1) {
-            this._editMarkers[len-1]._prec = this._editMarkers[len-2]._pt;
-            this._editMarkers[len-2]._succ = this._editMarkers[len-1]._pt;
-        }
-
-        if (this.buttons.routing && len > 1) this.askRoute2(this._editMarkers[len-2]._pt, this._editMarkers[len-1]._pt, segment);
-        else {
-            const prec_pt = this._editMarkers[len-1]._prec;
-            this.addRoute2(this.getIntermediatePoints(prec_pt, pt), prec_pt, pt, segment);
-        }
+        if (len == 0) this.addRoute2([pt], pt, pt, segment);
+        else if (this.buttons.routing) this.askRoute2(this._editMarkers[len-1]._pt, pt, segment);
+        else this.addRoute2(this.getIntermediatePoints(this._editMarkers[len-1]._pt, pt), this._editMarkers[len-1]._pt, pt, segment);
     }
 
     updatePoint(marker, lat, lng) {
@@ -1594,6 +1585,7 @@ export default class Trace {
                     new_points[i].meta = {"time":null, "ele":0};
                     new_points[i].routing = true;
                 }
+                new_points[new_points.length-1].routing = false;
                 trace.addRoute2(new_points, a, b, layer);
             }
         }
@@ -1602,7 +1594,7 @@ export default class Trace {
     addRoute2(new_points, a, b, layer) {
         const pts = layer._latlngs;
         // add new
-        pts.splice(a.index+1, 0, ...new_points);
+        pts.splice(a.index+1, 1, ...new_points);
         // update points indices
         this.updatePointIndices();
         // update markers indices
@@ -1612,7 +1604,6 @@ export default class Trace {
         this.redraw();
 
         // ask elevation of new points
-        if (b.meta.ele == 0) new_points.push(b);
         this.askElevation(new_points);
     }
 
