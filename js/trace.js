@@ -79,7 +79,7 @@ export default class Trace {
 
             var ul = document.getElementById("sortable");
             var li = document.createElement("li");
-            li.innerHTML = name+'<div class="tab-color" style="background:'+trace.normal_style.color+';">';
+            li.innerHTML = name+'<div class="tab-color" style="background:'+trace.normal_style.color+Math.round(trace.normal_style.opacity * 255).toString(16)+';">';
             li.title = name;
             li.classList.add('tab','tab-draggable');
             li.trace = trace;

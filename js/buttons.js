@@ -1309,6 +1309,7 @@ export default class Buttons {
             trace.focus_style.color = color;
             trace.normal_style.opacity = opacity;
             trace.focus_style.opacity = opacity;
+            const hexOpacity = Math.round(opacity * 255).toString(16);
             if (buttons.color_checkbox.checked) total.same_color = true;
             if (buttons.color_checkbox.checked || buttons.opacity_checkbox.checked) {
                 for (var i=0; i<total.traces.length; i++) {
@@ -1321,6 +1322,8 @@ export default class Buttons {
                         total.traces[i].focus_style.opacity = opacity;
                     }
                     total.traces[i].gpx.setStyle(total.traces[i].normal_style);
+                    total.traces[i].tab.innerHTML = total.traces[i].name+'<div class="tab-color" style="background:'+total.traces[i].normal_style.color+hexOpacity+';">';
+                    total.traces[i].set_color = true;
                 }
                 if (buttons.color_checkbox.checked) {
                     total.normal_style.color = color;
@@ -1334,7 +1337,7 @@ export default class Buttons {
             trace.gpx.setStyle(trace.focus_style);
             trace.showChevrons();
             trace.showDistanceMarkers();
-            trace.tab.innerHTML = trace.name+'<div class="tab-color" style="background:'+trace.normal_style.color+';">';
+            trace.tab.innerHTML = trace.name+'<div class="tab-color" style="background:'+trace.normal_style.color+hexOpacity+';">';
             trace.set_color = true;
             buttons.color_window.hide();
             gtag('event', 'button', {'event_category' : 'color'});
