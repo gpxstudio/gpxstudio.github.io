@@ -290,7 +290,7 @@ export default class Total {
 </metadata>
 <trk>
     <type>`+(this.buttons.cycling ? 'Cycling' : 'Running')+`</type>
-    `;
+`;
 
         const xmlEnd1 = `</trk>
 `;
@@ -310,12 +310,12 @@ export default class Total {
 
             const segments = this.traces[i].getSegments();
             for (var l=0; l<segments.length; l++) {
-                xmlOutput += `<trkseg>
-    `;
+                xmlOutput += `    <trkseg>
+`;
                 const points = segments[l]._latlngs;
                 for (var j=0; j<points.length; j++) {
                     const point = points[j];
-                    xmlOutput += `<trkpt lat="${point.lat.toFixed(6)}" lon="${point.lng.toFixed(6)}">
+                    xmlOutput += `    <trkpt lat="${point.lat.toFixed(6)}" lon="${point.lng.toFixed(6)}">
     `;
                     if (point.meta) {
                         if (point.meta.ele || point.meta.ele == 0) {
@@ -367,15 +367,15 @@ export default class Total {
     `;
                             }
                         }
-                        xmlOutput += `</extensions>
+                        xmlOutput += `    </extensions>
     `;
                     }
                     xmlOutput += `</trkpt>
-    `;
+`;
                 }
 
-                xmlOutput += `</trkseg>
-    `;
+                xmlOutput += `    </trkseg>
+`;
             }
 
             const waypoints = this.traces[i].getWaypoints();
