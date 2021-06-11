@@ -132,7 +132,6 @@ export default class Buttons {
         this.include_cad = document.getElementById("include-cad");
         this.include_atemp = document.getElementById("include-atemp");
         this.include_power = document.getElementById("include-power");
-        this.strava_ok = document.getElementById("strava-ok");
         this.copy_link = document.getElementById("copy-link");
         this.copy_embed = document.getElementById("copy-embed");
         this.merge_as_segments = document.getElementById("merge-as-segments");
@@ -168,7 +167,6 @@ export default class Buttons {
         this.clear_content = document.getElementById('clear-content');
         this.delete_content = document.getElementById('delete-content');
         this.zone_delete_content = document.getElementById("zone-delete-content");
-        this.strava_content = document.getElementById('strava-content');
         this.color_content = document.getElementById('color-content');
         this.reduce_content = document.getElementById('reduce-content');
         this.reduce_npoints = document.getElementById('reduce-npoints');
@@ -212,7 +210,6 @@ export default class Buttons {
         this.clear_window = L.control.window(this.map,{title:'',content:this.clear_content,className:'panels-container',closeButton:false});
         this.delete_window = L.control.window(this.map,{title:'',content:this.delete_content,className:'panels-container',closeButton:false});
         this.zone_delete_window = L.control.window(this.map,{title:'',content:this.zone_delete_content,className:'panels-container',closeButton:false});
-        this.strava_window = L.control.window(this.map,{title:'',content:this.strava_content,className:'panels-container',closeButton:false});
         this.color_window = L.control.window(this.map,{title:'',content:this.color_content,className:'panels-container',closeButton:false});
         this.reduce_window = L.control.window(this.map,{title:'',content:this.reduce_content,className:'panels-container',closeButton:false});
         this.load_window = L.control.window(this.map,{title:'',content:this.load_content,className:'panels-container'});
@@ -490,10 +487,14 @@ export default class Buttons {
                     };
                     _this.streetView.addTo(_this.map);
 
-                    _this.stravaHeatmap = L.tileLayer('https://heatmap-external-{s}.strava.com/tiles-auth/cycling/bluered/{z}/{x}/{y}.png', {
+                    _this.stravaHeatmap = L.tileLayer('', {
                         maxZoom: 20,
                         maxNativeZoom: 15,
                         attribution: '&copy; <a href="https://www.strava.com" target="_blank">Strava</a>'
+                    });
+
+                    _this.stravaHeatmap.on('tileerror', function () {
+                        _this.updateStravaCookies();
                     });
 
                     if (_this.supportsWebGL()) {
@@ -527,7 +528,7 @@ export default class Buttons {
                             "CyclOSM" : _this.cyclOSM,
                             "IGN (FR)" : _this.ignMap
                         },{
-                            "Strava Heatmap" : _this.stravaHeatmap
+                            //"Strava Heatmap" : _this.stravaHeatmap
                         }).addTo(_this.map);
 
                         _this.addSwitchMapboxLayers();
@@ -541,22 +542,9 @@ export default class Buttons {
                             "CyclOSM" : _this.cyclOSM,
                             "IGN (FR)" : _this.ignMap
                         },{
-                            "Strava Heatmap" : _this.stravaHeatmap
+                            //"Strava Heatmap" : _this.stravaHeatmap
                         }).addTo(_this.map);
                     }
-
-                    _this.stravaHeatmap.on('tileload', function (e) {
-                        _this.stravaHeatmap.is_loading = true;
-                    });
-
-                    _this.stravaHeatmap.on('tileerror', function (e) {
-                        if (!_this.stravaHeatmap.is_loading) {
-                            _this.stravaHeatmap.remove();
-                            if (_this.window_open) _this.window_open.hide();
-                            _this.window_open = _this.strava_window;
-                            _this.strava_window.show();
-                        }
-                    });
                 }
 
                 const toggle = document.getElementsByClassName('leaflet-control-layers-toggle')[0];
@@ -611,6 +599,29 @@ export default class Buttons {
                 });
             }
         }
+    }
+
+    updateStravaCookies() {
+        if (this.updatingStravaCookies) {
+            return;
+        }
+        this.updatingStravaCookies = true;
+        const _this = this;
+
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                _this.stravaCookies = JSON.parse(xhr.response);
+                if (_this.cycling || _this.driving) {
+                    _this.stravaHeatmap.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/cycling/bluered/{z}/{x}/{y}.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
+                } else {
+                    _this.stravaHeatmap.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/running/bluered/{z}/{x}/{y}.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
+                }
+                _this.updatingStravaCookies = false;
+            }
+        }
+        xhr.open('GET', 'http://localhost:8080');
+        xhr.send();
     }
 
     hideTraceButtons() {
@@ -763,9 +774,6 @@ export default class Buttons {
         });
         this.unvalidate.addEventListener("click", function () {
             buttons.slider.reset();
-        });
-        this.strava_ok.addEventListener("click", function () {
-            buttons.strava_window.hide();
         });
 
         window.addEventListener('dragover', function (e) {
@@ -1050,10 +1058,10 @@ export default class Buttons {
             if (buttons.cycling) {
                 if (buttons.driving) buttons.drive.classList.add("selected");
                 else buttons.bike.classList.add("selected");
-                buttons.stravaHeatmap.setUrl('https://heatmap-external-{s}.strava.com/tiles-auth/cycling/bluered/{z}/{x}/{y}.png');
+                buttons.stravaHeatmap.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/cycling/bluered/{z}/{x}/{y}.png?Signature=${buttons.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${buttons.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${buttons.stravaCookies['CloudFront-Policy']}`);
             } else {
                 buttons.run.classList.add("selected");
-                buttons.stravaHeatmap.setUrl('https://heatmap-external-{s}.strava.com/tiles-auth/running/bluered/{z}/{x}/{y}.png');
+                buttons.stravaHeatmap.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/running/bluered/{z}/{x}/{y}.png?Signature=${buttons.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${buttons.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${buttons.stravaCookies['CloudFront-Policy']}`);
             }
             if (total.hasFocus) total.showData();
             else total.traces[total.focusOn].showData();
