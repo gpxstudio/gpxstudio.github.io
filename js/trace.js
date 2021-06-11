@@ -73,7 +73,7 @@ export default class Trace {
                         if (layers[i]._latlng.meta && layers[i]._latlng.meta.ele == -1) wptMissingEle.push(layers[i]._latlng);
                     }
                 }
-                if (wptMissingEle.length > 0) trace.askElevation(wptMissingEle);
+                if (wptMissingEle.length > 0 && !trace.buttons.embedding) trace.askElevation(wptMissingEle);
             }
             if (this.getLayers().length > 0) total.buttons.updateBounds();
 
@@ -115,7 +115,7 @@ export default class Trace {
 
             trace.focus();
 
-            if (trace.gpx.missing_elevation && !trace.buttons.embedding) trace.askElevation(trace.getPoints());
+            if (trace.gpx.missing_elevation && (!trace.buttons.embedding || trace.buttons.mapboxSKUToken)) trace.askElevation(trace.getPoints());
 
             if (callback) callback(trace);
         }).on('click', function (e) {

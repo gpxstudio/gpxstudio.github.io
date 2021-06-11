@@ -427,7 +427,11 @@ export default class Buttons {
                             doubleClickZoom: false,
                             scrollZoom: false,
                             boxZoom: false
-                        });
+                        }).addTo(_this.map);
+
+                        _this.mapboxSKUToken = _this.mapboxMap.getMapboxMap()._requestManager._skuToken;
+
+                        _this.mapboxMap.remove();
                     }
 
                     if (urlParams.has('source')) {
@@ -443,7 +447,8 @@ export default class Buttons {
                             _this.mapboxMap.options.style = "mapbox://styles/mapbox/satellite-v9";
                             _this.mapboxMap.getMapboxMap().setStyle("mapbox://styles/mapbox/satellite-v9", {diff: false});
                         } else _this.openStreetMap.addTo(_this.map);
-                    } else _this.openStreetMap.addTo(_this.map);
+                    } else if (urlParams.has('token')) _this.mapboxMap.addTo(_this.map);
+                    else _this.openStreetMap.addTo(_this.map);
 
                     if (urlParams.has('token') && _this.supportsWebGL()) {
                         _this.controlLayers = L.control.layers({
@@ -515,9 +520,7 @@ export default class Buttons {
                             boxZoom: false
                         }).addTo(_this.map);
 
-                        _this.mapboxMap.getMapboxMap().on('load', function () {
-                            _this.mapboxSKUToken = this._requestManager._skuToken;
-                        });
+                        _this.mapboxSKUToken = _this.mapboxMap.getMapboxMap()._requestManager._skuToken;
 
                         _this.controlLayers = L.control.layers({
                             "Mapbox Outdoors" : _this.mapboxMap,
