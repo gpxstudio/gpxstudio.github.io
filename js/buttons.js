@@ -447,8 +447,7 @@ export default class Buttons {
                             _this.mapboxMap.options.style = "mapbox://styles/mapbox/satellite-v9";
                             _this.mapboxMap.getMapboxMap().setStyle("mapbox://styles/mapbox/satellite-v9", {diff: false});
                         } else _this.openStreetMap.addTo(_this.map);
-                    } else if (urlParams.has('token')) _this.mapboxMap.addTo(_this.map);
-                    else _this.openStreetMap.addTo(_this.map);
+                    } else _this.openStreetMap.addTo(_this.map);
 
                     if (urlParams.has('token') && _this.supportsWebGL()) {
                         _this.controlLayers = L.control.layers({
