@@ -2,11 +2,11 @@
 <html lang="nl">
     <head>
         <!-- ADD_LANGUAGE -->
-        <link rel="alternate" hreflang="x-default" href="https://gpxstudio.github.io/"/>
-        <link rel="alternate" hreflang="en" href="https://gpxstudio.github.io/"/>
-        <link rel="alternate" hreflang="es" href="https://gpxstudio.github.io/l/es/"/>
-        <link rel="alternate" hreflang="fr" href="https://gpxstudio.github.io/l/fr/"/>
-        <link rel="alternate" hreflang="it" href="https://gpxstudio.github.io/l/it/"/>
+        <link rel="alternate" hreflang="x-default" href="https://gpx.studio/"/>
+        <link rel="alternate" hreflang="en" href="https://gpx.studio/"/>
+        <link rel="alternate" hreflang="es" href="https://gpx.studio/l/es/"/>
+        <link rel="alternate" hreflang="fr" href="https://gpx.studio/l/fr/"/>
+        <link rel="alternate" hreflang="it" href="https://gpx.studio/l/it/"/>
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167421374-1"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
@@ -22,8 +22,8 @@
         <meta property="og:title" content="gpx.studio — de online GPX bestandsbewerker" />
         <meta property="og:description" content="Bekijk, bewerk en maak GPX bestanden online: maak, verplaats en verwijder punten, voeg meerdere bestanden samen, keer routes om, voeg tijdstempels toe, bewerk routepunten en meer!" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://gpxstudio.github.io/" />
-        <meta property="og:image" content="https://gpxstudio.github.io/res/og_logo.png" />
+        <meta property="og:url" content="https://gpx.studio/" />
+        <meta property="og:image" content="https://gpx.studio/res/og_logo.png" />
         <meta name="twitter:card" content="summary_large_image">
         <script type="application/ld+json">
         {
@@ -33,17 +33,17 @@
             "alternateName": "gpx.studio — the online GPX file editor",
             "description": "View, edit and create GPX files online: add, move and delete points, merge multiple files, reverse, add timestamps, edit waypoints and more!",
             "applicationCategory": "Tool, Editor",
-            "url" : "https://gpxstudio.github.io",
+            "url" : "https://gpx.studio",
             "sameAs" : [
                 "https://www.facebook.com/gpx.studio"
             ],
-            "screenshot": "https://gpxstudio.github.io/res/preview.png",
+            "screenshot": "https://gpx.studio/res/preview.png",
             "genre": "outdoors",
             "keywords": "gpx, gps, file, viewer, editor, merge, reverse, timestamps, waypoints, segments",
             "browserRequirements": "Requires JavaScript. Requires HTML5.",
             "softwareHelp": {
                 "@type": "CreativeWork",
-                "url": "https://gpxstudio.github.io/about.html"
+                "url": "https://gpx.studio/about.html"
             },
             "operatingSystem": "All",
             "featureList": "edit gpx files online, view gpx files online, merge gpx files online, reverse gpx file online, add timestamps to gpx file online, extract track segments, view and add waypoints gpx file online"
@@ -88,30 +88,30 @@
         <input id="input-file" type="file" accept=".gpx" multiple style="display: none"/>
         <div id="mapid"></div>
         <div id="toolbar" class="panels-container center-leaflet">
-            <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 2px 4px" alt="logo of gpx.studio, the online GPX file editor"></a>
-            <div id="load" class="panels custom-button">Load GPX</div>
-            <div id="manual" class="panels custom-button">New GPX</div>
-            <div id="export" class="panels custom-button">Export</div>
+            <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 2px 4px" alt="logo van gpx.studio, de online GPX-bestandsbewerker"></a>
+            <div id="load" class="panels custom-button">Laad GPX</div>
+            <div id="manual" class="panels custom-button">Nieuwe GPX</div>
+            <div id="export" class="panels custom-button">Exporteren</div>
             <div class="panels custom-button unselected no-click2" id="undo"><i class="fas fa-reply"></i></div>
             <div class="panels custom-button unselected no-click2" id="redo"><i class="fas fa-share"></i></div>
-            <div id="clear" class="panels custom-button">Clear all</div>
+            <div id="clear" class="panels custom-button">Alles wissen</div>
             <div id="help" class="panels custom-button">Help</div>
-            <div id="about" class="panels custom-button">About</div>
-            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Donate</b> <i class="fas fa-heart"></i></div>
+            <div id="about" class="panels custom-button">Over</div>
+            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Doneren</b> <i class="fas fa-heart"></i></div>
         </div>
         <div id="info" class="padding-container center-leaflet">
             <div id="info-grid" class="panels-container trace-info">
-                <div class="panels panels-info" id="distance">Distance</div>
+                <div class="panels panels-info" id="distance">Afstand</div>
                 <div class="panels panels-val" id="distance-val">- km</div>
-                <div class="panels panels-info" id="elevation">Elevation gain</div>
+                <div class="panels panels-info" id="elevation">Stijging</div>
                 <div class="panels panels-val" id="elevation-val">- m</div>
-                <div class="panels panels-info" id="speed">Speed</div>
+                <div class="panels panels-info" id="speed">Snelheid</div>
                 <div class="panels panels-val" id="speed-val">- km/h</div>
-                <div class="panels panels-info" id="duration">Moving time</div>
-                <div class="panels panels-val" id="duration-val">- h -</div>
-                <div class="panels panels-info" id="points" style="display: none">Track points</div>
+                <div class="panels panels-info" id="duration">Verplaatsingstijd</div>
+                <div class="panels panels-val" id="duration-val">- u -</div>
+                <div class="panels panels-info" id="points" style="display: none">Trackpunten</div>
                 <div class="panels panels-val" id="points-val" style="display: none">0</div>
-                <div class="panels panels-info" id="segments" style="display: none">Segments</div>
+                <div class="panels panels-info" id="segments" style="display: none">Segmenten</div>
                 <div class="panels panels-val" id="segments-val" style="display: none">0</div>
                 <div class="panels panels-val panels-live" id="live-distance">--</div>
                 <div class="panels panels-val panels-live" id="live-speed">--</div>
@@ -127,24 +127,24 @@
                 </div>
             </div>
             <ul id="sortable">
-              <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">Total</li>
+              <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">Totaal</li>
             </ul>
         </div>
         <div id="buttons-bar" class="panels-container vcenter-leaflet">
-            <div class="panels-button" id="edit" title="Edit track points"><i class="fas fa-pencil-alt custom-button"></i></div><br>
-            <div class="panels-button" id="edit-time" title="Edit time"><i class="fas fa-stopwatch custom-button"></i></div><br>
-            <div class="panels-button" id="reverse" title="Reverse"><i class="fas fa-exchange-alt custom-button"></i></div><br>
-            <div class="panels-button" id="combine" title="Merge with another trace"><i class="fas fa-plus-circle custom-button"></i></div><br>
-            <div class="panels-button" id="extract" title="Extract track segments"><i class="fas fa-list-ul custom-button"></i></div><br>
-            <div class="panels-button" id="duplicate" title="Duplicate"><i class="fas fa-copy custom-button"></i></div><br>
-            <div class="panels-button" id="color" title="Change color and opacity"><i class="fas fa-palette custom-button"></i></div><br>
-            <div class="panels-button" id="add-wpt" title="Add waypoint"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
-            <div class="panels-button" id="reduce" title="Reduce number of track points"><i class="fas fa-compress-alt custom-button"></i></div><br>
-            <div class="panels-button" id="zone-delete" title="Delete all inside/outside rectangle selection"><i class="fas fa-vector-square custom-button"></i></div><br>
-            <div class="panels-button" id="hide" title="Hide/unhide the trace"><i class="fas fa-eye-slash custom-button"></i></div><br>
-            <div class="panels-button" id="delete" title="Delete"><i class="fas fa-trash-alt custom-button"></i></div><br>
+            <div class="panels-button" id="edit" title="Bewerk trackpunten"><i class="fas fa-pencil-alt custom-button"></i></div><br>
+            <div class="panels-button" id="edit-time" title="Bewerk tijd"><i class="fas fa-stopwatch custom-button"></i></div><br>
+            <div class="panels-button" id="reverse" title="Richting omkeren"><i class="fas fa-exchange-alt custom-button"></i></div><br>
+            <div class="panels-button" id="combine" title="Samenvoegen met een andere route"><i class="fas fa-plus-circle custom-button"></i></div><br>
+            <div class="panels-button" id="extract" title="Tracksegmenten uitpakken"><i class="fas fa-list-ul custom-button"></i></div><br>
+            <div class="panels-button" id="duplicate" title="Dupliceren"><i class="fas fa-copy custom-button"></i></div><br>
+            <div class="panels-button" id="color" title="Verander kleur en transparantie"><i class="fas fa-palette custom-button"></i></div><br>
+            <div class="panels-button" id="add-wpt" title="Waypoint toevoegen"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
+            <div class="panels-button" id="reduce" title="Verminder het aantal trackpunten"><i class="fas fa-compress-alt custom-button"></i></div><br>
+            <div class="panels-button" id="zone-delete" title="Verwijder alles binnen of buiten rechthoekige selectie"><i class="fas fa-vector-square custom-button"></i></div><br>
+            <div class="panels-button" id="hide" title="De route verbergen of tonen"><i class="fas fa-eye-slash custom-button"></i></div><br>
+            <div class="panels-button" id="delete" title="Verwijder"><i class="fas fa-trash-alt custom-button"></i></div><br>
         </div>
-        <li id="activity" class="dontselect">Activity:
+        <li id="activity" class="dontselect">Activiteit:
             <span class="unselected custom-button">
                 <i id="bike" class="fas fa-biking"></i>
                 <i class="fas fa-arrows-alt-h"></i>
@@ -153,11 +153,11 @@
                 <i id="drive" class="fas fa-motorcycle"></i>
             </span>
         </li>
-        <li id="units" class="dontselect">Units: <span class="unselected custom-button"><span id="km">km </span><i class="fas fa-arrows-alt-h"></i><span id="mi"> mi</span></span></li>
-        <li id="method" class="dontselect">Routing: <span class="unselected custom-button"><i id="route" class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i id="crow" class="fas fa-dove"></i></span></li>
+        <li id="units" class="dontselect">Eenheden: <span class="unselected custom-button"><span id="km">km </span><i class="fas fa-arrows-alt-h"></i><span id="mi"> mijl</span></span></li>
+        <li id="method" class="dontselect">Routeberekening: <span class="unselected custom-button"><i id="route" class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i id="crow" class="fas fa-dove"></i></span></li>
         <li id="chevrons" class="dontselect">Chevrons: <input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"></li>
-        <li id="dist-markers" class="dontselect">Distance markers: <input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"></li>
-        <li id="profile" class="dontselect">Elevation profile: <input type="checkbox" checked id="show-profile" class="custom-button" style="vertical-align: middle;"></li>
+        <li id="dist-markers" class="dontselect">Afstandsmarkeringen: <input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"></li>
+        <li id="profile" class="dontselect">Hoogteprofiel: <input type="checkbox" checked id="show-profile" class="custom-button" style="vertical-align: middle;"></li>
         <!-- ADD_LANGUAGE -->
         <div id="languages">
             <a href="/" class="footer" target="_blank">en</a>
@@ -167,7 +167,7 @@
         </div>
         <div id="help-text">
         <div style="text-align: center; font-size: 10pt; color: #476947">
-            <b>Check out the <a href="./about.html#guide" target="_blank">User Guide</a> for more info and small tutorials!</b>
+            <b>Bekijk de <a href="./about.html#guide" target="_blank">Gebruikersgids</a> voor meer informatie en kleine tutorials!</b>
         </div><br>
         <table style="width: 100%">
             <colgroup>
@@ -177,38 +177,38 @@
             </colgroup>
             <tbody>
             <tr>
-                <td><b>Load GPX</b></td>
+                <td><b>Laad GPX</b></td>
                 <td>Ctrl+O</td>
-                <td>Import and visualize GPX files (or drag and drop anywhere in the window)</td>
+                <td>Importeer en visualizeer GPX-bestanden (of klik en sleep naar ergens in het scherm)</td>
             </tr>
             <tr>
-                <td><b>New GPX</b></td>
+                <td><b>Nieuwe GPX</b></td>
                 <td>Ctrl+D</td>
-                <td>Start drawing a new route by placing track points on the map</td>
+                <td>Start het tekenen van een nieuwe route door trackpunten op de kaart te plaatsen</td>
             </tr>
             <tr>
-                <td><b>Export</b></td>
-                <td>Ctrl+S</td>
-                <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Time, heart rate, cadence, power and temperature data are automatically extended. Optionally, merge all files <b>in the chosen order</b>. You can also drag a tab to your desktop to download the file.</td>
+                <td><b>Exporteren</b></td>
+                <td>Crtl+S</td>
+                <td>Download de bestanden naar uw desktop of sla op in Google Drive™ om een <b>deelbare link</b> en <b>insluitcode</b> te krijgen. Tijds, hartslag, cadans, kracht- en temperatuurgegevens worden automatisch verlengd. Voeg optioneel alle bestanden <b>samen in de gekozen volgorde</b>. U kunt ook een tabblad naar uw bureaublad slepen om het bestand te downloaden.</td>
             </tr>
             <tr>
                 <td><i class="fas fa-reply"></i> <i class="fas fa-share"></i></td>
-                <td>Ctrl+Z/Y</td>
-                <td>Undo and redo actions in edition mode</td>
+                <td>Ctrl + Z/Y</td>
+                <td>Acties in bewerkingsmodus ongedaan maken en opnieuw uitvoeren</td>
             </tr>
             <tr>
-                <td><b>Clear all</b></td>
+                <td><b>Alles wissen</b></td>
                 <td>Ctrl+K</td>
-                <td>Delete all traces</td>
+                <td>Verwijder alle routes</td>
             </tr>
             <tr>
                 <td></td>
-                <td>Escape</td>
-                <td>Exit current menu or tool</td>
+                <td>Esc</td>
+                <td>Sluit huidige menu of tool</td>
             </tr>
             </tbody>
         </table><br>
-        Below the search bar <i class="fas fa-search"></i> and the Google Street View tool <i class="fas fa-street-view"></i>, you can find a dropdown menu <i class="fas fa-bars"></i> with the maps available and some settings.
+        Onder de zoekbalk <i class="fas fa-search"></i> en de Google Street View tool <i class="fas fa-street-view"></i>, vindt u een keuzelijst <i class="fas fa-bars"></i> met de beschikbare kaarten en enkele instellingen.
         <table style="width: 100%">
             <colgroup>
                <col span="1" style="width: 11%;">
@@ -219,27 +219,27 @@
             <tr>
                 <td></td>
                 <td>F1</td>
-                <td>Show or hide the Strava Heatmap</td>
+                <td>Toon of verberg de Strava Heatmap</td>
             </tr>
             <tr>
                 <td><i class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-dove"></i></td>
                 <td>F2</td>
-                <td>Switch between routing and <i>as the crow flies</i> (straight lines between track points) when editing traces</td>
+                <td>Schakel tussen routering en <i>vogelvlucht</i> (rechte lijnen tussen trackpunten) bij het bewerken van sporen</td>
             </tr>
             <tr>
                 <td><i class="fas fa-biking"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-running"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-motorcycle"></i></td>
                 <td>F3</td>
-                <td>Switch between cycling, running and driving mode (impacts the routing and the Strava Heatmap displayed)</td>
+                <td>Schakelen tussen fietsen, rennen en automodus (heeft invloed op de routering en de weergegeven Strava Heatmap)</td>
             </tr>
             <tr>
-                <td><b>km</b> <i class="fas fa-arrows-alt-h"></i> <b>mi</b></td>
+                <td><b>km</b> <i class="fas fa-arrows-alt-h"></i> <b>mijl</b></td>
                 <td>F4</td>
-                <td>Change units displayed</td>
+                <td>Wijzig weergegeven eenheden</td>
             </tr>
             <tr>
                 <td></td>
                 <td>Ctrl+H</td>
-                <td>Show or hide the elevation profile</td>
+                <td>Toon of verberg het hoogteprofiel</td>
             </tr>
             </tbody>
         </table><br>
@@ -251,59 +251,59 @@
             <tbody>
             <tr>
                 <td><i class="fas fa-pencil-alt"></i></td>
-                <td>Enter edition mode to add, move, insert (by dragging the line), delete or split (right-click) track points</td>
+                <td>Schakel de bewerkingsmodus in om trackpunten toe te voegen, te verplaatsen, in te voegen (door de lijn te verslepen), te verwijderen of te splitsen (rechtsklik)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-stopwatch"></i></td>
-                <td>Change the speed and starting time of the trace</td>
+                <td>Verander de snelheid en de begintijd van de route</td>
             </tr>
             <tr>
                 <td><i class="fas fa-exchange-alt"></i></td>
-                <td>Reverse the trace and adapt the timestamps</td>
+                <td>Draai de richting van de route om en pas de tijdstempels aan</td>
             </tr>
             <tr>
                 <td><i class="fas fa-plus-circle"></i></td>
-                <td>Merge with another trace (automatically extends time, heart rate, cadence, power and temperature data)</td>
+                <td>Voeg samen met een ander spoor (verlengt tijd, hartslag, cadans, kracht- en temperatuursgegevens)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-list-ul"></i></td>
-                <td>Extract all track segments and creates one trace for each</td>
+                <td>Pak alle tracksegmenten uit en maak een nieuw spoor per stuk</td>
             </tr>
             <tr>
                 <td><i class="fas fa-copy"></i></td>
-                <td>Duplicate the trace</td>
+                <td>Dupliceer de route</td>
             </tr>
             <tr>
                 <td><i class="fas fa-palette"></i></td>
-                <td>Change the display color and opacity, these values will be exported and detected when re-imported</td>
+                <td>Verander de weergavekleur en transparantie. Deze waardes worden geëxporteerd en gedetecteerd wanneer opnieuw geïmporteerd</td>
             </tr>
             <tr>
                 <td><i class="fas fa-map-marker-alt"></i></td>
-                <td>Add a waypoint (drag to change its location and use the buttons to edit info, duplicate or remove)</td>
+                <td>Voeg een waypoint toe (sleep om de locatie te wijzigen en gebruik de knoppen om info te bewerken, te dupliceren of te verwijderen)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-compress-alt"></i></td>
-                <td>Reduce the number of track points</td>
+                <td>Verminder het aantal trackpunten</td>
             </tr>
             <tr>
                 <td><i class="fas fa-vector-square"></i></td>
-                <td>Delete track points and/or waypoints inside/outside rectangle selection</td>
+                <td>Verwijder trackpunten en/of waypoints binnen/buiten rechthoekige selectie</td>
             </tr>
             <tr>
                 <td><i class="fas fa-eye-slash"></i></td>
-                <td>Hide or unhide the trace</td>
+                <td>De route verbergen of tonen</td>
             </tr>
             <tr>
                 <td><i class="fas fa-trash-alt"></i></td>
-                <td>Delete the trace</td>
+                <td>Verwijder de route</td>
             </tr>
             </tbody>
         </table><br>
-        At the bottom, you can see a panel with information about the traces you import.
-        The <b>Total</b> tab displays information about all open traces merged into one.
-        <b>Swap the tabs</b> to define the order in which the traces should appear and <b>double-click</b> on them to change their names.
-        When you have many tabs, navigate through them by scrolling horizontally.
-        Use the <b>slider</b> to move the start/end point and cut the route.
+        Onderaan zie je een paneel met informatie over de routes die je importeert.
+        Het <b>Totaal</b> tabblad toont informatie over alle open sporen samengevoegd tot één.
+        <b>Wissel de tabbladen</b> om de volgorde te bepalen waarin de sporen moeten verschijnen en <b>dubbelklik</b> op ze om hun namen te wijzigen.
+        Als je veel tabbladen hebt, navigeer er doorheen door horizontaal te scrollen.
+        Gebruik de <b>slider</b> om het start- en eindpunt te verplaatsen en de route te knippen.
         </div>
         <div id="export-content" class="popup-content">
             <table style="width: 100%; text-align: left">
@@ -315,129 +315,129 @@
                 </colgroup>
                 <tbody>
                     <td></td>
-                    <td>Merge all traces<input type="checkbox" id="merge"></td>
-                    <td>Time<input type="checkbox" id="include-time" checked></td>
+                    <td>Voeg alle routes samen<input type="checkbox" id="merge"></td>
+                    <td>Tijd<input type="checkbox" id="include-time" checked></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td>Heartrate<input type="checkbox" id="include-hr" checked></td>
-                    <td>Cadence<input type="checkbox" id="include-cad" checked></td>
+                    <td>Hartslag<input type="checkbox" id="include-hr" checked></td>
+                    <td>Cadans<input type="checkbox" id="include-cad" checked></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td>Power<input type="checkbox" id="include-power" checked></td>
-                    <td>Temperature<input type="checkbox" id="include-atemp" checked></td>
+                    <td>Kracht<input type="checkbox" id="include-power" checked></td>
+                    <td>Temperatuur<input type="checkbox" id="include-atemp" checked></td>
                     <td></td>
                 </tr>
                 </tbody>
             </table>
-            <div style="color:#0f92c5;">&#9888;&#65039; The tool is <b>free</b> to use but <b>not free</b> to run &#9888;&#65039;<br>Each map display, track point added or moved is billed.</div>
-            <div id="donate-2" class="panels custom-button fancy-button"><b>Help keep the website free</b> &#128591;</div><br>
+            <div style="color:#0f92c5;">&#9888;&#65039; De tool is <b>gratis</b> om te gebruiken, maar <b>niet gratis</b> om draaiende te houden &#9888;&#65039;<br>Elke kaartweergave, elk trackpunt dat toegevoegd of verplaatst wordt, wordt gefactureerd.</div>
+            <div id="donate-2" class="panels custom-button fancy-button"><b>Help de website gratis te houden</b> &#128591;</div><br>
             <div id="export-2" class="panels custom-button fancy-button">Download <i class="fas fa-download"></i></div>
-            <div id="save-drive" class="panels custom-button fancy-button">Save to Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
+            <div id="save-drive" class="panels custom-button fancy-button">Opslaan in Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
         </div>
         <div id="clear-content" class="popup-content">
-            This will delete all open traces.<br>Do you wish to continue?<br>
-            <div id="clear2" class="panels custom-button normal-button">Yes</div>
-            <div id="cancelclear" class="panels custom-button normal-button"><b>Cancel</b></div>
+            Dit zal alle geopende routes verwijderen.<br>Wilt u doorgaan?<br>
+            <div id="clear2" class="panels custom-button normal-button">Ja</div>
+            <div id="cancelclear" class="panels custom-button normal-button"><b>Annuleren</b></div>
         </div>
         <div id="delete-content" class="popup-content">
-            This will delete the current trace.<br>Do you wish to continue?<br>
-            <div id="delete2" class="panels custom-button normal-button">Yes</div>
-            <div id="canceldelete" class="panels custom-button normal-button"><b>Cancel</b></div>
+            Dit zal de huidige route verwijderen.<br>Wilt u doorgaan?<br>
+            <div id="delete2" class="panels custom-button normal-button">Ja</div>
+            <div id="canceldelete" class="panels custom-button normal-button"><b>Annuleren</b></div>
         </div>
         <div id="color-content" class="popup-content">
             <div style="text-align: left">
-                <label for="color-picker">Pick a new color</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
-                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Apply color to all traces</label><br>
-                <label for="opacity-slider">Opacity</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
-                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Apply opacity to all traces</label>
+                <label for="color-picker">Kies een nieuwe kleur</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
+                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Gebruik kleur voor alle routes</label><br>
+                <label for="opacity-slider">Transparantie</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
+                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Gebruik transparantie voor alle routes</label>
             </div>
             <div id="validate-color" class="panels custom-button normal-button">Ok</div>
-            <div id="cancel-color" class="panels custom-button normal-button">Cancel</div>
+            <div id="cancel-color" class="panels custom-button normal-button">Annuleren</div>
         </div>
         <div id="load-content" class="popup-content">
-            Choose files from<br>
-            <div id="load2" class="panels custom-button normal-button">Desktop</div>
+            Kies bestanden van<br>
+            <div id="load2" class="panels custom-button normal-button">Mijn computer</div>
             <div id="load-drive" class="panels custom-button normal-button">Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div><br>
-            (or drag and drop anywhere in the window)
+            (of sleep en zet ergens in het venster neer)
         </div>
         <div id="share-content" class="popup-content">
-            Done!<br>
-            <div id="copy-link" class="panels custom-button fancy-button">Copy link <i class="fas fa-link"></i></div><br>
-            <div id="copy-embed" class="panels custom-button fancy-button">Copy embedding code <i class="fas fa-code"></i></div><br>
+            Klaar!<br>
+            <div id="copy-link" class="panels custom-button fancy-button">Link kopiëren <i class="fas fa-link"></i></div><br>
+            <div id="copy-embed" class="panels custom-button fancy-button">Kopiëer insluitingscode <i class="fas fa-code"></i></div><br>
         </div>
         <div id="merge-content" class="popup-content">
-            Click on another tab to merge the traces<br>
-            <input type="checkbox" id="merge-as-segments">Merge as track segments<br>
-            <div id="merge-cancel" class="panels custom-button normal-button">Cancel</div>
+            Klik op een ander tabblad om de routes samen te voegen<br>
+            <input type="checkbox" id="merge-as-segments">Samenvoegen als tracksegmenten<br>
+            <div id="merge-cancel" class="panels custom-button normal-button">Annuleren</div>
         </div>
         <div id="crop-content" class="popup-content">
-            <input type="checkbox" id="crop-keep">Keep cropped parts in new files<br>
-            <div id="crop-ok" class="panels custom-button normal-button">Proceed</div>
-            <div id="crop-cancel" class="panels custom-button normal-button">Cancel</div>
+            <input type="checkbox" id="crop-keep">Bijgesneden delen in nieuwe bestanden bewaren<br>
+            <div id="crop-ok" class="panels custom-button normal-button">Ga verder</div>
+            <div id="crop-cancel" class="panels custom-button normal-button">Annuleren</div>
         </div>
         <div id="reduce-content" class="popup-content">
-            Choose the amount of detail to keep<br>
-            Number of track points: <span id="reduce-npoints">0</span><br>
+            Kies de hoeveelheid details om te houden<br>
+            Aantal trackpunten: <span id="reduce-npoints">0</span><br>
             <input type="range" min="0" max="1000" id="reduce-slider" style="width: 100%"><br>
             <div id="reduce-ok" class="panels custom-button normal-button">Ok</div>
-            <div id="reduce-cancel" class="panels custom-button normal-button">Cancel</div>
+            <div id="reduce-cancel" class="panels custom-button normal-button">Annuleren</div>
         </div>
         <div id="zone-delete-content" class="popup-content">
-            Choose what to delete<br>
-            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Track points</label>
+            Kies wat u wilt verwijderen<br>
+            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Trackpunten</label>
             <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
-            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inside selection</label>
-            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
-            <div id="zone-delete-ok" class="panels custom-button normal-button">Proceed</div>
-            <div id="zone-delete-cancel" class="panels custom-button normal-button">Cancel</div>
+            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Binnen selectie</label>
+            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Buiten selectie</label><br>
+            <div id="zone-delete-ok" class="panels custom-button normal-button">Ga verder</div>
+            <div id="zone-delete-cancel" class="panels custom-button normal-button">Annuleren</div>
         </div>
         <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
-            <b>Open in</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logo of gpx.studio, the online GPX file editor">
+            <b>Openen in</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logo van gpx.studio, de online GPX-bestandsbewerker">
         </div>
         <div style="display: none">
             <div id="unit-kilometers-text">km</div>
-            <div id="unit-miles-text">mi</div>
+            <div id="unit-miles-text">mijl</div>
             <div id="unit-meters-text">m</div>
             <div id="unit-feet-text">ft</div>
-            <div id="unit-hours-text">h</div>
+            <div id="unit-hours-text">u</div>
             <div id="unit-minutes-text">min</div>
-            <div id="duplicate-text">Duplicate</div>
-            <div id="delete-text">Delete</div>
+            <div id="duplicate-text">Dupliceren</div>
+            <div id="delete-text">Verwijder</div>
             <div id="ok-button-text">Ok</div>
-            <div id="cancel-button-text">Cancel</div>
+            <div id="cancel-button-text">Annuleren</div>
             <div id="edit-speed-popup-text">
-                <div id="speed-text">Speed</div>
-                <div id="pace-text">Pace</div>
+                <div id="speed-text">Snelheid</div>
+                <div id="pace-text">Snelheid</div>
                 <div id="start-text">Start</div>
-                <div id="experimental-text">Experimental</div>
-                <div id="experimental-info-text">Generate speed considering the slope (erases all existing time data)</div>
+                <div id="experimental-text">Experimentele functie</div>
+                <div id="experimental-info-text">Gebruik hellingshoeken in de snelheidsberekening (verwijdert alle bestaande tijdsgegevens)</div>
             </div>
             <div id="waypoint-popup-text">
-                <div id="empty-title-text">empty title</div>
-                <div id="name-text">Name</div>
-                <div id="comment-text">Comment (for GPS devices)</div>
-                <div id="description-text">Description (for users)</div>
-                <div id="symbol-text">Symbol</div>
-                <div id="edit-info-text">Edit info</div>
+                <div id="empty-title-text">lege titel</div>
+                <div id="name-text">Naam</div>
+                <div id="comment-text">Opmerking (voor GPS-apparaten)</div>
+                <div id="description-text">Beschrijving (voor gebruikers)</div>
+                <div id="symbol-text">Symbool</div>
+                <div id="edit-info-text">Info bewerken</div>
             </div>
             <div id="right-click-popup-text">
-                <div id="split-text">Split here</div>
-                <div id="remove-pt-text">Remove point</div>
+                <div id="split-text">Hier splitsen</div>
+                <div id="remove-pt-text">Verwijder punt</div>
             </div>
         </div>
-        <h1 style="display: none">online gpx editor</h1>
-        <h1 style="display: none">online gpx viewer</h1>
-        <h1 style="display: none">edit gpx files online</h1>
-        <h1 style="display: none">view gpx files online</h1>
-        <h1 style="display: none">merge gpx files online</h1>
-        <h1 style="display: none">extract segments gpx file online</h1>
-        <h1 style="display: none">reverse gpx file online</h1>
-        <h1 style="display: none">add timestamps to gpx file online</h1>
-        <h1 style="display: none">compress simplify reduce number points gpx file online</h1>
-        <h1 style="display: none">view and add waypoints gpx file online</h1>
+        <h1 style="display: none">online gpx-bewerker</h1>
+        <h1 style="display: none">online gpx-viewer</h1>
+        <h1 style="display: none">bewerk gpx-bestanden online</h1>
+        <h1 style="display: none">bekijk gpx-bestanden online</h1>
+        <h1 style="display: none">gpx-bestanden online samenvoegen</h1>
+        <h1 style="display: none">online segmenten uit gpx-bestanden halen</h1>
+        <h1 style="display: none">online gpx-bestand omdraaien</h1>
+        <h1 style="display: none">online tijdstempels toevoegen aan gpx-bestand</h1>
+        <h1 style="display: none">comprimeer vereenvoudig verminder aantal punten gpx-bestand online</h1>
+        <h1 style="display: none">bekijk en bewerk waypoints gpx-bestand online</h1>
     </body>
 </html>

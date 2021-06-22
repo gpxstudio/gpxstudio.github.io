@@ -2,59 +2,59 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <!-- ADD_LANGUAGE -->
   <url>
-    <loc>https://gpxstudio.github.io/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gpxstudio.github.io/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://gpxstudio.github.io/l/fr/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://gpxstudio.github.io/l/es/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gpxstudio.github.io/l/it/"/>
+    <loc>https://gpx.studio/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gpx.studio/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://gpx.studio/l/fr/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://gpx.studio/l/es/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gpx.studio/l/it/"/>
   </url>
   <url>
-    <loc>https://gpxstudio.github.io/l/es/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gpxstudio.github.io/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://gpxstudio.github.io/l/fr/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://gpxstudio.github.io/l/es/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gpxstudio.github.io/l/it/"/>
+    <loc>https://gpx.studio/l/es/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gpx.studio/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://gpx.studio/l/fr/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://gpx.studio/l/es/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gpx.studio/l/it/"/>
   </url>
   <url>
-    <loc>https://gpxstudio.github.io/l/fr/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gpxstudio.github.io/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://gpxstudio.github.io/l/fr/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://gpxstudio.github.io/l/es/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gpxstudio.github.io/l/it/"/>
+    <loc>https://gpx.studio/l/fr/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gpx.studio/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://gpx.studio/l/fr/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://gpx.studio/l/es/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gpx.studio/l/it/"/>
   </url>
   <url>
-    <loc>https://gpxstudio.github.io/l/it/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gpxstudio.github.io/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://gpxstudio.github.io/l/fr/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://gpxstudio.github.io/l/es/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gpxstudio.github.io/l/it/"/>
+    <loc>https://gpx.studio/l/it/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gpx.studio/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://gpx.studio/l/fr/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://gpx.studio/l/es/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gpx.studio/l/it/"/>
   </url>
   <url>
-    <loc>https://gpxstudio.github.io/about.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gpxstudio.github.io/about.html"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://gpxstudio.github.io/l/fr/about.html"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://gpxstudio.github.io/l/es/about.html"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gpxstudio.github.io/l/it/about.html"/>
+    <loc>https://gpx.studio/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gpx.studio/about.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://gpx.studio/l/fr/about.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://gpx.studio/l/es/about.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gpx.studio/l/it/about.html"/>
   </url>
   <url>
-    <loc>https://gpxstudio.github.io/l/es/about.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gpxstudio.github.io/about.html"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://gpxstudio.github.io/l/fr/about.html"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://gpxstudio.github.io/l/es/about.html"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gpxstudio.github.io/l/it/about.html"/>
+    <loc>https://gpx.studio/l/es/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gpx.studio/about.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://gpx.studio/l/fr/about.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://gpx.studio/l/es/about.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gpx.studio/l/it/about.html"/>
   </url>
   <url>
-    <loc>https://gpxstudio.github.io/l/fr/about.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gpxstudio.github.io/about.html"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://gpxstudio.github.io/l/fr/about.html"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://gpxstudio.github.io/l/es/about.html"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gpxstudio.github.io/l/it/about.html"/>
+    <loc>https://gpx.studio/l/fr/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gpx.studio/about.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://gpx.studio/l/fr/about.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://gpx.studio/l/es/about.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gpx.studio/l/it/about.html"/>
   </url>
   <url>
-    <loc>https://gpxstudio.github.io/l/it/about.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gpxstudio.github.io/about.html"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://gpxstudio.github.io/l/fr/about.html"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://gpxstudio.github.io/l/es/about.html"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gpxstudio.github.io/l/it/about.html"/>
+    <loc>https://gpx.studio/l/it/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gpx.studio/about.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://gpx.studio/l/fr/about.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://gpx.studio/l/es/about.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gpx.studio/l/it/about.html"/>
   </url>
 </urlset>
