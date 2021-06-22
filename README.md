@@ -1,7 +1,7 @@
 ![logo of gpx.studio](res/logo.png)
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/F1F1303GH)
 
-This repository contains the source code of the website [gpx.studio](https://gpxstudio.github.io), an online tool for GPX editing.
+This repository contains the source code of the website [gpx.studio](https://gpx.studio), an online tool for GPX editing.
 
 ![Preview of the online app.](res/preview.png)
 

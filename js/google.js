@@ -1,4 +1,4 @@
-// gpx.studio is an online GPX file editor which can be found at https://gpxstudio.github.io
+// gpx.studio is an online GPX file editor which can be found at https://gpx.studio
 // Copyright (C) 2020  Vianney Coppé
 //
 // This program is free software; you can redistribute it and/or modify
@@ -266,7 +266,7 @@ export default class Google {
                 request.execute();
 
                 if (_this.completed == number) {
-                    var url = 'https://gpxstudio.github.io'+window.location.pathname.replace('index.html','')+'?state=%7B%22ids%22:%5B%22';
+                    var url = 'https://gpx.studio'+window.location.pathname.replace('index.html','')+'?state=%7B%22ids%22:%5B%22';
                     for (var i=0; i<_this.fileIds.length; i++) {
                         url += _this.fileIds[i];
                         if (i<_this.fileIds.length-1) url += '%22,%22';
