@@ -301,6 +301,15 @@ export default class Buttons {
             this.crop_container.style.display = 'none';
             this.slide_container.style.display = 'none';
 
+            var nTraces = 0;
+            const params = JSON.parse(urlParams.get('state'));
+            if (params.urls) nTraces += params.urls.length;
+            if (params.ids) nTraces += params.ids.length;
+            if (nTraces == 1) {
+                this.tabs.style.display = 'none';
+                this.trace_info_content.style.paddingBottom = '20px';
+            }
+
             this.toolbar = L.control({position: 'topleft'});
             this.toolbar.onAdd = function (map) {
                 var div = _this.embed_content;
