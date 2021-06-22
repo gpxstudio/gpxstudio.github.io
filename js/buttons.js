@@ -530,7 +530,7 @@ export default class Buttons {
                             "CyclOSM" : _this.cyclOSM,
                             "IGN (FR)" : _this.ignMap
                         },{
-                            //"Strava Heatmap" : _this.stravaHeatmap
+                            "Strava Heatmap" : _this.stravaHeatmap
                         }).addTo(_this.map);
 
                         _this.addSwitchMapboxLayers();
@@ -544,7 +544,7 @@ export default class Buttons {
                             "CyclOSM" : _this.cyclOSM,
                             "IGN (FR)" : _this.ignMap
                         },{
-                            //"Strava Heatmap" : _this.stravaHeatmap
+                            "Strava Heatmap" : _this.stravaHeatmap
                         }).addTo(_this.map);
                     }
                 }
@@ -622,7 +622,7 @@ export default class Buttons {
                 _this.updatingStravaCookies = false;
             }
         }
-        xhr.open('GET', 'http://localhost:8080');
+        xhr.open('GET', 'https://s.gpx.studio');
         xhr.send();
     }
 
