@@ -1063,7 +1063,11 @@ export default class Trace {
         const len = this._editMarkers.length;
         if (len == 0) this.addRoute2([pt], pt, pt, segment);
         else if (this.buttons.routing) this.askRoute2(this._editMarkers[len-1]._pt, pt, segment);
-        else this.addRoute2(this.getIntermediatePoints(this._editMarkers[len-1]._pt, pt), this._editMarkers[len-1]._pt, pt, segment);
+        else {
+            const new_points = this.getIntermediatePoints(this._editMarkers[len-1]._pt, pt);
+            new_points.push(pt);
+            this.addRoute2(new_points, this._editMarkers[len-1]._pt, pt, segment);
+        }
     }
 
     updatePoint(marker, lat, lng) {
@@ -1235,6 +1239,7 @@ export default class Trace {
         for (var i=1; pt1.distanceTo(pt1.add(d_pt.multiplyBy(i))) < pt1.distanceTo(pt2); i++) {
             const pt = L.Projection.SphericalMercator.unproject(pt1.add(d_pt.multiplyBy(i)));
             pt.meta = {"time":null, "ele":0};
+            pt.routing = true;
             pts.push(pt);
         }
 
