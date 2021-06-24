@@ -89,25 +89,25 @@
         <div id="mapid"></div>
         <div id="toolbar" class="panels-container center-leaflet">
             <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 2px 4px" alt="logo of gpx.studio, the online GPX file editor"></a>
-            <div id="load" class="panels custom-button">Load GPX</div>
-            <div id="manual" class="panels custom-button">New GPX</div>
-            <div id="export" class="panels custom-button">Export</div>
+            <div id="load" class="panels custom-button">Abrir GPX</div>
+            <div id="manual" class="panels custom-button">Novo GPX</div>
+            <div id="export" class="panels custom-button">Exportar</div>
             <div class="panels custom-button unselected no-click2" id="undo"><i class="fas fa-reply"></i></div>
             <div class="panels custom-button unselected no-click2" id="redo"><i class="fas fa-share"></i></div>
-            <div id="clear" class="panels custom-button">Clear all</div>
-            <div id="help" class="panels custom-button">Help</div>
-            <div id="about" class="panels custom-button">About</div>
-            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Donate</b> <i class="fas fa-heart"></i></div>
+            <div id="clear" class="panels custom-button">Apagar Tudo</div>
+            <div id="help" class="panels custom-button">Ajuda</div>
+            <div id="about" class="panels custom-button">Sobre</div>
+            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Doar</b> <i class="fas fa-heart"></i></div>
         </div>
         <div id="info" class="padding-container center-leaflet">
             <div id="info-grid" class="panels-container trace-info">
-                <div class="panels panels-info" id="distance">Distance</div>
+                <div class="panels panels-info" id="distance">Distância</div>
                 <div class="panels panels-val" id="distance-val">- km</div>
-                <div class="panels panels-info" id="elevation">Elevation gain</div>
+                <div class="panels panels-info" id="elevation">Ganho de Elevação</div>
                 <div class="panels panels-val" id="elevation-val">- m</div>
-                <div class="panels panels-info" id="speed">Speed</div>
+                <div class="panels panels-info" id="speed">Velocidade</div>
                 <div class="panels panels-val" id="speed-val">- km/h</div>
-                <div class="panels panels-info" id="duration">Moving time</div>
+                <div class="panels panels-info" id="duration">Tempo de Movimentação</div>
                 <div class="panels panels-val" id="duration-val">- h -</div>
                 <div class="panels panels-info" id="points" style="display: none">Track points</div>
                 <div class="panels panels-val" id="points-val" style="display: none">0</div>
@@ -144,7 +144,7 @@
             <div class="panels-button" id="hide" title="Hide/unhide the trace"><i class="fas fa-eye-slash custom-button"></i></div><br>
             <div class="panels-button" id="delete" title="Delete"><i class="fas fa-trash-alt custom-button"></i></div><br>
         </div>
-        <li id="activity" class="dontselect">Activity:
+        <li id="activity" class="dontselect">Atividade:
             <span class="unselected custom-button">
                 <i id="bike" class="fas fa-biking"></i>
                 <i class="fas fa-arrows-alt-h"></i>
@@ -153,11 +153,11 @@
                 <i id="drive" class="fas fa-motorcycle"></i>
             </span>
         </li>
-        <li id="units" class="dontselect">Units: <span class="unselected custom-button"><span id="km">km </span><i class="fas fa-arrows-alt-h"></i><span id="mi"> mi</span></span></li>
-        <li id="method" class="dontselect">Routing: <span class="unselected custom-button"><i id="route" class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i id="crow" class="fas fa-dove"></i></span></li>
-        <li id="chevrons" class="dontselect">Chevrons: <input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"></li>
-        <li id="dist-markers" class="dontselect">Distance markers: <input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"></li>
-        <li id="profile" class="dontselect">Elevation profile: <input type="checkbox" checked id="show-profile" class="custom-button" style="vertical-align: middle;"></li>
+        <li id="units" class="dontselect">Unidades: <span class="unselected custom-button"><span id="km">km </span><i class="fas fa-arrows-alt-h"></i><span id="mi"> mi</span></span></li>
+        <li id="method" class="dontselect">Rota: <span class="unselected custom-button"><i id="route" class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i id="crow" class="fas fa-dove"></i></span></li>
+        <li id="chevrons" class="dontselect">Divisas: <input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"></li>
+        <li id="dist-markers" class="dontselect">Marcadores de distância: <input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"></li>
+        <li id="profile" class="dontselect">Perfil de elevação: <input type="checkbox" checked id="show-profile" class="custom-button" style="vertical-align: middle;"></li>
         <!-- ADD_LANGUAGE -->
         <div id="languages">
             <a href="/" class="footer" target="_blank">en</a>
@@ -167,7 +167,7 @@
         </div>
         <div id="help-text">
         <div style="text-align: center; font-size: 10pt; color: #476947">
-            <b>Check out the <a href="./about.html#guide" target="_blank">User Guide</a> for more info and small tutorials!</b>
+            <b>Verifique o <a href="./about.html#guide" target="_blank">Guia de Usuário</a> para mais informações e tutoriais!</b>
         </div><br>
         <table style="width: 100%">
             <colgroup>
@@ -177,38 +177,38 @@
             </colgroup>
             <tbody>
             <tr>
-                <td><b>Load GPX</b></td>
+                <td><b>Abrir GPX</b></td>
                 <td>Ctrl+O</td>
-                <td>Import and visualize GPX files (or drag and drop anywhere in the window)</td>
+                <td>Importar e visualizar arquivos GPX (ou arraste e solte em qualquer lugar da janela)</td>
             </tr>
             <tr>
-                <td><b>New GPX</b></td>
+                <td><b>Novo GPX</b></td>
                 <td>Ctrl+D</td>
-                <td>Start drawing a new route by placing track points on the map</td>
+                <td>Começar a desenhar uma nova rota, posicionando os pontos da trilha no mapa</td>
             </tr>
             <tr>
-                <td><b>Export</b></td>
+                <td><b>Exportar</b></td>
                 <td>Ctrl+S</td>
-                <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Time, heart rate, cadence, power and temperature data are automatically extended. Optionally, merge all files <b>in the chosen order</b>. You can also drag a tab to your desktop to download the file.</td>
+                <td>Baixar os arquivos em sua área de trabalho ou salvar no Google Drive™ para obter um <b>link compartilhável</b> e <b>o código de incorporação</b>. O tempo, a frequência cardíaca, a cadência, os dados de potência e a temperatura são estendidos automaticamente. Opcionalmente, mescle todos os arquivos <b>em uma ordem escolhida</b>. Também é possível arrastar uma aba para a área de trabalho para baixar o arquivo.</td>
             </tr>
             <tr>
                 <td><i class="fas fa-reply"></i> <i class="fas fa-share"></i></td>
                 <td>Ctrl+Z/Y</td>
-                <td>Undo and redo actions in edition mode</td>
+                <td>Ações de Desfazer e refazer no modo de edição</td>
             </tr>
             <tr>
-                <td><b>Clear all</b></td>
+                <td><b>Apagar Tudo</b></td>
                 <td>Ctrl+K</td>
-                <td>Delete all traces</td>
+                <td>Excluir todas as trilhas</td>
             </tr>
             <tr>
                 <td></td>
                 <td>Escape</td>
-                <td>Exit current menu or tool</td>
+                <td>Sair do menu atual ou da ferramenta</td>
             </tr>
             </tbody>
         </table><br>
-        Below the search bar <i class="fas fa-search"></i> and the Google Street View tool <i class="fas fa-street-view"></i>, you can find a dropdown menu <i class="fas fa-bars"></i> with the maps available and some settings.
+        Abaixo da barra de pesquisa <i class="fas fa-search"></i> e da ferramenta Google Street View <i class="fas fa-street-view"></i>, você pode encontrar um menu suspenso <i class="fas fa-bars"></i> com os mapas disponíveis e algumas configurações.
         <table style="width: 100%">
             <colgroup>
                <col span="1" style="width: 11%;">
@@ -219,27 +219,27 @@
             <tr>
                 <td></td>
                 <td>F1</td>
-                <td>Show or hide the Strava Heatmap</td>
+                <td>Mostrar ou ocultar o Strava Heatmap</td>
             </tr>
             <tr>
                 <td><i class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-dove"></i></td>
                 <td>F2</td>
-                <td>Switch between routing and <i>as the crow flies</i> (straight lines between track points) when editing traces</td>
+                <td>Alternar entre o modo roteamento ou modo <i>conforme o corvo voa</i> (linhas retas entre os pontos da faixa) ao editar as trilhas</td>
             </tr>
             <tr>
                 <td><i class="fas fa-biking"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-running"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-motorcycle"></i></td>
                 <td>F3</td>
-                <td>Switch between cycling, running and driving mode (impacts the routing and the Strava Heatmap displayed)</td>
+                <td>Alternar entre o modo de pedalar, correr e dirigir (isso afeta o roteamento e a exibição do Heatmap do Strava)</td>
             </tr>
             <tr>
                 <td><b>km</b> <i class="fas fa-arrows-alt-h"></i> <b>mi</b></td>
                 <td>F4</td>
-                <td>Change units displayed</td>
+                <td>Mudar unidades exibidas</td>
             </tr>
             <tr>
                 <td></td>
                 <td>Ctrl+H</td>
-                <td>Show or hide the elevation profile</td>
+                <td>Mostrar ou ocultar o perfil de elevação</td>
             </tr>
             </tbody>
         </table><br>
@@ -251,51 +251,51 @@
             <tbody>
             <tr>
                 <td><i class="fas fa-pencil-alt"></i></td>
-                <td>Enter edition mode to add, move, insert (by dragging the line), delete or split (right-click) track points</td>
+                <td>Entre no modo de edição para adicionar, mover, inserir (arrastando a linha), apagar ou dividir pontos (clique com o botão direito do mouse)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-stopwatch"></i></td>
-                <td>Change the speed and starting time of the trace</td>
+                <td>Alterar a velocidade e o tempo de início do rastreamento</td>
             </tr>
             <tr>
                 <td><i class="fas fa-exchange-alt"></i></td>
-                <td>Reverse the trace and adapt the timestamps</td>
+                <td>Inverter a trilha e adaptar os horários</td>
             </tr>
             <tr>
                 <td><i class="fas fa-plus-circle"></i></td>
-                <td>Merge with another trace (automatically extends time, heart rate, cadence, power and temperature data)</td>
+                <td>Mesclar com outra trilha (os dados de horários, temperatura, frequência cardíaca, cadência e potência são automaticamente estendidos)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-list-ul"></i></td>
-                <td>Extract all track segments and creates one trace for each</td>
+                <td>Extrair todos os segmentos da trilha e criar uma trilha para cada um</td>
             </tr>
             <tr>
                 <td><i class="fas fa-copy"></i></td>
-                <td>Duplicate the trace</td>
+                <td>Duplicar a trilha</td>
             </tr>
             <tr>
                 <td><i class="fas fa-palette"></i></td>
-                <td>Change the display color and opacity, these values will be exported and detected when re-imported</td>
+                <td>Alterar a cor e a opacidade da tela, estes valores serão exportados e detectados quando reimportados</td>
             </tr>
             <tr>
                 <td><i class="fas fa-map-marker-alt"></i></td>
-                <td>Add a waypoint (drag to change its location and use the buttons to edit info, duplicate or remove)</td>
+                <td>Adicione um ponto de parada (arraste para alterar sua localização e use os botões para editar informações, duplicar ou remover)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-compress-alt"></i></td>
-                <td>Reduce the number of track points</td>
+                <td>Reduzir o número de pontos da trilha</td>
             </tr>
             <tr>
                 <td><i class="fas fa-vector-square"></i></td>
-                <td>Delete track points and/or waypoints inside/outside rectangle selection</td>
+                <td>Excluir os pontos da trilha e/ou os pontos de parada de dentro/fora do retângulo de seleção</td>
             </tr>
             <tr>
                 <td><i class="fas fa-eye-slash"></i></td>
-                <td>Hide or unhide the trace</td>
+                <td>Ocultar ou reexibir a trilha</td>
             </tr>
             <tr>
                 <td><i class="fas fa-trash-alt"></i></td>
-                <td>Delete the trace</td>
+                <td>Excluir a trilha</td>
             </tr>
             </tbody>
         </table><br>
@@ -410,7 +410,7 @@
             <div id="ok-button-text">Ok</div>
             <div id="cancel-button-text">Cancel</div>
             <div id="edit-speed-popup-text">
-                <div id="speed-text">Speed</div>
+                <div id="speed-text">Velocidade</div>
                 <div id="pace-text">Pace</div>
                 <div id="start-text">Start</div>
                 <div id="experimental-text">Experimental</div>
