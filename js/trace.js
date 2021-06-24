@@ -1243,6 +1243,15 @@ export default class Trace {
             pts.push(pt);
         }
 
+        if (pts.length == 0) {
+            d_pt = pt2.subtract(pt1);
+            d_pt = d_pt.divideBy(2);
+            const pt = L.Projection.SphericalMercator.unproject(pt1.add(d_pt));
+            pt.meta = {"time":null, "ele":0};
+            pt.routing = true;
+            pts.push(pt);
+        }
+
         return pts;
     }
 
