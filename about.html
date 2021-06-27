@@ -64,28 +64,25 @@
                 <a href="#support" class="my-anchor">Support</a>
                 <a href="#guide" class="my-anchor">User Guide</a>
                 <a href="#embed" class="my-anchor">Embedding</a>
-                <a href="#legal" class="my-anchor">Legal</a>
             </div>
         </div>
         <div style="position:absolute; top:60px; height:1px; left:0px; right:0px; background-color: #dedede; overflow:hidden;"></div>
-        <div style="position:absolute; bottom:0px; left:0px; overflow:hidden;">
+        <div style="position:absolute; bottom:0px; left:0px; width: 100%; overflow:hidden; display: flex; justify-content: space-between;">
             <!-- ADD_LANGUAGE -->
-            <div style="display: flex; justify-content: space-between;">
-                <span class="footer">Languages:</span>
-                <div id="languages">
-                    <a href="/about.html" class="footer">en</a>
-                    <a href="/l/es/about.html" class="footer">es</a>
-                    <a href="/l/fr/about.html" class="footer">fr</a>
-                    <a href="/l/it/about.html" class="footer">it</a>
-                </div>
+            <div id="languages" style="display: flex; justify-content: space-between;">
+                <a href="/about.html" class="footer">en</a>
+                <a href="/l/es/about.html" class="footer">es</a>
+                <a href="/l/fr/about.html" class="footer">fr</a>
+                <a href="/l/it/about.html" class="footer">it</a>
             </div>
-        </div>
-        <div style="position:absolute; bottom:0px; right:0px; overflow:hidden;">
-            <div style="display: flex; justify-content: space-between; ">
-                <span class="footer">Contact:</span>
-                <a href="https://facebook.com/gpx.studio" target="_blank" class="footer">Facebook</a>
-                <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank" class="footer">GitHub</a>
-                <a href="mailto:hello@gpx.studio" class="footer">Email</a>
+            <div style="display: flex; justify-content: space-between;">
+                <a href="#terms" class="footer">Terms of Service</a>
+                <a href="#privacy" class="footer">Privacy Policy</a>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+                <a href="https://facebook.com/gpx.studio" target="_blank" class="footer"><i class="fab fa-facebook-square"></i></a>
+                <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank" class="footer"><i class="fab fa-github-square"></i></a>
+                <a href="mailto:hello@gpx.studio" class="footer"><i class="fas fa-envelope"></i></a>
             </div>
         </div>
         <div style="position:absolute; bottom:22px; height:1px; left:0px; right:0px; background-color: #dedede; overflow:hidden;"></div>
@@ -424,7 +421,7 @@
                     <iframe id="preview" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
-            <a name="legal"></a><a name="terms"></a><h1>Terms of Services &#128214;</h1>
+            <a name="terms"></a><h1>Terms of Services &#128214;</h1>
             <p>Thank you for using <b>gpx.studio</b>. These terms of service (Terms) cover your use and access of our website and related software (our Services).</p>
             <p>By accessing this website, you are agreeing to be bound by this website Terms of Services and to review our Privacy Policy. If you do not agree with any of these terms, you are prohibited from using or accessing this site.</p>
             <h2>Changes to the Services</h2>
@@ -506,7 +503,7 @@
         }
         .footer {
             padding: 2px 10px;
-            font-size: 14px;
+            font-size: 13px;
         }
         </style>
         <script>
