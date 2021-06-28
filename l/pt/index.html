@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <!-- ADD_LANGUAGE -->
+        <link rel="alternate" hreflang="x-default" href="https://gpx.studio/"/>
+        <link rel="alternate" hreflang="en" href="https://gpx.studio/"/>
+        <link rel="alternate" hreflang="es" href="https://gpx.studio/l/es/"/>
+        <link rel="alternate" hreflang="fr" href="https://gpx.studio/l/fr/"/>
+        <link rel="alternate" hreflang="it" href="https://gpx.studio/l/it/"/>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167421374-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            if(window.location.hostname != "localhost") {
+                gtag('config', 'UA-167421374-1');
+            }
+        </script>
+        <meta charset="utf-8">
+        <title>gpx.studio — the online GPX file editor</title>
+        <meta name="description" content="View, edit and create GPX files online: add, move and delete points, merge multiple files, reverse, add timestamps, edit waypoints and more!">
+        <meta property="og:title" content="gpx.studio — the online GPX file editor" />
+        <meta property="og:description" content="View, edit and create GPX files online: add, move and delete points, merge multiple files, reverse, add timestamps, edit waypoints and more!" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://gpx.studio/" />
+        <meta property="og:image" content="https://gpx.studio/res/og_logo.png" />
+        <meta name="twitter:card" content="summary_large_image">
+        <script type="application/ld+json">
+        {
+            "@context" : "http://schema.org",
+            "@type" : "WebApplication",
+            "name" : "gpx.studio",
+            "alternateName": "gpx.studio — the online GPX file editor",
+            "description": "View, edit and create GPX files online: add, move and delete points, merge multiple files, reverse, add timestamps, edit waypoints and more!",
+            "applicationCategory": "Tool, Editor",
+            "url" : "https://gpx.studio",
+            "sameAs" : [
+                "https://www.facebook.com/gpx.studio"
+            ],
+            "screenshot": "https://gpx.studio/res/preview.png",
+            "genre": "outdoors",
+            "keywords": "gpx, gps, file, viewer, editor, merge, reverse, timestamps, waypoints, segments",
+            "browserRequirements": "Requires JavaScript. Requires HTML5.",
+            "softwareHelp": {
+                "@type": "CreativeWork",
+                "url": "https://gpx.studio/about.html"
+            },
+            "operatingSystem": "All",
+            "featureList": "edit gpx files online, view gpx files online, merge gpx files online, reverse gpx file online, add timestamps to gpx file online, extract track segments, view and add waypoints gpx file online"
+        }
+        </script>
+        <link rel="icon" href="/res/favicon.png">
+        <link rel="stylesheet" href="/include/fontawesome/css/fontawesome.min.css"/>
+        <link rel="stylesheet" href="/include/fontawesome/css/brands.min.css"/>
+        <link rel="stylesheet" href="/include/fontawesome/css/solid.min.css"/>
+        <link rel="stylesheet" href="/include/leaflet/leaflet.css">
+        <script src="/include/leaflet/leaflet.js"></script>
+        <script type="text/javascript" src="/include/icon/Leaflet.Icon.Glyph.js"></script>
+        <script type="module" src="/include/gpx/gpx.js"></script>
+        <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+        <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
+        <link rel="stylesheet" href="/include/elevation/leaflet.elevation-0.0.4-d3v4.css"/>
+        <script type="text/javascript" src="/include/elevation/leaflet.elevation-0.0.4-d3v4.min.js"></script>
+        <script type="text/javascript" src="/include/textpath/leaflet.textpath.js"></script>
+        <script type="text/javascript" src="/include/mapboxgl/leaflet-mapbox-gl.js"></script>
+        <script type="text/javascript" src="/include/controlwindow/L.Control.Window.js"></script>
+        <link rel="stylesheet" href="/include/controlwindow/L.Control.Window.css">
+        <script type="text/javascript" src="/include/geometryutil/leaflet.geometryutil.js"></script>
+        <script type="text/javascript" src="/include/distancemarkers/leaflet-distance-markers.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.css" />
+        <script src="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.13.0/Sortable.min.js"></script>
+        <script src="/include/sanitize/xss.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/style.css">
+        <script type="module" src="/include/simplify/simplify.js"></script>
+        <script src="/include/driveutils/upload.js"></script>
+        <script type="module" src="/include/node/bundle.js"></script>
+        <script type="module" src="/js/slider.js"></script>
+        <script type="module" src="/js/buttons.js"></script>
+        <script type="module" src="/js/trace.js"></script>
+        <script type="module" src="/js/total.js"></script>
+        <script type="module" src="/js/google.js"></script>
+        <script type="module" src="/js/script.js"></script>
+        <script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
+    </head>
+    <body>
+        <input id="input-file" type="file" accept=".gpx" multiple style="display: none"/>
+        <div id="mapid"></div>
+        <div id="toolbar" class="panels-container center-leaflet">
+            <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 2px 4px" alt="logotipo do gpx.studio, o editor de arquivos GPX online"></a>
+            <div id="load" class="panels custom-button">Abrir GPX</div>
+            <div id="manual" class="panels custom-button">Novo GPX</div>
+            <div id="export" class="panels custom-button">Exportar</div>
+            <div class="panels custom-button unselected no-click2" id="undo"><i class="fas fa-reply"></i></div>
+            <div class="panels custom-button unselected no-click2" id="redo"><i class="fas fa-share"></i></div>
+            <div id="clear" class="panels custom-button">Apagar Tudo</div>
+            <div id="help" class="panels custom-button">Ajuda</div>
+            <div id="about" class="panels custom-button">Sobre</div>
+            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Doar</b> <i class="fas fa-heart"></i></div>
+        </div>
+        <div id="info" class="padding-container center-leaflet">
+            <div id="info-grid" class="panels-container trace-info">
+                <div class="panels panels-info" id="distance">Distância</div>
+                <div class="panels panels-val" id="distance-val">- km</div>
+                <div class="panels panels-info" id="elevation">Ganho de Elevação</div>
+                <div class="panels panels-val" id="elevation-val">- m</div>
+                <div class="panels panels-info" id="speed">Velocidade</div>
+                <div class="panels panels-val" id="speed-val">- km/h</div>
+                <div class="panels panels-info" id="duration">Tempo de Movimentação</div>
+                <div class="panels panels-val" id="duration-val">- h -</div>
+                <div class="panels panels-info" id="points" style="display: none">Track points</div>
+                <div class="panels panels-val" id="points-val" style="display: none">0</div>
+                <div class="panels panels-info" id="segments" style="display: none">Segments</div>
+                <div class="panels panels-val" id="segments-val" style="display: none">0</div>
+                <div class="panels panels-val panels-live" id="live-distance">--</div>
+                <div class="panels panels-val panels-live" id="live-speed">--</div>
+                <div class="panels panels-val panels-live" id="live-elevation">--</div>
+                <div class="panels panels-val panels-live" id="live-slope">--</div>
+                <div id="crop-container">
+                    <div class="panels-button" id="validate"><i class="fas fa-check custom-button"></i></div>
+                    <div class="panels-button" id="unvalidate"><i class="fas fa-ban custom-button"></i></div>
+                </div>
+                <div id="slide-container">
+                    <input type="range" min="0" max="10000000" value="0" class="slider" id="start-point">
+                    <input type="range" min="0" max="10000000" value="10000000" class="slider visible" id="end-point">
+                </div>
+            </div>
+            <ul id="sortable">
+              <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">Total</li>
+            </ul>
+        </div>
+        <div id="buttons-bar" class="panels-container vcenter-leaflet">
+            <div class="panels-button" id="edit" title="Editar pontos de trilha"><i class="fas fa-pencil-alt custom-button"></i></div><br>
+            <div class="panels-button" id="edit-time" title="Editar Tempo"><i class="fas fa-stopwatch custom-button"></i></div><br>
+            <div class="panels-button" id="reverse" title="Inverter"><i class="fas fa-exchange-alt custom-button"></i></div><br>
+            <div class="panels-button" id="combine" title="Mesclar com outra trilha"><i class="fas fa-plus-circle custom-button"></i></div><br>
+            <div class="panels-button" id="extract" title="Extrair segmentos da trilha"><i class="fas fa-list-ul custom-button"></i></div><br>
+            <div class="panels-button" id="duplicate" title="Duplicar"><i class="fas fa-copy custom-button"></i></div><br>
+            <div class="panels-button" id="color" title="Mudar cor e opacidade"><i class="fas fa-palette custom-button"></i></div><br>
+            <div class="panels-button" id="add-wpt" title="Adicionar ponto de parada"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
+            <div class="panels-button" id="reduce" title="Reduzir o número de pontos da trilha"><i class="fas fa-compress-alt custom-button"></i></div><br>
+            <div class="panels-button" id="zone-delete" title="Excluir toda a seleção de dentro/fora do retângulo"><i class="fas fa-vector-square custom-button"></i></div><br>
+            <div class="panels-button" id="hide" title="Ocultar/reexibir a trilha"><i class="fas fa-eye-slash custom-button"></i></div><br>
+            <div class="panels-button" id="delete" title="Apagar"><i class="fas fa-trash-alt custom-button"></i></div><br>
+        </div>
+        <li id="activity" class="dontselect">Atividade:
+            <span class="unselected custom-button">
+                <i id="bike" class="fas fa-biking"></i>
+                <i class="fas fa-arrows-alt-h"></i>
+                <i id="run" class="fas fa-running"></i>
+                <i class="fas fa-arrows-alt-h"></i>
+                <i id="drive" class="fas fa-motorcycle"></i>
+            </span>
+        </li>
+        <li id="units" class="dontselect">Unidades: <span class="unselected custom-button"><span id="km">km </span><i class="fas fa-arrows-alt-h"></i><span id="mi"> mi</span></span></li>
+        <li id="method" class="dontselect">Rota: <span class="unselected custom-button"><i id="route" class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i id="crow" class="fas fa-dove"></i></span></li>
+        <li id="chevrons" class="dontselect">Divisas: <input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"></li>
+        <li id="dist-markers" class="dontselect">Marcadores de distância: <input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"></li>
+        <li id="profile" class="dontselect">Perfil de elevação: <input type="checkbox" checked id="show-profile" class="custom-button" style="vertical-align: middle;"></li>
+        <!-- ADD_LANGUAGE -->
+        <div id="languages">
+            <a href="/" class="footer" target="_blank">en</a>
+            <a href="/l/es/" class="footer" target="_blank">es</a>
+            <a href="/l/fr/" class="footer" target="_blank">fr</a>
+            <a href="/l/it/" class="footer" target="_blank">it</a>
+        </div>
+        <div id="help-text">
+        <div style="text-align: center; font-size: 10pt; color: #476947">
+            <b>Verifique o <a href="./about.html#guide" target="_blank">Guia de Usuário</a> para mais informações e tutoriais!</b>
+        </div><br>
+        <table style="width: 100%">
+            <colgroup>
+               <col span="1" style="width: 11%;">
+               <col span="1" style="width: 7%;">
+               <col span="1" style="width: 82%;">
+            </colgroup>
+            <tbody>
+            <tr>
+                <td><b>Abrir GPX</b></td>
+                <td>Ctrl+O</td>
+                <td>Importar e visualizar arquivos GPX (ou arraste e solte em qualquer lugar da janela)</td>
+            </tr>
+            <tr>
+                <td><b>Novo GPX</b></td>
+                <td>Ctrl+D</td>
+                <td>Começar a desenhar uma nova rota, posicionando os pontos da trilha no mapa</td>
+            </tr>
+            <tr>
+                <td><b>Exportar</b></td>
+                <td>Ctrl+S</td>
+                <td>Baixar os arquivos em sua área de trabalho ou salvar no Google Drive™ para obter um <b>link compartilhável</b> e <b>o código de incorporação</b>. O tempo, a frequência cardíaca, a cadência, os dados de potência e a temperatura são estendidos automaticamente. Opcionalmente, mescle todos os arquivos <b>em uma ordem escolhida</b>. Também é possível arrastar uma aba para a área de trabalho para baixar o arquivo.</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-reply"></i> <i class="fas fa-share"></i></td>
+                <td>Ctrl+Z/Y</td>
+                <td>Ações de Desfazer e refazer no modo de edição</td>
+            </tr>
+            <tr>
+                <td><b>Apagar Tudo</b></td>
+                <td>Ctrl+K</td>
+                <td>Excluir todas as trilhas</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Escape</td>
+                <td>Sair do menu atual ou da ferramenta</td>
+            </tr>
+            </tbody>
+        </table><br>
+        Abaixo da barra de pesquisa <i class="fas fa-search"></i> e da ferramenta Google Street View <i class="fas fa-street-view"></i>, você pode encontrar um menu suspenso <i class="fas fa-bars"></i> com os mapas disponíveis e algumas configurações.
+        <table style="width: 100%">
+            <colgroup>
+               <col span="1" style="width: 11%;">
+               <col span="1" style="width: 7%;">
+               <col span="1" style="width: 82%;">
+            </colgroup>
+            <tbody>
+            <tr>
+                <td></td>
+                <td>F1</td>
+                <td>Mostrar ou ocultar o Strava Heatmap</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-dove"></i></td>
+                <td>F2</td>
+                <td>Alternar entre o modo roteamento ou modo <i>conforme o corvo voa</i> (linhas retas entre os pontos da faixa) ao editar as trilhas</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-biking"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-running"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-motorcycle"></i></td>
+                <td>F3</td>
+                <td>Alternar entre o modo de pedalar, correr e dirigir (isso afeta o roteamento e a exibição do Heatmap do Strava)</td>
+            </tr>
+            <tr>
+                <td><b>km</b> <i class="fas fa-arrows-alt-h"></i> <b>mi</b></td>
+                <td>F4</td>
+                <td>Mudar unidades exibidas</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Ctrl+H</td>
+                <td>Mostrar ou ocultar o perfil de elevação</td>
+            </tr>
+            </tbody>
+        </table><br>
+        <table style="width: 100%">
+            <colgroup>
+               <col span="1" align="center" style="width:11%;">
+               <col span="1" style="width: 89%;">
+            </colgroup>
+            <tbody>
+            <tr>
+                <td><i class="fas fa-pencil-alt"></i></td>
+                <td>Entre no modo de edição para adicionar, mover, inserir (arrastando a linha), apagar ou dividir pontos (clique com o botão direito do mouse)</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-stopwatch"></i></td>
+                <td>Alterar a velocidade e o tempo de início do rastreamento</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-exchange-alt"></i></td>
+                <td>Inverter a trilha e adaptar os horários</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-plus-circle"></i></td>
+                <td>Mesclar com outra trilha (os dados de horários, temperatura, frequência cardíaca, cadência e potência são automaticamente estendidos)</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-list-ul"></i></td>
+                <td>Extrair todos os segmentos da trilha e criar uma trilha para cada um</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-copy"></i></td>
+                <td>Duplicar a trilha</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-palette"></i></td>
+                <td>Alterar a cor e a opacidade da tela, estes valores serão exportados e detectados quando reimportados</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-map-marker-alt"></i></td>
+                <td>Adicione um ponto de parada (arraste para alterar sua localização e use os botões para editar informações, duplicar ou remover)</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-compress-alt"></i></td>
+                <td>Reduzir o número de pontos da trilha</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-vector-square"></i></td>
+                <td>Excluir os pontos da trilha e/ou os pontos de parada de dentro/fora do retângulo de seleção</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-eye-slash"></i></td>
+                <td>Ocultar ou reexibir a trilha</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-trash-alt"></i></td>
+                <td>Excluir a trilha</td>
+            </tr>
+            </tbody>
+        </table><br>
+        Na parte inferior, você pode ver um painel com informações sobre as trilhas que você importa.
+        A aba <b>Total</b> exibe as informações de todas as trilhas abertas agrupadas em uma.
+        <b>Troque as abas</b> para definir a ordem na qual as trilhas devem aparecer e <b>clique duas vezes</b> sobre elas para alterar seus nomes.
+        Quando você tem muitas abas, navegue através delas rolando horizontalmente.
+        Use o slider <b></b> para mover o ponto inicial/final e cortar a rota.
+        </div>
+        <div id="export-content" class="popup-content">
+            <table style="width: 100%; text-align: left">
+                <colgroup>
+                   <col span="1" style="width: 10%;">
+                   <col span="1" style="width: 40%;">
+                   <col span="1" style="width: 45%;">
+                   <col span="1" style="width: 5%;">
+                </colgroup>
+                <tbody>
+                    <td></td>
+                    <td>Mesclar todas as trilhas<input type="checkbox" id="merge"></td>
+                    <td>Tempo<input type="checkbox" id="include-time" checked></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Frequência cardíaca<input type="checkbox" id="include-hr" checked></td>
+                    <td>Cadência<input type="checkbox" id="include-cad" checked></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Potência<input type="checkbox" id="include-power" checked></td>
+                    <td>Temperatura<input type="checkbox" id="include-atemp" checked></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+            <div style="color:#0f92c5;">&#9888;&#65039; A ferramenta é <b>gratuita</b> para usar, mas <b>não é gratuita</b> para funcionar &#9888;&#65039;<br>A cada exibição de mapa, ponto adicionado ou movido tem um custo.</div>
+            <div id="donate-2" class="panels custom-button fancy-button"><b>Ajude a manter o site livre</b> &#128591;</div><br>
+            <div id="export-2" class="panels custom-button fancy-button">Baixar <i class="fas fa-download"></i></div>
+            <div id="save-drive" class="panels custom-button fancy-button">Salvar no Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
+        </div>
+        <div id="clear-content" class="popup-content">
+            Isto irá apagar todas as trilhas abertas.<br>Você deseja continuar?<br>
+            <div id="clear2" class="panels custom-button normal-button">Sim</div>
+            <div id="cancelclear" class="panels custom-button normal-button"><b>Cancelar</b></div>
+        </div>
+        <div id="delete-content" class="popup-content">
+            Isto irá apagar todas as trilhas abertas.<br>Você deseja continuar?<br>
+            <div id="delete2" class="panels custom-button normal-button">Sim</div>
+            <div id="canceldelete" class="panels custom-button normal-button"><b>Cancelar</b></div>
+        </div>
+        <div id="color-content" class="popup-content">
+            <div style="text-align: left">
+                <label for="color-picker">Escolha uma nova cor</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
+                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Aplicar a mesma cor em todas a trilhas</label><br>
+                <label for="opacity-slider">Opacidade</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
+                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Aplicar a mesma opacidade em todas as trilhas</label>
+            </div>
+            <div id="validate-color" class="panels custom-button normal-button">Ok</div>
+            <div id="cancel-color" class="panels custom-button normal-button">Cancelar</div>
+        </div>
+        <div id="load-content" class="popup-content">
+            Escolher arquivos de<br>
+            <div id="load2" class="panels custom-button normal-button">Computador</div>
+            <div id="load-drive" class="panels custom-button normal-button">Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div><br>
+            (ou arraste e solte em qualquer lugar da janela)
+        </div>
+        <div id="share-content" class="popup-content">
+            Feito!<br>
+            <div id="copy-link" class="panels custom-button fancy-button">Copiar link <i class="fas fa-link"></i></div><br>
+            <div id="copy-embed" class="panels custom-button fancy-button">Copiar código de incorporação <i class="fas fa-code"></i></div><br>
+        </div>
+        <div id="merge-content" class="popup-content">
+            Clique em outra aba para mesclar as trilhas<br>
+            <input type="checkbox" id="merge-as-segments">Mesclar como segmentos de faixa<br>
+            <div id="merge-cancel" class="panels custom-button normal-button">Cancelar</div>
+        </div>
+        <div id="crop-content" class="popup-content">
+            <input type="checkbox" id="crop-keep">Manter partes cortadas em novos arquivos<br>
+            <div id="crop-ok" class="panels custom-button normal-button">Proceder</div>
+            <div id="crop-cancel" class="panels custom-button normal-button">Cancelar</div>
+        </div>
+        <div id="reduce-content" class="popup-content">
+            Escolha a quantidade de detalhes para manter<br>
+            Número de pontos da trilha: <span id="reduce-npoints">0</span><br>
+            <input type="range" min="0" max="1000" id="reduce-slider" style="width: 100%"><br>
+            <div id="reduce-ok" class="panels custom-button normal-button">Ok</div>
+            <div id="reduce-cancel" class="panels custom-button normal-button">Cancelar</div>
+        </div>
+        <div id="zone-delete-content" class="popup-content">
+            Escolher o que excluir<br>
+            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Track points</label>
+            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Pontos de Parada</label><br>
+            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Dentro da seleção</label>
+            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Fora da seleção</label><br>
+            <div id="zone-delete-ok" class="panels custom-button normal-button">Proceder</div>
+            <div id="zone-delete-cancel" class="panels custom-button normal-button">Cancelar</div>
+        </div>
+        <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
+            <b>Abrir em</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logotipo do gpx.studio, o editor de arquivos GPX online">
+        </div>
+        <div style="display: none">
+            <div id="unit-kilometers-text">km</div>
+            <div id="unit-miles-text">mi</div>
+            <div id="unit-meters-text">m</div>
+            <div id="unit-feet-text">pés</div>
+            <div id="unit-hours-text">h</div>
+            <div id="unit-minutes-text">min</div>
+            <div id="duplicate-text">Duplicar</div>
+            <div id="delete-text">Apagar</div>
+            <div id="ok-button-text">Ok</div>
+            <div id="cancel-button-text">Cancelar</div>
+            <div id="edit-speed-popup-text">
+                <div id="speed-text">Velocidade</div>
+                <div id="pace-text">Ritmo</div>
+                <div id="start-text">Iniciar</div>
+                <div id="experimental-text">Experimental</div>
+                <div id="experimental-info-text">Gerar velocidade considerando a inclinação (apaga todos os dados de tempo existentes)</div>
+            </div>
+            <div id="waypoint-popup-text">
+                <div id="empty-title-text">título em branco</div>
+                <div id="name-text">Nome</div>
+                <div id="comment-text">Comentário (para dispositivos GPS)</div>
+                <div id="description-text">Descrição (para usuários)</div>
+                <div id="symbol-text">Símbolo</div>
+                <div id="edit-info-text">Editar informação</div>
+            </div>
+            <div id="right-click-popup-text">
+                <div id="split-text">Dividir aqui</div>
+                <div id="remove-pt-text">Remover Ponto</div>
+            </div>
+        </div>
+        <h1 style="display: none">editor de gpx online</h1>
+        <h1 style="display: none">visualizador de gpx online</h1>
+        <h1 style="display: none">editor de arquivos gpx online</h1>
+        <h1 style="display: none">ver arquivos gpx online</h1>
+        <h1 style="display: none">mesclar arquivos gpx online</h1>
+        <h1 style="display: none">extrair o arquivo gpx de segmentos online</h1>
+        <h1 style="display: none">inverter sentido do gpx file online</h1>
+        <h1 style="display: none">adicionar timestamps para o arquivo gpx online</h1>
+        <h1 style="display: none">comprimir simplesmente simplifica o arquivo para reduzir os números de pontos gpx online</h1>
+        <h1 style="display: none">visualizar e adicionar waypoints no arquivo gpx online</h1>
+    </body>
+</html>
