@@ -7,6 +7,8 @@
         <link rel="alternate" hreflang="es" href="https://gpx.studio/l/es/about.html"/>
         <link rel="alternate" hreflang="fr" href="https://gpx.studio/l/fr/about.html"/>
         <link rel="alternate" hreflang="it" href="https://gpx.studio/l/it/about.html"/>
+        <link rel="alternate" hreflang="nl" href="https://gpx.studio/l/nl/about.html"/>
+        <link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/about.html"/>
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167421374-1"></script>
         <script>
             if(window.location.hostname != "localhost") {
@@ -61,31 +63,30 @@
                 <a href="./"><img src="/res/logo.png" style="height: 40px"></a>
                 <a href="#about" class="my-anchor">À propos</a>
                 <a href="#funding" class="my-anchor">Financement</a>
-                <a href="#support" class="my-anchor">Support</a>
+                <a href="#support" class="my-anchor">Assistance</a>
                 <a href="#guide" class="my-anchor">Guide utilisateur</a>
                 <a href="#embed" class="my-anchor">Intégration</a>
-                <a href="#legal" class="my-anchor">Légal</a>
             </div>
         </div>
         <div style="position:absolute; top:60px; height:1px; left:0px; right:0px; background-color: #dedede; overflow:hidden;"></div>
-        <div style="position:absolute; bottom:0px; left:0px; overflow:hidden;">
+        <div style="position:absolute; bottom:0px; left:0px; width: 100%; overflow:hidden; display: flex; justify-content: space-between;">
             <!-- ADD_LANGUAGE -->
-            <div style="display: flex; justify-content: space-between;">
-                <span class="footer">Langues :</span>
-                <div id="languages">
-                    <a href="/about.html" class="footer">en</a>
-                    <a href="/l/es/about.html" class="footer">es</a>
-                    <a href="/l/fr/about.html" class="footer">fr</a>
-                    <a href="/l/it/about.html" class="footer">it</a>
-                </div>
+            <div id="languages" style="display: flex; justify-content: space-between;">
+                <a href="/about.html" class="footer">en</a>
+                <a href="/l/es/about.html" class="footer">es</a>
+                <a href="/l/fr/about.html" class="footer">fr</a>
+                <a href="/l/it/about.html" class="footer">it</a>
+                <a href="/l/nl/about.html" class="footer">nl</a>
+                <a href="/l/pt/about.html" class="footer">pt</a>
             </div>
-        </div>
-        <div style="position:absolute; bottom:0px; right:0px; overflow:hidden;">
-            <div style="display: flex; justify-content: space-between; ">
-                <span class="footer">Contact:</span>
-                <a href="https://facebook.com/gpx.studio" target="_blank" class="footer">Facebook</a>
-                <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank" class="footer">GitHub</a>
-                <a href="mailto:hello@gpx.studio" class="footer">Email</a>
+            <div style="display: flex; justify-content: space-between;">
+                <a href="#terms" class="footer">Conditions d'utilisation</a>
+                <a href="#privacy" class="footer">Politique de confidentialité</a>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+                <a href="https://facebook.com/gpx.studio" target="_blank" class="footer"><i class="fab fa-facebook-square"></i></a>
+                <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank" class="footer"><i class="fab fa-github-square"></i></a>
+                <a href="mailto:hello@gpx.studio" class="footer"><i class="fas fa-envelope"></i></a>
             </div>
         </div>
         <div style="position:absolute; bottom:22px; height:1px; left:0px; right:0px; background-color: #dedede; overflow:hidden;"></div>
@@ -424,7 +425,7 @@
                     <iframe id="preview" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
-            <a name="legal"></a><a name="terms"></a><h1>Conditions d'utilisation &#128214;</h1>
+            <a name="terms"></a><h1>Conditions d'utilisation &#128214;</h1>
             <p>Merci d'utiliser <b>gpx.studio</b>. Les présentes conditions d'utilisation (Conditions) couvrent votre utilisation et votre accès à notre site Web et à notre logiciel (nos Services).</p>
             <p>En accédant à ce site Web, vous acceptez d'être lié par les présentes conditions d'utilisation du site Web et de consulter notre politique de confidentialité. Si vous n'êtes pas d'accord avec l'une ou l'autre de ces modalités, il vous est interdit d'utiliser ou d'accéder à ce site.</p>
             <h2>Changements des Services</h2>
@@ -450,7 +451,8 @@
                 De plus, elle est utilisée pour authentifier automatiquement les utilisateurs qui visitent le site web mais n'est jamais stockée de notre côté.</p>
             <p>Nous utilisons les fonctionnalités standards de partage de Google Drive lorsque vous décidez de partager le fichier, et les mécanismes standards d'authentification et d'autorisation d'accès de Google Drive.
                 Aucun autre fichier que ceux que vous créez avec l'outil ou que vous décidez d'ouvrir avec celui-ci (soit en ouvrant depuis Google Drive ou en visitant son URL associée sur l'outil) ne sera accédé, et aucun ne sera stocké.</p>
-            <p>Dernière mise à jour le 16 octobre 2020.</p>
+            <p><b>gpx.studio</b> utilise les informations reçues par les API Google conformément à la <a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes">Politique d'utilisation des données utilisateur des services API de Google</a>, y compris les exigences d'utilisation limitée.</p>
+            <p>Dernière mise à jour le 24 juin 2021.</p>
             <br><br><br>
         </div></div>
         <style>
@@ -505,12 +507,12 @@
         }
         .footer {
             padding: 2px 10px;
-            font-size: 14px;
+            font-size: 13px;
         }
         </style>
         <script>
         // ADD_LANGUAGE
-        const language_list = ['es', 'fr', 'it'];
+        const language_list = ['es', 'fr', 'it', 'nl', 'pt'];
         var language = 'en';
         for (var l=0; l<language_list.length; l++)
             if (window.location.pathname.indexOf(language_list[l]) != -1) {

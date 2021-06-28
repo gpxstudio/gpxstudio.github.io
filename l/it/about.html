@@ -7,6 +7,8 @@
         <link rel="alternate" hreflang="es" href="https://gpx.studio/l/es/about.html"/>
         <link rel="alternate" hreflang="fr" href="https://gpx.studio/l/fr/about.html"/>
         <link rel="alternate" hreflang="it" href="https://gpx.studio/l/it/about.html"/>
+        <link rel="alternate" hreflang="nl" href="https://gpx.studio/l/nl/about.html"/>
+        <link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/about.html"/>
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167421374-1"></script>
         <script>
             if(window.location.hostname != "localhost") {
@@ -59,33 +61,32 @@
         <div style="position:absolute; top:0px; height:60px; line-height: 40px; left:0px; right:0px; overflow:hidden;">
             <div style="display: flex; justify-content: space-between; margin: 10px 3% 0% 3%; ">
                 <a href="./"><img src="/res/logo.png" style="height: 40px"></a>
-                <a href="#about" class="my-anchor">Informazioni</a>
-                <a href="#funding" class="my-anchor">Donazioni</a>
-                <a href="#support" class="my-anchor">Supporto</a>
-                <a href="#guide" class="my-anchor">Guida Utente</a>
-                <a href="#embed" class="my-anchor">Incorporamento</a>
-                <a href="#legal" class="my-anchor">Note Legali</a>
+                <a href="#about" class="my-anchor">About</a>
+                <a href="#funding" class="my-anchor">Funding</a>
+                <a href="#support" class="my-anchor">Support</a>
+                <a href="#guide" class="my-anchor">User Guide</a>
+                <a href="#embed" class="my-anchor">Embedding</a>
             </div>
         </div>
         <div style="position:absolute; top:60px; height:1px; left:0px; right:0px; background-color: #dedede; overflow:hidden;"></div>
-        <div style="position:absolute; bottom:0px; left:0px; overflow:hidden;">
+        <div style="position:absolute; bottom:0px; left:0px; width: 100%; overflow:hidden; display: flex; justify-content: space-between;">
             <!-- ADD_LANGUAGE -->
-            <div style="display: flex; justify-content: space-between;">
-                <span class="footer">Lingue:</span>
-                <div id="languages">
-                    <a href="/about.html" class="footer">en</a>
-                    <a href="/l/es/about.html" class="footer">es</a>
-                    <a href="/l/fr/about.html" class="footer">fr</a>
-                    <a href="/l/it/about.html" class="footer">it</a>
-                </div>
+            <div id="languages" style="display: flex; justify-content: space-between;">
+                <a href="/about.html" class="footer">en</a>
+                <a href="/l/es/about.html" class="footer">es</a>
+                <a href="/l/fr/about.html" class="footer">fr</a>
+                <a href="/l/it/about.html" class="footer">it</a>
+                <a href="/l/nl/about.html" class="footer">nl</a>
+                <a href="/l/pt/about.html" class="footer">pt</a>
             </div>
-        </div>
-        <div style="position:absolute; bottom:0px; right:0px; overflow:hidden;">
-            <div style="display: flex; justify-content: space-between; ">
-                <span class="footer">Contatti:</span>
-                <a href="https://facebook.com/gpx.studio" target="_blank" class="footer">Facebook</a>
-                <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank" class="footer">GitHub</a>
-                <a href="mailto:hello@gpx.studio" class="footer">Email</a>
+            <div style="display: flex; justify-content: space-between;">
+                <a href="#terms" class="footer">Terms of Service</a>
+                <a href="#privacy" class="footer">Privacy Policy</a>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+                <a href="https://facebook.com/gpx.studio" target="_blank" class="footer"><i class="fab fa-facebook-square"></i></a>
+                <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank" class="footer"><i class="fab fa-github-square"></i></a>
+                <a href="mailto:hello@gpx.studio" class="footer"><i class="fas fa-envelope"></i></a>
             </div>
         </div>
         <div style="position:absolute; bottom:22px; height:1px; left:0px; right:0px; background-color: #dedede; overflow:hidden;"></div>
@@ -424,7 +425,7 @@
                     <iframe id="preview" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
-            <a name="legal"></a><a name="terms"></a><h1>Termini di Servizio &#128214;</h1>
+            <a name="terms"></a><h1>Termini di Servizio &#128214;</h1>
             <p>Grazie per aver utilizzato <b>gpx.studio</b>. These terms of service (Terms) cover your use and access of our website and related software (our Services).</p>
             <p>By accessing this website, you are agreeing to be bound by this website Terms of Services and to review our Privacy Policy. If you do not agree with any of these terms, you are prohibited from using or accessing this site.</p>
             <h2>Changes to the Services</h2>
@@ -450,7 +451,8 @@
                 Furthermore, it is used to automatically authenticate users visiting the website again but it is never stored on our side.</p>
             <p>We use standard Google Drive sharing functionality when you decide to share the file, and standard Google Drive authentication, authorization mechanisms for access control.
                 No other files than those you create with the tool or decide to open with it (either by opening from Google Drive or visiting its associated URL on the tool) will be accessed, and none will ever be stored.</p>
-            <p>Ultimo aggiornamento il 16 Ottobre 2020.</p>
+            <p><b>gpx.studio</b>'s use of information received from Google APIs will adhere to the <a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
+            <p>Last updated June 24, 2021.</p>
             <br><br><br>
         </div></div>
         <style>
@@ -505,12 +507,12 @@
         }
         .footer {
             padding: 2px 10px;
-            font-size: 14px;
+            font-size: 13px;
         }
         </style>
         <script>
         // ADD_LANGUAGE
-        const language_list = ['es', 'fr', 'it'];
+        const language_list = ['es', 'fr', 'it', 'nl', 'pt'];
         var language = 'en';
         for (var l=0; l<language_list.length; l++)
             if (window.location.pathname.indexOf(language_list[l]) != -1) {
