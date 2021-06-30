@@ -50,6 +50,8 @@
             if (map.options.zoomAnimation) {
                 L.DomEvent.on(map._proxy, L.DomUtil.TRANSITION_END, this._transitionEnd, this);
             }
+
+            map._addZoomLimit(this);
         },
 
         onRemove: function (map) {
