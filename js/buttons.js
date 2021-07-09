@@ -493,7 +493,7 @@ export default class Buttons {
                     });
                     _this.streetView.onAdd = function (map) {
                         var div = L.DomUtil.create('div', 'leaflet-control-layers leaflet-bar');
-                        div.innerHTML = '<i class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;"></i>';
+                        div.innerHTML = '<i class="fas fa-street-view custom-button" title="Google Street View" style="padding: 6px; font-size: 14px;"></i>';
                         L.DomEvent.disableClickPropagation(div);
                         _this.googleStreetView = div;
                         return div;
