@@ -178,6 +178,7 @@ export default class Buttons {
         this.trace_info_content = document.getElementById('info');
         this.toolbar_content = document.getElementById('toolbar');
         this.languages_content = document.getElementById('languages');
+        this.street_view_content = document.getElementById('street-view');
 
         // TRANSLATED TEXT
         this.ok_button_text = document.getElementById('ok-button-text').textContent;
@@ -493,7 +494,7 @@ export default class Buttons {
                     });
                     _this.streetView.onAdd = function (map) {
                         var div = L.DomUtil.create('div', 'leaflet-control-layers leaflet-bar');
-                        div.innerHTML = '<i class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;"></i>';
+                        div.appendChild(_this.street_view_content);
                         L.DomEvent.disableClickPropagation(div);
                         _this.googleStreetView = div;
                         return div;
