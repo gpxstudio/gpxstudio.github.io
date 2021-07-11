@@ -158,7 +158,7 @@ export default class Trace {
             button.addEventListener("click", function () {
                 const copy = trace.clone();
                 copy.crop(best_idx, copy.getPoints().length, true);
-                trace.crop(0, best_idx+1, true);
+                trace.crop(0, best_idx, true);
                 trace.closePopup();
                 trace.draw();
             });
@@ -243,7 +243,6 @@ export default class Trace {
         this.gpx.setStyle(this.focus_style);
         this.gpx.bringToFront();
         this.buttons.focusTabElement(this.tab);
-        this.buttons.slider.reset();
         this.showData();
         this.showElevation();
         this.updateExtract();
@@ -266,6 +265,7 @@ export default class Trace {
         if (this.isEdited) this.stopEdit();
         if (this.drawing) this.stopDraw();
         if (this.renaming) this.rename();
+        if (this.buttons.slider.isActive()) this.buttons.slider.reset();
     }
 
     updateFocus() {
@@ -300,6 +300,7 @@ export default class Trace {
             this.hideChevrons();
             this.hideDistanceMarkers();
             this.removeEditMarkers();
+            if (this.buttons.slider.isActive()) this.buttons.slider.reset();
             this.buttons.elev._removeSliderCircles();
         }
     }
@@ -355,6 +356,7 @@ export default class Trace {
         this.updatePointIndices();
         this.updateEditMarkers();
         this.buttons.greyTraceButtons();
+        if (this.buttons.slider.isActive()) this.buttons.slider.reset();
         this.buttons.elev._removeSliderCircles();
         this.buttons.editToValidate();
         this.closePopup();
@@ -432,8 +434,8 @@ export default class Trace {
         if (this.buttons.cycling) this.buttons.speed.innerHTML = this.getMovingSpeed().toFixed(1).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text) + '/' + this.buttons.unit_hours_text;
         else this.buttons.speed.innerHTML = this.total.msToTimeMin(this.getMovingPace()) + ' ' + this.buttons.unit_minutes_text + '/' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text);
         this.buttons.duration.innerHTML = this.total.msToTime(this.getMovingTime());
-        this.buttons.points.innerHTML = this.getPoints().length;
-        this.buttons.segments.innerHTML = this.getSegments().length;
+        this.buttons.points.innerHTML = this.gpx._info.npoints;
+        this.buttons.segments.innerHTML = this.gpx._info.nsegments;
     }
 
     showElevation() {
@@ -542,7 +544,7 @@ export default class Trace {
                     button2.addEventListener("click", function () {
                         const copy = trace.clone();
                         copy.crop(marker._pt.trace_index, copy.getPoints().length, true);
-                        trace.crop(0, marker._pt.trace_index+1, true);
+                        trace.crop(0, marker._pt.trace_index, true);
                         marker.remove();
                         trace.closePopup();
                         trace.draw();
@@ -701,7 +703,7 @@ export default class Trace {
             points[i].routing = false;
         }
 
-        this.recomputeStats();
+        this.buttons.slider.reset();
         this.update();
         this.redraw();
 
@@ -829,10 +831,10 @@ export default class Trace {
         for (var i=0; i<segments.length; i++) {
             const len = segments[i]._latlngs.length;
             if (start >= cumul+len) this.gpx.getLayers()[0].removeLayer(segments[i]);
-            else if (end <= cumul) this.gpx.getLayers()[0].removeLayer(segments[i]);
-            else {
-                if (end-cumul < len) segments[i]._latlngs.splice(end-cumul);
-                if (start >= cumul) segments[i]._latlngs.splice(0, start-cumul);
+            else if (end < cumul) this.gpx.getLayers()[0].removeLayer(segments[i]);
+            else if (start > cumul || end < cumul+len-1) {
+                if (end-cumul+1 < len) segments[i]._latlngs.splice(end-cumul+1);
+                if (start > cumul) segments[i]._latlngs.splice(0, start-cumul);
                 segments[i]._latlngs[0].routing = false;
                 segments[i]._latlngs[segments[i]._latlngs.length-1].routing = false;
             }
@@ -842,20 +844,18 @@ export default class Trace {
         if (!no_recursion) {
             if (start > 0 && end < cumul-1) {
                 const copy2 = copy.clone();
-                copy.crop(0, start, true);
-                copy2.crop(end, cumul, true);
+                copy.crop(0, start-1, true);
+                copy2.crop(end+1, cumul, true);
             } else if (start > 0) {
-                copy.crop(0, start, true);
+                copy.crop(0, start-1, true);
             } else if (end < cumul-1) {
-                copy.crop(end, cumul, true);
+                copy.crop(end+1, cumul, true);
             }
         }
 
         this.recomputeStats();
         this.redraw();
-        this.showData();
-        this.showElevation();
-        this.buttons.slider.reset();
+        this.update();
         this.focus();
     }
 
@@ -888,7 +888,7 @@ export default class Trace {
             }
         }
         this.gpx.setStyle(this.focus_style);
-        this.recomputeStats();
+        this.buttons.slider.reset();
         this.update();
         this.redraw();
         this.showChevrons();
@@ -1203,9 +1203,8 @@ export default class Trace {
         if (this.getLayers().length == 0) {
             this.total.removeTrace(this.index);
         } else {
-            this.recomputeStats();
+            this.buttons.slider.reset();
             this.update();
-            this.updateExtract();
             this.redraw();
         }
     }
@@ -1386,6 +1385,12 @@ export default class Trace {
     }
 
     recomputeStats() {
+        var start = 0, end = this.getPoints().length-1;
+        if (this.buttons.slider.isActive()) {
+            start = Math.max(start, this.buttons.slider.getIndexStart());
+            end = Math.min(end, this.buttons.slider.getIndexEnd());
+        }
+
         // reset
         this.gpx._info.length = 0.0;
         this.gpx._info.moving_length = 0.0;
@@ -1397,26 +1402,38 @@ export default class Trace {
         this.gpx._info.duration.end = null;
         this.gpx._info.duration.moving = 0;
         this.gpx._info.duration.total = 0;
+        this.gpx._info.npoints = 0;
+        this.gpx._info.nsegments = 0;
+        var distance = 0.0;
 
+        var cumul = 0;
         // recompute on remaining data
         const segments = this.getSegments();
         for (var l=0; l<segments.length; l++) {
             var ll = null, last = null, last_ele = null;
             const points = segments[l]._latlngs;
+
+            if (start < cumul+points.length && end >= cumul) this.gpx._info.nsegments++;
+
             for (var i=0; i<points.length; i++) {
                 ll = points[i];
-                this.gpx._info.elevation.max = Math.max(ll.meta.ele, this.gpx._info.elevation.max);
-                this.gpx._info.elevation.min = Math.min(ll.meta.ele, this.gpx._info.elevation.min);
-                this.gpx._info.duration.end = ll.meta.time;
+
+                if (cumul+i >= start && cumul+i <= end) {
+                    this.gpx._info.npoints++;
+                    this.gpx._info.elevation.max = Math.max(ll.meta.ele, this.gpx._info.elevation.max);
+                    this.gpx._info.elevation.min = Math.min(ll.meta.ele, this.gpx._info.elevation.min);
+                    this.gpx._info.duration.end = ll.meta.time;
+                }
 
                 if (last != null) {
                     const dist = this.gpx._dist2d(last, ll);
-                    this.gpx._info.length += dist;
+                    if (cumul+i >= start && cumul+i <= end) this.gpx._info.length += dist;
+                    distance += dist;
 
                     if (last_ele == null) last_ele = ll;
                     var t = ll.meta.ele - last_ele.meta.ele;
                     const dist_to_last_ele = this.gpx._dist2d(last_ele, ll);
-                    if (Math.abs(t) > 10 || dist_to_last_ele > 50) {
+                    if (cumul+i >= start && cumul+i <= end && (Math.abs(t) > 10 || dist_to_last_ele > 50)) {
                         if (t > 0) {
                           this.gpx._info.elevation.gain += t;
                         } else {
@@ -1426,18 +1443,23 @@ export default class Trace {
                     }
 
                     t = Math.abs(ll.meta.time - last.meta.time);
-                    this.gpx._info.duration.total += t;
-                    if (t < this.gpx.options.max_point_interval && (dist/1000)/(t/1000/60/60) >= 0.5) {
-                      this.gpx._info.duration.moving += t;
-                      this.gpx._info.moving_length += dist;
+
+                    if (cumul+i >= start && cumul+i <= end) {
+                        this.gpx._info.duration.total += t;
+                        if (t < this.gpx.options.max_point_interval && (dist/1000)/(t/1000/60/60) >= 0.5) {
+                          this.gpx._info.duration.moving += t;
+                          this.gpx._info.moving_length += dist;
+                        }
                     }
                 } else if (this.gpx._info.duration.start == null) {
                     this.gpx._info.duration.start = ll.meta.time;
                 }
-                ll._dist = Math.round(this.gpx._info.length/1e3*1e5)/1e5;
+                ll._dist = Math.round(distance/1e3*1e5)/1e5;
 
                 last = ll;
             }
+
+            cumul += points.length;
         }
     }
 

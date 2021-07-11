@@ -554,7 +554,9 @@ L.GPX = L.FeatureGroup.extend({
       duration: {start: null, end: null, moving: 0, total: 0},
       atemp: {avg: 0, _total: 0, _points: []},
       cad: {avg: 0, _total: 0, _points: []},
-      power: {avg: 0, _total: 0, _points: []}
+      power: {avg: 0, _total: 0, _points: []},
+      npoints: 0,
+      nsegments: 0
     };
   },
 
@@ -873,7 +875,10 @@ L.GPX = L.FeatureGroup.extend({
     var last = null;
     var last_ele = null;
 
+    this._info.nsegments++;
+
     for (var i = 0; i < el.length; i++) {
+      this._info.npoints++;
       var _, ll = new L.LatLng(
         el[i].getAttribute('lat'),
         el[i].getAttribute('lon'));

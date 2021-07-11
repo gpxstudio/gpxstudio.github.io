@@ -1031,8 +1031,8 @@ export default class Buttons {
         this.crop_ok.addEventListener("click", function () {
             if (total.hasFocus) return;
             const trace = total.traces[total.focusOn];
-            const start = Math.max(0, total.buttons.slider.getIndexStart()-1);
-            const end = Math.min(trace.getPoints().length-1, total.buttons.slider.getIndexEnd()+1);
+            const start = Math.max(0, total.buttons.slider.getIndexStart());
+            const end = Math.min(trace.getPoints().length-1, total.buttons.slider.getIndexEnd());
             total.traces[total.focusOn].crop(start, end, !buttons.crop_keep.checked);
             buttons.crop_window.hide();
             gtag('event', 'button', {'event_category' : 'crop'});
@@ -1298,7 +1298,7 @@ export default class Buttons {
 
                 trace.changeTimeData(startTime, v);
                 trace.recomputeStats();
-                trace.update();
+                trace.showData();
 
                 buttons.time.window.close();
                 gtag('event', 'button', {'event_category' : 'edit-time'});
