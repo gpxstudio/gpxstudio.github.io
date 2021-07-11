@@ -387,8 +387,8 @@
             <div>
                 Vous pouvez afficher des traces sur votre site web avec <b>gpx.studio</b>. Il y a deux façons de le faire: avec des fichiers stockés sur un serveur ou avec Google Drive.
                 <ul>
-                    <li><b>URL de fichier:</b>Ajoutez le lien du fichier dans l'attribut <code>urls</code> du paramètre <code>state</code>. Make sure to use <code>https</code>, to encode any special characters and that <b>gpx.studio</b> is allowed to request the files, otherwise the requests will be blocked by the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank">CORS policy</a>, i.e. you should set the following header in your server response:
-                        <p style="text-align: center"><code>Access-Control-Allow-Origin: *</code> or <code>https://gpx.studio</code></p></li>
+                    <li><b>URL de fichier:</b>Ajoutez le lien du fichier dans l'attribut <code>urls</code> du paramètre <code>state</code>. Assurez-vous d'utiliser <code>https</code>, d'encoder tous les caractères spéciaux et que les requêtes de <b>gpx.studio</b> ne soient pas bloquées par la <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank">politique CORS</a>, c'est-à-dire d'ajouter le header suivant à la réponse de votre serveur :
+                        <p style="text-align: center"><code>Acces-Control-Allow-Origin : *</code> ou <code>https://gpx.studio</code></p></li>
                     <li><b>Google Drive :</b> Il suffit de sauvegarder les fichiers dans votre Google Drive lors de l'exportation et de copier le code fourni ! Si vous voulez afficher des fichiers que vous avez déjà sur votre Google Drive, ajoutez l'ID du fichier dans l'attribut <code>ids</code> du paramètre <code>state</code> et assurez-vous qu'ils soient disponibles pour tous les utilisateurs avec le lien.</li>
                 </ul>
                 <p>Choisissez la carte affichée par défaut avec le paramètre <code>source</code> parmi les valeurs suivantes :</p>
