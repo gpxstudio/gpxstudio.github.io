@@ -387,8 +387,8 @@
             <div>
                 You are very welcome to display traces on your website with <b>gpx.studio</b>. There are two ways to do it: the first one with files stored on a server and the second one with Google Drive.
                 <ul>
-                    <li><b>File URL:</b> Add the link to the file in the <code>urls</code> attribute of the <code>state</code> parameter of the query string. Make sure to use <code>https</code>, to encode any special characters and that <b>gpx.studio</b> is allowed to request the files, otherwise the requests will be blocked by the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank">CORS policy</a>, i.e. you should set either
-                        <p style="text-align: center"><code>Access-Control-Allow-Origin: *</code> or <code>https://gpx.studio</code></p> in your server response.</li>
+                    <li><b>File URL:</b> Add the link to the file in the <code>urls</code> attribute of the <code>state</code> parameter of the query string. Make sure to use <code>https</code>, to encode any special characters and that <b>gpx.studio</b> is allowed to request the files, otherwise the requests will be blocked by the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank">CORS policy</a>, i.e. you should set the following header in your server response:
+                        <p style="text-align: center"><code>Access-Control-Allow-Origin: *</code> or <code>https://gpx.studio</code></p></li>
                     <li><b>Google Drive:</b> Just save the files to your Google Drive when exporting and copy the code provided! If you want to display files that you already have on your Google Drive, add the ID of the file in the <code>ids</code> attribute of the <code>state</code> parameter of the query string and make sure they are available to all users with the link.</li>
                 </ul>
                 <p>Choose the map shown by default with the parameter <code>source</code> among the following values:</p>
