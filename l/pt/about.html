@@ -52,48 +52,45 @@
         }
         </script>
         <link rel="icon" href="/res/favicon.png">
+        <link rel="stylesheet" type="text/css" href="/res/about.css">
         <link rel="stylesheet" href="/include/fontawesome/css/fontawesome.min.css"/>
         <link rel="stylesheet" href="/include/fontawesome/css/brands.min.css"/>
         <link rel="stylesheet" href="/include/fontawesome/css/regular.min.css"/>
         <link rel="stylesheet" href="/include/fontawesome/css/solid.min.css"/>
     </head>
     <body>
-        <div style="position:absolute; top:0px; height:60px; line-height: 40px; left:0px; right:0px; overflow:hidden;">
-            <div style="display: flex; justify-content: space-between; margin: 10px 3% 0% 3%; ">
-                <a href="./"><img src="/res/logo.png" style="height: 40px"></a>
-                <a href="#about" class="my-anchor">Sobre</a>
-                <a href="#funding" class="my-anchor">Financiamento</a>
-                <a href="#support" class="my-anchor">Suporte</a>
-                <a href="#guide" class="my-anchor">Guia de Usuário</a>
-                <a href="#embed" class="my-anchor">Incorporar site</a>
+        <div id="header-container">
+            <ul style="list-style-type: none;">
+                <li><a href="./"><img src="/res/logo.png" style="width: 220px"></a></li>
+                <li><a href="./" class="my-anchor"><i class="fas fa-map-marked-alt"></i> <b>Go to the app</b></a></li>
+                <li><a href="#about" class="my-anchor">Sobre</a></li>
+                <li><a href="#funding" class="my-anchor">Funding</a></li>
+                <li><a href="#translation" class="my-anchor">Translation</a></li>
+                <li><a href="#support" class="my-anchor">Support</a></li>
+                <li><a href="#guide" class="my-anchor">User Guide</a></li>
+                <li><a href="#embed" class="my-anchor">Embedding</a></li>
+                <li><a href="#terms" class="my-anchor">Terms of Service</a></li>
+                <li><a href="#privacy" class="my-anchor">Privacy Policy</a></li>
+            </ul>
+            <div id="social">
+                <a href="https://facebook.com/gpx.studio" target="_blank"><i class="fab fa-facebook fa-lg"></i></a>
+                <a href="https://twitter.com/gpxstudio" target="_blank"><i class="fab fa-twitter fa-lg"></i></a>
+                <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank"><i class="fab fa-github fa-lg"></i></a>
+                <a href="mailto:hello@gpx.studio"><i class="fas fa-envelope fa-lg"></i></a>
             </div>
-        </div>
-        <div style="position:absolute; top:60px; height:1px; left:0px; right:0px; background-color: #dedede; overflow:hidden;"></div>
-        <div style="position:absolute; bottom:0px; left:0px; width: 100%; overflow:hidden; display: flex; justify-content: space-between;">
             <!-- ADD_LANGUAGE -->
-            <div id="languages" style="display: flex; justify-content: space-between;">
-                <a href="/about.html" class="footer">en</a>
-                <a href="/l/es/about.html" class="footer">es</a>
-                <a href="/l/fr/about.html" class="footer">fr</a>
-                <a href="/l/it/about.html" class="footer">it</a>
-                <a href="/l/nl/about.html" class="footer">nl</a>
-                <a href="/l/pt/about.html" class="footer">pt</a>
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-                <a href="#terms" class="footer">Termos de serviço</a>
-                <a href="#privacy" class="footer">Política de privacidade</a>
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-                <a href="https://facebook.com/gpx.studio" target="_blank" class="footer"><i class="fab fa-facebook"></i></a>
-                <a href="https://twitter.com/gpxstudio" target="_blank" class="footer"><i class="fab fa-twitter"></i></a>
-                <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank" class="footer"><i class="fab fa-github"></i></a>
-                <a href="mailto:hello@gpx.studio" class="footer"><i class="fas fa-envelope"></i></a>
+            <div id="languages">
+                <a href="/about.html" class="language">en</a>
+                <a href="/l/es/about.html" class="language">es</a>
+                <a href="/l/fr/about.html" class="language">fr</a>
+                <a href="/l/it/about.html" class="language">it</a>
+                <a href="/l/nl/about.html" class="language">nl</a>
+                <a href="/l/pt/about.html" class="language">pt</a>
             </div>
         </div>
-        <div style="position:absolute; bottom:22px; height:1px; left:0px; right:0px; background-color: #dedede; overflow:hidden;"></div>
-        <div style="position:absolute; top:61px; bottom:22px; left:0px; right:0px; overflow: auto;">
+        <div id="block-container">
             <a name="about"></a>
-            <div style="margin: 0% 20% 0% 20%; text-align: justify;">
+            <div class="block">
             <h1>Sobre &#128692;</h1>
             <div>
                 <a href="./"><b>gpx.studio</b></a> é um visualizador e editor de GPX online gratuito que permite:
@@ -117,13 +114,8 @@
                 Eles criaram um programa chamado <a href="https://www.mapbox.com/community/" target="_blank">Mapbox Community</a> para oferecer suporte a organizações sem fins lucrativos, instituições educacionais, e organizações sociais (veja a <a href="https://www.mapbox.com/community/" target="_blank"> página oficial</a> onde mostram algumas de suas colaborações). Nós temos <b>muita sorte</b> de ter se juntado a este programa e nos beneficiado com um grande desconto em todas as taxas de acesso à API. Graças a eles, o financiamento deste projeto através de doações deve ser sustentável a longo prazo.<br><br>
                 Eu sou (e todos os usuários do site podem ser) muito gratos pelo seu suporte e disponibilidade.
             </div>
-            <a name="translation"></a><h2>Tradução &#128483;&#65039;</h2>
-            <div>
-                O site é traduzido por voluntários em uma plataforma de tradução colaborativa.
-                Você pode ajudar a completar e melhorar as traduções juntando-se ao <a href="https://crowdin.com/project/gpxstudio">projeto Crowdin</a>.
-                Entre em contato com o <a href="https://facebook.com/gpx.studio" target="_blank">Facebook</a>, <a href="https://twitter.com/gpxstudio" target="_blank">Twitter</a>, ou por <a href="mailto:hello@gpx.studio">e-mail</a> ou no <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank">GitHub</a> se quiser iniciar a tradução em um novo idioma.
-                Além de um bom conhecimento do <b>gpx.studio</b>, alguns conhecimentos básicos de HTML podem ser úteis. Qualquer ajuda é muito bem-vinda!
             </div>
+            <div class="block">
             <a name="funding"></a><h1>Ajude a manter o site livre (e livre de anúncios) &#128591;</h1>
             <div>
                 Cada vez que você adiciona ou move um ponto da trilha, nós fazemos uma requisição à <a href="https://docs.mapbox.com/api/navigation/directions/" target="_blank">API Mapbox Directions</a> para obter uma rota. Além disso, solicitamos <a href="https://docs.mapbox.com/help/troubleshooting/access-elevation-data/#mapbox-terrain-rgb">tiles Mapbox Terrain-RGB</a> para adicionar dados de elevação para os novos pontos da trilha.<br><br>
@@ -131,11 +123,24 @@
                 Portanto se você gosta da ferramenta e a usa com frequência, por favor, considere fazer uma pequena doação para que este site possa permanecer <b>gratuito</b> e <b>livre de anúncios</b>. Obrigado pelo seu apoio!<br><br>
                 <div style="text-align: center;"><script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support gpx.studio on Ko-fi', '#29abe0', 'F1F1303GH');kofiwidget2.draw();</script></div>
             </div>
+            </div>
+            <div class="block">
+            <a name="translation"></a><h1>Tradução &#128483;&#65039;</h1>
+            <div>
+                O site é traduzido por voluntários em uma plataforma de tradução colaborativa.
+                Você pode ajudar a completar e melhorar as traduções juntando-se ao <a href="https://crowdin.com/project/gpxstudio">projeto Crowdin</a>.
+                Entre em contato com o <a href="https://facebook.com/gpx.studio" target="_blank">Facebook</a>, <a href="https://twitter.com/gpxstudio" target="_blank">Twitter</a>, ou por <a href="mailto:hello@gpx.studio">e-mail</a> ou no <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank">GitHub</a> se quiser iniciar a tradução em um novo idioma.
+                Além de um bom conhecimento do <b>gpx.studio</b>, alguns conhecimentos básicos de HTML podem ser úteis. Qualquer ajuda é muito bem-vinda!
+            </div>
+            </div>
+            <div class="block">
             <a name="support"></a><h1>Suporte &#128172;</h1>
             <div>
                 A <span class="button">Ajuda</span> e o <a href="#guide">Guia do Usuário</a> devem responder a maioria das perguntas sobre as funcionalidades, mas sinta-se à vontade para pedir ajuda. relatar qualquer problema ou enviar sugestões na <a href="https://facebook.com/gpx.studio" target="_blank">página do Facebook</a> ou por e-mail em <a href="mailto:hello@gpx.studio">hello@gpx.studio</a>.<br><br>
                 Para Desenvolvedores, o repositório <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank">Github</a> também é um bom lugar para reportar problemas ou compartilhar ideias.
             </div>
+            </div>
+            <div class="block">
             <a name="guide"></a><h1>Guia do Usuário &#127891;</h1>
             <div class="guide">
                 Clique em um tópico para saber mais!<br><br>
@@ -376,11 +381,14 @@
                     </ul>
                 </div></div>
             </div>
+            </div>
+            <div class="block">
             <a name="embed"></a><h1>Embedding &#128506;</h1>
             <div>
                 You are very welcome to display traces on your website with <b>gpx.studio</b>. There are two ways to do it: the first one with files stored on a server and the second one with Google Drive.
                 <ul>
-                    <li><b>File URL:</b> Add the link to the file in the <code>urls</code> attribute of the <code>state</code> parameter of the query string. Make sure to use <code>https</code>, to encode any special characters and that <b>gpx.studio</b> is allowed to request the files, otherwise the requests will be blocked by the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">CORS policy</a>.</li>
+                    <li><b>File URL:</b> Add the link to the file in the <code>urls</code> attribute of the <code>state</code> parameter of the query string. Make sure to use <code>https</code>, to encode any special characters and that <b>gpx.studio</b> is allowed to request the files, otherwise the requests will be blocked by the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank">CORS policy</a>, i.e. you should set either
+                        <p style="text-align: center"><code>Access-Control-Allow-Origin: *</code> or <code>https://gpx.studio</code></p> in your server response.</li>
                     <li><b>Google Drive:</b> Just save the files to your Google Drive when exporting and copy the code provided! If you want to display files that you already have on your Google Drive, add the ID of the file in the <code>ids</code> attribute of the <code>state</code> parameter of the query string and make sure they are available to all users with the link.</li>
                 </ul>
                 <p>Choose the map shown by default with the parameter <code>source</code> among the following values:</p>
@@ -426,6 +434,8 @@
                     <iframe id="preview" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
+            </div>
+            <div class="block">
             <a name="terms"></a><h1>Terms of Services &#128214;</h1>
             <p>Thank you for using <b>gpx.studio</b>. These terms of service (Terms) cover your use and access of our website and related software (our Services).</p>
             <p>By accessing this website, you are agreeing to be bound by this website Terms of Services and to review our Privacy Policy. If you do not agree with any of these terms, you are prohibited from using or accessing this site.</p>
@@ -438,7 +448,9 @@
             <h2>Limitation of Liability</h2>
             <p>To the fullest extent permitted by law, in no event shall we be liable for any damages or loss of data, business, profits, computer hardware or software.</p>
             <h2>Changes to Terms</h2>
-            <p>We reserve the right to modify these Terms at any time. By continuing to use the Services after the changes become effective, you agree to the revised Terms.</p>
+            <div>We reserve the right to modify these Terms at any time. By continuing to use the Services after the changes become effective, you agree to the revised Terms.</div>
+            </div>
+            <div class="block">
             <a name="privacy"></a><h1>Privacy Policy &#128373;&#65039;</h1>
             <p><b>gpx.studio</b> is an online GPX file editor which allows users to create, view and edit files.
                 We respect the privacy of our users and do not collect any personal information except anonymous information such as the number of page views and clicks on buttons to help us enhance your overall experience.</p>
@@ -455,62 +467,8 @@
             <p><b>gpx.studio</b>'s use of information received from Google APIs will adhere to the <a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
             <p>Last updated June 24, 2021.</p>
             <br><br><br>
-        </div></div>
-        <style>
-        body {
-            font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-            line-height: 1.4;
-            color: #3b3735;
-        }
-        div::-webkit-scrollbar { display: none; }
-        div { -ms-overflow-style: none; scrollbar-width: none; }
-        h1 {
-            margin-top: 70px;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-        .button {
-            font-size: 10pt;
-            color: #535353;
-            background: #f9f9f9;
-            padding: 4px;
-            border: #535353 1px solid;
-            border-radius: 2px;
-        }
-        .guide {
-            line-height: 1.7;
-        }
-        .guide-item {
-            padding:10px; border: 1px solid #dedede;
-            margin-top: -1px;
-        }
-        .guide-title {
-            font-size: 13pt;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-        .my-anchor {
-            color: inherit;
-            text-decoration: inherit;
-        }
-        a:active, a:focus {
-            outline: 0;
-            border: none;
-            -moz-outline-style: none;
-        }
-        .footer {
-            padding: 2px 10px;
-            font-size: 13px;
-        }
-        </style>
+            </div>
+        </div>
         <script>
         // ADD_LANGUAGE
         const language_list = ['es', 'fr', 'it', 'nl', 'pt'];
