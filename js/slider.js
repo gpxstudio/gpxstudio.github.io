@@ -61,6 +61,11 @@ export default class Slider {
                 this.getIndex(i),
                 this.getIndex(j)
             );
+            if (this.buttons.total && !this.buttons.total.hasFocus) {
+                const trace = this.buttons.total.traces[this.buttons.total.focusOn];
+                trace.recomputeStats();
+                trace.showData();
+            }
         }
     }
 
@@ -96,6 +101,16 @@ export default class Slider {
         this.end.value = this.end.max;
         this.buttons.elev._resetDrag();
         this.hideButtons();
+
+        if (this.buttons.total && !this.buttons.total.hasFocus) {
+            const trace = this.buttons.total.traces[this.buttons.total.focusOn];
+            trace.recomputeStats();
+            trace.showData();
+        }
+    }
+
+    isActive() {
+        return this.start.value != this.start.min || this.end.value != this.end.max;
     }
 
     /*** GPX DATA ***/

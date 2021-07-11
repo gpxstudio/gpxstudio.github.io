@@ -73,7 +73,6 @@ export default class Total {
     focus() {
         this.hasFocus = true;
         this.focusOn = -1;
-        this.buttons.slider.reset();
         this.showData();
         this.showElevation();
         this.buttons.focusTabElement(this.tab);
