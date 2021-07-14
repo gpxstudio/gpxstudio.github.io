@@ -60,6 +60,7 @@ export default class Buttons {
         this.load = document.getElementById("load");
         this.load2 = document.getElementById("load2");
         this.load_drive = document.getElementById("load-drive");
+        this.load_error_ok = document.getElementById("load-error-ok");
         this.draw = document.getElementById("manual");
         this.undo = document.getElementById("undo");
         this.redo = document.getElementById("redo");
@@ -174,6 +175,7 @@ export default class Buttons {
         this.share_content = document.getElementById('share-content');
         this.merge_content = document.getElementById('merge-content');
         this.crop_content = document.getElementById('crop-content');
+        this.load_error_content = document.getElementById('load-error-content');
         this.embed_content = document.getElementById('embed-content');
         this.trace_info_content = document.getElementById('info');
         this.toolbar_content = document.getElementById('toolbar');
@@ -214,6 +216,7 @@ export default class Buttons {
         this.color_window = L.control.window(this.map,{title:'',content:this.color_content,className:'panels-container',closeButton:false});
         this.reduce_window = L.control.window(this.map,{title:'',content:this.reduce_content,className:'panels-container',closeButton:false});
         this.load_window = L.control.window(this.map,{title:'',content:this.load_content,className:'panels-container'});
+        this.load_error_window = L.control.window(this.map,{title:'',content:this.load_error_content,className:'panels-container',closeButton:false});
         this.share_window = L.control.window(this.map,{title:'',content:this.share_content,className:'panels-container'});
         this.merge_window = L.control.window(this.map,{title:'',content:this.merge_content,className:'panels-container',closeButton:false});
         this.crop_window = L.control.window(this.map,{title:'',content:this.crop_content,className:'panels-container',closeButton:false});
@@ -359,7 +362,7 @@ export default class Buttons {
         this.hideTraceButtons();
 
         // ADD_LANGUAGE
-        const language_list = ['es', 'fr', 'it', 'nl', 'pt'];
+        const language_list = ['es', 'fr', 'it', 'nl', 'pt', 'ru'];
         var language = 'en';
         for (var l=0; l<language_list.length; l++)
             if (window.location.pathname.indexOf(language_list[l]) != -1) {
@@ -777,6 +780,9 @@ export default class Buttons {
         this.load_drive.addEventListener("click", function () {
             buttons.google.loadPicker(false);
             buttons.load_window.hide();
+        });
+        this.load_error_ok.addEventListener("click", function () {
+            buttons.load_error_window.hide();
         });
         this.donate.addEventListener("click", function () {
             buttons.donation();
@@ -1576,6 +1582,12 @@ export default class Buttons {
                 xhr.send();
             }
         }
+    }
+
+    showLoadErrorPopup() {
+        if (this.window_open) this.window_open.hide();
+        this.window_open = this.load_error_window;
+        this.load_error_window.show();
     }
 
     donation() {

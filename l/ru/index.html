@@ -9,6 +9,7 @@
         <link rel="alternate" hreflang="it" href="https://gpx.studio/l/it/"/>
         <link rel="alternate" hreflang="nl" href="https://gpx.studio/l/nl/"/>
         <link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/"/>
+        <link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/"/>
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167421374-1"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
@@ -142,11 +143,11 @@
             <div class="panels-button" id="color" title="Изменение цвета и непрозрачности"><i class="fas fa-palette custom-button"></i></div><br>
             <div class="panels-button" id="add-wpt" title="Добавить путевую точку"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
             <div class="panels-button" id="reduce" title="Уменьшение количества точек трека"><i class="fas fa-compress-alt custom-button"></i></div><br>
-            <div class="panels-button" id="zone-delete" title="Delete all inside/outside rectangle selection"><i class="fas fa-vector-square custom-button"></i></div><br>
+            <div class="panels-button" id="zone-delete" title="Удалить все внутри или снаружи выделенного прямоугольника"><i class="fas fa-vector-square custom-button"></i></div><br>
             <div class="panels-button" id="hide" title="Скрыть/отобразить трек"><i class="fas fa-eye-slash custom-button"></i></div><br>
             <div class="panels-button" id="delete" title="Удалить"><i class="fas fa-trash-alt custom-button"></i></div><br>
         </div>
-        <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Google Street View"></i>
+        <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Открыть Google Street View"></i>
         <li id="activity" class="dontselect">Активность:
             <span class="unselected custom-button">
                 <i id="bike" class="fas fa-biking"></i>
@@ -169,6 +170,7 @@
             <a href="/l/it/" class="footer" target="_blank">it</a>
             <a href="/l/nl/" class="footer" target="_blank">nl</a>
             <a href="/l/pt/" class="footer" target="_blank">pt</a>
+            <a href="/l/ru/" class="footer" target="_blank">ru</a>
         </div>
         <div id="help-text">
         <div style="text-align: center; font-size: 10pt; color: #476947">
@@ -189,12 +191,12 @@
             <tr>
                 <td><b>Новый GPX</b></td>
                 <td>Ctrl+D</td>
-                <td>Start drawing a new route by placing track points on the map</td>
+                <td>Начните рисовать новый маршрут, разместив точку трека на карте</td>
             </tr>
             <tr>
                 <td><b>Экспорт</b></td>
                 <td>Ctrl+S</td>
-                <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Time, heart rate, cadence, power and temperature data are automatically extended. Optionally, merge all files <b>in the chosen order</b>. You can also drag a tab to your desktop to download the file.</td>
+                <td>Скачайте файлы к себе на компьютер или сохраните в Google Drive™, чтобы a <b>поделиться ссылкой</b> и <b> получить встраиваемый код</b>. Время, пульс, каденс, мощность и температура будут доступны автоматически. Дополнительно, можно объединить все файлы <b>в выбранном порядке</b>. Также вы можете перетащить таблицу к себе на компьютер, чтобы скачать файл.</td>
             </tr>
             <tr>
                 <td><i class="fas fa-reply"></i> <i class="fas fa-share"></i></td>
@@ -213,7 +215,7 @@
             </tr>
             </tbody>
         </table><br>
-        Below the search bar <i class="fas fa-search"></i> and the Google Street View tool <i class="fas fa-street-view"></i>, you can find a dropdown menu <i class="fas fa-bars"></i> with the maps available and some settings.
+        Под строкой поиска <i class="fas fa-search"></i> и инструментом Google Street View <i class="fas fa-street-view"></i>, вы можете найти выпадающее меню <i class="fas fa-bars"></i> с доступными картами и некоторыми настройками.
         <table style="width: 100%">
             <colgroup>
                <col span="1" style="width: 11%;">
@@ -229,17 +231,17 @@
             <tr>
                 <td><i class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-dove"></i></td>
                 <td>F2</td>
-                <td>Switch between routing and <i>as the crow flies</i> (straight lines between track points) when editing traces</td>
+                <td>Переключить между отрисовкой с привязкой к маршруту и <i>без неё</i> (прямые линии между точками трека) при редактировании трека</td>
             </tr>
             <tr>
                 <td><i class="fas fa-biking"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-running"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-motorcycle"></i></td>
                 <td>F3</td>
-                <td>Switch between cycling, running and driving mode (impacts the routing and the Strava Heatmap displayed)</td>
+                <td>Переключить между режимами "велосипед", "бег" и "авто" (влияет на привязку к маршруту и отображение в Strava Heatmap)</td>
             </tr>
             <tr>
-                <td><b>км</b> <i class="fas fa-arrows-alt-h"></i> <b>ми</b></td>
+                <td><b>км</b> <i class="fas fa-arrows-alt-h"></i> <b>мили</b></td>
                 <td>F4</td>
-                <td>Изменение отображаемых единиц измерения</td>
+                <td>Изменить единицы измерения</td>
             </tr>
             <tr>
                 <td></td>
@@ -256,7 +258,7 @@
             <tbody>
             <tr>
                 <td><i class="fas fa-pencil-alt"></i></td>
-                <td>Enter edition mode to add, move, insert (by dragging the line), delete or split (right-click) track points</td>
+                <td>Войдите в режим редактирования, чтобы добавить, переместить, вставить (перетаскивая линию), удалить точки или разделить трек на участки (щелчок правой кнопкой)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-stopwatch"></i></td>
@@ -268,11 +270,11 @@
             </tr>
             <tr>
                 <td><i class="fas fa-plus-circle"></i></td>
-                <td>Merge with another trace (automatically extends time, heart rate, cadence, power and temperature data)</td>
+                <td>Объедините с другим треком (автоматически добавляются время, пульс, каденс, мощность и температура)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-list-ul"></i></td>
-                <td>Extract all track segments and creates one trace for each</td>
+                <td>Отделите все сегменты трека и создайте треки для каждого</td>
             </tr>
             <tr>
                 <td><i class="fas fa-copy"></i></td>
@@ -280,19 +282,19 @@
             </tr>
             <tr>
                 <td><i class="fas fa-palette"></i></td>
-                <td>Change the display color and opacity, these values will be exported and detected when re-imported</td>
+                <td>Изменить цвет и прозрачность, эти значения будут экспортированы и обнаружены при повторном импорте</td>
             </tr>
             <tr>
                 <td><i class="fas fa-map-marker-alt"></i></td>
-                <td>Add a waypoint (drag to change its location and use the buttons to edit info, duplicate or remove)</td>
+                <td>Добавить путевую точку (перетащите для изменения положения, и используйте кнопки для редактирования информации, дублирования или удаления)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-compress-alt"></i></td>
-                <td>Уменьшение количество точек трека</td>
+                <td>Уменьшите количество точек трека</td>
             </tr>
             <tr>
                 <td><i class="fas fa-vector-square"></i></td>
-                <td>Delete track points and/or waypoints inside/outside rectangle selection</td>
+                <td>Удалить точки трека и/или путевые точки внутри выделенного прямоугольника</td>
             </tr>
             <tr>
                 <td><i class="fas fa-eye-slash"></i></td>
@@ -306,9 +308,9 @@
         </table><br>
         В нижней части вы можете увидеть панель с информацией об импортируемых треках.
         Вкладка <b>Всего</b> отображается информация обо всех открытых треках, объединенных в один.
-        <b>Swap the tabs</b> to define the order in which the traces should appear and <b>double-click</b> on them to change their names.
-        When you have many tabs, navigate through them by scrolling horizontally.
-        Используйте <b>ползунок</b>, чтобы переместить начальную/конечную точку и сократить маршрут.
+        <b>Поменяйте местами вкладки</b> для определения порядка, в котором должны отображаться треки, и <b>дважды щёлкните</b> на них, чтобы изменить их имена.
+        Когда у вас много вкладок, перемещайтесь между ними горизонтальным прокручиванием.
+        Используйте <b>ползунок</b>, чтобы переместить начальную/конечную точку и подрезать маршрут.
         </div>
         <div id="export-content" class="popup-content">
             <table style="width: 100%; text-align: left">
@@ -326,19 +328,19 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td>Cердцебиение<input type="checkbox" id="include-hr" checked></td>
-                    <td>Каденция<input type="checkbox" id="include-cad" checked></td>
+                    <td>Пульс<input type="checkbox" id="include-hr" checked></td>
+                    <td>Каденс<input type="checkbox" id="include-cad" checked></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td>Power<input type="checkbox" id="include-power" checked></td>
+                    <td>Мощность<input type="checkbox" id="include-power" checked></td>
                     <td>Температура<input type="checkbox" id="include-atemp" checked></td>
                     <td></td>
                 </tr>
                 </tbody>
             </table>
-            <div style="color:#0f92c5;">&#9888;&#65039; The tool is <b>free</b> to use but <b>not free</b> to run &#9888;&#65039;<br>Each map display, track point added or moved is billed.</div>
+            <div style="color:#0f92c5;">&#9888;&#65039; Этот сайт работает <b>бесплатно</b>, но за его работу приходится <b>платить</b> &#9888;&#65039;<br>Каждое отображение карты, добавление или перемещение точки трека стоит денег.</div>
             <div id="donate-2" class="panels custom-button fancy-button"><b>Помогите сохранить сайт бесплатным</b> &#128591;</div><br>
             <div id="export-2" class="panels custom-button fancy-button">Скачать <i class="fas fa-download"></i></div>
             <div id="save-drive" class="panels custom-button fancy-button">Сохранить на Google Диске <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
@@ -372,15 +374,15 @@
         <div id="share-content" class="popup-content">
             Готово!<br>
             <div id="copy-link" class="panels custom-button fancy-button">Копировать ссылку <i class="fas fa-link"></i></div><br>
-            <div id="copy-embed" class="panels custom-button fancy-button">Copy embedding code <i class="fas fa-code"></i></div><br>
+            <div id="copy-embed" class="panels custom-button fancy-button">Копировать код для встраивания <i class="fas fa-code"></i></div><br>
         </div>
         <div id="merge-content" class="popup-content">
             Нажмите на другую вкладку, чтобы объединить треки<br>
-            <input type="checkbox" id="merge-as-segments">Merge as track segments<br>
+            <input type="checkbox" id="merge-as-segments">Объединить как сегменты одного трека<br>
             <div id="merge-cancel" class="panels custom-button normal-button">Отмена</div>
         </div>
         <div id="crop-content" class="popup-content">
-            <input type="checkbox" id="crop-keep">Keep cropped parts in new files<br>
+            <input type="checkbox" id="crop-keep">Сохранить вырезанные области как новые файлы<br>
             <div id="crop-ok" class="panels custom-button normal-button">Продолжить</div>
             <div id="crop-cancel" class="panels custom-button normal-button">Отмена</div>
         </div>
@@ -395,10 +397,15 @@
             Выберите, что удалить<br>
             <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Точки трека</label>
             <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Путевые точки</label><br>
-            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inside selection</label>
-            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
+            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Внутри выделения</label>
+            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Снаружи выделения</label><br>
             <div id="zone-delete-ok" class="panels custom-button normal-button">Продолжить</div>
             <div id="zone-delete-cancel" class="panels custom-button normal-button">Отмена</div>
+        </div>
+        <div id="load-error-content" class="popup-content">
+            There was an error loading your GPX file.<br>
+            Please check the file format.<br>
+            <div id="load-error-ok" class="panels custom-button normal-button">Ок</div>
         </div>
         <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
             <b>Открыть в</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="логотип gpx.studio, онлайн-редактора файлов GPX">
