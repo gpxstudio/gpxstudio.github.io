@@ -564,6 +564,7 @@ L.GPX = L.FeatureGroup.extend({
     if (async == undefined) async = this.options.async;
     if (options == undefined) options = this.options;
 
+    var _this = this;
     var req = new window.XMLHttpRequest();
     req.open('GET', url, async);
     try {
@@ -571,7 +572,10 @@ L.GPX = L.FeatureGroup.extend({
     } catch(e) {}
     req.onreadystatechange = function() {
       if (req.readyState != 4) return;
-      if(req.status == 200) cb(req.responseXML, options);
+      if(req.status == 200) {
+          if (req.responseXML) cb(req.responseXML, options);
+          else  _this.fire('error', { err: 'Failed to parse file as XML.'});
+      }
     };
     req.send(null);
   },

@@ -64,7 +64,11 @@ export default class Trace {
 
         const trace = this;
 
-        this.gpx.on('loaded', function(e) {
+        this.gpx.on('error', function (e) {
+            console.log(e);
+            total.removeTrace(trace.index);
+            total.buttons.showLoadErrorPopup();
+        }).on('loaded', function(e) {
             if (this.getLayers().length > 0) {
                 var layers = this.getLayers()[0].getLayers();
                 var wptMissingEle = [];
