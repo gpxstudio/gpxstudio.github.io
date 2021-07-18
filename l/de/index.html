@@ -92,29 +92,29 @@
         <div id="mapid"></div>
         <div id="toolbar" class="panels-container center-leaflet">
             <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 2px 4px" alt="logo of gpx.studio, the online GPX file editor"></a>
-            <div id="load" class="panels custom-button">Lade GPX</div>
-            <div id="manual" class="panels custom-button">Erzeuge GPX</div>
-            <div id="export" class="panels custom-button">Export</div>
+            <div id="load" class="panels custom-button">GPX laden</div>
+            <div id="manual" class="panels custom-button">Neue GPX</div>
+            <div id="export" class="panels custom-button">Exportieren</div>
             <div class="panels custom-button unselected no-click2" id="undo"><i class="fas fa-reply"></i></div>
             <div class="panels custom-button unselected no-click2" id="redo"><i class="fas fa-share"></i></div>
             <div id="clear" class="panels custom-button">Alles löschen</div>
             <div id="help" class="panels custom-button">Hilfe</div>
             <div id="about" class="panels custom-button">Über</div>
-            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)">Spende <i class="fas fa-heart"></i></div>
+            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Spende</b> <i class="fas fa-heart"></i></div>
         </div>
         <div id="info" class="padding-container center-leaflet">
             <div id="info-grid" class="panels-container trace-info">
                 <div class="panels panels-info" id="distance">Distanz</div>
                 <div class="panels panels-val" id="distance-val">- km</div>
-                <div class="panels panels-info" id="elevation">Elevation gain</div>
+                <div class="panels panels-info" id="elevation">Höhengewinn</div>
                 <div class="panels panels-val" id="elevation-val">- m</div>
-                <div class="panels panels-info" id="speed">Speed</div>
+                <div class="panels panels-info" id="speed">Geschwindigkeit</div>
                 <div class="panels panels-val" id="speed-val">- km/h</div>
-                <div class="panels panels-info" id="duration">Moving time</div>
+                <div class="panels panels-info" id="duration">Zeit in Bewegung</div>
                 <div class="panels panels-val" id="duration-val">- h -</div>
-                <div class="panels panels-info" id="points" style="display: none">Track points</div>
+                <div class="panels panels-info" id="points" style="display: none">Trackpunkte</div>
                 <div class="panels panels-val" id="points-val" style="display: none">0</div>
-                <div class="panels panels-info" id="segments" style="display: none">Segments</div>
+                <div class="panels panels-info" id="segments" style="display: none">Abschnitte</div>
                 <div class="panels panels-val" id="segments-val" style="display: none">0</div>
                 <div class="panels panels-val panels-live" id="live-distance">--</div>
                 <div class="panels panels-val panels-live" id="live-speed">--</div>
@@ -130,7 +130,7 @@
                 </div>
             </div>
             <ul id="sortable">
-              <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">Total</li>
+              <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">Gesamt</li>
             </ul>
         </div>
         <div id="buttons-bar" class="panels-container vcenter-leaflet">
@@ -148,7 +148,7 @@
             <div class="panels-button" id="delete" title="Delete"><i class="fas fa-trash-alt custom-button"></i></div><br>
         </div>
         <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Google Street View"></i>
-        <li id="activity" class="dontselect">Activity:
+        <li id="activity" class="dontselect">Aktivität:
             <span class="unselected custom-button">
                 <i id="bike" class="fas fa-biking"></i>
                 <i class="fas fa-arrows-alt-h"></i>
@@ -184,17 +184,17 @@
             </colgroup>
             <tbody>
             <tr>
-                <td><b>Lade GPX</b></td>
+                <td><b>GPX laden</b></td>
                 <td>Ctrl+O</td>
                 <td>Import and visualize GPX files (or drag and drop anywhere in the window)</td>
             </tr>
             <tr>
-                <td><b>Erzeuge GPX</b></td>
+                <td><b>Neue GPX</b></td>
                 <td>Ctrl+D</td>
                 <td>Start drawing a new route by placing track points on the map</td>
             </tr>
             <tr>
-                <td><b>Export</b></td>
+                <td><b>Exportieren</b></td>
                 <td>Ctrl+S</td>
                 <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Time, heart rate, cadence, power and temperature data are automatically extended. Optionally, merge all files <b>in the chosen order</b>. You can also drag a tab to your desktop to download the file.</td>
             </tr>
@@ -395,7 +395,7 @@
         </div>
         <div id="zone-delete-content" class="popup-content">
             Choose what to delete<br>
-            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Track points</label>
+            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Trackpunkte</label>
             <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
             <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inside selection</label>
             <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
@@ -422,7 +422,7 @@
             <div id="ok-button-text">Ok</div>
             <div id="cancel-button-text">Cancel</div>
             <div id="edit-speed-popup-text">
-                <div id="speed-text">Speed</div>
+                <div id="speed-text">Geschwindigkeit</div>
                 <div id="pace-text">Pace</div>
                 <div id="start-text">Start</div>
                 <div id="experimental-text">Experimental</div>
