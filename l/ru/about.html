@@ -58,20 +58,21 @@
         <link rel="stylesheet" href="/include/fontawesome/css/brands.min.css"/>
         <link rel="stylesheet" href="/include/fontawesome/css/regular.min.css"/>
         <link rel="stylesheet" href="/include/fontawesome/css/solid.min.css"/>
+        <script src="/js/lang.js"></script>
     </head>
     <body>
         <div id="header-container">
             <ul style="list-style-type: none;">
                 <li><a href="./"><img src="/res/logo.png" style="width: 220px"></a></li>
-                <li><a href="./" class="my-anchor"><i class="fas fa-map-marked-alt"></i> <b>Go to the app</b></a></li>
+                <li><a href="./" class="my-anchor"><i class="fas fa-map-marked-alt"></i> <b>Перейти в приложение</b></a></li>
                 <li><a href="#about" class="my-anchor">О gpx.studio</a></li>
-                <li><a href="#funding" class="my-anchor">Funding</a></li>
-                <li><a href="#translation" class="my-anchor">Translation</a></li>
-                <li><a href="#support" class="my-anchor">Support</a></li>
-                <li><a href="#guide" class="my-anchor">User Guide</a></li>
-                <li><a href="#embed" class="my-anchor">Embedding</a></li>
-                <li><a href="#terms" class="my-anchor">Terms of Service</a></li>
-                <li><a href="#privacy" class="my-anchor">Privacy Policy</a></li>
+                <li><a href="#funding" class="my-anchor">Финансирование</a></li>
+                <li><a href="#translation" class="my-anchor">Перевод</a></li>
+                <li><a href="#support" class="my-anchor">Поддержка</a></li>
+                <li><a href="#guide" class="my-anchor">Руководство пользователя</a></li>
+                <li><a href="#embed" class="my-anchor">Встраивание</a></li>
+                <li><a href="#terms" class="my-anchor">Условия использования</a></li>
+                <li><a href="#privacy" class="my-anchor">Политика конфиденциальности</a></li>
             </ul>
             <div id="social">
                 <a href="https://facebook.com/gpx.studio" target="_blank"><i class="fab fa-facebook fa-lg"></i></a>
@@ -472,14 +473,7 @@
             </div>
         </div>
         <script>
-        // ADD_LANGUAGE
-        const language_list = ['es', 'fr', 'it', 'nl', 'pt', 'ru'];
-        var language = 'en';
-        for (var l=0; l<language_list.length; l++)
-            if (window.location.pathname.indexOf(language_list[l]) != -1) {
-                language = language_list[l];
-                break;
-            }
+        var language = getLanguage();
 
         function showPreview() {
             const file_urls = document.getElementById("file-urls").value;

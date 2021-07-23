@@ -58,6 +58,7 @@
         <link rel="stylesheet" href="/include/fontawesome/css/brands.min.css"/>
         <link rel="stylesheet" href="/include/fontawesome/css/regular.min.css"/>
         <link rel="stylesheet" href="/include/fontawesome/css/solid.min.css"/>
+        <script src="/js/lang.js"></script>
     </head>
     <body>
         <div id="header-container">
@@ -472,14 +473,7 @@
             </div>
         </div>
         <script>
-        // ADD_LANGUAGE
-        const language_list = ['es', 'fr', 'it', 'nl', 'pt', 'ru'];
-        var language = 'en';
-        for (var l=0; l<language_list.length; l++)
-            if (window.location.pathname.indexOf(language_list[l]) != -1) {
-                language = language_list[l];
-                break;
-            }
+        var language = getLanguage();
 
         function showPreview() {
             const file_urls = document.getElementById("file-urls").value;

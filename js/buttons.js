@@ -361,14 +361,7 @@ export default class Buttons {
 
         this.hideTraceButtons();
 
-        // ADD_LANGUAGE
-        const language_list = ['es', 'fr', 'it', 'nl', 'pt', 'ru'];
-        var language = 'en';
-        for (var l=0; l<language_list.length; l++)
-            if (window.location.pathname.indexOf(language_list[l]) != -1) {
-                language = language_list[l];
-                break;
-            }
+        var language = getLanguage();
         this.languages = L.control({position: 'bottomleft'});
         this.languages.onAdd = function (map) {
             var div = _this.languages_content;
