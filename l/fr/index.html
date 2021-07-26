@@ -87,6 +87,18 @@
         <script type="module" src="/js/google.js"></script>
         <script type="module" src="/js/script.js"></script>
         <script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
+        <!--<script src="https://www.gstatic.com/firebasejs/8.8.0/firebase.js"></script>
+        <script>
+          var config = {
+            apiKey: "AIzaSyBgjRmgpgIl_qQufy7NZfU6iEjANNN82AU",
+            authDomain: "gpxstudio.firebaseapp.com",
+          };
+          firebase.initializeApp(config);
+        </script>
+        <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+        <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+        <script type="module" src="/js/auth.js"></script>-->
+        <script data-ad-client="ca-pub-1989093299519351" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     </head>
     <body>
         <input id="input-file" type="file" accept=".gpx" multiple style="display: none"/>
@@ -101,6 +113,7 @@
             <div id="clear" class="panels custom-button">Tout supprimer</div>
             <div id="help" class="panels custom-button">Aide</div>
             <div id="about" class="panels custom-button">À propos</div>
+            <div id="account" class="panels custom-button" style="display: none">Compte</div>
             <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Faire un don</b> <i class="fas fa-heart"></i></div>
         </div>
         <div id="info" class="padding-container center-leaflet">
@@ -410,6 +423,9 @@
         </div>
         <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
             <b>Ouvrir avec</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logo de gpx.studio, l'éditeur de fichiers GPX en ligne">
+        </div>
+        <div id="login-content">
+            <div id="firebaseui-auth-container" style="white-space: normal"></div>
         </div>
         <div style="display: none">
             <div id="unit-kilometers-text">km</div>
