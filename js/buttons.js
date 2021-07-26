@@ -69,6 +69,7 @@ export default class Buttons {
         this.cancel_clear = document.getElementById("cancelclear");
         this.help = document.getElementById("help");
         this.about = document.getElementById("about");
+        this.account = document.getElementById("account");
         this.donate = document.getElementById("donate");
         this.donate2 = document.getElementById("donate-2");
         this.delete = document.getElementById("delete");
@@ -177,6 +178,7 @@ export default class Buttons {
         this.crop_content = document.getElementById('crop-content');
         this.load_error_content = document.getElementById('load-error-content');
         this.embed_content = document.getElementById('embed-content');
+        this.login_content = document.getElementById('login-content');
         this.trace_info_content = document.getElementById('info');
         this.toolbar_content = document.getElementById('toolbar');
         this.languages_content = document.getElementById('languages');
@@ -220,6 +222,7 @@ export default class Buttons {
         this.share_window = L.control.window(this.map,{title:'',content:this.share_content,className:'panels-container'});
         this.merge_window = L.control.window(this.map,{title:'',content:this.merge_content,className:'panels-container',closeButton:false});
         this.crop_window = L.control.window(this.map,{title:'',content:this.crop_content,className:'panels-container',closeButton:false});
+        this.login_window = L.control.window(this.map,{title:'',content:this.login_content,className:'panels-container'});
 
         this.zoom = L.control.zoom({
             position: 'topright'
@@ -776,6 +779,11 @@ export default class Buttons {
         });
         this.load_error_ok.addEventListener("click", function () {
             buttons.load_error_window.hide();
+        });
+        this.account.addEventListener("click", function () {
+            if (buttons.window_open) buttons.window_open.hide();
+            buttons.window_open = buttons.login_window;
+            buttons.login_window.show();
         });
         this.donate.addEventListener("click", function () {
             buttons.donation();

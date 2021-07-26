@@ -4,6 +4,7 @@
         <!-- ADD_LANGUAGE -->
         <link rel="alternate" hreflang="x-default" href="https://gpx.studio/about.html"/>
         <link rel="alternate" hreflang="en" href="https://gpx.studio/about.html"/>
+        <link rel="alternate" hreflang="de" href="https://gpx.studio/l/de/about.html"/>
         <link rel="alternate" hreflang="es" href="https://gpx.studio/l/es/about.html"/>
         <link rel="alternate" hreflang="fr" href="https://gpx.studio/l/fr/about.html"/>
         <link rel="alternate" hreflang="it" href="https://gpx.studio/l/it/about.html"/>
@@ -66,9 +67,8 @@
                 <li><a href="./"><img src="/res/logo.png" style="width: 220px"></a></li>
                 <li><a href="./" class="my-anchor"><i class="fas fa-map-marked-alt"></i> <b>Ouvrir l'application</b></a></li>
                 <li><a href="#about" class="my-anchor">À propos</a></li>
-                <li><a href="#funding" class="my-anchor">Financement</a></li>
-                <li><a href="#translation" class="my-anchor">Traduction</a></li>
                 <li><a href="#support" class="my-anchor">Assistance</a></li>
+                <li><a href="#translation" class="my-anchor">Traduction</a></li>
                 <li><a href="#guide" class="my-anchor">Guide utilisateur</a></li>
                 <li><a href="#embed" class="my-anchor">Intégration</a></li>
                 <li><a href="#terms" class="my-anchor">Conditions d'utilisation</a></li>
@@ -83,6 +83,7 @@
             <!-- ADD_LANGUAGE -->
             <div id="languages">
                 <a href="/about.html" class="language">en</a>
+                <a href="/l/de/about.html" class="language">de</a>
                 <a href="/l/es/about.html" class="language">es</a>
                 <a href="/l/fr/about.html" class="language">fr</a>
                 <a href="/l/it/about.html" class="language">it</a>
@@ -119,12 +120,10 @@
             </div>
             </div>
             <div class="block">
-            <a name="funding"></a><h1>Aidez le site à rester gratuit (et sans publicité) &#128591;</h1>
+            <a name="support"></a><h1>Support &#128172;</h1>
             <div>
-                Chaque fois que vous ajoutez ou déplacez un point de passage, nous faisons une requête à <a href="https://docs.mapbox.com/api/navigation/directions/" target="_blank">l'API Mapbox Directions</a> pour récupérer un chemin sur le réseau routier. En outre, nous utilisons <a href="https://docs.mapbox.com/help/troubleshooting/access-elevation-data/#mapbox-terrain-rgb">les tuiles Mapbox Terrain-RGB</a> pour ajouter des données d'altitude précises aux nouveaux points de passage.<br><br>
-                Malheureusement, ce n'est pas gratuit, même avec le soutien de Mapbox (voir <a href="#mapbox">Mapbox Community</a> ci-dessus). Sont aussi facturés les chargements de carte et les requêtes de géocodage (recherche d'un endroit à partir de la barre de recherche).<br><br>
-                Donc, si vous appréciez l'outil et l'utilisez fréquemment, envisagez de faire même un petit don pour que ce site puisse rester <b>gratuit à utiliser</b> et <b>sans publicité</b>. Merci pour votre soutien !<br><br>
-                <div style="text-align: center;"><script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support gpx.studio on Ko-fi', '#29abe0', 'F1F1303GH');kofiwidget2.draw();</script></div>
+                Le menu <span class="button">Aide</span> et le <a href="#guide">Guide utilisateur</a> devraient répondre à la plupart de vos questions sur les fonctionnalités, mais n'hésitez pas à demander de l'aide, signaler tout problème ou envoyer des suggestions sur la <a href="https://facebook.com/gpx.studio" target="_blank">page Facebook</a> ou par e-mail à <a href="mailto:hello@gpx.studio">hello@gpx.studio</a>.<br><br>
+                Pour les développeurs, le <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank">dépôt Github</a> est également un bon endroit pour signaler des problèmes ou partager des idées.
             </div>
             </div>
             <div class="block">
@@ -134,13 +133,6 @@
                 Vous pouvez aider à compléter et à améliorer les traductions en rejoignant le projet <a href="https://crowdin.com/project/gpxstudio">Crowdin</a>.
                 Contactez-moi sur <a href="https://facebook.com/gpx.studio" target="_blank">Facebook</a>, <a href="https://twitter.com/gpxstudio" target="_blank">Twitter</a>, par <a href="mailto:hello@gpx.studio">email</a> ou sur <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank">GitHub</a> si vous souhaitez commencer la traduction dans une nouvelle langue.
                 Mis à part une bonne compréhension de <b>gpx.studio</b>, certaines connaissances de base du HTML peuvent être utiles. Toute aide est grandement appréciée !
-            </div>
-            </div>
-            <div class="block">
-            <a name="support"></a><h1>Support &#128172;</h1>
-            <div>
-                Le menu <span class="button">Aide</span> et le <a href="#guide">Guide utilisateur</a> devraient répondre à la plupart de vos questions sur les fonctionnalités, mais n'hésitez pas à demander de l'aide, signaler tout problème ou envoyer des suggestions sur la <a href="https://facebook.com/gpx.studio" target="_blank">page Facebook</a> ou par e-mail à <a href="mailto:hello@gpx.studio">hello@gpx.studio</a>.<br><br>
-                Pour les développeurs, le <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank">dépôt Github</a> est également un bon endroit pour signaler des problèmes ou partager des idées.
             </div>
             </div>
             <div class="block">
@@ -444,22 +436,23 @@
             <p>En accédant à ce site Web, vous acceptez d'être lié par les présentes conditions d'utilisation du site Web et de consulter notre politique de confidentialité. Si vous n'êtes pas d'accord avec l'une ou l'autre de ces modalités, il vous est interdit d'utiliser ou d'accéder à ce site.</p>
             <h2>Changements des Services</h2>
             <p>Nous pouvons modifier les fonctionnalités de nos Services, retirer ou ajouter de nouvelles fonctionnalités à n'importe quel moment.</p>
-            <h2>Tarification</h2>
-            <p>Nos Services sont offerts gratuitement et sans publicité. Nous comptons uniquement sur des dons pour financer les éléments payants du site.</p>
             <h2>Garantie</h2>
             <p>Les services proposés sur le site sont fournis "tels quels". Nous ne donnons aucune garantie ni implicite ni exprimée au sujet des Services. Nous ne faisons aucune promesse quant à la précision des fonctions spécifiques des services, leur fiabilité ou leur disponibilité.</p>
-            <h2>Limitation de Responsabilité</h2>
-            <p>Dans toute la mesure permise par la loi, en aucun cas nous ne serons responsables des dommages ou de la perte de données, de profits, de matériel informatique ou de logiciels.</p>
             <h2>Modifications des conditions d'utilisation</h2>
-            <div>Nous nous réservons le droit de modifier ces Conditions à tout moment. En continuant à utiliser les Services après l'entrée en vigueur des modifications, vous acceptez les conditions révisées.</div>
+            <div>Nous nous réservons le droit de modifier ces Conditions à tout moment. Nous vous informerons sur le site Web afin que vous puissiez accepter les conditions révisées.</div>
             </div>
             <div class="block">
             <a name="privacy"></a><h1>Politique de confidentialité &#128373;&#65039;</h1>
             <p><b>gpx.studio</b> est un éditeur de fichiers GPX en ligne qui permet aux utilisateurs de créer, visualiser et éditer des fichiers.
-                Nous respectons la vie privée de nos utilisateurs et ne recueillons aucune information personnelle, sauf des renseignements anonymes tels que le nombre de vues des pages et les clics sur les boutons pour nous aider à améliorer votre expérience globale.</p>
+                Nous respectons la vie privée de nos utilisateurs et ne recueillons aucune information personnelle.</p>
             <p>Les fichiers créés, visualisés ou édités sur le site ne sont lus qu'une seule fois et ne sont jamais stockés sur un serveur.
                 Nous n'accédons qu'aux données contenues dans les fichiers et nous gérons tous les calculs à partir de votre navigateur (c'est une application purement client).</p>
-            <p>Le code du site web est open-source (voir <a href="#about">À propos</a>), nous n'avons rien à cacher.</p>
+            <p>Cependant, nous utilisons des services tiers qui recueillent et utilisent des informations anonymisées :
+                <ul>
+                    <li><b>Google Analytics</b>: mesure le nombre de fois que les pages sont vues et les boutons cliqués pour nous aider à améliorer votre expérience globale.</li>
+                    <li><b>Google AdSense</b>: affiche des publicités sur le site Web qui peuvent être personnalisées ou non. Nous vous permettons de modifier vos préférences concernant l'utilisation des cookies pour afficher des publicités personnalisées. Plus d'information <a href="https://policies.google.com/technologies/partner-sites" target="_blank">ici</a> sur la façon dont Google utilise les données collectées.</li>
+                </ul>
+            </p>
             <h2>Google Drive</h2>
             <p>Le site Web offre la possibilité de se connecter avec Google Drive pour télécharger et enregistrer des fichiers afin de faciliter le stockage, le versionnage et le partage des fichiers GPX.
                 Ce service vous authentifie directement avec votre compte Google, et un jeton d'authentification vous identifiant en tant que propriétaire du fichier est stocké dans le profil de session de votre navigateur local.
@@ -468,7 +461,7 @@
             <p>Nous utilisons les fonctionnalités standards de partage de Google Drive lorsque vous décidez de partager le fichier, et les mécanismes standards d'authentification et d'autorisation d'accès de Google Drive.
                 Aucun autre fichier que ceux que vous créez avec l'outil ou que vous décidez d'ouvrir avec celui-ci (soit en ouvrant depuis Google Drive ou en visitant son URL associée sur l'outil) ne sera accédé, et aucun ne sera stocké.</p>
             <p><b>gpx.studio</b> utilise les informations reçues par les API Google conformément à la <a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes">Politique d'utilisation des données utilisateur des services API de Google</a>, y compris les exigences d'utilisation limitée.</p>
-            <p>Dernière mise à jour le 24 juin 2021.</p>
+            <p>Dernière mise à jour le 26 juillet 2021.</p>
             <br><br><br>
             </div>
         </div>
