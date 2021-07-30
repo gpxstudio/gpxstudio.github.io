@@ -5,17 +5,28 @@ html, body {
 }
 
 #mapid {
-    width: 100%;
+    left: 0px;
+    right: 0px;
     height: 100%;
+    position: absolute;
 }
 
 .center-leaflet {
-    transform: translate(-50%, 0%);
-    margin-left: 50vw !important;
+    transform: translateX(-50%);
+    margin-left: 50% !important;
 }
 
 .vcenter-leaflet {
-    margin-top: 12vh !important;
+    margin-top: 50vh !important;
+    transform: translateY(-80%);
+}
+
+.leaflet-top {
+    height: 100%;
+}
+
+.leaflet-left {
+    width: 100%;
 }
 
 .leaflet-left .leaflet-control {
