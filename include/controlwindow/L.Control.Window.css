@@ -28,6 +28,9 @@
 
 .leaflet-control-window{
     position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
     z-index: 2000;
     padding: 6px;
     background: #fcfcfc;
@@ -60,35 +63,7 @@
     overflow: auto;
 }
 
-.leaflet-control-window button{
-    position: relative;
-    display: inline-block;
-    background-color: transparent;
-    color: inherit;
 
-    opacity: 0.5;
-    transition-property: opacity;
-    transition-duration: 0.2s;
-    transition-timing-function: linear;
-
-    cursor:pointer;
-    font-size: medium;
-    font-weight: bold;
-    text-decoration:none;
-    text-align: center;
-    vertical-align: middle;
-    border: 0;
-    padding: 8px;
-    margin: 12px 8px 0 8px;
-}
-
-.leaflet-control-window button:focus {
-    outline:0;
-}
-
-.leaflet-control-window button:hover {
-    opacity: 1;
-}
 .disabled{
 	opacity: .5;
 	pointer-events:none;

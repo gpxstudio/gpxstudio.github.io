@@ -116,39 +116,6 @@ L.Control.Window = L.Control.extend({
 
 
         this.setContentMaxHeight();
-        var thisWidth = this._container.offsetWidth;
-        var thisHeight = this._container.offsetHeight;
-        var margin = 8;
-
-        var el =  L.DomUtil.get(this.options.element);
-        var rect = el.getBoundingClientRect();
-        var width = rect.right -rect.left ||  Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-        var height = rect.bottom -rect.top ||  Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-
-        var top = rect.top;
-        var left = rect.left;
-        var offset =0;
-
-        // SET POSITION OF WINDOW
-        if (this.options.position == 'topLeft'){
-            this.showOn([left,top+offset])
-            } else if (this.options.position == 'left') {
-            this.showOn([left, top+height/2-thisHeight/2-margin+offset])
-        } else if (this.options.position == 'bottomLeft') {
-            this.showOn([left, top+height-thisHeight-margin*2-offset])
-        } else if (this.options.position == 'top') {
-            this.showOn([left+width/2-thisWidth/2-margin,top+offset])
-        } else if (this.options.position == 'topRight') {
-            this.showOn([left+width-thisWidth-margin*2,top+ offset])
-        } else if (this.options.position == 'right') {
-            this.showOn([left+width-thisWidth-margin*2, top+height/2-thisHeight/2-margin+offset])
-        } else if (this.options.position == 'bottomRight') {
-            this.showOn([left+width-thisWidth-margin*2,top+ height-thisHeight-margin*2-offset])
-        } else if (this.options.position == 'bottom') {
-            this.showOn([left+width/2-thisWidth/2-margin,top+ height-thisHeight-margin*2-offset])
-        } else {
-            this.showOn([left+width/2-thisWidth/2-margin, top+top+height/2-thisHeight/2-margin+offset])
-        }
 
         return this;
     },

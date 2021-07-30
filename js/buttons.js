@@ -310,11 +310,13 @@ export default class Buttons {
 
             var nTraces = 0;
             const params = JSON.parse(urlParams.get('state'));
-            if (params.urls) nTraces += params.urls.length;
-            if (params.ids) nTraces += params.ids.length;
-            if (nTraces == 1) {
-                this.tabs.style.display = 'none';
-                this.trace_info_content.style.paddingBottom = '20px';
+            if (params) {
+                if (params.urls) nTraces += params.urls.length;
+                if (params.ids) nTraces += params.ids.length;
+                if (nTraces == 1) {
+                    this.tabs.style.display = 'none';
+                    this.trace_info_content.style.paddingBottom = '20px';
+                }
             }
 
             this.toolbar = L.control({position: 'topleft'});
@@ -780,11 +782,6 @@ export default class Buttons {
         this.load_error_ok.addEventListener("click", function () {
             buttons.load_error_window.hide();
         });
-        this.account.addEventListener("click", function () {
-            if (buttons.window_open) buttons.window_open.hide();
-            buttons.window_open = buttons.login_window;
-            buttons.login_window.show();
-        });
         this.donate.addEventListener("click", function () {
             buttons.donation();
         });
@@ -805,7 +802,6 @@ export default class Buttons {
     }
 
     addHandlersWithTotal(total) {
-        this.google = new Google(this);
         this.total = total;
         this.elev.total = total;
         const buttons = this;
@@ -1495,6 +1491,7 @@ export default class Buttons {
                 buttons.duration_info.style.gridRow = '2 / span 1';
             }
         });
+        this.google = new Google(this);
     }
 
     focusTabElement(tab) {
