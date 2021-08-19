@@ -814,9 +814,9 @@ export default class Trace {
         }
 
         this.additionalAvgData = {
-            hr: cntHr > 0 ? Math.round((totHr/cntHr) * 10) / 10 : null,
+            hr: cntHr > 0 ? Math.round(totHr/cntHr) : null,
             atemp: cntTemp > 0 ? Math.round((totTemp/cntTemp) * 10) / 10 : null,
-            cad: cntCad > 0 ? Math.round((totCad/cntCad) * 10) / 10 : null,
+            cad: cntCad > 0 ? Math.round(totCad/cntCad) : null,
             power: cntPower > 0 ? Math.round(totPower/cntPower) : null
         };
         return this.additionalAvgData;
