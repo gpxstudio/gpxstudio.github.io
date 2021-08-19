@@ -226,9 +226,9 @@ export default class Total {
         }
 
         this.additionalAvgData = {
-            hr: cntHr > 0 ? Math.round((totHr/cntHr) * 10) / 10 : null,
+            hr: cntHr > 0 ? Math.round(totHr/cntHr) : null,
             atemp: cntTemp > 0 ? Math.round((totTemp/cntTemp) * 10) / 10 : null,
-            cad: cntCad > 0 ? Math.round((totCad/cntCad) * 10) / 10 : null,
+            cad: cntCad > 0 ? Math.round(totCad/cntCad) : null,
             power: cntPower > 0 ? Math.round(totPower/cntPower) : null
         };
         return this.additionalAvgData;
@@ -287,15 +287,13 @@ export default class Total {
         <link href="https://gpx.studio"></link>
     </author>
 </metadata>
-<trk>
+`;
+        const xmlStart3 = `<trk>
     <type>`+(this.buttons.cycling ? 'Cycling' : 'Running')+`</type>
-    <name>`;
-        const xmlStart3 = `</name>
 `;
 
-        const xmlEnd1 = `</trk>
-`;
-        const xmlEnd2 = `</gpx>`;
+        const xmlEnd = `</trk>
+</gpx>`;
 
         const output = [];
         var xmlOutput = '';
@@ -330,21 +328,22 @@ export default class Total {
                         xmlOutput += `    <extensions>
         <gpxtpx:TrackPointExtension>
     `;
-                        if (incl_hr) {
-                            if (point.meta.hr) {
-                                xmlOutput += `    <gpxtpx:hr>${point.meta.hr}</gpxtpx:hr>
-    `;
-                            } else if (hr) {
-                                xmlOutput += `    <gpxtpx:hr>${hr}</gpxtpx:hr>
-    `;
-                            }
-                        }
+
                         if (incl_atemp) {
                             if (point.meta.atemp) {
                                 xmlOutput += `    <gpxtpx:atemp>${point.meta.atemp}</gpxtpx:atemp>
     `;
                             } else if (atemp) {
                                 xmlOutput += `    <gpxtpx:atemp>${atemp}</gpxtpx:atemp>
+    `;
+                            }
+                        }
+                        if (incl_hr) {
+                            if (point.meta.hr) {
+                                xmlOutput += `    <gpxtpx:hr>${point.meta.hr}</gpxtpx:hr>
+    `;
+                            } else if (hr) {
+                                xmlOutput += `    <gpxtpx:hr>${hr}</gpxtpx:hr>
     `;
                             }
                         }
@@ -390,9 +389,9 @@ export default class Total {
                 }
                 waypointsOutput += `    <name>`+this.encodeString(point.name)+`</name>
 `;
-                waypointsOutput += `    <desc>`+this.encodeString(point.desc)+`</desc>
-`;
                 waypointsOutput += `    <cmt>`+this.encodeString(point.cmt)+`</cmt>
+`;
+                waypointsOutput += `    <desc>`+this.encodeString(point.desc)+`</desc>
 `;
                 waypointsOutput += `    <sym>${point.sym}</sym>
 `;
@@ -401,14 +400,19 @@ export default class Total {
             }
 
             if (!mergeAll || this.traces.length == 1 || trace_idx!==undefined) {
-                const colorOutput = this.traces[i].set_color ? `<extensions>
-    <color>`+this.traces[i].normal_style.color+`</color>
-    <opacity>`+this.traces[i].normal_style.opacity+`</opacity>
-</extensions>
+                const colorOutput = this.traces[i].set_color ? `    <extensions>
+        <gpxx:TrackExtension>
+        <gpxx:Extensions>
+        <color>`+this.traces[i].normal_style.color+`</color>
+        <opacity>`+this.traces[i].normal_style.opacity+`</opacity>
+        </gpxx:Extensions>
+        </gpxx:TrackExtension>
+    </extensions>
 ` : '';
+
                 output.push({
                     name: this.traces[i].name + '.gpx',
-                    text: (xmlStart1+this.traces[i].name+xmlStart2+this.traces[i].name+xmlStart3+xmlOutput+xmlEnd1+waypointsOutput+colorOutput+xmlEnd2)
+                    text: (xmlStart1+this.traces[i].name+xmlStart2+waypointsOutput+xmlStart3+colorOutput+xmlOutput+xmlEnd)
                 });
                 xmlOutput = '';
                 waypointsOutput = '';
@@ -418,7 +422,7 @@ export default class Total {
         if (mergeAll && this.traces.length > 1) {
             output.push({
                 name: 'track.gpx',
-                text: (xmlStart1+'track'+xmlStart2+'track'+xmlStart3+xmlOutput+xmlEnd1+waypointsOutput+xmlEnd2)
+                text: (xmlStart1+'track'+xmlStart2+waypointsOutput+xmlStart3+xmlOutput+xmlEnd)
             });
         }
 
