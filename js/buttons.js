@@ -1114,15 +1114,20 @@ export default class Buttons {
                 if (total.hasFocus) return;
                 var trace = total.traces[total.focusOn];
                 if (trace.isEdited) buttons.edit.click();
+                e.preventDefault();
             } else if (e.key === "F1") {
                 if (map.hasLayer(buttons.stravaHeatmap)) buttons.stravaHeatmap.remove();
                 else buttons.stravaHeatmap.addTo(map);
+                e.preventDefault();
             } else if (e.key === "F2") {
+            e.preventDefault();
                 buttons.method.click();
             } else if (e.key === "F3") {
                 buttons.activity.click();
+                e.preventDefault();
             } else if (e.key === "F4") {
                 buttons.units.click();
+                e.preventDefault();
             } else if (e.key == "h" && (e.ctrlKey || e.metaKey)) {
                 buttons.show_profile.click();
                 e.preventDefault();

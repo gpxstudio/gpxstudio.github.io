@@ -28,7 +28,7 @@
 	background:url(images/elevation-steelblue.png) no-repeat center center
 }
 .steelblue-theme.leaflet-control.elevation .area{
-	fill:#E8E8E8
+	fill:#c2c2c2
 }
 .steelblue-theme.leaflet-control.elevation .mouse-focus-line{
 	pointer-events:none;
