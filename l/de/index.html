@@ -92,6 +92,7 @@
     <body>
         <input id="input-file" type="file" accept=".gpx" multiple style="display: none"/>
         <div id="mapid"></div>
+        <div style="display: none">
         <div id="toolbar" class="panels-container center-leaflet">
             <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 2px 4px" alt="Logo von gpx.studio, dem Online-Editor für GPX-Dateien"></a>
             <div id="load" class="panels custom-button">GPX öffnen</div>
@@ -189,7 +190,7 @@
             <tr>
                 <td><b>GPX öffnen</b></td>
                 <td>Ctrl+O</td>
-                <td>Importieren und visualisieren Sie GPX-Dateien (Sie können Sie auch per Drag-And-Drop irgendwo im Fenster öffnen)</td>
+                <td>Importieren und visualisieren Sie GPX-Dateien (Sie können sie auch per Drag-And-Drop irgendwo im Fenster öffnen)</td>
             </tr>
             <tr>
                 <td><b>Neue GPX</b></td>
@@ -413,49 +414,45 @@
         <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
             <b>Öffnen in</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="Logo von gpx.studio, dem Online-Editor für GPX-Dateien">
         </div>
-        <div id="login-content">
-            <div id="firebaseui-auth-container" style="white-space: normal"></div>
+        <div id="unit-kilometers-text">km</div>
+        <div id="unit-miles-text">mi</div>
+        <div id="unit-meters-text">m</div>
+        <div id="unit-feet-text">ft</div>
+        <div id="unit-hours-text">h</div>
+        <div id="unit-minutes-text">min</div>
+        <div id="duplicate-text">Duplizieren</div>
+        <div id="delete-text">Löschen</div>
+        <div id="ok-button-text">Ok</div>
+        <div id="cancel-button-text">Abbrechen</div>
+        <div id="edit-speed-popup-text">
+            <div id="speed-text">Geschwindigkeit</div>
+            <div id="pace-text">Tempo</div>
+            <div id="start-text">Start</div>
+            <div id="experimental-text">Experimentell</div>
+            <div id="experimental-info-text">Generieren Sie Geschwindigkeit unter Berücksichtigung der Neigung (löscht alle vorhandenen Zeitdaten)</div>
         </div>
-        <div style="display: none">
-            <div id="unit-kilometers-text">km</div>
-            <div id="unit-miles-text">mi</div>
-            <div id="unit-meters-text">m</div>
-            <div id="unit-feet-text">ft</div>
-            <div id="unit-hours-text">h</div>
-            <div id="unit-minutes-text">min</div>
-            <div id="duplicate-text">Duplizieren</div>
-            <div id="delete-text">Löschen</div>
-            <div id="ok-button-text">Ok</div>
-            <div id="cancel-button-text">Abbrechen</div>
-            <div id="edit-speed-popup-text">
-                <div id="speed-text">Geschwindigkeit</div>
-                <div id="pace-text">Tempo</div>
-                <div id="start-text">Start</div>
-                <div id="experimental-text">Experimentell</div>
-                <div id="experimental-info-text">Generieren Sie Geschwindigkeit unter Berücksichtigung der Neigung (löscht alle vorhandenen Zeitdaten)</div>
-            </div>
-            <div id="waypoint-popup-text">
-                <div id="empty-title-text">Kein Titel</div>
-                <div id="name-text">Bezeichnung</div>
-                <div id="comment-text">Kommentar (für GPS-Geräte)</div>
-                <div id="description-text">Beschreibung (für Nutzer)</div>
-                <div id="symbol-text">Symbol</div>
-                <div id="edit-info-text">Informationen bearbeiten</div>
-            </div>
-            <div id="right-click-popup-text">
-                <div id="split-text">Hier teilen</div>
-                <div id="remove-pt-text">Punkt entfernen</div>
-            </div>
+        <div id="waypoint-popup-text">
+            <div id="empty-title-text">Kein Titel</div>
+            <div id="name-text">Bezeichnung</div>
+            <div id="comment-text">Kommentar (für GPS-Geräte)</div>
+            <div id="description-text">Beschreibung (für Nutzer)</div>
+            <div id="symbol-text">Symbol</div>
+            <div id="edit-info-text">Informationen bearbeiten</div>
         </div>
-        <h1 style="display: none">Online GPX-Editor</h1>
-        <h1 style="display: none">Online GPX-Editor</h1>
-        <h1 style="display: none">GPX-Dateien online bearbeiten</h1>
-        <h1 style="display: none">GPX-Dateien online anzeigen</h1>
-        <h1 style="display: none">GPX-Dateien online zusammenführen</h1>
-        <h1 style="display: none">GPX-Dateisegmente online extrahieren</h1>
-        <h1 style="display: none">GPX-Dateien online umkehren</h1>
-        <h1 style="display: none">Zeitmarken online zu GPX-Dateien hinzufügen</h1>
-        <h1 style="display: none">komprimieren vereinfachen reduzieren Anzahl Punkte gpx-Datei online</h1>
-        <h1 style="display: none">GPX-Datei online ansehen und Wegpunkte hinzufügen</h1>
+        <div id="right-click-popup-text">
+            <div id="split-text">Hier teilen</div>
+            <div id="remove-pt-text">Punkt entfernen</div>
+        </div>
+        <h1>Online GPX-Editor</h1>
+        <h1>Online GPX-Editor</h1>
+        <h1>GPX-Dateien online bearbeiten</h1>
+        <h1>GPX-Dateien online anzeigen</h1>
+        <h1>GPX-Dateien online zusammenführen</h1>
+        <h1>GPX-Dateisegmente online extrahieren</h1>
+        <h1>GPX-Dateien online umkehren</h1>
+        <h1>Zeitmarken online zu GPX-Dateien hinzufügen</h1>
+        <h1>komprimieren vereinfachen reduzieren Anzahl Punkte gpx-Datei online</h1>
+        <h1>GPX-Datei online ansehen und Wegpunkte hinzufügen</h1>
+        </div>
     </body>
 </html>

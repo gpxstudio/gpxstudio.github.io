@@ -316,7 +316,7 @@ export default class Buttons {
                 if (nTraces == 1) {
                     this.tabs.style.display = 'none';
                     this.trace_info_content.style.paddingBottom = '20px';
-                }
+                } else this.multipleEmbedding = true;
             }
 
             this.toolbar = L.control({position: 'topleft'});

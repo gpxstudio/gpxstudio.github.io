@@ -119,6 +119,8 @@ export default class Trace {
 
             trace.focus();
 
+            if (total.buttons.multipleEmbedding) trace.updateFocus();
+
             if (trace.gpx.missing_elevation && (!trace.buttons.embedding || trace.buttons.mapboxSKUToken)) trace.askElevation(trace.getPoints());
 
             if (callback) callback(trace);
