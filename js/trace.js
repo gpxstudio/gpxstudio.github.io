@@ -1397,76 +1397,7 @@ export default class Trace {
             end = Math.min(end, this.buttons.slider.getIndexEnd());
         }
 
-        // reset
-        this.gpx._info.length = 0.0;
-        this.gpx._info.moving_length = 0.0;
-        this.gpx._info.elevation.gain = 0.0;
-        this.gpx._info.elevation.loss = 0.0;
-        this.gpx._info.elevation.max = 0.0;
-        this.gpx._info.elevation.min = Infinity;
-        this.gpx._info.duration.start = null;
-        this.gpx._info.duration.end = null;
-        this.gpx._info.duration.moving = 0;
-        this.gpx._info.duration.total = 0;
-        this.gpx._info.npoints = 0;
-        this.gpx._info.nsegments = 0;
-        var distance = 0.0;
-
-        var cumul = 0;
-        // recompute on remaining data
-        const segments = this.getSegments();
-        for (var l=0; l<segments.length; l++) {
-            var ll = null, last = null, last_ele = null;
-            const points = segments[l]._latlngs;
-
-            if (start < cumul+points.length && end >= cumul) this.gpx._info.nsegments++;
-
-            for (var i=0; i<points.length; i++) {
-                ll = points[i];
-
-                if (cumul+i >= start && cumul+i <= end) {
-                    this.gpx._info.npoints++;
-                    this.gpx._info.elevation.max = Math.max(ll.meta.ele, this.gpx._info.elevation.max);
-                    this.gpx._info.elevation.min = Math.min(ll.meta.ele, this.gpx._info.elevation.min);
-                    this.gpx._info.duration.end = ll.meta.time;
-                }
-
-                if (last != null) {
-                    const dist = this.gpx._dist2d(last, ll);
-                    if (cumul+i >= start && cumul+i <= end) this.gpx._info.length += dist;
-                    distance += dist;
-
-                    if (last_ele == null) last_ele = ll;
-                    var t = ll.meta.ele - last_ele.meta.ele;
-                    const dist_to_last_ele = this.gpx._dist2d(last_ele, ll);
-                    if (cumul+i >= start && cumul+i <= end && (Math.abs(t) > 10 || dist_to_last_ele > 50)) {
-                        if (t > 0) {
-                          this.gpx._info.elevation.gain += t;
-                        } else {
-                          this.gpx._info.elevation.loss += Math.abs(t);
-                        }
-                        last_ele = ll;
-                    }
-
-                    t = Math.abs(ll.meta.time - last.meta.time);
-
-                    if (cumul+i >= start && cumul+i <= end) {
-                        this.gpx._info.duration.total += t;
-                        if (t < this.gpx.options.max_point_interval && (dist/1000)/(t/1000/60/60) >= 0.5) {
-                          this.gpx._info.duration.moving += t;
-                          this.gpx._info.moving_length += dist;
-                        }
-                    }
-                } else if (this.gpx._info.duration.start == null) {
-                    this.gpx._info.duration.start = ll.meta.time;
-                }
-                ll._dist = Math.round(distance/1e3*1e5)/1e5;
-
-                last = ll;
-            }
-
-            cumul += points.length;
-        }
+        this.gpx._compute_stats(start, end);
     }
 
     /*** REQUESTS ***/

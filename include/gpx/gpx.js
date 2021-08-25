@@ -343,6 +343,8 @@ var _MINUTE_IN_MILLIS = 60 * _SECOND_IN_MILLIS;
 var _HOUR_IN_MILLIS = 60 * _MINUTE_IN_MILLIS;
 var _DAY_IN_MILLIS = 24 * _HOUR_IN_MILLIS;
 
+var _HALF_WINDOW = 7;
+
 var _GPX_STYLE_NS = 'http://www.topografix.com/GPX/gpx_style/0/2';
 
 var _DEFAULT_MARKER_OPTS = {
@@ -371,6 +373,7 @@ var _DEFAULT_GPX_OPTS = {
 L.GPX = L.FeatureGroup.extend({
   initialize: function(gpx, options, trace) {
     options.max_point_interval = options.max_point_interval || _MAX_POINT_INTERVAL_MS;
+    options.half_window = options.half_window || _HALF_WINDOW;
     options.marker_options = this._merge_objs(
       _DEFAULT_MARKER_OPTS,
       options.marker_options || {});
@@ -589,6 +592,7 @@ L.GPX = L.FeatureGroup.extend({
         return;
       }
       _this.addLayer(layers);
+      _this._compute_stats();
       _this.fire('loaded', { layers: layers, element: gpx });
     }
     if (input.substr(0,1)==='<') { // direct XML has to start with a <
@@ -675,10 +679,6 @@ L.GPX = L.FeatureGroup.extend({
         }
       }
     }
-
-    this._info.hr.avg = Math.round(this._info.hr._total / this._info.hr._points.length);
-    this._info.cad.avg = Math.round(this._info.cad._total / this._info.cad._points.length);
-    this._info.atemp.avg = Math.round(this._info.atemp._total / this._info.atemp._points.length);
 
     // parse waypoints and add markers for each of them
     if (parseElements.indexOf('waypoint') > -1) {
@@ -876,13 +876,8 @@ L.GPX = L.FeatureGroup.extend({
     var coords = [];
     var markers = [];
     var layers = [];
-    var last = null;
-    var last_ele = null;
-
-    this._info.nsegments++;
 
     for (var i = 0; i < el.length; i++) {
-      this._info.npoints++;
       var _, ll = new L.LatLng(
         el[i].getAttribute('lat'),
         el[i].getAttribute('lon'));
@@ -962,34 +957,6 @@ L.GPX = L.FeatureGroup.extend({
       this._info.elevation._points.push([this._info.length, ll.meta.ele]);
       this._info.duration.end = ll.meta.time;
 
-      if (last != null) {
-        const dist = this._dist2d(last, ll);
-        this._info.length += dist;
-
-        if (last_ele == null) last_ele = ll;
-        var t = ll.meta.ele - last_ele.meta.ele;
-        const dist_to_last_ele = this._dist2d(last_ele, ll);
-        if (Math.abs(t) > 10 || dist_to_last_ele > 50) {
-            if (t > 0) {
-              this._info.elevation.gain += t;
-            } else {
-              this._info.elevation.loss += Math.abs(t);
-            }
-            last_ele = ll;
-        }
-
-        t = Math.abs(ll.meta.time - last.meta.time);
-        this._info.duration.total += t;
-        if (t < options.max_point_interval && (dist/1000)/(t/1000/60/60) >= 0.5) {
-          this._info.duration.moving += t;
-          this._info.moving_length += dist;
-        }
-      } else if (this._info.duration.start == null) {
-        this._info.duration.start = ll.meta.time;
-      }
-      ll._dist = Math.round(this._info.length/1e3*1e5)/1e5;
-
-      last = ll;
       coords.push(ll);
     }
 
@@ -1030,6 +997,106 @@ L.GPX = L.FeatureGroup.extend({
     }
 
     return layers;
+  },
+
+  _compute_stats: function(start, end) {
+      this._init_info();
+
+      var in_bounds = function(i) {
+          if (start !== undefined && end !== undefined) {
+              return i >= start && i <= end;
+          } else {
+              return true;
+          }
+      }
+
+      // recompute on remaining data
+      const layers = this.getLayers()[0].getLayers();
+      const segments = [];
+      for (var l=0; l<layers.length; l++) if (layers[l]._latlngs) {
+          segments.push(layers[l]);
+      }
+
+      var distance = 0.0, cumul = 0;
+      for (var l=0; l<segments.length; l++) {
+          var ll = null, last = null, last_ele = null;
+          var current_window = 0, current_sum = 0;
+          const points = segments[l]._latlngs;
+
+          if (start < cumul+points.length && end >= cumul) this._info.nsegments++;
+
+          for (var i=0; i<points.length; i++) {
+              ll = points[i];
+
+              if (in_bounds(cumul+i)) {
+                  this._info.npoints++;
+                  this._info.elevation.max = Math.max(ll.meta.ele, this._info.elevation.max);
+                  this._info.elevation.min = Math.min(ll.meta.ele, this._info.elevation.min);
+                  this._info.duration.end = ll.meta.time;
+              }
+
+              // smooth elev
+              current_sum += ll.meta.ele;
+              current_window++;
+
+              if (i - 2*this.options.half_window - 1 >= 0) {
+                  current_sum -= points[i - 2*this.options.half_window - 1].meta.ele;
+                  current_window--;
+              }
+
+              if (i-this.options.half_window >= 0) {
+                  points[i-this.options.half_window].meta.smoothed_ele = current_sum / current_window;
+                  if (in_bounds(cumul+i-this.options.half_window) && i-this.options.half_window-1 >= 0) {
+                      var t = points[i-this.options.half_window].meta.smoothed_ele - points[i-this.options.half_window-1].meta.smoothed_ele;
+                      if (t > 0) {
+                        this._info.elevation.gain += t;
+                      } else {
+                        this._info.elevation.loss += Math.abs(t);
+                      }
+                  }
+              }
+
+              if (last != null) {
+                  const dist = this._dist2d(last, ll);
+                  if (in_bounds(cumul+i)) this._info.length += dist;
+                  distance += dist;
+
+                  var t = Math.abs(ll.meta.time - last.meta.time);
+
+                  if (in_bounds(cumul+i)) {
+                      this._info.duration.total += t;
+                      if (t < this.options.max_point_interval && (dist/1000)/(t/1000/60/60) >= 0.5) {
+                        this._info.duration.moving += t;
+                        this._info.moving_length += dist;
+                      }
+                  }
+              } else if (this._info.duration.start == null) {
+                  this._info.duration.start = ll.meta.time;
+              }
+              ll._dist = Math.round(distance/1e3*1e5)/1e5;
+
+              last = ll;
+          }
+
+          for (var i=Math.max(0,points.length-this.options.half_window); i<points.length; i++) {
+              if (i-this.options.half_window-1 >= 0) {
+                  current_sum -= points[i-this.options.half_window-1].meta.ele;
+                  current_window--;
+              }
+
+              points[i].meta.smoothed_ele = current_sum / current_window;
+              if (in_bounds(cumul+i) && i-1 >= 0) {
+                  var t = points[i].meta.smoothed_ele - points[i-1].meta.smoothed_ele;
+                  if (t > 0) {
+                    this._info.elevation.gain += t;
+                  } else {
+                    this._info.elevation.loss += Math.abs(t);
+                  }
+              }
+          }
+
+          cumul += points.length;
+      }
   },
 
   _extract_styling: function(el, base, overrides) {
