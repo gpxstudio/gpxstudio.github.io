@@ -1337,34 +1337,48 @@ export default class Trace {
         }
     }
 
+    slopeFactor(slope) {
+        const max_slope = 100;
+        slope = Math.max(-max_slope, Math.min(max_slope, slope));
+
+        if (this.buttons.cycling) {
+            if (slope < -30) {
+                return 1.5;
+            } else if (slope < 0) {
+                return 1 + 2 * 0.7 / 13 * slope + 0.7 / Math.pow(13, 2) * Math.pow(slope,2);
+            } else if (slope <= 20) {
+                return 1 + Math.pow(slope / 7, 2);
+            } else {
+                return 10;
+            }
+        } else {
+            if (slope < -30) {
+                return 4;
+            } else if (slope < 0) {
+                return 1 + 0.05 * slope + 0.005 * Math.pow(slope,2);
+            } else if (slope <= 20) {
+                return 1 + Math.pow(slope / 8, 1.5);
+            } else {
+                return 5;
+            }
+        }
+    }
+
     generateTimeData(start, avg) {
         const alpha = 0.2;
-        const squash = function (x) {
-            x /= 100;
-            return x / (1 + Math.abs(x));
-        };
+        var last_speed = avg;
         const points = this.getPoints();
         points[0].meta.time = start;
-        var last_speed = 0;
+
         for (var i=1; i<points.length; i++) {
-            const prev = Math.max(0, i-10);
-            if (!points[i].meta.ele || !points[prev].meta.ele) {
-                this.changeTimeData(start, avg);
-                return;
-            }
-            const dist = this.gpx._dist2d(points[i-1], points[i]);
-            if (dist == 0) {
-                points[i].meta.time = points[i-1].meta.time;
-                continue;
-            }
-            const slope = 100 * (points[i].meta.ele - points[prev].meta.ele) / dist;
-            var speed = avg * (1 - 0.5 * squash(slope));
-
-            // smoothing
-            if (last_speed != 0) speed = alpha * speed + (1 - alpha) * last_speed;
+            const a = points[i-1];
+            const b = points[i];
+            const dist = b._dist - a._dist;
+            const slope = (b.meta.smoothed_ele - a.meta.smoothed_ele) / (1000 * dist) * 100;
+            const slope_factor = this.slopeFactor(slope);
+            const speed = alpha * (avg / slope_factor) + (1-alpha) * last_speed;
+            points[i].meta.time = new Date(points[i-1].meta.time.getTime() + 1000 * 60 * 60 * dist/speed);
             last_speed = speed;
-
-            points[i].meta.time = new Date(points[i-1].meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * speed));
         }
 
         this.recomputeStats();

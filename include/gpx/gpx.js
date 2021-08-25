@@ -1073,7 +1073,7 @@ L.GPX = L.FeatureGroup.extend({
               } else if (this._info.duration.start == null) {
                   this._info.duration.start = ll.meta.time;
               }
-              ll._dist = Math.round(distance/1e3*1e5)/1e5;
+              ll._dist = distance / 1000;
 
               last = ll;
           }
