@@ -1337,34 +1337,48 @@ export default class Trace {
         }
     }
 
+    slopeFactor(slope) {
+        const max_slope = 100;
+        slope = Math.max(-max_slope, Math.min(max_slope, slope));
+
+        if (this.buttons.cycling) {
+            if (slope < -30) {
+                return 1.5;
+            } else if (slope < 0) {
+                return 1 + 2 * 0.7 / 13 * slope + 0.7 / Math.pow(13, 2) * Math.pow(slope,2);
+            } else if (slope <= 20) {
+                return 1 + Math.pow(slope / 7, 2);
+            } else {
+                return 10;
+            }
+        } else {
+            if (slope < -30) {
+                return 4;
+            } else if (slope < 0) {
+                return 1 + 0.05 * slope + 0.005 * Math.pow(slope,2);
+            } else if (slope <= 20) {
+                return 1 + Math.pow(slope / 8, 1.5);
+            } else {
+                return 5;
+            }
+        }
+    }
+
     generateTimeData(start, avg) {
         const alpha = 0.2;
-        const squash = function (x) {
-            x /= 100;
-            return x / (1 + Math.abs(x));
-        };
+        var last_speed = avg;
         const points = this.getPoints();
         points[0].meta.time = start;
-        var last_speed = 0;
+
         for (var i=1; i<points.length; i++) {
-            const prev = Math.max(0, i-10);
-            if (!points[i].meta.ele || !points[prev].meta.ele) {
-                this.changeTimeData(start, avg);
-                return;
-            }
-            const dist = this.gpx._dist2d(points[i-1], points[i]);
-            if (dist == 0) {
-                points[i].meta.time = points[i-1].meta.time;
-                continue;
-            }
-            const slope = 100 * (points[i].meta.ele - points[prev].meta.ele) / dist;
-            var speed = avg * (1 - 0.5 * squash(slope));
-
-            // smoothing
-            if (last_speed != 0) speed = alpha * speed + (1 - alpha) * last_speed;
+            const a = points[i-1];
+            const b = points[i];
+            const dist = b._dist - a._dist;
+            const slope = (b.meta.smoothed_ele - a.meta.smoothed_ele) / (1000 * dist) * 100;
+            const slope_factor = this.slopeFactor(slope);
+            const speed = alpha * (avg / slope_factor) + (1-alpha) * last_speed;
+            points[i].meta.time = new Date(points[i-1].meta.time.getTime() + 1000 * 60 * 60 * dist/speed);
             last_speed = speed;
-
-            points[i].meta.time = new Date(points[i-1].meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * speed));
         }
 
         this.recomputeStats();
@@ -1397,76 +1411,7 @@ export default class Trace {
             end = Math.min(end, this.buttons.slider.getIndexEnd());
         }
 
-        // reset
-        this.gpx._info.length = 0.0;
-        this.gpx._info.moving_length = 0.0;
-        this.gpx._info.elevation.gain = 0.0;
-        this.gpx._info.elevation.loss = 0.0;
-        this.gpx._info.elevation.max = 0.0;
-        this.gpx._info.elevation.min = Infinity;
-        this.gpx._info.duration.start = null;
-        this.gpx._info.duration.end = null;
-        this.gpx._info.duration.moving = 0;
-        this.gpx._info.duration.total = 0;
-        this.gpx._info.npoints = 0;
-        this.gpx._info.nsegments = 0;
-        var distance = 0.0;
-
-        var cumul = 0;
-        // recompute on remaining data
-        const segments = this.getSegments();
-        for (var l=0; l<segments.length; l++) {
-            var ll = null, last = null, last_ele = null;
-            const points = segments[l]._latlngs;
-
-            if (start < cumul+points.length && end >= cumul) this.gpx._info.nsegments++;
-
-            for (var i=0; i<points.length; i++) {
-                ll = points[i];
-
-                if (cumul+i >= start && cumul+i <= end) {
-                    this.gpx._info.npoints++;
-                    this.gpx._info.elevation.max = Math.max(ll.meta.ele, this.gpx._info.elevation.max);
-                    this.gpx._info.elevation.min = Math.min(ll.meta.ele, this.gpx._info.elevation.min);
-                    this.gpx._info.duration.end = ll.meta.time;
-                }
-
-                if (last != null) {
-                    const dist = this.gpx._dist2d(last, ll);
-                    if (cumul+i >= start && cumul+i <= end) this.gpx._info.length += dist;
-                    distance += dist;
-
-                    if (last_ele == null) last_ele = ll;
-                    var t = ll.meta.ele - last_ele.meta.ele;
-                    const dist_to_last_ele = this.gpx._dist2d(last_ele, ll);
-                    if (cumul+i >= start && cumul+i <= end && (Math.abs(t) > 10 || dist_to_last_ele > 50)) {
-                        if (t > 0) {
-                          this.gpx._info.elevation.gain += t;
-                        } else {
-                          this.gpx._info.elevation.loss += Math.abs(t);
-                        }
-                        last_ele = ll;
-                    }
-
-                    t = Math.abs(ll.meta.time - last.meta.time);
-
-                    if (cumul+i >= start && cumul+i <= end) {
-                        this.gpx._info.duration.total += t;
-                        if (t < this.gpx.options.max_point_interval && (dist/1000)/(t/1000/60/60) >= 0.5) {
-                          this.gpx._info.duration.moving += t;
-                          this.gpx._info.moving_length += dist;
-                        }
-                    }
-                } else if (this.gpx._info.duration.start == null) {
-                    this.gpx._info.duration.start = ll.meta.time;
-                }
-                ll._dist = Math.round(distance/1e3*1e5)/1e5;
-
-                last = ll;
-            }
-
-            cumul += points.length;
-        }
+        this.gpx._compute_stats(start, end);
     }
 
     /*** REQUESTS ***/
