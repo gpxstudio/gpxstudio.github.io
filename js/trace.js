@@ -1357,15 +1357,15 @@ export default class Trace {
             } else if (slope < 0) {
                 return 1 + 0.05 * slope + 0.005 * Math.pow(slope,2);
             } else if (slope <= 20) {
-                return 1 + Math.pow(slope / 8, 1.5);
+                return 1 + Math.pow(slope / 12, 2);
             } else {
-                return 5;
+                return 4;
             }
         }
     }
 
     generateTimeData(start, avg) {
-        const alpha = 0.2;
+        const alpha = 0.15;
         var last_speed = avg;
         const points = this.getPoints();
         points[0].meta.time = start;
@@ -1377,7 +1377,7 @@ export default class Trace {
             const slope = (b.meta.smoothed_ele - a.meta.smoothed_ele) / (1000 * dist) * 100;
             const slope_factor = this.slopeFactor(slope);
             const speed = alpha * (avg / slope_factor) + (1-alpha) * last_speed;
-            points[i].meta.time = new Date(points[i-1].meta.time.getTime() + 1000 * 60 * 60 * dist/speed);
+            points[i].meta.time = new Date(a.meta.time.getTime() + 1000 * 60 * 60 * dist/speed);
             last_speed = speed;
         }
 
