@@ -201,8 +201,7 @@ export default class Buttons {
         this.speed_text = document.getElementById('speed-text').textContent;
         this.pace_text = document.getElementById('pace-text').textContent;
         this.start_text = document.getElementById('start-text').textContent;
-        this.experimental_text = document.getElementById('experimental-text').textContent;
-        this.experimental_info_text = document.getElementById('experimental-info-text').textContent;
+        this.experimental_info_text = document.getElementById('experimental-info-text').innerHTML;
         this.name_text = document.getElementById('name-text').textContent;
         this.comment_text = document.getElementById('comment-text').textContent;
         this.description_text = document.getElementById('description-text').textContent;
@@ -1240,7 +1239,7 @@ export default class Buttons {
 
             content += `<div id="start-change">`+buttons.start_text+`
                         <input type="datetime-local" id="start-time"></div></div><br>
-                        <div><b style="color:red; vertical-align:top">`+buttons.experimental_text+`</b>  <div style="max-width: 200px;display: inline-block;white-space: normal;">`+buttons.experimental_info_text+`</div><input type="checkbox" id="slope-speed" style="vertical-align:top"></div><br>
+                        <div style="display: flex;align-items: center; padding: 10px; border: dashed;"><div style="max-width: 200px;display: inline-block;white-space: normal;">`+buttons.experimental_info_text+`</div><input type="checkbox" id="slope-speed" style="vertical-align:super"></div><br>
                         <div id="edit-speed" class="panels custom-button normal-button">`+buttons.ok_button_text+`</div>
                         <div id="cancel-speed" class="panels custom-button normal-button"><b>`+buttons.cancel_button_text+`</b></div>`;
 
