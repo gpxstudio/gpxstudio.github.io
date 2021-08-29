@@ -1374,7 +1374,7 @@ export default class Trace {
             const a = points[i-1];
             const b = points[i];
             const dist = b._dist - a._dist;
-            const slope = (b.meta.smoothed_ele - a.meta.smoothed_ele) / (1000 * dist) * 100;
+            const slope = dist == 0 ? 0 : (b.meta.smoothed_ele - a.meta.smoothed_ele) / (1000 * dist) * 100;
             const slope_factor = this.slopeFactor(slope);
             const speed = alpha * (avg / slope_factor) + (1-alpha) * last_speed;
             points[i].meta.time = new Date(a.meta.time.getTime() + 1000 * 60 * 60 * dist/speed);
