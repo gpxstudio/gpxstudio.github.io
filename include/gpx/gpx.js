@@ -788,7 +788,10 @@ L.GPX = L.FeatureGroup.extend({
                   popup.setContent(`<div style="width: 200px; display: inline-block; overflow-wrap: break-word;">
                                         `+(trace.buttons.embedding ? '' : (`<div style="float: right;"><i id="edit`+popup._leaflet_id+`" class="fas fa-pencil-alt custom-button" style="display: inline-block" title="`+trace.buttons.edit_info_text+`"></i> <i id="clone`+popup._leaflet_id+`" class="fas fa-copy custom-button" style="display: inline-block" title="`+trace.buttons.duplicate_text+`"></i> <i id="delete`+popup._leaflet_id+`" class="fas fa-trash-alt custom-button" style="display: inline-block" title="`+trace.buttons.delete_text+`"></i></div>`))+`
                                         <div class="wpt-cmt"><b>`+(marker.name.length > 0 ? marker.name : trace.buttons.empty_title_text)+`</b></div>
-                                        <div class="wpt-cmt">`+(marker.cmt.length > 0 ? (marker.cmt + '<br>') : '')+`<i class="wpt-cmt">`+marker.desc+`</i></div>
+                                        <div class="wpt-cmt">`+L.Util.formatNum(marker._latlng.lat)+', '+L.Util.formatNum(marker._latlng.lng)+' ('+
+                                        (trace.buttons.km ? (L.Util.formatNum(marker._latlng.meta.ele, 0) + trace.buttons.unit_meters_text) : (L.Util.formatNum(marker._latlng.meta.ele * 3.28084, 0) + trace.buttons.unit_feet_text))
+                                        +')<br>'+
+                                        (marker.cmt.length > 0 ? (marker.cmt + '<br>') : '')+`<i class="wpt-cmt">`+marker.desc+`</i></div>
                                     </div>`);
                   if (!trace.buttons.embedding) {
                       const edit = document.getElementById('edit' + popup._leaflet_id);
