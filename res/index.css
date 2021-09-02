@@ -129,7 +129,6 @@ html, body {
     grid-gap: 0px 0px;
     justify-items: right;
     align-items: center;
-    grid-auto-columns: min-content;
     grid-auto-rows: min-content;
 }
 
@@ -156,18 +155,21 @@ html, body {
 
 .panels-info {
     padding-top: 0px;
+    padding-right: 0px;
     font-size: 10px;
     color: #777777;
 }
 
 .panels-val {
     padding-bottom: 0px;
+    padding-right: 0px;
     min-width: 70px;
     text-align: right;
 }
 
 .panels-live {
-    text-align: center;
+    padding-bottom: 0px;
+    min-width: 60px;
     background-color: #f5f5f5;
     font-size: 11px;
     margin-right: 4px;
@@ -189,6 +191,7 @@ html, body {
 }
 
 #elevation-val {
+  min-width: 120px;
   grid-column: 2 / span 1;
   grid-row: 1 / span 1;
 }

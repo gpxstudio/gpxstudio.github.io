@@ -231,7 +231,7 @@ export default class Buttons {
 
         // ELEVATION PROFILE
         const mapWidth = this.map._container.offsetWidth;
-        var elevation_profile_width = Math.min((mapWidth - 270) * 2 / 3, 400);
+        var elevation_profile_width = Math.min((mapWidth - 290) * 2 / 3, 400);
         var mobileEmbeddingStyle = this.embedding && elevation_profile_width < 200;
         if (mobileEmbeddingStyle) elevation_profile_width = mapWidth * 4/5;
         this.elev = L.control.elevation({
