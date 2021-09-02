@@ -114,7 +114,8 @@ export default class Total {
 
     showData() {
         this.buttons.distance.innerHTML = (this.getDistance() / 1000).toFixed(1).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text);
-        this.buttons.elevation.innerHTML = this.getElevation().toFixed(0).toString() + ' ' + (this.buttons.km ? this.buttons.unit_meters_text : this.buttons.unit_feet_text);
+        this.buttons.elevation.innerHTML = '<i class="fas fa-angle-up"></i> ' + this.getElevationGain().toFixed(0).toString() + (this.buttons.km ? this.buttons.unit_meters_text : this.buttons.unit_feet_text) +
+            ' <i class="fas fa-angle-down"></i> ' + this.getElevationLoss().toFixed(0).toString() + (this.buttons.km ? this.buttons.unit_meters_text : this.buttons.unit_feet_text);
         if (this.buttons.cycling) this.buttons.speed.innerHTML = this.getMovingSpeed().toFixed(1).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text) + '/' + this.buttons.unit_hours_text;
         else this.buttons.speed.innerHTML = this.msToTimeMin(this.getMovingPace()) + ' ' + this.buttons.unit_minutes_text + '/' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text);
         this.buttons.duration.innerHTML = this.msToTime(this.getMovingTime());
@@ -172,10 +173,17 @@ export default class Total {
         return tot;
     }
 
-    getElevation() {
+    getElevationGain() {
         var tot = 0;
         for (var i=0; i<this.traces.length; i++)
-            tot += this.traces[i].getElevation();
+            tot += this.traces[i].getElevationGain();
+        return tot;
+    }
+
+    getElevationLoss() {
+        var tot = 0;
+        for (var i=0; i<this.traces.length; i++)
+            tot += this.traces[i].getElevationLoss();
         return tot;
     }
 
