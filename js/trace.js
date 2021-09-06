@@ -1101,12 +1101,12 @@ export default class Trace {
         this.deletePointManual(marker);
 
         if (this.buttons.routing) {
-            if(!marker._prec.equals(marker._pt) && !marker._succ.equals(marker._pt)) this.askRoute2(a, c, marker._layer);
-            else {
+            //if(!marker._prec.equals(marker._pt) && !marker._succ.equals(marker._pt)) this.askRoute2(a, c, marker._layer);
+            //else {
                 this.recomputeStats();
                 this.update();
                 this.redraw();
-            }
+            //}
         }
     }
 
