@@ -234,20 +234,55 @@ export default class Buttons {
         var elevation_profile_width = Math.min((mapWidth - 290) * 2 / 3, 400);
         var mobileEmbeddingStyle = this.embedding && elevation_profile_width < 200;
         if (mobileEmbeddingStyle) elevation_profile_width = mapWidth * 4/5;
-        this.elev = L.control.elevation({
-            theme: "steelblue-theme",
-            useHeightIndicator: true,
+        this.elev = L.control.heightgraph({
             width: elevation_profile_width,
-        	height: 100,
+        	height: 110,
             margins:{
-                top:20,
+                top:15,
                 right:30,
-                bottom:18,
-                left:40
+                bottom:30,
+                left:60
+            },
+            expandControls: false,
+            mappings: {
+                "Surface": {
+                    'missing': { text: 'Missing', color: '#ddcdeb' },
+                    'other': { text: 'Other', color: '#ddcdeb' },
+                    'paved': { text: 'Paved', color: '#cdb8df' },
+                    'unpaved': { text: 'Unpaved', color: '#d2c0e3' },
+                    'asphalt': { text: 'Asphalt', color: '#bca4d3' },
+                    'concrete': { text: 'Concrete', color: '#c1abd7' },
+                    'chipseal': { text: 'Chipseal', color: '#c1abd7' },
+                    'cobblestone': { text: 'Cobblestone', color: '#c7b2db' },
+                    'unhewn_cobblestone': { text: 'Unhewn Cobblestone', color: '#c7b2db' },
+                    'paving_stones': { text: 'Paving Stones', color: '#c7b2db' },
+                    'stepping_stones': { text: 'Stepping Stones', color: '#c7b2db' },
+                    'sett': { text: 'Sett Paving', color: '#c7b2db' },
+                    'metal': { text: 'Metal', color: '#e8dcf3' },
+                    'wood': { text: 'Wood', color: '#eee3f7' },
+                    'compacted': { text: 'Compacted Gravel', color: '#d8c6e7' },
+                    'fine_gravel	': { text: 'Fine Gravel', color: '#8f9de4' },
+                    'gravel': { text: 'Gravel', color: '#e3d4ef' },
+                    'pebblestone': { text: 'Pebblestone', color: '#e3d4ef' },
+                    'rock': { text: 'Rock', color: '#e3d4ef' },
+                    'dirt': { text: 'Dirt', color: '#99a6e7' },
+                    'ground': { text: 'Ground', color: '#a3aeeb' },
+                    'earth': { text: 'Earth', color: '#a3aeeb' },
+                    'snow': { text: 'Snow', color: '#acb6ee' },
+                    'ice': { text: 'Ice', color: '#acb6ee' },
+                    'salt': { text: 'Salt', color: '#b6c0f2' },
+                    'mud': { text: 'Mud', color: '#c9d1f8' },
+                    'sand': { text: 'Sand', color: '#c9d1f8' },
+                    'woodchips': { text: 'Woodchips', color: '#c0c8f5' },
+                    'grass': { text: 'Grass', color: '#d2dafc' },
+                    'grass_paver': { text: 'Grass Paver', color: '#dbe3ff' }
+                }
             }
         }).addTo(this.map);
         this.elev.buttons = this;
-        this.elevation_profile = document.getElementsByClassName('elevation')[0];
+        this.elevation_profile = document.getElementsByClassName('heightgraph')[0];
+        this.elevation_profile.style.gridColumn = '3 / span 1';
+        this.elevation_profile.style.gridRow = '1 / span 4';
         if (mobileEmbeddingStyle) {
             this.live_distance.style.display = 'none';
             this.live_speed.style.display = 'none';
@@ -382,11 +417,11 @@ export default class Buttons {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
+                const keys = JSON.parse(xhr.responseText);
+                _this.graphhopper_token = keys.graphhopper;
                 if (urlParams.has('token')) _this.mapbox_token = urlParams.get('token');
-                else {
-                    _this.mapbox_token = xhr.responseText;
-                    _this.mapbox_token = _this.mapbox_token.replace(/\s/g, '');
-                }
+                else if (window.location.hostname != "localhost") _this.mapbox_token = keys.mapbox;
+                else _this.mapbox_token = keys.mapbox_dev;
 
                 // TILES
 
@@ -588,7 +623,7 @@ export default class Buttons {
                 _this.openURLs();
             }
         }
-        xhr.open('GET', '/res/mapbox_token.txt');
+        xhr.open('GET', '/res/keys.json');
         xhr.send();
     }
 
@@ -1289,11 +1324,11 @@ export default class Buttons {
                 if (speedChange) {
                     if (buttons.cycling) {
                         v = Number(speed.value);
-                        if (!buttons.km) v *= 1.60934;
+                        if (!buttons.km) v *= 1.609344;
                     } else {
                         v = Number(minutes.value) * 60 +  Number(seconds.value);
                         v = Math.max(v, 1);
-                        if (!buttons.km) v /= 1.60934;
+                        if (!buttons.km) v /= 1.609344;
                         v = 1 / v; // km/s
                         v *= 3600;
                     }

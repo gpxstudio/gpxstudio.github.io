@@ -432,8 +432,8 @@ L.GPX = L.FeatureGroup.extend({
   },
 
   // Public methods
-  to_miles:            function(v) { return v / 1.60934; },
-  to_ft:               function(v) { return v * 3.28084; },
+  to_miles:            function(v) { return v / 1.609344; },
+  to_ft:               function(v) { return v * 3.280839895; },
   m_to_km:             function(v) { return v / 1000; },
   m_to_mi:             function(v) { return v / 1609.34; },
 
@@ -789,7 +789,7 @@ L.GPX = L.FeatureGroup.extend({
                                         `+(trace.buttons.embedding ? '' : (`<div style="float: right;"><i id="edit`+popup._leaflet_id+`" class="fas fa-pencil-alt custom-button" style="display: inline-block" title="`+trace.buttons.edit_info_text+`"></i> <i id="clone`+popup._leaflet_id+`" class="fas fa-copy custom-button" style="display: inline-block" title="`+trace.buttons.duplicate_text+`"></i> <i id="delete`+popup._leaflet_id+`" class="fas fa-trash-alt custom-button" style="display: inline-block" title="`+trace.buttons.delete_text+`"></i></div>`))+`
                                         <div class="wpt-cmt"><b>`+(marker.name.length > 0 ? marker.name : trace.buttons.empty_title_text)+`</b></div>
                                         <div class="wpt-cmt">`+L.Util.formatNum(marker._latlng.lat)+', '+L.Util.formatNum(marker._latlng.lng)+' ('+
-                                        (trace.buttons.km ? (L.Util.formatNum(marker._latlng.meta.ele, 0) + trace.buttons.unit_meters_text) : (L.Util.formatNum(marker._latlng.meta.ele * 3.28084, 0) + trace.buttons.unit_feet_text))
+                                        (trace.buttons.km ? (L.Util.formatNum(marker._latlng.meta.ele, 0) + trace.buttons.unit_meters_text) : (L.Util.formatNum(marker._latlng.meta.ele * 3.280839895, 0) + trace.buttons.unit_feet_text))
                                         +')<br>'+
                                         (marker.cmt.length > 0 ? (marker.cmt + '<br>') : '')+`<i class="wpt-cmt">`+marker.desc+`</i></div>
                                     </div>`);
@@ -884,7 +884,7 @@ L.GPX = L.FeatureGroup.extend({
       var _, ll = new L.LatLng(
         el[i].getAttribute('lat'),
         el[i].getAttribute('lon'));
-      ll.meta = { time: null, ele: null, hr: null, cad: null, atemp: null };
+      ll.meta = { time: null, ele: null, hr: null, cad: null, atemp: null, surface: "missing" };
 
       _ = el[i].getElementsByTagName('time');
       if (_.length > 0) {
@@ -1030,6 +1030,7 @@ L.GPX = L.FeatureGroup.extend({
 
           for (var i=0; i<points.length; i++) {
               ll = points[i];
+              ll.index = cumul+i;
 
               if (in_bounds(cumul+i)) {
                   this._info.npoints++;

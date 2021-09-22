@@ -56,8 +56,6 @@ export default class Slider {
         } else {
             this.showButtons();
             this.buttons.elev._drawRectangle(
-                i/this.start.max,
-                j/this.end.max,
                 this.getIndex(i),
                 this.getIndex(j)
             );
@@ -116,11 +114,12 @@ export default class Slider {
     /*** GPX DATA ***/
 
     getIndex(val) {
-        return this.buttons.elev._findItemForX(parseInt(val)/this.start.max * this.buttons.elev._width());
+        return this.buttons.elev._findItemForX(parseInt(val)/this.start.max * this.buttons.elev._svgWidth);
     }
 
     getTraceIndex(val) {
-        return this.buttons.elev._findIndexForX(parseInt(val)/this.start.max * this.buttons.elev._width());
+        var i = this.getIndex(val);
+        return this.buttons.elev._originalData[i].index;
     }
 
     getIndexStart() {

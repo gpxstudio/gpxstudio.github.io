@@ -453,15 +453,10 @@ export default class Trace {
     }
 
     addElevation(total_points) {
-        const points = this.getPoints();
-        if (points.length) {
-            this.buttons.elev.addData(
-                points,
-                Math.round(this.gpx._info.length/1e3*1e5)/1e5,
-                this.gpx._info.elevation.max,
-                total_points ? total_points : points.length
-            );
-        } else this.buttons.elev.clear();
+        const segments = this.getSegments();
+        var points = [];
+        for (var i=0; i<segments.length; i++) points.push(segments[i]._latlngs);
+        this.buttons.elev.addData(points);
     }
 
     showChevrons() {
@@ -760,22 +755,22 @@ export default class Trace {
 
     getDistance(noConversion) {
         if (this.buttons.km || noConversion) return this.gpx._info.length;
-        else return this.gpx._info.length / 1.60934;
+        else return this.gpx._info.length / 1.609344;
     }
 
     getMovingDistance(noConversion) {
         if (this.buttons.km || noConversion) return this.gpx._info.moving_length;
-        else return this.gpx._info.moving_length / 1.60934;
+        else return this.gpx._info.moving_length / 1.609344;
     }
 
     getElevationGain() {
         if (this.buttons.km) return this.gpx._info.elevation.gain;
-        else return this.gpx._info.elevation.gain * 3.28084;
+        else return this.gpx._info.elevation.gain * 3.280839895;
     }
 
     getElevationLoss() {
         if (this.buttons.km) return this.gpx._info.elevation.loss;
-        else return this.gpx._info.elevation.loss * 3.28084;
+        else return this.gpx._info.elevation.loss * 3.280839895;
     }
 
     getMovingTime() {
@@ -1051,7 +1046,7 @@ export default class Trace {
         this.save();
 
         const pt = new L.LatLng(lat, lng);
-        pt.meta = {"time":null, "ele":0};
+        pt.meta = {"time":null, "ele":0, "surface":"missing"};
         var segment = null;
 
         if (!this.hasPoints()) {
@@ -1249,7 +1244,7 @@ export default class Trace {
         const pts = [];
         for (var i=1; pt1.distanceTo(pt1.add(d_pt.multiplyBy(i))) < pt1.distanceTo(pt2); i++) {
             const pt = L.Projection.SphericalMercator.unproject(pt1.add(d_pt.multiplyBy(i)));
-            pt.meta = {"time":null, "ele":0};
+            pt.meta = {"time":null, "ele":0, "surface":"missing"};
             pt.routing = true;
             pts.push(pt);
         }
@@ -1258,7 +1253,7 @@ export default class Trace {
             d_pt = pt2.subtract(pt1);
             d_pt = d_pt.divideBy(2);
             const pt = L.Projection.SphericalMercator.unproject(pt1.add(d_pt));
-            pt.meta = {"time":null, "ele":0};
+            pt.meta = {"time":null, "ele":0, "surface":"missing"};
             pt.routing = true;
             pts.push(pt);
         }
@@ -1507,11 +1502,12 @@ export default class Trace {
 
     askRoute(a, b, c, layer) {
         const Http = new XMLHttpRequest();
-        var url = "https://api.mapbox.com/directions/v5/mapbox/" + (this.buttons.cycling ? (this.buttons.driving ? "driving" : "cycling") : "walking") + "/";
-        url += a.lng.toFixed(6) + ',' + a.lat.toFixed(6) + ';';
-        if (!a.equals(b) && !b.equals(c)) url += b.lng.toFixed(6) + ',' + b.lat.toFixed(6) + ';';
-        url += c.lng.toFixed(6) + ',' + c.lat.toFixed(6) ;
-        url += "?geometries=geojson&access_token="+this.buttons.mapbox_token+"&overview=full";
+        var url = "https://graphhopper.com/api/1/route?"
+        url += "point=" + a.lat.toFixed(6) + ',' + a.lng.toFixed(6);
+        if (!a.equals(b) && !b.equals(c)) url += "&point=" + b.lat.toFixed(6) + ',' + b.lng.toFixed(6);
+        url += "&point=" + + c.lat.toFixed(6) + ',' + c.lng.toFixed(6);
+        url += "&vehicle=" + (this.buttons.cycling ? (this.buttons.driving ? "car" : "bike") : "foot")
+        url += "&elevation=true&details=surface&points_encoded=false&key="+this.buttons.graphhopper_token;
         Http.open("GET", url);
         Http.send();
 
@@ -1520,12 +1516,14 @@ export default class Trace {
         Http.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 var ans = JSON.parse(this.responseText);
-                const new_pts = ans['routes'][0]['geometry']['coordinates'];
+                const new_pts = ans.paths[0].points.coordinates;
+                const details = ans.paths[0].details.surface;
                 const new_points = [];
-                var mid = -1, dist = -1;
+                var mid = -1, dist = -1, j = 0;
                 for (var i=0; i<new_pts.length; i++) {
+                    if (i > details[j][1]) j++;
                     new_points.push(L.latLng(new_pts[i][1],new_pts[i][0]));
-                    new_points[i].meta = {"time":null, "ele":0};
+                    new_points[i].meta = {"time":null, "ele":new_pts[i][2], "surface":details[j][2]};
                     new_points[i].routing = true;
                     if (mid == -1 || new_points[i].distanceTo(b) < dist) {
                         dist = new_points[i].distanceTo(b);
@@ -1552,17 +1550,17 @@ export default class Trace {
         this.extendTimeData();
 
         this.redraw();
-
-        // ask elevation of new points
-        this.askElevation(new_points);
+        this.recomputeStats();
+        this.update();
     }
 
     askRoute2(a, b, layer) {
         const Http = new XMLHttpRequest();
-        var url = "https://api.mapbox.com/directions/v5/mapbox/" + (this.buttons.cycling ? (this.buttons.driving ? "driving" : "cycling") : "walking") + "/";
-        url += a.lng.toFixed(6) + ',' + a.lat.toFixed(6) + ';';
-        url += b.lng.toFixed(6) + ',' + b.lat.toFixed(6);
-        url += "?geometries=geojson&access_token="+this.buttons.mapbox_token+"&overview=full";
+        var url = "https://graphhopper.com/api/1/route?"
+        url += "point=" + a.lat.toFixed(6) + ',' + a.lng.toFixed(6);
+        url += "&point=" + b.lat.toFixed(6) + ',' + b.lng.toFixed(6);
+        url += "&vehicle=" + (this.buttons.cycling ? (this.buttons.driving ? "car" : "bike") : "foot")
+        url += "&elevation=true&details=surface&points_encoded=false&key="+this.buttons.graphhopper_token;
         Http.open("GET", url);
         Http.send();
 
@@ -1571,11 +1569,14 @@ export default class Trace {
         Http.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 var ans = JSON.parse(this.responseText);
-                const new_pts = ans['routes'][0]['geometry']['coordinates'];
+                const new_pts = ans.paths[0].points.coordinates;
+                const details = ans.paths[0].details.surface;
                 const new_points = [];
+                var j=0;
                 for (var i=0; i<new_pts.length; i++) {
+                    if (i > details[j][1]) j++;
                     new_points.push(L.latLng(new_pts[i][1],new_pts[i][0]));
-                    new_points[i].meta = {"time":null, "ele":0};
+                    new_points[i].meta = {"time":null, "ele":new_pts[i][2], "surface":details[j][2]};
                     new_points[i].routing = true;
                 }
                 new_points[new_points.length-1].routing = false;
@@ -1595,9 +1596,8 @@ export default class Trace {
         this.extendTimeData();
 
         this.redraw();
-
-        // ask elevation of new points
-        this.askElevation(new_points);
+        this.recomputeStats();
+        this.update();
     }
 
     // UNDO REDO

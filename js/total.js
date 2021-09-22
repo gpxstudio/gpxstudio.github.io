@@ -77,7 +77,6 @@ export default class Total {
         this.showElevation();
         this.buttons.focusTabElement(this.tab);
         this.buttons.hideTraceButtons();
-        this.buttons.elev._removeSliderCircles();
         this.buttons.unhideToHide();
 
         for (var i=0; i<this.traces.length; i++) if (this.traces[i].visible) {
@@ -126,11 +125,12 @@ export default class Total {
     showElevation() {
         this.buttons.elev.clear();
         this.buttons.elev.options.imperial = !this.buttons.km;
-        var total_points = 0;
-        for (var i=0; i<this.traces.length; i++)
-            total_points += this.traces[i].getPoints().length;
-        for (var i=0; i<this.traces.length; i++)
-            this.traces[i].addElevation(total_points);
+        var points = [];
+        for (var i=0; i<this.traces.length; i++) {
+            const segments = this.traces[i].getSegments();
+            for (var j=0; j<segments.length; j++) points.push(segments[j]._latlngs);
+        }
+        this.buttons.elev.addData(points);
         this.buttons.elev._removeSliderCircles();
     }
 

@@ -256,11 +256,6 @@ html, body {
   grid-row: 4 / span 1;
 }
 
-.elevation {
-  grid-column: 3 / span 1;
-  grid-row: 1 / span 4;
-}
-
 #start-point {
     align-items: center;
 }
