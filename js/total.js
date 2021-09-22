@@ -297,6 +297,8 @@ export default class Total {
 </metadata>
 `;
         const xmlStart3 = `<trk>
+    <name>`;
+        const xmlStart4 = `</name>
     <type>`+(this.buttons.cycling ? 'Cycling' : 'Running')+`</type>
 `;
 
@@ -420,7 +422,7 @@ export default class Total {
 
                 output.push({
                     name: this.traces[i].name + '.gpx',
-                    text: (xmlStart1+this.traces[i].name+xmlStart2+waypointsOutput+xmlStart3+colorOutput+xmlOutput+xmlEnd)
+                    text: (xmlStart1+this.traces[i].name+xmlStart2+waypointsOutput+xmlStart3+this.traces[i].name+xmlStart4+colorOutput+xmlOutput+xmlEnd)
                 });
                 xmlOutput = '';
                 waypointsOutput = '';
@@ -430,7 +432,7 @@ export default class Total {
         if (mergeAll && this.traces.length > 1) {
             output.push({
                 name: 'track.gpx',
-                text: (xmlStart1+'track'+xmlStart2+waypointsOutput+xmlStart3+xmlOutput+xmlEnd)
+                text: (xmlStart1+'track'+xmlStart2+waypointsOutput+xmlStart3+'track'+xmlStart4+xmlOutput+xmlEnd)
             });
         }
 
