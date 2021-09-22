@@ -538,7 +538,7 @@ export default class Buttons {
 
                     _this.stravaHeatmap = L.tileLayer('', {
                         maxZoom: 20,
-                        maxNativeZoom: 15,
+                        maxNativeZoom: 14,
                         attribution: '&copy; <a href="https://www.strava.com" target="_blank">Strava</a>'
                     });
 
