@@ -660,9 +660,9 @@ export default class Buttons {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 _this.stravaCookies = JSON.parse(xhr.response);
                 if (_this.cycling || _this.driving) {
-                    _this.stravaHeatmap.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/cycling/bluered/{z}/{x}/{y}.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
+                    _this.stravaHeatmap.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/ride/bluered/{z}/{x}/{y}@2x.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
                 } else {
-                    _this.stravaHeatmap.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/running/bluered/{z}/{x}/{y}.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
+                    _this.stravaHeatmap.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/run/bluered/{z}/{x}/{y}@2x.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
                 }
                 _this.updatingStravaCookies = false;
             }
@@ -1107,10 +1107,10 @@ export default class Buttons {
             if (buttons.cycling) {
                 if (buttons.driving) buttons.drive.classList.add("selected");
                 else buttons.bike.classList.add("selected");
-                if (buttons.stravaCookies) buttons.stravaHeatmap.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/cycling/bluered/{z}/{x}/{y}.png?Signature=${buttons.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${buttons.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${buttons.stravaCookies['CloudFront-Policy']}`);
+                if (buttons.stravaCookies) buttons.stravaHeatmap.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/ride/bluered/{z}/{x}/{y}@2x.png?Signature=${buttons.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${buttons.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${buttons.stravaCookies['CloudFront-Policy']}`);
             } else {
                 buttons.run.classList.add("selected");
-                if (buttons.stravaCookies) buttons.stravaHeatmap.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/running/bluered/{z}/{x}/{y}.png?Signature=${buttons.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${buttons.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${buttons.stravaCookies['CloudFront-Policy']}`);
+                if (buttons.stravaCookies) buttons.stravaHeatmap.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/run/bluered/{z}/{x}/{y}@2x.png?Signature=${buttons.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${buttons.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${buttons.stravaCookies['CloudFront-Policy']}`);
             }
             if (total.hasFocus) total.showData();
             else total.traces[total.focusOn].showData();
