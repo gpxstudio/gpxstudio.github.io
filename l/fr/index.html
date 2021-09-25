@@ -58,36 +58,11 @@
         <link rel="stylesheet" href="/include/fontawesome/css/brands.min.css"/>
         <link rel="stylesheet" href="/include/fontawesome/css/solid.min.css"/>
         <link rel="stylesheet" href="/include/leaflet/leaflet.css">
-        <script src="/include/leaflet/leaflet.js"></script>
-        <script type="text/javascript" src="/include/icon/Leaflet.Icon.Glyph.js"></script>
-        <script type="module" src="/include/gpx/gpx.js"></script>
-        <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
         <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
         <link rel="stylesheet" href="/include/elevation/L.Control.Heightgraph.css"/>
-        <script type="text/javascript" src="/include/elevation/L.Control.Heightgraph.js"></script>
-        <script type="text/javascript" src="/js/elevation.js"></script>
-        <script type="text/javascript" src="/include/textpath/leaflet.textpath.js"></script>
-        <script type="text/javascript" src="/include/mapboxgl/leaflet-mapbox-gl.js"></script>
-        <script type="text/javascript" src="/include/controlwindow/L.Control.Window.js"></script>
         <link rel="stylesheet" href="/include/controlwindow/L.Control.Window.css">
-        <script type="text/javascript" src="/include/geometryutil/leaflet.geometryutil.js"></script>
-        <script type="text/javascript" src="/include/distancemarkers/leaflet-distance-markers.js"></script>
-        <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.css" />
-        <script src="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.13.0/Sortable.min.js"></script>
-        <script src="/include/sanitize/xss.min.js"></script>
         <link rel="stylesheet" type="text/css" href="/res/index.css">
-        <script type="module" src="/include/simplify/simplify.js"></script>
-        <script src="/include/driveutils/upload.js"></script>
-        <script src="/js/lang.js"></script>
-        <script type="module" src="/include/node/bundle.js"></script>
-        <script type="module" src="/js/slider.js"></script>
-        <script type="module" src="/js/buttons.js"></script>
-        <script type="module" src="/js/trace.js"></script>
-        <script type="module" src="/js/total.js"></script>
-        <script type="module" src="/js/google.js"></script>
-        <script type="module" src="/js/script.js"></script>
-        <script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.css" />
     </head>
     <body>
         <input id="input-file" type="file" accept=".gpx" multiple style="display: none"/>
@@ -442,6 +417,41 @@
             <div id="split-text">Diviser ici</div>
             <div id="remove-pt-text">Supprimer le point</div>
         </div>
+        <div id="elevation-text">
+            <div id="segment-text">Segment length</div>
+            <div id="type-text">Category</div>
+            <div id="surface-text">Surface</div>
+            <div id="slope-text">Slope</div>
+            <div id="missing-text">Missing</div>,
+            <div id="paved-text">Paved</div>,
+            <div id="unpaved-text">Unpaved</div>,
+            <div id="asphalt-text">Asphalt</div>,
+            <div id="concrete-text">Concrete</div>,
+            <div id="chipseal-text">Chipseal</div>,
+            <div id="cobblestone-text">Cobblestone</div>,
+            <div id="unhewn-cobblestone-text">Unhewn Cobblestone</div>,
+            <div id="paving-stones-text">Paving Stones</div>,
+            <div id="stepping-stones-text">Stepping Stones</div>,
+            <div id="sett-text">Sett Paving</div>,
+            <div id="metal-text">Metal</div>,
+            <div id="wood-text">Wood</div>,
+            <div id="compacted-text">Compacted Gravel</div>,
+            <div id="fine-gravel-text">Fine Gravel</div>,
+            <div id="gravel-text">Gravel</div>,
+            <div id="pebblestone-text">Pebblestone</div>,
+            <div id="rock-text">Rock</div>,
+            <div id="dirt-text">Dirt</div>,
+            <div id="ground-text">Ground</div>,
+            <div id="earth-text">Earth</div>,
+            <div id="snow-text">Snow</div>,
+            <div id="ice-text">Ice</div>,
+            <div id="salt-text">Salt</div>,
+            <div id="mud-text">Mud</div>,
+            <div id="sand-text">Sand</div>,
+            <div id="woodchips-text">Woodchips</div>,
+            <div id="grass-text">Grass</div>,
+            <div id="grass-paver-text">Grass Paver</div>
+        </div>
         <h1>éditeur de fichiers gpx en ligne</h1>
         <h1>visionneuse de fichiers gpx en ligne</h1>
         <h1>éditer des fichiers gpx en ligne</h1>
@@ -454,4 +464,29 @@
         <h1>afficher et ajouter des points d'intérêt à un fichier gpx en ligne</h1>
         </div>
     </body>
+    <script src="/include/leaflet/leaflet.js"></script>
+    <script type="text/javascript" src="/include/icon/Leaflet.Icon.Glyph.js"></script>
+    <script type="module" src="/include/gpx/gpx.js"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+    <script type="text/javascript" src="/include/elevation/L.Control.Heightgraph.js"></script>
+    <script type="text/javascript" src="/js/elevation.js"></script>
+    <script type="text/javascript" src="/include/textpath/leaflet.textpath.js"></script>
+    <script type="text/javascript" src="/include/mapboxgl/leaflet-mapbox-gl.js"></script>
+    <script type="text/javascript" src="/include/controlwindow/L.Control.Window.js"></script>
+    <script type="text/javascript" src="/include/geometryutil/leaflet.geometryutil.js"></script>
+    <script type="text/javascript" src="/include/distancemarkers/leaflet-distance-markers.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.13.0/Sortable.min.js"></script>
+    <script src="/include/sanitize/xss.min.js"></script>
+    <script type="module" src="/include/simplify/simplify.js"></script>
+    <script src="/include/driveutils/upload.js"></script>
+    <script src="/js/lang.js"></script>
+    <script type="module" src="/include/node/bundle.js"></script>
+    <script type="module" src="/js/slider.js"></script>
+    <script type="module" src="/js/buttons.js"></script>
+    <script type="module" src="/js/trace.js"></script>
+    <script type="module" src="/js/total.js"></script>
+    <script type="module" src="/js/google.js"></script>
+    <script type="module" src="/js/script.js"></script>
+    <script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
 </html>
