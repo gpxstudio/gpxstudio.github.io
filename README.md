@@ -8,7 +8,7 @@ This repository contains the source code of the website [gpx.studio](https://gpx
 ## Run the code
 
 To play with the code locally:
-* Get your own token at [Mapbox](https://www.mapbox.com/) and put it in the directory `res` under `mapbox_token.txt`.
+* Get your own tokens at [Mapbox](https://www.mapbox.com/) and [GraphHopper](https://www.graphhopper.com/) and put them in `res/keys.json`.
 * Launch a local server in the root directory, for example using `python3 -m http.server`.
 
 ## Features
@@ -31,11 +31,6 @@ To play with the code locally:
 
 If you think something is missing from the website, please create an issue to discuss it or make a pull request if you can implement it yourself.
 
-## Ideas for future developments
-
-* Snap trace on road network (very costly with APIs) or smooth trace
-* Color lines with elevation or speed data
-
 ## Translation
 
 The website is translated by volunteers on a collaborative translation platform.
@@ -45,10 +40,10 @@ Apart from a good understanding of **gpx.studio**, some basic knowledge of HTML 
 
 ## Acknowledgements
 
-This project would not have been possible without the following amazing projects :
+This project would not have been possible without the following amazing projects:
 * [Leaflet](https://leafletjs.com/): awesome map library
 * [leaflet-gpx](https://github.com/mpetazzoni/leaflet-gpx): parsing GPX files
-* [Leaflet.Elevation](https://github.com/MrMufflon/Leaflet.Elevation): elevation profile
+* [Leaflet.Heightgraph](https://github.com/GIScience/Leaflet.Heightgraph): elevation profile
 * [Leaflet.Icon.Glyph](https://github.com/Leaflet/Leaflet.Icon.Glyph): markers with icons for the waypoints
 * [Leaflet.TextPath](https://github.com/makinacorpus/Leaflet.TextPath): direction markers
 * [leaflet-distance-markers](https://github.com/adoroszlai/leaflet-distance-markers): distance markers
@@ -61,4 +56,4 @@ This project would not have been possible without the following amazing projects
 * [SortableJS](https://github.com/SortableJS/Sortable): for swapping the tabs
 * [Font Awesome](https://fontawesome.com/): nice icons
 
-And the data, maps and APIs from [Mapbox](https://www.mapbox.com/), [OpenStreetMap](https://www.openstreetmap.org/), [OpenTopoMap](https://opentopomap.org/), [Maps.Refuges.Info](https://wiki.openstreetmap.org/wiki/Hiking/mri), [CyclOSM](https://www.cyclosm.org/), [IGN](https://geoservices.ign.fr/) and [Strava](https://strava.com).
+And the data, maps and APIs from [Mapbox](https://www.mapbox.com/), [GraphHopper](https://www.graphhopper.com/), [OpenStreetMap](https://www.openstreetmap.org/), [OpenTopoMap](https://opentopomap.org/), [Maps.Refuges.Info](https://wiki.openstreetmap.org/wiki/Hiking/mri), [CyclOSM](https://www.cyclosm.org/), [IGN](https://geoservices.ign.fr/) and [Strava](https://strava.com).
