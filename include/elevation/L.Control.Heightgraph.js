@@ -4739,8 +4739,6 @@
           this._createChart(this.options.selectedAttributeIdx);
         }
 
-        this._appendAxes();
-
         this._createSelectionBox();
       },
       resize: function resize(size) {
@@ -5151,6 +5149,8 @@
         for (var i = 0; i < areas.length; i++) {
           this._appendAreas(areas[i], idx, i);
         }
+
+        this._appendAxes();
 
         this._createFocus();
 
