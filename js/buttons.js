@@ -243,41 +243,7 @@ export default class Buttons {
                 bottom:30,
                 left:60
             },
-            expandControls: false,
-            mappings: {
-                "Surface": {
-                    'missing': { text: 'Missing', color: '#ddcdeb' },
-                    'other': { text: 'Other', color: '#ddcdeb' },
-                    'paved': { text: 'Paved', color: '#cdb8df' },
-                    'unpaved': { text: 'Unpaved', color: '#d2c0e3' },
-                    'asphalt': { text: 'Asphalt', color: '#bca4d3' },
-                    'concrete': { text: 'Concrete', color: '#c1abd7' },
-                    'chipseal': { text: 'Chipseal', color: '#c1abd7' },
-                    'cobblestone': { text: 'Cobblestone', color: '#c7b2db' },
-                    'unhewn_cobblestone': { text: 'Unhewn Cobblestone', color: '#c7b2db' },
-                    'paving_stones': { text: 'Paving Stones', color: '#c7b2db' },
-                    'stepping_stones': { text: 'Stepping Stones', color: '#c7b2db' },
-                    'sett': { text: 'Sett Paving', color: '#c7b2db' },
-                    'metal': { text: 'Metal', color: '#e8dcf3' },
-                    'wood': { text: 'Wood', color: '#eee3f7' },
-                    'compacted': { text: 'Compacted Gravel', color: '#d8c6e7' },
-                    'fine_gravel	': { text: 'Fine Gravel', color: '#8f9de4' },
-                    'gravel': { text: 'Gravel', color: '#e3d4ef' },
-                    'pebblestone': { text: 'Pebblestone', color: '#e3d4ef' },
-                    'rock': { text: 'Rock', color: '#e3d4ef' },
-                    'dirt': { text: 'Dirt', color: '#99a6e7' },
-                    'ground': { text: 'Ground', color: '#a3aeeb' },
-                    'earth': { text: 'Earth', color: '#a3aeeb' },
-                    'snow': { text: 'Snow', color: '#acb6ee' },
-                    'ice': { text: 'Ice', color: '#acb6ee' },
-                    'salt': { text: 'Salt', color: '#b6c0f2' },
-                    'mud': { text: 'Mud', color: '#c9d1f8' },
-                    'sand': { text: 'Sand', color: '#c9d1f8' },
-                    'woodchips': { text: 'Woodchips', color: '#c0c8f5' },
-                    'grass': { text: 'Grass', color: '#d2dafc' },
-                    'grass_paver': { text: 'Grass Paver', color: '#dbe3ff' }
-                }
-            }
+            expandControls: false
         }).addTo(this.map);
         this.elev.buttons = this;
         this.elevation_profile = document.getElementsByClassName('heightgraph')[0];

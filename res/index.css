@@ -383,11 +383,6 @@ html, body {
     color: #D0D0D0 !important;
 }
 
-.tick {
-    color: #FF0000;
-    font-size: 100 !important;
-}
-
 .start-marker {
     fill: #71bb6d;
     fill-opacity: 1;

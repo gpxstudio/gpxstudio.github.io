@@ -1,11 +1,69 @@
+const mappings = {
+    "Surface": {
+        'missing': { text: 'Missing', color: '#d1d1d1' },
+        'paved': { text: 'Paved', color: '#8c8c8c' },
+        'unpaved': { text: 'Unpaved', color: '#6b443a' },
+        'asphalt': { text: 'Asphalt', color: '#8c8c8c' },
+        'concrete': { text: 'Concrete', color: '#8c8c8c' },
+        'chipseal': { text: 'Chipseal', color: '#8c8c8c' },
+        'cobblestone': { text: 'Cobblestone', color: '#ffd991' },
+        'unhewn_cobblestone': { text: 'Unhewn Cobblestone', color: '#ffd991' },
+        'paving_stones': { text: 'Paving Stones', color: '#8c8c8c' },
+        'stepping_stones': { text: 'Stepping Stones', color: '#c7b2db' },
+        'sett': { text: 'Sett Paving', color: '#ffd991' },
+        'metal': { text: 'Metal', color: '#8c8c8c' },
+        'wood': { text: 'Wood', color: '#6b443a' },
+        'compacted': { text: 'Compacted Gravel', color: '#ffffa8' },
+        'fine_gravel	': { text: 'Fine Gravel', color: '#ffffa8' },
+        'gravel': { text: 'Gravel', color: '#ffffa8' },
+        'pebblestone': { text: 'Pebblestone', color: '#ffffa8' },
+        'rock': { text: 'Rock', color: '#ffd991' },
+        'dirt': { text: 'Dirt', color: '#ffffa8' },
+        'ground': { text: 'Ground', color: '#6b443a' },
+        'earth': { text: 'Earth', color: '#6b443a' },
+        'snow': { text: 'Snow', color: '#bdfffc' },
+        'ice': { text: 'Ice', color: '#bdfffc' },
+        'salt': { text: 'Salt', color: '#b6c0f2' },
+        'mud': { text: 'Mud', color: '#6b443a' },
+        'sand': { text: 'Sand', color: '#ffffc4' },
+        'woodchips': { text: 'Woodchips', color: '#6b443a' },
+        'grass': { text: 'Grass', color: '#61b55c' },
+        'grass_paver': { text: 'Grass Paver', color: '#61b55c' }
+    },
+    "Steepness": {
+        '-6': { text: '<-25%', color: '#046307', min: -Infinity, max: -25.5 },
+        '-5': { text: '[-25,-17]%', color: '#028306', min: -25.5, max: -16.5 },
+        '-4': { text: '[-16,-13]%', color: '#2AA12E', min: -16.5, max: -12.5 },
+        '-3': { text: '[-12,-9]%', color: '#53BF56', min: -12.5, max: -8.5 },
+        '-2': { text: '[-8,-5]%', color: '#7BDD7E', min: -8.5, max: -4.5 },
+        '-1': { text: '[-4,-2]%', color: '#A4FBA6', min: -4.5, max: -1.5 },
+        '0': { text: '[-1,1]%', color: '#edf0bd', min: -1.5, max: 1.5 },
+        '1': { text: '[2,4]%', color: '#ffcc99', min: 1.5, max: 4.5 },
+        '2': { text: '[5,8]%', color: '#F29898', min: 4.5, max: 8.5 },
+        '3': { text: '[9,12]%', color: '#E07575', min: 8.5, max: 12.5 },
+        '4': { text: '[13,16]%', color: '#CF5352', min: 12.5, max: 16.5 },
+        '5': { text: '[17,25]%', color: '#BE312F', min: 16.5, max: 25.5 },
+        '6': { text: '>25%', color: '#AD0F0C', min: 25.5, max: Infinity }
+    }
+};
+
+function slope_to_interval(slope) {
+    for (const [key, value] of Object.entries(mappings.Steepness)) {
+        if (slope >= value.min && slope < value.max) {
+            return key;
+        }
+    }
+}
+
 L.Control.Heightgraph.include({
     originalAddData: L.Control.Heightgraph.prototype.addData,
     originalCreateFocus: L.Control.Heightgraph.prototype._createFocus,
     originalShowMapMarker: L.Control.Heightgraph.prototype._showMapMarker,
     originalResetDrag: L.Control.Heightgraph.prototype._resetDrag,
     addFeature: function(featureCollection, points, attributeType) {
-        if (!this._mappings.Surface.hasOwnProperty(attributeType)) attributeType = 'other';
-        featureCollection[0].features.push({
+        if (!this._mappings.Surface.hasOwnProperty(attributeType) &&
+            !this._mappings.Steepness.hasOwnProperty(attributeType)) attributeType = 'missing';
+        featureCollection.features.push({
             "type": "Feature",
             "geometry": {
                 "type": "LineString",
@@ -15,40 +73,78 @@ L.Control.Heightgraph.include({
                 "attributeType": attributeType
             }
         });
-        featureCollection[0].properties.records++;
+        featureCollection.properties.records++;
     },
     addData: function(data) {
-        this._originalData = [];
-        const featureCollection = [{
+        this.options.mappings = mappings;
+
+        if (data.length == 0) {
+            this.clear();
+            return;
+        }
+
+        this._originalData = [[],[]];
+        const featureCollections = [{
             "type": "FeatureCollection",
             "features": [],
             "properties": {
                 "records": 0,
                 "summary": "Surface"
             }
+        },{
+            "type": "FeatureCollection",
+            "features": [],
+            "properties": {
+                "records": 0,
+                "summary": "Steepness"
+            }
         }];
+
         for (var i=0; i<data.length; i++) {
-            var points = [], attributeType = null, lastPoint = null;
+            var surfaceTypePoints = [], steepnessTypePoints = [], surfaceType = null, steepnessType = null;
+
             for (var j=0; j<data[i].length; j++) {
                 const latlng = data[i][j];
-                if (attributeType == null) {
-                    attributeType = latlng.meta.surface;
-                    points.push([latlng.lng, latlng.lat, latlng.meta.ele]);
-                    this._originalData.push(latlng);
-                } else if (attributeType == latlng.meta.surface) {
-                    points.push([latlng.lng, latlng.lat, latlng.meta.ele]);
-                    this._originalData.push(latlng);
+
+                // surface
+                if (surfaceType == null) {
+                    surfaceType = latlng.meta.surface;
+                    surfaceTypePoints.push([latlng.lng, latlng.lat, latlng.meta.ele]);
+                    this._originalData[0].push(latlng);
+                } else if (surfaceType == latlng.meta.surface) {
+                    surfaceTypePoints.push([latlng.lng, latlng.lat, latlng.meta.ele]);
+                    this._originalData[0].push(latlng);
                 } else {
-                    this.addFeature(featureCollection, points, attributeType);
-                    points = [points[points.length-1], [latlng.lng, latlng.lat, latlng.meta.ele]];
-                    this._originalData.push(this._originalData[this._originalData.length-1]);
-                    this._originalData.push(latlng);
-                    attributeType = latlng.meta.surface;
+                    this.addFeature(featureCollections[0], surfaceTypePoints, surfaceType);
+                    surfaceTypePoints = [surfaceTypePoints[surfaceTypePoints.length-1], [latlng.lng, latlng.lat, latlng.meta.ele]];
+                    this._originalData[0].push(this._originalData[0][this._originalData[0].length-1]);
+                    this._originalData[0].push(latlng);
+                    surfaceType = latlng.meta.surface;
+                }
+
+                const steepness = slope_to_interval(latlng.meta.smoothed_slope);
+                // steepness
+                if (steepnessType == null) {
+                    steepnessType = steepness;
+                    steepnessTypePoints.push([latlng.lng, latlng.lat, latlng.meta.ele]);
+                    this._originalData[1].push(latlng);
+                } else if (steepnessType == steepness) {
+                    steepnessTypePoints.push([latlng.lng, latlng.lat, latlng.meta.ele]);
+                    this._originalData[1].push(latlng);
+                } else {
+                    this.addFeature(featureCollections[1], steepnessTypePoints, steepnessType);
+                    steepnessTypePoints = [steepnessTypePoints[steepnessTypePoints.length-1], [latlng.lng, latlng.lat, latlng.meta.ele]];
+                    this._originalData[1].push(this._originalData[1][this._originalData[1].length-1]);
+                    this._originalData[1].push(latlng);
+                    steepnessType = steepness;
                 }
             }
-            if (points.length > 0) this.addFeature(featureCollection, points, attributeType);
+
+            if (surfaceTypePoints.length > 0) this.addFeature(featureCollections[0], surfaceTypePoints, surfaceType);
+            if (steepnessTypePoints.length > 0) this.addFeature(featureCollections[1], steepnessTypePoints, steepnessType);
         }
-        this.originalAddData(featureCollection);
+
+        this.originalAddData(featureCollections);
         this._addSliderCircles();
     },
     _showMapMarker: function(ll, height, type) {
@@ -60,14 +156,8 @@ L.Control.Heightgraph.include({
         this._pointG.style('stroke-width','2');
         this._pointG.select('circle').attr('r',6);
     },
-    _createFocus: function () {
-        if (this._originalData && this._originalData.length > 0) {
-            this.originalCreateFocus();
-        }
-    },
     _createHorizontalLine: function () {},
     _createLegend: function () {},
-    _createSelectionBox: function () {},
     _dragHandler: function () {},
     _dragStartHandler: function () {},
     _dragEndHandler: function () {},
@@ -88,13 +178,29 @@ L.Control.Heightgraph.include({
                 "records": 1,
                 "summary": "Surface"
             }
+        },{
+            "type": "FeatureCollection",
+            "features": [{
+                "type": "Feature",
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": [[0,0,0]]
+                },
+                "properties": {
+                    "attributeType": "0"
+                }
+            }],
+            "properties": {
+                "records": 1,
+                "summary": "Steepness"
+            }
         }]);
         this._removeSliderCircles();
     },
     _addSliderCircles:function(){
-        if(this._originalData && this._originalData.length > 0) {
-            const pt1 = this._originalData[0];
-            const pt2 = this._originalData[this._originalData.length - 1];
+        if(this._originalData && this._originalData[this.options.selectedAttributeIdx].length > 0) {
+            const pt1 = this._originalData[this.options.selectedAttributeIdx][0];
+            const pt2 = this._originalData[this.options.selectedAttributeIdx][this._originalData[this.options.selectedAttributeIdx].length - 1];
             if (!this._startCircle) {
                 this._startCircle = L.circleMarker(pt1, {
                     className: 'start-marker',
@@ -122,21 +228,21 @@ L.Control.Heightgraph.include({
     },
     _drawRectangle: function (start,end) {
         if(this._originalData && this._startCircle) {
-            const pt1 = this._originalData[start];
-            const pt2 = this._originalData[end];
+            const pt1 = this._originalData[this.options.selectedAttributeIdx][start];
+            const pt2 = this._originalData[this.options.selectedAttributeIdx][end];
             this._startCircle.setLatLng(pt1);
             this._endCircle.setBounds([pt2, pt2]);
             this._drawDragRectangleHelper(
-                start / (this._originalData.length-1) * this._svgWidth,
-                end / (this._originalData.length-1) * this._svgWidth
+                start / (this._originalData[this.options.selectedAttributeIdx].length-1) * this._svgWidth,
+                end / (this._originalData[this.options.selectedAttributeIdx].length-1) * this._svgWidth
             );
         }
     },
     _resetDrag: function() {
         this.originalResetDrag(true);
-        if(this._originalData && this._originalData.length > 0) {
-            const pt1 = this._originalData[0];
-            const pt2 = this._originalData[this._originalData.length - 1];
+        if(this._originalData && this._originalData[this.options.selectedAttributeIdx].length > 0) {
+            const pt1 = this._originalData[this.options.selectedAttributeIdx][0];
+            const pt2 = this._originalData[this.options.selectedAttributeIdx][this._originalData[this.options.selectedAttributeIdx].length - 1];
             if (this._startCircle) {
                 this._startCircle.setLatLng(pt1);
                 this._endCircle.setBounds([pt2, pt2]);

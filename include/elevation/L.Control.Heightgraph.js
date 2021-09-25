@@ -4510,7 +4510,7 @@
 
   function symbol() {
     var type = constant$4(circle),
-        size = constant$4(64),
+        size = constant$4(40),
         context = null;
 
     function symbol() {
@@ -4919,6 +4919,8 @@
 
 
           this._svg.selectAll(".legend").remove(); // remove horizontal Line
+
+          this._svg.selectAll(".axis").remove(); // remove axes
 
 
           this._svg.selectAll(".lineSelection").remove();
@@ -5408,14 +5410,14 @@
             height = this._height - this._margin.bottom;
         var verticalItemPosition = height + this._margin.bottom / 2 + 6;
         var jsonTriangles = [{
-          "x": width - 25,
+          "x": width - 12,
           "y": verticalItemPosition + 3,
           "color": "#000",
           "type": symbolTriangle,
           "id": "leftArrowSelection",
           "angle": 0
         }, {
-          "x": width - 10,
+          "x": width,
           "y": verticalItemPosition,
           "color": "#000",
           "type": symbolTriangle,
@@ -5461,7 +5463,7 @@
           var data = [{
             "selection": type.text
           }];
-          self._selectionText = svg.selectAll('selection_text').data(data).enter().append('text').attr("x", width - 35).attr("y", verticalItemPosition + 4).text(function (d) {
+          self._selectionText = svg.selectAll('selection_text').data(data).enter().append('text').attr("x", width - 22).attr("y", verticalItemPosition + 4).text(function (d) {
             return d.selection;
           }).attr("class", "select-info").attr("id", "selectionText").attr("text-anchor", "end");
         };

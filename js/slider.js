@@ -119,7 +119,7 @@ export default class Slider {
 
     getTraceIndex(val) {
         var i = this.getIndex(val);
-        return this.buttons.elev._originalData[i].index;
+        return this.buttons.elev._originalData[this.buttons.elev.options.selectedAttributeIdx][i].index;
     }
 
     getIndexStart() {

@@ -1023,7 +1023,7 @@ L.GPX = L.FeatureGroup.extend({
       var distance = 0.0, cumul = 0;
       for (var l=0; l<segments.length; l++) {
           var ll = null, last = null, last_ele = null;
-          var current_window = 0, current_sum = 0;
+          var current_ele_window = 0, current_ele_sum = 0, current_slope_window = 0, current_slope_sum = 0;
           const points = segments[l]._latlngs;
 
           if (start < cumul+points.length && end >= cumul) this._info.nsegments++;
@@ -1037,27 +1037,6 @@ L.GPX = L.FeatureGroup.extend({
                   this._info.elevation.max = Math.max(ll.meta.ele, this._info.elevation.max);
                   this._info.elevation.min = Math.min(ll.meta.ele, this._info.elevation.min);
                   this._info.duration.end = ll.meta.time;
-              }
-
-              // smooth elev
-              current_sum += ll.meta.ele;
-              current_window++;
-
-              if (i - 2*this.options.half_window - 1 >= 0) {
-                  current_sum -= points[i - 2*this.options.half_window - 1].meta.ele;
-                  current_window--;
-              }
-
-              if (i-this.options.half_window >= 0) {
-                  points[i-this.options.half_window].meta.smoothed_ele = current_sum / current_window;
-                  if (in_bounds(cumul+i-this.options.half_window) && i-this.options.half_window-1 >= 0) {
-                      var t = points[i-this.options.half_window].meta.smoothed_ele - points[i-this.options.half_window-1].meta.smoothed_ele;
-                      if (t > 0) {
-                        this._info.elevation.gain += t;
-                      } else {
-                        this._info.elevation.loss += Math.abs(t);
-                      }
-                  }
               }
 
               if (last != null) {
@@ -1077,18 +1056,55 @@ L.GPX = L.FeatureGroup.extend({
               } else if (this._info.duration.start == null) {
                   this._info.duration.start = ll.meta.time;
               }
+
               ll._dist = distance / 1000;
+
+              // smooth elev
+              current_ele_sum += ll.meta.ele;
+              current_ele_window++;
+
+              if (i - 2*this.options.half_window - 1 >= 0) {
+                  current_ele_sum -= points[i - 2*this.options.half_window - 1].meta.ele;
+                  current_ele_window--;
+              }
+
+              if (i-this.options.half_window >= 0) {
+                  points[i-this.options.half_window].meta.smoothed_ele = current_ele_sum / current_ele_window;
+                  if (in_bounds(cumul+i-this.options.half_window) && i-this.options.half_window-1 >= 0) {
+                      var t = points[i-this.options.half_window].meta.smoothed_ele - points[i-this.options.half_window-1].meta.smoothed_ele;
+                      if (t > 0) {
+                        this._info.elevation.gain += t;
+                      } else {
+                        this._info.elevation.loss += Math.abs(t);
+                      }
+                  }
+
+                  const a = points[i], b = points[Math.max(0, i - 2*this.options.half_window)];
+                  points[i-this.options.half_window].meta.slope = Math.abs(a._dist - b._dist) > 1e-3 ? 0.1 * (a.meta.ele - b.meta.ele) / (a._dist - b._dist) : 0;
+
+                  current_slope_sum += points[i-this.options.half_window].meta.slope;
+                  current_slope_window++;
+              }
+
+              if (i - 3*this.options.half_window - 1 >= 0) {
+                  current_slope_sum -= points[i - 3*this.options.half_window - 1].meta.slope;
+                  current_slope_window--;
+              }
+
+              if (i - 2*this.options.half_window >= 0) {
+                  points[i - 2*this.options.half_window].meta.smoothed_slope = current_slope_sum / current_slope_window;
+              }
 
               last = ll;
           }
 
           for (var i=Math.max(0,points.length-this.options.half_window); i<points.length; i++) {
               if (i-this.options.half_window-1 >= 0) {
-                  current_sum -= points[i-this.options.half_window-1].meta.ele;
-                  current_window--;
+                  current_ele_sum -= points[i-this.options.half_window-1].meta.ele;
+                  current_ele_window--;
               }
 
-              points[i].meta.smoothed_ele = current_sum / current_window;
+              points[i].meta.smoothed_ele = current_ele_sum / current_ele_window;
               if (in_bounds(cumul+i) && i-1 >= 0) {
                   var t = points[i].meta.smoothed_ele - points[i-1].meta.smoothed_ele;
                   if (t > 0) {
@@ -1097,6 +1113,30 @@ L.GPX = L.FeatureGroup.extend({
                     this._info.elevation.loss += Math.abs(t);
                   }
               }
+
+              const a = points[points.length-1], b = points[Math.max(0, i-this.options.half_window)];
+              points[i].meta.slope = Math.abs(a._dist - b._dist) > 1e-3 ? 0.1 * (a.meta.ele - b.meta.ele) / (a._dist - b._dist) : 0;
+
+              current_slope_sum += points[i].meta.slope;
+              current_slope_window++;
+
+              if (i - 2*this.options.half_window - 1 >= 0) {
+                  current_slope_sum -= points[i - 2*this.options.half_window - 1].meta.slope;
+                  current_slope_window--;
+              }
+
+              if (i - this.options.half_window >= 0) {
+                  points[i-this.options.half_window].meta.smoothed_slope = current_slope_sum / current_slope_window;
+              }
+          }
+
+          for (var i=Math.max(0,points.length-this.options.half_window); i<points.length; i++) {
+              if (i-this.options.half_window-1 >= 0) {
+                  current_slope_sum -= points[i-this.options.half_window-1].meta.slope;
+                  current_slope_window--;
+              }
+
+              points[i].meta.smoothed_slope = current_slope_sum / current_slope_window;
           }
 
           cumul += points.length;

@@ -50,12 +50,10 @@
 }
 
 .tick, .tick text {
-    fill: #000;
     pointer-events: none;
 }
 
 .axis .tick line {
-    visibility: hidden;
     pointer-events: none;
 }
 
@@ -141,6 +139,7 @@
 
 .select-info {
     cursor: default;
+    font-size: 8pt;
 }
 
 .lineSelection {

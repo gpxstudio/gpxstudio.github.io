@@ -1068,11 +1068,15 @@ export default class Trace {
         }
 
         const len = this._editMarkers.length;
-        if (len == 0) this.addRoute2([pt], pt, pt, segment);
-        else if (this.buttons.routing) this.askRoute2(this._editMarkers[len-1]._pt, pt, segment);
-        else {
+        if (len == 0) {
+            this.askElevation([pt]);
+            this.addRoute2([pt], pt, pt, segment);
+        } else if (this.buttons.routing) {
+            this.askRoute2(this._editMarkers[len-1]._pt, pt, segment);
+        } else {
             const new_points = this.getIntermediatePoints(this._editMarkers[len-1]._pt, pt);
             new_points.push(pt);
+            this.askElevation(new_points);
             this.addRoute2(new_points, this._editMarkers[len-1]._pt, pt, segment);
         }
     }
