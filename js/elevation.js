@@ -122,7 +122,7 @@ L.Control.Heightgraph.include({
                     surfaceType = latlng.meta.surface;
                 }
 
-                const steepness = slope_to_interval(latlng.meta.smoothed_slope);
+                const steepness = slope_to_interval(latlng.meta.slope);
                 // steepness
                 if (steepnessType == null) {
                     steepnessType = steepness;

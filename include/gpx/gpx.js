@@ -1023,7 +1023,7 @@ L.GPX = L.FeatureGroup.extend({
       var distance = 0.0, cumul = 0;
       for (var l=0; l<segments.length; l++) {
           var ll = null, last = null, last_ele = null;
-          var current_ele_window = 0, current_ele_sum = 0, current_slope_window = 0, current_slope_sum = 0;
+          var current_ele_window = 0, current_ele_sum = 0;
           const points = segments[l]._latlngs;
 
           if (start < cumul+points.length && end >= cumul) this._info.nsegments++;
@@ -1079,20 +1079,10 @@ L.GPX = L.FeatureGroup.extend({
                       }
                   }
 
-                  const a = points[i], b = points[Math.max(0, i - 2*this.options.half_window)];
-                  points[i-this.options.half_window].meta.slope = Math.abs(a._dist - b._dist) > 1e-3 ? 0.1 * (a.meta.ele - b.meta.ele) / (a._dist - b._dist) : 0;
-
-                  current_slope_sum += points[i-this.options.half_window].meta.slope;
-                  current_slope_window++;
-              }
-
-              if (i - 3*this.options.half_window - 1 >= 0) {
-                  current_slope_sum -= points[i - 3*this.options.half_window - 1].meta.slope;
-                  current_slope_window--;
-              }
-
-              if (i - 2*this.options.half_window >= 0) {
-                  points[i - 2*this.options.half_window].meta.smoothed_slope = current_slope_sum / current_slope_window;
+                  if (i - 2*this.options.half_window >= 0) {
+                      const a = points[i-this.options.half_window], b = points[Math.max(0, i-3*this.options.half_window)];
+                      points[i-2*this.options.half_window].meta.slope = a._dist - b._dist > 1e-3 ? 0.1 * (a.meta.smoothed_ele - b.meta.smoothed_ele) / (a._dist - b._dist) : 0;
+                  }
               }
 
               last = ll;
@@ -1114,29 +1104,15 @@ L.GPX = L.FeatureGroup.extend({
                   }
               }
 
-              const a = points[points.length-1], b = points[Math.max(0, i-this.options.half_window)];
-              points[i].meta.slope = Math.abs(a._dist - b._dist) > 1e-3 ? 0.1 * (a.meta.ele - b.meta.ele) / (a._dist - b._dist) : 0;
-
-              current_slope_sum += points[i].meta.slope;
-              current_slope_window++;
-
-              if (i - 2*this.options.half_window - 1 >= 0) {
-                  current_slope_sum -= points[i - 2*this.options.half_window - 1].meta.slope;
-                  current_slope_window--;
-              }
-
-              if (i - this.options.half_window >= 0) {
-                  points[i-this.options.half_window].meta.smoothed_slope = current_slope_sum / current_slope_window;
+              if (i-this.options.half_window >= 0) {
+                  const a = points[i], b = points[Math.max(0, i-2*this.options.half_window)];
+                  points[i-this.options.half_window].meta.slope = a._dist - b._dist > 1e-3 ? 0.1 * (a.meta.smoothed_ele - b.meta.smoothed_ele) / (a._dist - b._dist) : 0;
               }
           }
 
           for (var i=Math.max(0,points.length-this.options.half_window); i<points.length; i++) {
-              if (i-this.options.half_window-1 >= 0) {
-                  current_slope_sum -= points[i-this.options.half_window-1].meta.slope;
-                  current_slope_window--;
-              }
-
-              points[i].meta.smoothed_slope = current_slope_sum / current_slope_window;
+              const a = points[points.length-1], b = points[Math.max(0, i-this.options.half_window)];
+              points[i].meta.slope = a._dist - b._dist > 1e-3 ? 0.1 * (a.meta.smoothed_ele - b.meta.smoothed_ele) / (a._dist - b._dist) : 0;
           }
 
           cumul += points.length;
