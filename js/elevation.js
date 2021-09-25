@@ -1,54 +1,60 @@
-const mappings = {
-    "Surface": {
-        'missing': { text: 'Missing', color: '#d1d1d1' },
-        'paved': { text: 'Paved', color: '#8c8c8c' },
-        'unpaved': { text: 'Unpaved', color: '#6b443a' },
-        'asphalt': { text: 'Asphalt', color: '#8c8c8c' },
-        'concrete': { text: 'Concrete', color: '#8c8c8c' },
-        'chipseal': { text: 'Chipseal', color: '#8c8c8c' },
-        'cobblestone': { text: 'Cobblestone', color: '#ffd991' },
-        'unhewn_cobblestone': { text: 'Unhewn Cobblestone', color: '#ffd991' },
-        'paving_stones': { text: 'Paving Stones', color: '#8c8c8c' },
-        'stepping_stones': { text: 'Stepping Stones', color: '#c7b2db' },
-        'sett': { text: 'Sett Paving', color: '#ffd991' },
-        'metal': { text: 'Metal', color: '#8c8c8c' },
-        'wood': { text: 'Wood', color: '#6b443a' },
-        'compacted': { text: 'Compacted Gravel', color: '#ffffa8' },
-        'fine_gravel	': { text: 'Fine Gravel', color: '#ffffa8' },
-        'gravel': { text: 'Gravel', color: '#ffffa8' },
-        'pebblestone': { text: 'Pebblestone', color: '#ffffa8' },
-        'rock': { text: 'Rock', color: '#ffd991' },
-        'dirt': { text: 'Dirt', color: '#ffffa8' },
-        'ground': { text: 'Ground', color: '#6b443a' },
-        'earth': { text: 'Earth', color: '#6b443a' },
-        'snow': { text: 'Snow', color: '#bdfffc' },
-        'ice': { text: 'Ice', color: '#bdfffc' },
-        'salt': { text: 'Salt', color: '#b6c0f2' },
-        'mud': { text: 'Mud', color: '#6b443a' },
-        'sand': { text: 'Sand', color: '#ffffc4' },
-        'woodchips': { text: 'Woodchips', color: '#6b443a' },
-        'grass': { text: 'Grass', color: '#61b55c' },
-        'grass_paver': { text: 'Grass Paver', color: '#61b55c' }
-    },
-    "Steepness": {
-        '-6': { text: '<-25%', color: '#046307', min: -Infinity, max: -25.5 },
-        '-5': { text: '[-25,-17]%', color: '#028306', min: -25.5, max: -16.5 },
-        '-4': { text: '[-16,-13]%', color: '#2AA12E', min: -16.5, max: -12.5 },
-        '-3': { text: '[-12,-9]%', color: '#53BF56', min: -12.5, max: -8.5 },
-        '-2': { text: '[-8,-5]%', color: '#7BDD7E', min: -8.5, max: -4.5 },
-        '-1': { text: '[-4,-2]%', color: '#A4FBA6', min: -4.5, max: -1.5 },
-        '0': { text: '[-1,1]%', color: '#edf0bd', min: -1.5, max: 1.5 },
-        '1': { text: '[2,4]%', color: '#ffcc99', min: 1.5, max: 4.5 },
-        '2': { text: '[5,8]%', color: '#F29898', min: 4.5, max: 8.5 },
-        '3': { text: '[9,12]%', color: '#E07575', min: 8.5, max: 12.5 },
-        '4': { text: '[13,16]%', color: '#CF5352', min: 12.5, max: 16.5 },
-        '5': { text: '[17,25]%', color: '#BE312F', min: 16.5, max: 25.5 },
-        '6': { text: '>25%', color: '#AD0F0C', min: 25.5, max: Infinity }
-    }
+const surface_mapping = {
+    'missing': { text: document.getElementById('missing-text').innerText, color: '#d1d1d1' },
+    'paved': { text: document.getElementById('paved-text').innerText, color: '#8c8c8c' },
+    'unpaved': { text: document.getElementById('unpaved-text').innerText, color: '#6b443a' },
+    'asphalt': { text: document.getElementById('asphalt-text').innerText, color: '#8c8c8c' },
+    'concrete': { text: document.getElementById('concrete-text').innerText, color: '#8c8c8c' },
+    'chipseal': { text: document.getElementById('chipseal-text').innerText, color: '#8c8c8c' },
+    'cobblestone': { text: document.getElementById('cobblestone-text').innerText, color: '#ffd991' },
+    'unhewn_cobblestone': { text: document.getElementById('unhewn-cobblestone-text').innerText, color: '#ffd991' },
+    'paving_stones': { text: document.getElementById('paving-stones-text').innerText, color: '#8c8c8c' },
+    'stepping_stones': { text: document.getElementById('stepping-stones-text').innerText, color: '#c7b2db' },
+    'sett': { text: document.getElementById('sett-text').innerText, color: '#ffd991' },
+    'metal': { text: document.getElementById('metal-text').innerText, color: '#8c8c8c' },
+    'wood': { text: document.getElementById('wood-text').innerText, color: '#6b443a' },
+    'compacted': { text: document.getElementById('compacted-text').innerText, color: '#ffffa8' },
+    'fine_gravel': { text: document.getElementById('fine-gravel-text').innerText, color: '#ffffa8' },
+    'gravel': { text: document.getElementById('gravel-text').innerText, color: '#ffffa8' },
+    'pebblestone': { text: document.getElementById('pebblestone-text').innerText, color: '#ffffa8' },
+    'rock': { text: document.getElementById('rock-text').innerText, color: '#ffd991' },
+    'dirt': { text: document.getElementById('dirt-text').innerText, color: '#ffffa8' },
+    'ground': { text: document.getElementById('ground-text').innerText, color: '#6b443a' },
+    'earth': { text: document.getElementById('earth-text').innerText, color: '#6b443a' },
+    'snow': { text: document.getElementById('snow-text').innerText, color: '#bdfffc' },
+    'ice': { text: document.getElementById('ice-text').innerText, color: '#bdfffc' },
+    'salt': { text: document.getElementById('salt-text').innerText, color: '#b6c0f2' },
+    'mud': { text: document.getElementById('mud-text').innerText, color: '#6b443a' },
+    'sand': { text: document.getElementById('sand-text').innerText, color: '#ffffc4' },
+    'woodchips': { text: document.getElementById('woodchips-text').innerText, color: '#6b443a' },
+    'grass': { text: document.getElementById('grass-text').innerText, color: '#61b55c' },
+    'grass_paver': { text: document.getElementById('grass-paver-text').innerText, color: '#61b55c' }
 };
 
+const slope_mapping = {
+    '-6': { text: '<-25%', color: '#046307', min: -Infinity, max: -25.5 },
+    '-5': { text: '[-25,-17]%', color: '#028306', min: -25.5, max: -16.5 },
+    '-4': { text: '[-16,-13]%', color: '#2AA12E', min: -16.5, max: -12.5 },
+    '-3': { text: '[-12,-9]%', color: '#53BF56', min: -12.5, max: -8.5 },
+    '-2': { text: '[-8,-5]%', color: '#7BDD7E', min: -8.5, max: -4.5 },
+    '-1': { text: '[-4,-2]%', color: '#A4FBA6', min: -4.5, max: -1.5 },
+    '0': { text: '[-1,1]%', color: '#edf0bd', min: -1.5, max: 1.5 },
+    '1': { text: '[2,4]%', color: '#ffcc99', min: 1.5, max: 4.5 },
+    '2': { text: '[5,8]%', color: '#F29898', min: 4.5, max: 8.5 },
+    '3': { text: '[9,12]%', color: '#E07575', min: 8.5, max: 12.5 },
+    '4': { text: '[13,16]%', color: '#CF5352', min: 12.5, max: 16.5 },
+    '5': { text: '[17,25]%', color: '#BE312F', min: 16.5, max: 25.5 },
+    '6': { text: '>25%', color: '#AD0F0C', min: 25.5, max: Infinity }
+};
+
+const surface_key = document.getElementById('surface-text').innerText;
+const slope_key = document.getElementById('slope-text').innerText;
+
+const mappings = {};
+mappings[surface_key] = surface_mapping;
+mappings[slope_key] = slope_mapping;
+
 function slope_to_interval(slope) {
-    for (const [key, value] of Object.entries(mappings.Steepness)) {
+    for (const [key, value] of Object.entries(mappings[slope_key])) {
         if (slope >= value.min && slope < value.max) {
             return key;
         }
@@ -61,8 +67,8 @@ L.Control.Heightgraph.include({
     originalShowMapMarker: L.Control.Heightgraph.prototype._showMapMarker,
     originalResetDrag: L.Control.Heightgraph.prototype._resetDrag,
     addFeature: function(featureCollection, points, attributeType) {
-        if (!this._mappings.Surface.hasOwnProperty(attributeType) &&
-            !this._mappings.Steepness.hasOwnProperty(attributeType)) attributeType = 'missing';
+        if (!this._mappings[surface_key].hasOwnProperty(attributeType) &&
+            !this._mappings[slope_key].hasOwnProperty(attributeType)) attributeType = 'missing';
         featureCollection.features.push({
             "type": "Feature",
             "geometry": {
@@ -89,14 +95,14 @@ L.Control.Heightgraph.include({
             "features": [],
             "properties": {
                 "records": 0,
-                "summary": "Surface"
+                "summary": surface_key
             }
         },{
             "type": "FeatureCollection",
             "features": [],
             "properties": {
                 "records": 0,
-                "summary": "Steepness"
+                "summary": slope_key
             }
         }];
 
@@ -176,7 +182,7 @@ L.Control.Heightgraph.include({
             }],
             "properties": {
                 "records": 1,
-                "summary": "Surface"
+                "summary": surface_key
             }
         },{
             "type": "FeatureCollection",
@@ -192,7 +198,7 @@ L.Control.Heightgraph.include({
             }],
             "properties": {
                 "records": 1,
-                "summary": "Steepness"
+                "summary": slope_key
             }
         }]);
         this._removeSliderCircles();

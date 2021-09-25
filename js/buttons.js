@@ -243,7 +243,13 @@ export default class Buttons {
                 bottom:30,
                 left:60
             },
-            expandControls: false
+            expandControls: false,
+            translation: {
+                distance: this.distance_info.innerText,
+                elevation: this.elevation_info.innerText,
+                segment_length: document.getElementById('segment-text').innerText,
+                type: document.getElementById('type-text').innerText
+            }
         }).addTo(this.map);
         this.elev.buttons = this;
         this.elevation_profile = document.getElementsByClassName('heightgraph')[0];
