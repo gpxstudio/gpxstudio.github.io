@@ -4739,6 +4739,8 @@
           this._createChart(this.options.selectedAttributeIdx);
         }
 
+        this._appendAxes();
+
         this._createSelectionBox();
       },
       resize: function resize(size) {
@@ -5026,7 +5028,6 @@
               ptA = new L.LatLng(data[y].features[i].geometry.coordinates[j][1], data[y].features[i].geometry.coordinates[j][0]);
               altitude = data[y].features[i].geometry.coordinates[j][2];
               if (this.options.imperial) altitude = this._toFeet(altitude);
-              altitude = parseFloat(altitude.toFixed(1)); // add elevations, coordinates and point distances only once
               // last point in feature is first of next which is why we have to juggle with indices
 
               if (j < coordsLength - 1) {
@@ -5362,10 +5363,12 @@
         this._svg.append("g").attr("class", "grid").attr("transform", "translate(0," + this._svgHeight + ")").call(this._make_x_axis().tickSize(-this._svgHeight, 0, 0).ticks(Math.round(this._svgWidth / 75)).tickFormat(""));
 
         this._svg.append("g").attr("class", "grid").call(this._make_y_axis().tickSize(-this._svgWidth, 0, 0).ticks(Math.round(this._svgHeight / 30)).tickFormat(""));
+      },
 
-        this._svg.append('g').attr("transform", "translate(0," + this._svgHeight + ")").attr('class', 'x axis').call(this._xAxis);
+      _appendAxes: function _appendAxes() {
+          this._svg.append('g').attr("transform", "translate(0," + this._svgHeight + ")").attr('class', 'x axis').call(this._xAxis);
 
-        this._svg.append('g').attr("transform", "translate(-2,0)").attr('class', 'y axis').call(this._yAxis);
+          this._svg.append('g').attr('class', 'y axis').call(this._yAxis);
       },
 
       /**
@@ -5721,7 +5724,7 @@
 
         this._distTspan.text(" " + dist.toFixed(1) + (this.options.imperial ? " mi" : " km"));
 
-        this._altTspan.text(" " + alt + (this.options.imperial ? " ft" : " m"));
+        this._altTspan.text(" " + alt.toFixed(0) + (this.options.imperial ? " ft" : " m"));
 
         this._areaTspan.text(" " + areaLength.toFixed(1) + (this.options.imperial ? " mi" : " km"));
 

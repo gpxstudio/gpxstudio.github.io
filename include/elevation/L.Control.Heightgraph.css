@@ -62,7 +62,7 @@
 .axis path {
     stroke: black;
     fill: none;
-    stroke-width: 2px;
+    stroke-width: 1px;
     shape-rendering: crispEdges;
     pointer-events: none;
 }
