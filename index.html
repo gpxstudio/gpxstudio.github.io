@@ -94,13 +94,33 @@
                 <div class="panels panels-val" id="points-val" style="display: none">0</div>
                 <div class="panels panels-info" id="segments" style="display: none; padding-right: 5px;">Segments</div>
                 <div class="panels panels-val" id="segments-val" style="display: none; padding-right: 5px;">0</div>
-                <div class="panels panels-live" id="live-distance">--</div>
-                <div class="panels panels-live" id="live-speed">--</div>
-                <div class="panels panels-live" id="live-elevation">--</div>
-                <div class="panels panels-live" id="live-slope">--</div>
+                <div id="activity-input" class="custom-button panels-button dropdown">
+                    <div id="activity-dropdown" class="dropdown-content panels-container panels">
+                        <div id="bike" class="dropdown-choice"><i class="fas fa-biking"></i> <span>Bike</span></div>
+                        <div id="racingbike" class="dropdown-choice"><i class="fas fa-biking"></i> <span>Racing bike</span></div>
+                        <div id="mtb" class="dropdown-choice"><i class="fas fa-biking"></i><span> Mountain bike</span></div>
+                        <div id="hike" class="dropdown-choice"><i class="fas fa-running"></i> <span>Run/hike</span></div>
+                        <div id="car" class="dropdown-choice"><i class="fas fa-motorcycle"></i> <span>Motorcycle</span></div>
+                    </div>
+                    <div id="selected-activity"><i class="fas fa-biking"></i></div>
+                </div>
+                <div id="units-input" class="custom-button panels-button dropdown">
+                    <div id="units-dropdown" class="dropdown-content panels-container panels">
+                        <div id="km" class="dropdown-choice"><span><b>km</b></span> <span>Metric</span></div>
+                        <div id="mi" class="dropdown-choice"><span><b>mi</b></span> <span>Imperial</span></div>
+                    </div>
+                    <div id="selected-units" style="font-size: 11px"><span><b>km</b></span></div>
+                </div>
+                <div id="routing-input" class="custom-button panels-button dropdown">
+                    <div id="routing-dropdown" class="dropdown-content panels-container panels">
+                        <div id="route" class="dropdown-choice"><i class="fas fa-route"></i> <span>Routing</span></div>
+                        <div id="crow" class="dropdown-choice"><i class="fas fa-dove"></i> <span>As the crow flies</span></div>
+                    </div>
+                    <span id="selected-routing"><i class="fas fa-route"></i></span>
+                </div>
+                <div id="elevation-input" class="panels-button custom-button" title="Toggle the elevation profile"><i class="fas fa-chart-area"></i></div>
                 <div id="crop-container">
-                    <div class="panels-button" id="validate"><i class="fas fa-check custom-button"></i></div>
-                    <div class="panels-button" id="unvalidate"><i class="fas fa-ban custom-button"></i></div>
+                    <div class="panels-button custom-button" id="validate"><i class="fas fa-check custom-button"></i></div>
                 </div>
                 <div id="slide-container">
                     <input type="range" min="0" max="10000000" value="0" class="slider" id="start-point">
@@ -126,20 +146,8 @@
             <div class="panels-button" id="delete" title="Delete"><i class="fas fa-trash-alt custom-button"></i></div><br>
         </div>
         <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Google Street View"></i>
-        <li id="activity" class="dontselect">Activity:
-            <span class="unselected custom-button">
-                <i id="bike" class="fas fa-biking"></i>
-                <i class="fas fa-arrows-alt-h"></i>
-                <i id="run" class="fas fa-running"></i>
-                <i class="fas fa-arrows-alt-h"></i>
-                <i id="drive" class="fas fa-motorcycle"></i>
-            </span>
-        </li>
-        <li id="units" class="dontselect">Units: <span class="unselected custom-button"><span id="km">km </span><i class="fas fa-arrows-alt-h"></i><span id="mi"> mi</span></span></li>
-        <li id="method" class="dontselect">Routing: <span class="unselected custom-button"><i id="route" class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i id="crow" class="fas fa-dove"></i></span></li>
-        <li id="chevrons" class="dontselect">Chevrons: <input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"></li>
-        <li id="dist-markers" class="dontselect">Distance markers: <input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"></li>
-        <li id="profile" class="dontselect">Elevation profile: <input type="checkbox" checked id="show-profile" class="custom-button" style="vertical-align: middle;"></li>
+        <div id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Chevrons</div>
+        <div id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Distance markers</div>
         <!-- ADD_LANGUAGE -->
         <div id="languages">
             <a href="/" class="footer" target="_blank">en</a>

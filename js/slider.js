@@ -56,6 +56,8 @@ export default class Slider {
         } else {
             this.showButtons();
             this.buttons.elev._drawRectangle(
+                i/this.start.max,
+                j/this.end.max,
                 this.getIndex(i),
                 this.getIndex(j)
             );
@@ -81,17 +83,13 @@ export default class Slider {
 
     hideButtons() {
         this.buttons.validate.style.opacity = 0;
-        this.buttons.unvalidate.style.opacity = 0;
         this.buttons.validate.style.visibility = "hidden";
-        this.buttons.unvalidate.style.visibility = "hidden";
     }
 
     showButtons() {
         if (this.buttons.embedding) return;
         this.buttons.validate.style.opacity = 1;
-        this.buttons.unvalidate.style.opacity = 1;
         this.buttons.validate.style.visibility = "visible";
-        this.buttons.unvalidate.style.visibility = "visible";
     }
 
     reset() {

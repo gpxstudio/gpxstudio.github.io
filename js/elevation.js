@@ -232,16 +232,13 @@ L.Control.Heightgraph.include({
             this._endCircle = null;
         }
     },
-    _drawRectangle: function (start,end) {
+    _drawRectangle: function (rectStart, rectEnd, start,end) {
         if(this._originalData && this._startCircle) {
             const pt1 = this._originalData[this.options.selectedAttributeIdx][start];
             const pt2 = this._originalData[this.options.selectedAttributeIdx][end];
             this._startCircle.setLatLng(pt1);
             this._endCircle.setBounds([pt2, pt2]);
-            this._drawDragRectangleHelper(
-                start / (this._originalData[this.options.selectedAttributeIdx].length-1) * this._svgWidth,
-                end / (this._originalData[this.options.selectedAttributeIdx].length-1) * this._svgWidth
-            );
+            this._drawDragRectangleHelper(rectStart * this._svgWidth, rectEnd * this._svgWidth);
         }
     },
     _resetDrag: function() {

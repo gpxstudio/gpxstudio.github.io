@@ -167,14 +167,6 @@ html, body {
     text-align: right;
 }
 
-.panels-live {
-    padding-bottom: 0px;
-    min-width: 60px;
-    background-color: #f5f5f5;
-    font-size: 11px;
-    margin-right: 4px;
-}
-
 #distance {
   grid-column: 1 / span 1;
   grid-row: 2 / span 1;
@@ -236,24 +228,45 @@ html, body {
   grid-row: 1 / span 1;
 }
 
-#live-distance {
+#activity-input {
   grid-column: 4 / span 1;
   grid-row: 1 / span 1;
 }
 
-#live-speed {
+#routing-input {
   grid-column: 4 / span 1;
   grid-row: 2 / span 1;
 }
 
-#live-elevation {
+#units-input {
   grid-column: 4 / span 1;
   grid-row: 3 / span 1;
 }
 
-#live-slope {
+#elevation-input {
   grid-column: 4 / span 1;
   grid-row: 4 / span 1;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    text-align: left;
+    top: 0px;
+    right: 0px;
+    z-index: 1000;
+}
+
+.dropdown-choice:hover {
+    color: black;
+}
+
+#routing-dropdown {
+    top: 30px;
+}
+
+#units-dropdown {
+    top: 60px;
 }
 
 #start-point {
@@ -276,7 +289,7 @@ html, body {
 .slider {
   display: block;
   margin-top: 5px;
-  margin-left: 34px;
+  margin-left: 52px;
   -webkit-appearance: none;
   appearance: none;
   width: 86%;
@@ -350,15 +363,6 @@ html, body {
 }
 
 #validate {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s linear;
-    -webkit-transition: opacity 0.3s linear;
-    -moz-transition: opacity 0.3s linear;
-    -o-transition: opacity 0.3s linear;
-}
-
-#unvalidate {
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s linear;
@@ -450,14 +454,6 @@ ul { -ms-overflow-style: none; scrollbar-width: none; }
 
 .leaflet-interactive.mouseDown {
     cursor: grabbing !important;
-}
-
-.selected {
-    color: #535353;
-}
-
-.unselected {
-    color: #b3b3b3;
 }
 
 .no-click2 {

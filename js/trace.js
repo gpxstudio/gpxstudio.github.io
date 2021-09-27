@@ -438,7 +438,7 @@ export default class Trace {
         this.buttons.distance.innerHTML = (this.getDistance() / 1000).toFixed(1).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text);
         this.buttons.elevation.innerHTML = '<i class="fas fa-angle-up"></i> ' + this.getElevationGain().toFixed(0).toString() + (this.buttons.km ? this.buttons.unit_meters_text : this.buttons.unit_feet_text) +
             ' <i class="fas fa-angle-down"></i> ' + this.getElevationLoss().toFixed(0).toString() + (this.buttons.km ? this.buttons.unit_meters_text : this.buttons.unit_feet_text);
-        if (this.buttons.cycling) this.buttons.speed.innerHTML = this.getMovingSpeed().toFixed(1).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text) + '/' + this.buttons.unit_hours_text;
+        if (this.buttons.activity != 'hike') this.buttons.speed.innerHTML = this.getMovingSpeed().toFixed(1).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text) + '/' + this.buttons.unit_hours_text;
         else this.buttons.speed.innerHTML = this.total.msToTimeMin(this.getMovingPace()) + ' ' + this.buttons.unit_minutes_text + '/' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text);
         this.buttons.duration.innerHTML = this.total.msToTime(this.getMovingTime());
         this.buttons.points.innerHTML = this.gpx._info.npoints;
@@ -1346,7 +1346,7 @@ export default class Trace {
         const max_slope = 100;
         slope = Math.max(-max_slope, Math.min(max_slope, slope));
 
-        if (this.buttons.cycling) {
+        if (this.buttons.activity != 'hike') {
             if (slope < -30) {
                 return 1.5;
             } else if (slope < 0) {
@@ -1510,7 +1510,7 @@ export default class Trace {
         url += "point=" + a.lat.toFixed(6) + ',' + a.lng.toFixed(6);
         if (!a.equals(b) && !b.equals(c)) url += "&point=" + b.lat.toFixed(6) + ',' + b.lng.toFixed(6);
         url += "&point=" + + c.lat.toFixed(6) + ',' + c.lng.toFixed(6);
-        url += "&vehicle=" + (this.buttons.cycling ? (this.buttons.driving ? "car" : "bike") : "foot")
+        url += "&vehicle=" + this.buttons.activity;
         url += "&elevation=true&details=surface&points_encoded=false&key="+this.buttons.graphhopper_token;
         Http.open("GET", url);
         Http.send();
@@ -1563,7 +1563,7 @@ export default class Trace {
         var url = "https://graphhopper.com/api/1/route?"
         url += "point=" + a.lat.toFixed(6) + ',' + a.lng.toFixed(6);
         url += "&point=" + b.lat.toFixed(6) + ',' + b.lng.toFixed(6);
-        url += "&vehicle=" + (this.buttons.cycling ? (this.buttons.driving ? "car" : "bike") : "foot")
+        url += "&vehicle=" + this.buttons.activity;
         url += "&elevation=true&details=surface&points_encoded=false&key="+this.buttons.graphhopper_token;
         Http.open("GET", url);
         Http.send();
