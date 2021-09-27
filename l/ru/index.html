@@ -94,13 +94,33 @@
                 <div class="panels panels-val" id="points-val" style="display: none">0</div>
                 <div class="panels panels-info" id="segments" style="display: none; padding-right: 5px;">Сегменты</div>
                 <div class="panels panels-val" id="segments-val" style="display: none; padding-right: 5px;">0</div>
-                <div class="panels panels-live" id="live-distance">--</div>
-                <div class="panels panels-live" id="live-speed">--</div>
-                <div class="panels panels-live" id="live-elevation">--</div>
-                <div class="panels panels-live" id="live-slope">--</div>
+                <div id="activity-input" class="custom-button panels-button dropdown">
+                    <div id="activity-dropdown" class="dropdown-content panels-container panels">
+                        <div id="bike" class="dropdown-choice"><i class="fas fa-biking"></i> <span>Bike</span></div>
+                        <div id="racingbike" class="dropdown-choice"><i class="fas fa-biking"></i> <span>Racing bike</span></div>
+                        <div id="mtb" class="dropdown-choice"><i class="fas fa-biking"></i><span> Mountain bike</span></div>
+                        <div id="hike" class="dropdown-choice"><i class="fas fa-running"></i> <span>Run/hike</span></div>
+                        <div id="car" class="dropdown-choice"><i class="fas fa-motorcycle"></i> <span>Motorcycle</span></div>
+                    </div>
+                    <div id="selected-activity"><i class="fas fa-biking"></i></div>
+                </div>
+                <div id="units-input" class="custom-button panels-button dropdown">
+                    <div id="units-dropdown" class="dropdown-content panels-container panels">
+                        <div id="km" class="dropdown-choice"><span><b>km</b></span> <span>Metric</span></div>
+                        <div id="mi" class="dropdown-choice"><span><b>mi</b></span> <span>Imperial</span></div>
+                    </div>
+                    <div id="selected-units" style="font-size: 11px"><span><b>км</b></span></div>
+                </div>
+                <div id="routing-input" class="custom-button panels-button dropdown">
+                    <div id="routing-dropdown" class="dropdown-content panels-container panels">
+                        <div id="route" class="dropdown-choice"><i class="fas fa-route"></i> <span>Routing</span></div>
+                        <div id="crow" class="dropdown-choice"><i class="fas fa-dove"></i> <span>As the crow flies</span></div>
+                    </div>
+                    <span id="selected-routing"><i class="fas fa-route"></i></span>
+                </div>
+                <div id="elevation-input" class="panels-button custom-button" title="Toggle the elevation profile"><i class="fas fa-chart-area"></i></div>
                 <div id="crop-container">
-                    <div class="panels-button" id="validate"><i class="fas fa-check custom-button"></i></div>
-                    <div class="panels-button" id="unvalidate"><i class="fas fa-ban custom-button"></i></div>
+                    <div class="panels-button custom-button" id="validate"><i class="fas fa-check custom-button"></i></div>
                 </div>
                 <div id="slide-container">
                     <input type="range" min="0" max="10000000" value="0" class="slider" id="start-point">
@@ -126,20 +146,8 @@
             <div class="panels-button" id="delete" title="Удалить"><i class="fas fa-trash-alt custom-button"></i></div><br>
         </div>
         <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Открыть Google Street View"></i>
-        <li id="activity" class="dontselect">Активность:
-            <span class="unselected custom-button">
-                <i id="bike" class="fas fa-biking"></i>
-                <i class="fas fa-arrows-alt-h"></i>
-                <i id="run" class="fas fa-running"></i>
-                <i class="fas fa-arrows-alt-h"></i>
-                <i id="drive" class="fas fa-motorcycle"></i>
-            </span>
-        </li>
-        <li id="units" class="dontselect">Единицы измерения: <span class="unselected custom-button"><span id="km">км </span><i class="fas fa-arrows-alt-h"></i><span id="mi"> ми</span></span></li>
-        <li id="method" class="dontselect">Маршрутизация: <span class="unselected custom-button"><i id="route" class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i id="crow" class="fas fa-dove"></i></span></li>
-        <li id="chevrons" class="dontselect">Стрелки: <input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"></li>
-        <li id="dist-markers" class="dontselect">Метки расстояния: <input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"></li>
-        <li id="profile" class="dontselect">Профиль рельефа: <input type="checkbox" checked id="show-profile" class="custom-button" style="vertical-align: middle;"></li>
+        <div id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Chevrons</div>
+        <div id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Distance markers</div>
         <!-- ADD_LANGUAGE -->
         <div id="languages">
             <a href="/" class="footer" target="_blank">en</a>
@@ -191,41 +199,6 @@
                 <td></td>
                 <td>Escape</td>
                 <td>Выход из текущего меню или инструмента</td>
-            </tr>
-            </tbody>
-        </table><br>
-        Под строкой поиска <i class="fas fa-search"></i> и инструментом Google Street View <i class="fas fa-street-view"></i>, вы можете найти выпадающее меню <i class="fas fa-bars"></i> с доступными картами и некоторыми настройками.
-        <table style="width: 100%">
-            <colgroup>
-               <col span="1" style="width: 11%;">
-               <col span="1" style="width: 7%;">
-               <col span="1" style="width: 82%;">
-            </colgroup>
-            <tbody>
-            <tr>
-                <td></td>
-                <td>F1</td>
-                <td>Показать или скрыть карту активности Strava</td>
-            </tr>
-            <tr>
-                <td><i class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-dove"></i></td>
-                <td>F2</td>
-                <td>Переключить между отрисовкой с привязкой к маршруту и <i>без неё</i> (прямые линии между точками трека) при редактировании трека</td>
-            </tr>
-            <tr>
-                <td><i class="fas fa-biking"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-running"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-motorcycle"></i></td>
-                <td>F3</td>
-                <td>Переключить между режимами "велосипед", "бег" и "авто" (влияет на привязку к маршруту и отображение в Strava Heatmap)</td>
-            </tr>
-            <tr>
-                <td><b>км</b> <i class="fas fa-arrows-alt-h"></i> <b>мили</b></td>
-                <td>F4</td>
-                <td>Изменить единицы измерения</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>Ctrl+H</td>
-                <td>Показать или скрыть профиль высоты</td>
             </tr>
             </tbody>
         </table><br>
@@ -285,11 +258,46 @@
             </tr>
             </tbody>
         </table><br>
+        <table style="width: 100%">
+            <colgroup>
+               <col span="1" style="width: 11%;">
+               <col span="1" style="width: 7%;">
+               <col span="1" style="width: 82%;">
+            </colgroup>
+            <tbody>
+            <tr>
+                <td></td>
+                <td>F1</td>
+                <td>Показать или скрыть карту активности Strava</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-route"></i></td>
+                <td>F2</td>
+                <td>Переключить между отрисовкой с привязкой к маршруту и <i>без неё</i> (прямые линии между точками трека) при редактировании трека</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-biking"></i></td>
+                <td>F3</td>
+                <td>Переключить между режимами "велосипед", "бег" и "авто" (влияет на привязку к маршруту и отображение в Strava Heatmap)</td>
+            </tr>
+            <tr>
+                <td><b>км</b></td>
+                <td>F4</td>
+                <td>Изменить единицы измерения</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-chart-area"></i></td>
+                <td>Ctrl+H</td>
+                <td>Показать или скрыть профиль высоты</td>
+            </tr>
+            </tbody>
+        </table><br>
         В нижней части вы можете увидеть панель с информацией об импортируемых треках.
         Вкладка <b>Всего</b> отображается информация обо всех открытых треках, объединенных в один.
         <b>Поменяйте местами вкладки</b> для определения порядка, в котором должны отображаться треки, и <b>дважды щёлкните</b> на них, чтобы изменить их имена.
         Когда у вас много вкладок, перемещайтесь между ними горизонтальным прокручиванием.
         Используйте <b>ползунок</b>, чтобы переместить начальную/конечную точку и подрезать маршрут.
+        some settings.
         </div>
         <div id="export-content" class="popup-content">
             <table style="width: 100%; text-align: left">
