@@ -488,6 +488,10 @@ ul {
     white-space: normal;
 }
 
+.unselected {
+    color: #b3b3b3;
+}
+
 .popup-content {
     text-align: center;
     width: auto;
