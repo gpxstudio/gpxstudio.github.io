@@ -112,6 +112,8 @@ export default class Slider {
     /*** GPX DATA ***/
 
     getIndex(val) {
+        if (val == this.start.min) return 0;
+        if (val == this.end.max) return this.buttons.elev._originalData[this.buttons.elev.options.selectedAttributeIdx].length-1;
         return this.buttons.elev._findItemForX(parseInt(val)/this.start.max * this.buttons.elev._svgWidth);
     }
 

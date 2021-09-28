@@ -163,6 +163,7 @@ export default class Trace {
             var button = document.getElementById("split");
             button.addEventListener("click", function () {
                 const copy = trace.clone();
+                total.setTraceIndex(copy.index, trace.index+1);
                 copy.crop(best_idx, copy.getPoints().length, true);
                 trace.crop(0, best_idx, true);
                 trace.closePopup();
@@ -545,6 +546,7 @@ export default class Trace {
                     var button2 = document.getElementById("split-waypoint");
                     button2.addEventListener("click", function () {
                         const copy = trace.clone();
+                        copy.total.setTraceIndex(copy.index, trace.index+1);
                         copy.crop(marker._pt.trace_index, copy.getPoints().length, true);
                         trace.crop(0, marker._pt.trace_index, true);
                         marker.remove();
@@ -852,11 +854,15 @@ export default class Trace {
             if (start > 0 && end < cumul-1) {
                 const copy2 = copy.clone();
                 copy.crop(0, start-1, true);
+                this.total.setTraceIndex(copy.index, this.index);
                 copy2.crop(end+1, cumul, true);
+                this.total.setTraceIndex(copy2.index, this.index+1);
             } else if (start > 0) {
                 copy.crop(0, start-1, true);
+                this.total.setTraceIndex(copy.index, this.index);
             } else if (end < cumul-1) {
                 copy.crop(end+1, cumul, true);
+                this.total.setTraceIndex(copy.index, this.index+1);
             }
         }
 
@@ -987,6 +993,8 @@ export default class Trace {
         var count = 1;
         var lastTrace = null;
 
+        const traces = [];
+
         var closestSegments = [];
         for (var w=0; w<waypoints.length; w++) {
             closestSegments.push({distance: Infinity, segments: []});
@@ -1035,9 +1043,12 @@ export default class Trace {
             count++;
 
             lastTrace = newTrace;
+            traces.push(newTrace);
         }
 
         lastTrace.focus();
+
+        return traces;
     }
 
     addEndPoint(lat, lng) {

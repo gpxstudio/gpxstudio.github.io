@@ -68,6 +68,30 @@ export default class Total {
         else if (j == this.focusOn) this.focusOn = i;
     }
 
+    setTraceIndex(i, newI) {
+        var tmp = this.traces[i];
+        if (i < newI) {
+            for (var j=i; j<newI; j++) {
+                this.traces[j] = this.traces[j+1];
+                this.traces[j].index = j;
+            }
+            if (i == this.focusOn) this.focusOn = newI;
+            else if (this.focusOn > i && this.focusOn <= newI) this.focusOn--;
+        } else {
+            for (var j=i; j>newI; j--) {
+                this.traces[j] = this.traces[j-1];
+                this.traces[j].index = j;
+            }
+            if (i == this.focusOn) this.focusOn = newI;
+            else if (this.focusOn < i && this.focusOn >= newI) this.focusOn++;
+        }
+        this.traces[newI] = tmp;
+        this.traces[newI].index = newI;
+        for (var j=0; j<this.traces.length; j++) {
+            this.buttons.sortable.el.appendChild(this.traces[j].tab);
+        }
+    }
+
     /*** DISPLAY ***/
 
     focus() {

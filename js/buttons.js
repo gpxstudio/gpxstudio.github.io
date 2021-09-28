@@ -1180,7 +1180,10 @@ export default class Buttons {
             const trace = total.traces[total.focusOn];
             if (trace.isEdited) return;
             if (!trace.can_extract) return;
-            trace.extract_segments();
+            const newTraces = trace.extract_segments();
+            for (var i=0; i<newTraces.length; i++) {
+                total.setTraceIndex(newTraces[i].index, trace.index+1+i);
+            }
             gtag('event', 'button', {'event_category' : 'extract'});
         });
         const sliderCallback = function() {
@@ -1402,7 +1405,8 @@ export default class Buttons {
             if (total.hasFocus) return;
             const trace = total.traces[total.focusOn];
             if (trace.isEdited) return;
-            trace.clone();
+            const clone = trace.clone();
+            total.setTraceIndex(clone.index, trace.index+1);
             gtag('event', 'button', {'event_category' : 'duplicate'});
         });
         this.combine.addEventListener("click", function () {
