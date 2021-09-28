@@ -49,7 +49,7 @@ export default class Buttons {
             zoomControl: false,
             minZoom: 2
         }).setView([0, 0], 2);
-        this.map.attributionControl.addAttribution('Powered by <a href="https://www.graphhopper.com/">GraphHopper API</a>')
+        if (!this.embedding) this.map.attributionControl.addAttribution('Powered by <a href="https://www.graphhopper.com/">GraphHopper API</a>')
         this.map.addEventListener("locationfound", function (e) {
             e.target.setView(e.latlng,12);
         });
