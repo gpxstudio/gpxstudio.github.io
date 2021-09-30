@@ -497,6 +497,14 @@ ul {
     width: auto;
 }
 
+.popup-action {
+    padding-right: 15px;
+}
+
+.popup-action:hover {
+    color: black;
+}
+
 .fancy-button {
     color:white;
     background-color:rgb(220,15,130);

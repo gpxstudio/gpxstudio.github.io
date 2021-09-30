@@ -213,6 +213,7 @@ export default class Buttons {
         this.duplicate_text = document.getElementById('duplicate-text').textContent;
         this.delete_text = document.getElementById('delete-text').textContent;
         this.split_text = document.getElementById('split-text').textContent;
+        this.start_loop_text = document.getElementById('start-loop-text').textContent;
         this.remove_pt_text = document.getElementById('remove-pt-text').textContent;
         this.speed_text = document.getElementById('speed-text').textContent;
         this.pace_text = document.getElementById('pace-text').textContent;

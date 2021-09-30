@@ -151,9 +151,9 @@ export default class Trace {
 
             if (!best_idx) return;
 
-            trace.popup.setContent(`<div id="split" class="custom-button" style="display: inline-block">`+trace.buttons.split_text+`</div>
-                                    <div style="display: inline-block; width: 4px"></i></div>
-                                    <div id="close-popup" class="custom-button" style="display: inline-block"><i class="fas fa-times"></i></div><br>`);
+            trace.popup.setContent(`<div id="split" class="custom-button popup-action"><i class="fas fa-cut"></i> `+trace.buttons.split_text+`</div>
+                                    <div id="start-loop" class="custom-button popup-action"><i class="fas fa-undo"></i> `+trace.buttons.start_loop_text+`</div>
+                                    <div id="close-popup" class="custom-button" style="position: absolute; top: 4px; right: 6px;"><i class="fas fa-times"></i></div>`);
             trace.popup.setLatLng(e.latlng);
             trace.popup.openOn(map);
             trace.popup.addEventListener('remove', function (e) {
@@ -168,6 +168,12 @@ export default class Trace {
                 trace.crop(0, best_idx, true);
                 trace.closePopup();
                 trace.draw();
+            });
+
+            var button2 = document.getElementById("start-loop");
+            button2.addEventListener("click", function () {
+                trace.setStart(best_idx);
+                trace.closePopup();
             });
 
             var close = document.getElementById("close-popup");
@@ -520,13 +526,12 @@ export default class Trace {
             },
             contextmenu: function (e) {
                 if (trace._editMarkers.length == 1) return;
-                var content = `<div id="remove-waypoint" class="custom-button" style="display: inline-block">`+trace.buttons.remove_pt_text+`</div>
-                <div style="display: inline-block; width: 4px"></i></div>
-                <div id="close-popup" class="custom-button" style="display: inline-block"><i class="fas fa-times"></i></div><br>`;
-
+                var content = '<div id="close-popup" class="custom-button" style="float: right;"><i class="fas fa-times"></i></div>';
                 if (marker != trace._editMarkers[0] && marker != trace._editMarkers[trace._editMarkers.length-1]) {
-                    content += '<div id="split-waypoint" class="custom-button" style="display: inline-block">'+trace.buttons.split_text+'</div>';
+                    content += '<div id="split-waypoint" class="custom-button popup-action"><i class="fas fa-cut"></i> '+trace.buttons.split_text+'</div>';
                 }
+                content += `<div id="start-loop-waypoint" class="custom-button popup-action"><i class="fas fa-undo"></i> `+trace.buttons.start_loop_text+`</div>
+                            <div id="remove-waypoint" class="custom-button popup-action"><i class="fas fa-trash-alt"></i> `+trace.buttons.remove_pt_text+`</div>`;
 
                 trace.popup.setContent(content);
                 trace.popup.setLatLng(e.latlng);
@@ -554,6 +559,12 @@ export default class Trace {
                         trace.draw();
                     });
                 }
+
+                var button3 = document.getElementById("start-loop-waypoint");
+                button3.addEventListener("click", function () {
+                    trace.setStart(marker._pt.trace_index);
+                    trace.closePopup();
+                });
 
                 var close = document.getElementById("close-popup");
                 close.addEventListener("click", function () {
@@ -900,12 +911,41 @@ export default class Trace {
                 points[i].meta.time = tmp;
             }
         }
-        this.gpx.setStyle(this.focus_style);
         this.buttons.slider.reset();
         this.update();
         this.redraw();
-        this.showChevrons();
-        this.showDistanceMarkers();
+        this.focus();
+    }
+
+    setStart(index) {
+        const segments = this.getSegments();
+        var cumul = 0, before = [], after = [];
+
+        for (var i=0; i<segments.length; i++) {
+            this.gpx.getLayers()[0].removeLayer(segments[i]);
+            if (index >= cumul + segments[i]._latlngs.length) before.push(segments[i]);
+            else if (index < cumul) after.push(segments[i]);
+            else { // split in this segment
+                if (segments.length == 1) {
+                    this.gpx.getLayers()[0].addLayer(new L.Polyline(segments[i]._latlngs.slice(index-cumul).concat(segments[i]._latlngs.slice(0, index-cumul+1)), this.gpx.options.polyline_options));
+                } else {
+                    before.push(new L.Polyline(segments[i]._latlngs.slice(0, index-cumul+1), this.gpx.options.polyline_options));
+                    after.push(new L.Polyline(segments[i]._latlngs.slice(index-cumul), this.gpx.options.polyline_options));
+                }
+            }
+            cumul += segments[i]._latlngs.length;
+        }
+        for (var i=0; i<after.length; i++)
+            this.gpx.getLayers()[0].addLayer(new L.Polyline(after[i]._latlngs, this.gpx.options.polyline_options));
+        for (var i=0; i<before.length; i++)
+            this.gpx.getLayers()[0].addLayer(new L.Polyline(before[i]._latlngs, this.gpx.options.polyline_options));
+
+
+        this.recomputeStats();
+        this.update();
+        this.redraw();
+        this.focus();
+        this.draw();
     }
 
     merge(trace, as_segments) {
