@@ -179,7 +179,7 @@
                         <li>If you make a mistake or change your mind about the itinerary, you can:
                             <ul>
                                 <li>use the undo <i class="fas fa-reply button"></i> and redo <i class="fas fa-share button"></i> buttons.</li>
-                                <li>right-click on an anchor point to remove it.</li>
+                                <li>right-click on an anchor point and use <span class="button"><i class="fas fa-trash-alt"></i> <span>Remove point</span></span> to remove it.</li>
                             </ul>
                         </li>
                     </ol>
@@ -227,8 +227,9 @@
                     <ul>
                         <li>add track points at the end of the trace by clicking on the map at the locations you want to go through.</li>
                         <li>drag an anchor point or the line itself to re-route the trace through a new location.</li>
-                        <li>right-click on an anchor point to remove it.</li>
-                        <li>right-click on an anchor point or on the line to split the trace at a chosen location.</li>
+                        <li>right-click on an anchor point and use <span class="button"><i class="fas fa-trash-alt"></i> <span>Remove point</span></span> to remove it.</li>
+                        <li>right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> to split the trace at a chosen location.</li>
+                        <li>right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-undo"></i> <span>Start loop here</span></span> to make the loop start at a chosen location.</li>
                     </ul>
                     If you make a mistake or change your mind about the itinerary, use the undo <i class="fas fa-reply button"></i> and redo <i class="fas fa-share button"></i> buttons.<br>
                     Two options control how two consecutive points are connected:
@@ -250,7 +251,7 @@
                 <div id="crop" style="display: none">There are three options:
                     <ul>
                         <li>Use the slider in the bottom panel to move the start and end points of the trace. Click on <i class="fas fa-check button"></i> to validate the selection. You can choose whether you want to keep cropped parts in separate files.</li>
-                        <li>Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, right-click on an anchor point or on the line to split the trace at a chosen location.</li>
+                        <li>Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> to split the trace at a chosen location.</li>
                         <li>Click on <i class="fas fa-vector-square button"></i> and select an area containing the track points you want to keep or delete. Uncheck the box <i class="far fa-check-square"></i> Waypoints if you do not want to remove waypoints at the same time. Then, choose whether you want to delete track points inside or outside of the selection. Finally, click on <span class="button">Proceed</span>.</li>
                     </ul>
                 </div></div>
@@ -258,8 +259,12 @@
                 <div id="split" style="display: none">There are two options:
                     <ul>
                         <li>Use the slider in the bottom panel to move the start and end points of the trace. Click on <i class="fas fa-check button"></i> to validate the selection. Check the box <i class="far fa-check-square"></i> Keep cropped parts in new files and then click on <span class="button">Proceed</span>.</li>
-                        <li>Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, right-click on an anchor point or on the line to split the trace at a chosen location.</li>
+                        <li>Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> to split the trace at a chosen location.</li>
                     </ul>
+                </div></div>
+                <div class="guide-item"><a name="change-start-loop" href="#change-start-loop" class="my-anchor"><div class="guide-title" onclick="toggle('change-start')">Change the starting point of a loop</div></a>
+                <div id="change-start" style="display: none">
+                    Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-undo"></i> <span>Start loop here</span></span> to make the loop start at a chosen location.</li>
                 </div></div>
                 <div class="guide-item"><a name="add-timestamps" href="#add-timestamps" class="my-anchor"><div class="guide-title" onclick="toggle('timestamps')">Füge Zeitstempel zu einer GPX Datei hinzu</div></a>
                 <div id="timestamps" style="display: none">
@@ -379,9 +384,9 @@
                     <i class="fas fa-motorcycle"></i>
                 </span> to select an activity and see the speed or the running pace in minutes per kilometer or mile.</div></div>
                 <div class="guide-item"><a name="direction-markers" href="#direction-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-direction-markers')">Show direction markers</div></a>
-                <div id="show-direction-markers" style="display: none">To show direction markers, go in the settings <i class="fas fa-bars button"></i> and check the box <i class="far fa-check-square"></i> Direction markers.</div></div>
+                <div id="show-direction-markers" style="display: none">To show direction markers, go in the settings <i class="fas fa-layer-group button"></i> and check the box <i class="far fa-check-square"></i> Direction markers.</div></div>
                 <div class="guide-item"><a name="distance-markers" href="#distance-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-distance-markers')">Show distance markers</div></a>
-                <div id="show-distance-markers" style="display: none">To show distance markers, go in the settings <i class="fas fa-bars button"></i> and check the box <i class="far fa-check-square"></i> Distance markers.</div></div>
+                <div id="show-distance-markers" style="display: none">To show distance markers, go in the settings <i class="fas fa-layer-group button"></i> and check the box <i class="far fa-check-square"></i> Distance markers.</div></div>
                 <div class="guide-item"><a name="map-legends" href="#map-legends" class="my-anchor"><div class="guide-title" onclick="toggle('legend')">Map legends</div></a>
                 <div id="legend" style="display: none">
                     <ul>
