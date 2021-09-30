@@ -119,7 +119,7 @@
                 Ils ont créé un programme appelé <a href="https://www.mapbox.com/community/" target="_blank">Mapbox Community</a> pour soutenir les organismes sans but lucratif, les institutions éducatives et les organisations à impact positif (voir la <a href="https://www.mapbox.com/community/" target="_blank">page officielle</a> qui présente certaines de leurs collaborations). Nous sommes <b>très chanceux</b> d'avoir rejoint ce programme et de bénéficier d'une réduction sur tous les tarifs de l'API.<br><br>
                 Je suis (et tous les utilisateurs du site peuvent l'être) très reconnaissant pour leur soutien et leur disponibilité.
             </div>
-            <a name="graphhopper"></a><h2>Powered by GraphHopper &#128640; <a href="https://www.graphhopper.com/" target="_blank"><img src="/res/graphhopper.svg" style="height: 40px; vertical-align: bottom; float: right;"></a></h2>
+            <a name="graphhopper"></a><h2>Propulsé par GraphHopper &#128640; <a href="https://www.graphhopper.com/" target="_blank"><img src="/res/graphhopper.svg" style="height: 40px; vertical-align: bottom; float: right;"></a></h2>
             <div>
                 <a href="https://www.graphhopper.com/" target="_blank">GraphHopper</a> fournit tous les itinéraires dans l'application.
                 Leur moteur de routage <a href="https://github.com/graphhopper/graphhopper" target="_blank">open source</a> gère de multiples véhicules, il est même possible de personnaliser chaque requête.
@@ -179,7 +179,7 @@
                         <li>Si vous faites une erreur ou changez d'avis sur l'itinéraire, vous pouvez:
                             <ul>
                                 <li>utiliser les boutons annuler <i class="fas fa-reply button"></i> et rétablir <i class="fas fa-share button"></i>.</li>
-                                <li>faire un clic droit sur un point de passage pour le supprimer.</li>
+                                <li>faire un clic droit sur un point d'ancrage et utiliser <span class="button"><i class="fas fa-trash-alt"></i> <span>Supprimer le point</span></span> pour le supprimer.</li>
                             </ul>
                         </li>
                     </ol>
@@ -227,8 +227,9 @@
                     <ul>
                         <li>ajouter des points de passage en fin de trace en cliquant sur la carte à l'endroit où vous souhaitez passer.</li>
                         <li>faire glisser un point de passage ou la ligne elle-même pour rediriger la trace.</li>
-                        <li>faire un clic droit sur un point de passage pour le supprimer.</li>
-                        <li>faire un clic droit sur un point de passage ou sur la trace pour diviser la trace à cet endroit.</li>
+                        <li>faire un clic droit sur un point d'ancrage et utiliser <span class="button"><i class="fas fa-trash-alt"></i> <span>Supprimer le point</span></span> pour le supprimer.</li>
+                        <li>faire un clic droit sur un point de passage ou sur la trace et utiliser <span class="button"><i class="fas fa-cut"></i> <span>Diviser ici</span></span> pour diviser la trace à cet endroit.</li>
+                        <li>faire un clic droit sur un point de passage ou sur la trace et utiliser <span class="button"><i class="fas fa-undo"></i> <span>Démarrer la boucle ici</span></span> pour faire démarrer la boucle à cet endroit.</li>
                     </ul>
                     Si vous faites une erreur ou changez d'avis sur l'itinéraire, utilisez les boutons annuler <i class="fas fa-reply button"></i> et rétablir <i class="fas fa-share button"></i>.<br>
                     Deux options contrôlent la façon dont deux points consécutifs sont reliés :
@@ -250,7 +251,7 @@
                 <div id="crop" style="display: none">Vous avez 3 options :
                     <ul>
                         <li>Utilisez le slider dans le panneau inférieur pour déplacer les points de départ et d'arrivée de la trace. Cliquez sur <i class="fas fa-check button"></i> pour valider la sélection. Vous pouvez choisir si vous voulez conserver les parties rognées dans des fichiers séparés.</li>
-                        <li>Passez en mode édition en cliquant sur <i class="fas fa-pencil-alt button"></i>. Ensuite, faites un clic droit sur un point de passage ou sur la trace pour diviser la trace à cet endroit.</li>
+                        <li>Passez en mode édition en cliquant sur <i class="fas fa-pencil-alt button"></i>. Ensuite, faites un clic droit sur un point d'ancrage ou sur la trace et utiliser <span class="button"><i class="fas fa-cut"></i> <span>Diviser ici</span></span> pour diviser la trace à cet endroit.</li>
                         <li>Cliquez sur <i class="fas fa-vector-square button"></i> et sélectionnez une zone contenant les points que vous souhaitez conserver ou supprimer. Décochez la case <i class="far fa-check-square"></i> Points d'intérêt si vous ne voulez pas supprimer des points d'intérêt en même temps. Ensuite, choisissez si vous voulez supprimer les points de passage à l'intérieur ou en-dehors de la sélection. Enfin, cliquez sur <span class="button">Appliquer</span>.</li>
                     </ul>
                 </div></div>
@@ -258,8 +259,12 @@
                 <div id="split" style="display: none">Vous avez 2 options :
                     <ul>
                         <li>Utilisez le slider dans le panneau inférieur pour déplacer les points de départ et d'arrivée de la trace. Cliquez sur <i class="fas fa-check button"></i> pour valider la sélection. Cochez la case <i class="far fa-check-square"></i> Conserver les parties rognées dans de nouveaux fichiers, puis cliquez sur <span class="button">Appliquer</span>.</li>
-                        <li>Passez en mode édition en cliquant sur <i class="fas fa-pencil-alt button"></i>. Ensuite, faites un clic droit sur un point de passage ou sur la trace pour diviser la trace à cet endroit.</li>
+                        <li>Passez en mode édition en cliquant sur <i class="fas fa-pencil-alt button"></i>. Ensuite, faites un clic droit sur un point d'ancrage ou sur la trace et utiliser <span class="button"><i class="fas fa-cut"></i> <span>Diviser ici</span></span> pour diviser la trace à cet endroit.</li>
                     </ul>
+                </div></div>
+                <div class="guide-item"><a name="change-start-loop" href="#change-start-loop" class="my-anchor"><div class="guide-title" onclick="toggle('change-start')">Changer le point de départ d'une boucle</div></a>
+                <div id="change-start" style="display: none">
+                    Passez en mode édition en cliquant sur <i class="fas fa-pencil-alt button"></i>. Ensuite, faites un clic droit sur un point de passage ou sur la trace et utiliser <span class="button"><i class="fas fa-undo"></i> <span>Démarrer la boucle ici</span></span> pour faire démarrer la boucle à cet endroit.</li>
                 </div></div>
                 <div class="guide-item"><a name="add-timestamps" href="#add-timestamps" class="my-anchor"><div class="guide-title" onclick="toggle('timestamps')">Ajouter des données de temps à un fichier GPX</div></a>
                 <div id="timestamps" style="display: none">
@@ -379,9 +384,9 @@
                     <i class="fas fa-motorcycle"></i>
                 </span> pour sélectionner l'activité désirée et voir la vitesse ou l'allure de course en minutes par kilomètre ou mile.</div></div>
                 <div class="guide-item"><a name="direction-markers" href="#direction-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-direction-markers')">Afficher les marqueurs de direction</div></a>
-                <div id="show-direction-markers" style="display: none">Pour afficher les marqueurs de direction, allez dans les paramètres <i class="fas fa-bars button"></i> et cochez la case <i class="far fa-check-square"></i> Marqueurs de direction.</div></div>
+                <div id="show-direction-markers" style="display: none">Pour afficher les marqueurs de direction, allez dans les paramètres <i class="fas fa-layer-group button"></i> et cochez la case <i class="far fa-check-square"></i> Marqueurs de direction.</div></div>
                 <div class="guide-item"><a name="distance-markers" href="#distance-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-distance-markers')">Afficher les marqueurs de distance</div></a>
-                <div id="show-distance-markers" style="display: none">Pour afficher les marqueurs de distance, allez dans les paramètres <i class="fas fa-bars button"></i> et cochez la case <i class="far fa-check-square"></i> Marqueurs de distance.</div></div>
+                <div id="show-distance-markers" style="display: none">Pour afficher les marqueurs de distance, allez dans les paramètres <i class="fas fa-layer-group button"></i> et cochez la case <i class="far fa-check-square"></i> Marqueurs de distance.</div></div>
                 <div class="guide-item"><a name="map-legends" href="#map-legends" class="my-anchor"><div class="guide-title" onclick="toggle('legend')">Légendes des cartes</div></a>
                 <div id="legend" style="display: none">
                     <ul>
