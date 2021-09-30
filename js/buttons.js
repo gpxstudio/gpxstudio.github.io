@@ -47,7 +47,8 @@ export default class Buttons {
         // MAIN MAP
         this.map = L.map('mapid', {
             zoomControl: false,
-            minZoom: 2
+            minZoom: 2,
+            worldCopyJump: true
         }).setView([0, 0], 2);
         if (!this.embedding) this.map.attributionControl.addAttribution('Powered by <a href="https://www.graphhopper.com/">GraphHopper API</a>')
         this.map.addEventListener("locationfound", function (e) {
