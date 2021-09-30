@@ -115,23 +115,30 @@
             </div>
             <a name="mapbox"></a><h2>Mapbox Community &#129309;<a href="https://www.mapbox.com/" target="_blank"><img src="/res/mapbox.svg" style="height: 40px; vertical-align: bottom; float: right;"></a></h2>
             <div>
-                <a href="https://www.mapbox.com/" target="_blank">Mapbox</a> est l'entreprise qui fournit certaines des belles cartes du site. Nous dépendons également de leurs services pour récupérer les itinéraires entre les points que vous ajoutez ou déplacez, pour ajouter des données d'altitude précises aux traces et pour vous amener au bon endroit lorsque vous tapez dans la barre de recherche.<br><br>
-                Ils ont créé un programme appelé <a href="https://www.mapbox.com/community/" target="_blank">Mapbox Community</a> pour soutenir les organismes sans but lucratif, les projets éducatifs et les organisations à impact positif (voir la <a href="https://www.mapbox.com/community/" target="_blank"> page officielle</a> où ils présentent certaines de leurs collaborations). Nous sommes <b>très chanceux</b> d'avoir rejoint ce programme et de bénéficier d'une réduction sur tous les prix de leur API. Grâce à eux, il devrait être possible de financer ce projet sur le long terme uniquement par des donations.<br><br>
-                Je suis (et tous les utilisateurs du site peuvent l'être) très reconnaissant de leur soutien et de leur disponibilité.
+                <a href="https://www.mapbox.com/" target="_blank">Mapbox</a> est l'entreprise qui fournit certaines des belles cartes du site.
+                Ils ont créé un programme appelé <a href="https://www.mapbox.com/community/" target="_blank">Mapbox Community</a> pour soutenir les organismes sans but lucratif, les institutions éducatives et les organisations à impact positif (voir la <a href="https://www.mapbox.com/community/" target="_blank">page officielle</a> qui présente certaines de leurs collaborations). Nous sommes <b>très chanceux</b> d'avoir rejoint ce programme et de bénéficier d'une réduction sur tous les tarifs de l'API.<br><br>
+                Je suis (et tous les utilisateurs du site peuvent l'être) très reconnaissant pour leur soutien et leur disponibilité.
+            </div>
+            <a name="graphhopper"></a><h2>Propulsé par GraphHopper &#128640; <a href="https://www.graphhopper.com/" target="_blank"><img src="/res/graphhopper.svg" style="height: 40px; vertical-align: bottom; float: right;"></a></h2>
+            <div>
+                <a href="https://www.graphhopper.com/" target="_blank">GraphHopper</a> fournit tous les itinéraires dans l'application.
+                Leur moteur de routage <a href="https://github.com/graphhopper/graphhopper" target="_blank">open source</a> gère de multiples véhicules, il est même possible de personnaliser chaque requête.
+                Il permet également de récupérer des détails supplémentaires sur l'itinéraire trouvé, comme la surface et la classe de la route, l'altitude, etc.
+                Toutes ces fonctionnalités en font le fournisseur de routage idéal pour les applications sportives en plein air.
             </div>
             </div>
             <div class="block">
             <a name="support"></a><h1>Support &#128172;</h1>
             <div>
-                Le menu <span class="button">Aide</span> et le <a href="#guide">Guide utilisateur</a> devraient répondre à la plupart de vos questions sur les fonctionnalités, mais n'hésitez pas à demander de l'aide, signaler tout problème ou envoyer des suggestions sur la <a href="https://facebook.com/gpx.studio" target="_blank">page Facebook</a> ou par e-mail à <a href="mailto:hello@gpx.studio">hello@gpx.studio</a>.<br><br>
+                Le menu <span class="button">Aide</span> et le <a href="#guide">Guide utilisateur</a> devraient répondre à la plupart de vos questions sur les fonctionnalités, mais n'hésitez pas à demander de l'aide, signaler tout problème ou envoyer des suggestions sur la page <a href="https://facebook.com/gpx.studio" target="_blank">Facebook</a> ou <a href="https://twitter.com/gpxstudio" target="_blank">Twitter</a>, ou par e-mail à <a href="mailto:hello@gpx.studio">hello@gpx.studio</a>.<br><br>
                 Pour les développeurs, le <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank">dépôt Github</a> est également un bon endroit pour signaler des problèmes ou partager des idées.
             </div>
             </div>
             <div class="block">
             <a name="funding"></a><h1>Aidez le site à rester gratuit (et sans publicité) &#128591;</h1>
             <div>
-                Chaque fois que vous ajoutez ou déplacez un point de passage, nous faisons une requête à <a href="https://docs.mapbox.com/api/navigation/directions/" target="_blank">l'API Mapbox Directions</a> pour récupérer un chemin sur le réseau routier. En outre, nous utilisons <a href="https://docs.mapbox.com/help/troubleshooting/access-elevation-data/#mapbox-terrain-rgb">les tuiles Mapbox Terrain-RGB</a> pour ajouter des données d'altitude précises aux nouveaux points de passage.<br><br>
-                Malheureusement, ce n'est pas gratuit, même avec le soutien de Mapbox (voir <a href="#mapbox">Mapbox Community</a> ci-dessus). Sont aussi facturés les chargements de carte et les requêtes de géocodage (recherche d'un endroit à partir de la barre de recherche).<br><br>
+                Chaque fois que vous ajoutez ou déplacez un point de passage, nous faisons une requête à <a href="https://docs.graphhopper.com/#tag/Routing-API" target="_blank">l'API GraphHopper Routing</a> pour récupérer un chemin sur le réseau routier.
+                Sont aussi facturés les chargements de carte et les requêtes de géocodage (recherche d'un endroit à partir de la barre de recherche).<br><br>
                 Donc, si vous appréciez l'outil et l'utilisez fréquemment, envisagez de faire même un petit don pour que ce site puisse rester <b>gratuit à utiliser</b> et <b>sans publicité</b>. Merci pour votre soutien !<br><br>
                 <div style="text-align: center;"><script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support gpx.studio on Ko-fi', '#29abe0', 'F1F1303GH');kofiwidget2.draw();</script></div>
             </div>
@@ -154,7 +161,7 @@
                     <ol>
                         <li>Dans la barre supérieure, cliquez sur <span class="button">Créer GPX</span>. Un nouvel onglet appelé "new" apparaît sous le panneau inférieur.</li>
                         <li>Placez des points de passage sur la carte en cliquant sur les endroits que vous souhaitez visiter.</li>
-                        <li>Dans les paramètres <i class="fas fa-bars button"></i>, deux paramètres contrôlent la façon dont deux points consécutifs sont reliés :
+                        <li>Deux options contrôlent comment deux points consécutifs sont connectés :
                             <ul>
                                 <li>utilisez
                                     <span class="button">
@@ -172,7 +179,7 @@
                         <li>Si vous faites une erreur ou changez d'avis sur l'itinéraire, vous pouvez:
                             <ul>
                                 <li>utiliser les boutons annuler <i class="fas fa-reply button"></i> et rétablir <i class="fas fa-share button"></i>.</li>
-                                <li>faire un clic droit sur un point de passage pour le supprimer.</li>
+                                <li>faire un clic droit sur un point d'ancrage et utiliser <span class="button"><i class="fas fa-trash-alt"></i> <span>Supprimer le point</span></span> pour le supprimer.</li>
                             </ul>
                         </li>
                     </ol>
@@ -220,11 +227,12 @@
                     <ul>
                         <li>ajouter des points de passage en fin de trace en cliquant sur la carte à l'endroit où vous souhaitez passer.</li>
                         <li>faire glisser un point de passage ou la ligne elle-même pour rediriger la trace.</li>
-                        <li>faire un clic droit sur un point de passage pour le supprimer.</li>
-                        <li>faire un clic droit sur un point de passage ou sur la trace pour diviser la trace à cet endroit.</li>
+                        <li>faire un clic droit sur un point d'ancrage et utiliser <span class="button"><i class="fas fa-trash-alt"></i> <span>Supprimer le point</span></span> pour le supprimer.</li>
+                        <li>faire un clic droit sur un point de passage ou sur la trace et utiliser <span class="button"><i class="fas fa-cut"></i> <span>Diviser ici</span></span> pour diviser la trace à cet endroit.</li>
+                        <li>faire un clic droit sur un point de passage ou sur la trace et utiliser <span class="button"><i class="fas fa-undo"></i> <span>Démarrer la boucle ici</span></span> pour faire démarrer la boucle à cet endroit.</li>
                     </ul>
-                    Si vous faites une erreur ou changez d'avis sur l'itinéraire, utilisez les boutons annuler <i class="fas fa-reply button"></i> et rétablir <i class="fas fa-share button"></i> .<br>
-                    Dans les paramètres <i class="fas fa-bars button"></i>, deux options contrôlent la façon dont deux points consécutifs sont reliés :
+                    Si vous faites une erreur ou changez d'avis sur l'itinéraire, utilisez les boutons annuler <i class="fas fa-reply button"></i> et rétablir <i class="fas fa-share button"></i>.<br>
+                    Deux options contrôlent la façon dont deux points consécutifs sont reliés :
                     <ul>
                         <li>utilisez
                                     <span class="button">
@@ -243,7 +251,7 @@
                 <div id="crop" style="display: none">Vous avez 3 options :
                     <ul>
                         <li>Utilisez le slider dans le panneau inférieur pour déplacer les points de départ et d'arrivée de la trace. Cliquez sur <i class="fas fa-check button"></i> pour valider la sélection. Vous pouvez choisir si vous voulez conserver les parties rognées dans des fichiers séparés.</li>
-                        <li>Passez en mode édition en cliquant sur <i class="fas fa-pencil-alt button"></i>. Ensuite, faites un clic droit sur un point de passage ou sur la trace pour diviser la trace à cet endroit.</li>
+                        <li>Passez en mode édition en cliquant sur <i class="fas fa-pencil-alt button"></i>. Ensuite, faites un clic droit sur un point d'ancrage ou sur la trace et utiliser <span class="button"><i class="fas fa-cut"></i> <span>Diviser ici</span></span> pour diviser la trace à cet endroit.</li>
                         <li>Cliquez sur <i class="fas fa-vector-square button"></i> et sélectionnez une zone contenant les points que vous souhaitez conserver ou supprimer. Décochez la case <i class="far fa-check-square"></i> Points d'intérêt si vous ne voulez pas supprimer des points d'intérêt en même temps. Ensuite, choisissez si vous voulez supprimer les points de passage à l'intérieur ou en-dehors de la sélection. Enfin, cliquez sur <span class="button">Appliquer</span>.</li>
                     </ul>
                 </div></div>
@@ -251,8 +259,12 @@
                 <div id="split" style="display: none">Vous avez 2 options :
                     <ul>
                         <li>Utilisez le slider dans le panneau inférieur pour déplacer les points de départ et d'arrivée de la trace. Cliquez sur <i class="fas fa-check button"></i> pour valider la sélection. Cochez la case <i class="far fa-check-square"></i> Conserver les parties rognées dans de nouveaux fichiers, puis cliquez sur <span class="button">Appliquer</span>.</li>
-                        <li>Passez en mode édition en cliquant sur <i class="fas fa-pencil-alt button"></i>. Ensuite, faites un clic droit sur un point de passage ou sur la trace pour diviser la trace à cet endroit.</li>
+                        <li>Passez en mode édition en cliquant sur <i class="fas fa-pencil-alt button"></i>. Ensuite, faites un clic droit sur un point d'ancrage ou sur la trace et utiliser <span class="button"><i class="fas fa-cut"></i> <span>Diviser ici</span></span> pour diviser la trace à cet endroit.</li>
                     </ul>
+                </div></div>
+                <div class="guide-item"><a name="change-start-loop" href="#change-start-loop" class="my-anchor"><div class="guide-title" onclick="toggle('change-start')">Changer le point de départ d'une boucle</div></a>
+                <div id="change-start" style="display: none">
+                    Passez en mode édition en cliquant sur <i class="fas fa-pencil-alt button"></i>. Ensuite, faites un clic droit sur un point de passage ou sur la trace et utiliser <span class="button"><i class="fas fa-undo"></i> <span>Démarrer la boucle ici</span></span> pour faire démarrer la boucle à cet endroit.</li>
                 </div></div>
                 <div class="guide-item"><a name="add-timestamps" href="#add-timestamps" class="my-anchor"><div class="guide-title" onclick="toggle('timestamps')">Ajouter des données de temps à un fichier GPX</div></a>
                 <div id="timestamps" style="display: none">
@@ -361,20 +373,20 @@
                 <div id="hide-gpx" style="display: none">Pour masquer un fichier GPX, cliquez sur <i class="fas fa-eye-slash button"></i>. Pour le dévoiler, cliquez sur <i class="fas fa-eye button"></i>.<br>
                 Une trace masquée se révélera également lors de l'ajout d'un point en mode édition ou lors de l'utilisation de la plupart des outils.</div></div>
                 <div class="guide-item"><a name="hide-elevation" href="#hide-elevation" class="my-anchor"><div class="guide-title" onclick="toggle('profile')">Masquer le profil altimétrique</div></a>
-                <div id="profile" style="display: none">Pour masquer le profil altimétrique, allez dans les paramètres <i class="fas fa-bars button"></i> et décochez la case <i class="far fa-check-square"></i> Profil altimétrique.</div></div>
+                <div id="profile" style="display: none">Pour masquer le profil d'altitude, cliquez sur <i class="fas fa-chart-area button"></i>.</div></div>
                 <div class="guide-item"><a name="change-units" href="#change-units" class="my-anchor"><div class="guide-title" onclick="toggle('units')">Changer les unités</div></a>
-                <div id="units" style="display: none">Pour changer les unités, allez dans les paramètres <i class="fas fa-bars button"></i> et cliquez sur <span class="button">km <i class="fas fa-arrows-alt-h"></i> mi</span>.<br>
+                <div id="units" style="display: none">Pour changer les unités, cliquez sur <span class="button">km <i class="fas fa-arrows-alt-h"></i> mi</span>.<br>
                 Cliquez sur <span class="button">
                     <i class="fas fa-biking"></i>
                     <i class="fas fa-arrows-alt-h"></i>
                     <i class="fas fa-running"></i>
                     <i class="fas fa-arrows-alt-h"></i>
                     <i class="fas fa-motorcycle"></i>
-                </span> pour sélectionner une activité et voir la vitesse ou l'allure de course en minutes par kilomètre ou mile.</div></div>
+                </span> pour sélectionner l'activité désirée et voir la vitesse ou l'allure de course en minutes par kilomètre ou mile.</div></div>
                 <div class="guide-item"><a name="direction-markers" href="#direction-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-direction-markers')">Afficher les marqueurs de direction</div></a>
-                <div id="show-direction-markers" style="display: none">Pour afficher les marqueurs de direction, allez dans les paramètres <i class="fas fa-bars button"></i> et cochez la case <i class="far fa-check-square"></i> Marqueurs de direction.</div></div>
+                <div id="show-direction-markers" style="display: none">Pour afficher les marqueurs de direction, allez dans les paramètres <i class="fas fa-layer-group button"></i> et cochez la case <i class="far fa-check-square"></i> Marqueurs de direction.</div></div>
                 <div class="guide-item"><a name="distance-markers" href="#distance-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-distance-markers')">Afficher les marqueurs de distance</div></a>
-                <div id="show-distance-markers" style="display: none">Pour afficher les marqueurs de distance, allez dans les paramètres <i class="fas fa-bars button"></i> et cochez la case <i class="far fa-check-square"></i> Marqueurs de distance.</div></div>
+                <div id="show-distance-markers" style="display: none">Pour afficher les marqueurs de distance, allez dans les paramètres <i class="fas fa-layer-group button"></i> et cochez la case <i class="far fa-check-square"></i> Marqueurs de distance.</div></div>
                 <div class="guide-item"><a name="map-legends" href="#map-legends" class="my-anchor"><div class="guide-title" onclick="toggle('legend')">Légendes des cartes</div></a>
                 <div id="legend" style="display: none">
                     <ul>

@@ -115,24 +115,31 @@
             </div>
             <a name="mapbox"></a><h2>Сообщество Mapbox &#129309;<a href="https://www.mapbox.com/" target="_blank"><img src="/res/mapbox.svg" style="height: 40px; vertical-align: bottom; float: right;"></a></h2>
             <div>
-                <a href="https://www.mapbox.com/" target="_blank">Mapbox</a> - это компания, предоставляющая некоторые из красивых карт на этом сайте. We also rely on their services to retrieve routes between points you add or move, to add precise elevation data to the traces and to take you to the right location when you type in the search bar.<br><br>
-                They created a program called <a href="https://www.mapbox.com/community/" target="_blank">Mapbox Community</a> to support non-profits, educational institutions, and positive-impact organizations (see the <a href="https://www.mapbox.com/community/" target="_blank"> official page</a> where they showcase some of their collaborations). We are <b>very lucky</b> to have joined this program and to benefit from a great discount on all API rates. Thanks to them, funding this project only through donations should be sustainable in the long term.<br><br>
+                <a href="https://www.mapbox.com/" target="_blank">Mapbox</a> - это компания, предоставляющая некоторые из красивых карт на этом сайте.
+                They created a program called <a href="https://www.mapbox.com/community/" target="_blank">Mapbox Community</a> to support non-profits, educational institutions, and positive-impact organizations (see the <a href="https://www.mapbox.com/community/" target="_blank"> official page</a> where they showcase some of their collaborations). We are <b>very lucky</b> to have joined this program and to benefit from a great discount on all API rates.<br><br>
                 I am (and all users of the website can be) very grateful for their support and availability.
+            </div>
+            <a name="graphhopper"></a><h2>Powered by GraphHopper &#128640; <a href="https://www.graphhopper.com/" target="_blank"><img src="/res/graphhopper.svg" style="height: 40px; vertical-align: bottom; float: right;"></a></h2>
+            <div>
+                <a href="https://www.graphhopper.com/" target="_blank">GraphHopper</a> is taking care of all the routing in the application.
+                Their <a href="https://github.com/graphhopper/graphhopper" target="_blank">open source routing engine</a> handles many vehicle profiles and even per-request customization.
+                It can also provide extra details on the route retrieved such as road surface and class, elevation, etc.
+                All these features make it the perfect route provider for outdoor sports applications.
             </div>
             </div>
             <div class="block">
             <a name="support"></a><h1>Поддержка &#128172;</h1>
             <div>
-                The <span class="button">Help</span> dialog and the <a href="#guide">User Guide</a> should answer most questions about the functionalities, but feel free to ask for help, report any issues or send suggestions on the <a href="https://facebook.com/gpx.studio" target="_blank">Facebook page</a> or by email at <a href="mailto:hello@gpx.studio">hello@gpx.studio</a>.<br><br>
+                The <span class="button">Help</span> dialog and the <a href="#guide">User Guide</a> should answer most questions about the functionalities, but feel free to ask for help, report any issues or send suggestions on the <a href="https://facebook.com/gpx.studio" target="_blank">Facebook</a> or <a href="https://twitter.com/gpxstudio" target="_blank">Twitter</a> page, or by email at <a href="mailto:hello@gpx.studio">hello@gpx.studio</a>.<br><br>
                 For developers, the <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank">Github repository</a> is also a good place to report issues or share ideas.
             </div>
             </div>
             <div class="block">
             <a name="funding"></a><h1>Помогите сохранить сайт бесплатным (и без рекламы) &#128591;</h1>
             <div>
-                Each time you add or move a track point, we make a request to <a href="https://docs.mapbox.com/api/navigation/directions/" target="_blank">Mapbox Directions API</a> to retrieve a route on the road network. In addition, we request <a href="https://docs.mapbox.com/help/troubleshooting/access-elevation-data/#mapbox-terrain-rgb">Mapbox Terrain-RGB tiles</a> to add precise elevation data to the new track points.<br><br>
-                Unfortunately this is not free even with Mapbox's support (see <a href="#mapbox">Mapbox Community</a> above). Other billable operations include map loads and geocoding requests (looking for a place in the search bar).<br><br>
-                So if you like the tool and use it frequently, please consider making even a small donation so that this website can stay <b>free to use</b> and <b>ad-free</b>. Спасибо за вашу поддержку!<br><br>
+                Each time you add or move a track point, we make a request to <a href="https://docs.graphhopper.com/#tag/Routing-API" target="_blank">GraphHopper Routing API</a> to retrieve a route on the road network.
+                Other billable operations include map loads and geocoding requests (looking for a place in the search bar).<br><br>
+                Unfortunately this is very costly so if you like the tool and use it frequently, please consider making even a small donation so that this website can stay <b>free to use</b> and <b>ad-free</b>. Спасибо за вашу поддержку!<br><br>
                 <div style="text-align: center;"><script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support gpx.studio on Ko-fi', '#29abe0', 'F1F1303GH');kofiwidget2.draw();</script></div>
             </div>
             </div>
@@ -154,7 +161,7 @@
                     <ol>
                         <li>На верхней панели инструментов нажмите кнопку <span class="button">Новый GPX</span>. Под нижней панелью появится новая вкладка "new".</li>
                         <li>Place anchor points on the map by clicking at the locations you want to go through.</li>
-                        <li>In the settings <i class="fas fa-bars button"></i>, two options control how two consecutive points are connected:
+                        <li>Two options control how two consecutive points are connected:
                             <ul>
                                 <li>use
                                     <span class="button">
@@ -172,7 +179,7 @@
                         <li>If you make a mistake or change your mind about the itinerary, you can:
                             <ul>
                                 <li>use the undo <i class="fas fa-reply button"></i> and redo <i class="fas fa-share button"></i> buttons.</li>
-                                <li>right-click on an anchor point to remove it.</li>
+                                <li>right-click on an anchor point and use <span class="button"><i class="fas fa-trash-alt"></i> <span>Remove point</span></span> to remove it.</li>
                             </ul>
                         </li>
                     </ol>
@@ -220,11 +227,12 @@
                     <ul>
                         <li>add track points at the end of the trace by clicking on the map at the locations you want to go through.</li>
                         <li>drag an anchor point or the line itself to re-route the trace through a new location.</li>
-                        <li>right-click on an anchor point to remove it.</li>
-                        <li>right-click on an anchor point or on the line to split the trace at a chosen location.</li>
+                        <li>right-click on an anchor point and use <span class="button"><i class="fas fa-trash-alt"></i> <span>Remove point</span></span> to remove it.</li>
+                        <li>right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> to split the trace at a chosen location.</li>
+                        <li>right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-undo"></i> <span>Start loop here</span></span> to make the loop start at a chosen location.</li>
                     </ul>
                     If you make a mistake or change your mind about the itinerary, use the undo <i class="fas fa-reply button"></i> and redo <i class="fas fa-share button"></i> buttons.<br>
-                    In the settings <i class="fas fa-bars button"></i>, two options control how two consecutive points are connected:
+                    Two options control how two consecutive points are connected:
                     <ul>
                         <li>use
                             <span class="button">
@@ -243,7 +251,7 @@
                 <div id="crop" style="display: none">Есть три варианта:
                     <ul>
                         <li>Используйте ползунок на нижней панели для перемещения начальной и конечной точек трека. Нажмите на <i class="fas fa-check button"></i> чтобы подтвердить выбор. You can choose whether you want to keep cropped parts in separate files.</li>
-                        <li>Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, right-click on an anchor point or on the line to split the trace at a chosen location.</li>
+                        <li>Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> to split the trace at a chosen location.</li>
                         <li>Click on <i class="fas fa-vector-square button"></i> and select an area containing the track points you want to keep or delete. Uncheck the box <i class="far fa-check-square"></i> Waypoints if you do not want to remove waypoints at the same time. Then, choose whether you want to delete track points inside or outside of the selection. Finally, click on <span class="button">Proceed</span>.</li>
                     </ul>
                 </div></div>
@@ -251,8 +259,12 @@
                 <div id="split" style="display: none">Есть два варианта:
                     <ul>
                         <li>Используйте ползунок на нижней панели для перемещения начальной и конечной точек трека. Нажмите на <i class="fas fa-check button"></i> чтобы подтвердить выбор. Check the box <i class="far fa-check-square"></i> Keep cropped parts in new files and then click on <span class="button">Proceed</span>.</li>
-                        <li>Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, right-click on an anchor point or on the line to split the trace at a chosen location.</li>
+                        <li>Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> to split the trace at a chosen location.</li>
                     </ul>
+                </div></div>
+                <div class="guide-item"><a name="change-start-loop" href="#change-start-loop" class="my-anchor"><div class="guide-title" onclick="toggle('change-start')">Change the starting point of a loop</div></a>
+                <div id="change-start" style="display: none">
+                    Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-undo"></i> <span>Start loop here</span></span> to make the loop start at a chosen location.</li>
                 </div></div>
                 <div class="guide-item"><a name="add-timestamps" href="#add-timestamps" class="my-anchor"><div class="guide-title" onclick="toggle('timestamps')">Добавление временных меток в файл GPX</div></a>
                 <div id="timestamps" style="display: none">
@@ -361,9 +373,9 @@
                 <div id="hide-gpx" style="display: none">Чтобы скрыть файл GPX, нажмите на <i class="fas fa-eye-slash button"></i>. To unhide it, click on <i class="fas fa-eye button"></i>.<br>
                 A hidden trace will also unhide when adding a point in edition mode or when using most of the tools.</div></div>
                 <div class="guide-item"><a name="hide-elevation" href="#hide-elevation" class="my-anchor"><div class="guide-title" onclick="toggle('profile')">Скрыть профиль высот</div></a>
-                <div id="profile" style="display: none">To hide the elevation profile, go in the settings <i class="fas fa-bars button"></i> and uncheck the box <i class="far fa-check-square"></i> Elevation profile.</div></div>
+                <div id="profile" style="display: none">To hide the elevation profile, simply click on <i class="fas fa-chart-area button"></i>.</div></div>
                 <div class="guide-item"><a name="change-units" href="#change-units" class="my-anchor"><div class="guide-title" onclick="toggle('units')">Change the units</div></a>
-                <div id="units" style="display: none">To change the units, go in the settings <i class="fas fa-bars button"></i> and click on <span class="button">km <i class="fas fa-arrows-alt-h"></i> mi</span>.<br>
+                <div id="units" style="display: none">To change the units, click on <span class="button">km <i class="fas fa-arrows-alt-h"></i> mi</span>.<br>
                 Click on <span class="button">
                     <i class="fas fa-biking"></i>
                     <i class="fas fa-arrows-alt-h"></i>
@@ -372,9 +384,9 @@
                     <i class="fas fa-motorcycle"></i>
                 </span> to select an activity and see the speed or the running pace in minutes per kilometer or mile.</div></div>
                 <div class="guide-item"><a name="direction-markers" href="#direction-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-direction-markers')">Show direction markers</div></a>
-                <div id="show-direction-markers" style="display: none">To show direction markers, go in the settings <i class="fas fa-bars button"></i> and check the box <i class="far fa-check-square"></i> Direction markers.</div></div>
+                <div id="show-direction-markers" style="display: none">To show direction markers, go in the settings <i class="fas fa-layer-group button"></i> and check the box <i class="far fa-check-square"></i> Direction markers.</div></div>
                 <div class="guide-item"><a name="distance-markers" href="#distance-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-distance-markers')">Show distance markers</div></a>
-                <div id="show-distance-markers" style="display: none">To show distance markers, go in the settings <i class="fas fa-bars button"></i> and check the box <i class="far fa-check-square"></i> Distance markers.</div></div>
+                <div id="show-distance-markers" style="display: none">To show distance markers, go in the settings <i class="fas fa-layer-group button"></i> and check the box <i class="far fa-check-square"></i> Distance markers.</div></div>
                 <div class="guide-item"><a name="map-legends" href="#map-legends" class="my-anchor"><div class="guide-title" onclick="toggle('legend')">Map legends</div></a>
                 <div id="legend" style="display: none">
                     <ul>
