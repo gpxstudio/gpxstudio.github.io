@@ -254,7 +254,12 @@ html, body {
     text-align: left;
     top: 0px;
     right: 0px;
+    padding: 0px;
     z-index: 1000;
+}
+
+.dropdown-choice {
+    padding: 2px 10px;
 }
 
 .dropdown-choice:hover {
