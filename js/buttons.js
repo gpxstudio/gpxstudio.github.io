@@ -1066,8 +1066,9 @@ export default class Buttons {
             buttons.units_dropdown.style.display = "";
         });
         this.units_input.addEventListener("click", function (e) {
-            var units_div = e.path[0];
-            if (!units_div.id) units_div = e.path[1];
+            var path = e.path || (e.composedPath && e.composedPath());
+            var units_div = path[0];
+            if (!units_div.id) units_div = path[1];
             buttons.km = units_div.id == 'km';
             buttons.units_choice.innerHTML = units_div.children[0].outerHTML;
             const focus = total.hasFocus ? total : total.traces[total.focusOn];
@@ -1083,8 +1084,9 @@ export default class Buttons {
             buttons.activity_dropdown.style.display = "";
         });
         this.activity_input.addEventListener("click", function (e) {
-            var activity_div = e.path[0];
-            if (!activity_div.id) activity_div = e.path[1];
+            var path = e.path || (e.composedPath && e.composedPath());
+            var activity_div = path[0];
+            if (!activity_div.id) activity_div = path[1];
             buttons.activity = activity_div.id;
             buttons.activity_choice.innerHTML = activity_div.children[0].outerHTML;
             if (buttons.activity != 'hike') {
@@ -1103,8 +1105,9 @@ export default class Buttons {
             buttons.routing_dropdown.style.display = "";
         });
         this.routing_input.addEventListener("click", function (e) {
-            var routing_div = e.path[0];
-            if (!routing_div.id) routing_div = e.path[1];
+            var path = e.path || (e.composedPath && e.composedPath());
+            var routing_div = path[0];
+            if (!routing_div.id) routing_div = path[1];
             buttons.routing = routing_div.id == 'route';
             buttons.routing_choice.innerHTML = routing_div.children[0].outerHTML;
             buttons.routing_dropdown.style.display = "";
