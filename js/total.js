@@ -239,19 +239,19 @@ export default class Total {
         for (var i=0; i<this.traces.length; i++) {
             const data = this.traces[i].getAverageAdditionalData();
             const duration = this.traces[i].getMovingTime();
-            if (data.hr) {
+            if (data.hr != null) {
                 totHr += data.hr * duration;
                 cntHr += duration;
             }
-            if (data.atemp) {
+            if (data.atemp != null) {
                 totTemp += data.atemp * duration;
                 cntTemp += duration;
             }
-            if (data.cad) {
+            if (data.cad != null) {
                 totCad += data.cad * duration;
                 cntCad += duration;
             }
-            if (data.power) {
+            if (data.power != null) {
                 totPower += data.power * duration;
                 cntPower += duration;
             }
@@ -336,10 +336,10 @@ export default class Total {
         const totalData = this.additionalAvgData;
         for (var i=(trace_idx!==undefined ? trace_idx : 0); i<(trace_idx!==undefined ? trace_idx+1 : this.traces.length); i++) {
             const data = this.traces[i].additionalAvgData;
-            const hr = data.hr ? data.hr : (totalData ? totalData.hr : null);
-            const atemp = data.atemp ? data.atemp : (totalData ? totalData.atemp : null);
-            const cad = data.cad ? data.cad : (totalData ? totalData.cad : null);
-            const power = data.power ? data.power : (totalData ? totalData.power : null);
+            const hr = data.hr != null ? data.hr : (totalData ? totalData.hr : null);
+            const atemp = data.atemp != null ? data.atemp : (totalData ? totalData.atemp : null);
+            const cad = data.cad != null ? data.cad : (totalData ? totalData.cad : null);
+            const power = data.power != null ? data.power : (totalData ? totalData.power : null);
 
             const segments = this.traces[i].getSegments();
             for (var l=0; l<segments.length; l++) {
@@ -351,7 +351,7 @@ export default class Total {
                     xmlOutput += `    <trkpt lat="${point.lat.toFixed(6)}" lon="${point.lng.toFixed(6)}">
     `;
                     if (point.meta) {
-                        if (point.meta.ele || point.meta.ele == 0) {
+                        if (point.meta.hasOwnProperty('ele')) {
                             xmlOutput += `    <ele>${point.meta.ele.toFixed(1)}</ele>
     `;
                         }
@@ -364,28 +364,28 @@ export default class Total {
     `;
 
                         if (incl_atemp) {
-                            if (point.meta.atemp) {
+                            if (point.meta.hasOwnProperty('atemp')) {
                                 xmlOutput += `    <gpxtpx:atemp>${point.meta.atemp}</gpxtpx:atemp>
     `;
-                            } else if (atemp) {
+                        } else if (atemp != null) {
                                 xmlOutput += `    <gpxtpx:atemp>${atemp}</gpxtpx:atemp>
     `;
                             }
                         }
                         if (incl_hr) {
-                            if (point.meta.hr) {
+                            if (point.meta.hasOwnProperty('hr')) {
                                 xmlOutput += `    <gpxtpx:hr>${point.meta.hr}</gpxtpx:hr>
     `;
-                            } else if (hr) {
+                        } else if (hr != null) {
                                 xmlOutput += `    <gpxtpx:hr>${hr}</gpxtpx:hr>
     `;
                             }
                         }
                         if (incl_cad) {
-                            if (point.meta.cad) {
+                            if (point.meta.hasOwnProperty('cad')) {
                                 xmlOutput += `    <gpxtpx:cad>${point.meta.cad}</gpxtpx:cad>
     `;
-                            } else if (cad) {
+                        } else if (cad != null) {
                                 xmlOutput += `    <gpxtpx:cad>${cad}</gpxtpx:cad>
     `;
                             }
@@ -393,10 +393,10 @@ export default class Total {
                         xmlOutput += `    </gpxtpx:TrackPointExtension>
     `;
                         if (incl_power) {
-                            if (point.meta.power) {
+                            if (point.meta.hasOwnProperty('power')) {
                                 xmlOutput += `    <power>${point.meta.power}</power>
     `;
-                            } else if (power) {
+                        } else if (power != null) {
                                 xmlOutput += `    <power>${power}</power>
     `;
                             }
@@ -417,7 +417,7 @@ export default class Total {
                 const point = waypoints[j];
                 waypointsOutput += `<wpt lat="${point._latlng.lat.toFixed(6)}" lon="${point._latlng.lng.toFixed(6)}">
 `;
-                if (point._latlng.meta.ele || point._latlng.meta.ele == 0) {
+                if (point._latlng.meta.hasOwnProperty('ele')) {
                     waypointsOutput += `    <ele>${point._latlng.meta.ele.toFixed(1)}</ele>
 `;
                 }

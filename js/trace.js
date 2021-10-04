@@ -811,19 +811,19 @@ export default class Trace {
         const points = this.getPoints();
 
         for (var i=0; i<points.length; i++) {
-            if (points[i].meta.hr) {
+            if (points[i].meta.hasOwnProperty('hr')) {
                 totHr += points[i].meta.hr;
                 cntHr++;
             }
-            if (points[i].meta.atemp) {
+            if (points[i].meta.hasOwnProperty('atemp')) {
                 totTemp += points[i].meta.atemp;
                 cntTemp++;
             }
-            if (points[i].meta.cad) {
+            if (points[i].meta.hasOwnProperty('cad')) {
                 totCad += points[i].meta.cad;
                 cntCad++;
             }
-            if (points[i].meta.power) {
+            if (points[i].meta.hasOwnProperty('power')) {
                 totPower += points[i].meta.power;
                 cntPower++;
             }
@@ -956,16 +956,16 @@ export default class Trace {
         const otherData = trace.getAverageAdditionalData();
 
         for (var i=0; i<points.length; i++) {
-            if (!data.hr && otherData.hr) points[i].meta.hr = otherData.hr;
-            if (!data.atemp && otherData.atemp) points[i].meta.atemp = otherData.atemp;
-            if (!data.cad && otherData.cad) points[i].meta.cad = otherData.cad;
-            if (!data.power && otherData.power) points[i].meta.power = otherData.power;
+            if (data.hr == null && otherData.hr != null) points[i].meta.hr = otherData.hr;
+            if (data.atemp == null && otherData.atemp != null) points[i].meta.atemp = otherData.atemp;
+            if (data.cad == null && otherData.cad != null) points[i].meta.cad = otherData.cad;
+            if (data.power == null && otherData.power != null) points[i].meta.power = otherData.power;
         }
         for (var i=0; i<otherPoints.length; i++) {
-            if (data.hr && !otherData.hr) otherPoints[i].meta.hr = data.hr;
-            if (data.atemp && !otherData.atemp) otherPoints[i].meta.atemp = data.atemp;
-            if (data.cad && !otherData.cad) otherPoints[i].meta.cad = data.cad;
-            if (data.power && !otherData.power) otherPoints[i].meta.power = data.power;
+            if (data.hr != null && otherData.hr == null) otherPoints[i].meta.hr = data.hr;
+            if (data.atemp != null && otherData.atemp == null) otherPoints[i].meta.atemp = data.atemp;
+            if (data.cad != null && otherData.cad == null) otherPoints[i].meta.cad = data.cad;
+            if (data.power != null && otherData.power == null) otherPoints[i].meta.power = data.power;
         }
 
         if (this.hasPoints() && trace.hasPoints()) {
