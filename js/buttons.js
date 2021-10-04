@@ -22,9 +22,9 @@ import Google from './google.js';
 export default class Buttons {
     constructor() {
         // SETTINGS
-        this.km = true;
-        this.activity = 'bike';
-        this.routing = true;
+        this.km = localStorage.hasOwnProperty('km') ? localStorage.getItem('km') == 'true' : true;
+        this.activity = localStorage.hasOwnProperty('activity') ? localStorage.getItem('activity') : 'bike';
+        this.routing = localStorage.hasOwnProperty('routing') ? localStorage.getItem('routing') == 'true' : true;
         this.disable_trace = false;
         this.show_direction = false;
         this.show_distance = false;
@@ -1070,6 +1070,7 @@ export default class Buttons {
             var units_div = path[0];
             if (!units_div.id) units_div = path[1];
             buttons.km = units_div.id == 'km';
+            localStorage.setItem('km',buttons.km);
             buttons.units_choice.innerHTML = units_div.children[0].outerHTML;
             const focus = total.hasFocus ? total : total.traces[total.focusOn];
             focus.showData();
@@ -1077,6 +1078,7 @@ export default class Buttons {
             if (!total.hasFocus) focus.showDistanceMarkers();
             buttons.units_dropdown.style.display = "";
         });
+        this.units_choices[buttons.km ? 'km' : 'mi'].click();
         this.activity_input.addEventListener("mouseover", function (e) {
             buttons.activity_dropdown.style.display = "block";
         });
@@ -1088,6 +1090,7 @@ export default class Buttons {
             var activity_div = path[0];
             if (!activity_div.id) activity_div = path[1];
             buttons.activity = activity_div.id;
+            localStorage.setItem('activity',buttons.activity);
             buttons.activity_choice.innerHTML = activity_div.children[0].outerHTML;
             if (buttons.activity != 'hike') {
                 if (buttons.stravaCookies) buttons.stravaHeatmap.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/ride/bluered/{z}/{x}/{y}@2x.png?Signature=${buttons.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${buttons.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${buttons.stravaCookies['CloudFront-Policy']}`);
@@ -1098,6 +1101,7 @@ export default class Buttons {
             else total.traces[total.focusOn].showData();
             buttons.activity_dropdown.style.display = "";
         });
+        this.activity_choices[buttons.activity].click();
         this.routing_input.addEventListener("mouseover", function (e) {
             buttons.routing_dropdown.style.display = "block";
         });
@@ -1109,9 +1113,11 @@ export default class Buttons {
             var routing_div = path[0];
             if (!routing_div.id) routing_div = path[1];
             buttons.routing = routing_div.id == 'route';
+            localStorage.setItem('routing',buttons.routing);
             buttons.routing_choice.innerHTML = routing_div.children[0].outerHTML;
             buttons.routing_dropdown.style.display = "";
         });
+        this.routing_choices[buttons.routing ? 'route' : 'crow'].click();
         this.map.addEventListener("zoomend", function () {
             if (total.hasFocus) return;
             const trace = total.traces[total.focusOn];

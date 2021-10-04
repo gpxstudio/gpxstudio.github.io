@@ -28,9 +28,9 @@ export default class Total {
             e.target.trace.updateFocus();
         });
         this.buttons = buttons;
-        this.buttons.addHandlersWithTotal(this);
         this.focus();
         this.initColors();
+        this.buttons.addHandlersWithTotal(this);
     }
 
     /*** LOGIC ***/
