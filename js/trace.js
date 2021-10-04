@@ -1285,6 +1285,7 @@ export default class Trace {
         }
 
         this.addRoute(new_points, marker._prec, marker._succ, marker._layer);
+        this.askElevation(new_points);
     }
 
     getIntermediatePoints(a, b) {
