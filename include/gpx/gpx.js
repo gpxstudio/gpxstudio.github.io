@@ -1005,12 +1005,11 @@ L.GPX = L.FeatureGroup.extend({
   _compute_stats: function(start, end) {
       this._init_info();
 
+      start = start || 0;
+      end = end || Infinity;
+
       var in_bounds = function(i) {
-          if (start !== undefined && end !== undefined) {
-              return i >= start && i <= end;
-          } else {
-              return true;
-          }
+          return i >= start && i <= end;
       }
 
       // recompute on remaining data
