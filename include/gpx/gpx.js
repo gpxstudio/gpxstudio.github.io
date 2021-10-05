@@ -1029,7 +1029,7 @@ L.GPX = L.FeatureGroup.extend({
 
           for (var i=0; i<points.length; i++) {
               ll = points[i];
-              ll.index = cumul+i;
+              ll.index = i;
 
               if (in_bounds(cumul+i)) {
                   this._info.npoints++;
