@@ -536,6 +536,18 @@ export default class Buttons {
                         _this.updateStravaCookies();
                     });
 
+                    _this.waymarkedTrailsHiking = L.tileLayer('https://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png', {
+                        maxZoom: 20,
+                        maxNativeZoom: 18,
+                        attribution: '&copy; <a href="https://hinking.waymarkedtrails.org" target="_blank">Waymarked Trails: Hiking</a> &copy; <a href="https://hiking.waymarkedtrails.org/help/legal" target="_blank">Waymarked Trails: Hiking</a>'
+                    });
+
+                    _this.waymarkedTrailsMtb = L.tileLayer('https://tile.waymarkedtrails.org/mtb/{z}/{x}/{y}.png', {
+                        maxZoom: 20,
+                        maxNativeZoom: 18,
+                        attribution: '&copy; <a href="https://mtb.waymarkedtrails.org" target="_blank">Waymarked Trails: MTB</a> &copy; <a href="https://mtb.waymarkedtrails.org/help/legal" target="_blank">Waymarked Trails: MTB</a>'
+                    });
+
                     if (_this.supportsWebGL()) {
                         _this.mapboxMap = L.mapboxGL({
                             attribution: '&copy; <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
@@ -565,7 +577,9 @@ export default class Buttons {
                             "CyclOSM" : _this.cyclOSM,
                             "IGN (FR)" : _this.ignMap
                         },{
-                            "Strava Heatmap" : _this.stravaHeatmap
+                            "Strava Heatmap" : _this.stravaHeatmap,
+                            "WaymarkedTrails Hiking" : _this.waymarkedTrailsHiking,
+                            "WaymarkedTrails Mtb" : _this.waymarkedTrailsMtb
                         }).addTo(_this.map);
 
                         _this.addSwitchMapboxLayers();
@@ -579,7 +593,9 @@ export default class Buttons {
                             "CyclOSM" : _this.cyclOSM,
                             "IGN (FR)" : _this.ignMap
                         },{
-                            "Strava Heatmap" : _this.stravaHeatmap
+                            "Strava Heatmap" : _this.stravaHeatmap,
+                            "WaymarkedTrails Hiking" : _this.waymarkedTrailsHiking,
+                            "WaymarkedTrails Mtb" : _this.waymarkedTrailsMtb
                         }).addTo(_this.map);
                     }
                 }
