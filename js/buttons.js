@@ -507,7 +507,6 @@ export default class Buttons {
                     }
                 } else {
                     L.Control.geocoder({
-                        geocoder: new L.Control.Geocoder.Mapbox(_this.mapbox_token),
                         defaultMarkGeocode: false
                     }).on('markgeocode', function(e) {
                         var bbox = e.geocode.bbox;
