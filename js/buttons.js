@@ -431,7 +431,11 @@ export default class Buttons {
                     maxNativeZoom: 18,
                     attribution: '&copy; <a href="https://wiki.openstreetmap.org/wiki/Hiking/mri" target="_blank">sly</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
                 });
-
+                _this.mtbMap = L.tileLayer('http://tile.mtbmap.cz/mtbmap_tiles/{z}/{x}/{y}.png', {
+                    maxZoom: 20,
+                    maxNativeZoom: 18,
+                    attribution: '&copy; <a href="https://mtbmap.cz" target="_blank">sly</a> &copy; <a href="https://mtbmap.cz/" target="_blank">MTB Map</a>'
+                });
                 _this.openTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
                     maxZoom: 20,
                     maxNativeZoom: 17,
@@ -491,6 +495,7 @@ export default class Buttons {
                             "OpenStreetMap" : _this.openStreetMap,
                             "OpenTopoMap" : _this.openTopoMap,
                             "OpenHikingMap" : _this.openHikingMap,
+                            "MTB Map" : _this.mtbMap,
                             "CyclOSM" : _this.cyclOSM,
                             "IGN (FR)" : _this.ignMap
                         }).addTo(_this.map);
@@ -501,6 +506,7 @@ export default class Buttons {
                             "OpenStreetMap" : _this.openStreetMap,
                             "OpenTopoMap" : _this.openTopoMap,
                             "OpenHikingMap" : _this.openHikingMap,
+                            "MTB Map" : _this.mtbMap,
                             "CyclOSM" : _this.cyclOSM,
                             "IGN (FR)" : _this.ignMap
                         }).addTo(_this.map);
@@ -561,6 +567,7 @@ export default class Buttons {
                             "OpenStreetMap" : _this.openStreetMap,
                             "OpenTopoMap" : _this.openTopoMap,
                             "OpenHikingMap" : _this.openHikingMap,
+                            "MTB Map" : _this.mtbMap,
                             "CyclOSM" : _this.cyclOSM,
                             "IGN (FR)" : _this.ignMap
                         },{
@@ -575,6 +582,7 @@ export default class Buttons {
                             "OpenStreetMap" : _this.openStreetMap,
                             "OpenTopoMap" : _this.openTopoMap,
                             "OpenHikingMap" : _this.openHikingMap,
+                            "MTB Map" : _this.mtbMap,
                             "CyclOSM" : _this.cyclOSM,
                             "IGN (FR)" : _this.ignMap
                         },{
