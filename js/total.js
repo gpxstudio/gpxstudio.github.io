@@ -348,7 +348,7 @@ export default class Total {
                 const points = segments[l]._latlngs;
                 for (var j=0; j<points.length; j++) {
                     const point = points[j];
-                    xmlOutput += `    <trkpt lat="${point.lat.toFixed(6)}" lon="${point.lng.toFixed(6)}">
+                    xmlOutput += `    <trkpt lat="${point.lat}" lon="${point.lng}">
     `;
                     if (point.meta) {
                         if (point.meta.hasOwnProperty('ele')) {
@@ -415,7 +415,7 @@ export default class Total {
             const waypoints = this.traces[i].getWaypoints();
             for (var j=0; j<waypoints.length; j++) {
                 const point = waypoints[j];
-                waypointsOutput += `<wpt lat="${point._latlng.lat.toFixed(6)}" lon="${point._latlng.lng.toFixed(6)}">
+                waypointsOutput += `<wpt lat="${point._latlng.lat}" lon="${point._latlng.lng}">
 `;
                 if (point._latlng.meta.hasOwnProperty('ele')) {
                     waypointsOutput += `    <ele>${point._latlng.meta.ele.toFixed(1)}</ele>

@@ -1559,9 +1559,9 @@ export default class Trace {
     askRoute(a, b, c, layer) {
         const Http = new XMLHttpRequest();
         var url = "https://graphhopper.com/api/1/route?"
-        url += "point=" + a.lat.toFixed(6) + ',' + a.lng.toFixed(6);
-        if (!a.equals(b) && !b.equals(c)) url += "&point=" + b.lat.toFixed(6) + ',' + b.lng.toFixed(6);
-        url += "&point=" + + c.lat.toFixed(6) + ',' + c.lng.toFixed(6);
+        url += "point=" + a.lat + ',' + a.lng;
+        if (!a.equals(b) && !b.equals(c)) url += "&point=" + b.lat + ',' + b.lng;
+        url += "&point=" + + c.lat + ',' + c.lng;
         url += "&vehicle=" + this.buttons.activity;
         url += "&elevation=true&details=surface&points_encoded=false&key="+this.buttons.graphhopper_token;
         Http.open("GET", url);
@@ -1613,8 +1613,8 @@ export default class Trace {
     askRoute2(a, b, layer) {
         const Http = new XMLHttpRequest();
         var url = "https://graphhopper.com/api/1/route?"
-        url += "point=" + a.lat.toFixed(6) + ',' + a.lng.toFixed(6);
-        url += "&point=" + b.lat.toFixed(6) + ',' + b.lng.toFixed(6);
+        url += "point=" + a.lat + ',' + a.lng;
+        url += "&point=" + b.lat + ',' + b.lng;
         url += "&vehicle=" + this.buttons.activity;
         url += "&elevation=true&details=surface&points_encoded=false&key="+this.buttons.graphhopper_token;
         Http.open("GET", url);
