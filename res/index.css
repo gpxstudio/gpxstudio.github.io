@@ -90,6 +90,13 @@ html, body {
     color: inherit !important;
 }
 
+.leaflet-control-scale {
+    position: absolute;
+    bottom: 26px;
+    left: 10px;
+    z-index: 0;
+}
+
 .mapboxgl-canvas {
     cursor: grab;
 }

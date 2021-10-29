@@ -245,6 +245,11 @@ export default class Buttons {
             position: 'topright'
         }).addTo(this.map);
 
+        this.scale = L.control.scale({
+            metric: this.km,
+            imperial: !this.km
+        }).addTo(this.map);
+
         var _this = this;
 
         // ELEVATION PROFILE
@@ -1076,6 +1081,10 @@ export default class Buttons {
             focus.showElevation();
             if (!total.hasFocus) focus.showDistanceMarkers();
             buttons.units_dropdown.style.display = "";
+            buttons.scale.remove();
+            buttons.scale.options.metric = buttons.km;
+            buttons.scale.options.imperial = !buttons.km;
+            buttons.scale.addTo(buttons.map);
         });
         this.units_choices[buttons.km ? 'km' : 'mi'].click();
         this.activity_input.addEventListener("mouseover", function (e) {
