@@ -25,6 +25,7 @@ export default class Buttons {
         this.km = localStorage.hasOwnProperty('km') ? localStorage.getItem('km') == 'true' : true;
         this.activity = localStorage.hasOwnProperty('activity') ? localStorage.getItem('activity') : 'bike';
         this.routing = localStorage.hasOwnProperty('routing') ? localStorage.getItem('routing') == 'true' : true;
+        this.keep_timestamps = false;
         this.disable_trace = false;
         this.show_direction = false;
         this.show_distance = false;
@@ -135,6 +136,9 @@ export default class Buttons {
         this.merge_keep_time = document.getElementById("merge-keep");
         this.merge_stick_time = document.getElementById("merge-stick");
         this.merge_cancel = document.getElementById("merge-cancel");
+        this.edit_keep_time = document.getElementById("edit-keep");
+        this.edit_ok = document.getElementById("edit-ok");
+        this.remember_edit_time = document.getElementById("remember-edit-time");
         this.buttons_bar = document.getElementById('buttons-bar');
         this.tabs = document.getElementById('sortable');
 
@@ -195,6 +199,7 @@ export default class Buttons {
         this.share_content = document.getElementById('share-content');
         this.merge_content = document.getElementById('merge-content');
         this.merge_time_options = document.getElementById('merge-time-options');
+        this.edit_content = document.getElementById('edit-content');
         this.crop_content = document.getElementById('crop-content');
         this.load_error_content = document.getElementById('load-error-content');
         this.embed_content = document.getElementById('embed-content');
@@ -241,6 +246,7 @@ export default class Buttons {
         this.load_error_window = L.control.window(this.map,{title:'',content:this.load_error_content,className:'panels-container',closeButton:false});
         this.share_window = L.control.window(this.map,{title:'',content:this.share_content,className:'panels-container'});
         this.merge_window = L.control.window(this.map,{title:'',content:this.merge_content,className:'panels-container',closeButton:false});
+        this.edit_window = L.control.window(this.map,{title:'',content:this.edit_content,className:'panels-container',closeButton:false});
         this.crop_window = L.control.window(this.map,{title:'',content:this.crop_content,className:'panels-container',closeButton:false});
         this.login_window = L.control.window(this.map,{title:'',content:this.login_content,className:'panels-container'});
 
@@ -1136,12 +1142,23 @@ export default class Buttons {
         });
         this.edit.addEventListener("click", function() {
             if (total.hasFocus) return;
+            if (buttons.window_open) buttons.window_open.hide();
             var trace = total.traces[total.focusOn];
             if (trace.isEdited) {
                 trace.stopEdit();
                 if (trace.drawing) trace.stopDraw();
                 gtag('event', 'button', {'event_category' : 'edit-trace'});
-            } else trace.draw();
+            } else {
+                if (trace.hasTimeData() && !buttons.remember_edit_time.checked) {
+                    buttons.window_open = buttons.edit_window;
+                    buttons.edit_window.show();
+                }
+                trace.draw();
+            }
+        });
+        this.edit_ok.addEventListener("click", function () {
+            buttons.keep_timestamps = buttons.edit_keep_time.checked;
+            buttons.edit_window.hide();
         });
         document.addEventListener("keydown", function (e) {
             if (e.key === "Escape") {
@@ -1438,7 +1455,7 @@ export default class Buttons {
             if (!trace.visible) trace.hideUnhide();
             if (buttons.window_open) buttons.window_open.hide();
             total.to_merge = trace;
-            buttons.merge_time_options.style.display = trace.firstTimeData() >= 0 ? '' : 'none';
+            buttons.merge_time_options.style.display = trace.hasTimeData() ? '' : 'none';
             buttons.window_open = buttons.merge_window;
             buttons.merge_window.show();
             buttons.merge_window.addEventListener('hide', function (e) {

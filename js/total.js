@@ -192,7 +192,7 @@ export default class Total {
 
     getMovingDistance(noConversion) {
         var tot = 0;
-        for (var i=0; i<this.traces.length; i++) if (this.traces[i].firstTimeData() != -1)
+        for (var i=0; i<this.traces.length; i++) if (this.traces[i].hasTimeData())
             tot += this.traces[i].getMovingDistance(noConversion);
         return tot;
     }
@@ -275,7 +275,7 @@ export default class Total {
             var lastPoints = null;
             for (var i=0; i<this.traces.length; i++) {
                 const points = this.traces[i].getPoints();
-                if (this.traces[i].firstTimeData() == -1) { // no time data
+                if (!this.traces[i].hasTimeData()) { // no time data
                     var startTime = new Date();
                     if(lastPoints) {
                         const a = lastPoints[lastPoints.length-1];
@@ -290,7 +290,7 @@ export default class Total {
                             const cur_points = this.traces[j].getPoints();
                             b = cur_points[0];
                             if (mergeAll) dist += this.traces[j].gpx._dist2d(a, b);
-                            if (this.traces[j].firstTimeData() == -1) dist += this.traces[j].getDistance(true);
+                            if (!this.traces[j].hasTimeData()) dist += this.traces[j].getDistance(true);
                             else break;
                             a = cur_points[cur_points.length-1];
                         }

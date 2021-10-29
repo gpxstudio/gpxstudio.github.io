@@ -117,6 +117,7 @@ export default class Trace {
             trace.tab = li;
             total.buttons.circlesToFront();
 
+            trace.extendTimeData(true);
             trace.focus();
 
             if (total.buttons.multipleEmbedding) trace.updateFocus();
@@ -210,7 +211,7 @@ export default class Trace {
             for (var i=0; i<points.length; i++) {
                 const pt = points[i].clone();
                 pt.meta = JSON.parse(JSON.stringify(points[i].meta));
-                if (pt.meta.time) pt.meta.time = new Date(pt.meta.time);
+                if (pt.meta.time != null) pt.meta.time = new Date(pt.meta.time);
                 pt.index = points[i].index;
                 pt.routing = points[i].routing;
                 cpy.push(pt);
@@ -595,7 +596,9 @@ export default class Trace {
         var newPt = new L.LatLng(pt.lat, pt.lng);
         newPt.meta = {
             time: null,
-            ele: (points[best_idx-1].meta.ele + points[best_idx].meta.ele) / 2
+            original_time: false,
+            ele: (points[best_idx-1].meta.ele + points[best_idx].meta.ele) / 2,
+            surface: "missing"
         };
         points.splice(best_idx, 0, newPt);
         this.updatePointIndices();
@@ -894,15 +897,8 @@ export default class Trace {
         for (var l=segments.length-1; l>=0; l--)
             this.gpx.getLayers()[0].addLayer(new L.Polyline(segments[l]._latlngs, this.gpx.options.polyline_options));
 
-        if (this.firstTimeData() != -1) {
+        if (this.hasTimeData()) {
             const points = this.getPoints();
-
-            var missing = false;
-            for (var i=0; i<points.length && !missing; i++) {
-                if (!points[i].meta.time) missing = true;
-            }
-            if (missing) this.extendTimeData();
-
             var last = points[0].meta.time;
             points[0].meta.time = points[points.length-1].meta.time;
             for (var i=1; i<points.length; i++) {
@@ -969,21 +965,21 @@ export default class Trace {
         }
 
         if (this.hasPoints() && trace.hasPoints()) {
-            if (this.firstTimeData() >= 0 && trace.firstTimeData() == -1) {
+            if (this.hasTimeData() && !trace.hasTimeData()) {
                 const avg = this.getMovingSpeed();
                 const a = points[points.length-1];
                 const b = otherPoints[0];
                 const dist = this.gpx._dist2d(a, b);
                 const startTime = new Date(a.meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
                 trace.changeTimeData(startTime, avg);
-            } else if (this.firstTimeData() == -1 && trace.firstTimeData() >= 0) {
+            } else if (!this.hasTimeData() && trace.hasTimeData()) {
                 const avg = trace.getMovingSpeed();
                 const a = points[points.length-1];
                 const b = otherPoints[0];
                 const dist = this.gpx._dist2d(a, b) + this.getDistance(true);
                 const startTime = new Date(b.meta.time.getTime() - 1000 * 60 * 60 * dist/(1000 * avg));
                 this.changeTimeData(startTime, avg);
-            } else if (this.firstTimeData() >= 0 && trace.firstTimeData() >= 0) {
+            } else if (this.hasTimeData() && trace.hasTimeData()) {
                 const avg1 = this.getMovingSpeed();
                 const avg2 = trace.getMovingSpeed();
                 const dist1 = this.getMovingDistance();
@@ -1062,7 +1058,7 @@ export default class Trace {
             for (var i=0; i<points.length; i++) {
                 const pt = points[i].clone();
                 pt.meta = JSON.parse(JSON.stringify(points[i].meta));
-                pt.meta.time = new Date(pt.meta.time);
+                if (pt.meta.time != null) pt.meta.time = new Date(pt.meta.time);
                 pt.index = points[i].index;
                 pt.routing = points[i].routing;
                 cpy.push(pt);
@@ -1097,7 +1093,7 @@ export default class Trace {
         this.save();
 
         const pt = new L.LatLng(lat, lng);
-        pt.meta = {"time":null, "ele":0, "surface":"missing"};
+        pt.meta = {time:null, original_time: false, ele:0, surface:"missing"};
         var segment = null;
 
         if (!this.hasPoints()) {
@@ -1161,7 +1157,7 @@ export default class Trace {
     }
 
     addWaypoint(latlng) {
-        latlng.meta = {'ele': 0};
+        latlng.meta = {ele: 0};
         const marker = this.gpx._get_marker(
             latlng,
             this.buttons.clone_wpt ? this.buttons.clone_wpt.sym : '',
@@ -1300,7 +1296,7 @@ export default class Trace {
         const pts = [];
         for (var i=1; pt1.distanceTo(pt1.add(d_pt.multiplyBy(i))) < pt1.distanceTo(pt2); i++) {
             const pt = L.Projection.SphericalMercator.unproject(pt1.add(d_pt.multiplyBy(i)));
-            pt.meta = {"time":null, "ele":0, "surface":"missing"};
+            pt.meta = {time:null, original_time:false, ele:0, surface:"missing"};
             pt.routing = true;
             pts.push(pt);
         }
@@ -1309,7 +1305,7 @@ export default class Trace {
             d_pt = pt2.subtract(pt1);
             d_pt = d_pt.divideBy(2);
             const pt = L.Projection.SphericalMercator.unproject(pt1.add(d_pt));
-            pt.meta = {"time":null, "ele":0, "surface":"missing"};
+            pt.meta = {time:null, original_time: false, ele:0, surface:"missing"};
             pt.routing = true;
             pts.push(pt);
         }
@@ -1330,28 +1326,25 @@ export default class Trace {
         this.askRoute(a,b,c,marker._layer);
     }
 
-    firstTimeData() {
+    hasTimeData() {
         const points = this.getPoints();
-        for (var i=0; i<points.length; i++) {
-            if (points[i].meta.time != null) {
-                return i;
-            }
-        }
-        return -1;
+        if (points.length == 0) return false;
+        else if (points[0].meta.time != null) return true;
+        else return false;
     }
 
     changeTimeData(start, avg) {
         const points = this.getPoints();
         const curAvg = this.getMovingSpeed(true);
-        const index = this.firstTimeData();
-        if (index != -1 && curAvg > 0) {
-            this.extendTimeData();
+        if (this.hasTimeData() && curAvg > 0) {
             this.shiftAndCompressTime(start, avg);
         } else {
             points[0].meta.time = start;
+            points[0].meta.original_time = true;
             for (var i=1; i<points.length; i++) {
                 const dist = this.gpx._dist2d(points[i-1], points[i]);
                 points[i].meta.time = new Date(points[i-1].meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
+                points[i].meta.original_time = true;
             }
         }
     }
@@ -1369,27 +1362,69 @@ export default class Trace {
         }
     }
 
-    extendTimeData() {
-        const points = this.getPoints();
-        const index = this.firstTimeData();
+    extendTimeData(keep_timestamps) {
         var avg = this.getMovingSpeed(true);
+        if (avg <= 0) return;
 
-        if (index == -1 || avg <= 0) return;
-        else if (index > 0) {
-            const dist = this.gpx._dist2d(points[0], points[index]);
-            points[0].meta.time = new Date(points[index].meta.time.getTime() - 1000 * 60 * 60 * dist/(1000 * avg));
-        }
+        const points = this.getPoints();
 
-        var last = points[0].meta.time;
-        for (var i=1; i<points.length; i++) {
-            if (!points[i].meta.time || !last) {
-                last = points[i].meta.time;
-                const dist = this.gpx._dist2d(points[i-1], points[i]);
-                points[i].meta.time = new Date(points[i-1].meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
-            } else {
-                const newTime = new Date(points[i-1].meta.time.getTime() + points[i].meta.time.getTime() - last.getTime());
-                last = points[i].meta.time;
-                points[i].meta.time = newTime;
+        if (keep_timestamps) {
+            var start = null, total_dist = 0;
+            for (var i=0; i<points.length; i++) {
+                if (start == null && points[i].meta.time == null) start = i;
+                else if (start != null) {
+                    total_dist += this.gpx._dist2d(points[i-1], points[i]);
+                    if (points[i].meta.original_time) {
+                        if (start == 0) {
+                            const dist = this.gpx._dist2d(points[0], points[i]);
+                            points[0].meta.time = new Date(points[i].meta.time.getTime() - 1000 * 60 * 60 * dist/(1000 * avg));
+                            for (var j=1; j<i; j++) {
+                                const dist = this.gpx._dist2d(points[j-1], points[j]);
+                                points[j].meta.time = new Date(points[j-1].meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
+                            }
+                        } else {
+                            const delta = points[i].meta.time.getTime() - points[start-1].meta.time.getTime();
+                            for (var j=start; j<i; j++) {
+                                const dist = this.gpx._dist2d(points[j-1], points[j]);
+                                points[j].meta.time = new Date(points[j-1].meta.time.getTime() + delta * dist / total_dist);
+                            }
+                        }
+
+                        start = null;
+                        total_dist = 0;
+                    }
+                }
+            }
+
+            if (start != null && start > 0) {
+                for (var i=start; i<points.length; i++) {
+                    const dist = this.gpx._dist2d(points[i-1], points[i]);
+                    points[i].meta.time = new Date(points[i-1].meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
+                }
+            }
+        } else {
+            if (points[0].meta.time == null) {
+                for (var i=0; i<points.length; i++) if (points[i].meta.time != null) {
+                    const dist = this.gpx._dist2d(points[0], points[i]);
+                    points[0].meta.time = new Date(points[i].meta.time.getTime() - 1000 * 60 * 60 * dist/(1000 * avg));
+                    points[0].meta.original_time = true;
+                    break;
+                }
+            }
+
+            var last = points[0].meta.time;
+            for (var i=1; i<points.length; i++) {
+                if (points[i].meta.time == null || last == null) {
+                    last = points[i].meta.time;
+                    const dist = this.gpx._dist2d(points[i-1], points[i]);
+                    points[i].meta.time = new Date(points[i-1].meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
+                    points[i].meta.original_time = true;
+                } else {
+                    const newTime = new Date(points[i-1].meta.time.getTime() + points[i].meta.time.getTime() - last.getTime());
+                    last = points[i].meta.time;
+                    points[i].meta.time = newTime;
+                    points[i].meta.original_time = true;
+                }
             }
         }
     }
@@ -1426,6 +1461,7 @@ export default class Trace {
         var last_speed = avg;
         const points = this.getPoints();
         points[0].meta.time = start;
+        points[0].meta.original_time = true;
 
         for (var i=1; i<points.length; i++) {
             const a = points[i-1];
@@ -1435,6 +1471,7 @@ export default class Trace {
             const slope_factor = this.slopeFactor(slope);
             const speed = alpha * (avg / slope_factor) + (1-alpha) * last_speed;
             points[i].meta.time = new Date(a.meta.time.getTime() + 1000 * 60 * 60 * dist/speed);
+            points[i].meta.original_time = true;
             last_speed = speed;
         }
 
@@ -1442,22 +1479,25 @@ export default class Trace {
     }
 
     timeConsistency() {
-        if (this.firstTimeData() == -1) return;
+        if (!this.hasTimeData()) return;
 
         const points = this.getPoints();
         if (this.getMovingSpeed(true) <= 0) {
             for (var i=0; i<points.length; i++) {
                 points[i].meta.time = null;
+                points[i].meta.original_time = false;
             }
         } else {
             var lastTime = null;
             for (var i=0; i<points.length; i++) {
                 if (points[i].meta.time) {
-                    if (lastTime && lastTime > points[i].meta.time) points[i].meta.time = lastTime;
+                    if (lastTime && lastTime > points[i].meta.time) {
+                        points[i].meta.time = lastTime;
+                        points[i].meta.original_time = true;
+                    }
                     lastTime = points[i].meta.time;
                 }
             }
-            this.extendTimeData();
         }
     }
 
@@ -1579,7 +1619,7 @@ export default class Trace {
                 for (var i=0; i<new_pts.length; i++) {
                     if (i > details[j][1]) j++;
                     new_points.push(L.latLng(new_pts[i][1],new_pts[i][0]));
-                    new_points[i].meta = {"time":null, "ele":new_pts[i][2], "surface":details[j][2]};
+                    new_points[i].meta = {time:null, original_time:false, ele:new_pts[i][2], surface:details[j][2]};
                     new_points[i].routing = true;
                     if (mid == -1 || new_points[i].distanceTo(b) < dist) {
                         dist = new_points[i].distanceTo(b);
@@ -1603,7 +1643,7 @@ export default class Trace {
         this.updatePointIndices();
         // update markers indices
         this.updateEditMarkers();
-        this.extendTimeData();
+        this.extendTimeData(this.buttons.keep_timestamps);
 
         this.redraw();
         this.recomputeStats();
@@ -1632,7 +1672,7 @@ export default class Trace {
                 for (var i=0; i<new_pts.length; i++) {
                     if (i > details[j][1]) j++;
                     new_points.push(L.latLng(new_pts[i][1],new_pts[i][0]));
-                    new_points[i].meta = {"time":null, "ele":new_pts[i][2], "surface":details[j][2]};
+                    new_points[i].meta = {time:null, original_time:false, ele:new_pts[i][2], surface:details[j][2]};
                     new_points[i].routing = true;
                 }
                 new_points[new_points.length-1].routing = false;
@@ -1649,7 +1689,7 @@ export default class Trace {
         this.updatePointIndices();
         // update markers indices
         this.updateEditMarkers();
-        this.extendTimeData();
+        this.extendTimeData(this.buttons.keep_timestamps);
 
         this.redraw();
         this.recomputeStats();
@@ -1672,7 +1712,8 @@ export default class Trace {
                 const points = segments[l]._latlngs;
                 for (var i=0; i<points.length; i++) {
                     const pt = points[i].clone();
-                    pt.meta = points[i].meta;
+                    pt.meta = JSON.parse(JSON.stringify(points[i].meta));
+                    if (pt.meta.time != null) pt.meta.time = new Date(pt.meta.time);
                     pt.index = points[i].index;
                     pt.routing = points[i].routing;
                     segment_mem.points.push(pt);
@@ -1720,7 +1761,8 @@ export default class Trace {
             const cpy = [];
             for (var i=0; i<points.length; i++) {
                 const pt = points[i].clone();
-                pt.meta = points[i].meta;
+                pt.meta = JSON.parse(JSON.stringify(points[i].meta));
+                if (pt.meta.time != null) pt.meta.time = new Date(pt.meta.time);
                 pt.index = points[i].index;
                 pt.routing = points[i].routing;
                 cpy.push(pt);

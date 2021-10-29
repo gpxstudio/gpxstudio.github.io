@@ -884,13 +884,12 @@ L.GPX = L.FeatureGroup.extend({
       var _, ll = new L.LatLng(
         el[i].getAttribute('lat'),
         el[i].getAttribute('lon'));
-      ll.meta = { time: null, ele: null, hr: null, cad: null, atemp: null, surface: "missing" };
+      ll.meta = { time: null, original_time: false, ele: null, hr: null, cad: null, atemp: null, surface: "missing" };
 
       _ = el[i].getElementsByTagName('time');
       if (_.length > 0) {
         ll.meta.time = new Date(Date.parse(_[0].textContent));
-      } else {
-        ll.meta.time = null;
+        ll.meta.original_time = true;
       }
 
       _ = el[i].getElementsByTagName('ele');
@@ -1045,14 +1044,16 @@ L.GPX = L.FeatureGroup.extend({
 
                   var t = Math.abs(ll.meta.time - last.meta.time);
 
-                  if (in_bounds(cumul+i)) {
+                  if (in_bounds(cumul+i) && last.meta.time != null && ll.meta.time != null) {
                       this._info.duration.total += t;
                       if (t < this.options.max_point_interval && (dist/1000)/(t/1000/60/60) >= 0.5) {
                         this._info.duration.moving += t;
                         this._info.moving_length += dist;
                       }
                   }
-              } else if (this._info.duration.start == null) {
+              }
+
+              if (this._info.duration.start == null) {
                   this._info.duration.start = ll.meta.time;
               }
 

@@ -362,6 +362,15 @@
             <div id="copy-link" class="panels custom-button fancy-button">Copy link <i class="fas fa-link"></i></div><br>
             <div id="copy-embed" class="panels custom-button fancy-button">Copy embedding code <i class="fas fa-code"></i></div><br>
         </div>
+        <div id="edit-content" class="popup-content">
+            <i class="fas fa-stopwatch"></i> Choose how to adapt the timestamps of the trace
+            <div class="center-leaflet" style="text-align: left; width: min-content;">
+                <input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
+                <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preserve the original timestamps</label>
+            </div>
+            <div id="edit-ok" class="panels custom-button normal-button">Ok</div><hr>
+            <input type="checkbox" id="remember-edit-time"><label for="remember-edit-time">Remember my choice for this session</label>
+        </div>
         <div id="merge-content" class="popup-content">
             <div id="merge-time-options">
                 <i class="fas fa-stopwatch"></i> Choose how to adapt the timestamps of the second trace (if any)
