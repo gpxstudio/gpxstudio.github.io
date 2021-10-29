@@ -528,10 +528,10 @@ export default class Trace {
                 if (trace._editMarkers.length == 1) return;
                 var content = '<div id="close-popup" class="custom-button" style="float: right;"><i class="fas fa-times"></i></div>';
                 if (marker != trace._editMarkers[0] && marker != trace._editMarkers[trace._editMarkers.length-1]) {
-                    content += '<div id="split-waypoint" class="custom-button popup-action"><i class="fas fa-cut"></i> '+trace.buttons.split_text+'</div>';
+                    content += `<div id="split-waypoint" class="custom-button popup-action"><i class="fas fa-cut"></i> `+trace.buttons.split_text+`</div>
+                                <div id="start-loop-waypoint" class="custom-button popup-action"><i class="fas fa-undo"></i> `+trace.buttons.start_loop_text+`</div>`;
                 }
-                content += `<div id="start-loop-waypoint" class="custom-button popup-action"><i class="fas fa-undo"></i> `+trace.buttons.start_loop_text+`</div>
-                            <div id="remove-waypoint" class="custom-button popup-action"><i class="fas fa-trash-alt"></i> `+trace.buttons.remove_pt_text+`</div>`;
+                content += `<div id="remove-waypoint" class="custom-button popup-action"><i class="fas fa-trash-alt"></i> `+trace.buttons.remove_pt_text+`</div>`;
 
                 trace.popup.setContent(content);
                 trace.popup.setLatLng(e.latlng);
