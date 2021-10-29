@@ -363,29 +363,29 @@
             <div id="copy-embed" class="panels custom-button fancy-button">Copiar código incrustado <i class="fas fa-code"></i></div><br>
         </div>
         <div id="edit-content" class="popup-content">
-            <i class="fas fa-stopwatch"></i> Choose how to adapt the timestamps of the trace
+            <i class="fas fa-stopwatch"></i> Elige cómo adaptar las marcas de tiempo del track
             <div class="center-leaflet" style="text-align: left; width: min-content;">
-                <input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
-                <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preserve the original timestamps</label>
+                <input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Conserva la velocidad media</label><br>
+                <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Conserva las marcas de tiempo originales</label>
             </div>
             <div id="edit-ok" class="panels custom-button normal-button">Aceptar</div><hr>
-            <input type="checkbox" id="remember-edit-time"><label for="remember-edit-time">Remember my choice for this session</label>
+            <input type="checkbox" id="remember-edit-time"><label for="remember-edit-time">Recordar mi elección para esta sesión</label>
         </div>
         <div id="merge-content" class="popup-content">
             <div id="merge-time-options">
-                <i class="fas fa-stopwatch"></i> Choose how to adapt the timestamps of the second trace (if any)
+                <i class="fas fa-stopwatch"></i> Elege cómo adaptar las marcas de tiempo del segundo track (si existe)
                 <div class="center-leaflet" style="text-align: left; width: min-content;">
-                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Keep the original timestamps (as long as they come after those of the first trace)</label><br>
-                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Make the second trace start right after the first one</label>
+                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Mantén las marcas de tiempo originales (siempre y cuando vengan después de las del primer track)</label><br>
+                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Haz que el segundo track comience justo después del primero</label>
                 </div>
                 <hr>
             </div>
             <div>
-                Tick the following box if you wish to keep the traces disconnected<br>
-                <input type="checkbox" id="merge-as-segments"><label for="merge-as-segments">Merge as track segments</label>
+                Marca la siguiente casilla si desea mantener los tracks desconectados<br>
+                <input type="checkbox" id="merge-as-segments"><label for="merge-as-segments">Combinar como segmentos del track</label>
                 <hr>
             </div>
-            Click on another tab to merge the current trace with it<br>
+            Haz clic en otra pestaña para combinar el actual track con él<br>
             <div id="merge-cancel" class="panels custom-button normal-button">Cancelar</div>
         </div>
         <div id="crop-content" class="popup-content">
