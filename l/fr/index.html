@@ -362,9 +362,30 @@
             <div id="copy-link" class="panels custom-button fancy-button">Copier le lien de partage <i class="fas fa-link"></i></div><br>
             <div id="copy-embed" class="panels custom-button fancy-button">Copier le code d'intégration <i class="fas fa-code"></i></div><br>
         </div>
+        <div id="edit-content" class="popup-content">
+            <i class="fas fa-stopwatch"></i> Choose how to adapt the timestamps of the trace
+            <div class="center-leaflet" style="text-align: left; width: min-content;">
+                <input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
+                <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preserve the original timestamps</label>
+            </div>
+            <div id="edit-ok" class="panels custom-button normal-button">Ok</div><hr>
+            <input type="checkbox" id="remember-edit-time"><label for="remember-edit-time">Remember my choice for this session</label>
+        </div>
         <div id="merge-content" class="popup-content">
-            Cliquez sur un autre onglet pour fusionner les traces<br>
-            <input type="checkbox" id="merge-as-segments">Fusionner comme segments<br>
+            <div id="merge-time-options">
+                <i class="fas fa-stopwatch"></i> Choose how to adapt the timestamps of the second trace (if any)
+                <div class="center-leaflet" style="text-align: left; width: min-content;">
+                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Keep the original timestamps (as long as they come after those of the first trace)</label><br>
+                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Make the second trace start right after the first one</label>
+                </div>
+                <hr>
+            </div>
+            <div>
+                Tick the following box if you wish to keep the traces disconnected<br>
+                <input type="checkbox" id="merge-as-segments"><label for="merge-as-segments">Merge as track segments</label>
+                <hr>
+            </div>
+            Click on another tab to merge the current trace with it<br>
             <div id="merge-cancel" class="panels custom-button normal-button">Annuler</div>
         </div>
         <div id="crop-content" class="popup-content">
@@ -415,50 +436,50 @@
         <div id="waypoint-popup-text">
             <div id="empty-title-text">titre vide</div>
             <div id="name-text">Nom</div>
-            <div id="comment-text">Commentaire (pour appareils GPS)</div>
-            <div id="description-text">Description (pour les utilisateurs)</div>
-            <div id="symbol-text">Symbole</div>
-            <div id="edit-info-text">Modifier les infos</div>
+            <div id="comment-text">Comment (for GPS devices)</div>
+            <div id="description-text">Description (for users)</div>
+            <div id="symbol-text">Symbol</div>
+            <div id="edit-info-text">Edit info</div>
         </div>
         <div id="right-click-popup-text">
-            <div id="split-text">Diviser ici</div>
-            <div id="start-loop-text">Démarrer la boucle ici</div>
-            <div id="remove-pt-text">Supprimer le point</div>
+            <div id="split-text">Split here</div>
+            <div id="start-loop-text">Start loop here</div>
+            <div id="remove-pt-text">Remove point</div>
         </div>
         <div id="elevation-text">
-            <div id="segment-text">Longueur du segment</div>
-            <div id="type-text">Catégorie</div>
+            <div id="segment-text">Segment length</div>
+            <div id="type-text">Category</div>
             <div id="surface-text">Surface</div>
-            <div id="slope-text">Pente</div>
-            <div id="missing-text">Inconnue</div>,
-            <div id="paved-text">Revêtement</div>,
-            <div id="unpaved-text">Sans revêtement</div>,
-            <div id="asphalt-text">Asphalte</div>,
-            <div id="concrete-text">Béton</div>,
-            <div id="chipseal-text">Enduit superficiel routier</div>,
-            <div id="cobblestone-text">Pavés</div>,
-            <div id="unhewn-cobblestone-text">Pavés grossiers</div>,
-            <div id="paving-stones-text">Une surface relativement lisse en pavée</div>,
-            <div id="stepping-stones-text">Pas japonais</div>,
-            <div id="sett-text">Pavés taillés</div>,
-            <div id="metal-text">Métal</div>,
-            <div id="wood-text">Bois</div>,
-            <div id="compacted-text">Gravier compact</div>,
-            <div id="fine-gravel-text">Gravier fin</div>,
-            <div id="gravel-text">Gravier</div>,
-            <div id="pebblestone-text">Galets</div>,
-            <div id="rock-text">Roche</div>,
-            <div id="dirt-text">Sol en érosion</div>,
-            <div id="ground-text">Sol</div>,
-            <div id="earth-text">Terre</div>,
-            <div id="snow-text">Neige</div>,
-            <div id="ice-text">Glace</div>,
-            <div id="salt-text">Sel</div>,
-            <div id="mud-text">Boue</div>,
-            <div id="sand-text">Sable</div>,
-            <div id="woodchips-text">Plaquette forestière</div>,
-            <div id="grass-text">Herbe</div>,
-            <div id="grass-paver-text">Mélange d'herbe et de pavés</div>
+            <div id="slope-text">Slope</div>
+            <div id="missing-text">Missing</div>,
+            <div id="paved-text">Paved</div>,
+            <div id="unpaved-text">Unpaved</div>,
+            <div id="asphalt-text">Asphalt</div>,
+            <div id="concrete-text">Concrete</div>,
+            <div id="chipseal-text">Chipseal</div>,
+            <div id="cobblestone-text">Cobblestone</div>,
+            <div id="unhewn-cobblestone-text">Unhewn Cobblestone</div>,
+            <div id="paving-stones-text">Paving Stones</div>,
+            <div id="stepping-stones-text">Stepping Stones</div>,
+            <div id="sett-text">Sett Paving</div>,
+            <div id="metal-text">Metal</div>,
+            <div id="wood-text">Wood</div>,
+            <div id="compacted-text">Compacted Gravel</div>,
+            <div id="fine-gravel-text">Fine Gravel</div>,
+            <div id="gravel-text">Gravel</div>,
+            <div id="pebblestone-text">Pebblestone</div>,
+            <div id="rock-text">Rock</div>,
+            <div id="dirt-text">Dirt</div>,
+            <div id="ground-text">Ground</div>,
+            <div id="earth-text">Earth</div>,
+            <div id="snow-text">Snow</div>,
+            <div id="ice-text">Ice</div>,
+            <div id="salt-text">Salt</div>,
+            <div id="mud-text">Mud</div>,
+            <div id="sand-text">Sand</div>,
+            <div id="woodchips-text">Woodchips</div>,
+            <div id="grass-text">Grass</div>,
+            <div id="grass-paver-text">Grass Paver</div>
         </div>
         <h1>éditeur de fichiers gpx en ligne</h1>
         <h1>visionneuse de fichiers gpx en ligne</h1>
