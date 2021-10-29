@@ -62,7 +62,7 @@
         <link rel="stylesheet" href="/include/elevation/L.Control.Heightgraph.css"/>
         <link rel="stylesheet" href="/include/controlwindow/L.Control.Window.css">
         <link rel="stylesheet" type="text/css" href="/res/index.css">
-        <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.css" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.css" />
     </head>
     <body>
         <input id="input-file" type="file" accept=".gpx" multiple style="display: none"/>
@@ -84,7 +84,7 @@
             <div id="info-grid" class="panels-container trace-info">
                 <div class="panels panels-info" id="distance">Расстояние</div>
                 <div class="panels panels-val" id="distance-val"></div>
-                <div class="panels panels-info" id="elevation">Elevation</div>
+                <div class="panels panels-info" id="elevation">Высота</div>
                 <div class="panels panels-val" id="elevation-val"></div>
                 <div class="panels panels-info" id="speed">Скорость</div>
                 <div class="panels panels-val" id="speed-val"></div>
@@ -146,8 +146,8 @@
             <div class="panels-button" id="delete" title="Удалить"><i class="fas fa-trash-alt custom-button"></i></div><br>
         </div>
         <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Открыть Google Street View"></i>
-        <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Chevrons</label>
-        <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Distance markers</label>
+        <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Стрелки</label>
+        <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Метки расстояния</label>
         <!-- ADD_LANGUAGE -->
         <div id="languages">
             <a href="/" class="footer" target="_blank">en</a>
@@ -428,9 +428,9 @@
         <div id="elevation-text">
             <div id="segment-text">Segment length</div>
             <div id="type-text">Category</div>
-            <div id="surface-text">Surface</div>
-            <div id="slope-text">Slope</div>
-            <div id="missing-text">Missing</div>,
+            <div id="surface-text">Поверхность</div>
+            <div id="slope-text">Уклон</div>
+            <div id="missing-text">Отсутствует</div>,
             <div id="paved-text">Paved</div>,
             <div id="unpaved-text">Unpaved</div>,
             <div id="asphalt-text">Asphalt</div>,
@@ -483,7 +483,7 @@
     <script type="text/javascript" src="/include/controlwindow/L.Control.Window.js"></script>
     <script type="text/javascript" src="/include/geometryutil/leaflet.geometryutil.js"></script>
     <script type="text/javascript" src="/include/distancemarkers/leaflet-distance-markers.js"></script>
-    <script src="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.13.0/Sortable.min.js"></script>
     <script src="/include/sanitize/xss.min.js"></script>
     <script type="module" src="/include/simplify/simplify.js"></script>

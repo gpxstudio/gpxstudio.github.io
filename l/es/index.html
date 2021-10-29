@@ -62,7 +62,7 @@
         <link rel="stylesheet" href="/include/elevation/L.Control.Heightgraph.css"/>
         <link rel="stylesheet" href="/include/controlwindow/L.Control.Window.css">
         <link rel="stylesheet" type="text/css" href="/res/index.css">
-        <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.css" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.css" />
     </head>
     <body>
         <input id="input-file" type="file" accept=".gpx" multiple style="display: none"/>
@@ -98,7 +98,7 @@
                     <div id="activity-dropdown" class="dropdown-content panels-container panels">
                         <div id="bike" class="dropdown-choice"><i class="fas fa-biking"></i> <span>Bicicleta</span></div>
                         <div id="racingbike" class="dropdown-choice"><i class="fas fa-biking"></i> <span>Bicicleta de carreras</span></div>
-                        <div id="mtb" class="dropdown-choice"><i class="fas fa-biking"></i> <span>Mountain bike</span></div>
+                        <div id="mtb" class="dropdown-choice"><i class="fas fa-biking"></i> <span> Bicicleta de montaña</span></div>
                         <div id="hike" class="dropdown-choice"><i class="fas fa-running"></i> <span>Correr/Senderismo</span></div>
                         <div id="car" class="dropdown-choice"><i class="fas fa-motorcycle"></i> <span>Motocicleta</span></div>
                     </div>
@@ -114,11 +114,11 @@
                 <div id="routing-input" class="custom-button panels-button dropdown">
                     <div id="routing-dropdown" class="dropdown-content panels-container panels">
                         <div id="route" class="dropdown-choice"><i class="fas fa-route"></i> <span>Enrutamiento</span></div>
-                        <div id="crow" class="dropdown-choice"><i class="fas fa-dove"></i> <span>As the crow flies</span></div>
+                        <div id="crow" class="dropdown-choice"><i class="fas fa-dove"></i> <span>Línea recta</span></div>
                     </div>
                     <span id="selected-routing"><i class="fas fa-route"></i></span>
                 </div>
-                <div id="elevation-input" class="panels-button custom-button" title="Toggle the elevation profile"><i class="fas fa-chart-area"></i></div>
+                <div id="elevation-input" class="panels-button custom-button" title="Mostrar/Ocultar el perfil de altura"><i class="fas fa-chart-area"></i></div>
                 <div id="crop-container">
                     <div class="panels-button custom-button" id="validate"><i class="fas fa-check custom-button"></i></div>
                 </div>
@@ -146,8 +146,8 @@
             <div class="panels-button" id="delete" title="Eliminar track"><i class="fas fa-trash-alt custom-button"></i></div><br>
         </div>
         <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Abrir Google Street View"></i>
-        <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Chevrons</label>
-        <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Distance markers</label>
+        <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Indicadores de dirección</label>
+        <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Indicadores de distancia</label>
         <!-- ADD_LANGUAGE -->
         <div id="languages">
             <a href="/" class="footer" target="_blank">en</a>
@@ -422,7 +422,7 @@
         </div>
         <div id="right-click-popup-text">
             <div id="split-text">Dividir aquí</div>
-            <div id="start-loop-text">Start loop here</div>
+            <div id="start-loop-text">Iniciar bucle aquí</div>
             <div id="remove-pt-text">Eliminar puntos</div>
         </div>
         <div id="elevation-text">
@@ -483,7 +483,7 @@
     <script type="text/javascript" src="/include/controlwindow/L.Control.Window.js"></script>
     <script type="text/javascript" src="/include/geometryutil/leaflet.geometryutil.js"></script>
     <script type="text/javascript" src="/include/distancemarkers/leaflet-distance-markers.js"></script>
-    <script src="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.13.0/Sortable.min.js"></script>
     <script src="/include/sanitize/xss.min.js"></script>
     <script type="module" src="/include/simplify/simplify.js"></script>

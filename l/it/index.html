@@ -62,7 +62,7 @@
         <link rel="stylesheet" href="/include/elevation/L.Control.Heightgraph.css"/>
         <link rel="stylesheet" href="/include/controlwindow/L.Control.Window.css">
         <link rel="stylesheet" type="text/css" href="/res/index.css">
-        <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.css" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.css" />
     </head>
     <body>
         <input id="input-file" type="file" accept=".gpx" multiple style="display: none"/>
@@ -99,15 +99,15 @@
                         <div id="bike" class="dropdown-choice"><i class="fas fa-biking"></i> <span>Bicicletta</span></div>
                         <div id="racingbike" class="dropdown-choice"><i class="fas fa-biking"></i> <span>Bicicletta da corsa</span></div>
                         <div id="mtb" class="dropdown-choice"><i class="fas fa-biking"></i> <span>Mountain bike</span></div>
-                        <div id="hike" class="dropdown-choice"><i class="fas fa-running"></i> <span>Corsa/escursione</span></div>
+                        <div id="hike" class="dropdown-choice"><i class="fas fa-running"></i> <span>Corsa/Escursione</span></div>
                         <div id="car" class="dropdown-choice"><i class="fas fa-motorcycle"></i> <span>Moto</span></div>
                     </div>
                     <div id="selected-activity"><i class="fas fa-biking"></i></div>
                 </div>
                 <div id="units-input" class="custom-button panels-button dropdown">
                     <div id="units-dropdown" class="dropdown-content panels-container panels">
-                        <div id="km" class="dropdown-choice"><span><b>km</b></span> <span>Metrico</span></div>
-                        <div id="mi" class="dropdown-choice"><span><b>mi</b></span> <span>Imperiale</span></div>
+                        <div id="km" class="dropdown-choice"><span><b>km</b></span> <span>Sistema metrico</span></div>
+                        <div id="mi" class="dropdown-choice"><span><b>mi</b></span> <span>Sistema imperiale</span></div>
                     </div>
                     <div id="selected-units" style="font-size: 11px"><span><b>km</b></span></div>
                 </div>
@@ -118,7 +118,7 @@
                     </div>
                     <span id="selected-routing"><i class="fas fa-route"></i></span>
                 </div>
-                <div id="elevation-input" class="panels-button custom-button" title="Attiva/Disattiva il profilo altimetrico"><i class="fas fa-chart-area"></i></div>
+                <div id="elevation-input" class="panels-button custom-button" title="Mostra/Nascondi il profilo altimetrico"><i class="fas fa-chart-area"></i></div>
                 <div id="crop-container">
                     <div class="panels-button custom-button" id="validate"><i class="fas fa-check custom-button"></i></div>
                 </div>
@@ -483,7 +483,7 @@
     <script type="text/javascript" src="/include/controlwindow/L.Control.Window.js"></script>
     <script type="text/javascript" src="/include/geometryutil/leaflet.geometryutil.js"></script>
     <script type="text/javascript" src="/include/distancemarkers/leaflet-distance-markers.js"></script>
-    <script src="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.13.0/Sortable.min.js"></script>
     <script src="/include/sanitize/xss.min.js"></script>
     <script type="module" src="/include/simplify/simplify.js"></script>
