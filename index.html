@@ -363,8 +363,20 @@
             <div id="copy-embed" class="panels custom-button fancy-button">Copy embedding code <i class="fas fa-code"></i></div><br>
         </div>
         <div id="merge-content" class="popup-content">
-            Click on another tab to merge the traces<br>
-            <input type="checkbox" id="merge-as-segments">Merge as track segments<br>
+            <div id="merge-time-options">
+                <i class="fas fa-stopwatch"></i> Choose how to adapt the timestamps of the second trace (if any)
+                <div class="center-leaflet" style="text-align: left; width: min-content;">
+                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Keep the original timestamps (as long as they come after those of the first trace)</label><br>
+                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Make the second trace start right after the first one</label>
+                </div>
+                <hr>
+            </div>
+            <div>
+                Tick the following box if you wish to keep the traces disconnected<br>
+                <input type="checkbox" id="merge-as-segments"><label for="merge-as-segments">Merge as track segments</label>
+                <hr>
+            </div>
+            Click on another tab to merge the current trace with it<br>
             <div id="merge-cancel" class="panels custom-button normal-button">Cancel</div>
         </div>
         <div id="crop-content" class="popup-content">

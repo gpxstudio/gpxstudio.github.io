@@ -132,6 +132,8 @@ export default class Buttons {
         this.copy_link = document.getElementById("copy-link");
         this.copy_embed = document.getElementById("copy-embed");
         this.merge_as_segments = document.getElementById("merge-as-segments");
+        this.merge_keep_time = document.getElementById("merge-keep");
+        this.merge_stick_time = document.getElementById("merge-stick");
         this.merge_cancel = document.getElementById("merge-cancel");
         this.buttons_bar = document.getElementById('buttons-bar');
         this.tabs = document.getElementById('sortable');
@@ -192,6 +194,7 @@ export default class Buttons {
         this.load_content = document.getElementById('load-content');
         this.share_content = document.getElementById('share-content');
         this.merge_content = document.getElementById('merge-content');
+        this.merge_time_options = document.getElementById('merge-time-options');
         this.crop_content = document.getElementById('crop-content');
         this.load_error_content = document.getElementById('load-error-content');
         this.embed_content = document.getElementById('embed-content');
@@ -1435,6 +1438,7 @@ export default class Buttons {
             if (!trace.visible) trace.hideUnhide();
             if (buttons.window_open) buttons.window_open.hide();
             total.to_merge = trace;
+            buttons.merge_time_options.style.display = trace.firstTimeData() >= 0 ? '' : 'none';
             buttons.window_open = buttons.merge_window;
             buttons.merge_window.show();
             buttons.merge_window.addEventListener('hide', function (e) {

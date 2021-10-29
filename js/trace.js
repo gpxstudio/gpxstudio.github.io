@@ -89,7 +89,7 @@ export default class Trace {
             li.trace = trace;
             li.addEventListener('click', function (e) {
                 if (total.to_merge && total.to_merge != trace && total.buttons.window_open == total.buttons.merge_window) {
-                    total.to_merge.merge(trace, total.buttons.merge_as_segments.checked);
+                    total.to_merge.merge(trace, total.buttons.merge_as_segments.checked, total.buttons.merge_stick_time.checked);
                     total.removeTrace(trace.index);
                     total.to_merge.focus();
                     total.to_merge = null;
@@ -948,7 +948,7 @@ export default class Trace {
         this.draw();
     }
 
-    merge(trace, as_segments) {
+    merge(trace, as_segments, stick_time) {
         const points = this.getPoints();
         const otherPoints = trace.getPoints();
 
@@ -993,7 +993,7 @@ export default class Trace {
                 const b = otherPoints[0];
                 const dist = this.gpx._dist2d(a, b);
                 const startTime = new Date(a.meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
-                if (startTime > b.meta.time.getTime()) trace.changeTimeData(startTime, avg2);
+                if (startTime > b.meta.time.getTime() || stick_time) trace.changeTimeData(startTime, avg2);
             }
         }
 
