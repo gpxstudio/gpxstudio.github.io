@@ -1403,7 +1403,7 @@ export default class Buttons {
             trace.focus_style.weight = weight+2;
             const hexOpacity = Math.round(opacity * 255).toString(16);
             if (buttons.color_checkbox.checked) total.same_color = true;
-            if (buttons.color_checkbox.checked || buttons.opacity_checkbox.checked) {
+            if (buttons.color_checkbox.checked || buttons.opacity_checkbox.checked || buttons.width_checkbox.checked) {
                 for (var i=0; i<total.traces.length; i++) {
                     if (buttons.color_checkbox.checked) {
                         total.traces[i].normal_style.color = color;
