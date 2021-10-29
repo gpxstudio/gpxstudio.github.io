@@ -439,6 +439,7 @@ export default class Total {
         <gpxx:Extensions>
         <color>`+this.traces[i].normal_style.color+`</color>
         <opacity>`+this.traces[i].normal_style.opacity+`</opacity>
+        <weight>`+this.traces[i].normal_style.weight+`</weight>
         </gpxx:Extensions>
         </gpxx:TrackExtension>
     </extensions>

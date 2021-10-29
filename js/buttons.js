@@ -104,6 +104,8 @@ export default class Buttons {
         this.color_checkbox = document.getElementById("color-checkbox");
         this.opacity_slider = document.getElementById("opacity-slider");
         this.opacity_checkbox = document.getElementById("opacity-checkbox");
+        this.width_slider = document.getElementById("width-slider");
+        this.width_checkbox = document.getElementById("width-checkbox");
         this.edit = document.getElementById("edit");
         this.validate = document.getElementById("validate");
         this.crop_container = document.getElementById("crop-container");
@@ -1382,6 +1384,7 @@ export default class Buttons {
 
             buttons.color_picker.value = trace.normal_style.color;
             buttons.opacity_slider.value = trace.normal_style.opacity;
+            buttons.width_slider.value = trace.normal_style.weight;
             if (buttons.window_open) buttons.window_open.hide();
             buttons.window_open = buttons.color_window;
             buttons.color_window.show();
@@ -1390,11 +1393,14 @@ export default class Buttons {
             const trace = total.traces[total.focusOn];
             const color = buttons.color_picker.value;
             const opacity = buttons.opacity_slider.value;
+            const weight = parseInt(buttons.width_slider.value);
             total.changeColor(trace.normal_style.color, color);
             trace.normal_style.color = color;
             trace.focus_style.color = color;
             trace.normal_style.opacity = opacity;
             trace.focus_style.opacity = opacity;
+            trace.normal_style.weight = weight;
+            trace.focus_style.weight = weight+2;
             const hexOpacity = Math.round(opacity * 255).toString(16);
             if (buttons.color_checkbox.checked) total.same_color = true;
             if (buttons.color_checkbox.checked || buttons.opacity_checkbox.checked) {
@@ -1407,6 +1413,10 @@ export default class Buttons {
                         total.traces[i].normal_style.opacity = opacity;
                         total.traces[i].focus_style.opacity = opacity;
                     }
+                    if (buttons.width_checkbox.checked) {
+                        total.traces[i].normal_style.weight = weight;
+                        total.traces[i].focus_style.weight = weight+2;
+                    }
                     total.traces[i].gpx.setStyle(total.traces[i].normal_style);
                     total.traces[i].tab.innerHTML = total.traces[i].name+'<div class="tab-color" style="background:'+total.traces[i].normal_style.color+hexOpacity+';">';
                     total.traces[i].set_color = true;
@@ -1418,6 +1428,10 @@ export default class Buttons {
                 if (buttons.opacity_checkbox.checked) {
                     total.normal_style.opacity = opacity;
                     total.focus_style.opacity = opacity;
+                }
+                if (buttons.width_checkbox.checked) {
+                    total.normal_style.weight = weight;
+                    total.focus_style.weight = weight;
                 }
             }
             trace.gpx.setStyle(trace.focus_style);
