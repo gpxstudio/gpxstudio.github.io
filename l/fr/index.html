@@ -362,9 +362,30 @@
             <div id="copy-link" class="panels custom-button fancy-button">Copier le lien de partage <i class="fas fa-link"></i></div><br>
             <div id="copy-embed" class="panels custom-button fancy-button">Copier le code d'intégration <i class="fas fa-code"></i></div><br>
         </div>
+        <div id="edit-content" class="popup-content">
+            <i class="fas fa-stopwatch"></i> Choisissez comment adapter les données de temps de la trace
+            <div class="center-leaflet" style="text-align: left; width: min-content;">
+                <input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Conserver la vitesse moyenne</label><br>
+                <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Conserver les horodatages originaux</label>
+            </div>
+            <div id="edit-ok" class="panels custom-button normal-button">Ok</div><hr>
+            <input type="checkbox" id="remember-edit-time"><label for="remember-edit-time">Se souvenir de mon choix pour cette session</label>
+        </div>
         <div id="merge-content" class="popup-content">
-            Cliquez sur un autre onglet pour fusionner les traces<br>
-            <input type="checkbox" id="merge-as-segments">Fusionner comme segments<br>
+            <div id="merge-time-options">
+                <i class="fas fa-stopwatch"></i> Choisissez comment adapter les données de temps de la seconde trace (si présents)
+                <div class="center-leaflet" style="text-align: left; width: min-content;">
+                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Garder les horodatages originaux (pour autant qu'ils suivent ceux de la première trace)</label><br>
+                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Faire commencer la seconde trace juste après la première</label>
+                </div>
+                <hr>
+            </div>
+            <div>
+                Cochez pour garder les traces déconnectées<br>
+                <input type="checkbox" id="merge-as-segments"><label for="merge-as-segments">Fusionner en tant que segments de trace</label>
+                <hr>
+            </div>
+            Cliquez sur un autre onglet pour fusionner la trace actuelle avec la trace correspondante<br>
             <div id="merge-cancel" class="panels custom-button normal-button">Annuler</div>
         </div>
         <div id="crop-content" class="popup-content">
