@@ -653,6 +653,13 @@ L.GPX = L.FeatureGroup.extend({
         }
     }
 
+    var weight = xml.getElementsByTagName('weight');
+    if (weight.length > 0) {
+        var we = parseInt(weight[0].textContent);
+        this._trace.normal_style.weight = we;
+        this._trace.focus_style.weight = we+2;
+    }
+
     var parseElements = options.gpx_options.parseElements;
     if (parseElements.indexOf('route') > -1) {
       // routes are <rtept> tags inside <rte> sections
