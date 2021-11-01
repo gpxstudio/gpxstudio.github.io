@@ -1008,6 +1008,10 @@ L.GPX = L.FeatureGroup.extend({
     return layers;
   },
 
+  _moving_criterion: function(d, t) {
+      return t < this.options.max_point_interval && (d/1000)/(t/1000/60/60) >= 0.5;
+  },
+
   _compute_stats: function(start, end) {
       this._init_info();
 
@@ -1053,7 +1057,7 @@ L.GPX = L.FeatureGroup.extend({
 
                   if (in_bounds(cumul+i) && last.meta.time != null && ll.meta.time != null) {
                       this._info.duration.total += t;
-                      if (t < this.options.max_point_interval && (dist/1000)/(t/1000/60/60) >= 0.5) {
+                      if (this._moving_criterion(dist, t)) {
                         this._info.duration.moving += t;
                         this._info.moving_length += dist;
                       }

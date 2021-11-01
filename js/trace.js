@@ -551,13 +551,13 @@ export default class Trace {
                         trace.closePopup();
                         trace.draw();
                     });
-                }
 
-                var button3 = document.getElementById("start-loop-waypoint");
-                button3.addEventListener("click", function () {
-                    trace.setStart(marker._pt.trace_index);
-                    trace.closePopup();
-                });
+                    var button3 = document.getElementById("start-loop-waypoint");
+                    button3.addEventListener("click", function () {
+                        trace.setStart(marker._pt.trace_index);
+                        trace.closePopup();
+                    });
+                }
 
                 var close = document.getElementById("close-popup");
                 close.addEventListener("click", function () {
@@ -1395,12 +1395,34 @@ export default class Trace {
                 }
             }
         } else {
+            var moving_length = 0, moving_time = 0, missing_length = 0;
+            for (var i=1; i<points.length; i++) {
+                const dist = this.gpx._dist2d(points[i-1], points[i]);
+                if (points[i-1].meta.time != null && points[i].meta.time != null) {
+                    const t = points[i].meta.time - points[i-1].meta.time;
+                    if (this.gpx._moving_criterion(dist, t)) {
+                        moving_length += dist / 1000;
+                        moving_time += t / (1000 * 60 * 60);
+                    }
+                } else {
+                    missing_length += dist / 1000;
+                }
+            }
+
+            const total_length = moving_length + missing_length;
+            const missing_time = total_length / avg - moving_time;
+            const missing_avg = missing_length / missing_time;
+
             if (points[0].meta.time == null) {
-                for (var i=0; i<points.length; i++) if (points[i].meta.time != null) {
-                    const dist = this.gpx._dist2d(points[0], points[i]);
-                    points[0].meta.time = new Date(points[i].meta.time.getTime() - 1000 * 60 * 60 * dist/(1000 * avg));
-                    points[0].meta.original_time = true;
-                    break;
+                var total_dist = 0;
+                for (var i=1; i<points.length; i++) {
+                    const dist = this.gpx._dist2d(points[i-1], points[i]);
+                    total_dist += dist;
+                    if (points[i].meta.time != null) {
+                        points[0].meta.time = new Date(points[i].meta.time.getTime() - 1000 * 60 * 60 * total_dist/(1000 * missing_avg));
+                        points[0].meta.original_time = true;
+                        break;
+                    }
                 }
             }
 
@@ -1409,7 +1431,7 @@ export default class Trace {
                 if (points[i].meta.time == null || last == null) {
                     last = points[i].meta.time;
                     const dist = this.gpx._dist2d(points[i-1], points[i]);
-                    points[i].meta.time = new Date(points[i-1].meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
+                    points[i].meta.time = new Date(points[i-1].meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * missing_avg));
                     points[i].meta.original_time = true;
                 } else {
                     const newTime = new Date(points[i-1].meta.time.getTime() + points[i].meta.time.getTime() - last.getTime());
