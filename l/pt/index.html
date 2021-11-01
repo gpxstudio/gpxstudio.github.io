@@ -364,7 +364,7 @@
         <div id="share-content" class="popup-content">
             Feito!<br>
             <div id="copy-link" class="panels custom-button fancy-button">Copiar link <i class="fas fa-link"></i></div><br>
-            <div id="copy-embed" class="panels custom-button fancy-button">Copy embedding code <i class="fas fa-code"></i></div><br>
+            <div id="copy-embed" class="panels custom-button fancy-button">Copiar código de incorporação <i class="fas fa-code"></i></div><br>
         </div>
         <div id="edit-content" class="popup-content">
             <i class="fas fa-stopwatch"></i> Choose how to adapt the timestamps of the trace
@@ -393,24 +393,24 @@
             <div id="merge-cancel" class="panels custom-button normal-button">Cancelar</div>
         </div>
         <div id="crop-content" class="popup-content">
-            <input type="checkbox" id="crop-keep">Keep cropped parts in new files<br>
-            <div id="crop-ok" class="panels custom-button normal-button">Proceed</div>
+            <input type="checkbox" id="crop-keep">Manter partes cortadas em novos arquivos<br>
+            <div id="crop-ok" class="panels custom-button normal-button">Proceder</div>
             <div id="crop-cancel" class="panels custom-button normal-button">Cancelar</div>
         </div>
         <div id="reduce-content" class="popup-content">
-            Choose the amount of detail to keep<br>
-            Number of track points: <span id="reduce-npoints">0</span><br>
+            Escolha a quantidade de detalhes para manter<br>
+            Número de pontos da trilha: <span id="reduce-npoints">0</span><br>
             <input type="range" min="0" max="1000" id="reduce-slider" style="width: 100%"><br>
             <div id="reduce-ok" class="panels custom-button normal-button">Ok</div>
             <div id="reduce-cancel" class="panels custom-button normal-button">Cancelar</div>
         </div>
         <div id="zone-delete-content" class="popup-content">
-            Choose what to delete<br>
+            Escolher o que excluir<br>
             <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Track points</label>
-            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
-            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inside selection</label>
-            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
-            <div id="zone-delete-ok" class="panels custom-button normal-button">Proceed</div>
+            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Pontos de Parada</label><br>
+            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Dentro da seleção</label>
+            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Fora da seleção</label><br>
+            <div id="zone-delete-ok" class="panels custom-button normal-button">Proceder</div>
             <div id="zone-delete-cancel" class="panels custom-button normal-button">Cancelar</div>
         </div>
         <div id="load-error-content" class="popup-content">
@@ -419,12 +419,12 @@
             <div id="load-error-ok" class="panels custom-button normal-button">Ok</div>
         </div>
         <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
-            <b>Open in</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logotipo do gpx.studio, o editor de arquivos GPX online">
+            <b>Abrir em</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logotipo do gpx.studio, o editor de arquivos GPX online">
         </div>
         <div id="unit-kilometers-text">km</div>
         <div id="unit-miles-text">mi</div>
         <div id="unit-meters-text">m</div>
-        <div id="unit-feet-text">ft</div>
+        <div id="unit-feet-text">pés</div>
         <div id="unit-hours-text">h</div>
         <div id="unit-minutes-text">min</div>
         <div id="duplicate-text">Duplicar</div>
@@ -433,22 +433,22 @@
         <div id="cancel-button-text">Cancelar</div>
         <div id="edit-speed-popup-text">
             <div id="speed-text">Velocidade</div>
-            <div id="pace-text">Pace</div>
-            <div id="start-text">Start</div>
+            <div id="pace-text">Ritmo</div>
+            <div id="start-text">Iniciar</div>
             <div id="experimental-info-text">Generate speed considering the slope and the activity type<br><b><i class="fas fa-exclamation-triangle"></i> erases all existing time data</b></div>
         </div>
         <div id="waypoint-popup-text">
-            <div id="empty-title-text">empty title</div>
-            <div id="name-text">Name</div>
-            <div id="comment-text">Comment (for GPS devices)</div>
-            <div id="description-text">Description (for users)</div>
-            <div id="symbol-text">Symbol</div>
-            <div id="edit-info-text">Edit info</div>
+            <div id="empty-title-text">título em branco</div>
+            <div id="name-text">Nome</div>
+            <div id="comment-text">Comentário (para dispositivos GPS)</div>
+            <div id="description-text">Descrição (para usuários)</div>
+            <div id="symbol-text">Símbolo</div>
+            <div id="edit-info-text">Editar informação</div>
         </div>
         <div id="right-click-popup-text">
-            <div id="split-text">Split here</div>
+            <div id="split-text">Dividir aqui</div>
             <div id="start-loop-text">Start loop here</div>
-            <div id="remove-pt-text">Remove point</div>
+            <div id="remove-pt-text">Remover Ponto</div>
         </div>
         <div id="elevation-text">
             <div id="segment-text">Segment length</div>
@@ -485,16 +485,16 @@
             <div id="grass-text">Grass</div>,
             <div id="grass-paver-text">Grass Paver</div>
         </div>
-        <h1>online gpx editor</h1>
-        <h1>online gpx viewer</h1>
-        <h1>edit gpx files online</h1>
-        <h1>view gpx files online</h1>
-        <h1>merge gpx files online</h1>
-        <h1>extract segments gpx file online</h1>
-        <h1>reverse gpx file online</h1>
-        <h1>add timestamps to gpx file online</h1>
-        <h1>compress simplify reduce number points gpx file online</h1>
-        <h1>view and add waypoints gpx file online</h1>
+        <h1>editor de gpx online</h1>
+        <h1>visualizador de gpx online</h1>
+        <h1>editor de arquivos gpx online</h1>
+        <h1>ver arquivos gpx online</h1>
+        <h1>mesclar arquivos gpx online</h1>
+        <h1>extrair o arquivo gpx de segmentos online</h1>
+        <h1>inverter sentido do gpx file online</h1>
+        <h1>adicionar timestamps para o arquivo gpx online</h1>
+        <h1>comprimir simplesmente simplifica o arquivo para reduzir os números de pontos gpx online</h1>
+        <h1>visualizar e adicionar waypoints no arquivo gpx online</h1>
         </div>
     </body>
     <script src="/include/leaflet/leaflet.js"></script>
