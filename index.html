@@ -63,10 +63,12 @@
         <link rel="stylesheet" href="/include/controlwindow/L.Control.Window.css">
         <link rel="stylesheet" type="text/css" href="/res/index.css">
         <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.css" />
+        <link rel="stylesheet" href="https://unpkg.com/mapillary-js@4.0.0/dist/mapillary.css" />
     </head>
     <body>
         <input id="input-file" type="file" accept=".gpx" multiple style="display: none"/>
         <div id="mapid"></div>
+        <div id="mly"><div id="mly-controls"><i id="mly-move" class="fas fa-arrows-alt custom-button"></i><i id="mly-close" class="fas fa-times custom-button"></i></div></div>
         <div style="display: none">
         <div id="toolbar" class="panels-container center-leaflet">
             <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 2px 4px" alt="logo of gpx.studio, the online GPX file editor"></a>
@@ -145,7 +147,7 @@
             <div class="panels-button" id="hide" title="Hide/unhide the trace"><i class="fas fa-eye-slash custom-button"></i></div><br>
             <div class="panels-button" id="delete" title="Delete"><i class="fas fa-trash-alt custom-button"></i></div><br>
         </div>
-        <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Google Street View"></i>
+        <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Street View"></i>
         <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Chevrons</label>
         <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Distance markers</label>
         <!-- ADD_LANGUAGE -->
@@ -508,6 +510,7 @@
     <script type="text/javascript" src="/include/distancemarkers/leaflet-distance-markers.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.13.0/Sortable.min.js"></script>
+    <script src="https://unpkg.com/mapillary-js@4.0.0/dist/mapillary.js"></script>
     <script src="/include/sanitize/xss.min.js"></script>
     <script type="module" src="/include/simplify/simplify.js"></script>
     <script src="/include/driveutils/upload.js"></script>

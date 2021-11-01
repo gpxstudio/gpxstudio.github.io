@@ -407,6 +407,14 @@ html, body {
     stroke-width: 2;
 }
 
+.position-marker {
+    fill: #00c8ff;
+    fill-opacity: 1;
+    stroke: #ffffff;
+    stroke-opacity: 1;
+    stroke-width: 2;
+}
+
 .edit-marker {
     fill: #ffffff;
     fill-opacity: 1;
@@ -562,6 +570,31 @@ ul {
     padding: 1px 2px;
     border: solid 1px;
     border-radius: 2px;
+}
+
+#mly {
+    width: 400px;
+    height: 300px;
+    z-index: 2000;
+    display: none;
+    border: solid black 1px;
+    border-radius: 10px;
+    left: 40px;
+    top: 50px;
+}
+
+#mly-controls {
+    position: relative;
+    float: right;
+    z-index: 1;
+    background: #0000006b;
+    border-radius: 0px 0px 0px 10px;
+}
+
+#mly-controls > .fas {
+    padding: 7px;
+    color: white;
+    font-size: 14px;
 }
 
 [contenteditable] {

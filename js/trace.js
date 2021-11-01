@@ -409,20 +409,12 @@ export default class Trace {
             mapboxgl_canvas.style.cursor = 'crosshair';
             this.mapboxgl_canvas = mapboxgl_canvas;
         } else this.mapboxgl_canvas = null;
-        const _this = this;
-        this.buttons.map.addEventListener("click", function (e) {
-            if (_this.buttons.disable_trace) return;
-            if (e.originalEvent.target.id != "mapid" && !e.originalEvent.target.classList.contains('mapboxgl-canvas')) return;
-            if (!_this._draggingWaypoint) _this.addEndPoint(e.latlng.lat, e.latlng.lng);
-            _this._draggingWaypoint = false;
-        });
     }
 
     stopDraw() {
         this.buttons.map._container.style.cursor = '';
         var mapboxgl_canvas = document.getElementsByClassName('mapboxgl-canvas');
         if (this.mapboxgl_canvas) this.mapboxgl_canvas.style.cursor = '';
-        this.buttons.map.removeEventListener("click");
         this.drawing = false;
         if (this.getPoints().length == 0) {
             this.total.removeTrace(this.index);
