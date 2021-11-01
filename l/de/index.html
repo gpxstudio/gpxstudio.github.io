@@ -63,10 +63,12 @@
         <link rel="stylesheet" href="/include/controlwindow/L.Control.Window.css">
         <link rel="stylesheet" type="text/css" href="/res/index.css">
         <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.css" />
+        <link rel="stylesheet" href="https://unpkg.com/mapillary-js@4.0.0/dist/mapillary.css" />
     </head>
     <body>
         <input id="input-file" type="file" accept=".gpx" multiple style="display: none"/>
         <div id="mapid"></div>
+        <div id="mly"><div id="mly-controls"><i id="mly-move" class="fas fa-arrows-alt custom-button"></i><i id="mly-close" class="fas fa-times custom-button"></i></div></div>
         <div style="display: none">
         <div id="toolbar" class="panels-container center-leaflet">
             <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 2px 4px" alt="Logo von gpx.studio, dem Online-Editor für GPX-Dateien"></a>
@@ -138,14 +140,14 @@
             <div class="panels-button" id="combine" title="Mit anderem Track zusammenführen"><i class="fas fa-plus-circle custom-button"></i></div><br>
             <div class="panels-button" id="extract" title="Tracksegmente extrahieren"><i class="fas fa-list-ul custom-button"></i></div><br>
             <div class="panels-button" id="duplicate" title="Duplizieren"><i class="fas fa-copy custom-button"></i></div><br>
-            <div class="panels-button" id="color" title="Farbe und Deckkraft ändern"><i class="fas fa-palette custom-button"></i></div><br>
+            <div class="panels-button" id="color" title="Change color, opacity and width"><i class="fas fa-palette custom-button"></i></div><br>
             <div class="panels-button" id="add-wpt" title="Wegpunkt hinzufügen"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
             <div class="panels-button" id="reduce" title="Menge der Trackpunkte reduzieren"><i class="fas fa-compress-alt custom-button"></i></div><br>
             <div class="panels-button" id="zone-delete" title="Alles innerhalb/außerhalb rechteckiger Auswahl löschen"><i class="fas fa-vector-square custom-button"></i></div><br>
             <div class="panels-button" id="hide" title="Den Track verstecken/anzeigen"><i class="fas fa-eye-slash custom-button"></i></div><br>
             <div class="panels-button" id="delete" title="Löschen"><i class="fas fa-trash-alt custom-button"></i></div><br>
         </div>
-        <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Google Street View öffnen"></i>
+        <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Street View"></i>
         <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Chevrons</label>
         <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Distance markers</label>
         <!-- ADD_LANGUAGE -->
@@ -343,10 +345,12 @@
         </div>
         <div id="color-content" class="popup-content">
             <div style="text-align: left">
-                <label for="color-picker">Wählen Sie eine neue Farbe</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
-                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Farbe auf alle Spuren anwenden</label><br>
-                <label for="opacity-slider">Deckkraft</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
-                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Deckkraft auf alle Tracks anwenden</label>
+                <label for="color-picker">Pick a new color</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
+                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Apply color to all traces</label><br>
+                <label for="opacity-slider">Opacity</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
+                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Apply opacity to all traces</label><br>
+                <label for="width-slider">Width</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
+                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Apply width to all traces</label>
             </div>
             <div id="validate-color" class="panels custom-button normal-button">Ok</div>
             <div id="cancel-color" class="panels custom-button normal-button">Abbrechen</div>
@@ -506,6 +510,7 @@
     <script type="text/javascript" src="/include/distancemarkers/leaflet-distance-markers.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.13.0/Sortable.min.js"></script>
+    <script src="https://unpkg.com/mapillary-js@4.0.0/dist/mapillary.js"></script>
     <script src="/include/sanitize/xss.min.js"></script>
     <script type="module" src="/include/simplify/simplify.js"></script>
     <script src="/include/driveutils/upload.js"></script>
