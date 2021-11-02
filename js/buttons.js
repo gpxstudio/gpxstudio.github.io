@@ -457,7 +457,7 @@ export default class Buttons {
                     attribution: '&copy; <a href="https://www.opentopomap.org" target="_blank">OpenTopoMap</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
                 });
 
-                _this.ignMap = L.tileLayer('https://wxs.ign.fr/j5d7l46t2yri7bbc67krgo2b/geoportail/wmts?service=WMTS&request=GetTile&version=1.0.0&tilematrixset=PM&tilematrix={z}&tilecol={x}&tilerow={y}&layer=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&format=image/png&style=normal', {
+                _this.ignMap = L.tileLayer('https://wxs.ign.fr/csxlabhak328gg7s096cu55r/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR&FORMAT=image/jpeg&STYLE=normal', {
                     minZoom : 0,
                     maxZoom : 18,
                     tileSize : 256,
@@ -511,7 +511,7 @@ export default class Buttons {
                             "OpenTopoMap" : _this.openTopoMap,
                             "OpenHikingMap" : _this.openHikingMap,
                             "CyclOSM" : _this.cyclOSM,
-                            "IGN (FR)" : _this.ignMap
+                            "IGN SCAN25 (FR)" : _this.ignMap
                         }).addTo(_this.map);
 
                         _this.addSwitchMapboxLayers();
