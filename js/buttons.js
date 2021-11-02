@@ -584,7 +584,7 @@ export default class Buttons {
                             vectorTileLayerStyles: {
                                 sequence: {
                                     color: 'rgb(53, 175, 109)',
-                                    weight: 2,
+                                    weight: 1,
                                     opacity: 0.6
                                 },
                                 image: []
@@ -599,7 +599,7 @@ export default class Buttons {
                             vectorTileLayerStyles: {
                                 sequence: {
                                     color: 'rgb(53, 175, 109)',
-                                    weight: 2,
+                                    weight: 1,
                                     opacity: 0.6
                                 },
                                 image: []
