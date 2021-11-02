@@ -576,33 +576,35 @@ export default class Buttons {
                             _this.mapboxSKUToken = _this.mapboxMap.getMapboxMap()._requestManager._skuToken;
                         });
 
-                        _this.mapboxMap.getMapboxMap().on('load', () => {
-                            _this.mapboxMap.getMapboxMap().addSource('mapillary', {
-                                type: 'vector',
-                                tiles: ['https://tiles.mapillary.com/maps/vtp/mly1_computed_public/2/{z}/{x}/{y}?access_token=MLY|4381405525255083|3204871ec181638c3c31320490f03011'],
-                                minzoom: 6,
-                                maxzoom: 14
+                        _this.mapillary_coverageZoomed = L.vectorGrid.protobuf('https://tiles.mapillary.com/maps/vtp/mly1_computed_public/2/{z}/{x}/{y}?access_token=MLY|4381405525255083|3204871ec181638c3c31320490f03011', {
+                            minZoom: 14,
+                            maxNativeZoom: 14,
+                            pane: 'overlayPane',
+                            attribution: '&copy; <a href="https://www.mapillary.com" target="_blank">Mapillary</a>',
+                            vectorTileLayerStyles: {
+                                sequence: {
+                                    color: 'rgb(53, 175, 109)',
+                                    weight: 2,
+                                    opacity: 0.6
+                                },
+                                image: []
+                            }
+                        });
 
-                            });
-                            _this.mapboxMap.getMapboxMap().addLayer(
-                                {
-                                    'id': 'mapillary', // Layer ID
-                                    'type': 'line',
-                                    'source': 'mapillary', // ID of the tile source created above
-                                    // Source has several layers. We visualize the one with name 'sequence'.
-                                    'source-layer': 'sequence',
-                                    'layout': {
-                                        'line-cap': 'round',
-                                        'line-join': 'round',
-                                        'visibility': 'none'
-                                    },
-                                    'paint': {
-                                        'line-opacity': 0.6,
-                                        'line-color': 'rgb(53, 175, 109)',
-                                        'line-width': 2
-                                    }
-                                }
-                            );
+                        _this.mapillary_coverage = L.vectorGrid.protobuf('https://tiles.mapillary.com/maps/vtp/mly1_computed_public/2/{z}/{x}/{y}?access_token=MLY|4381405525255083|3204871ec181638c3c31320490f03011', {
+                            minZoom: 6,
+                            maxZoom: 14,
+                            pane: 'overlayPane',
+                            attribution: '&copy; <a href="https://www.mapillary.com" target="_blank">Mapillary</a>',
+                            vectorTileLayerStyles: {
+                                sequence: {
+                                    color: 'rgb(53, 175, 109)',
+                                    weight: 2,
+                                    opacity: 0.6
+                                },
+                                image: []
+                            },
+                            rendererFactory: L.canvas.tile
                         });
 
                         _this.controlLayers = L.control.layers({
@@ -1599,9 +1601,10 @@ export default class Buttons {
                         if (buttons.mapillaryStreetView.mapboxgl_canvas) buttons.mapillaryStreetView.mapboxgl_canvas.style.cursor = '';
                     }
                     buttons.disable_trace = false;
-                    buttons.mapboxMap.getMapboxMap().setLayoutProperty('mapillary', 'visibility', 'none');
                     buttons.street_view_content.style.color = '';
                     closeStreetView();
+                    buttons.mapillary_coverage.remove();
+                    buttons.mapillary_coverageZoomed.remove();
                     buttons.mapillaryStreetView.open = false;
                 } else {
                     if (!buttons.mapboxMap.getMapboxMap().isStyleLoaded()) {
@@ -1614,9 +1617,10 @@ export default class Buttons {
                         buttons.mapillaryStreetView.mapboxgl_canvas = mapboxgl_canvas[0];
                         buttons.mapillaryStreetView.mapboxgl_canvas.style.cursor = 'crosshair';
                     } else buttons.mapillaryStreetView.mapboxgl_canvas = null;
-                    buttons.mapillaryStreetView.open = true;
-                    buttons.mapboxMap.getMapboxMap().setLayoutProperty('mapillary', 'visibility', 'visible');
+                    buttons.mapillary_coverage.addTo(map);
+                    buttons.mapillary_coverageZoomed.addTo(map);
                     buttons.street_view_content.style.color = '#247827';
+                    buttons.mapillaryStreetView.open = true;
                 }
             });
             this.mapillary_move.addEventListener('mousedown', function (e) {
