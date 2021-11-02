@@ -521,7 +521,7 @@ export default class Buttons {
                             "OpenTopoMap" : _this.openTopoMap,
                             "OpenHikingMap" : _this.openHikingMap,
                             "CyclOSM" : _this.cyclOSM,
-                            "IGN (FR)" : _this.ignMap
+                            "IGN SCAN25 (FR)" : _this.ignMap
                         }).addTo(_this.map);
                     }
                 } else {
@@ -614,7 +614,7 @@ export default class Buttons {
                             "OpenTopoMap" : _this.openTopoMap,
                             "OpenHikingMap" : _this.openHikingMap,
                             "CyclOSM" : _this.cyclOSM,
-                            "IGN (FR)" : _this.ignMap
+                            "IGN SCAN25 (FR)" : _this.ignMap
                         },{
                             "Strava Heatmap" : _this.stravaHeatmap
                         }).addTo(_this.map);
@@ -628,7 +628,7 @@ export default class Buttons {
                             "OpenTopoMap" : _this.openTopoMap,
                             "OpenHikingMap" : _this.openHikingMap,
                             "CyclOSM" : _this.cyclOSM,
-                            "IGN (FR)" : _this.ignMap
+                            "IGN SCAN25 (FR)" : _this.ignMap
                         },{
                             "Strava Heatmap" : _this.stravaHeatmap
                         }).addTo(_this.map);
