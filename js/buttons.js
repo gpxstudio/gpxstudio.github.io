@@ -537,7 +537,7 @@ export default class Buttons {
 
                     _this.ignMap = L.tileLayer('https://wxs.ign.fr/csxlabhak328gg7s096cu55r/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR&FORMAT=image/jpeg&STYLE=normal', {
                         minZoom : 0,
-                        maxZoom : 18,
+                        maxNativeZoom : 16,
                         tileSize : 256,
                         attribution : "IGN-F/Géoportail"
                     });
