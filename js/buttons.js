@@ -457,13 +457,6 @@ export default class Buttons {
                     attribution: '&copy; <a href="https://www.opentopomap.org" target="_blank">OpenTopoMap</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
                 });
 
-                _this.ignMap = L.tileLayer('https://wxs.ign.fr/csxlabhak328gg7s096cu55r/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR&FORMAT=image/jpeg&STYLE=normal', {
-                    minZoom : 0,
-                    maxZoom : 18,
-                    tileSize : 256,
-                    attribution : "IGN-F/Géoportail"
-                });
-
                 if (_this.embedding) {
                     if (urlParams.has('token') && _this.supportsWebGL()) {
                         _this.mapboxMap = L.mapboxGL({
@@ -510,8 +503,7 @@ export default class Buttons {
                             "OpenStreetMap" : _this.openStreetMap,
                             "OpenTopoMap" : _this.openTopoMap,
                             "OpenHikingMap" : _this.openHikingMap,
-                            "CyclOSM" : _this.cyclOSM,
-                            "IGN SCAN25 (FR)" : _this.ignMap
+                            "CyclOSM" : _this.cyclOSM
                         }).addTo(_this.map);
 
                         _this.addSwitchMapboxLayers();
@@ -520,8 +512,7 @@ export default class Buttons {
                             "OpenStreetMap" : _this.openStreetMap,
                             "OpenTopoMap" : _this.openTopoMap,
                             "OpenHikingMap" : _this.openHikingMap,
-                            "CyclOSM" : _this.cyclOSM,
-                            "IGN SCAN25 (FR)" : _this.ignMap
+                            "CyclOSM" : _this.cyclOSM
                         }).addTo(_this.map);
                     }
                 } else {
@@ -543,6 +534,13 @@ export default class Buttons {
                         return div;
                     };
                     _this.streetView.addTo(_this.map);
+
+                    _this.ignMap = L.tileLayer('https://wxs.ign.fr/csxlabhak328gg7s096cu55r/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR&FORMAT=image/jpeg&STYLE=normal', {
+                        minZoom : 0,
+                        maxZoom : 18,
+                        tileSize : 256,
+                        attribution : "IGN-F/Géoportail"
+                    });
 
                     _this.stravaHeatmap = L.tileLayer('', {
                         maxZoom: 20,
