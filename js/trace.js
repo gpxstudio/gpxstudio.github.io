@@ -83,7 +83,7 @@ export default class Trace {
 
             var ul = document.getElementById("sortable");
             var li = document.createElement("li");
-            li.innerHTML = name+'<div class="tab-color" style="background:'+trace.normal_style.color+Math.round(trace.normal_style.opacity * 255).toString(16)+';">';
+            li.innerHTML = '<div class="handle">'+name+'</div><div class="tab-color" style="background:'+trace.normal_style.color+Math.round(trace.normal_style.opacity * 255).toString(16)+';">';
             li.title = name;
             li.classList.add('tab','tab-draggable');
             li.trace = trace;
@@ -191,10 +191,10 @@ export default class Trace {
 
     rename(name) {
         var newname = name ? name : this.tabname.value;
-        if (newname.length == 0) this.tab.innerHTML = this.name+'<div class="tab-color" style="background:'+this.normal_style.color+';">';
+        if (newname.length == 0) this.tab.innerHTML = '<div class="handle">'+this.name+'</div><div class="tab-color" style="background:'+this.normal_style.color+';">';
         else {
             this.name = newname;
-            this.tab.innerHTML = newname+'<div class="tab-color" style="background:'+this.normal_style.color+';">';
+            this.tab.innerHTML = '<div class="handle">'+newname+'</div><div class="tab-color" style="background:'+this.normal_style.color+';">';
             this.tab.title = newname;
         }
         this.renaming = false;

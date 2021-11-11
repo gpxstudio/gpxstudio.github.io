@@ -874,6 +874,7 @@ export default class Buttons {
 
         this.sortable = Sortable.create(this.tabs, {
             draggable: ".tab-draggable",
+            handle: ".handle",
             setData: function (dataTransfer, dragEl) {
                 const avgData = dragEl.trace.getAverageAdditionalData();
                 const data = total.outputGPX(false, true, avgData.hr, avgData.atemp, avgData.cad, avgData.power, dragEl.trace.index);
