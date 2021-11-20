@@ -526,6 +526,13 @@ export default class Buttons {
                         _this.map.fitBounds(bbox);
                     }).addTo(_this.map);
 
+                    L.control.locate({
+                        position: 'topright',
+                        icon: 'fas fa-crosshairs',
+                        keepCurrentZoomLevel: true,
+                        showPopup: false
+                    }).addTo(_this.map);
+
                     _this.streetView = L.control({
                         position: 'topright'
                     });

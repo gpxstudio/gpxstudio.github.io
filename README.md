@@ -49,6 +49,7 @@ This project would not have been possible without the following amazing projects
 * [leaflet-distance-markers](https://github.com/adoroszlai/leaflet-distance-markers): distance markers
 * [leaflet-control-window](https://github.com/mapshakers/leaflet-control-window): centered windows for all dialogs
 * [leaflet-control-geocoder](https://github.com/perliedman/leaflet-control-geocoder): search for locations with chosen API
+* [leaflet-locatecontrol](https://github.com/domoritz/leaflet-locatecontrol): center the map on user location
 * [tilebelt](https://github.com/mapbox/tilebelt): find correct tiles to request and access elevation data
 * [PNG.js](https://github.com/arian/pngjs): read raw PNG data to decode elevation from [Mapbox Terrain-RGB tiles](https://docs.mapbox.com/help/troubleshooting/access-elevation-data/#mapbox-terrain-rgb)
 * [simplify2](https://github.com/geonome/simplify2-js): line simplification algorithm
