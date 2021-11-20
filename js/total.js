@@ -359,50 +359,57 @@ export default class Total {
                             xmlOutput += `    <time>${point.meta.time.toISOString()}</time>
     `;
                         }
-                        xmlOutput += `    <extensions>
-        <gpxtpx:TrackPointExtension>
-    `;
 
+                        var trackPointExtensionsOutput = '';
                         if (incl_atemp) {
                             if (point.meta.hasOwnProperty('atemp')) {
-                                xmlOutput += `    <gpxtpx:atemp>${point.meta.atemp}</gpxtpx:atemp>
+                                trackPointExtensionsOutput += `    <gpxtpx:atemp>${point.meta.atemp}</gpxtpx:atemp>
     `;
-                        } else if (atemp != null) {
-                                xmlOutput += `    <gpxtpx:atemp>${atemp}</gpxtpx:atemp>
+                            } else if (atemp != null) {
+                                trackPointExtensionsOutput += `    <gpxtpx:atemp>${atemp}</gpxtpx:atemp>
     `;
                             }
                         }
                         if (incl_hr) {
                             if (point.meta.hasOwnProperty('hr')) {
-                                xmlOutput += `    <gpxtpx:hr>${point.meta.hr}</gpxtpx:hr>
+                                trackPointExtensionsOutput += `    <gpxtpx:hr>${point.meta.hr}</gpxtpx:hr>
     `;
-                        } else if (hr != null) {
-                                xmlOutput += `    <gpxtpx:hr>${hr}</gpxtpx:hr>
+                            } else if (hr != null) {
+                                trackPointExtensionsOutput += `    <gpxtpx:hr>${hr}</gpxtpx:hr>
     `;
                             }
                         }
                         if (incl_cad) {
                             if (point.meta.hasOwnProperty('cad')) {
-                                xmlOutput += `    <gpxtpx:cad>${point.meta.cad}</gpxtpx:cad>
+                                trackPointExtensionsOutput += `    <gpxtpx:cad>${point.meta.cad}</gpxtpx:cad>
     `;
-                        } else if (cad != null) {
-                                xmlOutput += `    <gpxtpx:cad>${cad}</gpxtpx:cad>
+                            } else if (cad != null) {
+                                trackPointExtensionsOutput += `    <gpxtpx:cad>${cad}</gpxtpx:cad>
     `;
                             }
                         }
-                        xmlOutput += `    </gpxtpx:TrackPointExtension>
-    `;
+
+                        var trackPointPowerOutput = '';
                         if (incl_power) {
                             if (point.meta.hasOwnProperty('power')) {
-                                xmlOutput += `    <power>${point.meta.power}</power>
+                                trackPointPowerOutput += `    <power>${point.meta.power}</power>
     `;
                         } else if (power != null) {
-                                xmlOutput += `    <power>${power}</power>
+                                trackPointPowerOutput += `    <power>${power}</power>
     `;
                             }
                         }
-                        xmlOutput += `    </extensions>
+                        if (trackPointExtensionsOutput.length > 0 || trackPointPowerOutput.length > 0) {
+                            xmlOutput += `    <extensions>
+        <gpxtpx:TrackPointExtension>
     `;
+                            xmlOutput += trackPointExtensionsOutput;
+                            xmlOutput += `    </gpxtpx:TrackPointExtension>
+    `;
+                            xmlOutput += trackPointPowerOutput;
+                            xmlOutput += `    </extensions>
+    `;
+                        }
                     }
                     xmlOutput += `</trkpt>
 `;
