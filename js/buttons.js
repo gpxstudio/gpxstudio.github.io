@@ -1641,6 +1641,7 @@ export default class Buttons {
             });
             this.mapillary_close.addEventListener('click', closeStreetView);
             map.addEventListener('click', function (e) {
+                console.log("here");
                 if (buttons.mapillaryStreetView.open) {
                     openStreetView(e);
                     return;
@@ -1664,9 +1665,8 @@ export default class Buttons {
 
                     if (trace.drawing) {
                         if (buttons.disable_trace) return;
-                        if (e.originalEvent.target.id != "mapid" && !e.originalEvent.target.classList.contains('mapboxgl-canvas')) return;
-                        if (!trace._draggingWaypoint) trace.addEndPoint(e.latlng.lat, e.latlng.lng);
-                        trace._draggingWaypoint = false;
+                        if (!trace.insertingMarker) trace.addEndPoint(e.latlng.lat, e.latlng.lng);
+                        trace.insertingMarker = false;
                     }
                 }
             })

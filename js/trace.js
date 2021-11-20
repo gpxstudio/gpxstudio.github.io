@@ -128,12 +128,14 @@ export default class Trace {
         }).on('click', function (e) {
             if (e.layer.sym) return;
             if (trace.buttons.disable_trace) return;
+            if (!trace.total.hasFocus && trace.total.focusOn != trace.index && trace.total.traces[trace.total.focusOn].isEdited) return;
             if (!e.target.trace.isEdited) e.target.trace.updateFocus();
         }).on('mousedown', function (e) {
             if (trace.buttons.disable_trace) return;
             if (trace.isEdited) {
                 if (e.originalEvent.which == 3) return;
                 if (e.layer._latlng) return;
+                trace.insertingMarker = true;
                 const marker = trace.insertEditMarker(e.layer, e.layerPoint);
                 marker.fire('mousedown');
             }
@@ -401,7 +403,6 @@ export default class Trace {
     draw() {
         this.edit();
         this.drawing = true;
-        this._draggingWaypoint = false;
         this.buttons.map._container.style.cursor = 'crosshair';
         var mapboxgl_canvas = document.getElementsByClassName('mapboxgl-canvas');
         if (mapboxgl_canvas.length > 0) {

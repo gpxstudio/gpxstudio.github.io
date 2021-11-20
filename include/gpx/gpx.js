@@ -768,7 +768,6 @@ L.GPX = L.FeatureGroup.extend({
               marker._latlng_origin = marker._latlng;
               map._draggedMarker = marker;
               marker.getElement().style.cursor = 'grabbing';
-              trace._draggingWaypoint = true;
           },
           drag: function (e) {
               const pt = map.latLngToLayerPoint(e.latlng);
