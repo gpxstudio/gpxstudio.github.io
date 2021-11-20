@@ -55,7 +55,9 @@ export default class Buttons {
         this.map.addEventListener("locationfound", function (e) {
             e.target.setView(e.latlng,12);
         });
-        if (!this.embedding && !urlParams.has('state')) this.map.locate({setView: true, maximumAge: 100000});
+        if (!this.embedding && !urlParams.has('state') && !localStorage.hasOwnProperty('traces')) {
+            this.map.locate({setView: true, maximumAge: 100000});
+        }
 
         // BUTTONS
         this.input = document.getElementById("input-file");
@@ -413,6 +415,7 @@ export default class Buttons {
         this.languages = L.control({position: 'bottomleft'});
         this.languages.onAdd = function (map) {
             var div = _this.languages_content;
+            L.DomEvent.disableClickPropagation(div);
             for (var i=0; i<div.children.length; i++) if (div.children[i].textContent == language) {
                 div.children[i].style.display = 'none';
                 break;
@@ -655,6 +658,7 @@ export default class Buttons {
 
                 _this.total = new Total(_this);
                 _this.openURLs();
+                _this.openLocalStorage();
             }
         }
         xhr.open('GET', '/res/keys.json');
@@ -1641,7 +1645,6 @@ export default class Buttons {
             });
             this.mapillary_close.addEventListener('click', closeStreetView);
             map.addEventListener('click', function (e) {
-                console.log("here");
                 if (buttons.mapillaryStreetView.open) {
                     openStreetView(e);
                     return;
@@ -1669,7 +1672,18 @@ export default class Buttons {
                         trace.insertingMarker = false;
                     }
                 }
-            })
+            });
+            window.addEventListener('unload', function (e) {
+                if (buttons.embedding) return;
+                if (buttons.total.traces.length > 0) {
+                    localStorage.setItem('traces', buttons.total.traces.length);
+                    for (var i=0; i<buttons.total.traces.length; i++) {
+                        const avgData = buttons.total.traces[i].getAverageAdditionalData();
+                        const data = total.outputGPX(false, true, avgData.hr, avgData.atemp, avgData.cad, avgData.power, i);
+                        localStorage.setItem(i,JSON.stringify(data[0]));
+                    }
+                }
+            });
         }
         this.show_chevrons.addEventListener('input', function (e) {
             buttons.show_direction = buttons.show_chevrons.checked;
@@ -1827,6 +1841,24 @@ export default class Buttons {
                 xhr.send();
             }
         }
+    }
+
+    openLocalStorage() {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        if (urlParams.has('state')) return;
+        if (this.embedding) return;
+
+        if (!localStorage.hasOwnProperty('traces')) return;
+
+        var length = localStorage.getItem('traces');
+        for (var i=0; i<length; i++) {
+            if (!localStorage.hasOwnProperty(i)) continue;
+            const data = JSON.parse(localStorage.getItem(i));
+            this.total.addTrace(data.text, data.name);
+            localStorage.removeItem(i);
+        }
+        localStorage.removeItem('traces');
     }
 
     showLoadErrorPopup() {
