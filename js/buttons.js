@@ -1402,7 +1402,7 @@ export default class Buttons {
             buttons.keep_timestamps = buttons.edit_keep_time.checked;
             buttons.edit_window.hide();
         });
-        document.addEventListener("keydown", function (e) {
+        document.addEventListener("keyup", function (e) {
             if (e.key === "Escape") {
                 if (buttons.window_open) buttons.window_open.hide();
                 if (total.hasFocus) return;
