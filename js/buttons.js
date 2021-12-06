@@ -679,13 +679,13 @@ export default class Buttons {
             const span = layerSelectors[i].nextSibling;
             if (span.textContent.endsWith("Outdoors")) {
                 _this.mapboxOutdoorsSelector = layerSelectors[i];
-                _this.mapboxOutdoorsSelector.checked = (_this.mapboxMap == Object.values(_this.map._layers)[0]) && (_this.mapboxMap.options.style == "mapbox://styles/mapbox/outdoors-v11");
+                _this.mapboxOutdoorsSelector.checked = this.mapboxMap._map && (_this.mapboxMap.options.style == "mapbox://styles/mapbox/outdoors-v11");
                 _this.mapboxOutdoorsSelector.addEventListener('click', function (e) {
                     _this.mapboxMap.getMapboxMap().setStyle("mapbox://styles/mapbox/outdoors-v11", {diff: false});
                 });
             } else if (span.textContent.endsWith("Satellite")) {
                 _this.mapboxSatelliteSelector = layerSelectors[i];
-                _this.mapboxSatelliteSelector.checked = (_this.mapboxMap == Object.values(_this.map._layers)[0]) && (_this.mapboxMap.options.style == "mapbox://styles/mapbox/satellite-v9");
+                _this.mapboxSatelliteSelector.checked = this.mapboxMap._map && (_this.mapboxMap.options.style == "mapbox://styles/mapbox/satellite-v9");
                 _this.mapboxSatelliteSelector.addEventListener('click', function (e) {
                     _this.mapboxMap.getMapboxMap().setStyle("mapbox://styles/mapbox/satellite-v9", {diff: false});
                 });
