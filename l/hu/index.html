@@ -72,7 +72,7 @@
         <div id="mly"><div id="mly-controls"><i id="mly-move" class="fas fa-arrows-alt custom-button"></i><i id="mly-close" class="fas fa-times custom-button"></i></div></div>
         <div style="display: none">
         <div id="toolbar" class="panels-container center-leaflet">
-            <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 2px 4px" alt="logo of gpx.studio, the online GPX file editor"></a>
+            <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 2px 4px" alt="a gpx.studio, az online GPX fájlszerkesztő logója"></a>
             <div id="load" class="panels custom-button">GPX fájl feltöltés</div>
             <div id="manual" class="panels custom-button">Új GPX útvonal készítés</div>
             <div id="export" class="panels custom-button">GPX letöltés</div>
@@ -80,7 +80,7 @@
             <div class="panels custom-button unselected no-click2" id="redo"><i class="fas fa-share"></i></div>
             <div id="clear" class="panels custom-button">Teljes útvonal törlése</div>
             <div id="help" class="panels custom-button">Segítség</div>
-            <div id="about" class="panels custom-button">About</div>
+            <div id="about" class="panels custom-button">Rólunk</div>
             <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)">Támogatás <i class="fas fa-heart"></i></div>
         </div>
         <div id="info" class="padding-container center-leaflet">
@@ -121,7 +121,7 @@
                     </div>
                     <span id="selected-routing"><i class="fas fa-route"></i></span>
                 </div>
-                <div id="elevation-input" class="panels-button custom-button" title="Toggle the elevation profile"><i class="fas fa-chart-area"></i></div>
+                <div id="elevation-input" class="panels-button custom-button" title="A magassági profil be- és kikapcsolása"><i class="fas fa-chart-area"></i></div>
                 <div id="crop-container">
                     <div class="panels-button custom-button" id="validate"><i class="fas fa-check custom-button"></i></div>
                 </div>
@@ -135,20 +135,20 @@
             </ul>
         </div>
         <div id="buttons-bar" class="panels-container vcenter-leaflet">
-            <div class="panels-button" id="edit" title="Edit track points"><i class="fas fa-pencil-alt custom-button"></i></div><br>
-            <div class="panels-button" id="edit-time" title="Edit time"><i class="fas fa-stopwatch custom-button"></i></div><br>
-            <div class="panels-button" id="reverse" title="Reverse"><i class="fas fa-exchange-alt custom-button"></i></div><br>
-            <div class="panels-button" id="combine" title="Merge with another trace"><i class="fas fa-plus-circle custom-button"></i></div><br>
-            <div class="panels-button" id="extract" title="Extract track segments"><i class="fas fa-list-ul custom-button"></i></div><br>
-            <div class="panels-button" id="duplicate" title="Duplicate"><i class="fas fa-copy custom-button"></i></div><br>
-            <div class="panels-button" id="color" title="Change color, opacity and width"><i class="fas fa-palette custom-button"></i></div><br>
-            <div class="panels-button" id="add-wpt" title="Add waypoint"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
-            <div class="panels-button" id="reduce" title="Reduce number of track points"><i class="fas fa-compress-alt custom-button"></i></div><br>
-            <div class="panels-button" id="zone-delete" title="Delete all inside/outside rectangle selection"><i class="fas fa-vector-square custom-button"></i></div><br>
-            <div class="panels-button" id="hide" title="Hide/unhide the trace"><i class="fas fa-eye-slash custom-button"></i></div><br>
-            <div class="panels-button" id="delete" title="Delete"><i class="fas fa-trash-alt custom-button"></i></div><br>
+            <div class="panels-button" id="edit" title="Nyomvonalpontok szerkesztése"><i class="fas fa-pencil-alt custom-button"></i></div><br>
+            <div class="panels-button" id="edit-time" title="Idő szerkesztése"><i class="fas fa-stopwatch custom-button"></i></div><br>
+            <div class="panels-button" id="reverse" title="Út menetirány váltás"><i class="fas fa-exchange-alt custom-button"></i></div><br>
+            <div class="panels-button" id="combine" title="Útvonalak összeillesztése"><i class="fas fa-plus-circle custom-button"></i></div><br>
+            <div class="panels-button" id="extract" title="Útvonal szegmens kivágása"><i class="fas fa-list-ul custom-button"></i></div><br>
+            <div class="panels-button" id="duplicate" title="Duplikálás"><i class="fas fa-copy custom-button"></i></div><br>
+            <div class="panels-button" id="color" title="Útvonal szín, átlátszóság, szélesség megváltoztatása"><i class="fas fa-palette custom-button"></i></div><br>
+            <div class="panels-button" id="add-wpt" title="Útvonalpont hozzáadása"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
+            <div class="panels-button" id="reduce" title="Csökkentse a útvonalpontok számát"><i class="fas fa-compress-alt custom-button"></i></div><br>
+            <div class="panels-button" id="zone-delete" title="Töröljön mindent a téglalap kijelölésen belül és kívül"><i class="fas fa-vector-square custom-button"></i></div><br>
+            <div class="panels-button" id="hide" title="Útvonal elrejtése/felfedése"><i class="fas fa-eye-slash custom-button"></i></div><br>
+            <div class="panels-button" id="delete" title="Törlés"><i class="fas fa-trash-alt custom-button"></i></div><br>
         </div>
-        <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Street View"></i>
+        <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Utcai nézet megnyitása"></i>
         <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Irányjelzőtáblák</label>
         <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Távolságjelző táblák</label>
         <!-- ADD_LANGUAGE -->
@@ -420,7 +420,7 @@
             <div id="load-error-ok" class="panels custom-button normal-button">Rendben</div>
         </div>
         <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
-            <b>Megnyitás itt:</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logo of gpx.studio, the online GPX file editor">
+            <b>Megnyitás itt:</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="a gpx.studio, az online GPX fájlszerkesztő logója">
         </div>
         <div id="unit-kilometers-text">km</div>
         <div id="unit-miles-text">mi</div>
@@ -428,8 +428,8 @@
         <div id="unit-feet-text">ft</div>
         <div id="unit-hours-text">h</div>
         <div id="unit-minutes-text">min</div>
-        <div id="duplicate-text">Duplicate</div>
-        <div id="delete-text">Delete</div>
+        <div id="duplicate-text">Duplikálás</div>
+        <div id="delete-text">Törlés</div>
         <div id="ok-button-text">Rendben</div>
         <div id="cancel-button-text">Mégsem</div>
         <div id="edit-speed-popup-text">
@@ -457,45 +457,45 @@
             <div id="surface-text">Szintkép</div>
             <div id="slope-text">Erőkifejtési szintkép színekkel</div>
             <div id="missing-text">Hiányzó</div>,
-            <div id="paved-text">Paved</div>,
-            <div id="unpaved-text">Unpaved</div>,
-            <div id="asphalt-text">Asphalt</div>,
-            <div id="concrete-text">Concrete</div>,
-            <div id="chipseal-text">Chipseal</div>,
-            <div id="cobblestone-text">Cobblestone</div>,
-            <div id="unhewn-cobblestone-text">Unhewn Cobblestone</div>,
-            <div id="paving-stones-text">Paving Stones</div>,
-            <div id="stepping-stones-text">Stepping Stones</div>,
-            <div id="sett-text">Sett Paving</div>,
-            <div id="metal-text">Metal</div>,
-            <div id="wood-text">Wood</div>,
-            <div id="compacted-text">Compacted Gravel</div>,
-            <div id="fine-gravel-text">Fine Gravel</div>,
-            <div id="gravel-text">Gravel</div>,
-            <div id="pebblestone-text">Pebblestone</div>,
-            <div id="rock-text">Rock</div>,
-            <div id="dirt-text">Dirt</div>,
-            <div id="ground-text">Ground</div>,
-            <div id="earth-text">Earth</div>,
-            <div id="snow-text">Snow</div>,
-            <div id="ice-text">Ice</div>,
-            <div id="salt-text">Salt</div>,
-            <div id="mud-text">Mud</div>,
-            <div id="sand-text">Sand</div>,
-            <div id="woodchips-text">Woodchips</div>,
-            <div id="grass-text">Grass</div>,
-            <div id="grass-paver-text">Grass Paver</div>
+            <div id="paved-text">Szilárd burkolatú</div>,
+            <div id="unpaved-text">Földes</div>,
+            <div id="asphalt-text">Aszfalt</div>,
+            <div id="concrete-text">Beton</div>,
+            <div id="chipseal-text">Törmelékes</div>,
+            <div id="cobblestone-text">Macskaköves</div>,
+            <div id="unhewn-cobblestone-text">Faragatlan macskakő</div>,
+            <div id="paving-stones-text">Kő burkolat</div>,
+            <div id="stepping-stones-text">Lépcsők</div>,
+            <div id="sett-text">Kőlap</div>,
+            <div id="metal-text">Fém</div>,
+            <div id="wood-text">Fa</div>,
+            <div id="compacted-text">Tömörített kavics</div>,
+            <div id="fine-gravel-text">Finom kavics</div>,
+            <div id="gravel-text">Kavics</div>,
+            <div id="pebblestone-text">Kavicsos kő</div>,
+            <div id="rock-text">Szikla</div>,
+            <div id="dirt-text">Piszok</div>,
+            <div id="ground-text">Föld</div>,
+            <div id="earth-text">Föld</div>,
+            <div id="snow-text">Hó</div>,
+            <div id="ice-text">Jég</div>,
+            <div id="salt-text">Só</div>,
+            <div id="mud-text">Sár</div>,
+            <div id="sand-text">Homok</div>,
+            <div id="woodchips-text">Faforgács</div>,
+            <div id="grass-text">Fű</div>,
+            <div id="grass-paver-text">Füves burkolat</div>
         </div>
-        <h1>online gpx editor</h1>
-        <h1>online gpx viewer</h1>
-        <h1>edit gpx files online</h1>
-        <h1>view gpx files online</h1>
-        <h1>merge gpx files online</h1>
-        <h1>extract segments gpx file online</h1>
-        <h1>reverse gpx file online</h1>
-        <h1>add timestamps to gpx file online</h1>
-        <h1>compress simplify reduce number points gpx file online</h1>
-        <h1>view and add waypoints gpx file online</h1>
+        <h1>online gpx szerkesztő</h1>
+        <h1>online gpx megjelenítő</h1>
+        <h1>szerkesztheti a gpx fájlokat online</h1>
+        <h1>megtekintheti a gpx fájlokat online</h1>
+        <h1>egyesítheti a gpx fájlokat online</h1>
+        <h1>szegmensek gpx fájlból kibontása online</h1>
+        <h1>menetirány megfordítás gpx fájlba online</h1>
+        <h1>időbélyegek hozzáadása a gpx fájlhoz online</h1>
+        <h1>útvonalpontok csökkentése vagy növelése gpx fájlban online</h1>
+        <h1>útvonalpont megjelenítés és hozzáadás gpx fájlba online</h1>
         </div>
     </body>
     <script src="/include/leaflet/leaflet.js"></script>
