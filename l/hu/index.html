@@ -297,9 +297,9 @@
         </table><br>
         Alul egy panelt láthat a feltöltött vagy szerkesztett fájl adatokkal kapcsolatos információkkal.
         Az <b>Összesen</b> minden megnyitott útvonal adatát összesítve mutatja meg.
-        <b>Sorrnedbe mozgathatjuk az útvonalakat</b> az útvonalak megjelenési sorrendjének meghatározásához, és <b>kattintson duplán az útvonalak füleire</b> a nevük megváltoztatásához. ( ez a funkció akkor használható, ha több útvonal van megnyitva.)
-        When you have many tabs, navigate through them by scrolling horizontally.
-        Use the <b>slider</b> to move the start/end point and cut the route.
+        <b>Sorrendbe mozgathatjuk az útvonalakat</b> az útvonalak megjelenési sorrendjének meghatározásához, és <b>kattintson duplán az útvonalak füleire</b> a nevük megváltoztatásához. ( ez a funkció akkor használható, ha több útvonal van megnyitva.).
+        Ha sok útvonal lapja van, vízszintesen a fülekre kattintva tud váltani köztük.
+        A szinttérkép alatti <b>csúszkával</b> mozgassa a kezdő/végpontot, és levághatja igény szerint az útvonalat. ( a csúszka melletti pipa jelre kattintson a kijelölés után.).
         </div>
         <div id="export-content" class="popup-content">
             <table style="width: 100%; text-align: left">
@@ -311,74 +311,74 @@
                 </colgroup>
                 <tbody>
                     <td></td>
-                    <td>Merge all traces<input type="checkbox" id="merge"></td>
-                    <td>Time<input type="checkbox" id="include-time" checked></td>
+                    <td>Összes útvonal össze illesztése, egyesítése<input type="checkbox" id="merge"></td>
+                    <td>Idő<input type="checkbox" id="include-time" checked></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td>Heartrate<input type="checkbox" id="include-hr" checked></td>
-                    <td>Cadence<input type="checkbox" id="include-cad" checked></td>
+                    <td>Pulzus<input type="checkbox" id="include-hr" checked></td>
+                    <td>Lépés/Pedál ütem<input type="checkbox" id="include-cad" checked></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td>Power<input type="checkbox" id="include-power" checked></td>
-                    <td>Temperature<input type="checkbox" id="include-atemp" checked></td>
+                    <td>Erő<input type="checkbox" id="include-power" checked></td>
+                    <td>Hőmérséklet<input type="checkbox" id="include-atemp" checked></td>
                     <td></td>
                 </tr>
                 </tbody>
             </table>
-            <div style="color:#0f92c5;">&#9888;&#65039; The tool is <b>free</b> to use but <b>not free</b> to run &#9888;&#65039;<br>Each map display, track point added or moved is billed.</div>
-            <div id="donate-2" class="panels custom-button fancy-button"><b>Help keep the website free</b> &#128591;</div><br>
-            <div id="export-2" class="panels custom-button fancy-button">Download <i class="fas fa-download"></i></div>
-            <div id="save-drive" class="panels custom-button fancy-button">Save to Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
+            <div style="color:#0f92c5;">&#9888;&#65039; Ez az eszköz <b>ingyenesen</b> használható, de <b>nem ingyenes</b> az üzemeltetése&#9888;&#65039;<br>Minden térkép megjelenítés, hozzáadott vagy áthelyezett útvonal az üzemeltetőnek pénzbe kerül.</div>
+            <div id="donate-2" class="panels custom-button fancy-button"><b>Segíts az üzemeltetőnek, hogy az alkalmazás továbbra is ingyen használható legyen</b> &#128591;</div><br>
+            <div id="export-2" class="panels custom-button fancy-button">Letöltés <i class="fas fa-download"></i></div>
+            <div id="save-drive" class="panels custom-button fancy-button">Mentés ide: Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
         </div>
         <div id="clear-content" class="popup-content">
-            This will delete all open traces.<br>Do you wish to continue?<br>
-            <div id="clear2" class="panels custom-button normal-button">Yes</div>
-            <div id="cancelclear" class="panels custom-button normal-button"><b>Cancel</b></div>
+            Ezzel törli az összes nyitott útvonalat.<br>Folytatja?<br>
+            <div id="clear2" class="panels custom-button normal-button">Igen</div>
+            <div id="cancelclear" class="panels custom-button normal-button"><b>Mégsem</b></div>
         </div>
         <div id="delete-content" class="popup-content">
-            This will delete the current trace.<br>Do you wish to continue?<br>
-            <div id="delete2" class="panels custom-button normal-button">Yes</div>
-            <div id="canceldelete" class="panels custom-button normal-button"><b>Cancel</b></div>
+            Ezzel törli az aktuális útvonalat.<br>Folytatja?<br>
+            <div id="delete2" class="panels custom-button normal-button">Igen</div>
+            <div id="canceldelete" class="panels custom-button normal-button"><b>Mégsem</b></div>
         </div>
         <div id="color-content" class="popup-content">
             <div style="text-align: left">
-                <label for="color-picker">Pick a new color</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
-                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Apply color to all traces</label><br>
-                <label for="opacity-slider">Opacity</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
-                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Apply opacity to all traces</label><br>
-                <label for="width-slider">Width</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
-                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Apply width to all traces</label>
+                <label for="color-picker">Válasszon új színt</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
+                 <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Útvonal szín módosítása</label><br>
+                 <label for="opacity-slider">Átlátszóság</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
+                 <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Útvonal átlátszóság módosítása </label><br>
+                 <label for="width-slider">Szélesség</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
+                 <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Útvonal szélesség módosítása</label>
             </div>
-            <div id="validate-color" class="panels custom-button normal-button">Ok</div>
-            <div id="cancel-color" class="panels custom-button normal-button">Cancel</div>
+            <div id="validate-color" class="panels custom-button normal-button">Rendben</div>
+            <div id="cancel-color" class="panels custom-button normal-button">Mégsem</div>
         </div>
         <div id="load-content" class="popup-content">
-            Choose files from<br>
-            <div id="load2" class="panels custom-button normal-button">Desktop</div>
+            Válasszon fájlokat innen<br>
+            <div id="load2" class="panels custom-button normal-button">Asztal (saját gép)</div>
             <div id="load-drive" class="panels custom-button normal-button">Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div><br>
-            (or drag and drop anywhere in the window)
+            (vagy húzza át az ablakban bárhová)
         </div>
         <div id="share-content" class="popup-content">
-            Done!<br>
-            <div id="copy-link" class="panels custom-button fancy-button">Copy link <i class="fas fa-link"></i></div><br>
-            <div id="copy-embed" class="panels custom-button fancy-button">Copy embedding code <i class="fas fa-code"></i></div><br>
+            Kész!<br>
+            <div id="copy-link" class="panels custom-button fancy-button">Link másolása <i class="fas fa-link"></i></div><br>
+            <div id="copy-embed" class="panels custom-button fancy-button">Beágyazható kód másolás <i class="fas fa-code"></i></div><br>
         </div>
         <div id="edit-content" class="popup-content">
-            <i class="fas fa-stopwatch"></i> Choose how to adapt the timestamps of the trace
+            <i class="fas fa-stopwatch"></i> Válassza ki az útvonal időbélyegeinek adaptálását
             <div class="center-leaflet" style="text-align: left; width: min-content;">
-                <input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
-                <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preserve the original timestamps</label>
+                <input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Tartsa meg az átlagsebességet</label><br>
+                <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Tartsa meg az eredeti időbélyegeket</label>
             </div>
-            <div id="edit-ok" class="panels custom-button normal-button">Ok</div><hr>
-            <input type="checkbox" id="remember-edit-time"><label for="remember-edit-time">Remember my choice for this session</label>
+            <div id="edit-ok" class="panels custom-button normal-button">Rendben</div><hr>
+            <input type="checkbox" id="remember-edit-time"><label for="remember-edit-time">Választásom megjegyzése ezen az oldalon</label>
         </div>
         <div id="merge-content" class="popup-content">
             <div id="merge-time-options">
-                <i class="fas fa-stopwatch"></i> Choose how to adapt the timestamps of the second trace (if any)
+                <i class="fas fa-stopwatch"></i> Válassza ki a második útvonal időbélyegeinek adaptálási módját (ha van ilyen)
                 <div class="center-leaflet" style="text-align: left; width: min-content;">
                     <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Keep the original timestamps (as long as they come after those of the first trace)</label><br>
                     <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Make the second trace start right after the first one</label>
@@ -391,19 +391,19 @@
                 <hr>
             </div>
             Click on another tab to merge the current trace with it<br>
-            <div id="merge-cancel" class="panels custom-button normal-button">Cancel</div>
+            <div id="merge-cancel" class="panels custom-button normal-button">Mégsem</div>
         </div>
         <div id="crop-content" class="popup-content">
             <input type="checkbox" id="crop-keep">Keep cropped parts in new files<br>
             <div id="crop-ok" class="panels custom-button normal-button">Proceed</div>
-            <div id="crop-cancel" class="panels custom-button normal-button">Cancel</div>
+            <div id="crop-cancel" class="panels custom-button normal-button">Mégsem</div>
         </div>
         <div id="reduce-content" class="popup-content">
             Choose the amount of detail to keep<br>
             Number of track points: <span id="reduce-npoints">0</span><br>
             <input type="range" min="0" max="1000" id="reduce-slider" style="width: 100%"><br>
-            <div id="reduce-ok" class="panels custom-button normal-button">Ok</div>
-            <div id="reduce-cancel" class="panels custom-button normal-button">Cancel</div>
+            <div id="reduce-ok" class="panels custom-button normal-button">Rendben</div>
+            <div id="reduce-cancel" class="panels custom-button normal-button">Mégsem</div>
         </div>
         <div id="zone-delete-content" class="popup-content">
             Choose what to delete<br>
@@ -412,12 +412,12 @@
             <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inside selection</label>
             <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
             <div id="zone-delete-ok" class="panels custom-button normal-button">Proceed</div>
-            <div id="zone-delete-cancel" class="panels custom-button normal-button">Cancel</div>
+            <div id="zone-delete-cancel" class="panels custom-button normal-button">Mégsem</div>
         </div>
         <div id="load-error-content" class="popup-content">
             There was an error loading your GPX file.<br>
             Please check the file format.<br>
-            <div id="load-error-ok" class="panels custom-button normal-button">Ok</div>
+            <div id="load-error-ok" class="panels custom-button normal-button">Rendben</div>
         </div>
         <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
             <b>Open in</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logo of gpx.studio, the online GPX file editor">
@@ -430,8 +430,8 @@
         <div id="unit-minutes-text">min</div>
         <div id="duplicate-text">Duplicate</div>
         <div id="delete-text">Delete</div>
-        <div id="ok-button-text">Ok</div>
-        <div id="cancel-button-text">Cancel</div>
+        <div id="ok-button-text">Rendben</div>
+        <div id="cancel-button-text">Mégsem</div>
         <div id="edit-speed-popup-text">
             <div id="speed-text">Sebesség</div>
             <div id="pace-text">Pace</div>
