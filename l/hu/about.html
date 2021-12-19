@@ -220,51 +220,51 @@
                         <li>Válassza ki vagy hozzon létre új mappát, ahová a fájlokat menteni szeretné.</li>
                         <li>A fájlok feltöltése után kattintson a <span class="button">Link másolása <i class="fas fa-link"></i></span> gombra, és küldje el barátainak! Ezzel megosztotta velük a mappába szereplő fájlokat!</li>
                     </ol>
-                    If you want to use <b>gpx.studio</b> to open GPX files stored on your Google Drive, you can install the <a href="https://gsuite.google.com/marketplace/app/gpxstudio_the_online_gpx_editor/666808960580" target="_blank">Google Drive Add-on</a>.
+                    Ha a <b>gpx.studio</b> segítségével szeretné megnyitni a Google Drive-on tárolt GPX-fájlokat, telepítheti a <a href="https://gsuite.google.com/marketplace/app/gpxstudio_the_online_gpx_editor/666808960580" target="_blank">Google Drive-bővítményt</a>.
                 </div></div>
-                <div class="guide-item"><a name="edit-track-points" href="#edit-track-points" class="my-anchor"><div class="guide-title" onclick="toggle('edit-track')">Edit the track points of a GPX file</div></a>
-                <div id="edit-track" style="display: none">Click on <i class="fas fa-pencil-alt button"></i> to enter the edition mode. Depending on the zoom level, a set of anchor points appears. The more you zoom in, the more anchor points appear.<br>You can then:
+                <div class="guide-item"><a name="edit-track-points" href="#edit-track-points" class="my-anchor"><div class="guide-title" onclick="toggle('edit-track')">GPX-fájl útvonalpontjainak szerkesztése</div></a>
+                <div id="edit-track" style="display: none">Kattintson a <i class="fas fa-pencil-alt button"></i> gombra a szerkesztés módba lépéshez. Megjelennek az útvonal szerkesztési pontok. A pontok megjelenési sűrűsége függ a térkép nagyított vagy kicsinyített nézetétől. Minél jobban nagyít, annál több útvonal szerkesztési pont jelenik meg.<br>Ezután lehetősége van:
                     <ul>
-                        <li>add track points at the end of the trace by clicking on the map at the locations you want to go through.</li>
-                        <li>drag an anchor point or the line itself to re-route the trace through a new location.</li>
+                        <li>hozzá adhat folytatólagosan útvonal szerkesztési pontokat a útvonal végéhez, ha a térképen azokra az utakra vagy helyekre kattint, amerre szeretne menni.</li>
+                        <li>húzzon egy útvonal szerkesztési pontot vagy magát a vonalat az új útra. Az útvonal átszerkeszti magát a megadott útra.</li>
                         <li>kattintson a jobb gombbal egy útvonal szerkesztési pontra, és a <span class="button"><i class="fas fa-trash-alt"></i> <span>Pont eltávolítása</span></span> parancs segítségével távolítsa el.</li>
-                        <li>right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> to split the trace at a chosen location.</li>
-                        <li>right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-undo"></i> <span>Start loop here</span></span> to make the loop start at a chosen location.</li>
+                        <li>kattintson a jobb gombbal egy útvonal szerkesztési pontra vagy a vonalra, és használja a <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> parancsot a nyomvonal szétválasztásához a kiválasztott helyen.</li>
+                        <li>kattintson a jobb gombbal egy útvonal szerkesztési pontra vagy a vonalra, és használja a <span class="button"><i class="fas fa-undo"></i> <span>Rajt innen</span></span> parancsot, hogy az útvonal teljesítése egy kiválasztott helyről induljon.</li>
                     </ul>
-                    If you make a mistake or change your mind about the itinerary, use the undo <i class="fas fa-reply button"></i> and redo <i class="fas fa-share button"></i> buttons.<br>
-                    Two options control how two consecutive points are connected:
+                    Ha hibázik, vagy meggondolja magát az útvonallal kapcsolatban, használja az előzmények nyilakkal jelölt visszavonás <i class="fas fa-reply button"></i> vagy az újra hozzáadás <i class="fas fa-share button"></i> gombokat.
+                     Két beállítási lehetőség szabályozza, hogyan csatlakozzon két egymást követő útvonal szerkesztési pont:
                     <ul>
-                        <li>use
-                            <span class="button">
-                                <i class="fas fa-biking"></i>
-                                <i class="fas fa-arrows-alt-h"></i>
-                                <i class="fas fa-running"></i>
-                                <i class="fas fa-arrows-alt-h"></i>
-                                <i class="fas fa-motorcycle"></i>
-                            </span> to select the correct activity and use the most appropriate roads.
+                        <li>tevékenységi mód kiválasztása
+                                     <span class="button">
+                                         <i class="fas fa-biking"></i>
+                                         <i class="fas fa-arrows-alt-h"></i>
+                                         <i class="fas fa-running"></i>
+                                         <i class="fas fa-arrows-alt-h"></i>
+                                         <i class="fas fa-motorcycle"></i>
+                                     </span> a megfelelő tevékenységi mód kiválasztásához és a legmegfelelőbb utak használatához.
                         </li>
                         <li>a <span class="button"><i class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-dove"></i></span> gombok használatával válthat az útvonalra tervezés (valós útra illesztés) vagy a „légvonalban” (egyenes útvonal) kijelölés között.</li>
                     </ul>
-                    If you edit a GPX file containing time, temperature, heartrate, cadence or power data, new track points will automatically contain the average value for each of those fields.
+                    Ha szerkeszt egy GPX-fájlt, amely időt, hőmérsékletet, pulzusszámot, ritmus- vagy teljesítményadatokat tartalmaz, az új útvonal szerkesztési pontok automatikusan tartalmazzák az egyes mezők átlagos értékét.
                 </div></div>
-                <div class="guide-item"><a name="crop-file" href="#crop-file" class="my-anchor"><div class="guide-title" onclick="toggle('crop')">Crop a GPX file</div></a>
-                <div id="crop" style="display: none">There are three options:
+                <div class="guide-item"><a name="crop-file" href="#crop-file" class="my-anchor"><div class="guide-title" onclick="toggle('crop')">GPX file vágás</div></a>
+                <div id="crop" style="display: none">Három lehetőség van:
                     <ul>
-                        <li>Use the slider in the bottom panel to move the start and end points of the trace. Click on <i class="fas fa-check button"></i> to validate the selection. You can choose whether you want to keep cropped parts in separate files.</li>
-                        <li>Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> to split the trace at a chosen location.</li>
-                        <li>Click on <i class="fas fa-vector-square button"></i> and select an area containing the track points you want to keep or delete. Uncheck the box <i class="far fa-check-square"></i> Waypoints if you do not want to remove waypoints at the same time. Then, choose whether you want to delete track points inside or outside of the selection. Finally, click on <span class="button">Proceed</span>.</li>
+                        <li>Az alsó panelen a szintkép alatt lévő csúszkával mozgathatja a útvonal kezdő- és végpontját. Kattintson a <i class="fas fa-check button"></i> ábrára a kiválasztás érvényesítéséhez. Kiválaszthatja, hogy a kivágott részeket külön fájlokban kívánja-e menteni.</li>
+                        <li>Lépjen be az útvonal szerkesztési módba a <i class="fas fa-pencil-alt button"></i> gombra kattintva. Kattintson a jobb gombbal egy útvonal szerkesztési pontra vagy a vonalra, és használja a <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> parancsot a nyomvonal szétválasztásához a kiválasztott helyen.</li>
+                        <li>Kattintson a <i class="fas fa-vector-square button"></i> elemre, és jelölje ki a megtartani vagy törölni kívánt útvonal szerkesztési pontokat tartalmazó területet. Vegye ki a pipa jelet <i class="far fa-check-square"></i> az útpontok jelölőnégyzetből, ha nem szeretné egyszerre eltávolítani az útpontokat. Ezután válassza ki, hogy a kijelölt területen belül vagy kívül szeretné-e törölni az útvonalpontokat. Végül kattintson a <span class="button">Folytatás</span> gombra.</li>
                     </ul>
                 </div></div>
-                <div class="guide-item"><a name="split-file" href="#split-file" class="my-anchor"><div class="guide-title" onclick="toggle('split')">Split a GPX file</div></a>
+                <div class="guide-item"><a name="split-file" href="#split-file" class="my-anchor"><div class="guide-title" onclick="toggle('split')">GPX fájl szakaszolás</div></a>
                 <div id="split" style="display: none">Két lehetőség van:
                     <ul>
-                        <li>Use the slider in the bottom panel to move the start and end points of the trace. Click on <i class="fas fa-check button"></i> to validate the selection. Check the box <i class="far fa-check-square"></i> Keep cropped parts in new files and then click on <span class="button">Proceed</span>.</li>
-                        <li>Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> to split the trace at a chosen location.</li>
+                        <li>Az alsó panelen a szintkép alatt lévő csúszkával mozgathatja a útvonal kezdő- és végpontját. Kattintson a <i class="fas fa-check button"></i> ábrára a kiválasztás érvényesítéséhez. Jelölje be a <i class="far fa-check-square"></i> A kivágott részek megőrzése új fájlokban négyzetet, majd kattintson a <span class="button">Folytatás</span> gombra.</li>
+                        <li>Lépjen be az útvonal szerkesztési módba a <i class="fas fa-pencil-alt button"></i> gombra kattintva. Kattintson a jobb gombbal egy útvonal szerkesztési pontra vagy a vonalra, és használja a <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> parancsot a nyomvonal szétválasztásához a kiválasztott helyen.</li>
                     </ul>
                 </div></div>
-                <div class="guide-item"><a name="change-start-loop" href="#change-start-loop" class="my-anchor"><div class="guide-title" onclick="toggle('change-start')">Change the starting point of a loop</div></a>
+                <div class="guide-item"><a name="change-start-loop" href="#change-start-loop" class="my-anchor"><div class="guide-title" onclick="toggle('change-start')">Rajt áthelyezése</div></a>
                 <div id="change-start" style="display: none">
-                    Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-undo"></i> <span>Start loop here</span></span> to make the loop start at a chosen location.</li>
+                    Lépjen be az útvonal szerkesztési módba a <i class="fas fa-pencil-alt button"></i> gombra kattintva. Kattintson a jobb gombbal egy útvonal szerkesztési pontra vagy a vonalra, és használja a <span class="button"><i class="fas fa-undo"></i> <span>Rajt innen</span></span> parancsot, hogy az útvonal teljesítése egy kiválasztott helyről induljon.</li>
                 </div></div>
                 <div class="guide-item"><a name="add-timestamps" href="#add-timestamps" class="my-anchor"><div class="guide-title" onclick="toggle('timestamps')">Add timestamps to a GPX file</div></a>
                 <div id="timestamps" style="display: none">
@@ -344,7 +344,7 @@
                 </div></div>
                 <div class="guide-item"><a name="remove-waypoint" href="#remove-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('rmv-wpt')">Remove waypoints of a GPX file</div></a>
                 <div id="rmv-wpt" style="display: none">To remove a single waypoint, click on it and press <i class="fas fa-trash-alt button"></i> inside the popup.<br>
-                    To remove all waypoints inside or outside an area, click on <i class="fas fa-vector-square button"></i> and select an area containing the waypoints you want to keep or delete. Uncheck the box <i class="far fa-check-square"></i> Track points if you do not want to remove track points at the same time. Then, choose whether you want to delete waypoints inside or outside of the selection. Finally, click on <span class="button">Proceed</span>.
+                    To remove all waypoints inside or outside an area, click on <i class="fas fa-vector-square button"></i> and select an area containing the waypoints you want to keep or delete. Uncheck the box <i class="far fa-check-square"></i> Track points if you do not want to remove track points at the same time. Then, choose whether you want to delete waypoints inside or outside of the selection. Végül kattintson a <span class="button">Folytatás</span> gombra.
                 </div></div>
                 <div class="guide-item"><a name="reduce-points" href="#reduce-points" class="my-anchor"><div class="guide-title" onclick="toggle('reduce')">Reduce the number of track points of a GPX file</div></a>
                 <div id="reduce" style="display: none">
@@ -360,7 +360,7 @@
                         <li>Click on <i class="fas fa-vector-square button"></i>.
                         <li>Select an area containing the track points and/or waypoints you want to keep or delete.</li>
                         <li>Choose whether you want to delete track points and/or waypoints, inside or outside of the selection.</li>
-                        <li>Finally, click on <span class="button">Proceed</span>.</li>
+                        <li>Végül kattintson a <span class="button">Folytatás</span> gombra.</li>
                    </ol>
                 </div></div>
                 <div class="guide-item"><a name="delete-file" href="#delete-file" class="my-anchor"><div class="guide-title" onclick="toggle('delete')">Remove GPX files</div></a>
