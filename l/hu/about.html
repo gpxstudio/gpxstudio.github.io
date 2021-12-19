@@ -156,69 +156,69 @@
             <a name="guide"></a><h1>Felhasználói kézikönyv &#127891;</h1>
             <div class="guide">
                 Kattintson egy témára a részletes leírásért!<br><br>
-                <div class="guide-item"><a name="create-file" href="#create-file" class="my-anchor"><div class="guide-title" onclick="toggle('create')">Új GPX-fájl létrehozása</div></a>
+                <div class="guide-item"><a name="create-file" href="#create-file" class="my-anchor"><div class="guide-title" onclick="toggle('create')">Új GPX útvonal</div></a>
                 <div id="create" style="display: none">
                     <ol>
-                        <li>A felső eszköztáron kattintson az <span class="button">GPX fájl létrehozása</span> lehetőségre. A new tab called "new" appears below the bottom panel.</li>
-                        <li>Place anchor points on the map by clicking at the locations you want to go through.</li>
-                        <li>Two options control how two consecutive points are connected:
+                        <li>A felső eszköztáron kattintson az <span class="button">Új GPX útvonal</span> lehetőségre. Az alsó szintkép és adatok panel bal alsó részén (Összes mellett) megjelenik egy új lap, "új" elnevezéssel.</li>
+                        <li>Kezdje meg a szerkesztést. Válasza ki a kiindulási helyszínit. Helyezzen rögzítési útvonal pontokat a térképen azokra az utakra kattintva, amelyeken keresztül szeretne menni.</li>
+                        <li>Két beállítási lehetőség szabályozza, hogyan csatlakozzon két egymást követő útvonal pont:
                             <ul>
-                                <li>use
-                                    <span class="button">
-                                        <i class="fas fa-biking"></i>
-                                        <i class="fas fa-arrows-alt-h"></i>
-                                        <i class="fas fa-running"></i>
-                                        <i class="fas fa-arrows-alt-h"></i>
-                                        <i class="fas fa-motorcycle"></i>
-                                    </span> to select the correct activity and use the most appropriate roads.
+                                <li>tevékenységi mód kiválasztása
+                                     <span class="button">
+                                         <i class="fas fa-biking"></i>
+                                         <i class="fas fa-arrows-alt-h"></i>
+                                         <i class="fas fa-running"></i>
+                                         <i class="fas fa-arrows-alt-h"></i>
+                                         <i class="fas fa-motorcycle"></i>
+                                     </span> a megfelelő tevékenységi mód kiválasztásához és a legmegfelelőbb utak használatához.
                                 </li>
-                                <li>use <span class="button"><i class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-dove"></i></span> to alternate between routing (following real paths) or "as-the-crow-flies" (straight lines between anchor points).</li>
+                                <li>a <span class="button"><i class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-dove"></i></span> gombok használatával válthat az útvonalra tervezés (valós útra illesztés) vagy a „légvonalban” (egyenes útvonal) kijelölés között.</li>
                             </ul>
                         </li>
-                        <li>You can drag a point or the line itself to re-route the trace through a new location.</li>
-                        <li>If you make a mistake or change your mind about the itinerary, you can:
+                        <li>Elhúzhat egy útvonal szerkesztési pontot vagy magát az útvonalat, hogy átirányítsa a tervezett útvonalat egy új útra.</li>
+                        <li>Ha véletlenül hibázik vagy meggondolja magát az útvonallal kapcsolatban, a következőket teheti:
                             <ul>
-                                <li>use the undo <i class="fas fa-reply button"></i> and redo <i class="fas fa-share button"></i> buttons.</li>
-                                <li>right-click on an anchor point and use <span class="button"><i class="fas fa-trash-alt"></i> <span>Remove point</span></span> to remove it.</li>
+                                <li>használja az előzmények nyilakkal jelölt visszavonás <i class="fas fa-reply button"></i> vagy az újra hozzáadás <i class="fas fa-share button"></i> gombokat.</li>
+                                <li>kattintson a jobb gombbal egy útvonal szerkesztési pontra, és a <span class="button"><i class="fas fa-trash-alt"></i> <span>Pont eltávolítása</span></span> parancs segítségével távolítsa el.</li>
                             </ul>
                         </li>
                     </ol>
                 </div></div>
-                <div class="guide-item"><a name="load-file" href="#load-file" class="my-anchor"><div class="guide-title" onclick="toggle('load')">Load existing GPX files</div></a>
-                <div id="load" style="display: none">There are two options:
+                <div class="guide-item"><a name="load-file" href="#load-file" class="my-anchor"><div class="guide-title" onclick="toggle('load')">GPX-fájl betöltés</div></a>
+                <div id="load" style="display: none">Két lehetőség van:
                     <ul>
-                        <li>Click on <span class="button">Load</span> and select one or more GPX files to load.</li>
-                        <li>Drag and drop GPX files in the window.</li>
+                        <li>Kattintson a <span class="button">Betöltés</span> lehetőségre, és válasszon ki egy vagy több GPX-fájlt. (Egyszerre több GPX fájlt is be lehet tölteni.).</li>
+                        <li>Vagy csak egyszerűen húzza rá a térképre a GPX fájlt.</li>
                     </ul>
                 </div></div>
-                <div class="guide-item"><a name="export-file" href="#export-file" class="my-anchor"><div class="guide-title" onclick="toggle('export')">Export GPX files</div></a>
+                <div class="guide-item"><a name="export-file" href="#export-file" class="my-anchor"><div class="guide-title" onclick="toggle('export')">GPX-fájl letöltés</div></a>
                 <div id="export" style="display: none">
-                    There are two options:
+                    Két lehetőség van:
                     <ul>
-                        <li>Click on <span class="button">Export</span> and then choose whether to:
+                        <li>Kattintson az <span class="button">Exportálás</span> lehetőségre, majd válassza ki, hogy:
                            <ul>
-                               <li>merge all open GPX files or export them separately.</li>
-                               <li>include time, temperature, heartrate, cadence and power data or not.</li>
+                               <li>illessze egybe az összes nyitott útvonalat egy GPX-fájlt-ba, vagy töltse le az útvonalakat külön-külön. (Amennyiben több útvonalat szerkesztet.).</li>
+                               <li>tartalmazzák az időt, a hőmérsékletet, a pulzusszámot, a ritmus- és a teljesítményadatokat, vagy sem.</li>
                            </ul>
-                           Then, click on <span class="button">Download <i class="fas fa-download"></i></span> to download the files on your computer or on <span class="button">Save to Google Drive</span> to save it in the cloud.
+                           Ezután kattintson a <span class="button">Letöltés <i class="fas fa-download"></i></span> lehetőségre a fájlok számítógépére való letöltéséhez, vagy a <span class="button">Mentés a Google Drive-ra</span> lehetőségre, ha a felhőbe menti.
                         </li>
-                        <li>Drag and drop a tab (below the bottom panel) onto your desktop.</li>
+                        <li>Egyszerűen át is húzhat egy lapot (az alsó szintkép panel alatti bal oldalon találja) a számítógépe asztalára.</li>
                     </ul>
                 </div></div>
-                <div class="guide-item"><a name="share-file" href="#share-file" class="my-anchor"><div class="guide-title" onclick="toggle('share')">Share a GPX file</div></a>
-                <div id="share" style="display: none"><b>gpx.studio</b> does not provide GPX file hosting. However, it integrates smoothly with Google Drive.
-                    To share GPX files:
+                <div class="guide-item"><a name="share-file" href="#share-file" class="my-anchor"><div class="guide-title" onclick="toggle('share')">GPX file megosztás</div></a>
+                <div id="share" style="display: none">A <b>gpx.studio</b> nem rendelkezik adatbázis kezeléssel ezért nem biztosít GPX-fájl tárolást. Azonban könnyen és jól össze kapcsolható saját Google Drive-val.
+                    GPX-fájl megosztása:
                     <ol>
-                        <li>Click on <span class="button">Export</span> and then choose whether to:
+                        <li>Kattintson az <span class="button">Exportálás</span> lehetőségre, majd válassza ki, hogy:
                            <ul>
-                               <li>merge all open GPX files or export them separately.</li>
-                               <li>include time, temperature, heartrate, cadence and power data or not.</li>
+                               <li>illessze egybe az összes nyitott útvonalat egy GPX-fájlt-ba, vagy töltse le az útvonalakat külön-külön. (Amennyiben több útvonalat szerkesztet.).</li>
+                               <li>tartalmazzák az időt, a hőmérsékletet, a pulzusszámot, a ritmus- és a teljesítményadatokat, vagy sem.</li>
                            </ul>
                         </li>
-                        <li>Click on <span class="button">Save to Google Drive</span>.</li>
-                        <li>Connect to your Google account.</li>
-                        <li>Select the folder where you want to save the files.</li>
-                        <li>When the files are uploaded, click on <span class="button">Copy link <i class="fas fa-link"></i></span> and send it to your friends!</li>
+                        <li>Megosztás csak Google Drive-val lehetséges. Kattintson a <span class="button">Mentés a Google Drive-ra</span> lehetőségre.</li>
+                        <li>Csatlakozzon Google-fiókjához.</li>
+                        <li>Válassza ki vagy hozzon létre új mappát, ahová a fájlokat menteni szeretné.</li>
+                        <li>A fájlok feltöltése után kattintson a <span class="button">Link másolása <i class="fas fa-link"></i></span> gombra, és küldje el barátainak! Ezzel megosztotta velük a mappába szereplő fájlokat!</li>
                     </ol>
                     If you want to use <b>gpx.studio</b> to open GPX files stored on your Google Drive, you can install the <a href="https://gsuite.google.com/marketplace/app/gpxstudio_the_online_gpx_editor/666808960580" target="_blank">Google Drive Add-on</a>.
                 </div></div>
@@ -227,7 +227,7 @@
                     <ul>
                         <li>add track points at the end of the trace by clicking on the map at the locations you want to go through.</li>
                         <li>drag an anchor point or the line itself to re-route the trace through a new location.</li>
-                        <li>right-click on an anchor point and use <span class="button"><i class="fas fa-trash-alt"></i> <span>Remove point</span></span> to remove it.</li>
+                        <li>kattintson a jobb gombbal egy útvonal szerkesztési pontra, és a <span class="button"><i class="fas fa-trash-alt"></i> <span>Pont eltávolítása</span></span> parancs segítségével távolítsa el.</li>
                         <li>right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> to split the trace at a chosen location.</li>
                         <li>right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-undo"></i> <span>Start loop here</span></span> to make the loop start at a chosen location.</li>
                     </ul>
@@ -243,7 +243,7 @@
                                 <i class="fas fa-motorcycle"></i>
                             </span> to select the correct activity and use the most appropriate roads.
                         </li>
-                        <li>use <span class="button"><i class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-dove"></i></span> to alternate between routing (following real paths) or "as-the-crow-flies" (straight lines between anchor points).</li>
+                        <li>a <span class="button"><i class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-dove"></i></span> gombok használatával válthat az útvonalra tervezés (valós útra illesztés) vagy a „légvonalban” (egyenes útvonal) kijelölés között.</li>
                     </ul>
                     If you edit a GPX file containing time, temperature, heartrate, cadence or power data, new track points will automatically contain the average value for each of those fields.
                 </div></div>
@@ -256,7 +256,7 @@
                     </ul>
                 </div></div>
                 <div class="guide-item"><a name="split-file" href="#split-file" class="my-anchor"><div class="guide-title" onclick="toggle('split')">Split a GPX file</div></a>
-                <div id="split" style="display: none">There are two options:
+                <div id="split" style="display: none">Két lehetőség van:
                     <ul>
                         <li>Use the slider in the bottom panel to move the start and end points of the trace. Click on <i class="fas fa-check button"></i> to validate the selection. Check the box <i class="far fa-check-square"></i> Keep cropped parts in new files and then click on <span class="button">Proceed</span>.</li>
                         <li>Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> to split the trace at a chosen location.</li>
