@@ -358,54 +358,56 @@
                 <div id="delete-zone" style="display: none">
                     <ol>
                         <li>Kattintson a <i class="fas fa-vector-square button"></i> ikonra.
-                        <li>Select an area containing the track points and/or waypoints you want to keep or delete.</li>
-                        <li>Choose whether you want to delete track points and/or waypoints, inside or outside of the selection.</li>
+                        <li>Jelölje ki a megtartani vagy törölni kívánt útvonal szerkesztési pontokat- és/vagy útvonal pontokat tartalmazó területet.</li>
+                        <li>Ezután válassza ki, hogy a kijelölt területen belül vagy kívül szeretné-e törölni az útvonalpontokat.</li>
                         <li>Végül kattintson a <span class="button">Folytatás</span> gombra.</li>
                    </ol>
                 </div></div>
-                <div class="guide-item"><a name="delete-file" href="#delete-file" class="my-anchor"><div class="guide-title" onclick="toggle('delete')">Remove GPX files</div></a>
-                <div id="delete" style="display: none">Below the bottom panel, select the tab of the file you want to delete and click on <i class="fas fa-trash-alt button"></i>.<br>
-                To remove all GPX files at once, click on <span class="button">Clear all</span> in the top toolbar.</div></div>
-                <div class="guide-item"><a name="open-street-view" href="#open-street-view" class="my-anchor"><div class="guide-title" onclick="toggle('street-view')">Open Street View</div></a>
-                <div id="street-view" style="display: none">In the top-right corner, click on <i class="fas fa-street-view button"></i> and then click on the map to open Street View at that location.</div></div>
-                <div class="guide-item"><a name="search-location" href="#search-location" class="my-anchor"><div class="guide-title" onclick="toggle('search')">Center the map on a location</div></a>
-                <div id="search" style="display: none">In the top-right corner, click on <i class="fas fa-search button"></i> and then type an address. Choose one of the suggested locations to center the map on it.</div></div>
-                <div class="guide-item"><a name="hide-trace" href="#hide-trace" class="my-anchor"><div class="guide-title" onclick="toggle('hide-gpx')">Hide a GPX file</div></a>
-                <div id="hide-gpx" style="display: none">To hide a GPX file, click on <i class="fas fa-eye-slash button"></i>. To unhide it, click on <i class="fas fa-eye button"></i>.<br>
-                A hidden trace will also unhide when adding a point in edition mode or when using most of the tools.</div></div>
-                <div class="guide-item"><a name="hide-elevation" href="#hide-elevation" class="my-anchor"><div class="guide-title" onclick="toggle('profile')">Hide the elevation profile</div></a>
-                <div id="profile" style="display: none">To hide the elevation profile, simply click on <i class="fas fa-chart-area button"></i>.</div></div>
-                <div class="guide-item"><a name="change-units" href="#change-units" class="my-anchor"><div class="guide-title" onclick="toggle('units')">Change the units</div></a>
-                <div id="units" style="display: none">To change the units, click on <span class="button">km <i class="fas fa-arrows-alt-h"></i> mi</span>.<br>
-                Click on <span class="button">
-                    <i class="fas fa-biking"></i>
-                    <i class="fas fa-arrows-alt-h"></i>
-                    <i class="fas fa-running"></i>
-                    <i class="fas fa-arrows-alt-h"></i>
-                    <i class="fas fa-motorcycle"></i>
-                </span> to select an activity and see the speed or the running pace in minutes per kilometer or mile.</div></div>
-                <div class="guide-item"><a name="direction-markers" href="#direction-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-direction-markers')">Show direction markers</div></a>
-                <div id="show-direction-markers" style="display: none">To show direction markers, go in the settings <i class="fas fa-layer-group button"></i> and check the box <i class="far fa-check-square"></i> Direction markers.</div></div>
-                <div class="guide-item"><a name="distance-markers" href="#distance-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-distance-markers')">Show distance markers</div></a>
-                <div id="show-distance-markers" style="display: none">To show distance markers, go in the settings <i class="fas fa-layer-group button"></i> and check the box <i class="far fa-check-square"></i> Distance markers.</div></div>
-                <div class="guide-item"><a name="map-legends" href="#map-legends" class="my-anchor"><div class="guide-title" onclick="toggle('legend')">Map legends</div></a>
+                <div class="guide-item"><a name="delete-file" href="#delete-file" class="my-anchor"><div class="guide-title" onclick="toggle('delete')">GPX-fájlok (útvonal) eltávolítása</div></a>
+                <div id="delete" style="display: none">Az alsó szintkép panel alatt válassza ki a törölni kívánt útvonal fület, és kattintson a <i class="fas fa-trash-alt button"></i> elemre.<br>
+                 Az összes GPX-fájl (útvonal) egyidejű eltávolításához kattintson az <span class="button">Összes törlése</span> lehetőségre a legfelső panel eszköztáron.</div></div>
+                <div class="guide-item"><a name="open-street-view" href="#open-street-view" class="my-anchor"><div class="guide-title" onclick="toggle('street-view')">Utcanézet megnyitása</div></a>
+                <div id="street-view" style="display: none">A jobb oldalon található ikonok közül kattintson a <i class="fas fa-street-view button"></i> elemre, majd kattintson a térképre az Utcakép megnyitásához az adott helyen.</div></div>
+                <div class="guide-item"><a name="search-location" href="#search-location" class="my-anchor"><div class="guide-title" onclick="toggle('search')">Térképen keresés</div></a>
+                <div id="search" style="display: none">A térkép jobb oldalán kattintson a <i class="fas fa-search button"></i> elemre, majd írjon be egy helyet vagy címet. Válasszon egyet a javasolt helyek közül ami az Ön keresésével leginkább egyező.</div></div>
+                <div class="guide-item"><a name="hide-trace" href="#hide-trace" class="my-anchor"><div class="guide-title" onclick="toggle('hide-gpx')">GPX fájl (útvonal) térképen elrejtése</div></a>
+                <div id="hide-gpx" style="display: none">GPX-fájl (útvonal) elrejtéséhez kattintson a <i class="fas fa-eye-slash button"></i> elemre. A Gpx-fájl (útvonal) felfedéséhez kattintson a <i class="fas fa-eye button"></i> elemre.<br>
+                 A rejtett útvonalak akkor is megjelennek, amikor egy pontot ad hozzá a szerkesztési módban, vagy amikor a legtöbb eszközt használja.</div></div>
+                <div class="guide-item"><a name="hide-elevation" href="#hide-elevation" class="my-anchor"><div class="guide-title" onclick="toggle('profile')">A magassági szintkép elrejtése</div></a>
+                <div id="profile" style="display: none">A magassági szintkép elrejtéséhez egyszerűen kattintson a <i class="fas fa-chart-area button"></i> elemre.</div></div>
+                <div class="guide-item"><a name="change-units" href="#change-units" class="my-anchor">23 / 5 000
+Fordítási találatok
+<div class="guide-title" onclick="toggle('units')">Mértékegységeket váltása</div></a>
+                <div id="units" style="display: none">A mértékegységek közti váltáshoz kattintson a <span class="button">km <i class="fas fa-arrows-alt-h"></i> mérföld</span> elemre.<br>
+                 Kattintson a <span class="button"> elemre
+                     <i class="fas fa-biking"></i>
+                     <i class="fas fa-arrows-alt-h"></i>
+                     <i class="fas fa-running"></i>
+                     <i class="fas fa-arrows-alt-h"></i>
+                     <i class="fas fa-motorcycle"></i>
+                 </span>  a kiválasztott tevékenységnek megfelelően megtekintheti a sebességet vagy a futási tempót percenként, kilométerenként vagy mérföldenként.</div></div>
+                <div class="guide-item"><a name="direction-markers" href="#direction-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-direction-markers')">Menetirány jelzés megjelenítése útvonalon</div></a>
+                <div id="show-direction-markers" style="display: none">Az menetirány kijelzés megjelenítéséhez a térkép jobb oldalán található ikonoknál lépjen a <i class="fas fa-layer-group button"></i> beállításokba, és jelölje be az <i class="far fa-check-square"></i> menetirány jelző négyzetet.</div></div>
+                <div class="guide-item"><a name="distance-markers" href="#distance-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-distance-markers')">Távolság megjelenítése útvonalon</div></a>
+                <div id="show-distance-markers" style="display: none">A távolságjelző megjelenítéséhez a térkép jobb oldalán található ikonoknál lépjen a <i class="fas fa-layer-group button"></i> beállításokba, és jelölje be a <i class="far fa-check-square"></i> Távolságjelző négyzetet.</div></div>
+                <div class="guide-item"><a name="map-legends" href="#map-legends" class="my-anchor"><div class="guide-title" onclick="toggle('legend')">Térképmagyarázat</div></a>
                 <div id="legend" style="display: none">
                     <ul>
                         <li><a href="https://footpathapp.com/user-guide/maps/mapbox-outdoors/" target="_blank">Mapbox Outdoors</a></li>
                         <li><a href="https://wiki.openstreetmap.org/wiki/LinesTab" target="_blank">OpenStreetMap</a></li>
                         <li><a href="https://opentopomap.org/about" target="_blank">OpenTopoMap</a></li>
-                        <li>OpenHikingMap: same than OpenTopoMap but with hiking trails.</li>
+                        <li>OpenHikingMap: ugyanaz, mint az OpenTopoMap, de jelzett túraútvonalakkal.</li>
                         <li><a href="https://www.cyclosm.org/legend.html" target="_blank">CyclOSM</a></li>
                     </ul>
                 </div></div>
             </div>
             </div>
             <div class="block">
-            <a name="embed"></a><h1>Embedding &#128506;</h1>
+            <a name="embed"></a><h1>Beágyazás &#128506;</h1>
             <div>
-                You are very welcome to display traces on your website with <b>gpx.studio</b>. There are two ways to do it: the first one with files stored on a server and the second one with Google Drive.
+                Megjelenítheti az útvonalait webhelyén a <b>gpx.studio</b> segítségével. Ennek két módja van: az első egy külső szerveren tárolt fájlokkal, a másik pedig a Google Drive-val.
                 <ul>
-                    <li><b>File URL:</b> Add the link to the file in the <code>urls</code> attribute of the <code>state</code> parameter of the query string. Make sure to use <code>https</code>, to encode any special characters and that <b>gpx.studio</b> is allowed to request the files, otherwise the requests will be blocked by the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank">CORS policy</a>, i.e. you should set the following header in your server response:
+                    <li><b>Fájl URL-címe:</b> Adja hozzá a fájlra mutató hivatkozást a lekérdezési karakterlánc <code>state</code> paraméterének <code>urls</code> attribútumában. Győződjön meg arról, hogy a <code>https</code> kódot használja a speciális karakterek kódolásához, és hogy a <b>gpx.studio</b> számára engedélyezettek legyenek a fájlok elérései, ellenkező esetben a kéréseket blokkolja a <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank">CORS-házirend. </a>, azaz a következő fejlécet kell beállítania a szerver válaszában:
                         <p style="text-align: center"><code>Access-Control-Allow-Origin: *</code> or <code>https://gpx.studio</code></p></li>
                     <li><b>Google Drive:</b> Just save the files to your Google Drive when exporting and copy the code provided! If you want to display files that you already have on your Google Drive, add the ID of the file in the <code>ids</code> attribute of the <code>state</code> parameter of the query string and make sure they are available to all users with the link.</li>
                 </ul>
