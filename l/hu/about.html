@@ -336,28 +336,28 @@
                         <li>El nevezheti és megadhat néhány adatot az útpontról (HTML segítségével formázhatja az információkat, vagy akár képeket is linkelhet).</li>
                         <li>Kattintson <span class="button">Ok</span>.</li>
                     </ol>
-                    If you want to reuse a waypoint at another location, click on the waypoint and press <i class="fas fa-copy button"></i> inside the popup. Then, click on the map to add a copy of the waypoint at the chosen location.
+                    Ha egy meglévő útpontot másolni szeretne és újra felhasználni. Kattintson a meglévő útpont jelzőikonra, és nyomja meg a <i class="fas fa-copy button"> </ 0> gombot a felugró ablakban. Ezután kattintson a térképen arra helyre ahová szeretné helyezni, hogy hozzáadja az útvonalpont másolatát.
                 </div></div>
-                <div class="guide-item"><a name="edit-waypoint" href="#edit-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('edit-wpt')">Edit a waypoint of a GPX file</div></a>
-                <div id="edit-wpt" style="display: none">To change the location of a waypoint, you can simply drag it to a new location. When dragging a waypoint close to the trace, it is automatically attracted so that you can place the waypoint perfectly on the trace. Zoom in or out to change the distance at which the waypoints are attracted.<br>
-                    To edit the data of a waypoint, click on it and press <i class="fas fa-pencil-alt button"></i> inside the popup. Change the information and then click <span class="button">Ok</span>.
+                <div class="guide-item"><a name="edit-waypoint" href="#edit-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('edit-wpt')"> GPX-fájl útvonalpontjának szerkesztése </ 0></a>
+                <div id="edit-wpt" style="display: none">Egy útvonalpont helyének megváltoztatásához egyszerűen húzza át egy új helyre. Ha egy útvonalpontot a kiválasztott út közelébe húz, az automatikusan ráillesztésre kerül, így az útvonalpontot tökéletesen elhelyezheti az úton. Használja a zoom-ot nagyítson vagy kicsinyítsen ha pontosabban szeretné megadni az útvonalpontok helyét. Ha útvonal közelébe helyezzük el útvonalpontunkat a program automatikusan az útvonalunkra fogja rakni.<br>
+                     Egy útpont adatainak szerkesztéséhez kattintson rá a jelzőikonra, és nyomja meg a <i class="fas fa-pencil-alt button"></i> gombot a felugró ablakban. Módosítsa az adatokat, majd kattintson az <span class="button">Ok</span> gombra.
                 </div></div>
-                <div class="guide-item"><a name="remove-waypoint" href="#remove-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('rmv-wpt')">Remove waypoints of a GPX file</div></a>
-                <div id="rmv-wpt" style="display: none">To remove a single waypoint, click on it and press <i class="fas fa-trash-alt button"></i> inside the popup.<br>
-                    To remove all waypoints inside or outside an area, click on <i class="fas fa-vector-square button"></i> and select an area containing the waypoints you want to keep or delete. Uncheck the box <i class="far fa-check-square"></i> Track points if you do not want to remove track points at the same time. Then, choose whether you want to delete waypoints inside or outside of the selection. Végül kattintson a <span class="button">Folytatás</span> gombra.
+                <div class="guide-item"><a name="remove-waypoint" href="#remove-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('rmv-wpt')">GPX-fájl útvonalpontjainak eltávolítása</div></a>
+                <div id="rmv-wpt" style="display: none">Egyetlen útvonalpont eltávolításához kattintson a jelzőikonra, és nyomja meg a <i class="fas fa-trash-alt button"></i> gombot a felugró ablakban.<br>
+                     A kijelölt területen belüli vagy kívüli összes útvonalpontok eltávolításához kattintson a <i class="fas fa-vector-square button"></i> elemre, és válassza ki a megtartani vagy törölni kívánt útvonalpontokat tartalmazó területet. Vegye ki a <i class="far fa-check-square"></i> Útvonal szerkesztési pontok jelölőnégyzetből, ha nem szeretné egyszerre eltávolítani az útvonal szerkesztési pontokat. Ezután válassza ki, hogy a kijelölésen belüli vagy kívüli útpontokat szeretné-e törölni. Végül kattintson a <span class="button">Folytatás</span> gombra.
                 </div></div>
-                <div class="guide-item"><a name="reduce-points" href="#reduce-points" class="my-anchor"><div class="guide-title" onclick="toggle('reduce')">Reduce the number of track points of a GPX file</div></a>
+                <div class="guide-item"><a name="reduce-points" href="#reduce-points" class="my-anchor"><div class="guide-title" onclick="toggle('reduce')">GPX-fájl útvonalpontjainak sűrűség módosítása</div></a>
                 <div id="reduce" style="display: none">
                     <ol>
-                        <li>Click on <i class="fas fa-compress-alt button"></i>.</li>
-                        <li>Use the slider to choose the number of track points to keep. You can see a live preview of the GPX file with the reduced number of points.</li>
+                        <li>Kattintson a <i class="fas fa-compress-alt button"></i> ikonra.</li>
+                        <li>A csúszkával válassza ki a útvonal szerkesztési pontok számát. Megtekintheti az útvonala élő előnézetét miközben a csúszkát mozgatja csökkenő vagy növekvő irányba.</li>
                         <li>Kattintson <span class="button">Ok</span>.</li>
                     </ol>
                 </div></div>
-                <div class="guide-item"><a name="delete-points-in-zone" href="#delete-points-in-zone" class="my-anchor"><div class="guide-title" onclick="toggle('delete-zone')">Remove all track points and/or waypoints inside/outside an area</div></a>
+                <div class="guide-item"><a name="delete-points-in-zone" href="#delete-points-in-zone" class="my-anchor"><div class="guide-title" onclick="toggle('delete-zone')">Területi kijelöléssel el távolíthatja az összes útvonal szerkesztési pontot és/vagy útvonal pontot a kijelölt területen belül vagy kívül</div></a>
                 <div id="delete-zone" style="display: none">
                     <ol>
-                        <li>Click on <i class="fas fa-vector-square button"></i>.
+                        <li>Kattintson a <i class="fas fa-vector-square button"></i> ikonra.
                         <li>Select an area containing the track points and/or waypoints you want to keep or delete.</li>
                         <li>Choose whether you want to delete track points and/or waypoints, inside or outside of the selection.</li>
                         <li>Végül kattintson a <span class="button">Folytatás</span> gombra.</li>
