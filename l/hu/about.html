@@ -408,10 +408,10 @@ Fordítási találatok
                 Megjelenítheti az útvonalait webhelyén a <b>gpx.studio</b> segítségével. Ennek két módja van: az első egy külső szerveren tárolt fájlokkal, a másik pedig a Google Drive-val.
                 <ul>
                     <li><b>Fájl URL-címe:</b> Adja hozzá a fájlra mutató hivatkozást a lekérdezési karakterlánc <code>state</code> paraméterének <code>urls</code> attribútumában. Győződjön meg arról, hogy a <code>https</code> kódot használja a speciális karakterek kódolásához, és hogy a <b>gpx.studio</b> számára engedélyezettek legyenek a fájlok elérései, ellenkező esetben a kéréseket blokkolja a <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank">CORS-házirend. </a>, azaz a következő fejlécet kell beállítania a szerver válaszában:
-                        <p style="text-align: center"><code>Access-Control-Allow-Origin: *</code> or <code>https://gpx.studio</code></p></li>
-                    <li><b>Google Drive:</b> Just save the files to your Google Drive when exporting and copy the code provided! If you want to display files that you already have on your Google Drive, add the ID of the file in the <code>ids</code> attribute of the <code>state</code> parameter of the query string and make sure they are available to all users with the link.</li>
+                        <p style="text-align: center"><code>Access-Control-Allow-Origin: *</code> vagy <code>https://gpx.studio</code></p></li>
+                    <li><b>Google Drive:</b> Csak mentse a fájlokat a Google Drive-ra, és másolja ki a fájl mellékelt megosztási kódot! Ha meg szeretné jeleníteni a Google Drive-on már meglévő fájlokat, adja hozzá a fájl azonosítóját a lekérdezési karakterlánc <code>state</code> paraméterének <code>ids</code> attribútumához, és győződjön meg arról, hogy a megosztási linkkel rendelkező összes felhasználó számára elérhetők.</li>
                 </ul>
-                <p>Choose the map shown by default with the parameter <code>source</code> among the following values:</p>
+                <p>Válassza ki az alapértelmezés szerint a <code>forrás</code> paraméterrel megjelenített térképet a következő értékek közül:</p>
                 <ul>
                     <li><code>outdoors</code>: Mapbox Outdoors</li>
                     <li><code>satellite</code>: Mapbox Satellite</li>
@@ -420,21 +420,21 @@ Fordítási találatok
                     <li><code>ohm</code>: OpenHikingMap</li>
                     <li><code>cosm</code>: CyclOSM</li>
                 </ul>
-                <p>To use Mapbox maps, you need to specify the <code>token</code> parameter with a valid <a href="https://account.mapbox.com/access-tokens/" target="_blank">Mapbox token</a>.</p>
-                <p>You can optionally add parameters to the source URL: <code>imperial</code> to get data in miles and feet, <code>running</code> to display the pace in minutes by unit of distance, <code>distance</code> to show distance markers and <code>direction</code> to show direction markers. Below is a playground to play with the parameters, see a preview and get the HTML code.</p>
+                <p>A Mapbox térképek használatához meg kell adnia a <code>token</code> paramétert egy érvényes saját <a href="https://account.mapbox.com/access-tokens/" target="_blank">Mapbox tokennel</a>.</p>
+                <p>Opcionálisan adatokat is hozzáadhat a forrás URL-hez: <code>imperial</code> az adatok mérföldben és lábban való lekéréséhez, <code>futás</code> a tempó percben, távolságegységenkénti megjelenítéséhez, <code>távolság< /0> a távolságjelzők, az <code>irány</code> pedig menetirányjelzők megjelenítéséhez. Az alábbiakban egy lehetőség található az igény szerinti adatok megjelenítéséhez, az előnézet megtekintéséhez és a HTML-kód beszerzéséhez.</p>
                 <div class="guide-item">
-                    <h3 style="margin-block-start: 0em;">Parameters</h3>
-                    <p>File URLs (separated by commas)<br>
+                    <h3 style="margin-block-start: 0em;">Útvonal megjelenítési adatok hozzáadása</h3>
+                    <p>Fájl elérési URL-ek (vesszővel elválasztva)<br>
                     <input id="file-urls" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
-                    <p>Google Drive file IDs (separated by commas)<br>
+                    <p>Google Drive ID-ik (a fájlazonosítók vesszővel elválasztva)<br>
                     <input id="file-ids" type="text" oninput="showPreview()" value="10IbXh7W7QDO7ZKmapJYdcgN3vhdN2Q-e" style="width: 96%; margin: 5px;"></p>
                     <div style="display: flex; justify-content: space-between">
-                        <span>Running <input id="running" type="checkbox" oninput="showPreview()"></span>
-                        <span>Imperial <input id="imperial" type="checkbox" oninput="showPreview()"></span>
-                        <span>Distance markers <input id="distance" type="checkbox" oninput="showPreview()" checked></span>
-                        <span>Direction markers <input id="direction" type="checkbox" oninput="showPreview()"></span>
+                        <span>Futás <input id="running" type="checkbox" oninput="showPreview()"></span>
+                         <span>Mérföld/Láb <input id="imperial" type="checkbox" oninput="showPreview()"></span>
+                         <span>Távolságjelzők <input id="distance" type="checkbox" oninput="showPreview()" checked></span>
+                         <span>Menetirányjelzők <input id="direction" type="checkbox" oninput="showPreview()"></span>
                     </div>
-                    <p>Default map <select id="sources" oninput="showPreview()">
+                    <p>Alapértelmezett térkép <select id="sources" oninput="showPreview()">
                         <option value="outdoors">Mapbox Outdoors</option>
                         <option value="satellite">Mapbox Satellite</option>
                         <option value="osm" selected="selected">OpenStreetMap</option>
@@ -444,30 +444,30 @@ Fordítási találatok
                     </select></p>
                     <p>Mapbox token<br>
                     <input id="mapbox-token" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
-                    <h3>HTML code</h3>
+                    <h3>Beágyazható HTML kód</h3>
                     <div style="text-align: left; overflow-wrap: break-word; padding:10px; border: 1px solid #ccc; background: #f5f5f5;">
                     <code id="embedding-code"></code>
                     </div>
-                    <h3>Preview</h3>
+                    <h3>Előnézet</h3>
                     <iframe id="preview" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
             </div>
             <div class="block">
-            <a name="terms"></a><h1>Terms of Services &#128214;</h1>
-            <p>Thank you for using <b>gpx.studio</b>. These terms of service (Terms) cover your use and access of our website and related software (our Services).</p>
-            <p>By accessing this website, you are agreeing to be bound by this website Terms of Services and to review our Privacy Policy. If you do not agree with any of these terms, you are prohibited from using or accessing this site.</p>
-            <h2>Changes to the Services</h2>
-            <p>We may change the features of our Services, withdraw or add new features from time to time.</p>
-            <h2>Warranties</h2>
-            <p>The services on the website are provided "as is". To the fullest extent permitted by law, we make no warranties either implied or expressed about the Services. We do not make any promise about the accuracy of specific functions of the services, their reliability or availability.</p>
-            <h2>Changes to Terms</h2>
-            <div>We reserve the right to modify these Terms at any time. We will notice you on the website so you can agree to the revised Terms.</div>
+            <a name="terms"></a><h1>Szolgáltatási feltételek &#128214;</h1>
+            <p>Köszönjük, hogy a <b>gpx.studio</b> programot használja. Ezek a szolgáltatási feltételek (Feltételek) kiterjednek webhelyünkre és kapcsolódó szoftvereinkre illetve(Szolgáltatásaink) Ön általi használatára és elérésére.</p>
+            <p>Azzal, hogy meglátogatja, használja ezt a weboldalt, elfogadja, hogy magára nézve teljesen elfogadja jelen weboldal Szolgáltatási feltételeit, és áttekinti adatvédelmi szabályzatunkat. Ha nem ért egyet ezen feltételek bármelyikével, kérjük ne használja weboldalunkat.</p>
+            <h2>Változások a Szolgáltatásokban</h2>
+            <p>A jobb szolgáltatás érdekében bármikor megváltoztathatjuk szolgáltatásaink funkcióit, visszavonhatjuk vagy új funkciókat adhatunk hozzá. Kérjük, ezt tartsa szemelőt.</p>
+            <h2>Garancia vállalás</h2>
+            <p>A weboldalon található szolgáltatások „ahogy vannak”. Mivel a programunk használata díjtalan így nem vállalunk semmilyen garanciát. Ugyanakkor törekszünk a zökkenő mentes használhatóságra. Nem tudunk felelősséget vállalni a szolgáltatások egyes funkcióinak pontosságára, megbízhatóságára vagy elérhetőségére vonatkozóan mivel az külső szolgáltatóktól érkezik.</p>
+            <h2>Változások a feltételekben</h2>
+            <div>Fenntartjuk a feltételek változtatási jogát. A változásokról minden estben itt a weboldalon tájékoztatjuk, így Ön elolvashatja és elfogadhatja a módosított feltételeket.</div>
             </div>
             <div class="block">
-            <a name="privacy"></a><h1>Privacy Policy &#128373;&#65039;</h1>
-            <p><b>gpx.studio</b> is an online GPX file editor which allows users to create, view and edit files.
-                We respect the privacy of our users and do not collect any personal information.</p>
+            <a name="privacy"></a><h1>Adatvédelmi irányelvek &#128373;&#65039;</h1>
+            <p>A <b>gpx.studio</b> egy online GPX-fájlszerkesztő, amely lehetővé teszi a felhasználók számára fájlok létrehozását, megtekintését és szerkesztését.
+                Tiszteletben tartjuk felhasználóink személyes adatait, és nem gyűjtünk semmilyen személyes információt.</p>
             <p>The files created, visualized or edited on the website are only read once and never stored on a server.
                 We only access the data contained in the files and handle all computations from your local browser (it is a pure client-side application).</p>
             <p>However, we use third-party services which collect and use anonymized information:
