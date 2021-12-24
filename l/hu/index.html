@@ -11,6 +11,7 @@
         <link rel="alternate" hreflang="nl" href="https://gpx.studio/l/nl/"/>
         <link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/"/>
         <link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/"/>
+        <link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/"/>
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167421374-1"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
@@ -81,7 +82,7 @@
             <div id="clear" class="panels custom-button">Teljes útvonal törlése</div>
             <div id="help" class="panels custom-button">Segítség</div>
             <div id="about" class="panels custom-button">Rólunk</div>
-            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)">Támogatás <i class="fas fa-heart"></i></div>
+            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Támogatás</b> <i class="fas fa-heart"></i></div>
         </div>
         <div id="info" class="padding-container center-leaflet">
             <div id="info-grid" class="panels-container trace-info">
@@ -99,11 +100,11 @@
                 <div class="panels panels-val" id="segments-val" style="display: none; padding-right: 5px;">0</div>
                 <div id="activity-input" class="custom-button panels-button dropdown">
                     <div id="activity-dropdown" class="dropdown-content panels-container panels">
-                        <div id="bike" class="dropdown-choice"><i class="fas fa-biking"></i> Kerékpár</div>
-                        <div id="racingbike" class="dropdown-choice"><i class="fas fa-biking"></i> Verseny kerékpár</div>
-                        <div id="mtb" class="dropdown-choice"><i class="fas fa-biking"></i> Mountain bike</div>
-                        <div id="hike" class="dropdown-choice"><i class="fas fa-running"></i> Futás/Túra</div>
-                        <div id="car" class="dropdown-choice"><i class="fas fa-motorcycle"></i> Motor</div>
+                        <div id="bike" class="dropdown-choice"><i class="fas fa-biking"></i> <span>Kerékpár</span></div>
+                        <div id="racingbike" class="dropdown-choice"><i class="fas fa-biking"></i> <span>Verseny kerékpár</span></div>
+                        <div id="mtb" class="dropdown-choice"><i class="fas fa-biking"></i> <span>Mountain bike</span></div>
+                        <div id="hike" class="dropdown-choice"><i class="fas fa-running"></i> <span>Futás/Túra</span></div>
+                        <div id="car" class="dropdown-choice"><i class="fas fa-motorcycle"></i> <span>Motor</span></div>
                     </div>
                     <div id="selected-activity"><i class="fas fa-biking"></i></div>
                 </div>
@@ -116,8 +117,8 @@
                 </div>
                 <div id="routing-input" class="custom-button panels-button dropdown">
                     <div id="routing-dropdown" class="dropdown-content panels-container panels">
-                        <div id="route" class="dropdown-choice"><i class="fas fa-route"></i> Útra illesztéses útvonal rajzolás</div>
-                        <div id="crow" class="dropdown-choice"><i class="fas fa-dove"></i> Szabadkézi útvonal rajzolás</div>
+                        <div id="route" class="dropdown-choice"><i class="fas fa-route"></i> <span>Útra illesztéses útvonal rajzolás</span></div>
+                        <div id="crow" class="dropdown-choice"><i class="fas fa-dove"></i> <span>Szabadkézi útvonal rajzolás</span></div>
                     </div>
                     <span id="selected-routing"><i class="fas fa-route"></i></span>
                 </div>
@@ -157,6 +158,7 @@
             <a href="/l/de/" class="footer">de</a>
             <a href="/l/es/" class="footer">es</a>
             <a href="/l/fr/" class="footer">fr</a>
+            <a href="/l/hu/" class="footer">hu</a>
             <a href="/l/it/" class="footer">it</a>
             <a href="/l/nl/" class="footer">nl</a>
             <a href="/l/pt/" class="footer">pt</a>
@@ -176,7 +178,7 @@
             <tr>
                 <td><b>GPX fájl feltöltés</b></td>
                 <td>Ctrl+O</td>
-                <td>GPX feltöltése  és megjelenítése ( vagy csak egyszerűen húzza a fájlt rá az ablakra bárhova.)</td>
+                <td>GPX feltöltése és megjelenítése (vagy csak egyszerűen húzza a fájlt rá az ablakra bárhova)</td>
             </tr>
             <tr>
                 <td><b>Új GPX útvonal</b></td>
@@ -186,7 +188,7 @@
             <tr>
                 <td><b>GPX letöltés</b></td>
                 <td>Ctrl+S</td>
-                <td>Töltsd le a kész útvonalad számítógépedre vagy mentsd el Google Drive™-ba egy megosztott mappába <b>mappa megosztási link</b> és <b>beágyazható kód</b>. Az idő, a pulzusszám, a lépés, a teljesítmény és a hőmérséklet adatok automatikusan kitöltésre kerülnek. Összes adat kiválasztása </b>adatok külön kiválasztása</0>. Töltse le a fájlt saját gépére.</td>
+                <td>Töltsd le a kész útvonalad számítógépedre vagy mentsd el Google Drive™-ba egy megosztott mappába <b>mappa megosztási link</b> és <b>beágyazható kód</b>. Az idő, a pulzusszám, a lépés, a teljesítmény és a hőmérséklet adatok automatikusan kitöltésre kerülnek. Összes adat kiválasztása <b>adatok külön kiválasztása</b>. Töltse le a fájlt saját gépére.</td>
             </tr>
             <tr>
                 <td><i class="fas fa-reply"></i> <i class="fas fa-share"></i></td>

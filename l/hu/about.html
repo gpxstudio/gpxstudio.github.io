@@ -10,7 +10,8 @@
         <link rel="alternate" hreflang="it" href="https://gpx.studio/l/it/about.html"/>
         <link rel="alternate" hreflang="nl" href="https://gpx.studio/l/nl/about.html"/>
         <link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/about.html"/>
-        <link rel="alternate" hreflang="pt" href="https://gpx.studio/l/ru/about.html"/>
+        <link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/about.html"/>
+        <link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/about.html"/>
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167421374-1"></script>
         <script>
             if(window.location.hostname != "localhost") {
@@ -22,9 +23,9 @@
         </script>
         <meta charset="utf-8">
         <title>gpx.studio-ról</title>
-        <meta name="description" content="Tekintse meg, szerkessze és hozzon létre GPX-fájl-okat online: adjon hozzá, helyezzen át és töröljön pontokat, egyesítsen több fájlt, fordítson vissza, adjon hozzá időbélyegeket, szerkessze az útpontokat és így tovább!">
-        <meta property="og:title" content="gpx.studio — Online GPX fájl szerkesztő" />
-        <meta property="og:description" content="Tekintse meg, szerkessze és hozzon létre GPX-fájl-okat online: adjon hozzá, helyezzen át és töröljön pontokat, egyesítsen több fájlt, fordítson vissza, adjon hozzá időbélyegeket, szerkessze az útpontokat és így tovább!" />
+        <meta name="description" content="Tekintse meg, szerkessze és hozzon létre Útvonalakat (GPX fájlokat) online: adjon hozzá, helyezzen át és töröljön pontokat, egyesítsen több útvonalat, Változtasson menetirányt, adjon hozzá idő adatokat, szerkessze az útpontokat!">
+        <meta property="og:title" content="gpx.studio — Online Útvonal (GPX fájl) szerkesztő" />
+        <meta property="og:description" content="Tekintse meg, szerkessze és hozzon létre Útvonalakat (GPX fájlokat) online: adjon hozzá, helyezzen át és töröljön pontokat, egyesítsen több útvonalat, Változtasson menetirányt, adjon hozzá idő adatokat, szerkessze az útpontokat!" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://gpx.studio" />
         <meta property="og:image" content="https://gpx.studio/res/og_logo.png" />
@@ -87,6 +88,7 @@
                 <a href="/l/de/about.html" class="language">de</a>
                 <a href="/l/es/about.html" class="language">es</a>
                 <a href="/l/fr/about.html" class="language">fr</a>
+                <a href="/l/hu/about.html" class="language">hu</a>
                 <a href="/l/it/about.html" class="language">it</a>
                 <a href="/l/nl/about.html" class="language">nl</a>
                 <a href="/l/pt/about.html" class="language">pt</a>
@@ -231,7 +233,7 @@
                         <li>kattintson a jobb gombbal egy útvonal szerkesztési pontra vagy a vonalra, és használja a <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> parancsot a nyomvonal szétválasztásához a kiválasztott helyen.</li>
                         <li>kattintson a jobb gombbal egy útvonal szerkesztési pontra vagy a vonalra, és használja a <span class="button"><i class="fas fa-undo"></i> <span>Rajt innen</span></span> parancsot, hogy az útvonal teljesítése egy kiválasztott helyről induljon.</li>
                     </ul>
-                    Ha hibázik, vagy meggondolja magát az útvonallal kapcsolatban, használja az előzmények nyilakkal jelölt visszavonás <i class="fas fa-reply button"></i> vagy az újra hozzáadás <i class="fas fa-share button"></i> gombokat.
+                    Ha hibázik, vagy meggondolja magát az útvonallal kapcsolatban, használja az előzmények nyilakkal jelölt visszavonás <i class="fas fa-reply button"></i> vagy az újra hozzáadás <i class="fas fa-share button"></i> gombokat.<br>
                      Két beállítási lehetőség szabályozza, hogyan csatlakozzon két egymást követő útvonal szerkesztési pont:
                     <ul>
                         <li>tevékenységi mód kiválasztása
@@ -328,7 +330,7 @@
                     </ol>
                     Opcionálisan alkalmazhatja a kiválasztott színt, átlátszatlanságot és szélességet az összes nyomvonalra a jelölőnégyzetek használatával.
                 </div></div>
-                <div class="guide-item"><a name="add-waypoint" href="#add-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('add-wpt')"> Útvonalpontok (érdekes, ellenőrző pontok) hozzáadása egy GPX-fájlhoz </ 0></a>
+                <div class="guide-item"><a name="add-waypoint" href="#add-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('add-wpt')"> Útvonalpontok (érdekes, ellenőrző pontok) hozzáadása egy GPX-fájlhoz</div></a>
                 <div id="add-wpt" style="display: none">
                     <ol>
                         <li>Kattintson a <i class="fas fa-map-marker-alt button"></i> ikonra.</li>
@@ -336,9 +338,9 @@
                         <li>El nevezheti és megadhat néhány adatot az útpontról (HTML segítségével formázhatja az információkat, vagy akár képeket is linkelhet).</li>
                         <li>Kattintson <span class="button">Ok</span>.</li>
                     </ol>
-                    Ha egy meglévő útpontot másolni szeretne és újra felhasználni. Kattintson a meglévő útpont jelzőikonra, és nyomja meg a <i class="fas fa-copy button"> </ 0> gombot a felugró ablakban. Ezután kattintson a térképen arra helyre ahová szeretné helyezni, hogy hozzáadja az útvonalpont másolatát.
+                    Ha egy meglévő útpontot másolni szeretne és újra felhasználni. Kattintson a meglévő útpont jelzőikonra, és nyomja meg a <i class="fas fa-copy button"></i> gombot a felugró ablakban. Ezután kattintson a térképen arra helyre ahová szeretné helyezni, hogy hozzáadja az útvonalpont másolatát.
                 </div></div>
-                <div class="guide-item"><a name="edit-waypoint" href="#edit-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('edit-wpt')"> GPX-fájl útvonalpontjának szerkesztése </ 0></a>
+                <div class="guide-item"><a name="edit-waypoint" href="#edit-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('edit-wpt')"> GPX-fájl útvonalpontjának szerkesztése</div></a>
                 <div id="edit-wpt" style="display: none">Egy útvonalpont helyének megváltoztatásához egyszerűen húzza át egy új helyre. Ha egy útvonalpontot a kiválasztott út közelébe húz, az automatikusan ráillesztésre kerül, így az útvonalpontot tökéletesen elhelyezheti az úton. Használja a zoom-ot nagyítson vagy kicsinyítsen ha pontosabban szeretné megadni az útvonalpontok helyét. Ha útvonal közelébe helyezzük el útvonalpontunkat a program automatikusan az útvonalunkra fogja rakni.<br>
                      Egy útpont adatainak szerkesztéséhez kattintson rá a jelzőikonra, és nyomja meg a <i class="fas fa-pencil-alt button"></i> gombot a felugró ablakban. Módosítsa az adatokat, majd kattintson az <span class="button">Ok</span> gombra.
                 </div></div>
