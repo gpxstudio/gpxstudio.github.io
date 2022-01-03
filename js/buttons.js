@@ -562,6 +562,7 @@ export default class Buttons {
                     _this.ignSlope = L.tileLayer('https://wxs.ign.fr/altimetrie/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&TileMatrixSet=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&Layer=GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN&FORMAT=image/png&Style=normal', {
                         maxZoom: 20,
                         maxNativeZoom: 17,
+                        opacity: 0.4,
                         attribution : "IGN-F/Géoportail"
                     });
 
