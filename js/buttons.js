@@ -490,7 +490,6 @@ export default class Buttons {
                         else if (mapSource == 'otm') _this.openTopoMap.addTo(_this.map);
                         else if (mapSource == 'ohm') _this.openHikingMap.addTo(_this.map);
                         else if (mapSource == 'cosm') _this.cyclOSM.addTo(_this.map);
-                        else if (mapSource == 'ign') _this.ignScan25.addTo(_this.map);
                         else if (mapSource == 'outdoors' && urlParams.has('token') && _this.supportsWebGL()) _this.mapboxMap.addTo(_this.map);
                         else if (mapSource == 'satellite' && urlParams.has('token') && _this.supportsWebGL()) {
                             _this.mapboxMap.addTo(_this.map);
