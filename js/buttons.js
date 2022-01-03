@@ -490,7 +490,7 @@ export default class Buttons {
                         else if (mapSource == 'otm') _this.openTopoMap.addTo(_this.map);
                         else if (mapSource == 'ohm') _this.openHikingMap.addTo(_this.map);
                         else if (mapSource == 'cosm') _this.cyclOSM.addTo(_this.map);
-                        else if (mapSource == 'ign') _this.ignMap.addTo(_this.map);
+                        else if (mapSource == 'ign') _this.ignScan25.addTo(_this.map);
                         else if (mapSource == 'outdoors' && urlParams.has('token') && _this.supportsWebGL()) _this.mapboxMap.addTo(_this.map);
                         else if (mapSource == 'satellite' && urlParams.has('token') && _this.supportsWebGL()) {
                             _this.mapboxMap.addTo(_this.map);
@@ -545,21 +545,112 @@ export default class Buttons {
                     };
                     _this.streetView.addTo(_this.map);
 
-                    _this.ignMap = L.tileLayer('https://wxs.ign.fr/csxlabhak328gg7s096cu55r/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR&FORMAT=image/jpeg&STYLE=normal', {
+                    _this.swisstopo = L.tileLayer('https://wmts20.geo.admin.ch/1.0.0/ch.swisstopo.pixelkarte-farbe/default/current/3857/{z}/{x}/{y}.jpeg', {
+                        attribution : '&copy; <a href="https://www.swisstopo.admin.ch" target="_blank">swisstopo</a>'
+                    });
+
+                    _this.ignScan25 = L.tileLayer('https://wxs.ign.fr/csxlabhak328gg7s096cu55r/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR&FORMAT=image/jpeg&STYLE=normal', {
                         minZoom : 0,
                         maxNativeZoom : 16,
                         tileSize : 256,
                         attribution : "IGN-F/Géoportail"
                     });
 
-                    _this.stravaHeatmap = L.tileLayer('', {
+                    _this.ordnanceSurvey = L.tileLayer('https://api.os.uk/maps/raster/v1/zxy/Outdoor_3857/{z}/{x}/{y}.png?key=piCT8WysfuC3xLSUW7sGLfrAAJoYDvQz', {
+                        maxZoom: 20,
+                        attribution: '&copy; <a href="http://www.ordnancesurvey.co.uk/">Ordnance Survey</a>'
+                    });
+
+                    _this.usgs = L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}?blankTile=false', {
+                        maxNativeZoom: 16,
+                        maxZoom: 20,
+                        attribution: '&copy; <a href="usgs.gov">USGS</a>'
+                    });
+
+                    _this.stravaHeatmapAll = L.tileLayer('', {
                         maxZoom: 20,
                         maxNativeZoom: 14,
                         attribution: '&copy; <a href="https://www.strava.com" target="_blank">Strava</a>'
                     });
 
-                    _this.stravaHeatmap.on('tileerror', function () {
+                    _this.stravaHeatmapAll.on('tileerror', function () {
                         _this.updateStravaCookies();
+                    });
+
+                    _this.stravaHeatmapRide = L.tileLayer('', {
+                        maxZoom: 20,
+                        maxNativeZoom: 14,
+                        attribution: '&copy; <a href="https://www.strava.com" target="_blank">Strava</a>'
+                    });
+
+                    _this.stravaHeatmapRide.on('tileerror', function () {
+                        _this.updateStravaCookies();
+                    });
+
+                    _this.stravaHeatmapRun = L.tileLayer('', {
+                        maxZoom: 20,
+                        maxNativeZoom: 14,
+                        attribution: '&copy; <a href="https://www.strava.com" target="_blank">Strava</a>'
+                    });
+
+                    _this.stravaHeatmapRun.on('tileerror', function () {
+                        _this.updateStravaCookies();
+                    });
+
+                    _this.stravaHeatmapWater = L.tileLayer('', {
+                        maxZoom: 20,
+                        maxNativeZoom: 14,
+                        attribution: '&copy; <a href="https://www.strava.com" target="_blank">Strava</a>'
+                    });
+
+                    _this.stravaHeatmapWater.on('tileerror', function () {
+                        _this.updateStravaCookies();
+                    });
+
+                    _this.stravaHeatmapWinter = L.tileLayer('', {
+                        maxZoom: 20,
+                        maxNativeZoom: 14,
+                        attribution: '&copy; <a href="https://www.strava.com" target="_blank">Strava</a>'
+                    });
+
+                    _this.stravaHeatmapWinter.on('tileerror', function () {
+                        _this.updateStravaCookies();
+                    });
+
+                    _this.waymarkedTrailsHiking = L.tileLayer('https://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png', {
+                        maxZoom: 20,
+                        maxNativeZoom: 18,
+                        attribution: '&copy; <a href="https://www.waymarkedtrails.org" target="_blank">Waymarked Trails</a>'
+                    });
+
+                    _this.waymarkedTrailsCycling = L.tileLayer('https://tile.waymarkedtrails.org/cycling/{z}/{x}/{y}.png', {
+                        maxZoom: 20,
+                        maxNativeZoom: 18,
+                        attribution: '&copy; <a href="https://www.waymarkedtrails.org" target="_blank">Waymarked Trails</a>'
+                    });
+
+                    _this.waymarkedTrailsMTB = L.tileLayer('https://tile.waymarkedtrails.org/mtb/{z}/{x}/{y}.png', {
+                        maxZoom: 20,
+                        maxNativeZoom: 18,
+                        attribution: '&copy; <a href="https://www.waymarkedtrails.org" target="_blank">Waymarked Trails</a>'
+                    });
+
+                    _this.waymarkedTrailsSkating = L.tileLayer('https://tile.waymarkedtrails.org/skating/{z}/{x}/{y}.png', {
+                        maxZoom: 20,
+                        maxNativeZoom: 18,
+                        attribution: '&copy; <a href="https://www.waymarkedtrails.org" target="_blank">Waymarked Trails</a>'
+                    });
+
+                    _this.waymarkedTrailsHorseRiding = L.tileLayer('https://tile.waymarkedtrails.org/riding/{z}/{x}/{y}.png', {
+                        maxZoom: 20,
+                        maxNativeZoom: 18,
+                        attribution: '&copy; <a href="https://www.waymarkedtrails.org" target="_blank">Waymarked Trails</a>'
+                    });
+
+                    _this.waymarkedTrailsWinter = L.tileLayer('https://tile.waymarkedtrails.org/slopes/{z}/{x}/{y}.png', {
+                        maxZoom: 20,
+                        maxNativeZoom: 18,
+                        attribution: '&copy; <a href="https://www.waymarkedtrails.org" target="_blank">Waymarked Trails</a>'
                     });
 
                     if (_this.supportsWebGL()) {
@@ -616,15 +707,47 @@ export default class Buttons {
                         });
 
                         _this.controlLayers = L.control.layers({
-                            "Mapbox Outdoors" : _this.mapboxMap,
-                            "Mapbox Satellite" : _this.mapboxMap,
-                            "OpenStreetMap" : _this.openStreetMap,
-                            "OpenTopoMap" : _this.openTopoMap,
-                            "OpenHikingMap" : _this.openHikingMap,
-                            "CyclOSM" : _this.cyclOSM,
-                            "IGN SCAN25 (FR)" : _this.ignMap
+                            "Basemaps": {
+                                "World": {
+                                    "Mapbox Outdoors" : _this.mapboxMap,
+                                    "Mapbox Satellite" : _this.mapboxMap,
+                                    "OpenStreetMap" : _this.openStreetMap,
+                                    "OpenTopoMap" : _this.openTopoMap,
+                                    "OpenHikingMap" : _this.openHikingMap,
+                                    "CyclOSM" : _this.cyclOSM
+                                },
+                                "Countries": {
+                                    "France": {
+                                        "IGN SCAN25" : _this.ignScan25
+                                    },
+                                    "Switzerland": {
+                                        "swisstopo": _this.swisstopo
+                                    },
+                                    "United Kingdom": {
+                                        "Ordnance Survey": _this.ordnanceSurvey
+                                    },
+                                    "United States": {
+                                        "USGS": _this.usgs
+                                    }
+                                }
+                            }
                         },{
-                            "Strava Heatmap" : _this.stravaHeatmap
+                            "Overlays": {
+                                "Strava Heatmap": {
+                                    "All" : _this.stravaHeatmapAll,
+                                    "Ride" : _this.stravaHeatmapRide,
+                                    "Run" : _this.stravaHeatmapRun,
+                                    "Water" : _this.stravaHeatmapWater,
+                                    "Winter" : _this.stravaHeatmapWinter
+                                },
+                                "Waymarked Trails": {
+                                    "Hiking": _this.waymarkedTrailsHiking,
+                                    "Cycling": _this.waymarkedTrailsCycling,
+                                    "MTB": _this.waymarkedTrailsMTB,
+                                    "Skating": _this.waymarkedTrailsSkating,
+                                    "Horse riding": _this.waymarkedTrailsHorseRiding,
+                                }
+                            }
                         }).addTo(_this.map);
 
                         _this.addSwitchMapboxLayers();
@@ -632,13 +755,45 @@ export default class Buttons {
                         _this.openStreetMap.addTo(_this.map);
 
                         _this.controlLayers = L.control.layers({
-                            "OpenStreetMap" : _this.openStreetMap,
-                            "OpenTopoMap" : _this.openTopoMap,
-                            "OpenHikingMap" : _this.openHikingMap,
-                            "CyclOSM" : _this.cyclOSM,
-                            "IGN SCAN25 (FR)" : _this.ignMap
+                            "Basemaps": {
+                                "World": {
+                                    "OpenStreetMap" : _this.openStreetMap,
+                                    "OpenTopoMap" : _this.openTopoMap,
+                                    "OpenHikingMap" : _this.openHikingMap,
+                                    "CyclOSM" : _this.cyclOSM
+                                },
+                                "Countries": {
+                                    "France": {
+                                        "IGN SCAN25" : _this.ignScan25
+                                    }
+                                },
+                                "Switzerland": {
+                                    "swisstopo": _this.swisstopo
+                                },
+                                "United Kingdom": {
+                                    "Ordnance Survey": _this.ordnanceSurvey
+                                },
+                                "United States": {
+                                    "USGS": _this.usgs
+                                }
+                            }
                         },{
-                            "Strava Heatmap" : _this.stravaHeatmap
+                            "Overlays": {
+                                "Strava Heatmap": {
+                                    "All" : _this.stravaHeatmapAll,
+                                    "Ride" : _this.stravaHeatmapRide,
+                                    "Run" : _this.stravaHeatmapRun,
+                                    "Water" : _this.stravaHeatmapWater,
+                                    "Winter" : _this.stravaHeatmapWinter
+                                },
+                                "Waymarked Trails": {
+                                    "Hiking": _this.waymarkedTrailsHiking,
+                                    "Cycling": _this.waymarkedTrailsCycling,
+                                    "MTB": _this.waymarkedTrailsMTB,
+                                    "Skating": _this.waymarkedTrailsSkating,
+                                    "Horse riding": _this.waymarkedTrailsHorseRiding,
+                                }
+                            }
                         }).addTo(_this.map);
                     }
                 }
@@ -704,11 +859,11 @@ export default class Buttons {
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 _this.stravaCookies = JSON.parse(xhr.response);
-                if (_this.activity != 'hike') {
-                    _this.stravaHeatmap.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/ride/bluered/{z}/{x}/{y}@2x.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
-                } else {
-                    _this.stravaHeatmap.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/run/bluered/{z}/{x}/{y}@2x.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
-                }
+                _this.stravaHeatmapAll.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/all/bluered/{z}/{x}/{y}@2x.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
+                _this.stravaHeatmapRide.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/ride/bluered/{z}/{x}/{y}@2x.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
+                _this.stravaHeatmapRun.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/run/bluered/{z}/{x}/{y}@2x.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
+                _this.stravaHeatmapWater.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/water/bluered/{z}/{x}/{y}@2x.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
+                _this.stravaHeatmapWinter.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/winter/bluered/{z}/{x}/{y}@2x.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
                 _this.updatingStravaCookies = false;
             }
         }
@@ -1149,11 +1304,6 @@ export default class Buttons {
             buttons.activity = activity_div.id;
             localStorage.setItem('activity',buttons.activity);
             buttons.activity_choice.innerHTML = activity_div.children[0].outerHTML;
-            if (buttons.activity != 'hike') {
-                if (buttons.stravaCookies) buttons.stravaHeatmap.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/ride/bluered/{z}/{x}/{y}@2x.png?Signature=${buttons.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${buttons.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${buttons.stravaCookies['CloudFront-Policy']}`);
-            } else {
-                if (buttons.stravaCookies) buttons.stravaHeatmap.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/run/bluered/{z}/{x}/{y}@2x.png?Signature=${buttons.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${buttons.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${buttons.stravaCookies['CloudFront-Policy']}`);
-            }
             if (total.hasFocus) total.showData();
             else total.traces[total.focusOn].showData();
             buttons.activity_dropdown.style.display = "";
@@ -1208,8 +1358,8 @@ export default class Buttons {
                 if (trace.isEdited) buttons.edit.click();
                 e.preventDefault();
             } else if (e.key === "F1") {
-                if (map.hasLayer(buttons.stravaHeatmap)) buttons.stravaHeatmap.remove();
-                else buttons.stravaHeatmap.addTo(map);
+                if (map.hasLayer(buttons.stravaHeatmapAll)) buttons.stravaHeatmapAll.remove();
+                else buttons.stravaHeatmapAll.addTo(map);
                 e.preventDefault();
             } else if (e.key === "F2") {
                 const keys = Object.keys(buttons.routing_choices);
