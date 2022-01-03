@@ -549,9 +549,19 @@ export default class Buttons {
                     });
 
                     _this.ignScan25 = L.tileLayer('https://wxs.ign.fr/csxlabhak328gg7s096cu55r/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR&FORMAT=image/jpeg&STYLE=normal', {
-                        minZoom : 0,
                         maxNativeZoom : 16,
-                        tileSize : 256,
+                        maxZoom: 20,
+                        attribution : "IGN-F/Géoportail"
+                    });
+
+                    _this.ignCadastre = L.tileLayer('https://wxs.ign.fr/parcellaire/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}&LAYER=CADASTRALPARCELS.PARCELS&FORMAT=image/png&STYLE=normal', {
+                        maxZoom: 20,
+                        attribution : "IGN-F/Géoportail"
+                    });
+
+                    _this.ignSlope = L.tileLayer('https://wxs.ign.fr/altimetrie/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&TileMatrixSet=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&Layer=GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN&FORMAT=image/png&Style=normal', {
+                        maxZoom: 20,
+                        maxNativeZoom: 17,
                         attribution : "IGN-F/Géoportail"
                     });
 
@@ -717,7 +727,8 @@ export default class Buttons {
                                 },
                                 "Countries": {
                                     "France": {
-                                        "IGN SCAN25" : _this.ignScan25
+                                        "IGN SCAN25" : _this.ignScan25,
+                                        "IGN Cadastre": _this.ignCadastre
                                     },
                                     "Switzerland": {
                                         "swisstopo": _this.swisstopo
@@ -745,6 +756,11 @@ export default class Buttons {
                                     "MTB": _this.waymarkedTrailsMTB,
                                     "Skating": _this.waymarkedTrailsSkating,
                                     "Horse riding": _this.waymarkedTrailsHorseRiding,
+                                },
+                                "Countries": {
+                                    "France": {
+                                        "IGN Slope": _this.ignSlope
+                                    }
                                 }
                             }
                         }).addTo(_this.map);
@@ -763,7 +779,8 @@ export default class Buttons {
                                 },
                                 "Countries": {
                                     "France": {
-                                        "IGN SCAN25" : _this.ignScan25
+                                        "IGN SCAN25" : _this.ignScan25,
+                                        "IGN Cadastre": _this.ignCadastre
                                     }
                                 },
                                 "Switzerland": {
@@ -791,6 +808,9 @@ export default class Buttons {
                                     "MTB": _this.waymarkedTrailsMTB,
                                     "Skating": _this.waymarkedTrailsSkating,
                                     "Horse riding": _this.waymarkedTrailsHorseRiding,
+                                },
+                                "Countries": {
+                                    "IGN Slope": _this.ignSlope
                                 }
                             }
                         }).addTo(_this.map);
