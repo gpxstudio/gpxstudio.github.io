@@ -545,16 +545,31 @@ export default class Buttons {
                     _this.streetView.addTo(_this.map);
 
                     _this.swisstopo = L.tileLayer('https://wmts20.geo.admin.ch/1.0.0/ch.swisstopo.pixelkarte-farbe/default/current/3857/{z}/{x}/{y}.jpeg', {
+                        maxZoom: 20,
+                        maxNativeZoom: 18,
                         attribution : '&copy; <a href="https://www.swisstopo.admin.ch" target="_blank">swisstopo</a>'
                     });
 
-                    _this.ignScan25 = L.tileLayer('https://wxs.ign.fr/csxlabhak328gg7s096cu55r/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR&FORMAT=image/jpeg&STYLE=normal', {
-                        maxNativeZoom : 16,
+                    _this.swisstopoSlope = L.tileLayer('https://wmts.geo.admin.ch/1.0.0/ch.swisstopo.hangneigung-ueber_30/default/current/3857/{z}/{x}/{y}.png', {
                         maxZoom: 20,
+                        maxNativeZoom: 17,
+                        opacity: 0.4,
+                        attribution : '&copy; <a href="https://www.swisstopo.admin.ch" target="_blank">swisstopo</a>'
+                    });
+
+                    _this.ignFrScan25 = L.tileLayer('https://wxs.ign.fr/csxlabhak328gg7s096cu55r/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR&FORMAT=image/jpeg&STYLE=normal', {
+                        maxZoom: 20,
+                        maxNativeZoom: 16,
                         attribution : "IGN-F/Géoportail"
                     });
 
-                    _this.ignCadastre = L.tileLayer('https://wxs.ign.fr/parcellaire/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}&LAYER=CADASTRALPARCELS.PARCELS&FORMAT=image/png&STYLE=normal', {
+                    _this.ignFrCadastre = L.tileLayer('https://wxs.ign.fr/parcellaire/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}&LAYER=CADASTRALPARCELS.PARCELS&FORMAT=image/png&STYLE=normal', {
+                        maxZoom: 20,
+                        opacity: 0.5,
+                        attribution : "IGN-F/Géoportail"
+                    });
+
+                    _this.ignEs = L.tileLayer('https://www.ign.es/wmts/mapa-raster?layer=MTN&style=default&tilematrixset=GoogleMapsCompatible&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image/jpeg&TileMatrix={z}&TileCol={x}&TileRow={y}', {
                         maxZoom: 20,
                         attribution : "IGN-F/Géoportail"
                     });
@@ -728,8 +743,10 @@ export default class Buttons {
                                 },
                                 "Countries": {
                                     "France": {
-                                        "IGN SCAN25" : _this.ignScan25,
-                                        "IGN Cadastre": _this.ignCadastre
+                                        "IGN SCAN25" : _this.ignFrScan25
+                                    },
+                                    "Spain": {
+                                        "IGN": _this.ignEs
                                     },
                                     "Switzerland": {
                                         "swisstopo": _this.swisstopo
@@ -757,10 +774,15 @@ export default class Buttons {
                                     "MTB": _this.waymarkedTrailsMTB,
                                     "Skating": _this.waymarkedTrailsSkating,
                                     "Horse riding": _this.waymarkedTrailsHorseRiding,
+                                    "Slopes": _this.waymarkedTrailsWinter
                                 },
                                 "Countries": {
                                     "France": {
-                                        "IGN Slope": _this.ignSlope
+                                        "IGN Slope": _this.ignSlope,
+                                        "IGN Cadastre": _this.ignFrCadastre
+                                    },
+                                    "Switzerland": {
+                                        "swisstopo Slope": _this.swisstopoSlope
                                     }
                                 }
                             }
@@ -780,18 +802,20 @@ export default class Buttons {
                                 },
                                 "Countries": {
                                     "France": {
-                                        "IGN SCAN25" : _this.ignScan25,
-                                        "IGN Cadastre": _this.ignCadastre
+                                        "IGN SCAN25" : _this.ignFrScan25
+                                    },
+                                    "Spain": {
+                                        "IGN": _this.ignEs
+                                    },
+                                    "Switzerland": {
+                                        "swisstopo": _this.swisstopo
+                                    },
+                                    "United Kingdom": {
+                                        "Ordnance Survey": _this.ordnanceSurvey
+                                    },
+                                    "United States": {
+                                        "USGS": _this.usgs
                                     }
-                                },
-                                "Switzerland": {
-                                    "swisstopo": _this.swisstopo
-                                },
-                                "United Kingdom": {
-                                    "Ordnance Survey": _this.ordnanceSurvey
-                                },
-                                "United States": {
-                                    "USGS": _this.usgs
                                 }
                             }
                         },{
@@ -809,9 +833,16 @@ export default class Buttons {
                                     "MTB": _this.waymarkedTrailsMTB,
                                     "Skating": _this.waymarkedTrailsSkating,
                                     "Horse riding": _this.waymarkedTrailsHorseRiding,
+                                    "Slopes": _this.waymarkedTrailsWinter
                                 },
                                 "Countries": {
-                                    "IGN Slope": _this.ignSlope
+                                    "France": {
+                                        "IGN Slope": _this.ignSlope,
+                                        "IGN Cadastre": _this.ignFrCadastre
+                                    },
+                                    "Switzerland": {
+                                        "swisstopo Slope": _this.swisstopoSlope
+                                    }
                                 }
                             }
                         }).addTo(_this.map);
