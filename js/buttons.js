@@ -1321,6 +1321,7 @@ export default class Buttons {
             var path = e.path || (e.composedPath && e.composedPath());
             var activity_div = path[0];
             if (!activity_div.id) activity_div = path[1];
+            if (!(activity_div.id in buttons.activity_choices)) return;
             buttons.activity = activity_div.id;
             localStorage.setItem('activity',buttons.activity);
             buttons.activity_choice.innerHTML = activity_div.children[0].outerHTML;
