@@ -907,6 +907,8 @@ export default class Trace {
     }
 
     setStart(index) {
+        this.save();
+
         const segments = this.getSegments();
         var cumul = 0, before = [], after = [];
 
@@ -929,12 +931,11 @@ export default class Trace {
         for (var i=0; i<before.length; i++)
             this.gpx.getLayers()[0].addLayer(new L.Polyline(before[i]._latlngs, this.gpx.options.polyline_options));
 
+        this.gpx.setStyle(this.focus_style);
 
+        this.redraw();
         this.recomputeStats();
         this.update();
-        this.redraw();
-        this.focus();
-        this.draw();
     }
 
     merge(trace, as_segments, stick_time) {
@@ -1644,7 +1645,7 @@ export default class Trace {
                 if (!a.equals(b) && !b.equals(c)) new_points[mid].routing = false;
 
                 trace.addRoute(new_points, a, c, layer);
-            } else if (this.readyState == 4 && this.status == 400) {
+            } else if (this.readyState == 4) {
                 trace.addRoute([b], a, c, layer);
             }
         }
@@ -1694,7 +1695,7 @@ export default class Trace {
                 }
                 new_points[new_points.length-1].routing = false;
                 trace.addRoute2(new_points, a, b, layer);
-            } else if (this.readyState == 4 && this.status == 400) {
+            } else if (this.readyState == 4) {
                 trace.addRoute2([b], a, b, layer);
             }
         }
