@@ -594,16 +594,6 @@ export default class Buttons {
                         attribution: '&copy; <a href="usgs.gov">USGS</a>'
                     });
 
-                    _this.stravaHeatmapAll = L.tileLayer('', {
-                        maxZoom: 20,
-                        maxNativeZoom: 14,
-                        attribution: '&copy; <a href="https://www.strava.com" target="_blank">Strava</a>'
-                    });
-
-                    _this.stravaHeatmapAll.on('tileerror', function () {
-                        _this.updateStravaCookies();
-                    });
-
                     _this.stravaHeatmapRide = L.tileLayer('', {
                         maxZoom: 20,
                         maxNativeZoom: 14,
@@ -764,7 +754,6 @@ export default class Buttons {
                         },{
                             "Overlays": {
                                 "Strava Heatmap": {
-                                    "All" : _this.stravaHeatmapAll,
                                     "Ride" : _this.stravaHeatmapRide,
                                     "Run" : _this.stravaHeatmapRun,
                                     "Water" : _this.stravaHeatmapWater,
@@ -823,7 +812,6 @@ export default class Buttons {
                         },{
                             "Overlays": {
                                 "Strava Heatmap": {
-                                    "All" : _this.stravaHeatmapAll,
                                     "Ride" : _this.stravaHeatmapRide,
                                     "Run" : _this.stravaHeatmapRun,
                                     "Water" : _this.stravaHeatmapWater,
@@ -912,7 +900,6 @@ export default class Buttons {
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 _this.stravaCookies = JSON.parse(xhr.response);
-                _this.stravaHeatmapAll.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/all/bluered/{z}/{x}/{y}@2x.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
                 _this.stravaHeatmapRide.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/ride/bluered/{z}/{x}/{y}@2x.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
                 _this.stravaHeatmapRun.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/run/bluered/{z}/{x}/{y}@2x.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
                 _this.stravaHeatmapWater.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/water/bluered/{z}/{x}/{y}@2x.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
@@ -1412,8 +1399,24 @@ export default class Buttons {
                 if (trace.isEdited) buttons.edit.click();
                 e.preventDefault();
             } else if (e.key === "F1") {
-                if (map.hasLayer(buttons.stravaHeatmapAll)) buttons.stravaHeatmapAll.remove();
-                else buttons.stravaHeatmapAll.addTo(map);
+                if (localStorage.hasOwnProperty('lastoverlays')) {
+                    const overlayLayers = buttons.controlLayers.getOverlayLayers();
+                    const activeLayers = JSON.parse(localStorage.getItem('lastoverlays'));
+                    for (var i=0; i<activeLayers.length; i++) {
+                        buttons.map.addLayer(overlayLayers[activeLayers[i]]);
+                    }
+                    localStorage.removeItem('lastoverlays');
+                } else {
+                    const overlayLayers = buttons.controlLayers.getOverlayLayers();
+                    const activeLayers = [];
+                    for (var i=0; i<overlayLayers.length; i++) {
+                        if (buttons.map.hasLayer(overlayLayers[i])) {
+                            buttons.map.removeLayer(overlayLayers[i]);
+                            activeLayers.push(i);
+                        }
+                    }
+                    localStorage.setItem('lastoverlays', JSON.stringify(activeLayers));
+                }
                 e.preventDefault();
             } else if (e.key === "F2") {
                 const keys = Object.keys(buttons.routing_choices);
