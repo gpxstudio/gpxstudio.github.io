@@ -149,7 +149,13 @@
             <div class="panels-button" id="hide" title="Útvonal elrejtése/felfedése"><i class="fas fa-eye-slash custom-button"></i></div><br>
             <div class="panels-button" id="delete" title="Törlés"><i class="fas fa-trash-alt custom-button"></i></div><br>
         </div>
-        <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Utcai nézet megnyitása"></i>
+        <div id="street-view-content">
+            <div id="street-view-selector">
+                <input id="street-view-provider-google" type="radio" name="street-view-provider" value="google"> <label for="street-view-provider-google">Google</label>
+                <input id="street-view-provider-mapillary" type="radio" name="street-view-provider" value="mapillary" checked> <label for="street-view-provider-mapillary">Mapillary</label>
+            </div>
+            <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Utcai nézet megnyitása"></i>
+        </div>
         <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Irányjelzőtáblák</label>
         <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Távolságjelző táblák</label>
         <!-- ADD_LANGUAGE -->
@@ -273,7 +279,7 @@
             <tr>
                 <td></td>
                 <td>F1</td>
-                <td>Strava legnépszerűbb útvonalak mutatása</td>
+                <td>Show or hide the overlays currently used.</td>
             </tr>
             <tr>
                 <td><i class="fas fa-route"></i></td>
@@ -326,103 +332,103 @@
                 <tr>
                     <td></td>
                     <td>Erő<input type="checkbox" id="include-power" checked></td>
-                    <td>Hőmérséklet<input type="checkbox" id="include-atemp" checked></td>
+                    <td>Temperature<input type="checkbox" id="include-atemp" checked></td>
                     <td></td>
                 </tr>
                 </tbody>
             </table>
-            <div style="color:#0f92c5;">&#9888;&#65039; Ez az eszköz <b>ingyenesen</b> használható, de <b>nem ingyenes</b> az üzemeltetése&#9888;&#65039;<br>Minden térkép megjelenítés, hozzáadott vagy áthelyezett útvonal az üzemeltetőnek pénzbe kerül.</div>
-            <div id="donate-2" class="panels custom-button fancy-button"><b>Segíts az üzemeltetőnek, hogy az alkalmazás továbbra is ingyen használható legyen</b> &#128591;</div><br>
-            <div id="export-2" class="panels custom-button fancy-button">Letöltés <i class="fas fa-download"></i></div>
-            <div id="save-drive" class="panels custom-button fancy-button">Mentés ide: Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
+            <div style="color:#0f92c5;">&#9888;&#65039; The tool is <b>free</b> to use but <b>not free</b> to run &#9888;&#65039;<br>Each map display, track point added or moved is billed.</div>
+            <div id="donate-2" class="panels custom-button fancy-button"><b>Help keep the website free</b> &#128591;</div><br>
+            <div id="export-2" class="panels custom-button fancy-button">Download <i class="fas fa-download"></i></div>
+            <div id="save-drive" class="panels custom-button fancy-button">Save to Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
         </div>
         <div id="clear-content" class="popup-content">
-            Ezzel törli az összes nyitott útvonalat.<br>Folytatja?<br>
-            <div id="clear2" class="panels custom-button normal-button">Igen</div>
-            <div id="cancelclear" class="panels custom-button normal-button"><b>Mégsem</b></div>
+            This will delete all open traces.<br>Do you wish to continue?<br>
+            <div id="clear2" class="panels custom-button normal-button">Yes</div>
+            <div id="cancelclear" class="panels custom-button normal-button"><b>Cancel</b></div>
         </div>
         <div id="delete-content" class="popup-content">
-            Ezzel törli az aktuális útvonalat.<br>Folytatja?<br>
-            <div id="delete2" class="panels custom-button normal-button">Igen</div>
-            <div id="canceldelete" class="panels custom-button normal-button"><b>Mégsem</b></div>
+            This will delete the current trace.<br>Do you wish to continue?<br>
+            <div id="delete2" class="panels custom-button normal-button">Yes</div>
+            <div id="canceldelete" class="panels custom-button normal-button"><b>Cancel</b></div>
         </div>
         <div id="color-content" class="popup-content">
             <div style="text-align: left">
-                <label for="color-picker">Válasszon új színt</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
-                 <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Útvonal szín módosítása</label><br>
-                 <label for="opacity-slider">Átlátszóság</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
-                 <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Útvonal átlátszóság módosítása </label><br>
-                 <label for="width-slider">Szélesség</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
-                 <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Útvonal szélesség módosítása</label>
+                <label for="color-picker">Pick a new color</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
+                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Apply color to all traces</label><br>
+                <label for="opacity-slider">Opacity</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
+                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Apply opacity to all traces</label><br>
+                <label for="width-slider">Width</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
+                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Apply width to all traces</label>
             </div>
-            <div id="validate-color" class="panels custom-button normal-button">Rendben</div>
-            <div id="cancel-color" class="panels custom-button normal-button"><b>Mégsem</b></div>
+            <div id="validate-color" class="panels custom-button normal-button">Ok</div>
+            <div id="cancel-color" class="panels custom-button normal-button"><b>Cancel</b></div>
         </div>
         <div id="load-content" class="popup-content">
-            Válasszon fájlokat innen<br>
-            <div id="load2" class="panels custom-button normal-button">Asztal (saját gép)</div>
+            Choose files from<br>
+            <div id="load2" class="panels custom-button normal-button">Desktop</div>
             <div id="load-drive" class="panels custom-button normal-button">Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div><br>
-            (vagy húzza át az ablakban bárhová)
+            (or drag and drop anywhere in the window)
         </div>
         <div id="share-content" class="popup-content">
-            Kész!<br>
-            <div id="copy-link" class="panels custom-button fancy-button">Link másolása <i class="fas fa-link"></i></div><br>
-            <div id="copy-embed" class="panels custom-button fancy-button">Beágyazható kód másolás <i class="fas fa-code"></i></div><br>
+            Done!<br>
+            <div id="copy-link" class="panels custom-button fancy-button">Copy link <i class="fas fa-link"></i></div><br>
+            <div id="copy-embed" class="panels custom-button fancy-button">Copy embedding code <i class="fas fa-code"></i></div><br>
         </div>
         <div id="edit-content" class="popup-content">
-            <i class="fas fa-stopwatch"></i> Válassza ki az útvonal időbélyegeinek adaptálását
+            <i class="fas fa-stopwatch"></i> Choose how to adapt the timestamps of the trace
             <div class="center-leaflet" style="text-align: left; width: min-content;">
-                <input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Tartsa meg az átlagsebességet</label><br>
-                <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Tartsa meg az eredeti időbélyegeket</label>
+                <input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
+                <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preserve the original timestamps</label>
             </div>
-            <div id="edit-ok" class="panels custom-button normal-button">Rendben</div><hr>
-            <input type="checkbox" id="remember-edit-time"><label for="remember-edit-time">Választásom megjegyzése ezen az oldalon</label>
+            <div id="edit-ok" class="panels custom-button normal-button">Ok</div><hr>
+            <input type="checkbox" id="remember-edit-time"><label for="remember-edit-time">Remember my choice for this session</label>
         </div>
         <div id="merge-content" class="popup-content">
             <div id="merge-time-options">
-                <i class="fas fa-stopwatch"></i> Válassza ki a második útvonal időbélyegeinek adaptálási módját (ha van ilyen)
+                <i class="fas fa-stopwatch"></i> Choose how to adapt the timestamps of the second trace (if any)
                 <div class="center-leaflet" style="text-align: left; width: min-content;">
-                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Őrizze meg az eredeti időbélyegeket (ameddig azok az első nyomkövetés után jönnek)</label><br>
-                     <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">A második útvonal közvetlenül az első után kezdődjön</label>
+                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Keep the original timestamps (as long as they come after those of the first trace)</label><br>
+                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Make the second trace start right after the first one</label>
                 </div>
                 <hr>
             </div>
             <div>
-                Jelölje be a következő jelölőnégyzetet, ha meg szeretné tartani az útvonalak kapcsolatát<br>
-                 <input type="checkbox" id="merge-as-segments"><label for="merge-as-segments">Egyesítse számszakaszként</label>
+                Tick the following box if you wish to keep the traces disconnected<br>
+                <input type="checkbox" id="merge-as-segments"><label for="merge-as-segments">Merge as track segments</label>
                 <hr>
             </div>
-            Kattintson egy másik fülre az aktuális útvonal összevonásához<br>
-            <div id="merge-cancel" class="panels custom-button normal-button"><b>Mégsem</b></div>
+            Click on another tab to merge the current trace with it<br>
+            <div id="merge-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
         </div>
         <div id="crop-content" class="popup-content">
-            <input type="checkbox" id="crop-keep">A kivágott részeket helyezze új fájlba<br>
-            <div id="crop-ok" class="panels custom-button normal-button">Folytassa</div>
-            <div id="crop-cancel" class="panels custom-button normal-button"><b>Mégsem</b></div>
+            <input type="checkbox" id="crop-keep">Keep cropped parts in new files<br>
+            <div id="crop-ok" class="panels custom-button normal-button">Proceed</div>
+            <div id="crop-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
         </div>
         <div id="reduce-content" class="popup-content">
-            Válassza ki az útvonal pontok sűrűségét<br>
-            Útvonal pontok száma: <span id="reduce-npoints">0</span><br>
+            Choose the amount of detail to keep<br>
+            Number of track points: <span id="reduce-npoints">0</span><br>
             <input type="range" min="0" max="1000" id="reduce-slider" style="width: 100%"><br>
-            <div id="reduce-ok" class="panels custom-button normal-button">Rendben</div>
-            <div id="reduce-cancel" class="panels custom-button normal-button"><b>Mégsem</b></div>
+            <div id="reduce-ok" class="panels custom-button normal-button">Ok</div>
+            <div id="reduce-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
         </div>
         <div id="zone-delete-content" class="popup-content">
-            Válassza ki, mit szeretne törölni<br>
+            Choose what to delete<br>
             <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Útvonal pontok</label>
-            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Útvonalpontok</label><br>
-            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Belső kiválasztás</label>
-            <input type="radio" name="where" id="zone-delete-outside">Külső választás<br>
-            <div id="zone-delete-ok" class="panels custom-button normal-button">Folytassa</div>
-            <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Mégsem</b></div>
+            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
+            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inside selection</label>
+            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
+            <div id="zone-delete-ok" class="panels custom-button normal-button">Proceed</div>
+            <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
         </div>
         <div id="load-error-content" class="popup-content">
-            Hiba történt a GPX-fájl betöltésekor.<br>
-             Kérjük, ellenőrizze a fájlformátumot.<br>
-            <div id="load-error-ok" class="panels custom-button normal-button">Rendben</div>
+            There was an error loading your GPX file.<br>
+            Please check the file format.<br>
+            <div id="load-error-ok" class="panels custom-button normal-button">Ok</div>
         </div>
         <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
-            <b>Megnyitás itt</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="a gpx.studio, az online GPX fájlszerkesztő logója">
+            <b>Open in</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="a gpx.studio, az online GPX fájlszerkesztő logója">
         </div>
         <div id="unit-kilometers-text">km</div>
         <div id="unit-miles-text">mi</div>
@@ -432,61 +438,61 @@
         <div id="unit-minutes-text">min</div>
         <div id="duplicate-text">Duplikálás</div>
         <div id="delete-text">Törlés</div>
-        <div id="ok-button-text">Rendben</div>
-        <div id="cancel-button-text">Mégsem</div>
+        <div id="ok-button-text">Ok</div>
+        <div id="cancel-button-text">Cancel</div>
         <div id="edit-speed-popup-text">
             <div id="speed-text">Sebesség</div>
-            <div id="pace-text">Tempó</div>
-            <div id="start-text">Rajt</div>
-            <div id="experimental-info-text">A sebesség generálása a szintkülönbség és a tevékenység típusának figyelembevételével<br><b><i class="fas fa-exclamation-triangle"></i> törli az összes meglévő időadatot</b></div>
+            <div id="pace-text">Pace</div>
+            <div id="start-text">Start</div>
+            <div id="experimental-info-text">Generate speed considering the slope and the activity type<br><b><i class="fas fa-exclamation-triangle"></i> erases all existing time data</b></div>
         </div>
         <div id="waypoint-popup-text">
-            <div id="empty-title-text">üres cím</div>
-            <div id="name-text">Név</div>
-            <div id="comment-text">Megjegyzés (GPS-eszközökhöz)</div>
-            <div id="description-text">Leírás (felhasználóknak)</div>
-            <div id="symbol-text">Szimbólum</div>
-            <div id="edit-info-text">Adat szerkesztése</div>
+            <div id="empty-title-text">empty title</div>
+            <div id="name-text">Name</div>
+            <div id="comment-text">Comment (for GPS devices)</div>
+            <div id="description-text">Description (for users)</div>
+            <div id="symbol-text">Symbol</div>
+            <div id="edit-info-text">Edit info</div>
         </div>
         <div id="right-click-popup-text">
-            <div id="split-text">Vágás itt</div>
-            <div id="start-loop-text">Rajt áthelyezése ide</div>
-            <div id="remove-pt-text">Útvonalpont eltávolítása</div>
+            <div id="split-text">Split here</div>
+            <div id="start-loop-text">Start loop here</div>
+            <div id="remove-pt-text">Remove point</div>
         </div>
         <div id="elevation-text">
-            <div id="segment-text">Szegmens hossza</div>
-            <div id="type-text">Kategória</div>
-            <div id="surface-text">Szintkép</div>
-            <div id="slope-text">Erőkifejtési szintkép színekkel</div>
-            <div id="missing-text">Hiányzó</div>,
-            <div id="paved-text">Szilárd burkolatú</div>,
-            <div id="unpaved-text">Földes</div>,
-            <div id="asphalt-text">Aszfalt</div>,
-            <div id="concrete-text">Beton</div>,
-            <div id="chipseal-text">Törmelékes</div>,
-            <div id="cobblestone-text">Macskaköves</div>,
-            <div id="unhewn-cobblestone-text">Faragatlan macskakő</div>,
-            <div id="paving-stones-text">Kő burkolat</div>,
-            <div id="stepping-stones-text">Lépcsők</div>,
-            <div id="sett-text">Kőlap</div>,
-            <div id="metal-text">Fém</div>,
-            <div id="wood-text">Fa</div>,
-            <div id="compacted-text">Tömörített kavics</div>,
-            <div id="fine-gravel-text">Finom kavics</div>,
-            <div id="gravel-text">Kavics</div>,
-            <div id="pebblestone-text">Kavicsos kő</div>,
-            <div id="rock-text">Szikla</div>,
-            <div id="dirt-text">Piszok</div>,
-            <div id="ground-text">Föld</div>,
-            <div id="earth-text">Föld</div>,
-            <div id="snow-text">Hó</div>,
-            <div id="ice-text">Jég</div>,
-            <div id="salt-text">Só</div>,
-            <div id="mud-text">Sár</div>,
-            <div id="sand-text">Homok</div>,
-            <div id="woodchips-text">Faforgács</div>,
-            <div id="grass-text">Fű</div>,
-            <div id="grass-paver-text">Füves burkolat</div>
+            <div id="segment-text">Segment length</div>
+            <div id="type-text">Category</div>
+            <div id="surface-text">Surface</div>
+            <div id="slope-text">Slope</div>
+            <div id="missing-text">Missing</div>,
+            <div id="paved-text">Paved</div>,
+            <div id="unpaved-text">Unpaved</div>,
+            <div id="asphalt-text">Asphalt</div>,
+            <div id="concrete-text">Concrete</div>,
+            <div id="chipseal-text">Chipseal</div>,
+            <div id="cobblestone-text">Cobblestone</div>,
+            <div id="unhewn-cobblestone-text">Unhewn Cobblestone</div>,
+            <div id="paving-stones-text">Paving Stones</div>,
+            <div id="stepping-stones-text">Stepping Stones</div>,
+            <div id="sett-text">Sett Paving</div>,
+            <div id="metal-text">Metal</div>,
+            <div id="wood-text">Wood</div>,
+            <div id="compacted-text">Compacted Gravel</div>,
+            <div id="fine-gravel-text">Fine Gravel</div>,
+            <div id="gravel-text">Gravel</div>,
+            <div id="pebblestone-text">Pebblestone</div>,
+            <div id="rock-text">Rock</div>,
+            <div id="dirt-text">Dirt</div>,
+            <div id="ground-text">Ground</div>,
+            <div id="earth-text">Earth</div>,
+            <div id="snow-text">Snow</div>,
+            <div id="ice-text">Ice</div>,
+            <div id="salt-text">Salt</div>,
+            <div id="mud-text">Mud</div>,
+            <div id="sand-text">Sand</div>,
+            <div id="woodchips-text">Woodchips</div>,
+            <div id="grass-text">Grass</div>,
+            <div id="grass-paver-text">Grass Paver</div>
         </div>
         <h1>online gpx szerkesztő</h1>
         <h1>online gpx megjelenítő</h1>
