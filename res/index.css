@@ -601,3 +601,15 @@ ul {
     -webkit-user-select: text;
     user-select: text;
 }
+
+#street-view-selector {
+    display: none;
+}
+
+#street-view-selector > * {
+    display: inline-block;
+}
+
+#street-view-content:hover #street-view-selector {
+  display: inline-block;
+}

@@ -211,7 +211,10 @@ export default class Buttons {
         this.trace_info_content = document.getElementById('info');
         this.toolbar_content = document.getElementById('toolbar');
         this.languages_content = document.getElementById('languages');
-        this.street_view_content = document.getElementById('street-view');
+        this.street_view_content = document.getElementById('street-view-content');
+        this.street_view_button = document.getElementById('street-view');
+        this.street_view_google = document.getElementById('street-view-provider-google');
+        this.street_view_mapillary = document.getElementById('street-view-provider-mapillary');
         this.mapillary_container = document.getElementById('mly');
         this.mapillary_move = document.getElementById('mly-move');
         this.mapillary_close = document.getElementById('mly-close');
@@ -539,7 +542,6 @@ export default class Buttons {
                         var div = L.DomUtil.create('div', 'leaflet-control-layers leaflet-bar');
                         div.appendChild(_this.street_view_content);
                         L.DomEvent.disableClickPropagation(div);
-                        _this.mapillaryStreetView = div;
                         return div;
                     };
                     _this.streetView.addTo(_this.map);
@@ -1726,57 +1728,32 @@ export default class Buttons {
             gtag('event', 'button', {'event_category' : 'hide'});
         });
         if (!this.embedding) {
+            this.street_view_button.mapillary = true;
+            this.street_view_mapillary.addEventListener('change', function () {
+                var switchProvider = buttons.street_view_button.open;
+                if (switchProvider) buttons.street_view_button.click();
+                buttons.street_view_button.mapillary = true;
+                if (switchProvider) buttons.street_view_button.click();
+            });
+            this.street_view_google.addEventListener('change', function () {
+                var switchProvider = buttons.street_view_button.open;
+                if (switchProvider) buttons.street_view_button.click();
+                buttons.street_view_button.mapillary = false;
+                if (switchProvider) buttons.street_view_button.click();
+            });
             const openStreetView = function (e) {
-                if (!buttons.mapillary) {
-                    var {Viewer} = mapillary;
-                    buttons.mapillary = new Viewer({
-                      accessToken: 'MLY|4381405525255083|3204871ec181638c3c31320490f03011',
-                      container: buttons.mapillary_container,
-                      component: { cover: false }
-                    });
+                if (buttons.street_view_button.mapillary) {
+                    if (!buttons.mapillary) {
+                        var {Viewer} = mapillary;
+                        buttons.mapillary = new Viewer({
+                          accessToken: 'MLY|4381405525255083|3204871ec181638c3c31320490f03011',
+                          container: buttons.mapillary_container,
+                          component: { cover: false }
+                        });
 
-                    buttons.mapillary.on('position', async (event) => {
-                        if (buttons.mapillaryStreetView.open) {
-                            const ll = await buttons.mapillary.getPosition();
-
-                            if (!buttons.mapillary.marker) {
-                                buttons.mapillary.marker = L.circleMarker(ll, {
-                                    className: 'position-marker',
-                                    radius: 8
-                                });
-                                buttons.mapillary.marker.addTo(buttons.map);
-                            } else {
-                                buttons.mapillary.marker.setLatLng(ll);
-                            }
-
-                            buttons.map.setView(ll);
-                        }
-                    });
-                }
-
-                var url = 'https://graph.mapillary.com/images?access_token=MLY|4381405525255083|3204871ec181638c3c31320490f03011&bbox=';
-                url += e.latlng.toBounds(50).toBBoxString();
-
-                var Http = new XMLHttpRequest();
-                Http.open("GET", url);
-                Http.send();
-                Http.onreadystatechange = function() {
-                    if (Http.readyState == 4 && Http.status == 200) {
-                        var ans = JSON.parse(this.responseText);
-                        if (ans.data) {
-                            var dist = Infinity, imageId = null, ll = null;
-                            for (var i=0; i<ans.data.length; i++) {
-                                const imgLatlng = L.latLng([ans.data[i].geometry.coordinates[1],ans.data[i].geometry.coordinates[0]]);
-                                if (imageId == null || e.latlng.distanceTo(imgLatlng) < dist) {
-                                    imageId = ans.data[i].id;
-                                    dist = e.latlng.distanceTo(imgLatlng);
-                                    ll = imgLatlng;
-                                }
-                            }
-                            if (imageId != null) {
-                                buttons.mapillary.moveTo(imageId).then(function () {
-                                    buttons.mapillary.resize();
-                                });
+                        buttons.mapillary.on('position', async (event) => {
+                            if (buttons.street_view_button.open) {
+                                const ll = await buttons.mapillary.getPosition();
 
                                 if (!buttons.mapillary.marker) {
                                     buttons.mapillary.marker = L.circleMarker(ll, {
@@ -1789,10 +1766,52 @@ export default class Buttons {
                                 }
 
                                 buttons.map.setView(ll);
-                                buttons.mapillary_container.style.display = 'block';
+                            }
+                        });
+                    }
+
+                    var url = 'https://graph.mapillary.com/images?access_token=MLY|4381405525255083|3204871ec181638c3c31320490f03011&bbox=';
+                    url += e.latlng.toBounds(50).toBBoxString();
+
+                    var Http = new XMLHttpRequest();
+                    Http.open("GET", url);
+                    Http.send();
+                    Http.onreadystatechange = function() {
+                        if (Http.readyState == 4 && Http.status == 200) {
+                            var ans = JSON.parse(this.responseText);
+                            if (ans.data) {
+                                var dist = Infinity, imageId = null, ll = null;
+                                for (var i=0; i<ans.data.length; i++) {
+                                    const imgLatlng = L.latLng([ans.data[i].geometry.coordinates[1],ans.data[i].geometry.coordinates[0]]);
+                                    if (imageId == null || e.latlng.distanceTo(imgLatlng) < dist) {
+                                        imageId = ans.data[i].id;
+                                        dist = e.latlng.distanceTo(imgLatlng);
+                                        ll = imgLatlng;
+                                    }
+                                }
+                                if (imageId != null) {
+                                    buttons.mapillary.moveTo(imageId).then(function () {
+                                        buttons.mapillary.resize();
+                                    });
+
+                                    if (!buttons.mapillary.marker) {
+                                        buttons.mapillary.marker = L.circleMarker(ll, {
+                                            className: 'position-marker',
+                                            radius: 8
+                                        });
+                                        buttons.mapillary.marker.addTo(buttons.map);
+                                    } else {
+                                        buttons.mapillary.marker.setLatLng(ll);
+                                    }
+
+                                    buttons.map.setView(ll);
+                                    buttons.mapillary_container.style.display = 'block';
+                                }
                             }
                         }
                     }
+                } else {
+                    window.open('https://maps.google.com/maps?q=&layer=c&cbll='+e.latlng.lat+','+e.latlng.lng+'&cbp=11,0,0,0,0');
                 }
             };
             const closeStreetView = function (e) {
@@ -1806,18 +1825,20 @@ export default class Buttons {
                     sequenceComponent.stop();
                 }
             };
-            this.mapillaryStreetView.addEventListener('click', function () {
-                if (buttons.mapillaryStreetView.open) {
+            this.street_view_button.addEventListener('click', function () {
+                if (buttons.street_view_button.open) {
                     if (total.hasFocus || !total.traces[total.focusOn].isEdited) {
                         map._container.style.cursor = '';
-                        if (buttons.mapillaryStreetView.mapboxgl_canvas) buttons.mapillaryStreetView.mapboxgl_canvas.style.cursor = '';
+                        if (buttons.street_view_button.mapboxgl_canvas) buttons.street_view_button.mapboxgl_canvas.style.cursor = '';
                     }
                     buttons.disable_trace = false;
-                    buttons.street_view_content.style.color = '';
-                    closeStreetView();
-                    buttons.mapillary_coverage.remove();
-                    buttons.mapillary_coverageZoomed.remove();
-                    buttons.mapillaryStreetView.open = false;
+                    buttons.street_view_button.style.color = '';
+                    if (buttons.street_view_button.mapillary) {
+                        closeStreetView();
+                        buttons.mapillary_coverage.remove();
+                        buttons.mapillary_coverageZoomed.remove();
+                    }
+                    buttons.street_view_button.open = false;
                 } else {
                     if (!buttons.mapboxMap.getMapboxMap().isStyleLoaded()) {
                         return;
@@ -1826,13 +1847,15 @@ export default class Buttons {
                     map._container.style.cursor = 'crosshair';
                     var mapboxgl_canvas = document.getElementsByClassName('mapboxgl-canvas');
                     if (mapboxgl_canvas.length > 0) {
-                        buttons.mapillaryStreetView.mapboxgl_canvas = mapboxgl_canvas[0];
-                        buttons.mapillaryStreetView.mapboxgl_canvas.style.cursor = 'crosshair';
-                    } else buttons.mapillaryStreetView.mapboxgl_canvas = null;
-                    buttons.mapillary_coverage.addTo(map);
-                    buttons.mapillary_coverageZoomed.addTo(map);
-                    buttons.street_view_content.style.color = '#247827';
-                    buttons.mapillaryStreetView.open = true;
+                        buttons.street_view_button.mapboxgl_canvas = mapboxgl_canvas[0];
+                        buttons.street_view_button.mapboxgl_canvas.style.cursor = 'crosshair';
+                    } else buttons.street_view_button.mapboxgl_canvas = null;
+                    if (buttons.street_view_button.mapillary) {
+                        buttons.mapillary_coverage.addTo(map);
+                        buttons.mapillary_coverageZoomed.addTo(map);
+                    }
+                    buttons.street_view_button.style.color = '#247827';
+                    buttons.street_view_button.open = true;
                 }
             });
             this.mapillary_move.addEventListener('mousedown', function (e) {
@@ -1854,7 +1877,7 @@ export default class Buttons {
             });
             this.mapillary_close.addEventListener('click', closeStreetView);
             map.addEventListener('click', function (e) {
-                if (buttons.mapillaryStreetView.open) {
+                if (buttons.street_view_button.open) {
                     openStreetView(e);
                     return;
                 }
