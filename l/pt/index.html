@@ -22,10 +22,10 @@
             }
         </script>
         <meta charset="utf-8">
-        <title>gpx.studio — the online GPX file editor</title>
-        <meta name="description" content="View, edit and create GPX files online: add, move and delete points, merge multiple files, reverse, add timestamps, edit waypoints and more!">
-        <meta property="og:title" content="gpx.studio — the online GPX file editor" />
-        <meta property="og:description" content="View, edit and create GPX files online: add, move and delete points, merge multiple files, reverse, add timestamps, edit waypoints and more!" />
+        <title>gpx.studio — o editor de arquivos GPX online</title>
+        <meta name="description" content="Visualizar, editar e criar arquivos GPX online: adicionar, mover e excluir pontos, mesclar vários arquivos, reverter, adicionar timestamps, editar waypoints e muito mais!">
+        <meta property="og:title" content="gpx.studio — o editor de arquivos GPX online" />
+        <meta property="og:description" content="Visualizar, editar e criar arquivos GPX online: adicionar, mover e excluir pontos, mesclar vários arquivos, reverter, adicionar timestamps, editar waypoints e muito mais!" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://gpx.studio/" />
         <meta property="og:image" content="https://gpx.studio/res/og_logo.png" />
@@ -88,7 +88,7 @@
             <div id="info-grid" class="panels-container trace-info">
                 <div class="panels panels-info" id="distance">Distância</div>
                 <div class="panels panels-val" id="distance-val"></div>
-                <div class="panels panels-info" id="elevation">Elevation</div>
+                <div class="panels panels-info" id="elevation">Elevação</div>
                 <div class="panels panels-val" id="elevation-val"></div>
                 <div class="panels panels-info" id="speed">Velocidade</div>
                 <div class="panels panels-val" id="speed-val"></div>
@@ -96,15 +96,15 @@
                 <div class="panels panels-val" id="duration-val"></div>
                 <div class="panels panels-info" id="points" style="display: none">Track points</div>
                 <div class="panels panels-val" id="points-val" style="display: none">0</div>
-                <div class="panels panels-info" id="segments" style="display: none; padding-right: 5px;">Segments</div>
+                <div class="panels panels-info" id="segments" style="display: none; padding-right: 5px;">Segmentos</div>
                 <div class="panels panels-val" id="segments-val" style="display: none; padding-right: 5px;">0</div>
                 <div id="activity-input" class="custom-button panels-button dropdown">
                     <div id="activity-dropdown" class="dropdown-content panels-container panels">
-                        <div id="bike" class="dropdown-choice"><i class="fas fa-biking"></i> <span>Bike</span></div>
+                        <div id="bike" class="dropdown-choice"><i class="fas fa-biking"></i> <span>Bicicleta</span></div>
                         <div id="racingbike" class="dropdown-choice"><i class="fas fa-biking"></i> <span>Racing bike</span></div>
-                        <div id="mtb" class="dropdown-choice"><i class="fas fa-biking"></i> <span>Mountain bike</span></div>
+                        <div id="mtb" class="dropdown-choice"><i class="fas fa-biking"></i> <span>Bicicleta da Montanha</span></div>
                         <div id="hike" class="dropdown-choice"><i class="fas fa-running"></i> <span>Run/hike</span></div>
-                        <div id="car" class="dropdown-choice"><i class="fas fa-motorcycle"></i> <span>Motorcycle</span></div>
+                        <div id="car" class="dropdown-choice"><i class="fas fa-motorcycle"></i> <span>Motocicleta</span></div>
                     </div>
                     <div id="selected-activity"><i class="fas fa-biking"></i></div>
                 </div>
@@ -149,7 +149,13 @@
             <div class="panels-button" id="hide" title="Ocultar/reexibir a trilha"><i class="fas fa-eye-slash custom-button"></i></div><br>
             <div class="panels-button" id="delete" title="Apagar"><i class="fas fa-trash-alt custom-button"></i></div><br>
         </div>
-        <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Street View"></i>
+        <div id="street-view-content">
+            <div id="street-view-selector">
+                <input id="street-view-provider-google" type="radio" name="street-view-provider" value="google"> <label for="street-view-provider-google">Google</label>
+                <input id="street-view-provider-mapillary" type="radio" name="street-view-provider" value="mapillary" checked> <label for="street-view-provider-mapillary">Mapillary</label>
+            </div>
+            <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Street View"></i>
+        </div>
         <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Direction markers</label>
         <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Distance markers</label>
         <!-- ADD_LANGUAGE -->
@@ -273,7 +279,7 @@
             <tr>
                 <td></td>
                 <td>F1</td>
-                <td>Mostrar ou ocultar o Strava Heatmap</td>
+                <td>Show or hide the overlays currently used.</td>
             </tr>
             <tr>
                 <td><i class="fas fa-route"></i></td>
@@ -450,27 +456,27 @@
         </div>
         <div id="right-click-popup-text">
             <div id="split-text">Dividir aqui</div>
-            <div id="start-loop-text">Start loop here</div>
+            <div id="start-loop-text">Iniciar o loop aqui</div>
             <div id="remove-pt-text">Remover Ponto</div>
         </div>
         <div id="elevation-text">
-            <div id="segment-text">Segment length</div>
-            <div id="type-text">Category</div>
-            <div id="surface-text">Surface</div>
+            <div id="segment-text">Comprimento do segmento</div>
+            <div id="type-text">Categoria</div>
+            <div id="surface-text">Superfície</div>
             <div id="slope-text">Slope</div>
             <div id="missing-text">Missing</div>,
-            <div id="paved-text">Paved</div>,
-            <div id="unpaved-text">Unpaved</div>,
-            <div id="asphalt-text">Asphalt</div>,
-            <div id="concrete-text">Concrete</div>,
+            <div id="paved-text">Pavimentado</div>,
+            <div id="unpaved-text">Não pavimentado</div>,
+            <div id="asphalt-text">Asfalto</div>,
+            <div id="concrete-text">Cimento</div>,
             <div id="chipseal-text">Chipseal</div>,
-            <div id="cobblestone-text">Cobblestone</div>,
+            <div id="cobblestone-text">Empedrado</div>,
             <div id="unhewn-cobblestone-text">Unhewn Cobblestone</div>,
-            <div id="paving-stones-text">Paving Stones</div>,
+            <div id="paving-stones-text">Pedra de calçada</div>,
             <div id="stepping-stones-text">Stepping Stones</div>,
             <div id="sett-text">Sett Paving</div>,
             <div id="metal-text">Metal</div>,
-            <div id="wood-text">Wood</div>,
+            <div id="wood-text">Madeira</div>,
             <div id="compacted-text">Compacted Gravel</div>,
             <div id="fine-gravel-text">Fine Gravel</div>,
             <div id="gravel-text">Gravel</div>,
@@ -498,9 +504,9 @@
         <h1>adicionar timestamps para o arquivo gpx online</h1>
         <h1>comprimir simplesmente simplifica o arquivo para reduzir os números de pontos gpx online</h1>
         <h1>visualizar e adicionar waypoints no arquivo gpx online</h1>
-        <h1>edit Strava activity</h1>
-        <h1>correct Strava activity</h1>
-        <h1>merge Strava activities</h1>
+        <h1>edite a actividade do Strava</h1>
+        <h1>edite a actividade do Strava</h1>
+        <h1>mesclar as atividades do Strava</h1>
         </div>
     </body>
     <script src="/include/leaflet/leaflet.js"></script>
