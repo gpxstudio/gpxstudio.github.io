@@ -12,14 +12,6 @@ L.Control.Layers.include({
         this.__initialize(this._getLayers(baselayersHierarchy), this._getLayers(overlaysHierarchy), options);
     },
 
-    getBaseLayers: function () {
-        return this._layers.filter(l => l.overlay !== true).map(l => l.layer);
-    },
-
-    getOverlayLayers: function () {
-        return this._layers.filter(l => l.overlay).map(l => l.layer);
-    },
-
     _getLayers: function (hierarchy) {
         return this._findLayers(hierarchy, []);
     },

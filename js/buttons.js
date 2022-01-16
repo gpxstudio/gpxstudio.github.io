@@ -837,6 +837,10 @@ export default class Buttons {
                             }
                         }).addTo(_this.map);
                     }
+
+                    if (localStorage.hasOwnProperty('lastbasemap')) {
+                        _this.controlLayers._layerControlInputs[localStorage.getItem('lastbasemap')].click();
+                    }
                 }
 
                 const toggle = document.getElementsByClassName('leaflet-control-layers-toggle')[0];
@@ -1391,6 +1395,21 @@ export default class Buttons {
             buttons.keep_timestamps = buttons.edit_keep_time.checked;
             buttons.edit_window.hide();
         });
+        const saveLayers = function (unload) {
+            const activeLayers = [];
+            for (var i=0; i<buttons.controlLayers._layers.length; i++) {
+                if (buttons.controlLayers._layers[i].overlay &&
+                    buttons.map.hasLayer(buttons.controlLayers._layers[i].layer)) {
+                    buttons.controlLayers._layerControlInputs[i].click();
+                    activeLayers.push(i);
+                } else if (unload && buttons.map.hasLayer(buttons.controlLayers._layers[i].layer)) {
+                    localStorage.setItem('lastbasemap', i);
+                }
+            }
+            if (activeLayers.length > 0) {
+                localStorage.setItem('lastoverlays', JSON.stringify(activeLayers));
+            }
+        };
         document.addEventListener("keydown", function (e) {
             if (e.key === "Escape") {
                 if (buttons.window_open) buttons.window_open.hide();
@@ -1400,23 +1419,12 @@ export default class Buttons {
                 e.preventDefault();
             } else if (e.key === "F1") {
                 if (localStorage.hasOwnProperty('lastoverlays')) {
-                    const overlayLayers = buttons.controlLayers.getOverlayLayers();
                     const activeLayers = JSON.parse(localStorage.getItem('lastoverlays'));
                     for (var i=0; i<activeLayers.length; i++) {
-                        buttons.map.addLayer(overlayLayers[activeLayers[i]]);
+                        buttons.controlLayers._layerControlInputs[activeLayers[i]].click();
                     }
                     localStorage.removeItem('lastoverlays');
-                } else {
-                    const overlayLayers = buttons.controlLayers.getOverlayLayers();
-                    const activeLayers = [];
-                    for (var i=0; i<overlayLayers.length; i++) {
-                        if (buttons.map.hasLayer(overlayLayers[i])) {
-                            buttons.map.removeLayer(overlayLayers[i]);
-                            activeLayers.push(i);
-                        }
-                    }
-                    localStorage.setItem('lastoverlays', JSON.stringify(activeLayers));
-                }
+                } else saveLayers();
                 e.preventDefault();
             } else if (e.key === "F2") {
                 const keys = Object.keys(buttons.routing_choices);
@@ -1918,6 +1926,7 @@ export default class Buttons {
                         localStorage.setItem(i,JSON.stringify(data[0]));
                     }
                 }
+                saveLayers(true);
             });
         }
         this.show_chevrons.addEventListener('input', function (e) {
