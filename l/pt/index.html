@@ -149,7 +149,13 @@
             <div class="panels-button" id="hide" title="Ocultar/reexibir a trilha"><i class="fas fa-eye-slash custom-button"></i></div><br>
             <div class="panels-button" id="delete" title="Apagar"><i class="fas fa-trash-alt custom-button"></i></div><br>
         </div>
-        <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Street View"></i>
+        <div id="street-view-content">
+            <div id="street-view-selector">
+                <input id="street-view-provider-google" type="radio" name="street-view-provider" value="google"> <label for="street-view-provider-google">Google</label>
+                <input id="street-view-provider-mapillary" type="radio" name="street-view-provider" value="mapillary" checked> <label for="street-view-provider-mapillary">Mapillary</label>
+            </div>
+            <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Street View"></i>
+        </div>
         <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Direction markers</label>
         <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Distance markers</label>
         <!-- ADD_LANGUAGE -->
@@ -273,7 +279,7 @@
             <tr>
                 <td></td>
                 <td>F1</td>
-                <td>Mostrar ou ocultar o Strava Heatmap</td>
+                <td>Show or hide the overlays currently used.</td>
             </tr>
             <tr>
                 <td><i class="fas fa-route"></i></td>
@@ -473,15 +479,15 @@
             <div id="wood-text">Madeira</div>,
             <div id="compacted-text">Compacted Gravel</div>,
             <div id="fine-gravel-text">Fine Gravel</div>,
-            <div id="gravel-text">Gravilha</div>,
+            <div id="gravel-text">Gravel</div>,
             <div id="pebblestone-text">Pebblestone</div>,
             <div id="rock-text">Rock</div>,
             <div id="dirt-text">Dirt</div>,
             <div id="ground-text">Ground</div>,
             <div id="earth-text">Earth</div>,
-            <div id="snow-text">Neve</div>,
-            <div id="ice-text">Gelo</div>,
-            <div id="salt-text">Sal</div>,
+            <div id="snow-text">Snow</div>,
+            <div id="ice-text">Ice</div>,
+            <div id="salt-text">Salt</div>,
             <div id="mud-text">Mud</div>,
             <div id="sand-text">Sand</div>,
             <div id="woodchips-text">Woodchips</div>,
