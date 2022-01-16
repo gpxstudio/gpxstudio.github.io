@@ -1418,13 +1418,23 @@ export default class Buttons {
                 if (trace.isEdited) buttons.edit.click();
                 e.preventDefault();
             } else if (e.key === "F1") {
-                if (localStorage.hasOwnProperty('lastoverlays')) {
+                var hasOverlay = false;
+                for (var i=0; i<buttons.controlLayers._layers.length; i++) {
+                    if (buttons.controlLayers._layers[i].overlay &&
+                        buttons.map.hasLayer(buttons.controlLayers._layers[i].layer)) {
+                        hasOverlay = true;
+                        break;
+                    }
+                }
+                if (hasOverlay) {
+                    saveLayers();
+                } else if (localStorage.hasOwnProperty('lastoverlays')) {
                     const activeLayers = JSON.parse(localStorage.getItem('lastoverlays'));
                     for (var i=0; i<activeLayers.length; i++) {
                         buttons.controlLayers._layerControlInputs[activeLayers[i]].click();
                     }
                     localStorage.removeItem('lastoverlays');
-                } else saveLayers();
+                }
                 e.preventDefault();
             } else if (e.key === "F2") {
                 const keys = Object.keys(buttons.routing_choices);
