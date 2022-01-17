@@ -154,6 +154,7 @@ L.Control.Heightgraph.include({
         this._addSliderCircles();
     },
     _showMapMarker: function(ll, height, type) {
+        if (ll.lat == 0 && ll.lng == 0) return;
         this.originalShowMapMarker(ll, height, type);
         this._mouseHeightFocus.remove();
         this._mouseHeightFocusLabel.remove();
