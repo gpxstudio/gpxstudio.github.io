@@ -310,30 +310,26 @@
         Usa la <b>barra deslizante</b> para mover el punto de inicio/fin y cortar el track.
         </div>
         <div id="export-content" class="popup-content">
-            <table style="width: 100%; text-align: left">
+            <table style="text-align: left">
                 <colgroup>
-                   <col span="1" style="width: 10%;">
-                   <col span="1" style="width: 40%;">
-                   <col span="1" style="width: 45%;">
-                   <col span="1" style="width: 5%;">
+                   <col span="1">
+                   <col span="1">
                 </colgroup>
                 <tbody>
-                    <td></td>
-                    <td>Combinar todos los tracks<input type="checkbox" id="merge"></td>
-                    <td>Tiempo<input type="checkbox" id="include-time" checked></td>
-                    <td></td>
+                    <td><b>Export settings</b></td>
+                    <td><input type="checkbox" id="merge"> <label for="merge">Combinar todos los tracks</label></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td>Ritmo cardiaco<input type="checkbox" id="include-hr" checked></td>
-                    <td>Cadencia<input type="checkbox" id="include-cad" checked></td>
-                    <td></td>
+                    <td><input type="checkbox" id="include-time" checked> <label for="include-time">Tiempo</label></td>
+                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Surface</label></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td>Potencia<input type="checkbox" id="include-power" checked></td>
-                    <td>Temperatura<input type="checkbox" id="include-atemp" checked></td>
-                    <td></td>
+                    <td><input type="checkbox" id="include-cad" checked> <label for="include-cad">Cadencia</label></td>
+                    <td><input type="checkbox" id="include-hr" checked> <label for="include-hr">Ritmo cardiaco</label></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Temperatura</label></td>
+                    <td><input type="checkbox" id="include-power" checked> <label for="include-power">Potencia</label></td>
                 </tr>
                 </tbody>
             </table>
@@ -511,6 +507,7 @@
     </body>
     <script src="/include/leaflet/leaflet.js"></script>
     <script type="text/javascript" src="/include/icon/Leaflet.Icon.Glyph.js"></script>
+    <script type="text/javascript" src="/js/data.js"></script>
     <script type="module" src="/include/gpx/gpx.js"></script>
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
     <script type="text/javascript" src="/include/elevation/L.Control.Heightgraph.js"></script>

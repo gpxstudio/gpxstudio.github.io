@@ -310,30 +310,26 @@
         Gebruik de <b>slider</b> om het start- en eindpunt te verplaatsen en de route te knippen.
         </div>
         <div id="export-content" class="popup-content">
-            <table style="width: 100%; text-align: left">
+            <table style="text-align: left">
                 <colgroup>
-                   <col span="1" style="width: 10%;">
-                   <col span="1" style="width: 40%;">
-                   <col span="1" style="width: 45%;">
-                   <col span="1" style="width: 5%;">
+                   <col span="1">
+                   <col span="1">
                 </colgroup>
                 <tbody>
-                    <td></td>
-                    <td>Voeg alle routes samen<input type="checkbox" id="merge"></td>
-                    <td>Tijd<input type="checkbox" id="include-time" checked></td>
-                    <td></td>
+                    <td><b>Export settings</b></td>
+                    <td><input type="checkbox" id="merge"> <label for="merge">Merge all traces</label></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td>Hartslag<input type="checkbox" id="include-hr" checked></td>
-                    <td>Cadans<input type="checkbox" id="include-cad" checked></td>
-                    <td></td>
+                    <td><input type="checkbox" id="include-time" checked> <label for="include-time">Time</label></td>
+                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Surface</label></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td>Kracht<input type="checkbox" id="include-power" checked></td>
-                    <td>Temperatuur<input type="checkbox" id="include-atemp" checked></td>
-                    <td></td>
+                    <td><input type="checkbox" id="include-cad" checked> <label for="include-cad">Cadence</label></td>
+                    <td><input type="checkbox" id="include-hr" checked> <label for="include-hr">Heartrate</label></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Temperature</label></td>
+                    <td><input type="checkbox" id="include-power" checked> <label for="include-power">Power</label></td>
                 </tr>
                 </tbody>
             </table>
@@ -511,6 +507,7 @@
     </body>
     <script src="/include/leaflet/leaflet.js"></script>
     <script type="text/javascript" src="/include/icon/Leaflet.Icon.Glyph.js"></script>
+    <script type="text/javascript" src="/js/data.js"></script>
     <script type="module" src="/include/gpx/gpx.js"></script>
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
     <script type="text/javascript" src="/include/elevation/L.Control.Heightgraph.js"></script>
