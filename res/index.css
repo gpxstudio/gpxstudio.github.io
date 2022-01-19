@@ -502,10 +502,13 @@ ul {
     white-space: normal;
 }
 
-#export-content {
-    width: 310px;
-    word-wrap: break-word;
-    white-space: normal;
+#export-content table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#export-content td {
+    padding: 0px 10px;
 }
 
 .unselected {
