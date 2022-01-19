@@ -235,6 +235,7 @@ export default class Total {
         var cntTemp = 0, totTemp = 0;
         var cntCad = 0, totCad = 0;
         var cntPower = 0, totPower = 0;
+        var surface = false;
 
         for (var i=0; i<this.traces.length; i++) {
             const data = this.traces[i].getAverageAdditionalData();
@@ -255,20 +256,24 @@ export default class Total {
                 totPower += data.power * duration;
                 cntPower += duration;
             }
+            if (data.surface) {
+                surface = true;
+            }
         }
 
         this.additionalAvgData = {
             hr: cntHr > 0 ? Math.round(totHr/cntHr) : null,
             atemp: cntTemp > 0 ? Math.round((totTemp/cntTemp) * 10) / 10 : null,
             cad: cntCad > 0 ? Math.round(totCad/cntCad) : null,
-            power: cntPower > 0 ? Math.round(totPower/cntPower) : null
+            power: cntPower > 0 ? Math.round(totPower/cntPower) : null,
+            surface: surface
         };
         return this.additionalAvgData;
     }
 
     /*** OUTPUT ***/
 
-    outputGPX(mergeAll, incl_time, incl_hr, incl_atemp, incl_cad, incl_power, trace_idx) {
+    outputGPX(mergeAll, incl_time, incl_hr, incl_atemp, incl_cad, incl_power, incl_surface, trace_idx) {
         if (incl_time && this.getMovingTime() > 0 && trace_idx === undefined) { // at least one track has time data
             for (var i=0; i<this.traces.length; i++) this.traces[i].timeConsistency();
             const avg = this.getMovingSpeed(true);
@@ -385,6 +390,14 @@ export default class Total {
     `;
                             } else if (cad != null) {
                                 trackPointExtensionsOutput += `    <gpxtpx:cad>${cad}</gpxtpx:cad>
+    `;
+                            }
+                        }
+                        if (incl_surface) {
+                            if (point.meta.hasOwnProperty('surface') && point.meta.surface != "missing") {
+                                trackPointExtensionsOutput += `    <gpxtpx:Extensions>
+            <surface>${point.meta.surface}</surface>
+        </gpxtpx:Extensions>
     `;
                             }
                         }

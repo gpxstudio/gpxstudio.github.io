@@ -198,8 +198,9 @@ export default class Google {
             const atemp = buttons.include_atemp.checked;
             const cad = buttons.include_cad.checked;
             const power = buttons.include_power.checked;
+            const surface = buttons.include_surface.checked;
 
-            this.checkAllFilesInFolder(data.docs[0].id, buttons.total.outputGPX(mergeAll, time, hr, atemp, cad, power));
+            this.checkAllFilesInFolder(data.docs[0].id, buttons.total.outputGPX(mergeAll, time, hr, atemp, cad, power, surface));
 
             buttons.export_window.hide();
             this.window = L.control.window(this.buttons.map,{title:'',content:'Uploading...',className:'panels-container',closeButton:false,visible:true});

@@ -803,6 +803,7 @@ export default class Trace {
         var cntTemp = 0, totTemp = 0;
         var cntCad = 0, totCad = 0;
         var cntPower = 0, totPower = 0;
+        var surface = false;
 
         const points = this.getPoints();
 
@@ -823,13 +824,17 @@ export default class Trace {
                 totPower += points[i].meta.power;
                 cntPower++;
             }
+            if (points[i].meta.hasOwnProperty('surface') && points[i].meta.surface != "missing") {
+                surface = true;
+            }
         }
 
         this.additionalAvgData = {
             hr: cntHr > 0 ? Math.round(totHr/cntHr) : null,
             atemp: cntTemp > 0 ? Math.round((totTemp/cntTemp) * 10) / 10 : null,
             cad: cntCad > 0 ? Math.round(totCad/cntCad) : null,
-            power: cntPower > 0 ? Math.round(totPower/cntPower) : null
+            power: cntPower > 0 ? Math.round(totPower/cntPower) : null,
+            surface: surface
         };
         return this.additionalAvgData;
     }

@@ -134,6 +134,7 @@ export default class Buttons {
         this.include_cad = document.getElementById("include-cad");
         this.include_atemp = document.getElementById("include-atemp");
         this.include_power = document.getElementById("include-power");
+        this.include_surface = document.getElementById("include-surface");
         this.copy_link = document.getElementById("copy-link");
         this.copy_embed = document.getElementById("copy-embed");
         this.merge_as_segments = document.getElementById("merge-as-segments");
@@ -1087,7 +1088,7 @@ export default class Buttons {
             handle: ".handle",
             setData: function (dataTransfer, dragEl) {
                 const avgData = dragEl.trace.getAverageAdditionalData();
-                const data = total.outputGPX(false, true, avgData.hr, avgData.atemp, avgData.cad, avgData.power, dragEl.trace.index);
+                const data = total.outputGPX(false, true, avgData.hr, avgData.atemp, avgData.cad, avgData.power, true, dragEl.trace.index);
 
                 dataTransfer.setData('DownloadURL', 'application/gpx+xml:'+data[0].name+':data:text/plain;charset=utf-8,'+encodeURIComponent(data[0].text));
                 dataTransfer.dropEffect = 'copy';
@@ -1232,7 +1233,12 @@ export default class Buttons {
         });
         this.export.addEventListener("click", function () {
             if (total.traces.length > 0) {
-                buttons.merge.checked = false;
+                if (total.traces.length == 1) {
+                    buttons.merge.checked = false;
+                    buttons.merge.disabled = true;
+                } else {
+                    buttons.merge.disabled = false;
+                }
                 if (total.getMovingTime() == 0) {
                     buttons.include_time.checked = false;
                     buttons.include_time.disabled = true;
@@ -1269,6 +1275,13 @@ export default class Buttons {
                     buttons.include_atemp.checked = true;
                     buttons.include_atemp.disabled = false;
                 }
+                if (!additionalData.surface) {
+                    buttons.include_surface.checked = false;
+                    buttons.include_surface.disabled = true;
+                } else {
+                    buttons.include_surface.checked = true;
+                    buttons.include_surface.disabled = false;
+                }
                 if (buttons.window_open) buttons.window_open.hide();
                 buttons.window_open = buttons.export_window;
                 buttons.export_window.show();
@@ -1281,8 +1294,9 @@ export default class Buttons {
             const atemp = buttons.include_atemp.checked;
             const cad = buttons.include_cad.checked;
             const power = buttons.include_power.checked;
+            const surface = buttons.include_surface.checked;
 
-            const output = total.outputGPX(mergeAll, time, hr, atemp, cad, power);
+            const output = total.outputGPX(mergeAll, time, hr, atemp, cad, power, surface);
             for (var i=0; i<output.length; i++)
                 buttons.download(output[i].name, output[i].text);
 
@@ -1402,7 +1416,8 @@ export default class Buttons {
                     buttons.map.hasLayer(buttons.controlLayers._layers[i].layer)) {
                     buttons.controlLayers._layerControlInputs[i].click();
                     activeLayers.push(i);
-                } else if (unload && buttons.map.hasLayer(buttons.controlLayers._layers[i].layer)) {
+                } else if (unload && buttons.map.hasLayer(buttons.controlLayers._layers[i].layer)
+                            && buttons.controlLayers._layerControlInputs[i].checked) {
                     localStorage.setItem('lastbasemap', i);
                 }
             }
@@ -1932,7 +1947,7 @@ export default class Buttons {
                     localStorage.setItem('traces', buttons.total.traces.length);
                     for (var i=0; i<buttons.total.traces.length; i++) {
                         const avgData = buttons.total.traces[i].getAverageAdditionalData();
-                        const data = total.outputGPX(false, true, avgData.hr, avgData.atemp, avgData.cad, avgData.power, i);
+                        const data = total.outputGPX(false, true, avgData.hr, avgData.atemp, avgData.cad, avgData.power, true, i);
                         localStorage.setItem(i,JSON.stringify(data[0]));
                     }
                 }
