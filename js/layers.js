@@ -39,6 +39,16 @@ L.Control.Layers.include({
         return layers;
     },
 
+    showLayer: function(layerId) {
+        var obj = this._layers[layerId];
+        for (var i=0; i<obj.domParents.length; i++) {
+            if (!obj.domParents[i]._toggled) {
+                var span = obj.domParents[i].children[0];
+                span.click();
+            }
+        }
+    },
+
     _update: function () {
         if (!this._container) { return this; }
 
@@ -106,6 +116,7 @@ L.Control.Layers.include({
 
     _addItem: function (obj) {
         const node = this.__addItem(obj);
+        obj.domParents = [];
         if (obj.layer._parents.length > 0) node.style.display = 'none';
 
         var parentNode = obj.overlay ? this._overlaysList : this._baseLayersList;
@@ -117,6 +128,7 @@ L.Control.Layers.include({
                 const elementName = parentNode.children[j].children[0].innerText.trimStart();
                 if (parentName == elementName) {
                     parentNode = parentNode.children[j];
+                    obj.domParents.push(parentNode);
                     break;
                 }
             }

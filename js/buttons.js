@@ -841,6 +841,13 @@ export default class Buttons {
 
                     if (localStorage.hasOwnProperty('lastbasemap')) {
                         _this.controlLayers._layerControlInputs[localStorage.getItem('lastbasemap')].click();
+                        _this.controlLayers.showLayer(localStorage.getItem('lastbasemap'));
+                    }
+                    if (localStorage.hasOwnProperty('lastoverlays')) {
+                        const overlays = JSON.parse(localStorage.getItem('lastoverlays'));
+                        for (var i=0; i<overlays.length; i++) {
+                            _this.controlLayers.showLayer(overlays[i]);
+                        }
                     }
                 }
 
