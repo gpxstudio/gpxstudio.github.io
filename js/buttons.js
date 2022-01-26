@@ -243,6 +243,9 @@ export default class Buttons {
         this.comment_text = document.getElementById('comment-text').textContent;
         this.description_text = document.getElementById('description-text').textContent;
         this.symbol_text = document.getElementById('symbol-text').textContent;
+        this.search_input_text = document.getElementById('search-input-text').textContent;
+        this.search_button_text = document.getElementById('search-button-text').textContent;
+        this.locate_button_text = document.getElementById('locate-button-text').textContent;
         this.empty_title_text = document.getElementById('empty-title-text').textContent;
 
         // WINDOWS
@@ -522,18 +525,21 @@ export default class Buttons {
                         }).addTo(_this.map);
                     }
                 } else {
-                    L.Control.geocoder({
-                        defaultMarkGeocode: false
+                    _this.geocoderControl = L.Control.geocoder({
+                        defaultMarkGeocode: false,
+                        placeholder: _this.search_input_text
                     }).on('markgeocode', function(e) {
                         var bbox = e.geocode.bbox;
                         _this.map.fitBounds(bbox);
                     }).addTo(_this.map);
+                    _this.geocoderControl.getContainer().children[0].title = _this.search_button_text;
 
                     L.control.locate({
                         position: 'topright',
                         icon: 'fas fa-crosshairs',
                         keepCurrentZoomLevel: true,
-                        showPopup: false
+                        showPopup: false,
+                        strings: {title: _this.locate_button_text}
                     }).addTo(_this.map);
 
                     _this.streetView = L.control({
