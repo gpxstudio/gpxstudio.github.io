@@ -566,6 +566,13 @@ export default class Buttons {
                         attribution : '&copy; <a href="https://www.swisstopo.admin.ch" target="_blank">swisstopo</a>'
                     });
 
+                    _this.et4 = L.tileLayer('http://ec{s}.cdn.ecmaps.de/WmsGateway.ashx.jpg?Experience=demo-dahoam&MapStyle=KOMPASS&TileX={x}&TileY={y}&ZoomLevel={z}', {
+            			maxZoom: 20,
+                        maxNativeZoom: 15,
+            			subdomains: '0123',
+            			attribution: '<a href="http://hubermedia.de/et4-maps/" target="_blank">eT4&reg; MAPS</a> &copy; <a href="http://www.kompass.de" target="_blank">KOMPASS Karten GmbH</a> <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
+            		});
+
                     _this.ignFrScan25 = L.tileLayer('https://wxs.ign.fr/csxlabhak328gg7s096cu55r/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR&FORMAT=image/jpeg&STYLE=normal', {
                         maxZoom: 20,
                         maxNativeZoom: 16,
@@ -741,6 +748,9 @@ export default class Buttons {
                                     "CyclOSM" : _this.cyclOSM
                                 },
                                 "Countries": {
+                                    "Austria & Germany": {
+                                        "Kompass" : _this.et4
+                                    },
                                     "France": {
                                         "IGN SCAN25" : _this.ignFrScan25
                                     },
@@ -799,6 +809,9 @@ export default class Buttons {
                                     "CyclOSM" : _this.cyclOSM
                                 },
                                 "Countries": {
+                                    "Austria & Germany": {
+                                        "Kompass" : _this.et4
+                                    },
                                     "France": {
                                         "IGN SCAN25" : _this.ignFrScan25
                                     },
