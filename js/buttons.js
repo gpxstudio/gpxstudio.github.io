@@ -706,6 +706,22 @@ export default class Buttons {
                             _this.mapboxSKUToken = _this.mapboxMap.getMapboxMap()._requestManager._skuToken;
                         });
 
+                        _this.linz = L.mapboxGL({
+                            attribution: '&copy; <a target="_blank" href="//www.linz.govt.nz/data/linz-data/linz-basemaps/data-attribution">LINZ</a>',
+                            maxZoom: 20,
+                            style: 'https://basemaps.linz.govt.nz/v1/tiles/topographic/EPSG:3857/style/topographic.json?api=d01fbtg0ar23gctac5m0jgyy2ds',
+                            interactive: true,
+                            minZoom: 1,
+                            dragRotate: false,
+                            touchZoomRotate: false,
+                            boxZoom: false,
+                            dragPan: false,
+                            touchPitch: false,
+                            doubleClickZoom: false,
+                            scrollZoom: false,
+                            boxZoom: false
+                        });
+
                         _this.mapillary_coverageZoomed = L.vectorGrid.protobuf('https://tiles.mapillary.com/maps/vtp/mly1_computed_public/2/{z}/{x}/{y}?access_token=MLY|4381405525255083|3204871ec181638c3c31320490f03011', {
                             minZoom: 14,
                             maxNativeZoom: 14,
@@ -753,6 +769,9 @@ export default class Buttons {
                                     },
                                     "France": {
                                         "IGN SCAN25" : _this.ignFrScan25
+                                    },
+                                    "New Zealand": {
+                                        "LINZ": _this.linz
                                     },
                                     "Spain": {
                                         "IGN": _this.ignEs
