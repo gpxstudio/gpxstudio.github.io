@@ -280,6 +280,7 @@ export default class Total {
             var lastPoints = null;
             for (var i=0; i<this.traces.length; i++) {
                 const points = this.traces[i].getPoints();
+                if (points.length == 0) continue;
                 if (!this.traces[i].hasTimeData()) { // no time data
                     var startTime = new Date();
                     if(lastPoints) {
@@ -293,6 +294,7 @@ export default class Total {
                         var dist = this.traces[i].getDistance(true);
                         for (var j=i+1; j<this.traces.length; j++) {
                             const cur_points = this.traces[j].getPoints();
+                            if (cur_points.length == 0) continue;
                             b = cur_points[0];
                             if (mergeAll) dist += this.traces[j].gpx._dist2d(a, b);
                             if (!this.traces[j].hasTimeData()) dist += this.traces[j].getDistance(true);

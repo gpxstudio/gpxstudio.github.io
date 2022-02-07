@@ -1337,7 +1337,7 @@ export default class Trace {
         const curAvg = this.getMovingSpeed(true);
         if (this.hasTimeData() && curAvg > 0) {
             this.shiftAndCompressTime(start, avg);
-        } else {
+        } else if (points.length > 0) {
             points[0].meta.time = start;
             points[0].meta.original_time = true;
             for (var i=1; i<points.length; i++) {
