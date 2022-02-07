@@ -1332,7 +1332,7 @@ export default class Buttons {
                 buttons.export_window.show();
             }
         });
-        this.export2.addEventListener("click", function () {
+        this.export2.addEventListener("click", async function () {
             const mergeAll = buttons.merge.checked;
             const time = buttons.include_time.checked;
             const hr = buttons.include_hr.checked;
@@ -1342,8 +1342,10 @@ export default class Buttons {
             const surface = buttons.include_surface.checked;
 
             const output = total.outputGPX(mergeAll, time, hr, atemp, cad, power, surface);
-            for (var i=0; i<output.length; i++)
+            for (var i=0; i<output.length; i++) {
+                if (i > 0 && i % 10 == 0) await buttons.pause();
                 buttons.download(output[i].name, output[i].text);
+            }
 
             buttons.export_window.hide();
             gtag('event', 'button', {'event_category' : 'export'});
@@ -2184,6 +2186,14 @@ export default class Buttons {
     donation() {
         window.open('https://ko-fi.com/gpxstudio');
         gtag('event', 'button', {'event_category' : 'donate'});
+    }
+
+    pause(msec) {
+        return new Promise(
+            (resolve, reject) => {
+                setTimeout(resolve, msec || 1000);
+            }
+        );
     }
 
     download(filename, text) {
