@@ -1111,9 +1111,21 @@ export default class Buttons {
         });
         L.DomEvent.on(this.tabs,"mousewheel",L.DomEvent.stopPropagation);
         L.DomEvent.on(this.tabs,"MozMousePixelScroll",L.DomEvent.stopPropagation);
+        const show_editing_options = function () {
+            if (total.hasFocus) return;
+            var trace = total.traces[total.focusOn];
+            if (trace.isEdited) {
+                buttons.toggle_editing_options.style.display = 'inline-block';
+                if (!buttons.editing_options.hidden) buttons.editing_options.style.display = 'inline-block';
+            } else {
+                buttons.editing_options.style.display = '';
+                buttons.toggle_editing_options.style.display = '';
+            }
+        };
         this.draw.addEventListener("click", function () {
             const newTrace = total.addTrace(undefined, "new.gpx");
             newTrace.draw();
+            show_editing_options();
             gtag('event', 'button', {'event_category' : 'draw'});
         });
         this.add_wpt.addEventListener("click", function () {
@@ -1374,14 +1386,11 @@ export default class Buttons {
             if (trace.isEdited) {
                 trace.stopEdit();
                 if (trace.drawing) trace.stopDraw();
-                buttons.editing_options.style.display = '';
-                buttons.toggle_editing_options.style.display = '';
-                gtag('event', 'button', {'event_category' : 'edit-trace'});
             } else {
                 trace.draw();
-                buttons.toggle_editing_options.style.display = 'inline-block';
-                if (!buttons.editing_options.hidden) buttons.editing_options.style.display = 'inline-block';
+                gtag('event', 'button', {'event_category' : 'edit-trace'});
             }
+            show_editing_options();
         });
         this.toggle_editing_options.addEventListener('click', function () {
             buttons.editing_options.hidden = !buttons.editing_options.hidden;
