@@ -565,10 +565,10 @@
         }
 
         const languageInput = document.getElementById("language-input");
-        languageInput.addEventListener('change', function () {
-            window.location.href = './' + (languageInput.value == 'en' ? '' : 'l/'+languageInput.value+'/')+'about.html'+window.location.hash;
-        });
         languageInput.value = language;
+        languageInput.addEventListener('change', function () {
+            window.location.href = '/' + (languageInput.value == 'en' ? '' : 'l/'+languageInput.value+'/')+'about.html'+window.location.hash;
+        });
 
         </script>
     </body>
