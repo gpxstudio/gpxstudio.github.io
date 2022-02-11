@@ -381,8 +381,15 @@ export default class Buttons {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 const keys = JSON.parse(xhr.responseText);
                 _this.graphhopper_token = keys.graphhopper;
-                if (urlParams.has('token')) _this.mapbox_token = urlParams.get('token');
-                else if (window.location.hostname != "localhost") _this.mapbox_token = keys.mapbox;
+                _this.mapbox_style = 'mapbox://styles/mapbox/outdoors-v11';
+
+                if (_this.embedding && urlParams.has('token')) {
+                    _this.mapbox_token = urlParams.get('token');
+                    if (urlParams.has('mapbox-style')) {
+                        _this.mapbox_style = urlParams.get('mapbox-style');
+                        _this.custom_style = true;
+                    }
+                } else if (window.location.hostname != "localhost") _this.mapbox_token = keys.mapbox;
                 else _this.mapbox_token = keys.mapbox_dev;
 
                 // TILES
@@ -416,7 +423,7 @@ export default class Buttons {
                             attribution: '&copy; <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
                             maxZoom: 20,
                             accessToken: _this.mapbox_token,
-                            style: 'mapbox://styles/mapbox/outdoors-v11',
+                            style: _this.mapbox_style,
                             interactive: true,
                             minZoom: 1,
                             dragRotate: false,
@@ -446,11 +453,12 @@ export default class Buttons {
                             _this.mapboxMap.options.style = "mapbox://styles/mapbox/satellite-v9";
                             _this.mapboxMap.getMapboxMap().setStyle("mapbox://styles/mapbox/satellite-v9", {diff: false});
                         } else _this.openStreetMap.addTo(_this.map);
-                    } else _this.openStreetMap.addTo(_this.map);
+                    } else if (urlParams.has('token') && _this.supportsWebGL()) _this.mapboxMap.addTo(_this.map);
+                    else _this.openStreetMap.addTo(_this.map);
 
                     if (urlParams.has('token') && _this.supportsWebGL()) {
                         _this.controlLayers = L.control.layers({
-                            "Mapbox Outdoors" : _this.mapboxMap,
+                            [_this.custom_style ? "Mapbox" : "Mapbox Outdoors"] : _this.mapboxMap,
                             "Mapbox Satellite" : _this.mapboxMap,
                             "OpenStreetMap" : _this.openStreetMap,
                             "OpenTopoMap" : _this.openTopoMap,
@@ -866,17 +874,17 @@ export default class Buttons {
         const layerSelectors = _this.controlLayers._layerControlInputs;
         for (var i=0; i<layerSelectors.length; i++) {
             const span = layerSelectors[i].nextSibling;
-            if (span.textContent.endsWith("Outdoors")) {
-                _this.mapboxOutdoorsSelector = layerSelectors[i];
-                _this.mapboxOutdoorsSelector.checked = this.mapboxMap._map && (_this.mapboxMap.options.style == "mapbox://styles/mapbox/outdoors-v11");
-                _this.mapboxOutdoorsSelector.addEventListener('click', function (e) {
-                    _this.mapboxMap.getMapboxMap().setStyle("mapbox://styles/mapbox/outdoors-v11", {diff: false});
-                });
-            } else if (span.textContent.endsWith("Satellite")) {
+            if (span.textContent.endsWith("Mapbox Satellite")) {
                 _this.mapboxSatelliteSelector = layerSelectors[i];
                 _this.mapboxSatelliteSelector.checked = this.mapboxMap._map && (_this.mapboxMap.options.style == "mapbox://styles/mapbox/satellite-v9");
                 _this.mapboxSatelliteSelector.addEventListener('click', function (e) {
                     _this.mapboxMap.getMapboxMap().setStyle("mapbox://styles/mapbox/satellite-v9", {diff: false});
+                });
+            } else if (span.textContent.includes("Mapbox")) {
+                _this.mapboxOutdoorsSelector = layerSelectors[i];
+                _this.mapboxOutdoorsSelector.checked = this.mapboxMap._map && (_this.mapboxMap.options.style == _this.mapbox_style);
+                _this.mapboxOutdoorsSelector.addEventListener('click', function (e) {
+                    _this.mapboxMap.getMapboxMap().setStyle(_this.mapbox_style, {diff: false});
                 });
             }
         }

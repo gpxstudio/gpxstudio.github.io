@@ -400,7 +400,7 @@
                     <li><code>ohm</code>: OpenHikingMap</li>
                     <li><code>cosm</code>: CyclOSM</li>
                 </ul>
-                <p>To use Mapbox maps, you need to specify the <code>token</code> parameter with a valid <a href="https://account.mapbox.com/access-tokens/" target="_blank">Mapbox token</a>.</p>
+                <p>To use Mapbox maps, you need to specify the <code>token</code> parameter with a valid <a href="https://account.mapbox.com/access-tokens/" target="_blank">Mapbox token</a>. You can also use a custom Mapbox style by directly specifying its URL with <code>mapbox-style=&lt;STYLE_URL&gt;</code>.</p>
                 <p>You can optionally add parameters to the source URL: <code>imperial</code> to get data in miles and feet, <code>running</code> to display the pace in minutes by unit of distance, <code>distance</code> to show distance markers and <code>direction</code> to show direction markers. Below is a playground to play with the parameters, see a preview and get the HTML code.</p>
                 <div class="guide-item">
                     <h3 style="margin-block-start: 0em;">Parameters</h3>
@@ -424,6 +424,8 @@
                     </select></p>
                     <p>Mapbox token<br>
                     <input id="mapbox-token" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
+                    <p>Mapbox custom style URL<br>
+                    <input id="mapbox-style" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
                     <h3>HTML code</h3>
                     <div style="text-align: left; overflow-wrap: break-word; padding:10px; border: 1px solid #ccc; background: #f5f5f5;">
                     <code id="embedding-code"></code>
@@ -478,6 +480,7 @@
             const distance = document.getElementById("distance").checked;
             const direction = document.getElementById("direction").checked;
             const mapbox_token = document.getElementById("mapbox-token").value;
+            const mapbox_style = document.getElementById("mapbox-style").value;
             const source = document.getElementById("sources").value;
 
             var query = '?state=%7B';
@@ -507,6 +510,7 @@
                 + query
                 + '&embed'
                 + (mapbox_token ? '&token='+mapbox_token : '')
+                + (mapbox_style ? '&mapbox-style='+mapbox_style : '')
                 + (source != "osm" ? '&source='+source : '')
                 + (running ? '&running' : '')
                 + (imperial ? '&imperial' : '')
@@ -519,6 +523,7 @@
                 + query
                 + '&embed'
                 + (mapbox_token ? '&token='+mapbox_token : '')
+                + (mapbox_style ? '&mapbox-style='+mapbox_style : '')
                 + (source != "osm" ? '&source='+source : '')
                 + (running ? '&running' : '')
                 + (imperial ? '&imperial' : '')
