@@ -103,20 +103,35 @@ export default class Trace {
                 if (trace.buttons.embedding) return;
                 if (trace.renaming) return;
                 trace.renaming = true;
-                li.innerHTML = '<input type="text" id="tabname" class="input-minimal" minlength="1" size="'+(trace.name.length)+'"> ';
-                trace.tabname = document.getElementById("tabname");
-                trace.tabname.addEventListener('keydown', function (e) {
-                    if (e.key === 'Enter') trace.rename();
+
+                trace.nameInput = document.createElement("input");
+                trace.nameInput.type = "text";
+                trace.nameInput.classList.add("input-minimal");
+                trace.nameInput.minlength = 1;
+                trace.nameInput.size = trace.name.length;
+                trace.nameInput.value = trace.name;
+                li.appendChild(trace.nameInput);
+
+                trace.tab.children[1].style.display = 'none';
+
+                trace.nameInput.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter') {
+                        trace.rename();
+                        trace.nameInput.style.display = 'none';
+                        trace.tab.children[1].style.display = '';
+                    }
                 });
-                trace.tabname.addEventListener('focusout', function (e) {
+                trace.nameInput.addEventListener('focusout', function (e) {
                     trace.rename();
+                    trace.nameInput.style.display = 'none';
+                    trace.tab.children[1].style.display = '';
                 });
-                trace.tabname.focus();
-                trace.tabname.value = trace.name;
+                trace.nameInput.focus();
             });
             ul.appendChild(li);
-
             trace.tab = li;
+            trace.updateTab();
+
             total.buttons.circlesToFront();
 
             trace.extendTimeData(true);
@@ -198,14 +213,16 @@ export default class Trace {
     }
 
     rename(name) {
-        var newname = name ? name : this.tabname.value;
-        if (newname.length == 0) this.tab.innerHTML = '<div class="tab-color" style="background:'+this.normal_style.color+';"></div><div class="handle">'+this.name+'</div>';
-        else {
-            this.name = newname;
-            this.tab.innerHTML = '<div class="tab-color" style="background:'+this.normal_style.color+';"></div><div class="handle">'+newname+'</div>';
-            this.tab.title = newname;
-        }
+        var newname = name ? name : this.nameInput.value;
+        if (newname.length > 0) this.name = newname;
+        this.updateTab();
         this.renaming = false;
+    }
+
+    updateTab() {
+        this.tab.children[0].style.background = this.normal_style.color;
+        this.tab.children[1].innerText = this.name;
+        this.tab.title = this.name;
     }
 
     clone() {
@@ -1080,7 +1097,6 @@ export default class Trace {
             }
 
             newTrace.recomputeStats();
-            newTrace.rename(newTrace.name.split('.')[0] + "_" + count);
             count++;
 
             lastTrace = newTrace;
