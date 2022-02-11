@@ -63,6 +63,14 @@ export default class Trace {
         total.traces.push(this);
 
         const trace = this;
+        const mergeTrace = function () {
+            total.to_merge.merge(trace, total.buttons.merge_as_segments.checked, total.buttons.merge_stick_time.checked);
+            total.removeTrace(trace.index);
+            total.to_merge.focus();
+            total.to_merge = null;
+            total.buttons.merge_window.hide();
+            gtag('event', 'button', {'event_category' : 'merge'});
+        };
 
         this.gpx.on('error', function (e) {
             console.log(e);
@@ -88,14 +96,8 @@ export default class Trace {
             li.classList.add('tab','tab-draggable');
             li.trace = trace;
             li.addEventListener('click', function (e) {
-                if (total.to_merge && total.to_merge != trace && total.buttons.window_open == total.buttons.merge_window) {
-                    total.to_merge.merge(trace, total.buttons.merge_as_segments.checked, total.buttons.merge_stick_time.checked);
-                    total.removeTrace(trace.index);
-                    total.to_merge.focus();
-                    total.to_merge = null;
-                    total.buttons.merge_window.hide();
-                    gtag('event', 'button', {'event_category' : 'merge'});
-                } else if (!trace.hasFocus) trace.focus();
+                if (total.to_merge && total.to_merge != trace && total.buttons.window_open == total.buttons.merge_window) mergeTrace();
+                else if (!trace.hasFocus) trace.focus();
             });
             li.addEventListener('dblclick', function (e) {
                 if (trace.buttons.embedding) return;
@@ -128,6 +130,10 @@ export default class Trace {
         }).on('click', function (e) {
             if (e.layer.sym) return;
             if (trace.buttons.disable_trace) return;
+            if (total.to_merge && total.to_merge != trace && total.buttons.window_open == total.buttons.merge_window) {
+                mergeTrace();
+                return;
+            }
             if (!trace.total.hasFocus && trace.total.focusOn != trace.index && trace.total.traces[trace.total.focusOn].isEdited) return;
             if (!e.target.trace.isEdited) e.target.trace.updateFocus();
         }).on('mousedown', function (e) {
