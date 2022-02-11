@@ -63,38 +63,48 @@
         <script src="/js/lang.js"></script>
     </head>
     <body>
-        <div id="header-container">
-            <ul style="list-style-type: none;">
-                <li><a href="./"><img src="/res/logo.png" style="width: 220px"></a></li>
-                <li><a href="./" class="my-anchor"><i class="fas fa-map-marked-alt"></i> <b>Go to the app</b></a></li>
-                <li><a href="#about" class="my-anchor">Over</a></li>
-                <li><a href="#support" class="my-anchor">Support</a></li>
-                <li><a href="#funding" class="my-anchor">Funding</a></li>
-                <li><a href="#translation" class="my-anchor">Translation</a></li>
-                <li><a href="#guide" class="my-anchor">User Guide</a></li>
-                <li><a href="#embed" class="my-anchor">Embedding</a></li>
-                <li><a href="#terms" class="my-anchor">Terms of Service</a></li>
-                <li><a href="#privacy" class="my-anchor">Privacy Policy</a></li>
-            </ul>
-            <div id="social">
-                <a href="https://facebook.com/gpx.studio" target="_blank"><i class="fab fa-facebook fa-lg"></i></a>
-                <a href="https://twitter.com/gpxstudio" target="_blank"><i class="fab fa-twitter fa-lg"></i></a>
-                <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank"><i class="fab fa-github fa-lg"></i></a>
-                <a href="mailto:hello@gpx.studio"><i class="fas fa-envelope fa-lg"></i></a>
-            </div>
-            <!-- ADD_LANGUAGE -->
-            <div id="languages">
-                <a href="/about.html" class="language">en</a>
-                <a href="/l/de/about.html" class="language">de</a>
-                <a href="/l/es/about.html" class="language">es</a>
-                <a href="/l/fr/about.html" class="language">fr</a>
-                <a href="/l/hu/about.html" class="language">hu</a>
-                <a href="/l/it/about.html" class="language">it</a>
-                <a href="/l/nl/about.html" class="language">nl</a>
-                <a href="/l/pt/about.html" class="language">pt</a>
-                <a href="/l/ru/about.html" class="language">ru</a>
-            </div>
-        </div>
+        <table id="header-container">
+            <tr>
+                <td valign="top">
+                    <ul id="navigation">
+                        <li><a href="./"><img src="/res/logo.png" style="width: 100%"></a></li>
+                        <li><a href="./" class="my-anchor"><i class="fas fa-map-marked-alt"></i> <b>Go to the app</b></a></li>
+                        <li><a href="#about" class="my-anchor">Over</a></li>
+                        <li><a href="#support" class="my-anchor">Support</a></li>
+                        <li><a href="#funding" class="my-anchor">Funding</a></li>
+                        <li><a href="#translation" class="my-anchor">Translation</a></li>
+                        <li><a href="#guide" class="my-anchor">User Guide</a></li>
+                        <li><a href="#embed" class="my-anchor">Embedding</a></li>
+                        <li><a href="#terms" class="my-anchor">Terms of Service</a></li>
+                        <li><a href="#privacy" class="my-anchor">Privacy Policy</a></li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td valign="bottom">
+                    <!-- ADD_LANGUAGE -->
+                    <div id="languages">
+                        <select id="language-input">
+                            <option value="de">Deutsch</option>
+                            <option value="en">English</option>
+                            <option value="es">Español</option>
+                            <option value="fr">Français</option>
+                            <option value="it">Italiano</option>
+                            <option value="hu">Magyar</option>
+                            <option value="nl">Nederlands</option>
+                            <option value="pt">Português</option>
+                            <option value="ru">Русский язык</option>
+                        </select>
+                    </div>
+                    <div id="social">
+                        <a href="https://facebook.com/gpx.studio" target="_blank"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="https://twitter.com/gpxstudio" target="_blank"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank"><i class="fab fa-github fa-lg"></i></a>
+                        <a href="mailto:hello@gpx.studio"><i class="fas fa-envelope fa-lg"></i></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
         <div id="block-container">
             <a name="about"></a>
             <div class="block">
@@ -159,23 +169,13 @@
             <div class="guide">
                 Klik op een onderwerp om meer te leren!<br><br>
                 <div class="guide-item"><a name="create-file" href="#create-file" class="my-anchor"><div class="guide-title" onclick="toggle('create')">Maak een nieuw GPX-bestand aan</div></a>
-                <div id="create" style="display: none">
+                <div id="create" class="guide-content">
                     <ol>
-                        <li>In the top toolbar, click on <span class="button">New GPX</span>. Een nieuw tabblad genaamd "nieuw" verschijnt onder het onderste paneel.</li>
+                        <li>In the top toolbar, click on <span class="button">New GPX</span>. A new tab called "new" appears above the bottom panel.</li>
                         <li>Plaats ankerpunten op de kaart door te klikken op de locaties die je wilt doorlopen.</li>
-                        <li>Two options control how two consecutive points are connected:
-                            <ul>
-                                <li>use
-                                    <span class="button">
-                                        <i class="fas fa-biking"></i>
-                                        <i class="fas fa-arrows-alt-h"></i>
-                                        <i class="fas fa-running"></i>
-                                        <i class="fas fa-arrows-alt-h"></i>
-                                        <i class="fas fa-motorcycle"></i>
-                                    </span> to select the correct activity and use the most appropriate roads.
-                                </li>
-                                <li>gebruik <span class="button"><i class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-dove"></i></span> om af te wisselen tussen routing (volgens echte paden) of "as-the-crow-flies" (rechte lijnen tussen anker punten).</li>
-                            </ul>
+                        <li>
+                            If routing is enabled, select the appropriate activity type in order to take the most suitable roads.
+                            Disabling the routing will allow you to draw straight lines freely on the map.
                         </li>
                         <li>Je kunt een punt of de lijn zelf verslepen om het spoor door een nieuwe locatie te leiden.</li>
                         <li>If you make a mistake or change your mind about the itinerary, you can:
@@ -187,20 +187,20 @@
                     </ol>
                 </div></div>
                 <div class="guide-item"><a name="load-file" href="#load-file" class="my-anchor"><div class="guide-title" onclick="toggle('load')">Load existing GPX files</div></a>
-                <div id="load" style="display: none">There are two options:
+                <div id="load" class="guide-content">There are two options:
                     <ul>
                         <li>Click on <span class="button">Load</span> and select one or more GPX files to load.</li>
                         <li>Drag and drop GPX files in the window.</li>
                     </ul>
                 </div></div>
                 <div class="guide-item"><a name="export-file" href="#export-file" class="my-anchor"><div class="guide-title" onclick="toggle('export')">Export GPX files</div></a>
-                <div id="export" style="display: none">
+                <div id="export" class="guide-content">
                     There are two options:
                     <ul>
                         <li>Click on <span class="button">Export</span> and then choose whether to:
                            <ul>
-                               <li>merge all open GPX files or export them separately.</li>
-                               <li>include time, temperature, heartrate, cadence and power data or not.</li>
+                               <li>merge all open GPX files as track segments into one file, or export them separately.</li>
+                               <li>include time, temperature, heartrate, cadence, power and surface data or not.</li>
                            </ul>
                            Then, click on <span class="button">Download <i class="fas fa-download"></i></span> to download the files on your computer or on <span class="button">Save to Google Drive</span> to save it in the cloud.
                         </li>
@@ -208,13 +208,13 @@
                     </ul>
                 </div></div>
                 <div class="guide-item"><a name="share-file" href="#share-file" class="my-anchor"><div class="guide-title" onclick="toggle('share')">Share a GPX file</div></a>
-                <div id="share" style="display: none"><b>gpx.studio</b> does not provide GPX file hosting. However, it integrates smoothly with Google Drive.
+                <div id="share" class="guide-content"><b>gpx.studio</b> does not provide GPX file hosting. However, it integrates smoothly with Google Drive.
                     To share GPX files:
                     <ol>
                         <li>Click on <span class="button">Export</span> and then choose whether to:
                            <ul>
-                               <li>merge all open GPX files or export them separately.</li>
-                               <li>include time, temperature, heartrate, cadence and power data or not.</li>
+                               <li>merge all open GPX files as track segments into one file, or export them separately.</li>
+                               <li>include time, temperature, heartrate, cadence, power and surface data or not.</li>
                            </ul>
                         </li>
                         <li>Click on <span class="button">Save to Google Drive</span>.</li>
@@ -225,7 +225,7 @@
                     If you want to use <b>gpx.studio</b> to open GPX files stored on your Google Drive, you can install the <a href="https://gsuite.google.com/marketplace/app/gpxstudio_the_online_gpx_editor/666808960580" target="_blank">Google Drive Add-on</a>.
                 </div></div>
                 <div class="guide-item"><a name="edit-track-points" href="#edit-track-points" class="my-anchor"><div class="guide-title" onclick="toggle('edit-track')">Edit the track points of a GPX file</div></a>
-                <div id="edit-track" style="display: none">Click on <i class="fas fa-pencil-alt button"></i> to enter the edition mode. Depending on the zoom level, a set of anchor points appears. The more you zoom in, the more anchor points appear.<br>You can then:
+                <div id="edit-track" class="guide-content">Click on <i class="fas fa-pencil-alt button"></i> to enter the edition mode. Depending on the zoom level, a set of anchor points appears. The more you zoom in, the more anchor points appear.<br>You can then:
                     <ul>
                         <li>add track points at the end of the trace by clicking on the map at the locations you want to go through.</li>
                         <li>drag an anchor point or the line itself to re-route the trace through a new location.</li>
@@ -233,24 +233,13 @@
                         <li>right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> to split the trace at a chosen location.</li>
                         <li>right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-undo"></i> <span>Start loop here</span></span> to make the loop start at a chosen location.</li>
                     </ul>
-                    If you make a mistake or change your mind about the itinerary, use the undo <i class="fas fa-reply button"></i> and redo <i class="fas fa-share button"></i> buttons.<br>
-                    Two options control how two consecutive points are connected:
-                    <ul>
-                        <li>use
-                            <span class="button">
-                                <i class="fas fa-biking"></i>
-                                <i class="fas fa-arrows-alt-h"></i>
-                                <i class="fas fa-running"></i>
-                                <i class="fas fa-arrows-alt-h"></i>
-                                <i class="fas fa-motorcycle"></i>
-                            </span> to select the correct activity and use the most appropriate roads.
-                        </li>
-                        <li>gebruik <span class="button"><i class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-dove"></i></span> om af te wisselen tussen routing (volgens echte paden) of "as-the-crow-flies" (rechte lijnen tussen anker punten).</li>
-                    </ul>
+                    If you make a mistake or change your mind about the itinerary, use the undo <i class="fas fa-reply button"></i> and redo <i class="fas fa-share button"></i> buttons.<br><br>
+                    If routing is enabled, select the appropriate activity type in order to take the most suitable roads.
+                    Disabling the routing will allow you to draw straight lines freely on the map.<br><br>
                     If you edit a GPX file containing time, temperature, heartrate, cadence or power data, new track points will automatically contain the average value for each of those fields.
                 </div></div>
                 <div class="guide-item"><a name="crop-file" href="#crop-file" class="my-anchor"><div class="guide-title" onclick="toggle('crop')">Crop a GPX file</div></a>
-                <div id="crop" style="display: none">There are three options:
+                <div id="crop" class="guide-content">There are three options:
                     <ul>
                         <li>Use the slider in the bottom panel to move the start and end points of the trace. Click on <i class="fas fa-check button"></i> to validate the selection. You can choose whether you want to keep cropped parts in separate files.</li>
                         <li>Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> to split the trace at a chosen location.</li>
@@ -258,18 +247,18 @@
                     </ul>
                 </div></div>
                 <div class="guide-item"><a name="split-file" href="#split-file" class="my-anchor"><div class="guide-title" onclick="toggle('split')">Split a GPX file</div></a>
-                <div id="split" style="display: none">There are two options:
+                <div id="split" class="guide-content">There are two options:
                     <ul>
                         <li>Use the slider in the bottom panel to move the start and end points of the trace. Click on <i class="fas fa-check button"></i> to validate the selection. Check the box <i class="far fa-check-square"></i> Keep cropped parts in new files and then click on <span class="button">Proceed</span>.</li>
                         <li>Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> to split the trace at a chosen location.</li>
                     </ul>
                 </div></div>
                 <div class="guide-item"><a name="change-start-loop" href="#change-start-loop" class="my-anchor"><div class="guide-title" onclick="toggle('change-start')">Change the starting point of a loop</div></a>
-                <div id="change-start" style="display: none">
+                <div id="change-start" class="guide-content">
                     Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-undo"></i> <span>Start loop here</span></span> to make the loop start at a chosen location.</li>
                 </div></div>
                 <div class="guide-item"><a name="add-timestamps" href="#add-timestamps" class="my-anchor"><div class="guide-title" onclick="toggle('timestamps')">Add timestamps to a GPX file</div></a>
-                <div id="timestamps" style="display: none">
+                <div id="timestamps" class="guide-content">
                     <ol>
                         <li>Click on <i class="fas fa-stopwatch button"></i>.</li>
                         <li>Enter the average speed.</li>
@@ -280,7 +269,7 @@
                     Als het GPX-bestand al tijdstempels heeft, ze zullen worden verplaatst en gecomprimeerd zodat ze overeenkomen met de gekozen snelheid en start tijd.
                 </div></div>
                 <div class="guide-item"><a name="change-date" href="#change-date" class="my-anchor"><div class="guide-title" onclick="toggle('date')">Wijzig de datum van een GPX-bestand</div></a>
-                <div id="date" style="display: none">
+                <div id="date" class="guide-content">
                     <ol>
                         <li>Click on <i class="fas fa-stopwatch button"></i>.</li>
                         <li>Verander de starttijd.</li>
@@ -288,7 +277,7 @@
                     </ol>
                 </div></div>
                 <div class="guide-item"><a name="change-speed" href="#change-speed" class="my-anchor"><div class="guide-title" onclick="toggle('speed')">Wijzig de snelheid van een GPX-bestand</div></a>
-                <div id="speed" style="display: none">
+                <div id="speed" class="guide-content">
                     <ol>
                         <li>Click on <i class="fas fa-stopwatch button"></i>.</li>
                         <li>Wijzig de gemiddelde snelheid.</li>
@@ -298,12 +287,12 @@
                     Als het GPX-bestand al tijdstempels heeft, ze zullen worden verplaatst en gecomprimeerd zodat ze overeenkomen met de gekozen snelheid en start tijd.
                 </div></div>
                 <div class="guide-item"><a name="merge-files" href="#merge-files" class="my-anchor"><div class="guide-title" onclick="toggle('merge')">Meerdere GPX-bestanden samenvoegen</div></a>
-                <div id="merge" style="display: none">
+                <div id="merge" class="guide-content">
                     Om twee GPX-bestanden samen te voegen:
                     <ol>
                         <li>Onder het onderste paneel selecteert u het tabblad van het eerste GPX bestand dat u wilt samenvoegen.</li>
                         <li>Klik op <i class="fas fa-plus-circle button"></i> (alleen beschikbaar als er meer dan twee bestanden geopend zijn).</li>
-                        <li>Klik op het tabblad van het tweede GPX-bestand om samen te voegen. De trackpunten van het tweede GPX-bestand komen na die van het eerste GPX-bestand.</li>
+                        <li>Click on the tab of the second GPX file to merge or an the trace itself. De trackpunten van het tweede GPX-bestand komen na die van het eerste GPX-bestand.</li>
                     </ol>
                     Als je alle geopende GPX-bestanden tegelijk wilt samenvoegen:
                     <ol>
@@ -316,11 +305,11 @@
                     Als sommige GPX-bestanden tijdstempels bevatten, is het verzekerd dat de tijdstempels van het samengevoegde bestand strikt toenemen (de tijdstempels van sommige bestanden worden indien nodig verzet).
                 </div></div>
                 <div class="guide-item"><a name="extract-segments" href="#extract-segments" class="my-anchor"><div class="guide-title" onclick="toggle('extract')">Extract track segments of a GPX file</div></a>
-                <div id="extract" style="display: none">Klik op <i class="fas fa-list-ul button"></i> (alleen beschikbaar als het bestand meerdere track segmenten heeft). If the GPX file contains waypoints (points of interest), they are kept in the files for which the traces pass closest.</div></div>
+                <div id="extract" class="guide-content">Klik op <i class="fas fa-list-ul button"></i> (alleen beschikbaar als het bestand meerdere track segmenten heeft). If the GPX file contains waypoints (points of interest), they are kept in the files for which the traces pass closest.</div></div>
                 <div class="guide-item"><a name="copy-file" href="#copy-file" class="my-anchor"><div class="guide-title" onclick="toggle('copy')">Kopieer een GPX-bestand</div></a>
-                <div id="copy" style="display: none">Klik op <i class="fas fa-copy button"></i> om een GPX-bestand te dupliceren.</div></div>
+                <div id="copy" class="guide-content">Klik op <i class="fas fa-copy button"></i> om een GPX-bestand te dupliceren.</div></div>
                 <div class="guide-item"><a name="change-color" href="#change-color" class="my-anchor"><div class="guide-title" onclick="toggle('color')">Change the color, opacity and width of a GPX file</div></a>
-                <div id="color" style="display: none">
+                <div id="color" class="guide-content">
                     <ol>
                         <li>Klik op <i class="fas fa-palette button"></i>.</li>
                         <li>Klik op de kleur om de kleurenkiezer te openen.</li>
@@ -331,9 +320,9 @@
                     You can optionally apply the chosen color, opacity and width to all traces by using the checkboxes.
                 </div></div>
                 <div class="guide-item"><a name="add-waypoint" href="#add-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('add-wpt')">Voeg waypoints (interessante punten) toe aan een GPX bestand</div></a>
-                <div id="add-wpt" style="display: none">
+                <div id="add-wpt" class="guide-content">
                     <ol>
-                        <li>Klik op <i class="fas fa-map-marker-alt button"></i>.</li>
+                        <li>Klik op <i class="fas fa-map-marker-alt </i>.</li>
                         <li>Klik op de kaart op de locatie die je wilt plaatsen.</li>
                         <li>Vul enkele gegevens in over het waypoint (je kunt HTML gebruiken om informatie op te maken, of zelfs afbeeldingen linken).</li>
                         <li>Klik op <span class="button">Ok</span>.</li>
@@ -341,15 +330,15 @@
                     Als u een waypoint op een andere locatie wilt gebruiken, klikt u op het waypoint en drukt u op <i class="fas fa-copy button"></i> in de popup. Klik vervolgens op de kaart om een kopie van het waypoint op de gekozen locatie toe te voegen.
                 </div></div>
                 <div class="guide-item"><a name="edit-waypoint" href="#edit-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('edit-wpt')">Edit a waypoint of a GPX file</div></a>
-                <div id="edit-wpt" style="display: none">Om de locatie van een waypoint te veranderen, kunt u het naar een nieuwe locatie slepen. Bij het verplaatsen van een waypoint dicht bij het spoor wordt het automatisch aangetrokken zodat u het waypoint perfect op het spoor kunt zetten. Zoom in of uit om de afstand te wijzigen waarmee de waypoints worden aangetrokken.<br>
+                <div id="edit-wpt" class="guide-content">Om de locatie van een waypoint te veranderen, kunt u het naar een nieuwe locatie slepen. Bij het verplaatsen van een waypoint dicht bij het spoor wordt het automatisch aangetrokken zodat u het waypoint perfect op het spoor kunt zetten. Zoom in of uit om de afstand te wijzigen waarmee de waypoints worden aangetrokken.<br>
                     Om de gegevens van een waypoint te bewerken klik erop en druk op <i class="fas fa-pencil-alt button"></i> binnen de popup. Wijzig de informatie en klik vervolgens op <span class="button">Ok</span>.
                 </div></div>
                 <div class="guide-item"><a name="remove-waypoint" href="#remove-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('rmv-wpt')">Remove waypoints of a GPX file</div></a>
-                <div id="rmv-wpt" style="display: none">Om een enkel waypoint te verwijderen, klik erop en druk op <i class="fas fa-trash-alt button"></i> in de popup.<br>
+                <div id="rmv-wpt" class="guide-content">Om een enkel waypoint te verwijderen, klik erop en druk op <i class="fas fa-trash-alt button"></i> in de popup.<br>
                     Om alle waypoints binnen of buiten een gebied te verwijderen klik op <i class="fas fa-vector-square button"></i> en selecteer een gebied met de waypoints die u wilt behouden of verwijderen. Schakel het selectievakje <i class="far fa-check-square"></i> Trackpunten uit als u niet tegelijkertijd de trackpunten wilt verwijderen. Kies vervolgens of u de waypoints binnen of buiten de selectie wilt verwijderen. Finally, click on <span class="button">Proceed</span>.
                 </div></div>
                 <div class="guide-item"><a name="reduce-points" href="#reduce-points" class="my-anchor"><div class="guide-title" onclick="toggle('reduce')">Reduce the number of track points of a GPX file</div></a>
-                <div id="reduce" style="display: none">
+                <div id="reduce" class="guide-content">
                     <ol>
                         <li>Klik op <i class="fas fa-compress-alt button"></i>.</li>
                         <li>Gebruik de schuifregelaar om het aantal te behouden trackpunten te kiezen. Je kunt een live voorbeeld zien van het GPX-bestand met het gereduceerde aantal punten.</li>
@@ -357,7 +346,7 @@
                     </ol>
                 </div></div>
                 <div class="guide-item"><a name="delete-points-in-zone" href="#delete-points-in-zone" class="my-anchor"><div class="guide-title" onclick="toggle('delete-zone')">Verwijder alle track points en/of waypoints binnen/buiten een gebied</div></a>
-                <div id="delete-zone" style="display: none">
+                <div id="delete-zone" class="guide-content">
                     <ol>
                         <li>Click on <i class="fas fa-vector-square button"></i>.
                         <li>Select an area containing the track points and/or waypoints you want to keep or delete.</li>
@@ -366,32 +355,23 @@
                    </ol>
                 </div></div>
                 <div class="guide-item"><a name="delete-file" href="#delete-file" class="my-anchor"><div class="guide-title" onclick="toggle('delete')">Remove GPX files</div></a>
-                <div id="delete" style="display: none">Below the bottom panel, select the tab of the file you want to delete and click on <i class="fas fa-trash-alt button"></i>.<br>
+                <div id="delete" class="guide-content">Below the bottom panel, select the tab of the file you want to delete and click on <i class="fas fa-trash-alt button"></i>.<br>
                 To remove all GPX files at once, click on <span class="button">Clear all</span> in the top toolbar.</div></div>
                 <div class="guide-item"><a name="open-street-view" href="#open-street-view" class="my-anchor"><div class="guide-title" onclick="toggle('street-view')">Open Street View</div></a>
-                <div id="street-view" style="display: none">In the top-right corner, click on <i class="fas fa-street-view button"></i> and then click on the map to open Street View at that location.</div></div>
+                <div id="street-view" class="guide-content">In the top-right corner, click on <i class="fas fa-street-view button"></i> and then click on the map to open Street View at that location.</div></div>
                 <div class="guide-item"><a name="search-location" href="#search-location" class="my-anchor"><div class="guide-title" onclick="toggle('search')">Center the map on a location</div></a>
-                <div id="search" style="display: none">In the top-right corner, click on <i class="fas fa-search button"></i> and then type an address. Choose one of the suggested locations to center the map on it.</div></div>
+                <div id="search" class="guide-content">In the top-right corner, click on <i class="fas fa-search button"></i> and then type an address. Choose one of the suggested locations to center the map on it.</div></div>
                 <div class="guide-item"><a name="hide-trace" href="#hide-trace" class="my-anchor"><div class="guide-title" onclick="toggle('hide-gpx')">Hide a GPX file</div></a>
-                <div id="hide-gpx" style="display: none">To hide a GPX file, click on <i class="fas fa-eye-slash button"></i>. To unhide it, click on <i class="fas fa-eye button"></i>.<br>
+                <div id="hide-gpx" class="guide-content">To hide a GPX file, click on <i class="fas fa-eye-slash button"></i>. To unhide it, click on <i class="fas fa-eye button"></i>.<br>
                 A hidden trace will also unhide when adding a point in edition mode or when using most of the tools.</div></div>
                 <div class="guide-item"><a name="hide-elevation" href="#hide-elevation" class="my-anchor"><div class="guide-title" onclick="toggle('profile')">Hide the elevation profile</div></a>
-                <div id="profile" style="display: none">To hide the elevation profile, simply click on <i class="fas fa-chart-area button"></i>.</div></div>
-                <div class="guide-item"><a name="change-units" href="#change-units" class="my-anchor"><div class="guide-title" onclick="toggle('units')">Change the units</div></a>
-                <div id="units" style="display: none">To change the units, click on <span class="button">km <i class="fas fa-arrows-alt-h"></i> mi</span>.<br>
-                Click on <span class="button">
-                    <i class="fas fa-biking"></i>
-                    <i class="fas fa-arrows-alt-h"></i>
-                    <i class="fas fa-running"></i>
-                    <i class="fas fa-arrows-alt-h"></i>
-                    <i class="fas fa-motorcycle"></i>
-                </span> to select an activity and see the speed or the running pace in minutes per kilometer or mile.</div></div>
+                <div id="profile" class="guide-content">To hide the elevation profile, simply click on <i class="fas fa-chart-area button"></i>.</div></div>
                 <div class="guide-item"><a name="direction-markers" href="#direction-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-direction-markers')">Show direction markers</div></a>
-                <div id="show-direction-markers" style="display: none">To show direction markers, go in the settings <i class="fas fa-layer-group button"></i> and check the box <i class="far fa-check-square"></i> Direction markers.</div></div>
+                <div id="show-direction-markers" class="guide-content">To show direction markers, go in the map layers <i class="fas fa-layer-group button"></i> and check the box <i class="far fa-check-square"></i> Direction markers.</div></div>
                 <div class="guide-item"><a name="distance-markers" href="#distance-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-distance-markers')">Show distance markers</div></a>
-                <div id="show-distance-markers" style="display: none">To show distance markers, go in the settings <i class="fas fa-layer-group button"></i> and check the box <i class="far fa-check-square"></i> Distance markers.</div></div>
+                <div id="show-distance-markers" class="guide-content">To show distance markers, go in the map layers <i class="fas fa-layer-group button"></i> and check the box <i class="far fa-check-square"></i> Distance markers.</div></div>
                 <div class="guide-item"><a name="map-legends" href="#map-legends" class="my-anchor"><div class="guide-title" onclick="toggle('legend')">Map legends</div></a>
-                <div id="legend" style="display: none">
+                <div id="legend" class="guide-content">
                     <ul>
                         <li><a href="https://footpathapp.com/user-guide/maps/mapbox-outdoors/" target="_blank">Mapbox Outdoors</a></li>
                         <li><a href="https://wiki.openstreetmap.org/wiki/LinesTab" target="_blank">OpenStreetMap</a></li>
@@ -420,7 +400,7 @@
                     <li><code>ohm</code>: OpenHikingMap</li>
                     <li><code>cosm</code>: CyclOSM</li>
                 </ul>
-                <p>To use Mapbox maps, you need to specify the <code>token</code> parameter with a valid <a href="https://account.mapbox.com/access-tokens/" target="_blank">Mapbox token</a>.</p>
+                <p>To use Mapbox maps, you need to specify the <code>token</code> parameter with a valid <a href="https://account.mapbox.com/access-tokens/" target="_blank">Mapbox token</a>. You can also use a custom Mapbox style by directly specifying its URL with <code>mapbox-style=&lt;STYLE_URL&gt;</code>.</p>
                 <p>You can optionally add parameters to the source URL: <code>imperial</code> to get data in miles and feet, <code>running</code> to display the pace in minutes by unit of distance, <code>distance</code> to show distance markers and <code>direction</code> to show direction markers. Below is a playground to play with the parameters, see a preview and get the HTML code.</p>
                 <div class="guide-item">
                     <h3 style="margin-block-start: 0em;">Parameters</h3>
@@ -444,6 +424,8 @@
                     </select></p>
                     <p>Mapbox token<br>
                     <input id="mapbox-token" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
+                    <p>Mapbox custom style URL<br>
+                    <input id="mapbox-style" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
                     <h3>HTML code</h3>
                     <div style="text-align: left; overflow-wrap: break-word; padding:10px; border: 1px solid #ccc; background: #f5f5f5;">
                     <code id="embedding-code"></code>
@@ -498,6 +480,7 @@
             const distance = document.getElementById("distance").checked;
             const direction = document.getElementById("direction").checked;
             const mapbox_token = document.getElementById("mapbox-token").value;
+            const mapbox_style = document.getElementById("mapbox-style").value;
             const source = document.getElementById("sources").value;
 
             var query = '?state=%7B';
@@ -527,6 +510,7 @@
                 + query
                 + '&embed'
                 + (mapbox_token ? '&token='+mapbox_token : '')
+                + (mapbox_style ? '&mapbox-style='+mapbox_style : '')
                 + (source != "osm" ? '&source='+source : '')
                 + (running ? '&running' : '')
                 + (imperial ? '&imperial' : '')
@@ -539,6 +523,7 @@
                 + query
                 + '&embed'
                 + (mapbox_token ? '&token='+mapbox_token : '')
+                + (mapbox_style ? '&mapbox-style='+mapbox_style : '')
                 + (source != "osm" ? '&source='+source : '')
                 + (running ? '&running' : '')
                 + (imperial ? '&imperial' : '')
@@ -553,10 +538,10 @@
         var toggledElement = null;
         function toggle(id) {
             const element = document.getElementById(id);
-            if (toggledElement) toggledElement.style.display = 'none';
+            if (toggledElement) toggledElement.style.display = '';
             if (element == toggledElement) toggledElement = null;
             else {
-                element.style.display = '';
+                element.style.display = 'block';
                 toggledElement = element;
             }
         }
@@ -579,11 +564,12 @@
             });
         }
 
-        const languageItems = document.getElementById("languages").children;
-        for (var i=0; i<languageItems.length; i++) if (languageItems[i].textContent == language) {
-            languageItems[i].style.display = 'none';
-            break;
-        }
+        const languageInput = document.getElementById("language-input");
+        languageInput.addEventListener('change', function () {
+            window.location.href = './' + (languageInput.value == 'en' ? '' : 'l/'+languageInput.value+'/')+'about.html'+window.location.hash;
+        });
+        languageInput.value = language;
+
         </script>
     </body>
 </html>

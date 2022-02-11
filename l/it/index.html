@@ -65,6 +65,7 @@
         <link rel="stylesheet" type="text/css" href="/res/index.css">
         <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.74.1/dist/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="/include/condensed-attribution/leaflet-control-condended-attribution.css" />
         <link rel="stylesheet" href="https://unpkg.com/mapillary-js@4.0.0/dist/mapillary.css" />
     </head>
     <body>
@@ -73,7 +74,7 @@
         <div id="mly"><div id="mly-controls"><i id="mly-move" class="fas fa-arrows-alt custom-button"></i><i id="mly-close" class="fas fa-times custom-button"></i></div></div>
         <div style="display: none">
         <div id="toolbar" class="panels-container center-leaflet">
-            <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 2px 4px" alt="logo di gpx.studio, l'editor di file GPX online"></a>
+            <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 4px 6px" alt="logo di gpx.studio, l'editor di file GPX online"></a>
             <div id="load" class="panels custom-button">Carica GPX</div>
             <div id="manual" class="panels custom-button">Nuovo GPX</div>
             <div id="export" class="panels custom-button">Esporta</div>
@@ -84,7 +85,10 @@
             <div id="about" class="panels custom-button">Informazioni</div>
             <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Dona</b> <i class="fas fa-heart"></i></div>
         </div>
-        <div id="info" class="padding-container center-leaflet">
+        <div id="info">
+            <ul id="sortable">
+              <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">Totale</li>
+            </ul>
             <div id="info-grid" class="panels-container trace-info">
                 <div class="panels panels-info" id="distance">Distanza</div>
                 <div class="panels panels-val" id="distance-val"></div>
@@ -98,31 +102,17 @@
                 <div class="panels panels-val" id="points-val" style="display: none">0</div>
                 <div class="panels panels-info" id="segments" style="display: none; padding-right: 5px;">Segmenti</div>
                 <div class="panels panels-val" id="segments-val" style="display: none; padding-right: 5px;">0</div>
-                <div id="activity-input" class="custom-button panels-button dropdown">
-                    <div id="activity-dropdown" class="dropdown-content panels-container panels">
-                        <div id="bike" class="dropdown-choice"><i class="fas fa-biking"></i> <span>Bicicletta</span></div>
-                        <div id="racingbike" class="dropdown-choice"><i class="fas fa-biking"></i> <span>Bicicletta da corsa</span></div>
-                        <div id="mtb" class="dropdown-choice"><i class="fas fa-biking"></i> <span>Mountain bike</span></div>
-                        <div id="hike" class="dropdown-choice"><i class="fas fa-running"></i> <span>Corsa/Escursione</span></div>
-                        <div id="car" class="dropdown-choice"><i class="fas fa-motorcycle"></i> <span>Moto</span></div>
-                    </div>
-                    <div id="selected-activity"><i class="fas fa-biking"></i></div>
-                </div>
-                <div id="units-input" class="custom-button panels-button dropdown">
-                    <div id="units-dropdown" class="dropdown-content panels-container panels">
-                        <div id="km" class="dropdown-choice"><span><b>km</b></span> <span>Sistema metrico</span></div>
-                        <div id="mi" class="dropdown-choice"><span><b>mi</b></span> <span>Sistema imperiale</span></div>
-                    </div>
-                    <div id="selected-units" style="font-size: 11px"><span><b>km</b></span></div>
-                </div>
-                <div id="routing-input" class="custom-button panels-button dropdown">
-                    <div id="routing-dropdown" class="dropdown-content panels-container panels">
-                        <div id="route" class="dropdown-choice"><i class="fas fa-route"></i> <span>Instradamento</span></div>
-                        <div id="crow" class="dropdown-choice"><i class="fas fa-dove"></i> <span>Linea d'aria</span></div>
-                    </div>
-                    <span id="selected-routing"><i class="fas fa-route"></i></span>
-                </div>
-                <div id="elevation-input" class="panels-button custom-button" title="Mostra/Nascondi il profilo altimetrico"><i class="fas fa-chart-area"></i></div>
+                <div id="units-text" class="panels-info">Distance units</div>
+                <select id="units-input" name="units-input">
+                    <option value="km">Metric</option>
+                    <option value="mi">Imperial</option>
+                </select>
+                <div id="speed-units-text" class="panels-info">Velocity units</div>
+                <select id="speed-units-input" name="speed-units-input">
+                    <option value="speed">Velocità</option>
+                    <option value="pace">Passo</option>
+                </select>
+                <div id="elevation-input" class="panels-button custom-button" title="Mostra/Nascondi il profilo altimetrico"><i class="fas fa-minus"></i></div>
                 <div id="crop-container">
                     <div class="panels-button custom-button" id="validate"><i class="fas fa-check custom-button"></i></div>
                 </div>
@@ -131,23 +121,47 @@
                     <input type="range" min="0" max="10000000" value="10000000" class="slider visible" id="end-point">
                 </div>
             </div>
-            <ul id="sortable">
-              <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">Totale</li>
-            </ul>
         </div>
-        <div id="buttons-bar" class="panels-container vcenter-leaflet">
-            <div class="panels-button" id="edit" title="Modifica i punti della traccia"><i class="fas fa-pencil-alt custom-button"></i></div><br>
-            <div class="panels-button" id="edit-time" title="Modifica le informazioni temporali"><i class="fas fa-stopwatch custom-button"></i></div><br>
-            <div class="panels-button" id="reverse" title="Inverti la traccia"><i class="fas fa-exchange-alt custom-button"></i></div><br>
-            <div class="panels-button" id="combine" title="Unisci ad un altra traccia"><i class="fas fa-plus-circle custom-button"></i></div><br>
-            <div class="panels-button" id="extract" title="Estrai i segmenti della traccia"><i class="fas fa-list-ul custom-button"></i></div><br>
-            <div class="panels-button" id="duplicate" title="Duplica"><i class="fas fa-copy custom-button"></i></div><br>
-            <div class="panels-button" id="color" title="Cambia colore, opacità e larghezza"><i class="fas fa-palette custom-button"></i></div><br>
-            <div class="panels-button" id="add-wpt" title="Aggiungi waypoint"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
-            <div class="panels-button" id="reduce" title="Riduci il numero di punti della traccia"><i class="fas fa-compress-alt custom-button"></i></div><br>
-            <div class="panels-button" id="zone-delete" title="Elimina tutto all'interno/esterno della selezione"><i class="fas fa-vector-square custom-button"></i></div><br>
-            <div class="panels-button" id="hide" title="Nascondi/mostra la traccia"><i class="fas fa-eye-slash custom-button"></i></div><br>
-            <div class="panels-button" id="delete" title="Elimina"><i class="fas fa-trash-alt custom-button"></i></div><br>
+        <div id="buttons-bar" class="vcenter-leaflet">
+            <div id="buttons" class="panels-container">
+                <div class="panels-button" id="edit" title="Modifica i punti della traccia"><i class="fas fa-pencil-alt custom-button"></i></div><br>
+                <div class="panels-button" id="edit-time" title="Modifica le informazioni temporali"><i class="fas fa-stopwatch custom-button"></i></div><br>
+                <div class="panels-button" id="reverse" title="Inverti la traccia"><i class="fas fa-exchange-alt custom-button"></i></div><br>
+                <div class="panels-button" id="combine" title="Unisci ad un altra traccia"><i class="fas fa-plus-circle custom-button"></i></div><br>
+                <div class="panels-button" id="extract" title="Estrai i segmenti della traccia"><i class="fas fa-list-ul custom-button"></i></div><br>
+                <div class="panels-button" id="duplicate" title="Duplica"><i class="fas fa-copy custom-button"></i></div><br>
+                <div class="panels-button" id="color" title="Cambia colore, opacità e larghezza"><i class="fas fa-palette custom-button"></i></div><br>
+                <div class="panels-button" id="add-wpt" title="Aggiungi waypoint"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
+                <div class="panels-button" id="reduce" title="Riduci il numero di punti della traccia"><i class="fas fa-compress-alt custom-button"></i></div><br>
+                <div class="panels-button" id="zone-delete" title="Elimina tutto all'interno/esterno della selezione"><i class="fas fa-vector-square custom-button"></i></div><br>
+                <div class="panels-button" id="hide" title="Nascondi/mostra la traccia"><i class="fas fa-eye-slash custom-button"></i></div><br>
+                <div class="panels-button" id="delete" title="Elimina"><i class="fas fa-trash-alt custom-button"></i></div><br>
+            </div>
+            <div id="editing-options" class="panels-container">
+                <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Toggle editing options"></i>
+                <table class="panels">
+                    <tr>
+                        <td><b>Activity</b></td>
+                        <td><select name="activity" id="activity-input">
+                            <option value="bike">Bike</option>
+                            <option value="racingbike">Racing bike</option>
+                            <option value="mtb">Mountain bike</option>
+                            <option value="hike">Run/hike</option>
+                            <option value="car">Motorcycle</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><label for="routing-input"><b>Routing (follow roads)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><label for="edit-time-strategy"><b>Time data management</b></label></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
+                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preserve the original timestamps</label></td>
+                    </tr>
+                </table>
+            </div>
         </div>
         <div id="street-view-content">
             <div id="street-view-selector">
@@ -158,18 +172,6 @@
         </div>
         <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Indicatori di direzione</label>
         <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Indicatori di distanza</label>
-        <!-- ADD_LANGUAGE -->
-        <div id="languages">
-            <a href="/" class="footer">en</a>
-            <a href="/l/de/" class="footer">de</a>
-            <a href="/l/es/" class="footer">es</a>
-            <a href="/l/fr/" class="footer">fr</a>
-            <a href="/l/hu/" class="footer">hu</a>
-            <a href="/l/it/" class="footer">it</a>
-            <a href="/l/nl/" class="footer">nl</a>
-            <a href="/l/pt/" class="footer">pt</a>
-            <a href="/l/ru/" class="footer">ru</a>
-        </div>
         <div id="help-text">
         <div style="text-align: center; font-size: 10pt; color: #476947">
             <b>Consulta la <a href="./about.html#guide" target="_blank">Guida Utente</a> per ulteriori informazioni e suggerimenti!</b>
@@ -282,19 +284,9 @@
                 <td>Show or hide the overlays currently used.</td>
             </tr>
             <tr>
-                <td><i class="fas fa-route"></i></td>
+                <td></td>
                 <td>F2</td>
                 <td>Cambia la modalità di instradamento tra <i>segui la strada</i> e <i>linea d'aria</i> (linee rette tra i punti della traccia) quando modifichi le tracce</td>
-            </tr>
-            <tr>
-                <td><i class="fas fa-biking"></i></td>
-                <td>F3</td>
-                <td>Cambia attività scegliendo tra ciclismo, corsa e guida (influenza l'instradamento e la Heatmap di Strava visualizzata)</td>
-            </tr>
-            <tr>
-                <td><b>km</b></td>
-                <td>F4</td>
-                <td>Cambia l'unità di misura utilizzata</td>
             </tr>
             <tr>
                 <td><i class="fas fa-chart-area"></i></td>
@@ -371,15 +363,6 @@
             <div id="copy-link" class="panels custom-button fancy-button">Copia link <i class="fas fa-link"></i></div><br>
             <div id="copy-embed" class="panels custom-button fancy-button">Copia codice di incorporamento <i class="fas fa-code"></i></div><br>
         </div>
-        <div id="edit-content" class="popup-content">
-            <i class="fas fa-stopwatch"></i> Choose how to adapt the timestamps of the trace
-            <div class="center-leaflet" style="text-align: left; width: min-content;">
-                <input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
-                <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preserve the original timestamps</label>
-            </div>
-            <div id="edit-ok" class="panels custom-button normal-button">Ok</div><hr>
-            <input type="checkbox" id="remember-edit-time"><label for="remember-edit-time">Ricorda la mia scelta per questa sessione</label>
-        </div>
         <div id="merge-content" class="popup-content">
             <div id="merge-time-options">
                 <i class="fas fa-stopwatch"></i> Choose how to adapt the timestamps of the second trace (if any)
@@ -394,7 +377,7 @@
                 <input type="checkbox" id="merge-as-segments"><label for="merge-as-segments">Merge as track segments</label>
                 <hr>
             </div>
-            Click on another tab to merge the current trace with it<br>
+            Click on another trace or tab to merge the current trace with it<br>
             <div id="merge-cancel" class="panels custom-button normal-button"><b>Annulla</b></div>
         </div>
         <div id="crop-content" class="popup-content">
@@ -405,7 +388,7 @@
         <div id="reduce-content" class="popup-content">
             Scegli la quantità di dettagli da mantenere<br>
             Numero di punti della traccia: <span id="reduce-npoints">0</span><br>
-            <input type="range" min="0" max="1000" id="reduce-slider" style="width: 100%"><br>
+            <input type="range" min="0" max="1000" id="reduce-slider" style="width: 90%"><br>
             <div id="reduce-ok" class="panels custom-button normal-button">Ok</div>
             <div id="reduce-cancel" class="panels custom-button normal-button"><b>Annulla</b></div>
         </div>
@@ -520,6 +503,7 @@
     <script type="text/javascript" src="/include/controlwindow/L.Control.Window.js"></script>
     <script type="text/javascript" src="/include/geometryutil/leaflet.geometryutil.js"></script>
     <script type="text/javascript" src="/include/distancemarkers/leaflet-distance-markers.js"></script>
+    <script type="text/javascript" src="/include/condensed-attribution/leaflet-control-condended-attribution.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.74.1/dist/L.Control.Locate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.13.0/Sortable.min.js"></script>
