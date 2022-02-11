@@ -83,7 +83,7 @@ export default class Trace {
 
             var ul = document.getElementById("sortable");
             var li = document.createElement("li");
-            li.innerHTML = '<div class="handle">'+name+'</div><div class="tab-color" style="background:'+trace.normal_style.color+Math.round(trace.normal_style.opacity * 255).toString(16)+';">';
+            li.innerHTML = '<div class="tab-color" style="background:'+trace.normal_style.color+';"></div><div class="handle">'+name+'</div>';
             li.title = name;
             li.classList.add('tab','tab-draggable');
             li.trace = trace;
@@ -193,10 +193,10 @@ export default class Trace {
 
     rename(name) {
         var newname = name ? name : this.tabname.value;
-        if (newname.length == 0) this.tab.innerHTML = '<div class="handle">'+this.name+'</div><div class="tab-color" style="background:'+this.normal_style.color+';">';
+        if (newname.length == 0) this.tab.innerHTML = '<div class="tab-color" style="background:'+this.normal_style.color+';"></div><div class="handle">'+this.name+'</div>';
         else {
             this.name = newname;
-            this.tab.innerHTML = '<div class="handle">'+newname+'</div><div class="tab-color" style="background:'+this.normal_style.color+';">';
+            this.tab.innerHTML = '<div class="tab-color" style="background:'+this.normal_style.color+';"></div><div class="handle">'+newname+'</div>';
             this.tab.title = newname;
         }
         this.renaming = false;
@@ -439,7 +439,7 @@ export default class Trace {
         this.buttons.distance.innerHTML = (this.getDistance() / 1000).toFixed(1).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text);
         this.buttons.elevation.innerHTML = '<i class="fas fa-angle-up"></i> ' + this.getElevationGain().toFixed(0).toString() + (this.buttons.km ? this.buttons.unit_meters_text : this.buttons.unit_feet_text) +
             ' <i class="fas fa-angle-down"></i> ' + this.getElevationLoss().toFixed(0).toString() + (this.buttons.km ? this.buttons.unit_meters_text : this.buttons.unit_feet_text);
-        if (this.buttons.activity != 'hike') this.buttons.speed.innerHTML = this.getMovingSpeed().toFixed(1).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text) + '/' + this.buttons.unit_hours_text;
+        if (this.buttons.speed_units) this.buttons.speed.innerHTML = this.getMovingSpeed().toFixed(1).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text) + '/' + this.buttons.unit_hours_text;
         else this.buttons.speed.innerHTML = this.total.msToTimeMin(this.getMovingPace()) + ' ' + this.buttons.unit_minutes_text + '/' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text);
         this.buttons.duration.innerHTML = this.total.msToTime(this.getMovingTime());
         this.buttons.points.innerHTML = this.gpx._info.npoints;

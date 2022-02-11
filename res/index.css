@@ -11,6 +11,10 @@ html, body {
     position: absolute;
 }
 
+.leaflet-container {
+    font-size: 13px;
+}
+
 .center-leaflet {
     transform: translateX(-50%);
     margin-left: 50% !important;
@@ -57,27 +61,7 @@ html, body {
     box-shadow: 2px 2px 2px #BCBCBC;
     -webkit-box-shadow: 2px 2px 2px #BCBCBC;
     -moz-box-shadow: 2px 2px 2px #BCBCBC;
-}
-
-.custom-popup .leaflet-popup-tip {
-    width: 0px;
-    height: 0px;
-}
-
-.custom-popup .leaflet-popup-content-wrapper {
-    border-radius: 0px;
-}
-
-.centered-popup .leaflet-popup-content-wrapper {
-    transform: translateY(37%);
-}
-
-.centered-popup .leaflet-popup-close-button {
-    transform: translateY(850%);
-}
-
-.cross .leaflet-popup-close-button {
-    transform: translateY(360%) !important;
+    border-radius: 4px;
 }
 
 .leaflet-control-layers-toggle {
@@ -90,9 +74,12 @@ html, body {
     color: inherit !important;
 }
 
+.leaflet-control-attribution {
+    float: right;
+}
+
 .leaflet-control-scale {
-    position: absolute;
-    bottom: 26px;
+    bottom: 10px;
     left: 10px;
     z-index: 0;
 }
@@ -118,7 +105,6 @@ html, body {
     -ms-user-select: none;
     user-select: none;
     background-color: #fcfcfc;
-    border: 0px solid #CECECE;
     box-shadow: 2px 2px 2px #BCBCBC;
     -webkit-box-shadow: 2px 2px 2px #BCBCBC;
     -moz-box-shadow: 2px 2px 2px #BCBCBC;
@@ -126,12 +112,12 @@ html, body {
     text-align: center;
 }
 
-.padding-container {
-    padding-left: 0px;
-    padding-bottom: 14px;
+.panels-container.leaflet-control-window {
+    border-radius: 4px;
 }
 
 .trace-info {
+    width: 100vw;
     display: grid;
     grid-gap: 0px 0px;
     justify-items: right;
@@ -163,7 +149,7 @@ html, body {
 .panels-info {
     padding-top: 0px;
     padding-right: 0px;
-    font-size: 10px;
+    font-size: 12px;
     color: #777777;
 }
 
@@ -172,6 +158,38 @@ html, body {
     padding-right: 0px;
     min-width: 70px;
     text-align: right;
+}
+
+#toolbar {
+    border-radius: 4px;
+}
+
+#buttons {
+    border-radius: 0px 4px 4px 0px;
+}
+
+#editing-options {
+    display: none;
+    text-align: left;
+    border-radius: 0px 4px 4px 0px;
+    margin-left: -2px;
+    position: absolute;
+}
+
+#toggle-editing-options {
+    display: none;
+    position: absolute;
+}
+
+.toggle-on {
+    margin-top: 2px;
+    right: 0px;
+}
+
+.toggle-off {
+    border-radius: 0px 10px 10px 0px;
+    margin-left: -2px;
+    padding: 6px 8px;
 }
 
 #distance {
@@ -235,50 +253,29 @@ html, body {
   grid-row: 1 / span 1;
 }
 
-#activity-input {
-  grid-column: 4 / span 1;
-  grid-row: 1 / span 1;
-}
-
-#routing-input {
-  grid-column: 4 / span 1;
-  grid-row: 2 / span 1;
+#units-text {
+    grid-column: 1 / span 1;
+    grid-row: 5 / span 1;
 }
 
 #units-input {
-  grid-column: 4 / span 1;
-  grid-row: 3 / span 1;
+    grid-column: 1 / span 1;
+    grid-row: 6 / span 1;
+}
+
+#speed-units-text {
+    grid-column: 2 / span 1;
+    grid-row: 5 / span 1;
+}
+
+#speed-units-input {
+    grid-column: 2 / span 1;
+    grid-row: 6 / span 1;
 }
 
 #elevation-input {
   grid-column: 4 / span 1;
-  grid-row: 4 / span 1;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    text-align: left;
-    top: 0px;
-    right: 0px;
-    padding: 0px;
-    z-index: 1000;
-}
-
-.dropdown-choice {
-    padding: 2px 10px;
-}
-
-.dropdown-choice:hover {
-    color: black;
-}
-
-#routing-dropdown {
-    top: 30px;
-}
-
-#units-dropdown {
-    top: 60px;
+  grid-row: 1 / span 1;
 }
 
 #start-point {
@@ -295,16 +292,16 @@ html, body {
     width: 100%;
     height: 20px;
     grid-column: 3 / span 1;
-    grid-row: 5 / span 1;
+    grid-row: 7 / span 1;
 }
 
 .slider {
   display: block;
   margin-top: 5px;
-  margin-left: 52px;
+  margin-left: 11%;
   -webkit-appearance: none;
   appearance: none;
-  width: 86%;
+  width: 89%;
   height: 7px;
   border-radius: 3px;
   background: #D0D0D0;
@@ -368,7 +365,7 @@ html, body {
 
 #crop-container {
   grid-column: 4 / span 1;
-  grid-row: 5 / span 1;
+  grid-row: 7 / span 1;
   margin-right:auto;
   margin-left:0;
   display: block;
@@ -381,14 +378,6 @@ html, body {
     -webkit-transition: opacity 0.3s linear;
     -moz-transition: opacity 0.3s linear;
     -o-transition: opacity 0.3s linear;
-}
-
-#languages {
-    position: absolute;
-    bottom: 0px;
-    padding: 0px 3px;
-    background: rgba(255, 255, 255, 0.7);
-    font-size: 11px;
 }
 
 .footer {
@@ -433,13 +422,17 @@ html, body {
 }
 
 #sortable {
+    max-width: 100vw;
     padding: 0;
     overflow-x: scroll;
     white-space: nowrap;
 }
 .tab {
     padding: 2px 4px;
-    font-size: 10px;
+    border-radius: 4px 4px 0px 0px;
+    margin-bottom: -5px;
+    overflow-y: hidden;
+    font-size: 12px;
     color: #777777;
     display:inline-block;
     -webkit-touch-callout: none;
@@ -450,23 +443,20 @@ html, body {
     user-select: none;
     background-color: #f7f7f7;
     border: 0px solid #CECECE;
-    box-shadow: #BCBCBC 2px 2px 2px, #BCBCBC inset 0px 2px 2px;
-    -webkit-box-shadow: #BCBCBC 2px 2px 2px, #BCBCBC inset 0px 2px 2px;
-    -moz-box-shadow: #BCBCBC 2px 2px 2px, #BCBCBC inset 0px 2px 2px;
+    box-shadow: #BCBCBC 2px 0px 2px, #BCBCBC inset 0px -2px 2px;
+    -webkit-box-shadow: #BCBCBC 2px 0px 2px, #BCBCBC inset 0px -2px 2px;
+    -moz-box-shadow: #BCBCBC 2px 0px 2px, #BCBCBC inset 0px -2px 2px;
     cursor: pointer;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
 }
 .tab-focus {
-    box-shadow: #BCBCBC 2px 2px 2px, #BCBCBC inset 0px 0px 0px;
-    -webkit-box-shadow: #BCBCBC 2px 2px 2px, #BCBCBC inset 0px 0px 0px;
-    -moz-box-shadow: #BCBCBC 2px 2px 2px, #BCBCBC inset 0px 0px 0px;
+    box-shadow: #BCBCBC 2px 0px 2px, #BCBCBC inset 0px 0px 0px;
+    -webkit-box-shadow: #BCBCBC 2px 0px 2px, #BCBCBC inset 0px 0px 0px;
+    -moz-box-shadow: #BCBCBC 2px 0px 2px, #BCBCBC inset 0px 0px 0px;
     background-color: #fcfcfc;
 }
 .tab-color {
     position: inherit;
-    margin: 0px -4px -2px -4px;
+    margin: -2px -4px 0px -4px;
     height: 2px;
 }
 ul::-webkit-scrollbar { display: none; }
@@ -497,7 +487,7 @@ ul {
 
 #help-text {
     text-align: justify;
-    width: 850px;
+    width: 80vw;
     line-height: 1.2;
     white-space: normal;
 }

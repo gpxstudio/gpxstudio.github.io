@@ -43,6 +43,7 @@ Apart from a good understanding of **gpx.studio**, some basic knowledge of HTML 
 This project would not have been possible without the following amazing projects:
 * [Leaflet](https://leafletjs.com/): awesome map library
 * [leaflet-gpx](https://github.com/mpetazzoni/leaflet-gpx): parsing GPX files
+* [Leaflet.CondensedAttribution](https://github.com/route360/Leaflet.CondensedAttribution): attribution hidden by default
 * [Leaflet.Heightgraph](https://github.com/GIScience/Leaflet.Heightgraph): elevation profile
 * [Leaflet.Icon.Glyph](https://github.com/Leaflet/Leaflet.Icon.Glyph): markers with icons for the waypoints
 * [Leaflet.TextPath](https://github.com/makinacorpus/Leaflet.TextPath): direction markers

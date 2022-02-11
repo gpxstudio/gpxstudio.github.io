@@ -23,6 +23,7 @@ export default class Buttons {
     constructor() {
         // SETTINGS
         this.km = localStorage.hasOwnProperty('km') ? localStorage.getItem('km') == 'true' : true;
+        this.speed_units = localStorage.hasOwnProperty('speed') ? localStorage.getItem('speed') == 'true' : true;
         this.activity = localStorage.hasOwnProperty('activity') ? localStorage.getItem('activity') : 'bike';
         this.routing = localStorage.hasOwnProperty('routing') ? localStorage.getItem('routing') == 'true' : true;
         this.keep_timestamps = false;
@@ -40,7 +41,7 @@ export default class Buttons {
         this.embedding = urlParams.has('embed');
         if (this.embedding) {
             if (urlParams.has('imperial')) this.km = false;
-            if (urlParams.has('running')) this.activity = 'hike';
+            if (urlParams.has('running')) this.speed_units = false;
             if (urlParams.has('direction')) this.show_direction = true;
             if (urlParams.has('distance')) this.show_distance = true;
         }
@@ -49,9 +50,10 @@ export default class Buttons {
         this.map = L.map('mapid', {
             zoomControl: false,
             minZoom: 2,
-            worldCopyJump: true
+            worldCopyJump: true,
+            condensedAttributionControl: false
         }).setView([0, 0], 2);
-        if (!this.embedding) this.map.attributionControl.addAttribution('Powered by <a href="https://www.graphhopper.com/">GraphHopper API</a>')
+
         this.map.addEventListener("locationfound", function (e) {
             e.target.setView(e.latlng,12);
         });
@@ -109,6 +111,8 @@ export default class Buttons {
         this.width_slider = document.getElementById("width-slider");
         this.width_checkbox = document.getElementById("width-checkbox");
         this.edit = document.getElementById("edit");
+        this.editing_options = document.getElementById("editing-options");
+        this.toggle_editing_options = document.getElementById("toggle-editing-options");
         this.validate = document.getElementById("validate");
         this.crop_container = document.getElementById("crop-container");
         this.crop_ok = document.getElementById("crop-ok");
@@ -121,13 +125,6 @@ export default class Buttons {
         this.show_chevrons = document.getElementById("show-chevrons");
         this.dist_markers = document.getElementById("dist-markers");
         this.show_dist_markers = document.getElementById("show-dist-markers");
-        this.bike = document.getElementById("bike");
-        this.run = document.getElementById("run");
-        this.drive = document.getElementById("drive");
-        this.kms = document.getElementById("km");
-        this.mi = document.getElementById("mi");
-        this.route = document.getElementById("route");
-        this.crow = document.getElementById("crow");
         this.merge = document.getElementById("merge");
         this.include_time = document.getElementById("include-time");
         this.include_hr = document.getElementById("include-hr");
@@ -141,9 +138,8 @@ export default class Buttons {
         this.merge_keep_time = document.getElementById("merge-keep");
         this.merge_stick_time = document.getElementById("merge-stick");
         this.merge_cancel = document.getElementById("merge-cancel");
+        this.edit_keep_avg = document.getElementById("edit-avg");
         this.edit_keep_time = document.getElementById("edit-keep");
-        this.edit_ok = document.getElementById("edit-ok");
-        this.remember_edit_time = document.getElementById("remember-edit-time");
         this.buttons_bar = document.getElementById('buttons-bar');
         this.tabs = document.getElementById('sortable');
 
@@ -161,30 +157,11 @@ export default class Buttons {
         this.segments_info = document.getElementById("segments");
         this.segments = document.getElementById("segments-val");
         this.activity_input = document.getElementById("activity-input");
-        this.activity_dropdown = document.getElementById("activity-dropdown");
-        this.activity_choice = document.getElementById("selected-activity");
-        this.activity_choices = {
-            bike: document.getElementById("bike"),
-            racingbike: document.getElementById("racingbike"),
-            mtb: document.getElementById("mtb"),
-            hike: document.getElementById("hike"),
-            car: document.getElementById("car")
-        };
         this.routing_input = document.getElementById("routing-input");
-        this.routing_dropdown = document.getElementById("routing-dropdown");
-        this.routing_choice = document.getElementById("selected-routing");
-        this.routing_choices = {
-            route: document.getElementById("route"),
-            crow: document.getElementById("crow")
-        };
         this.units_input = document.getElementById("units-input");
-        this.units_dropdown = document.getElementById("units-dropdown");
-        this.units_choice = document.getElementById("selected-units");
-        this.units_choices = {
-            km: document.getElementById("km"),
-            mi: document.getElementById("mi")
-        };
-        this.routing_input = document.getElementById("routing-input");
+        this.units_text = document.getElementById("units-text");
+        this.speed_units_input = document.getElementById("speed-units-input");
+        this.speed_units_text = document.getElementById("speed-units-text");
         this.elevation_input = document.getElementById("elevation-input");
         this.trace_info_grid = document.getElementById('info-grid');
         this.slide_container = document.getElementById('slide-container');
@@ -204,14 +181,12 @@ export default class Buttons {
         this.share_content = document.getElementById('share-content');
         this.merge_content = document.getElementById('merge-content');
         this.merge_time_options = document.getElementById('merge-time-options');
-        this.edit_content = document.getElementById('edit-content');
         this.crop_content = document.getElementById('crop-content');
         this.load_error_content = document.getElementById('load-error-content');
         this.embed_content = document.getElementById('embed-content');
         this.login_content = document.getElementById('login-content');
         this.trace_info_content = document.getElementById('info');
         this.toolbar_content = document.getElementById('toolbar');
-        this.languages_content = document.getElementById('languages');
         this.street_view_content = document.getElementById('street-view-content');
         this.street_view_button = document.getElementById('street-view');
         this.street_view_google = document.getElementById('street-view-provider-google');
@@ -260,7 +235,6 @@ export default class Buttons {
         this.load_error_window = L.control.window(this.map,{title:'',content:this.load_error_content,className:'panels-container',closeButton:false});
         this.share_window = L.control.window(this.map,{title:'',content:this.share_content,className:'panels-container'});
         this.merge_window = L.control.window(this.map,{title:'',content:this.merge_content,className:'panels-container',closeButton:false});
-        this.edit_window = L.control.window(this.map,{title:'',content:this.edit_content,className:'panels-container',closeButton:false});
         this.crop_window = L.control.window(this.map,{title:'',content:this.crop_content,className:'panels-container',closeButton:false});
         this.login_window = L.control.window(this.map,{title:'',content:this.login_content,className:'panels-container'});
 
@@ -268,21 +242,17 @@ export default class Buttons {
             position: 'topright'
         }).addTo(this.map);
 
-        this.scale = L.control.scale({
-            metric: this.km,
-            imperial: !this.km
-        }).addTo(this.map);
-
         var _this = this;
 
         // ELEVATION PROFILE
-        const mapWidth = this.map._container.offsetWidth;
-        var elevation_profile_width = Math.min((mapWidth - 237) * 2 / 3, 400);
+        var mapWidth = this.map._container.offsetWidth;
+        var elevation_profile_height = this.embedding ? 120 : 160;
+        var elevation_profile_width = Math.min(mapWidth * 2 / 3, mapWidth - 250);
         var mobileEmbeddingStyle = this.embedding && elevation_profile_width < 200;
-        if (mobileEmbeddingStyle) elevation_profile_width = mapWidth * 4/5;
+        if (mobileEmbeddingStyle) elevation_profile_width = Math.max(mapWidth - 100, mapWidth * 4 / 5);
         this.elev = L.control.heightgraph({
             width: elevation_profile_width,
-        	height: 110,
+        	height: elevation_profile_height,
             margins:{
                 top:15,
                 right:10,
@@ -298,77 +268,53 @@ export default class Buttons {
             }
         }).addTo(this.map);
         this.elev.buttons = this;
+        window.addEventListener('resize', function () {
+            mapWidth = _this.map._container.offsetWidth;
+            elevation_profile_width = Math.min(mapWidth * 2 / 3, mapWidth - 250);
+            if (mobileEmbeddingStyle) elevation_profile_width = Math.max(mapWidth - 100, mapWidth * 4 / 5);
+            _this.elev.resize({width: elevation_profile_width, height: elevation_profile_height});
+        });
+
         this.elevation_profile = document.getElementsByClassName('heightgraph')[0];
         this.elevation_profile.style.gridColumn = '3 / span 1';
-        this.elevation_profile.style.gridRow = '1 / span 4';
+        this.elevation_profile.style.gridRow = '1 / span 6';
         if (mobileEmbeddingStyle) {
-            this.activity_input.style.display = 'none';
-            this.routing_input.style.display = 'none';
-            this.units_input.style.display = 'none';
-            this.elevation_input.style.display = 'none';
+            this.duration.style.display = 'none';
+            this.duration_info.style.display = 'none';
+            this.speed.style.display = 'none';
+            this.speed_info.style.display = 'none';
 
-            this.elevation_profile.style.gridColumn = '1 / span 4';
-            this.elevation_profile.style.gridRow = '1 / span 1';
-            this.distance.style.gridColumn = '1 / span 1';
-            this.distance.style.gridRow = '2 / span 1';
-            this.distance_info.style.gridColumn = '1 / span 1';
-            this.distance_info.style.gridRow = '3 / span 1';
-            this.elevation.style.gridColumn = '2 / span 1';
-            this.elevation.style.gridRow = '2 / span 1';
-            this.elevation_info.style.gridColumn = '2 / span 1';
-            this.elevation_info.style.gridRow = '3 / span 1';
-            this.speed.style.gridColumn = '3 / span 1';
-            this.speed.style.gridRow = '2 / span 1';
-            this.speed_info.style.gridColumn = '3 / span 1';
-            this.speed_info.style.gridRow = '3 / span 1';
-            this.duration.style.gridColumn = '4 / span 1';
-            this.duration.style.gridRow = '2 / span 1';
-            this.duration_info.style.gridColumn = '4 / span 1';
-            this.duration_info.style.gridRow = '3 / span 1';
+            this.distance.style.minWidth = 0;
+            this.elevation.style.minWidth = 0;
 
-            if (elevation_profile_width < 360) {
-                this.distance.style.minWidth = 0;
-                this.elevation.style.minWidth = 0;
-                this.speed.style.minWidth = 0;
-                this.duration.style.minWidth = 0;
-            }
-
-            if (elevation_profile_width < 300) {
-                this.duration.style.display = 'none';
-                this.duration_info.style.display = 'none';
-                this.elevation_profile.style.gridColumn = '1 / span 3';
-            }
-
-            if (elevation_profile_width < 200) {
-                this.speed.style.display = 'none';
-                this.speed_info.style.display = 'none';
-                this.elevation_profile.style.gridColumn = '1 / span 2';
-            }
+            this.elevation.style.gridColumn = '1 / span 1';
+            this.elevation.style.gridRow = '3 / span 1';
+            this.elevation_info.style.gridColumn = '1 / span 1';
+            this.elevation_info.style.gridRow = '4 / span 1';
         }
 
         // OVERLAY COMPONENTS
         if (this.embedding) {
             this.buttons_bar.style.display = 'none';
             this.toolbar_content.style.display = 'none';
-            this.languages_content.style.display = 'none';
             this.units_input.style.display = 'none';
-            this.activity_input.style.display = 'none';
-            this.routing_input.style.display = 'none';
+            this.units_text.style.display = 'none';
+            this.speed_units_input.style.display = 'none';
+            this.speed_units_text.style.display = 'none';
             this.elevation_input.style.display = 'none';
             this.chevrons.style.display = 'none';
             this.dist_markers.style.display = 'none';
             this.crop_container.style.display = 'none';
             this.slide_container.style.display = 'none';
+            this.elevation_profile.style.gridRow = '1 / span 4';
 
             var nTraces = 0;
             const params = JSON.parse(urlParams.get('state'));
             if (params) {
                 if (params.urls) nTraces += params.urls.length;
                 if (params.ids) nTraces += params.ids.length;
-                if (nTraces == 1) {
-                    this.tabs.style.display = 'none';
-                    this.trace_info_content.style.paddingBottom = '20px';
-                } else this.multipleEmbedding = true;
+                if (nTraces == 1) this.tabs.style.display = 'none';
+                else this.multipleEmbedding = true;
             }
 
             this.toolbar = L.control({position: 'topleft'});
@@ -412,24 +358,21 @@ export default class Buttons {
         this.trace_info.addTo(this.map);
         this.trace_info_grid.appendChild(this.elevation_profile);
 
-        this.tabs.style.width = this.trace_info_grid.getBoundingClientRect().width+'px';
-
         this.slider = new Slider(this);
 
-        this.hideTraceButtons();
+        this.scale = L.control.scale({
+            metric: this.km,
+            imperial: !this.km,
+            position: 'bottomleft'
+        }).addTo(this.map);
 
-        var language = getLanguage();
-        this.languages = L.control({position: 'bottomleft'});
-        this.languages.onAdd = function (map) {
-            var div = _this.languages_content;
-            L.DomEvent.disableClickPropagation(div);
-            for (var i=0; i<div.children.length; i++) if (div.children[i].textContent == language) {
-                div.children[i].style.display = 'none';
-                break;
-            }
-            return div;
-        };
-        this.languages.addTo(this.map);
+        L.control.condensedAttribution({
+            position: 'bottomleft',
+            emblem: '<i class="fas fa-circle-info"></i>',
+            prefix: '<a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>' + (this.embedding ? '' : ' | Powered by <a href="https://www.graphhopper.com/">GraphHopper API</a>')
+        }).addTo(this.map);
+
+        this.hideTraceButtons();
 
         this.addHandlers();
 
@@ -1372,65 +1315,45 @@ export default class Buttons {
         this.crop_cancel.addEventListener("click", function () {
             buttons.crop_window.hide();
         });
-        this.units_input.addEventListener("mouseover", function (e) {
-            buttons.units_dropdown.style.display = "block";
-        });
-        this.units_input.addEventListener("mouseleave", function (e) {
-            buttons.units_dropdown.style.display = "";
-        });
-        this.units_input.addEventListener("click", function (e) {
-            var path = e.path || (e.composedPath && e.composedPath());
-            var units_div = path[0];
-            if (!units_div.id) units_div = path[1];
-            buttons.km = units_div.id == 'km';
+        this.units_input.addEventListener("change", function (e) {
+            buttons.km = buttons.units_input.value == 'km';
             localStorage.setItem('km',buttons.km);
-            buttons.units_choice.innerHTML = units_div.children[0].outerHTML;
             const focus = total.hasFocus ? total : total.traces[total.focusOn];
             focus.showData();
             focus.showElevation();
             if (!total.hasFocus) focus.showDistanceMarkers();
-            buttons.units_dropdown.style.display = "";
             buttons.scale.remove();
             buttons.scale.options.metric = buttons.km;
             buttons.scale.options.imperial = !buttons.km;
             buttons.scale.addTo(buttons.map);
         });
-        this.units_choices[buttons.km ? 'km' : 'mi'].click();
-        this.activity_input.addEventListener("mouseover", function (e) {
-            buttons.activity_dropdown.style.display = "block";
+        this.units_input.value = this.km ? "km" : "mi";
+        this.speed_units_input.addEventListener("change", function (e) {
+            buttons.speed_units = buttons.speed_units_input.value == 'speed';
+            localStorage.setItem('speed',buttons.speed_units);
+            const focus = total.hasFocus ? total : total.traces[total.focusOn];
+            focus.showData();
+            focus.showElevation();
+            if (!total.hasFocus) focus.showDistanceMarkers();
         });
-        this.activity_input.addEventListener("mouseleave", function (e) {
-            buttons.activity_dropdown.style.display = "";
-        });
-        this.activity_input.addEventListener("click", function (e) {
-            var path = e.path || (e.composedPath && e.composedPath());
-            var activity_div = path[0];
-            if (!activity_div.id) activity_div = path[1];
-            if (!(activity_div.id in buttons.activity_choices)) return;
-            buttons.activity = activity_div.id;
+        this.speed_units_input.value = this.speed_units ? "speed" : "pace";
+        this.activity_input.addEventListener("change", function (e) {
+            buttons.activity = buttons.activity_input.value;
             localStorage.setItem('activity',buttons.activity);
-            buttons.activity_choice.innerHTML = activity_div.children[0].outerHTML;
             if (total.hasFocus) total.showData();
             else total.traces[total.focusOn].showData();
-            buttons.activity_dropdown.style.display = "";
         });
-        this.activity_choices[buttons.activity].click();
-        this.routing_input.addEventListener("mouseover", function (e) {
-            buttons.routing_dropdown.style.display = "block";
-        });
-        this.routing_input.addEventListener("mouseleave", function (e) {
-            buttons.routing_dropdown.style.display = "";
-        });
-        this.routing_input.addEventListener("click", function (e) {
-            var path = e.path || (e.composedPath && e.composedPath());
-            var routing_div = path[0];
-            if (!routing_div.id) routing_div = path[1];
-            buttons.routing = routing_div.id == 'route';
+        this.activity_input.value = this.activity;
+        this.routing_input.addEventListener("change", function (e) {
+            buttons.routing = buttons.routing_input.checked;
             localStorage.setItem('routing',buttons.routing);
-            buttons.routing_choice.innerHTML = routing_div.children[0].outerHTML;
-            buttons.routing_dropdown.style.display = "";
         });
-        this.routing_choices[buttons.routing ? 'route' : 'crow'].click();
+        this.routing_input.checked = buttons.routing;
+        const editing_time_option = function () {
+            buttons.keep_timestamps = buttons.edit_keep_time.checked;
+        };
+        this.edit_keep_avg.addEventListener('change', editing_time_option);
+        this.edit_keep_time.addEventListener('change', editing_time_option);
         this.map.addEventListener("zoomend", function () {
             if (total.hasFocus) return;
             const trace = total.traces[total.focusOn];
@@ -1443,18 +1366,30 @@ export default class Buttons {
             if (trace.isEdited) {
                 trace.stopEdit();
                 if (trace.drawing) trace.stopDraw();
+                buttons.editing_options.style.display = '';
+                buttons.toggle_editing_options.style.display = '';
                 gtag('event', 'button', {'event_category' : 'edit-trace'});
             } else {
-                if (trace.hasTimeData() && !buttons.remember_edit_time.checked) {
-                    buttons.window_open = buttons.edit_window;
-                    buttons.edit_window.show();
-                }
                 trace.draw();
+                buttons.toggle_editing_options.style.display = 'inline-block';
+                if (!buttons.editing_options.hidden) buttons.editing_options.style.display = 'inline-block';
             }
         });
-        this.edit_ok.addEventListener("click", function () {
-            buttons.keep_timestamps = buttons.edit_keep_time.checked;
-            buttons.edit_window.hide();
+        this.toggle_editing_options.addEventListener('click', function () {
+            buttons.editing_options.hidden = !buttons.editing_options.hidden;
+            if (buttons.editing_options.hidden) {
+                buttons.toggle_editing_options.classList.remove('fa-minus', 'toggle-on');
+                buttons.toggle_editing_options.classList.add('fa-gears', 'toggle-off', 'panels', 'panels-container');
+                buttons.toggle_editing_options.style.display = 'inline-block';
+                buttons.editing_options.style.display = '';
+                buttons.buttons_bar.appendChild(buttons.toggle_editing_options);
+            } else {
+                buttons.toggle_editing_options.classList.remove('fa-gears', 'toggle-off', 'panels', 'panels-container');
+                buttons.toggle_editing_options.classList.add('fa-minus', 'toggle-on');
+                buttons.toggle_editing_options.style.display = 'block';
+                buttons.editing_options.style.display = 'inline-block';
+                buttons.editing_options.insertBefore(buttons.toggle_editing_options, buttons.editing_options.firstChild);
+            }
         });
         const saveLayers = function (unload) {
             const activeLayers = [];
@@ -1499,16 +1434,8 @@ export default class Buttons {
                 }
                 e.preventDefault();
             } else if (e.key === "F2") {
-                const keys = Object.keys(buttons.routing_choices);
-                buttons.routing_choices[keys[(keys.indexOf(buttons.routing ? 'route' : 'crow')+1)%keys.length]].click();
-                e.preventDefault();
-            } else if (e.key === "F3") {
-                const keys = Object.keys(buttons.activity_choices);
-                buttons.activity_choices[keys[(keys.indexOf(buttons.activity)+1)%keys.length]].click();
-                e.preventDefault();
-            } else if (e.key === "F4") {
-                const keys = Object.keys(buttons.units_choices);
-                buttons.units_choices[keys[(keys.indexOf(buttons.km ? 'km' : 'mi')+1)%keys.length]].click();
+                buttons.routing = !buttons.routing;
+                buttons.routing_input.checked = buttons.routing;
                 e.preventDefault();
             } else if (e.key == "h" && (e.ctrlKey || e.metaKey)) {
                 buttons.elevation_input.click();
@@ -1611,7 +1538,7 @@ export default class Buttons {
 
             var content = `<div id="speed-change" style="padding-bottom:4px;">`;
 
-            if (buttons.activity != 'hike') {
+            if (buttons.speed_units) {
                 content += buttons.speed_text + ` <input type="number" id="speed-input" min="1.0" max="99.9" step="0.1" lang="en-150"> `;
                 if (buttons.km) content += buttons.unit_kilometers_text + '/' + buttons.unit_hours_text + `</div>`;
                 else content += buttons.unit_miles_text + '/' + buttons.unit_hours_text + `</div>`;
@@ -1645,7 +1572,7 @@ export default class Buttons {
 
             var speedChange = false;
 
-            if (buttons.activity != 'hike') {
+            if (buttons.speed_units) {
                 speed.value = Math.max(1, trace.getMovingSpeed().toFixed(1));
                 speed.addEventListener("change", function () {
                     speedChange = true;
@@ -1673,7 +1600,7 @@ export default class Buttons {
             ok.addEventListener("click", function () {
                 var v = trace.getMovingSpeed();
                 if (speedChange) {
-                    if (buttons.activity != 'hike') {
+                    if (buttons.speed_units) {
                         v = Number(speed.value);
                         if (!buttons.km) v *= 1.609344;
                     } else {
@@ -2021,9 +1948,10 @@ export default class Buttons {
             if (buttons.elevation_input.checked) {
                 buttons.trace_info_grid.style.gridAutoColumns = '';
                 buttons.elevation_profile.style.display = '';
-                buttons.activity_input.style.display = '';
                 buttons.units_input.style.display = '';
-                buttons.routing_input.style.display = '';
+                buttons.units_text.style.display = '';
+                buttons.speed_units_input.style.display = '';
+                buttons.speed_units_text.style.display = '';
                 buttons.slide_container.style.display = '';
                 buttons.crop_container.style.display = 'block';
 
@@ -2042,12 +1970,15 @@ export default class Buttons {
                 buttons.duration_info.style.gridRow = '';
                 buttons.elevation_input.style.gridColumn = '';
                 buttons.elevation_input.style.gridRow = '';
+                buttons.elevation_input.children[0].classList.remove('fa-plus');
+                buttons.elevation_input.children[0].classList.add('fa-minus');
             } else {
                 buttons.trace_info_grid.style.gridAutoColumns = 'auto';
                 buttons.elevation_profile.style.display = 'none';
-                buttons.activity_input.style.display = 'none';
                 buttons.units_input.style.display = 'none';
-                buttons.routing_input.style.display = 'none';
+                buttons.units_text.style.display = 'none';
+                buttons.speed_units_input.style.display = 'none';
+                buttons.speed_units_text.style.display = 'none';
                 buttons.slide_container.style.display = 'none';
                 buttons.crop_container.style.display = 'none';
 
@@ -2066,6 +1997,8 @@ export default class Buttons {
                 buttons.duration_info.style.gridRow = '2 / span 1';
                 buttons.elevation_input.style.gridColumn = '7 / span 1';
                 buttons.elevation_input.style.gridRow = '1 / span 2';
+                buttons.elevation_input.children[0].classList.remove('fa-minus');
+                buttons.elevation_input.children[0].classList.add('fa-plus');
             }
         });
         this.google = new Google(this);

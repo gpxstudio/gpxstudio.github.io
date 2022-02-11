@@ -4,6 +4,7 @@
     display: none;
     cursor: default;
     user-select: none;
+    color: #535353;
 }
 
 .heightgraph-toggle {
