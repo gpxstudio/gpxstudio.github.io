@@ -249,7 +249,7 @@ export default class Buttons {
         var elevation_profile_height = this.embedding ? 120 : 160;
         var elevation_profile_width = Math.min(mapWidth * 2 / 3, mapWidth - 250);
         var mobileEmbeddingStyle = this.embedding && elevation_profile_width < 200;
-        if (mobileEmbeddingStyle) elevation_profile_width = Math.max(mapWidth - 100, mapWidth * 4 / 5);
+        if (mobileEmbeddingStyle) elevation_profile_width = Math.min(mapWidth - 100, mapWidth * 4 / 5);
         this.elev = L.control.heightgraph({
             width: elevation_profile_width,
         	height: elevation_profile_height,
@@ -271,7 +271,7 @@ export default class Buttons {
         window.addEventListener('resize', function () {
             mapWidth = _this.map._container.offsetWidth;
             elevation_profile_width = Math.min(mapWidth * 2 / 3, mapWidth - 250);
-            if (mobileEmbeddingStyle) elevation_profile_width = Math.max(mapWidth - 100, mapWidth * 4 / 5);
+            if (mobileEmbeddingStyle) elevation_profile_width = Math.min(mapWidth - 100, mapWidth * 4 / 5);
             _this.elev.resize({width: elevation_profile_width, height: elevation_profile_height});
         });
 
