@@ -63,355 +63,335 @@
         <script src="/js/lang.js"></script>
     </head>
     <body>
-        <div id="header-container">
-            <ul style="list-style-type: none;">
-                <li><a href="./"><img src="/res/logo.png" style="width: 220px"></a></li>
-                <li><a href="./" class="my-anchor"><i class="fas fa-map-marked-alt"></i> <b>App indítása</b></a></li>
-                <li><a href="#about" class="my-anchor">Rólunk</a></li>
-                <li><a href="#support" class="my-anchor">Segítség</a></li>
-                <li><a href="#funding" class="my-anchor">Finanszírozás</a></li>
-                <li><a href="#translation" class="my-anchor">Fordítás</a></li>
-                <li><a href="#guide" class="my-anchor">Felhasználói Útmutató</a></li>
-                <li><a href="#embed" class="my-anchor">Applikáció beágyazása</a></li>
-                <li><a href="#terms" class="my-anchor">Felhasználási feltételek</a></li>
-                <li><a href="#privacy" class="my-anchor">Adatvédelmi irányelvek</a></li>
-            </ul>
-            <div id="social">
-                <a href="https://facebook.com/gpx.studio" target="_blank"><i class="fab fa-facebook fa-lg"></i></a>
-                <a href="https://twitter.com/gpxstudio" target="_blank"><i class="fab fa-twitter fa-lg"></i></a>
-                <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank"><i class="fab fa-github fa-lg"></i></a>
-                <a href="mailto:hello@gpx.studio"><i class="fas fa-envelope fa-lg"></i></a>
-            </div>
-            <!-- ADD_LANGUAGE -->
-            <div id="languages">
-                <a href="/about.html" class="language">en</a>
-                <a href="/l/de/about.html" class="language">de</a>
-                <a href="/l/es/about.html" class="language">es</a>
-                <a href="/l/fr/about.html" class="language">fr</a>
-                <a href="/l/hu/about.html" class="language">hu</a>
-                <a href="/l/it/about.html" class="language">it</a>
-                <a href="/l/nl/about.html" class="language">nl</a>
-                <a href="/l/pt/about.html" class="language">pt</a>
-                <a href="/l/ru/about.html" class="language">ru</a>
-            </div>
-        </div>
+        <table id="header-container">
+            <tr>
+                <td valign="top">
+                    <ul id="navigation">
+                        <li><a href="./"><img src="/res/logo.png" style="width: 100%"></a></li>
+                        <li><a href="./" class="my-anchor"><i class="fas fa-map-marked-alt"></i> <b>Go to the app</b></a></li>
+                        <li><a href="#about" class="my-anchor">Rólunk</a></li>
+                        <li><a href="#support" class="my-anchor">Support</a></li>
+                        <li><a href="#funding" class="my-anchor">Funding</a></li>
+                        <li><a href="#translation" class="my-anchor">Translation</a></li>
+                        <li><a href="#guide" class="my-anchor">User Guide</a></li>
+                        <li><a href="#embed" class="my-anchor">Embedding</a></li>
+                        <li><a href="#terms" class="my-anchor">Terms of Service</a></li>
+                        <li><a href="#privacy" class="my-anchor">Privacy Policy</a></li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td valign="bottom">
+                    <!-- ADD_LANGUAGE -->
+                    <div id="languages">
+                        <select id="language-input">
+                            <option value="de">Deutsch</option>
+                            <option value="en">English</option>
+                            <option value="es">Español</option>
+                            <option value="fr">Français</option>
+                            <option value="it">Italiano</option>
+                            <option value="hu">Magyar</option>
+                            <option value="nl">Nederlands</option>
+                            <option value="pt">Português</option>
+                            <option value="ru">Русский язык</option>
+                        </select>
+                    </div>
+                    <div id="social">
+                        <a href="https://facebook.com/gpx.studio" target="_blank"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="https://twitter.com/gpxstudio" target="_blank"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank"><i class="fab fa-github fa-lg"></i></a>
+                        <a href="mailto:hello@gpx.studio"><i class="fas fa-envelope fa-lg"></i></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
         <div id="block-container">
             <a name="about"></a>
             <div class="block">
-            <h1>Rólunk &#128692;</h1>
+            <h1>About &#128692;</h1>
             <div>
-                A <a href="./"><b>gpx.studio</b></a> egy ingyenes online GPX fájl megjelenítő és szerkesztő, amely lehetővé teszi:
+                <a href="./"><b>gpx.studio</b></a> is a free online GPX viewer and editor which allows to:
                 <ul>
-                    <li>több nyomvonal megjelenítése különböző színekben különböző térképeken (kerékpározás, futás/túrázás, műholdak, <a href="https://www.strava.com/heatmap" target="_blank">Strava heatmap</a> átfedés stb.)</li>
-                    <li>útvonalak szerkesztése útvonalpontok hozzáadásával, beszúrásával, mozgatásával vagy törlésével</li>
-                    <li>útvonal útirány megfordítását</li>
-                    <li>időbélyegek hozzáadása a útvonalhoz</li>
-                    <li>útpontok megtekintése, hozzáadása, szerkesztése és eltávolítása</li>
-                    <li>útvonalpontok csökkentése vagy növelése</li>
-                    <li>automatikus magassági adatokat ad az útvonalhoz, ha nincs megadva</li>
-                    <li>több útvonal egyesítése, szükség esetén kiterjesztve az időt, a pulzusszámot, a ritmus-, a teljesítmény- és a hőmérsékletadatokat</li>
-                    <li>szegmensek kinyerése a útvonalból és egyéb műveletek végrehajtása, miközben megőrzi a szegmensek szerkezetét a fájlokban</li>
-                    <li>Töltsd le a kész útvonalad számítógépedre vagy mentsd el "Google Drive™-ra egy megosztott mappába mappa, megosztási link és beágyazható kód:</li>
+                    <li>visualize multiple traces in different colors and aided by many different maps (cycling, hiking, satellite, <a href="https://www.strava.com/heatmap" target="_blank">Strava heatmap</a> overlay, etc)</li>
+                    <li>edit traces by adding, inserting, moving or deleting track points</li>
+                    <li>reverse traces</li>
+                    <li>add timestamps to a trace</li>
+                    <li>view, add, edit and remove waypoints</li>
+                    <li>reduce the number of track points</li>
+                    <li>automatically add elevation data to traces if missing</li>
+                    <li>merge multiple traces, extending time, heart rate, cadence, power and temperature data where needed</li>
+                    <li>extract segments from traces and perform any other action while maintaining the segments' structure within files</li>
+                    <li>save the result on your computer or to your Google Drive™ to get a shareable link and embedding code</li>
                 </ul>
-                Ez egyszemélyes projekt, amelyet 1 személy hozott létre, miután kísérletezett GPX fájlokkal. A projekt forráskódja nyilvánosan elérhető a <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank">GitHubon</a>. Kövessen minket a <a href="https://facebook.com/gpx.studio" target="_blank">Facebookon</a> és a <a href="https://twitter.com/gpxstudio" target="_blank">Twitteren</a>, hogy értesüljön az eszköz frissítéseiről.
+                It is a one-person side project created after messing with GPX files for some time. The project source code is publicly available on <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank">GitHub</a>. Follow us on <a href="https://facebook.com/gpx.studio" target="_blank">Facebook</a> and <a href="https://twitter.com/gpxstudio" target="_blank">Twitter</a> to be notified about updates of the tool.
             </div>
-            <a name="mapbox"></a><h2>Mapbox közösség &#129309;<a href="https://www.mapbox.com/" target="_blank"><img src="/res/mapbox.svg" style="height: 40px; vertical-align: bottom; float: right;"></a></h2>
+            <a name="mapbox"></a><h2>Mapbox Community &#129309;<a href="https://www.mapbox.com/" target="_blank"><img src="/res/mapbox.svg" style="height: 40px; vertical-align: bottom; float: right;"></a></h2>
             <div>
-                A <a href="https://www.mapbox.com/" target="_blank">Mapbox</a> egy térkép rétegeket szerkesztő és forgalmazó szolgáltató, amely térképet biztosít ehhez a webhelyhez is.
-                Létrehoztak egy programot <a href="https://www.mapbox.com/community/" target="_blank">Mapbox Community</a> néven, hogy támogassák a nonprofit szervezeteket, az oktatási intézményeket és a pozitív hatású szervezeteket (lásd a <a href="https://www.mapbox.com/community/" target="_blank">hivatalos oldalt</a>, ahol bemutatják együttműködéseiket). <b>Nagyon szerencsések vagyunk</b>, hogy csatlakozhattunk ehhez a programhoz, és nagyszerű kedvezményt kaptunk az összes API-díjból.<br><br>
-                 Nagyon hálás vagyok (és a weboldal minden felhasználója lehet) a támogatásukért és elérhetőségükért.
+                <a href="https://www.mapbox.com/" target="_blank">Mapbox</a> is the company providing some of the beautiful maps on this website.
+                They created a program called <a href="https://www.mapbox.com/community/" target="_blank">Mapbox Community</a> to support non-profits, educational institutions, and positive-impact organizations (see the <a href="https://www.mapbox.com/community/" target="_blank"> official page</a> where they showcase some of their collaborations). We are <b>very lucky</b> to have joined this program and to benefit from a great discount on all API rates.<br><br>
+                I am (and all users of the website can be) very grateful for their support and availability.
             </div>
-            <a name="graphhopper"></a><h2>Üzemeltető: GraphHopper &#128640; <a href="https://www.graphhopper.com/" target="_blank"><img src="/res/graphhopper.svg" style="height: 40px; vertical-align: bottom; float: right;"></a></h2>
+            <a name="graphhopper"></a><h2>Powered by GraphHopper &#128640; <a href="https://www.graphhopper.com/" target="_blank"><img src="/res/graphhopper.svg" style="height: 40px; vertical-align: bottom; float: right;"></a></h2>
             <div>
-                A <a href="https://www.graphhopper.com/" target="_blank">GraphHopper</a> az összes útvonalat biztosítja az alkalmazásban.
-                <a href="https://github.com/graphhopper/graphhopper" target="_blank">Nyílt forráskódú útválasztó motorjuk</a> számos járműprofilt kezel, sőt, kérésenkénti testreszabást is.
-                Ezenkívül további részleteket is szolgáltathat a lekért útvonalról, például útfelület és osztály, magasság stb.
-                 Mindezek a funkciók tökéletes útvonal-szolgáltatóvá teszik a szabadtéri sportok számára.
+                <a href="https://www.graphhopper.com/" target="_blank">GraphHopper</a> is taking care of all the routing in the application.
+                Their <a href="https://github.com/graphhopper/graphhopper" target="_blank">open source routing engine</a> handles many vehicle profiles and even per-request customization.
+                It can also provide extra details on the route retrieved such as road surface and class, elevation, etc.
+                All these features make it the perfect route provider for outdoor sports applications.
             </div>
             </div>
             <div class="block">
-            <a name="support"></a><h1>Támogatás &#128172;</h1>
+            <a name="support"></a><h1>Support &#128172;</h1>
             <div>
-                A <span class="button">Súgó</span> párbeszédpanelnek és a <a href="#guide">Felhasználói útmutatónak</a> meg kell a funkciókkal kapcsolatos legtöbb kérdésre a választ vagy megoldást, de nyugodtan kérjen segítséget, jelentsen be bármilyen problémát tapasztal. Küldhet javaslatokat a <a href="https://facebook.com/gpx.studio" target="_blank">Facebook-on</a> vagy <a href="https://twitter.com/gpxstudio" target="_blank">Twitter</a> oldalon, vagy e-mailben a <a href="mailto:hello@gpx.studio">hello@gpx.studio</a> címen.<br><br>
-                 A fejlesztők számára a <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank">Github-tárház</a> jó hely a problémák bejelentésére vagy ötletek megosztására.
+                The <span class="button">Help</span> dialog and the <a href="#guide">User Guide</a> should answer most questions about the functionalities, but feel free to ask for help, report any issues or send suggestions on the <a href="https://facebook.com/gpx.studio" target="_blank">Facebook</a> or <a href="https://twitter.com/gpxstudio" target="_blank">Twitter</a> page, or by email at <a href="mailto:hello@gpx.studio">hello@gpx.studio</a>.<br><br>
+                For developers, the <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank">Github repository</a> is also a good place to report issues or share ideas.
             </div>
             </div>
             <div class="block">
-            <a name="funding"></a><h1>Segítsen megőrizni a webhely ingyenességét (és reklám mentességét) &#128591;</h1>
+            <a name="funding"></a><h1>Help keep the website free (and ad-free) &#128591;</h1>
             <div>
-                Minden alkalommal, amikor szerkeszt, hozzáad vagy áthelyez egy útvonalat, kérést küldünk a <a href="https://docs.graphhopper.com/#tag/Routing-API" target="_blank">GraphHopper Routing API-nak</a>, hogy kérjen le egy útvonalat az úthálózaton.
-                Az egyéb számlázható műveletek közé tartoznak a térképbetöltések és a geokódolási kérések (pl.: hely keresése a keresősávban).<br><br>
-                 Sajnos ez nagyon költséges, ezért ha szimpatikus és hasznosnak találja az applikációt, és gyakran használja, kérjük, fontoljon meg akár egy kis anyagi támogatást is, hogy a webhely <b>ingyenesen használható</b> és <b>hirdetésmentes</b> maradjon. Köszönöm a támogatásod!<br><br>
+                Each time you add or move a track point, we make a request to <a href="https://docs.graphhopper.com/#tag/Routing-API" target="_blank">GraphHopper Routing API</a> to retrieve a route on the road network.
+                Other billable operations include map loads and geocoding requests (looking for a place in the search bar).<br><br>
+                Unfortunately this is very costly so if you like the tool and use it frequently, please consider making even a small donation so that this website can stay <b>free to use</b> and <b>ad-free</b>. Thanks for your support!<br><br>
                 <div style="text-align: center;"><script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support gpx.studio on Ko-fi', '#29abe0', 'F1F1303GH');kofiwidget2.draw();</script></div>
             </div>
             </div>
             <div class="block">
-            <a name="translation"></a><h1>Fordítás &#128483;&#65039;</h1>
+            <a name="translation"></a><h1>Translation &#128483;&#65039;</h1>
             <div>
-                A weboldalt önkéntesek fordítják egy közös fordítói platformon.
-                Segíthet befejezni és javítani a fordításokat, ha csatlakozik a <a href="https://crowdin.com/project/gpxstudio">Crowdin projekthez</a>.
-                Lépjen kapcsolatba a <a href="https://facebook.com/gpx.studio" target="_blank">Facebookon</a>, a <a href="https://twitter.com/gpxstudio" target="_blank">Twitteren</a>, <a href="mailto:hello@gpx.studio">e-mailben</a> vagy a <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank">GitHubon</a>, ha el szeretné kezdeni a fordítást egy új nyelven.
-                A <b>gpx.studio</b> alapos ismerete mellett hasznos lehet néhány alapvető HTML-ismeret. Minden segítségnek nagyon örülünk és nagyra értékelünk!
+                The website is translated by volunteers on a collaborative translation platform.
+                You can help complete and improve the translations by joining the <a href="https://crowdin.com/project/gpxstudio">Crowdin project</a>.
+                Get in touch on <a href="https://facebook.com/gpx.studio" target="_blank">Facebook</a>, <a href="https://twitter.com/gpxstudio" target="_blank">Twitter</a>, by <a href="mailto:hello@gpx.studio">email</a> or on <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank">GitHub</a> if you would like to start the translation in a new language.
+                Apart from a good understanding of <b>gpx.studio</b>, some basic knowledge of HTML can be useful. Any help is greatly appreciated!
             </div>
             </div>
             <div class="block">
-            <a name="guide"></a><h1>Felhasználói kézikönyv &#127891;</h1>
+            <a name="guide"></a><h1>User Guide &#127891;</h1>
             <div class="guide">
-                Kattintson egy témára a részletes leírásért!<br><br>
-                <div class="guide-item"><a name="create-file" href="#create-file" class="my-anchor"><div class="guide-title" onclick="toggle('create')">Új GPX útvonal</div></a>
-                <div id="create" style="display: none">
+                Click on a topic to learn more!<br><br>
+                <div class="guide-item"><a name="create-file" href="#create-file" class="my-anchor"><div class="guide-title" onclick="toggle('create')">Create a new GPX file</div></a>
+                <div id="create" class="guide-content">
                     <ol>
-                        <li>A felső eszköztáron kattintson az <span class="button">Új GPX útvonal</span> lehetőségre. Az alsó szintkép és adatok panel bal alsó részén (Összes mellett) megjelenik egy új lap, "új" elnevezéssel.</li>
-                        <li>Kezdje meg a szerkesztést. Válasza ki a kiindulási helyszínit. Helyezzen rögzítési útvonal pontokat a térképen azokra az utakra kattintva, amelyeken keresztül szeretne menni.</li>
-                        <li>Két beállítási lehetőség szabályozza, hogyan csatlakozzon két egymást követő útvonal pont:
-                            <ul>
-                                <li>tevékenységi mód kiválasztása
-                                     <span class="button">
-                                         <i class="fas fa-biking"></i>
-                                         <i class="fas fa-arrows-alt-h"></i>
-                                         <i class="fas fa-running"></i>
-                                         <i class="fas fa-arrows-alt-h"></i>
-                                         <i class="fas fa-motorcycle"></i>
-                                     </span> a megfelelő tevékenységi mód kiválasztásához és a legmegfelelőbb utak használatához.
-                                </li>
-                                <li>a <span class="button"><i class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-dove"></i></span> gombok használatával válthat az útvonalra tervezés (valós útra illesztés) vagy a „légvonalban” (egyenes útvonal) kijelölés között.</li>
-                            </ul>
+                        <li>In the top toolbar, click on <span class="button">New GPX</span>. A new tab called "new" appears above the bottom panel.</li>
+                        <li>Place anchor points on the map by clicking at the locations you want to go through.</li>
+                        <li>
+                            If routing is enabled, select the appropriate activity type in order to take the most suitable roads.
+                            Disabling the routing will allow you to draw straight lines freely on the map.
                         </li>
-                        <li>Elhúzhat egy útvonal szerkesztési pontot vagy magát az útvonalat, hogy átirányítsa a tervezett útvonalat egy új útra.</li>
-                        <li>Ha véletlenül hibázik vagy meggondolja magát az útvonallal kapcsolatban, a következőket teheti:
+                        <li>You can drag a point or the line itself to re-route the trace through a new location.</li>
+                        <li>If you make a mistake or change your mind about the itinerary, you can:
                             <ul>
-                                <li>használja az előzmények nyilakkal jelölt visszavonás <i class="fas fa-reply button"></i> vagy az újra hozzáadás <i class="fas fa-share button"></i> gombokat.</li>
-                                <li>kattintson a jobb gombbal egy útvonal szerkesztési pontra, és a <span class="button"><i class="fas fa-trash-alt"></i> <span>Pont eltávolítása</span></span> parancs segítségével távolítsa el.</li>
+                                <li>use the undo <i class="fas fa-reply button"></i> and redo <i class="fas fa-share button"></i> buttons.</li>
+                                <li>right-click on an anchor point and use <span class="button"><i class="fas fa-trash-alt"></i> <span>Remove point</span></span> to remove it.</li>
                             </ul>
                         </li>
                     </ol>
                 </div></div>
-                <div class="guide-item"><a name="load-file" href="#load-file" class="my-anchor"><div class="guide-title" onclick="toggle('load')">GPX-fájl betöltés</div></a>
-                <div id="load" style="display: none">Két lehetőség van:
+                <div class="guide-item"><a name="load-file" href="#load-file" class="my-anchor"><div class="guide-title" onclick="toggle('load')">Load existing GPX files</div></a>
+                <div id="load" class="guide-content">There are two options:
                     <ul>
-                        <li>Kattintson a <span class="button">Betöltés</span> lehetőségre, és válasszon ki egy vagy több GPX-fájlt. (Egyszerre több GPX fájlt is be lehet tölteni.).</li>
-                        <li>Vagy csak egyszerűen húzza rá a térképre a GPX fájlt.</li>
+                        <li>Click on <span class="button">Load</span> and select one or more GPX files to load.</li>
+                        <li>Drag and drop GPX files in the window.</li>
                     </ul>
                 </div></div>
-                <div class="guide-item"><a name="export-file" href="#export-file" class="my-anchor"><div class="guide-title" onclick="toggle('export')">GPX-fájl letöltés</div></a>
-                <div id="export" style="display: none">
-                    Két lehetőség van:
+                <div class="guide-item"><a name="export-file" href="#export-file" class="my-anchor"><div class="guide-title" onclick="toggle('export')">Export GPX files</div></a>
+                <div id="export" class="guide-content">
+                    There are two options:
                     <ul>
-                        <li>Kattintson az <span class="button">Exportálás</span> lehetőségre, majd válassza ki, hogy:
+                        <li>Click on <span class="button">Export</span> and then choose whether to:
                            <ul>
-                               <li>illessze egybe az összes nyitott útvonalat egy GPX-fájlt-ba, vagy töltse le az útvonalakat külön-külön. (Amennyiben több útvonalat szerkesztet.).</li>
-                               <li>tartalmazzák az időt, a hőmérsékletet, a pulzusszámot, a ritmus- és a teljesítményadatokat, vagy sem.</li>
+                               <li>merge all open GPX files as track segments into one file, or export them separately.</li>
+                               <li>include time, temperature, heartrate, cadence, power and surface data or not.</li>
                            </ul>
-                           Ezután kattintson a <span class="button">Letöltés <i class="fas fa-download"></i></span> lehetőségre a fájlok számítógépére való letöltéséhez, vagy a <span class="button">Mentés a Google Drive-ra</span> lehetőségre, ha a felhőbe menti.
+                           Then, click on <span class="button">Download <i class="fas fa-download"></i></span> to download the files on your computer or on <span class="button">Save to Google Drive</span> to save it in the cloud.
                         </li>
-                        <li>Egyszerűen át is húzhat egy lapot (az alsó szintkép panel alatti bal oldalon találja) a számítógépe asztalára.</li>
+                        <li>Drag and drop a tab (below the bottom panel) onto your desktop.</li>
                     </ul>
                 </div></div>
-                <div class="guide-item"><a name="share-file" href="#share-file" class="my-anchor"><div class="guide-title" onclick="toggle('share')">GPX file megosztás</div></a>
-                <div id="share" style="display: none">A <b>gpx.studio</b> nem rendelkezik adatbázis kezeléssel ezért nem biztosít GPX-fájl tárolást. Azonban könnyen és jól össze kapcsolható saját Google Drive-val.
-                    GPX-fájl megosztása:
+                <div class="guide-item"><a name="share-file" href="#share-file" class="my-anchor"><div class="guide-title" onclick="toggle('share')">Share a GPX file</div></a>
+                <div id="share" class="guide-content"><b>gpx.studio</b> does not provide GPX file hosting. However, it integrates smoothly with Google Drive.
+                    To share GPX files:
                     <ol>
-                        <li>Kattintson az <span class="button">Exportálás</span> lehetőségre, majd válassza ki, hogy:
+                        <li>Click on <span class="button">Export</span> and then choose whether to:
                            <ul>
-                               <li>illessze egybe az összes nyitott útvonalat egy GPX-fájlt-ba, vagy töltse le az útvonalakat külön-külön. (Amennyiben több útvonalat szerkesztet.).</li>
-                               <li>tartalmazzák az időt, a hőmérsékletet, a pulzusszámot, a ritmus- és a teljesítményadatokat, vagy sem.</li>
+                               <li>merge all open GPX files as track segments into one file, or export them separately.</li>
+                               <li>include time, temperature, heartrate, cadence, power and surface data or not.</li>
                            </ul>
                         </li>
-                        <li>Megosztás csak Google Drive-val lehetséges. Kattintson a <span class="button">Mentés a Google Drive-ra</span> lehetőségre.</li>
-                        <li>Csatlakozzon Google-fiókjához.</li>
-                        <li>Válassza ki vagy hozzon létre új mappát, ahová a fájlokat menteni szeretné.</li>
-                        <li>A fájlok feltöltése után kattintson a <span class="button">Link másolása <i class="fas fa-link"></i></span> gombra, és küldje el barátainak! Ezzel megosztotta velük a mappába szereplő fájlokat!</li>
+                        <li>Click on <span class="button">Save to Google Drive</span>.</li>
+                        <li>Connect to your Google account.</li>
+                        <li>Select the folder where you want to save the files.</li>
+                        <li>When the files are uploaded, click on <span class="button">Copy link <i class="fas fa-link"></i></span> and send it to your friends!</li>
                     </ol>
-                    Ha a <b>gpx.studio</b> segítségével szeretné megnyitni a Google Drive-on tárolt GPX-fájlokat, telepítheti a <a href="https://gsuite.google.com/marketplace/app/gpxstudio_the_online_gpx_editor/666808960580" target="_blank">Google Drive-bővítményt</a>.
+                    If you want to use <b>gpx.studio</b> to open GPX files stored on your Google Drive, you can install the <a href="https://gsuite.google.com/marketplace/app/gpxstudio_the_online_gpx_editor/666808960580" target="_blank">Google Drive Add-on</a>.
                 </div></div>
-                <div class="guide-item"><a name="edit-track-points" href="#edit-track-points" class="my-anchor"><div class="guide-title" onclick="toggle('edit-track')">GPX-fájl útvonalpontjainak szerkesztése</div></a>
-                <div id="edit-track" style="display: none">Kattintson a <i class="fas fa-pencil-alt button"></i> gombra a szerkesztés módba lépéshez. Megjelennek az útvonal szerkesztési pontok. A pontok megjelenési sűrűsége függ a térkép nagyított vagy kicsinyített nézetétől. Minél jobban nagyít, annál több útvonal szerkesztési pont jelenik meg.<br>Ezután lehetősége van:
+                <div class="guide-item"><a name="edit-track-points" href="#edit-track-points" class="my-anchor"><div class="guide-title" onclick="toggle('edit-track')">Edit the track points of a GPX file</div></a>
+                <div id="edit-track" class="guide-content">Click on <i class="fas fa-pencil-alt button"></i> to enter the edition mode. Depending on the zoom level, a set of anchor points appears. The more you zoom in, the more anchor points appear.<br>You can then:
                     <ul>
-                        <li>hozzá adhat folytatólagosan útvonal szerkesztési pontokat a útvonal végéhez, ha a térképen azokra az utakra vagy helyekre kattint, amerre szeretne menni.</li>
-                        <li>húzzon egy útvonal szerkesztési pontot vagy magát a vonalat az új útra. Az útvonal átszerkeszti magát a megadott útra.</li>
-                        <li>kattintson a jobb gombbal egy útvonal szerkesztési pontra, és a <span class="button"><i class="fas fa-trash-alt"></i> <span>Pont eltávolítása</span></span> parancs segítségével távolítsa el.</li>
-                        <li>kattintson a jobb gombbal egy útvonal szerkesztési pontra vagy a vonalra, és használja a <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> parancsot a nyomvonal szétválasztásához a kiválasztott helyen.</li>
-                        <li>kattintson a jobb gombbal egy útvonal szerkesztési pontra vagy a vonalra, és használja a <span class="button"><i class="fas fa-undo"></i> <span>Rajt innen</span></span> parancsot, hogy az útvonal teljesítése egy kiválasztott helyről induljon.</li>
+                        <li>add track points at the end of the trace by clicking on the map at the locations you want to go through.</li>
+                        <li>drag an anchor point or the line itself to re-route the trace through a new location.</li>
+                        <li>right-click on an anchor point and use <span class="button"><i class="fas fa-trash-alt"></i> <span>Remove point</span></span> to remove it.</li>
+                        <li>right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> to split the trace at a chosen location.</li>
+                        <li>right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-undo"></i> <span>Start loop here</span></span> to make the loop start at a chosen location.</li>
                     </ul>
-                    Ha hibázik, vagy meggondolja magát az útvonallal kapcsolatban, használja az előzmények nyilakkal jelölt visszavonás <i class="fas fa-reply button"></i> vagy az újra hozzáadás <i class="fas fa-share button"></i> gombokat.<br>
-                     Két beállítási lehetőség szabályozza, hogyan csatlakozzon két egymást követő útvonal szerkesztési pont:
-                    <ul>
-                        <li>tevékenységi mód kiválasztása
-                                     <span class="button">
-                                         <i class="fas fa-biking"></i>
-                                         <i class="fas fa-arrows-alt-h"></i>
-                                         <i class="fas fa-running"></i>
-                                         <i class="fas fa-arrows-alt-h"></i>
-                                         <i class="fas fa-motorcycle"></i>
-                                     </span> a megfelelő tevékenységi mód kiválasztásához és a legmegfelelőbb utak használatához.
-                        </li>
-                        <li>a <span class="button"><i class="fas fa-route"></i> <i class="fas fa-arrows-alt-h"></i> <i class="fas fa-dove"></i></span> gombok használatával válthat az útvonalra tervezés (valós útra illesztés) vagy a „légvonalban” (egyenes útvonal) kijelölés között.</li>
-                    </ul>
-                    Ha szerkeszt egy GPX-fájlt, amely időt, hőmérsékletet, pulzusszámot, ritmus- vagy teljesítményadatokat tartalmaz, az új útvonal szerkesztési pontok automatikusan tartalmazzák az egyes mezők átlagos értékét.
+                    If you make a mistake or change your mind about the itinerary, use the undo <i class="fas fa-reply button"></i> and redo <i class="fas fa-share button"></i> buttons.<br><br>
+                    If routing is enabled, select the appropriate activity type in order to take the most suitable roads.
+                    Disabling the routing will allow you to draw straight lines freely on the map.<br><br>
+                    If you edit a GPX file containing time, temperature, heartrate, cadence or power data, new track points will automatically contain the average value for each of those fields.
                 </div></div>
-                <div class="guide-item"><a name="crop-file" href="#crop-file" class="my-anchor"><div class="guide-title" onclick="toggle('crop')">GPX file vágás</div></a>
-                <div id="crop" style="display: none">Három lehetőség van:
+                <div class="guide-item"><a name="crop-file" href="#crop-file" class="my-anchor"><div class="guide-title" onclick="toggle('crop')">Crop a GPX file</div></a>
+                <div id="crop" class="guide-content">There are three options:
                     <ul>
-                        <li>Az alsó panelen a szintkép alatt lévő csúszkával mozgathatja a útvonal kezdő- és végpontját. Kattintson a <i class="fas fa-check button"></i> ábrára a kiválasztás érvényesítéséhez. Kiválaszthatja, hogy a kivágott részeket külön fájlokban kívánja-e menteni.</li>
-                        <li>Lépjen be az útvonal szerkesztési módba a <i class="fas fa-pencil-alt button"></i> gombra kattintva. Kattintson a jobb gombbal egy útvonal szerkesztési pontra vagy a vonalra, és használja a <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> parancsot a nyomvonal szétválasztásához a kiválasztott helyen.</li>
-                        <li>Kattintson a <i class="fas fa-vector-square button"></i> elemre, és jelölje ki a megtartani vagy törölni kívánt útvonal szerkesztési pontokat tartalmazó területet. Vegye ki a pipa jelet <i class="far fa-check-square"></i> az útpontok jelölőnégyzetből, ha nem szeretné egyszerre eltávolítani az útpontokat. Ezután válassza ki, hogy a kijelölt területen belül vagy kívül szeretné-e törölni az útvonalpontokat. Végül kattintson a <span class="button">Folytatás</span> gombra.</li>
+                        <li>Use the slider in the bottom panel to move the start and end points of the trace. Click on <i class="fas fa-check button"></i> to validate the selection. You can choose whether you want to keep cropped parts in separate files.</li>
+                        <li>Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> to split the trace at a chosen location.</li>
+                        <li>Click on <i class="fas fa-vector-square button"></i> and select an area containing the track points you want to keep or delete. Uncheck the box <i class="far fa-check-square"></i> Waypoints if you do not want to remove waypoints at the same time. Then, choose whether you want to delete track points inside or outside of the selection. Finally, click on <span class="button">Proceed</span>.</li>
                     </ul>
                 </div></div>
-                <div class="guide-item"><a name="split-file" href="#split-file" class="my-anchor"><div class="guide-title" onclick="toggle('split')">GPX fájl szakaszolás</div></a>
-                <div id="split" style="display: none">Két lehetőség van:
+                <div class="guide-item"><a name="split-file" href="#split-file" class="my-anchor"><div class="guide-title" onclick="toggle('split')">Split a GPX file</div></a>
+                <div id="split" class="guide-content">There are two options:
                     <ul>
-                        <li>Az alsó panelen a szintkép alatt lévő csúszkával mozgathatja a útvonal kezdő- és végpontját. Kattintson a <i class="fas fa-check button"></i> ábrára a kiválasztás érvényesítéséhez. Jelölje be a <i class="far fa-check-square"></i> A kivágott részek megőrzése új fájlokban négyzetet, majd kattintson a <span class="button">Folytatás</span> gombra.</li>
-                        <li>Lépjen be az útvonal szerkesztési módba a <i class="fas fa-pencil-alt button"></i> gombra kattintva. Kattintson a jobb gombbal egy útvonal szerkesztési pontra vagy a vonalra, és használja a <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> parancsot a nyomvonal szétválasztásához a kiválasztott helyen.</li>
+                        <li>Use the slider in the bottom panel to move the start and end points of the trace. Click on <i class="fas fa-check button"></i> to validate the selection. Check the box <i class="far fa-check-square"></i> Keep cropped parts in new files and then click on <span class="button">Proceed</span>.</li>
+                        <li>Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> to split the trace at a chosen location.</li>
                     </ul>
                 </div></div>
-                <div class="guide-item"><a name="change-start-loop" href="#change-start-loop" class="my-anchor"><div class="guide-title" onclick="toggle('change-start')">Rajt áthelyezése</div></a>
-                <div id="change-start" style="display: none">
-                    Lépjen be az útvonal szerkesztési módba a <i class="fas fa-pencil-alt button"></i> gombra kattintva. Kattintson a jobb gombbal egy útvonal szerkesztési pontra vagy a vonalra, és használja a <span class="button"><i class="fas fa-undo"></i> <span>Rajt innen</span></span> parancsot, hogy az útvonal teljesítése egy kiválasztott helyről induljon.</li>
+                <div class="guide-item"><a name="change-start-loop" href="#change-start-loop" class="my-anchor"><div class="guide-title" onclick="toggle('change-start')">Change the starting point of a loop</div></a>
+                <div id="change-start" class="guide-content">
+                    Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, right-click on an anchor point or on the line and use <span class="button"><i class="fas fa-undo"></i> <span>Start loop here</span></span> to make the loop start at a chosen location.</li>
                 </div></div>
-                <div class="guide-item"><a name="add-timestamps" href="#add-timestamps" class="my-anchor"><div class="guide-title" onclick="toggle('timestamps')"> Időadatok hozzáadása GPX-fájlhoz </div></a>
-                <div id="timestamps" style="display: none">
+                <div class="guide-item"><a name="add-timestamps" href="#add-timestamps" class="my-anchor"><div class="guide-title" onclick="toggle('timestamps')">Add timestamps to a GPX file</div></a>
+                <div id="timestamps" class="guide-content">
                     <ol>
-                        <li>Kattintson a <i class="fas fa-stopwatch button"></i> ikonra.</li>
-                        <li>Adja meg a tervezett átlagsebességet.</li>
-                        <li>Válassza ki az esemény kezdő időpontját.</li>
-                        <li>Kattintson <span class="button">Ok</span>.</li>
+                        <li>Click on <i class="fas fa-stopwatch button"></i>.</li>
+                        <li>Enter the average speed.</li>
+                        <li>Select the start time.</li>
+                        <li>Click on <span class="button">Ok</span>.</li>
                     </ol>
-                    Ha a GPX-fájlnak nincsenek megadva idő adatok, akkor a rendszer alapértelmezés szerint állandó sebességet alkalmaz a teljes GPX-fájlra. Jelölje be a <i class="far fa-check-square"> </i> Kísérleti jelölőnégyzetet, ha olyan sebességet szeretne létrehozni, amely a lejtőtől függően változik. <br>
-                     Ha a GPX-fájl már rendelkezik időadatokkal, akkor a rendszer eltolja és tömöríti a kiválasztott sebességnek és kezdési dátumnak megfelelően.
+                    If the GPX file has no timestamps, a constant speed is applied to the whole GPX file by default. You can check the box <i class="far fa-check-square"></i> Experimental to generate timestamps which make the speed vary depending on the slope.<br>
+                    If the GPX file already has timestamps, they will be shifted and compressed to match the chosen speed and start time.
                 </div></div>
-                <div class="guide-item"><a name="change-date" href="#change-date" class="my-anchor"><div class="guide-title" onclick="toggle('date')">GPX-fájl dátum módosítása</div></a>
-                <div id="date" style="display: none">
+                <div class="guide-item"><a name="change-date" href="#change-date" class="my-anchor"><div class="guide-title" onclick="toggle('date')">Change the date of a GPX file</div></a>
+                <div id="date" class="guide-content">
                     <ol>
-                        <li>Kattintson a <i class="fas fa-stopwatch button"></i> ikonra.</li>
-                        <li>Módosítsa a kezdési időt.</li>
-                        <li>Kattintson <span class="button">Ok</span>.</li>
-                    </ol>
-                </div></div>
-                <div class="guide-item"><a name="change-speed" href="#change-speed" class="my-anchor"><div class="guide-title" onclick="toggle('speed')"> Átlagsebesség módosítása GPX fáljban</div></a>
-                <div id="speed" style="display: none">
-                    <ol>
-                        <li>Kattintson a <i class="fas fa-stopwatch button"></i> ikonra.</li>
-                        <li>Adja meg a tervezett átlagsebességet.</li>
-                        <li>Kattintson <span class="button">Ok</span>.</li>
-                    </ol>
-                    Ha a GPX-fájlnak nincsenek megadva idő adatok, akkor a rendszer alapértelmezés szerint állandó sebességet alkalmaz a teljes GPX-fájlra. Jelölje be a <i class="far fa-check-square"> </i> Kísérleti jelölőnégyzetet, ha olyan sebességet szeretne létrehozni, amely a lejtőtől függően változik. <br>
-                     Ha a GPX-fájl már rendelkezik időadatokkal, akkor a rendszer eltolja és tömöríti a kiválasztott sebességnek és kezdési dátumnak megfelelően.
-                </div></div>
-                <div class="guide-item"><a name="merge-files" href="#merge-files" class="my-anchor"><div class="guide-title" onclick="toggle('merge')">GPX-fájlok egyesítése</div></a>
-                <div id="merge" style="display: none">
-                    Két GPX fájl összeillesztése:
-                    <ol>
-                        <li>Az alsó szintkép panel alatt válassza ki az első egyesíteni kívánt GPX-fájl fülét.</li>
-                        <li>Kattintson a <i class="fas fa-plus-circle button"></i> elemre (csak akkor érhető el, ha kettőnél több fájl van megnyitva).</li>
-                        <li>Az egyesítéshez kattintson a második GPX-fájl fülére. A második GPX-fájl útvonal szerkesztési pontjai az első GPX-fájl útvonal szerkesztési pontjai után jönnek.</li>
-                    </ol>
-                    Ha az összes nyitott GPX fájlt egyszerre szeretné egyesíteni:
-                    <ol>
-                        <li>Az alsó szintkép panel alatt helyezze el a füleket (húzással) abban a sorrendben, ahogyan szeretné, hogy egyesítve legyenek a GPX-fájlban.</li>
-                        <li>Kattintson a <span class="button">Letöltés</span> lehetőségre.</li>
-                        <li>Jelölje be a <i class="far fa-check-square"></i> Összes útvonal egyesítése négyzetet.</li>
-                        <li>Ezután kattintson a <span class="button">Letöltés <i class="fas fa-download"></i></span> lehetőségre a fájlok számítógépére való letöltéséhez, vagy a <span class="button">Mentés a Google Drive-ra</span> lehetőségre, ha a felhőbe menti.</li>
-                    </ol>
-                    Több GPX-fájl egyesítésekor: a hiányzó idő-, hőmérséklet-, pulzus-, pedál/lépés ütem- vagy teljesítményadatok automatikusan kitöltődnek az egyesített fájlok átlagos értékével.
-                    Ha egyes GPX-fájlok tartalmaznak időadatokat, akkor az egyesített fájl időadatai szigorúan növekednek (egyes fájlok időadatai szükség esetén eltolódnak).
-                </div></div>
-                <div class="guide-item"><a name="extract-segments" href="#extract-segments" class="my-anchor"><div class="guide-title" onclick="toggle('extract')">GPX-fájl útvonalszegmenseinek kibontása</div></a>
-                <div id="extract" style="display: none">Kattintson a <i class="fas fa-list-ul button"></i> elemre (csak akkor érhető el, ha a fájl egynél több útszegmenst tartalmaz). Ha a GPX fájl útvonalpontokat (érdekes pontokat) tartalmaz, akkor ezeket azokban a fájlokban tárolja, amelyik úthoz a legközelebb haladnak el.</div></div>
-                <div class="guide-item"><a name="copy-file" href="#copy-file" class="my-anchor"><div class="guide-title" onclick="toggle('copy')">GPX file másolás</div></a>
-                <div id="copy" style="display: none">Kattintson <i class="fas fa-copy button"></i> ábrára a GPX file másoláshoz.</div></div>
-                <div class="guide-item"><a name="change-color" href="#change-color" class="my-anchor"><div class="guide-title" onclick="toggle('color')">Módosítsa a GPX-fájlban az útvonal színét, átlátszatlanságát és szélességét</div></a>
-                <div id="color" style="display: none">
-                    <ol>
-                        <li>Kattintson <i class="fas fa-palette button"></i>.</li>
-                        <li>Kattintson a színre a színválasztó megnyitásához.</li>
-                        <li>Mozgassa a csúszkát az átlátszóság megváltoztatásához.</li>
-                        <li>Mozgassa a csúszkát a szélesség módosításához.</li>
-                        <li>Kattintson <span class="button">Ok</span>.</li>
-                    </ol>
-                    Opcionálisan alkalmazhatja a kiválasztott színt, átlátszatlanságot és szélességet az összes nyomvonalra a jelölőnégyzetek használatával.
-                </div></div>
-                <div class="guide-item"><a name="add-waypoint" href="#add-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('add-wpt')"> Útvonalpontok (érdekes, ellenőrző pontok) hozzáadása egy GPX-fájlhoz</div></a>
-                <div id="add-wpt" style="display: none">
-                    <ol>
-                        <li>Kattintson a <i class="fas fa-map-marker-alt button"></i> ikonra.</li>
-                        <li>Kattintson a térképen arra a helyre, ahol el szeretné helyezni útvonal érintési pontját.</li>
-                        <li>El nevezheti és megadhat néhány adatot az útpontról (HTML segítségével formázhatja az információkat, vagy akár képeket is linkelhet).</li>
-                        <li>Kattintson <span class="button">Ok</span>.</li>
-                    </ol>
-                    Ha egy meglévő útpontot másolni szeretne és újra felhasználni. Kattintson a meglévő útpont jelzőikonra, és nyomja meg a <i class="fas fa-copy button"></i> gombot a felugró ablakban. Ezután kattintson a térképen arra helyre ahová szeretné helyezni, hogy hozzáadja az útvonalpont másolatát.
-                </div></div>
-                <div class="guide-item"><a name="edit-waypoint" href="#edit-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('edit-wpt')"> GPX-fájl útvonalpontjának szerkesztése</div></a>
-                <div id="edit-wpt" style="display: none">Egy útvonalpont helyének megváltoztatásához egyszerűen húzza át egy új helyre. Ha egy útvonalpontot a kiválasztott út közelébe húz, az automatikusan ráillesztésre kerül, így az útvonalpontot tökéletesen elhelyezheti az úton. Használja a zoom-ot nagyítson vagy kicsinyítsen ha pontosabban szeretné megadni az útvonalpontok helyét. Ha útvonal közelébe helyezzük el útvonalpontunkat a program automatikusan az útvonalunkra fogja rakni.<br>
-                     Egy útpont adatainak szerkesztéséhez kattintson rá a jelzőikonra, és nyomja meg a <i class="fas fa-pencil-alt button"></i> gombot a felugró ablakban. Módosítsa az adatokat, majd kattintson az <span class="button">Ok</span> gombra.
-                </div></div>
-                <div class="guide-item"><a name="remove-waypoint" href="#remove-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('rmv-wpt')">GPX-fájl útvonalpontjainak eltávolítása</div></a>
-                <div id="rmv-wpt" style="display: none">Egyetlen útvonalpont eltávolításához kattintson a jelzőikonra, és nyomja meg a <i class="fas fa-trash-alt button"></i> gombot a felugró ablakban.<br>
-                     A kijelölt területen belüli vagy kívüli összes útvonalpontok eltávolításához kattintson a <i class="fas fa-vector-square button"></i> elemre, és válassza ki a megtartani vagy törölni kívánt útvonalpontokat tartalmazó területet. Vegye ki a <i class="far fa-check-square"></i> Útvonal szerkesztési pontok jelölőnégyzetből, ha nem szeretné egyszerre eltávolítani az útvonal szerkesztési pontokat. Ezután válassza ki, hogy a kijelölésen belüli vagy kívüli útpontokat szeretné-e törölni. Végül kattintson a <span class="button">Folytatás</span> gombra.
-                </div></div>
-                <div class="guide-item"><a name="reduce-points" href="#reduce-points" class="my-anchor"><div class="guide-title" onclick="toggle('reduce')">GPX-fájl útvonalpontjainak sűrűség módosítása</div></a>
-                <div id="reduce" style="display: none">
-                    <ol>
-                        <li>Kattintson a <i class="fas fa-compress-alt button"></i> ikonra.</li>
-                        <li>A csúszkával válassza ki a útvonal szerkesztési pontok számát. Megtekintheti az útvonala élő előnézetét miközben a csúszkát mozgatja csökkenő vagy növekvő irányba.</li>
-                        <li>Kattintson <span class="button">Ok</span>.</li>
+                        <li>Click on <i class="fas fa-stopwatch button"></i>.</li>
+                        <li>Change the start time.</li>
+                        <li>Click on <span class="button">Ok</span>.</li>
                     </ol>
                 </div></div>
-                <div class="guide-item"><a name="delete-points-in-zone" href="#delete-points-in-zone" class="my-anchor"><div class="guide-title" onclick="toggle('delete-zone')">Területi kijelöléssel el távolíthatja az összes útvonal szerkesztési pontot és/vagy útvonal pontot a kijelölt területen belül vagy kívül</div></a>
-                <div id="delete-zone" style="display: none">
+                <div class="guide-item"><a name="change-speed" href="#change-speed" class="my-anchor"><div class="guide-title" onclick="toggle('speed')">Change the speed of a GPX file</div></a>
+                <div id="speed" class="guide-content">
                     <ol>
-                        <li>Kattintson a <i class="fas fa-vector-square button"></i> ikonra.
-                        <li>Jelölje ki a megtartani vagy törölni kívánt útvonal szerkesztési pontokat- és/vagy útvonal pontokat tartalmazó területet.</li>
-                        <li>Ezután válassza ki, hogy a kijelölt területen belül vagy kívül szeretné-e törölni az útvonalpontokat.</li>
-                        <li>Végül kattintson a <span class="button">Folytatás</span> gombra.</li>
+                        <li>Click on <i class="fas fa-stopwatch button"></i>.</li>
+                        <li>Change the average speed.</li>
+                        <li>Click on <span class="button">Ok</span>.</li>
+                    </ol>
+                    If the GPX file has no timestamps, a constant speed is applied to the whole GPX file by default. You can check the box <i class="far fa-check-square"></i> Experimental to generate timestamps which make the speed vary depending on the slope.<br>
+                    If the GPX file already has timestamps, they will be shifted and compressed to match the chosen speed and start time.
+                </div></div>
+                <div class="guide-item"><a name="merge-files" href="#merge-files" class="my-anchor"><div class="guide-title" onclick="toggle('merge')">Merge multiple GPX files</div></a>
+                <div id="merge" class="guide-content">
+                    To merge two GPX files:
+                    <ol>
+                        <li>Below the bottom panel, select the tab of the first GPX file you want to merge.</li>
+                        <li>Click on <i class="fas fa-plus-circle button"></i> (available only when more than two files are open).</li>
+                        <li>Click on the tab of the second GPX file to merge or an the trace itself. The track points of the second GPX file will come after those of the first GPX file.</li>
+                    </ol>
+                    If you want to merge all open GPX files at once:
+                    <ol>
+                        <li>Below the bottom panel, put the tabs in the order you want them to appear in the merged GPX file.</li>
+                        <li>Click on <span class="button">Export</span>.</li>
+                        <li>Check the box <i class="far fa-check-square"></i> Merge all traces.</li>
+                        <li>Click on <span class="button">Download <i class="fas fa-download"></i></span> to download the files on your computer or on <span class="button">Save to Google Drive</span> to save it in the cloud.</li>
+                    </ol>
+                    When merging multiple GPX files: missing time, temperature, heartrate, cadence or power data will be automatically extended with the average value across merged files.
+                    If some GPX files contains timestamps, it is ensured that the timestamps of the merged file are strictly increasing (the timestamps of some files are shifted if necessary).
+                </div></div>
+                <div class="guide-item"><a name="extract-segments" href="#extract-segments" class="my-anchor"><div class="guide-title" onclick="toggle('extract')">Extract track segments of a GPX file</div></a>
+                <div id="extract" class="guide-content">Click on <i class="fas fa-list-ul button"></i> (available only if the file has more than one track segment). If the GPX file contains waypoints (points of interest), they are kept in the files for which the traces pass closest.</div></div>
+                <div class="guide-item"><a name="copy-file" href="#copy-file" class="my-anchor"><div class="guide-title" onclick="toggle('copy')">Copy a GPX file</div></a>
+                <div id="copy" class="guide-content">Click on <i class="fas fa-copy button"></i> to duplicate a GPX file.</div></div>
+                <div class="guide-item"><a name="change-color" href="#change-color" class="my-anchor"><div class="guide-title" onclick="toggle('color')">Change the color, opacity and width of a GPX file</div></a>
+                <div id="color" class="guide-content">
+                    <ol>
+                        <li>Click on <i class="fas fa-palette button"></i>.</li>
+                        <li>Click on the color to open the color picker.</li>
+                        <li>Move the opacity slider to change the opacity.</li>
+                        <li>Move the width slider to change the width.</li>
+                        <li>Click on <span class="button">Ok</span>.</li>
+                    </ol>
+                    You can optionally apply the chosen color, opacity and width to all traces by using the checkboxes.
+                </div></div>
+                <div class="guide-item"><a name="add-waypoint" href="#add-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('add-wpt')">Add waypoints (points of interest) to a GPX file</div></a>
+                <div id="add-wpt" class="guide-content">
+                    <ol>
+                        <li>Click on <i class="fas fa-map-marker-alt button"></i>.</li>
+                        <li>Click on the map at the location you want to place it.</li>
+                        <li>Fill in some data about the waypoint (you can use HTML to format information, or even link images).</li>
+                        <li>Click on <span class="button">Ok</span>.</li>
+                    </ol>
+                    If you want to reuse a waypoint at another location, click on the waypoint and press <i class="fas fa-copy button"></i> inside the popup. Then, click on the map to add a copy of the waypoint at the chosen location.
+                </div></div>
+                <div class="guide-item"><a name="edit-waypoint" href="#edit-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('edit-wpt')">Edit a waypoint of a GPX file</div></a>
+                <div id="edit-wpt" class="guide-content">To change the location of a waypoint, you can simply drag it to a new location. When dragging a waypoint close to the trace, it is automatically attracted so that you can place the waypoint perfectly on the trace. Zoom in or out to change the distance at which the waypoints are attracted.<br>
+                    To edit the data of a waypoint, click on it and press <i class="fas fa-pencil-alt button"></i> inside the popup. Change the information and then click <span class="button">Ok</span>.
+                </div></div>
+                <div class="guide-item"><a name="remove-waypoint" href="#remove-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('rmv-wpt')">Remove waypoints of a GPX file</div></a>
+                <div id="rmv-wpt" class="guide-content">To remove a single waypoint, click on it and press <i class="fas fa-trash-alt button"></i> inside the popup.<br>
+                    To remove all waypoints inside or outside an area, click on <i class="fas fa-vector-square button"></i> and select an area containing the waypoints you want to keep or delete. Uncheck the box <i class="far fa-check-square"></i> Track points if you do not want to remove track points at the same time. Then, choose whether you want to delete waypoints inside or outside of the selection. Finally, click on <span class="button">Proceed</span>.
+                </div></div>
+                <div class="guide-item"><a name="reduce-points" href="#reduce-points" class="my-anchor"><div class="guide-title" onclick="toggle('reduce')">Reduce the number of track points of a GPX file</div></a>
+                <div id="reduce" class="guide-content">
+                    <ol>
+                        <li>Click on <i class="fas fa-compress-alt button"></i>.</li>
+                        <li>Use the slider to choose the number of track points to keep. You can see a live preview of the GPX file with the reduced number of points.</li>
+                        <li>Click on <span class="button">Ok</span>.</li>
+                    </ol>
+                </div></div>
+                <div class="guide-item"><a name="delete-points-in-zone" href="#delete-points-in-zone" class="my-anchor"><div class="guide-title" onclick="toggle('delete-zone')">Remove all track points and/or waypoints inside/outside an area</div></a>
+                <div id="delete-zone" class="guide-content">
+                    <ol>
+                        <li>Click on <i class="fas fa-vector-square button"></i>.
+                        <li>Select an area containing the track points and/or waypoints you want to keep or delete.</li>
+                        <li>Choose whether you want to delete track points and/or waypoints, inside or outside of the selection.</li>
+                        <li>Finally, click on <span class="button">Proceed</span>.</li>
                    </ol>
                 </div></div>
-                <div class="guide-item"><a name="delete-file" href="#delete-file" class="my-anchor"><div class="guide-title" onclick="toggle('delete')">GPX-fájlok (útvonal) eltávolítása</div></a>
-                <div id="delete" style="display: none">Az alsó szintkép panel alatt válassza ki a törölni kívánt útvonal fület, és kattintson a <i class="fas fa-trash-alt button"></i> elemre.<br>
-                 Az összes GPX-fájl (útvonal) egyidejű eltávolításához kattintson az <span class="button">Összes törlése</span> lehetőségre a legfelső panel eszköztáron.</div></div>
-                <div class="guide-item"><a name="open-street-view" href="#open-street-view" class="my-anchor"><div class="guide-title" onclick="toggle('street-view')">Utcanézet megnyitása</div></a>
-                <div id="street-view" style="display: none">A jobb oldalon található ikonok közül kattintson a <i class="fas fa-street-view button"></i> elemre, majd kattintson a térképre az Utcakép megnyitásához az adott helyen.</div></div>
-                <div class="guide-item"><a name="search-location" href="#search-location" class="my-anchor"><div class="guide-title" onclick="toggle('search')">Térképen keresés</div></a>
-                <div id="search" style="display: none">A térkép jobb oldalán kattintson a <i class="fas fa-search button"></i> elemre, majd írjon be egy helyet vagy címet. Válasszon egyet a javasolt helyek közül ami az Ön keresésével leginkább egyező.</div></div>
-                <div class="guide-item"><a name="hide-trace" href="#hide-trace" class="my-anchor"><div class="guide-title" onclick="toggle('hide-gpx')">GPX fájl (útvonal) térképen elrejtése</div></a>
-                <div id="hide-gpx" style="display: none">GPX-fájl (útvonal) elrejtéséhez kattintson a <i class="fas fa-eye-slash button"></i> elemre. A Gpx-fájl (útvonal) felfedéséhez kattintson a <i class="fas fa-eye button"></i> elemre.<br>
-                 A rejtett útvonalak akkor is megjelennek, amikor egy pontot ad hozzá a szerkesztési módban, vagy amikor a legtöbb eszközt használja.</div></div>
-                <div class="guide-item"><a name="hide-elevation" href="#hide-elevation" class="my-anchor"><div class="guide-title" onclick="toggle('profile')">A magassági szintkép elrejtése</div></a>
-                <div id="profile" style="display: none">A magassági szintkép elrejtéséhez egyszerűen kattintson a <i class="fas fa-chart-area button"></i> elemre.</div></div>
-                <div class="guide-item"><a name="change-units" href="#change-units" class="my-anchor"><div class="guide-title" onclick="toggle('units')">Mértékegységeket váltása</div></a>
-                <div id="units" style="display: none">A mértékegységek közti váltáshoz kattintson a <span class="button">km <i class="fas fa-arrows-alt-h"></i> mérföld</span> elemre.<br>
-                 Kattintson a <span class="button"> elemre
-                     <i class="fas fa-biking"></i>
-                     <i class="fas fa-arrows-alt-h"></i>
-                     <i class="fas fa-running"></i>
-                     <i class="fas fa-arrows-alt-h"></i>
-                     <i class="fas fa-motorcycle"></i>
-                 </span>  a kiválasztott tevékenységnek megfelelően megtekintheti a sebességet vagy a futási tempót percenként, kilométerenként vagy mérföldenként.</div></div>
-                <div class="guide-item"><a name="direction-markers" href="#direction-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-direction-markers')">Menetirány jelzés megjelenítése útvonalon</div></a>
-                <div id="show-direction-markers" style="display: none">Az menetirány kijelzés megjelenítéséhez a térkép jobb oldalán található ikonoknál lépjen a <i class="fas fa-layer-group button"></i> beállításokba, és jelölje be az <i class="far fa-check-square"></i> menetirány jelző négyzetet.</div></div>
-                <div class="guide-item"><a name="distance-markers" href="#distance-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-distance-markers')">Távolság megjelenítése útvonalon</div></a>
-                <div id="show-distance-markers" style="display: none">A távolságjelző megjelenítéséhez a térkép jobb oldalán található ikonoknál lépjen a <i class="fas fa-layer-group button"></i> beállításokba, és jelölje be a <i class="far fa-check-square"></i> Távolságjelző négyzetet.</div></div>
-                <div class="guide-item"><a name="map-legends" href="#map-legends" class="my-anchor"><div class="guide-title" onclick="toggle('legend')">Térképmagyarázat</div></a>
-                <div id="legend" style="display: none">
+                <div class="guide-item"><a name="delete-file" href="#delete-file" class="my-anchor"><div class="guide-title" onclick="toggle('delete')">Remove GPX files</div></a>
+                <div id="delete" class="guide-content">Below the bottom panel, select the tab of the file you want to delete and click on <i class="fas fa-trash-alt button"></i>.<br>
+                To remove all GPX files at once, click on <span class="button">Clear all</span> in the top toolbar.</div></div>
+                <div class="guide-item"><a name="open-street-view" href="#open-street-view" class="my-anchor"><div class="guide-title" onclick="toggle('street-view')">Open Street View</div></a>
+                <div id="street-view" class="guide-content">In the top-right corner, click on <i class="fas fa-street-view button"></i> and then click on the map to open Street View at that location.</div></div>
+                <div class="guide-item"><a name="search-location" href="#search-location" class="my-anchor"><div class="guide-title" onclick="toggle('search')">Center the map on a location</div></a>
+                <div id="search" class="guide-content">In the top-right corner, click on <i class="fas fa-search button"></i> and then type an address. Choose one of the suggested locations to center the map on it.</div></div>
+                <div class="guide-item"><a name="hide-trace" href="#hide-trace" class="my-anchor"><div class="guide-title" onclick="toggle('hide-gpx')">Hide a GPX file</div></a>
+                <div id="hide-gpx" class="guide-content">To hide a GPX file, click on <i class="fas fa-eye-slash button"></i>. To unhide it, click on <i class="fas fa-eye button"></i>.<br>
+                A hidden trace will also unhide when adding a point in edition mode or when using most of the tools.</div></div>
+                <div class="guide-item"><a name="hide-elevation" href="#hide-elevation" class="my-anchor"><div class="guide-title" onclick="toggle('profile')">Hide the elevation profile</div></a>
+                <div id="profile" class="guide-content">To hide the elevation profile, simply click on <i class="fas fa-chart-area button"></i>.</div></div>
+                <div class="guide-item"><a name="direction-markers" href="#direction-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-direction-markers')">Show direction markers</div></a>
+                <div id="show-direction-markers" class="guide-content">To show direction markers, go in the map layers <i class="fas fa-layer-group button"></i> and check the box <i class="far fa-check-square"></i> Direction markers.</div></div>
+                <div class="guide-item"><a name="distance-markers" href="#distance-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-distance-markers')">Show distance markers</div></a>
+                <div id="show-distance-markers" class="guide-content">To show distance markers, go in the map layers <i class="fas fa-layer-group button"></i> and check the box <i class="far fa-check-square"></i> Distance markers.</div></div>
+                <div class="guide-item"><a name="map-legends" href="#map-legends" class="my-anchor"><div class="guide-title" onclick="toggle('legend')">Map legends</div></a>
+                <div id="legend" class="guide-content">
                     <ul>
                         <li><a href="https://footpathapp.com/user-guide/maps/mapbox-outdoors/" target="_blank">Mapbox Outdoors</a></li>
                         <li><a href="https://wiki.openstreetmap.org/wiki/LinesTab" target="_blank">OpenStreetMap</a></li>
                         <li><a href="https://opentopomap.org/about" target="_blank">OpenTopoMap</a></li>
-                        <li>OpenHikingMap: ugyanaz, mint az OpenTopoMap, de jelzett túraútvonalakkal.</li>
+                        <li>OpenHikingMap: same than OpenTopoMap but with hiking trails.</li>
                         <li><a href="https://www.cyclosm.org/legend.html" target="_blank">CyclOSM</a></li>
                     </ul>
                 </div></div>
             </div>
             </div>
             <div class="block">
-            <a name="embed"></a><h1>Beágyazás &#128506;</h1>
+            <a name="embed"></a><h1>Embedding &#128506;</h1>
             <div>
-                Megjelenítheti az útvonalait webhelyén a <b>gpx.studio</b> segítségével. Ennek két módja van: az első egy külső szerveren tárolt fájlokkal, a másik pedig a Google Drive-val.
+                You are very welcome to display traces on your website with <b>gpx.studio</b>. There are two ways to do it: the first one with files stored on a server and the second one with Google Drive.
                 <ul>
-                    <li><b>Fájl URL-címe:</b> Adja hozzá a fájlra mutató hivatkozást a lekérdezési karakterlánc <code>state</code> paraméterének <code>urls</code> attribútumában. Győződjön meg arról, hogy a <code>https</code> kódot használja a speciális karakterek kódolásához, és hogy a <b>gpx.studio</b> számára engedélyezettek legyenek a fájlok elérései, ellenkező esetben a kéréseket blokkolja a <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank">CORS-házirend</a>, azaz a következő fejlécet kell beállítania a szerver válaszában:
-                        <p style="text-align: center"><code>Access-Control-Allow-Origin: *</code> vagy <code>https://gpx.studio</code></p></li>
-                    <li><b>Google Drive:</b> Csak mentse a fájlokat a Google Drive-ra, és másolja ki a Drive-on lévő fájl ( a fájl kijelőlése, majd jobb egérgomb kattintás és link lekérésére ki választás) mellékelt megosztási linket! Ha meg szeretné jeleníteni a Google Drive-on már meglévő fájlokat, adja hozzá a fájl azonosítóját a lekérdezési karakterlánc <code>state</code> paraméterének <code>ids</code> attribútumához, és győződjön meg arról, hogy a megosztási linkkel rendelkező összes felhasználó számára elérhetők.</li>
+                    <li><b>File URL:</b> Add the link to the file in the <code>urls</code> attribute of the <code>state</code> parameter of the query string. Make sure to use <code>https</code>, to encode any special characters and that <b>gpx.studio</b> is allowed to request the files, otherwise the requests will be blocked by the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank">CORS policy</a>, i.e. you should set the following header in your server response:
+                        <p style="text-align: center"><code>Access-Control-Allow-Origin: *</code> or <code>https://gpx.studio</code></p></li>
+                    <li><b>Google Drive:</b> Just save the files to your Google Drive when exporting and copy the code provided! If you want to display files that you already have on your Google Drive, add the ID of the file in the <code>ids</code> attribute of the <code>state</code> parameter of the query string and make sure they are available to all users with the link.</li>
                 </ul>
-                <p>Válassza ki az alapértelmezés szerint a <code>source</code> paraméterrel megjelenített térképet a következő értékek közül:</p>
+                <p>Choose the map shown by default with the parameter <code>source</code> among the following values:</p>
                 <ul>
                     <li><code>outdoors</code>: Mapbox Outdoors</li>
                     <li><code>satellite</code>: Mapbox Satellite</li>
@@ -420,70 +400,72 @@
                     <li><code>ohm</code>: OpenHikingMap</li>
                     <li><code>cosm</code>: CyclOSM</li>
                 </ul>
-                <p>A Mapbox térképek használatához meg kell adnia a <code>token</code> paramétert egy érvényes saját <a href="https://account.mapbox.com/access-tokens/" target="_blank">Mapbox tokennel</a>.</p>
-                <p>Opcionálisan adatokat is hozzáadhat a forrás URL-hez: <code>imperial</code> az adatok mérföldben és lábban való lekéréséhez, <code>running</code> a tempó percben, távolságegységenkénti megjelenítéséhez, <code>distance</code> a távolságjelzők, az <code>direction</code> pedig menetirányjelzők megjelenítéséhez. Az alábbiakban egy lehetőség található az igény szerinti adatok megjelenítéséhez, az előnézet megtekintéséhez és a HTML-kód beszerzéséhez.</p>
+                <p>To use Mapbox maps, you need to specify the <code>token</code> parameter with a valid <a href="https://account.mapbox.com/access-tokens/" target="_blank">Mapbox token</a>. You can also use a custom Mapbox style by directly specifying its URL with <code>mapbox-style=&lt;STYLE_URL&gt;</code>.</p>
+                <p>You can optionally add parameters to the source URL: <code>imperial</code> to get data in miles and feet, <code>running</code> to display the pace in minutes by unit of distance, <code>distance</code> to show distance markers and <code>direction</code> to show direction markers. Below is a playground to play with the parameters, see a preview and get the HTML code.</p>
                 <div class="guide-item">
-                    <h3 style="margin-block-start: 0em;">Útvonal megjelenítési adatok hozzáadása</h3>
-                    <p>Fájl elérési URL-ek (vesszővel elválasztva)<br>
+                    <h3 style="margin-block-start: 0em;">Parameters</h3>
+                    <p>File URLs (separated by commas)<br>
                     <input id="file-urls" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
-                    <p>Google Drive ID-ik (a fájlazonosítók vesszővel elválasztva)<br>
+                    <p>Google Drive file IDs (separated by commas)<br>
                     <input id="file-ids" type="text" oninput="showPreview()" value="10IbXh7W7QDO7ZKmapJYdcgN3vhdN2Q-e" style="width: 96%; margin: 5px;"></p>
                     <div style="display: flex; justify-content: space-between">
-                        <span>Futás <input id="running" type="checkbox" oninput="showPreview()"></span>
-                         <span>Mérföld/Láb <input id="imperial" type="checkbox" oninput="showPreview()"></span>
-                         <span>Távolságjelzők <input id="distance" type="checkbox" oninput="showPreview()" checked></span>
-                         <span>Menetirányjelzők <input id="direction" type="checkbox" oninput="showPreview()"></span>
+                        <span>Running <input id="running" type="checkbox" oninput="showPreview()"></span>
+                        <span>Imperial <input id="imperial" type="checkbox" oninput="showPreview()"></span>
+                        <span>Distance markers <input id="distance" type="checkbox" oninput="showPreview()" checked></span>
+                        <span>Direction markers <input id="direction" type="checkbox" oninput="showPreview()"></span>
                     </div>
-                    <p>Alapértelmezett térkép <select id="sources" oninput="showPreview()">
+                    <p>Default map <select id="sources" oninput="showPreview()">
                         <option value="outdoors">Mapbox Outdoors</option>
                         <option value="satellite">Mapbox Satellite</option>
                         <option value="osm" selected="selected">OpenStreetMap</option>
                         <option value="otm">OpenTopoMap</option>
-                        <option value="ohm">Túraútvonal jelzések</option>
+                        <option value="ohm">OpenHikingMap</option>
                         <option value="cosm">CyclOSM</option>
                     </select></p>
                     <p>Mapbox token<br>
                     <input id="mapbox-token" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
-                    <h3>Beágyazható HTML kód</h3>
+                    <p>Mapbox custom style URL<br>
+                    <input id="mapbox-style" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
+                    <h3>HTML code</h3>
                     <div style="text-align: left; overflow-wrap: break-word; padding:10px; border: 1px solid #ccc; background: #f5f5f5;">
                     <code id="embedding-code"></code>
                     </div>
-                    <h3>Előnézet</h3>
+                    <h3>Preview</h3>
                     <iframe id="preview" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
             </div>
             <div class="block">
-            <a name="terms"></a><h1>Szolgáltatási feltételek &#128214;</h1>
-            <p>Köszönjük, hogy a <b>gpx.studio</b> programot használja. Ezek a szolgáltatási feltételek (Feltételek) kiterjednek webhelyünkre és kapcsolódó szoftvereinkre illetve(Szolgáltatásaink) Ön általi használatára és elérésére.</p>
-            <p>Azzal, hogy meglátogatja, használja ezt a weboldalt, elfogadja, hogy magára nézve teljesen elfogadja jelen weboldal Szolgáltatási feltételeit, és áttekinti adatvédelmi szabályzatunkat. Ha nem ért egyet ezen feltételek bármelyikével, kérjük ne használja weboldalunkat.</p>
-            <h2>Változások a Szolgáltatásokban</h2>
-            <p>A jobb szolgáltatás érdekében bármikor megváltoztathatjuk szolgáltatásaink funkcióit, visszavonhatjuk vagy új funkciókat adhatunk hozzá. Kérjük, ezt tartsa szemelőt.</p>
-            <h2>Garancia vállalás</h2>
-            <p>A weboldalon található szolgáltatások „ahogy vannak”. Mivel a programunk használata díjtalan így nem vállalunk semmilyen garanciát. Ugyanakkor törekszünk a zökkenő mentes használhatóságra. Nem tudunk felelősséget vállalni a szolgáltatások egyes funkcióinak pontosságára, megbízhatóságára vagy elérhetőségére vonatkozóan mivel az külső szolgáltatóktól érkezik.</p>
-            <h2>Változások a feltételekben</h2>
-            <div>Fenntartjuk a feltételek változtatási jogát. A változásokról minden estben itt a weboldalon tájékoztatjuk, így Ön elolvashatja és elfogadhatja a módosított feltételeket.</div>
+            <a name="terms"></a><h1>Terms of Services &#128214;</h1>
+            <p>Thank you for using <b>gpx.studio</b>. These terms of service (Terms) cover your use and access of our website and related software (our Services).</p>
+            <p>By accessing this website, you are agreeing to be bound by this website Terms of Services and to review our Privacy Policy. If you do not agree with any of these terms, you are prohibited from using or accessing this site.</p>
+            <h2>Changes to the Services</h2>
+            <p>We may change the features of our Services, withdraw or add new features from time to time.</p>
+            <h2>Warranties</h2>
+            <p>The services on the website are provided "as is". To the fullest extent permitted by law, we make no warranties either implied or expressed about the Services. We do not make any promise about the accuracy of specific functions of the services, their reliability or availability.</p>
+            <h2>Changes to Terms</h2>
+            <div>We reserve the right to modify these Terms at any time. We will notice you on the website so you can agree to the revised Terms.</div>
             </div>
             <div class="block">
-            <a name="privacy"></a><h1>Adatvédelmi irányelvek &#128373;&#65039;</h1>
-            <p>A <b>gpx.studio</b> egy online GPX-fájlszerkesztő, amely lehetővé teszi a felhasználók számára fájlok létrehozását, megtekintését és szerkesztését.
-                Tiszteletben tartjuk felhasználóink személyes adatait, és nem gyűjtünk semmilyen személyes információt.</p>
-            <p>A weboldalon létrehozott, feltöltött, megjelenített vagy szerkesztett fájlokat csak egyszer olvassuk be, és soha nem tároljuk a szerveren.
-                Csak a fájlokban található adatokhoz férünk hozzá, és az összes számítást a helyi böngészőből kezeljük (ez egy tisztán kliensoldali alkalmazás).</p>
-            <p>Azonban harmadik féltől származó szolgáltatásokat használunk, amelyek anonimizált információkat gyűjtenek és használnak fel:
+            <a name="privacy"></a><h1>Privacy Policy &#128373;&#65039;</h1>
+            <p><b>gpx.studio</b> is an online GPX file editor which allows users to create, view and edit files.
+                We respect the privacy of our users and do not collect any personal information.</p>
+            <p>The files created, visualized or edited on the website are only read once and never stored on a server.
+                We only access the data contained in the files and handle all computations from your local browser (it is a pure client-side application).</p>
+            <p>However, we use third-party services which collect and use anonymized information:
                 <ul>
-                    <li><b>Google Analytics</b>: méri az oldalmegtekintések és a gombokra leadott kattintások számát, hogy segítsen javítani az általános élményben.</li>
+                    <li><b>Google Analytics</b>: measures the number of page views and clicks on buttons to help us enhance your overall experience.</li>
                 </ul>
             </p>
             <h2>Google Drive</h2>
-            <p>A GPX fájlok tárolásának, verziószámának és megosztásának megkönnyítése érdekében a webhely lehetőséget kínál a Google Drive-val való bejelentkezésre, fájlok feltöltéséhez és mentéséhez.
-                Ez a szolgáltatás közvetlenül hitelesíti Önt a Google-fiókjával, és egy hitelesítési tokent, amely Önt a fájl tulajdonosaként azonosítja, a helyi böngésző munkamenet-profiljában tárolódik.
-                Ez az információ a GPX-fájlok böngészésére szolgál a Google Drive-ban, és csak azokat nyitja meg, amelyeket Ön kiválasztotta.
-                Ezenkívül a webhelyet újra felkereső felhasználók automatikus hitelesítésére szolgál, de soha nem tároljuk a mi oldalunkon.</p>
-            <p>A szabványos Google Drive-megosztási funkciókat használjuk, amikor úgy dönt, hogy megosztja a fájlt, és szabványos Google Drive-hitelesítését, engedélyezési mechanizmusokat használunk a hozzáférés-szabályozáshoz.
-                A rendszer csak azokat a fájlokat éri el, amelyeket az eszközzel hoz létre, vagy úgy dönt, hogy megosztja vele (akár a Google Drive-ból való megnyitással, akár a kapcsolódó URL-cím meglátogatásával az eszközön), de egyiket sem tárolja.</p>
-            <p>A Google API-któl kapott információk <b>gpx.studio</b> általi felhasználása során be kell tartani a <a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes">Google API-szolgáltatások felhasználói adatokra vonatkozó irányelveit</a>, beleértve a korlátozott felhasználásra vonatkozó követelményeket.</p>
-            <p>Utoljára frissítve: 2021. Július 26.</p>
+            <p>The website offers the possibility to log in with Google Drive to upload and save files in order to facilitate the storage, versioning and sharing of GPX files.
+                That service authenticates you directly with your Google account, and an authentication token identifying you as the file owner is stored in your local browser session profile.
+                This information is used to browse GPX files in your Google Drive and to open only those you choose to open.
+                Furthermore, it is used to automatically authenticate users visiting the website again but it is never stored on our side.</p>
+            <p>We use standard Google Drive sharing functionality when you decide to share the file, and standard Google Drive authentication, authorization mechanisms for access control.
+                No other files than those you create with the tool or decide to open with it (either by opening from Google Drive or visiting its associated URL on the tool) will be accessed, and none will ever be stored.</p>
+            <p><b>gpx.studio</b>'s use of information received from Google APIs will adhere to the <a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
+            <p>Last updated July 26, 2021.</p>
             <br><br><br>
             </div>
         </div>
@@ -498,6 +480,7 @@
             const distance = document.getElementById("distance").checked;
             const direction = document.getElementById("direction").checked;
             const mapbox_token = document.getElementById("mapbox-token").value;
+            const mapbox_style = document.getElementById("mapbox-style").value;
             const source = document.getElementById("sources").value;
 
             var query = '?state=%7B';
@@ -527,6 +510,7 @@
                 + query
                 + '&embed'
                 + (mapbox_token ? '&token='+mapbox_token : '')
+                + (mapbox_style ? '&mapbox-style='+mapbox_style : '')
                 + (source != "osm" ? '&source='+source : '')
                 + (running ? '&running' : '')
                 + (imperial ? '&imperial' : '')
@@ -539,6 +523,7 @@
                 + query
                 + '&embed'
                 + (mapbox_token ? '&token='+mapbox_token : '')
+                + (mapbox_style ? '&mapbox-style='+mapbox_style : '')
                 + (source != "osm" ? '&source='+source : '')
                 + (running ? '&running' : '')
                 + (imperial ? '&imperial' : '')
@@ -553,10 +538,10 @@
         var toggledElement = null;
         function toggle(id) {
             const element = document.getElementById(id);
-            if (toggledElement) toggledElement.style.display = 'none';
+            if (toggledElement) toggledElement.style.display = '';
             if (element == toggledElement) toggledElement = null;
             else {
-                element.style.display = '';
+                element.style.display = 'block';
                 toggledElement = element;
             }
         }
@@ -579,11 +564,12 @@
             });
         }
 
-        const languageItems = document.getElementById("languages").children;
-        for (var i=0; i<languageItems.length; i++) if (languageItems[i].textContent == language) {
-            languageItems[i].style.display = 'none';
-            break;
-        }
+        const languageInput = document.getElementById("language-input");
+        languageInput.addEventListener('change', function () {
+            window.location.href = './' + (languageInput.value == 'en' ? '' : 'l/'+languageInput.value+'/')+'about.html'+window.location.hash;
+        });
+        languageInput.value = language;
+
         </script>
     </body>
 </html>
