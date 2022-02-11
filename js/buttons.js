@@ -1931,14 +1931,20 @@ export default class Buttons {
                     }
                 }
             });
-            window.addEventListener('unload', function (e) {
+            window.addEventListener('beforeunload', function (e) {
                 if (buttons.embedding) return;
                 if (buttons.total.traces.length > 0) {
                     localStorage.setItem('traces', buttons.total.traces.length);
                     for (var i=0; i<buttons.total.traces.length; i++) {
                         const avgData = buttons.total.traces[i].getAverageAdditionalData();
                         const data = total.outputGPX(false, true, avgData.hr, avgData.atemp, avgData.cad, avgData.power, true, i);
-                        localStorage.setItem(i,JSON.stringify(data[0]));
+                        try {
+                            localStorage.setItem(i,JSON.stringify(data[0]));
+                        } catch (err) {
+                            e.preventDefault();
+                            e.returnValue = true;
+                            break;
+                        }
                     }
                 }
                 saveLayers(true);
