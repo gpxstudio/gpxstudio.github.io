@@ -1,6 +1,6 @@
 body {
     font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-    line-height: 1.4;
+    line-height: 1.7;
     color: #3b3735;
 }
 div::-webkit-scrollbar { display: none; }
@@ -15,8 +15,46 @@ h1 {
     -ms-user-select: none;
     user-select: none;
 }
-h1, h2 {
-    
+#header-container {
+    position:absolute;
+    top:0px;
+    left:0px;
+    width: min(300px, 30%);
+    height: 100%;
+    line-height: 40px;
+    background: #f4f4f4;
+    text-align: center;
+}
+#navigation {
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    text-align: left;
+}
+#navigation>li:hover {
+    text-decoration: underline;
+}
+.block {
+    padding: 0% 7% 5% 7%;
+    text-align: justify;
+}
+#block-container {
+    position:absolute;
+    top:0px;
+    bottom:0px;
+    right:0px;
+    width: calc(100% - min(300px, 30%));
+    overflow: auto;
+}
+#social > a {
+    padding: 0px 10px;
+    font-size: 20px;
+    color: inherit;
+}
+#social > a:hover {
+    color: black;
 }
 .button {
     font-size: 10pt;
@@ -26,11 +64,9 @@ h1, h2 {
     border: #535353 1px solid;
     border-radius: 2px;
 }
-.guide {
-    line-height: 1.7;
-}
 .guide-item {
-    padding:10px; border: 1px solid #dedede;
+    padding:10px;
+    border: 1px solid #dedede;
     margin-top: -1px;
 }
 .guide-title {
@@ -42,6 +78,10 @@ h1, h2 {
     -ms-user-select: none;
     user-select: none;
 }
+.guide-content {
+    display: none;
+    padding: 10px 20px 0px 20px;
+}
 .my-anchor {
     color: inherit;
     text-decoration: inherit;
@@ -50,45 +90,4 @@ a:active, a:focus {
     outline: 0;
     border: none;
     -moz-outline-style: none;
-}
-#header-container {
-    position:absolute;
-    top:0px;
-    bottom: 0px;
-    left:0px;
-    width: 300px;
-    line-height: 40px;
-    overflow:hidden;
-    background: #f4f4f4;
-}
-.block {
-    padding: 0% 10% 5% 10%;
-    text-align: justify;
-}
-#block-container {
-    position:absolute;
-    top:0px;
-    bottom:0px;
-    left:300px;
-    right:0px;
-    overflow: auto;
-}
-#social {
-    position: absolute;
-    width: 100%;
-    text-align: center;
-    bottom: 40px;
-}
-#social > a {
-    padding: 0px 10px;
-}
-#languages {
-    position: absolute;
-    width: 100%;
-    font-size: 13px;
-    text-align: center;
-    bottom: 0px;
-}
-.language {
-    padding: 0px 10px;
 }
