@@ -164,6 +164,10 @@ html, body {
     border-radius: 4px;
 }
 
+#buttons-bar {
+    display: flex;
+}
+
 #buttons {
     border-radius: 0px 4px 4px 0px;
 }
@@ -173,17 +177,18 @@ html, body {
     text-align: left;
     border-radius: 0px 4px 4px 0px;
     margin-left: -2px;
-    position: absolute;
+    height: fit-content;
 }
 
 #toggle-editing-options {
     display: none;
-    position: absolute;
+    height: fit-content;
 }
 
 .toggle-on {
     margin-top: 2px;
     right: 0px;
+    position: absolute;
 }
 
 .toggle-off {

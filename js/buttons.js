@@ -1115,8 +1115,8 @@ export default class Buttons {
             if (total.hasFocus) return;
             var trace = total.traces[total.focusOn];
             if (trace.isEdited) {
-                buttons.toggle_editing_options.style.display = 'inline-block';
-                if (!buttons.editing_options.hidden) buttons.editing_options.style.display = 'inline-block';
+                buttons.toggle_editing_options.style.display = 'block';
+                if (!buttons.editing_options.hidden) buttons.editing_options.style.display = 'block';
             } else {
                 buttons.editing_options.style.display = '';
                 buttons.toggle_editing_options.style.display = '';
@@ -1397,14 +1397,14 @@ export default class Buttons {
             if (buttons.editing_options.hidden) {
                 buttons.toggle_editing_options.classList.remove('fa-minus', 'toggle-on');
                 buttons.toggle_editing_options.classList.add('fa-gears', 'toggle-off', 'panels', 'panels-container');
-                buttons.toggle_editing_options.style.display = 'inline-block';
+                buttons.toggle_editing_options.style.display = 'block';
                 buttons.editing_options.style.display = '';
                 buttons.buttons_bar.appendChild(buttons.toggle_editing_options);
             } else {
                 buttons.toggle_editing_options.classList.remove('fa-gears', 'toggle-off', 'panels', 'panels-container');
                 buttons.toggle_editing_options.classList.add('fa-minus', 'toggle-on');
                 buttons.toggle_editing_options.style.display = 'block';
-                buttons.editing_options.style.display = 'inline-block';
+                buttons.editing_options.style.display = 'block';
                 buttons.editing_options.insertBefore(buttons.toggle_editing_options, buttons.editing_options.firstChild);
             }
         });
