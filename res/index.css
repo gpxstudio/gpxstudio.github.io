@@ -185,6 +185,10 @@ html, body {
     height: fit-content;
 }
 
+#activity-input {
+    margin-right: 15px;
+}
+
 .toggle-on {
     margin-top: 2px;
     right: 0px;

@@ -1992,7 +1992,7 @@ export default class Buttons {
                 buttons.duration_info.style.gridRow = '';
                 buttons.elevation_input.style.gridColumn = '';
                 buttons.elevation_input.style.gridRow = '';
-                buttons.elevation_input.children[0].classList.remove('fa-plus');
+                buttons.elevation_input.children[0].classList.remove('fa-chart-area');
                 buttons.elevation_input.children[0].classList.add('fa-minus');
             } else {
                 buttons.trace_info_grid.style.gridAutoColumns = 'auto';
@@ -2020,7 +2020,7 @@ export default class Buttons {
                 buttons.elevation_input.style.gridColumn = '7 / span 1';
                 buttons.elevation_input.style.gridRow = '1 / span 2';
                 buttons.elevation_input.children[0].classList.remove('fa-minus');
-                buttons.elevation_input.children[0].classList.add('fa-plus');
+                buttons.elevation_input.children[0].classList.add('fa-chart-area');
             }
         });
         this.google = new Google(this);
