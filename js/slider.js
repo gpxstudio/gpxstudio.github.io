@@ -117,16 +117,11 @@ export default class Slider {
         return this.buttons.elev._findItemForX(parseInt(val)/this.start.max * this.buttons.elev._svgWidth);
     }
 
-    getTraceIndex(val) {
-        var i = this.getIndex(val);
-        return this.buttons.elev._originalData[this.buttons.elev.options.selectedAttributeIdx][i].index;
-    }
-
     getIndexStart() {
-        return this.getTraceIndex(this.start.value);
+        return this.getIndex(this.start.value);
     }
 
     getIndexEnd() {
-        return this.getTraceIndex(this.end.value);
+        return this.getIndex(this.end.value);
     }
 }
