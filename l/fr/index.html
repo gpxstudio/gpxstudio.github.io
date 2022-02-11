@@ -102,12 +102,12 @@
                 <div class="panels panels-val" id="points-val" style="display: none">0</div>
                 <div class="panels panels-info" id="segments" style="display: none; padding-right: 5px;">Segments</div>
                 <div class="panels panels-val" id="segments-val" style="display: none; padding-right: 5px;">0</div>
-                <div id="units-text" class="panels-info">Distance units</div>
+                <div id="units-text" class="panels-info">Unités de distance</div>
                 <select id="units-input" name="units-input">
-                    <option value="km">Metric</option>
-                    <option value="mi">Imperial</option>
+                    <option value="km">Métrique</option>
+                    <option value="mi">Impérial</option>
                 </select>
-                <div id="speed-units-text" class="panels-info">Velocity units</div>
+                <div id="speed-units-text" class="panels-info">Unités de vitesse</div>
                 <select id="speed-units-input" name="speed-units-input">
                     <option value="speed">Vitesse</option>
                     <option value="pace">Allure</option>
@@ -138,27 +138,27 @@
                 <div class="panels-button" id="delete" title="Supprimer"><i class="fas fa-trash-alt custom-button"></i></div><br>
             </div>
             <div id="editing-options" class="panels-container">
-                <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Toggle editing options"></i>
+                <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Afficher ou masquer les options d'édition"></i>
                 <table class="panels">
                     <tr>
-                        <td><b>Activity</b></td>
+                        <td><b>Activité</b></td>
                         <td><select name="activity" id="activity-input">
-                            <option value="bike">Bike</option>
-                            <option value="racingbike">Racing bike</option>
-                            <option value="mtb">Mountain bike</option>
-                            <option value="hike">Run/hike</option>
-                            <option value="car">Motorcycle</option>
+                            <option value="bike">Vélo</option>
+                            <option value="racingbike">Vélo de course</option>
+                            <option value="mtb">VTT</option>
+                            <option value="hike">Course à pied/randonnée</option>
+                            <option value="car">Moto</option>
                         </select></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><label for="routing-input"><b>Routing (follow roads)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
+                        <td colspan="2"><label for="routing-input"><b>Routage (suivre les routes)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><label for="edit-time-strategy"><b>Time data management</b></label></td>
+                        <td colspan="2"><label for="edit-time-strategy"><b>Gestion des données de temps</b></label></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
-                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preserve the original timestamps</label></td>
+                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Conserver la vitesse moyenne</label><br>
+                <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Conserver les horodatages originaux</label></td>
                     </tr>
                 </table>
             </div>
@@ -377,7 +377,7 @@
                 <input type="checkbox" id="merge-as-segments"><label for="merge-as-segments">Fusionner en tant que segments de trace</label>
                 <hr>
             </div>
-            Click on another trace or tab to merge the current trace with it<br>
+            Cliquez sur une autre trace ou sur un autre onglet pour fusionner la trace actuelle avec la trace correspondante<br>
             <div id="merge-cancel" class="panels custom-button normal-button"><b>Annuler</b></div>
         </div>
         <div id="crop-content" class="popup-content">
