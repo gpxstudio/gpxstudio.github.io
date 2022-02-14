@@ -343,3 +343,51 @@ window.icons = [
 	["Wrecker",{prefix: "", glyph: ""}],
 	["Zoo",{prefix: "fas", glyph: "paw"}]
 ];
+
+class PointOfInterest {
+	constructor(name, query, glyph) {
+		this.name = name;
+		this.query = query;
+		this.glyph = glyph;
+	}
+}
+pointsOfInterest = {
+	"Eat and Drink": [
+		new PointOfInterest("Bakery", "['shop'='bakery']", "bread-slice"),
+		new PointOfInterest("Supermarket", "['shop'='supermarket']", "cart-shopping"),
+		new PointOfInterest("Convenience Store", "['shop'='convenience']", "shop"),
+		new PointOfInterest("Restaurant", "['amenity'='restaurant']", "utensils"),
+		new PointOfInterest("Fast Food", "['amenity'='fast_food']", "burger"),
+		new PointOfInterest("Cafe", "['amenity'='cafe']", "mug-hot"),
+		new PointOfInterest("Pub", "['amenity'='pub']", "beer-mug-empty"),
+		new PointOfInterest("Bar", "['amenity'='bar']", "martini-glass"),
+	],
+	"Amenities": [
+		new PointOfInterest("Toilets", "['amenity'='toilets']", "restroom"),
+		new PointOfInterest("Drinking Water", "['amenity'='drinking_water']", "faucet"),
+		new PointOfInterest("Water Point", "['amenity'='water_point']", "faucet"),
+		new PointOfInterest("Shower", "['amenity'='shower']", "shower"),
+	],
+	"Tourism": [
+		new PointOfInterest("Attraction", "['tourism'='attraction']", "landmark"),
+		new PointOfInterest("Viewpoint", "['tourism'='viewpoint']", "binoculars"),
+		new PointOfInterest("Hotel", "['tourism'='hotel']", "hotel"),
+		new PointOfInterest("Hostel", "['tourism'='hostel']", "bed"),
+		new PointOfInterest("Guest House", "['tourism'='guest_house']", "house-chimney-user"),
+		new PointOfInterest("Motel", "['tourism'='motel']", "hotel"),
+		new PointOfInterest("Camp Site", "['tourism'='campsite']", "campground"),
+		new PointOfInterest("Alpine Hut", "['tourism'='alpine_hut']", "house-chimney-crack"),
+		new PointOfInterest("Wilderness Hut", "['tourism'='wilderness_hut']", "house-crack"),
+	],
+	"Bicycle": [
+		new PointOfInterest("Bicycle Parking", "['amenity'='bicycle_parking']", "square-parking"),
+		new PointOfInterest("Bicycle Rental", "['amenity'='bicycle_rental']", "tag"),
+		new PointOfInterest("Bicycle Shop", "['shop'='bicycle']", "bicycle"),
+	],
+	"Public Transport": [
+		new PointOfInterest("Railway Station", "['railway'='station']", "train"),
+		new PointOfInterest("Tram Stop", "['railway'='tram_stop']", "train-tram"),
+		new PointOfInterest("Bus Stop", "['public_transport'='stop_position']['bus'='yes']", "bus-simple"),
+		new PointOfInterest("Ferry Terminal", "['amenity'='ferry_terminal']", "ship"),
+	],
+};

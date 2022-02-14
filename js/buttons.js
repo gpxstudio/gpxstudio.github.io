@@ -647,6 +647,32 @@ export default class Buttons {
                         attribution: '&copy; <a href="https://www.waymarkedtrails.org" target="_blank">Waymarked Trails</a>'
                     });
 
+                    const overPassMinZoomOptions =  {
+                            position: 'topright',
+                            minZoomMessage: 'Zoom in to refresh POI'
+                        };
+                    const overPassAttribution = '&copy; <a href="https://www.overpass-api.de" target="_blank">Overpass API</a>'
+
+                    _this.pointsOfInterest = {};
+                    for (var category in pointsOfInterest) {
+                        _this.pointsOfInterest[category] = {};
+                        for (var poi of pointsOfInterest[category]) {
+                            _this.pointsOfInterest[category][poi.name] = new L.OverPassLayer({
+                                debug: false,
+                                minZoom: 14,
+                                endPoint: "https://overpass-api.de/api/",
+                                query: "node({{bbox}})" + poi.query + ";out;",
+                                markerIcon: L.icon.glyph({
+                                    prefix: "fas",
+                                    glyph: poi.glyph,
+                                }),
+                                minZoomIndicatorOptions: overPassMinZoomOptions,
+                                attribution: overPassAttribution
+                            });
+                        }
+                    }
+
+
                     if (_this.supportsWebGL()) {
                         _this.mapboxMap = L.mapboxGL({
                             attribution: '&copy; <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
@@ -766,6 +792,7 @@ export default class Buttons {
                                     "Horse riding": _this.waymarkedTrailsHorseRiding,
                                     "Slopes": _this.waymarkedTrailsWinter
                                 },
+                                "POI": _this.pointsOfInterest,
                                 "Countries": {
                                     "France": {
                                         "IGN Slope": _this.ignSlope,
@@ -827,6 +854,7 @@ export default class Buttons {
                                     "Horse riding": _this.waymarkedTrailsHorseRiding,
                                     "Slopes": _this.waymarkedTrailsWinter
                                 },
+                                "POI": _this.pointsOfInterest,
                                 "Countries": {
                                     "France": {
                                         "IGN Slope": _this.ignSlope,
