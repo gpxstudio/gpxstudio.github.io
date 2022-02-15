@@ -23,9 +23,9 @@
         </script>
         <meta charset="utf-8">
         <title>gpx.studio — de online GPX bestandsbewerker</title>
-        <meta name="description" content="Bekijk, bewerk en maak GPX bestanden online: maak, verplaats en verwijder punten, voeg meerdere bestanden samen, keer routes om, voeg tijdstempels toe, bewerk routepunten en meer!">
+        <meta name="description" content="Bekijk, bewerk en maak GPX-bestanden online: voeg punten toe, verplaats en verwijder ze, voeg meerdere bestanden samen, keer tracks om, voeg tijdstempels toe, bewerk waypoints en meer!">
         <meta property="og:title" content="gpx.studio — de online GPX bestandsbewerker" />
-        <meta property="og:description" content="Bekijk, bewerk en maak GPX bestanden online: maak, verplaats en verwijder punten, voeg meerdere bestanden samen, keer routes om, voeg tijdstempels toe, bewerk routepunten en meer!" />
+        <meta property="og:description" content="Bekijk, bewerk en maak GPX-bestanden online: voeg punten toe, verplaats en verwijder ze, voeg meerdere bestanden samen, keer tracks om, voeg tijdstempels toe, bewerk waypoints en meer!" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://gpx.studio/" />
         <meta property="og:image" content="https://gpx.studio/res/og_logo.png" />
@@ -373,15 +373,17 @@
                 <hr>
             </div>
             <div>
-                Tick the following box if you wish to keep the traces disconnected<br>
-                <input type="checkbox" id="merge-as-segments"><label for="merge-as-segments">Merge as track segments</label>
+                Choose how to add the second trace to the first one:<br>
+                <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Merge as track points</label><br>
+                <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Merge as track segments</label><br>
+                <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Merge as tracks</label>
                 <hr>
             </div>
             Click on another trace or tab to merge the current trace with it<br>
             <div id="merge-cancel" class="panels custom-button normal-button"><b>Annuleren</b></div>
         </div>
         <div id="crop-content" class="popup-content">
-            <input type="checkbox" id="crop-keep">Bijgesneden delen in nieuwe bestanden bewaren<br>
+            <input type="checkbox" id="crop-keep"><label for="crop-keep">Keep cropped parts in new files</label><br>
             <div id="crop-ok" class="panels custom-button normal-button">Ga verder</div>
             <div id="crop-cancel" class="panels custom-button normal-button"><b>Annuleren</b></div>
         </div>
