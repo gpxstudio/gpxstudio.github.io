@@ -23,9 +23,9 @@
         </script>
         <meta charset="utf-8">
         <title>gpx.studio — over</title>
-        <meta name="description" content="Bekijk, bewerk en maak GPX bestanden online: maak, verplaats en verwijder punten, voeg meerdere bestanden samen, keer routes om, voeg tijdstempels toe, bewerk routepunten en meer!">
+        <meta name="description" content="Bekijk, bewerk en maak GPX-bestanden online: voeg punten toe, verplaats en verwijder ze, voeg meerdere bestanden samen, keer tracks om, voeg tijdstempels toe, bewerk waypoints en meer!">
         <meta property="og:title" content="gpx.studio — de online GPX bestandsbewerker" />
-        <meta property="og:description" content="Bekijk, bewerk en maak GPX bestanden online: maak, verplaats en verwijder punten, voeg meerdere bestanden samen, keer routes om, voeg tijdstempels toe, bewerk routepunten en meer!" />
+        <meta property="og:description" content="Bekijk, bewerk en maak GPX-bestanden online: voeg punten toe, verplaats en verwijder ze, voeg meerdere bestanden samen, keer tracks om, voeg tijdstempels toe, bewerk waypoints en meer!" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://gpx.studio" />
         <meta property="og:image" content="https://gpx.studio/res/og_logo.png" />
@@ -389,34 +389,34 @@
                 <ul>
                     <li><b>Bestands URL:</b> Plaats de link naar het bestand in het <code>URL's</code> attribuut van de <code>status</code> parameter van de querystring. Zorg ervoor dat u <code>https</code>, gebruikt om eventuele speciale tekens te coderen en te zorgen dat <b>gpx.studio</b> de bestanden mag opvragen, anders worden de verzoeken geblokkeerd door de <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank">CORS policy</a>, dus je zou de volgende header in de reactie van uw server moeten instellen:
                         <p style="text-align: center"><code>Access-Control-Allow-Origin: *</code> or <code>https://gpx.studio</code></p></li>
-                    <li><b>Google Drive:</b> Just save the files to your Google Drive when exporting and copy the code provided! If you want to display files that you already have on your Google Drive, add the ID of the file in the <code>ids</code> attribute of the <code>state</code> parameter of the query string and make sure they are available to all users with the link.</li>
+                    <li><b>Google Drive:</b> Sla de bestanden bij het exporteren naar uw Google Drive op en kopieer de opgegeven code! Als u bestanden wilt weergeven die u al op uw Google Drive hebt, voeg de ID van het bestand toe in het <code>id</code> attribuut van de <code>status</code> parameter van de query string en zorg ervoor dat ze beschikbaar zijn voor alle gebruikers met de link.</li>
                 </ul>
-                <p>Choose the map shown by default with the parameter <code>source</code> among the following values:</p>
+                <p>Kies de kaart die standaard wordt getoond met parameter <code>bron</code> met een van de volgende waarden:</p>
                 <ul>
                     <li><code>outdoors</code>: Mapbox Outdoors</li>
-                    <li><code>satellite</code>: Mapbox Satellite</li>
+                    <li><code>satelliet</code>: Mapbox Satelliet</li>
                     <li><code>osm</code>: OpenStreetMap</li>
                     <li><code>otm</code>: OpenTopoMap</li>
                     <li><code>ohm</code>: OpenHikingMap</li>
                     <li><code>cosm</code>: CyclOSM</li>
                 </ul>
-                <p>To use Mapbox maps, you need to specify the <code>token</code> parameter with a valid <a href="https://account.mapbox.com/access-tokens/" target="_blank">Mapbox token</a>. You can also use a custom Mapbox style by directly specifying its URL with <code>mapbox-style=&lt;STYLE_URL&gt;</code>.</p>
-                <p>You can optionally add parameters to the source URL: <code>imperial</code> to get data in miles and feet, <code>running</code> to display the pace in minutes by unit of distance, <code>distance</code> to show distance markers and <code>direction</code> to show direction markers. Below is a playground to play with the parameters, see a preview and get the HTML code.</p>
+                <p>Om Mapbox kaarten te gebruiken, moet u de <code>token</code> parameter opgeven met een geldige <a href="https://account.mapbox.com/access-tokens/" target="_blank">Mapbox token</a>. U kunt ook een aangepaste Mapbox stijl gebruiken door de URL ervan direct op te geven met <code>mapbox-style=&lt;STYLE_URL&gt;</code>.</p>
+                <p>U kunt optioneel parameters toevoegen aan de bron-URL: <code>imperial</code> om gegevens in mijl en voet te krijgen, aan <code>hardlopen</code> om het tempo weer te geven in minuten per eenheid van afstand, aan <code>afstand</code> om afstandmarkeringen te tonen en aan <code>richting</code> om richtingmarkeringen te tonen. Hieronder kun je experimenteren met de parameters, een voorbeeld zien en de HTML-code ophalen.</p>
                 <div class="guide-item">
                     <h3 style="margin-block-start: 0em;">Parameters</h3>
-                    <p>File URLs (separated by commas)<br>
+                    <p>Bestands URL's (komma gescheiden)<br>
                     <input id="file-urls" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
-                    <p>Google Drive file IDs (separated by commas)<br>
+                    <p>Google Drive bestand ID's (gescheiden door komma's)<br>
                     <input id="file-ids" type="text" oninput="showPreview()" value="10IbXh7W7QDO7ZKmapJYdcgN3vhdN2Q-e" style="width: 96%; margin: 5px;"></p>
                     <div style="display: flex; justify-content: space-between">
-                        <span>Running <input id="running" type="checkbox" oninput="showPreview()"></span>
-                        <span>Imperial <input id="imperial" type="checkbox" oninput="showPreview()"></span>
-                        <span>Distance markers <input id="distance" type="checkbox" oninput="showPreview()" checked></span>
-                        <span>Direction markers <input id="direction" type="checkbox" oninput="showPreview()"></span>
+                        <span>Hardlopen <input id="running" type="checkbox" oninput="showPreview()"></span>
+                        <span>Imperiaal <input id="imperial" type="checkbox" oninput="showPreview()"></span>
+                        <span>Afstandsmarkeringen <input id="distance" type="checkbox" oninput="showPreview()" checked></span>
+                        <span>Richtingmarkeringen <input id="direction" type="checkbox" oninput="showPreview()"></span>
                     </div>
-                    <p>Default map <select id="sources" oninput="showPreview()">
+                    <p>Standaard kaart <select id="sources" oninput="showPreview()">
                         <option value="outdoors">Mapbox Outdoors</option>
-                        <option value="satellite">Mapbox Satellite</option>
+                        <option value="satellite">Mapbox Satelliet</option>
                         <option value="osm" selected="selected">OpenStreetMap</option>
                         <option value="otm">OpenTopoMap</option>
                         <option value="ohm">OpenHikingMap</option>
@@ -424,48 +424,48 @@
                     </select></p>
                     <p>Mapbox token<br>
                     <input id="mapbox-token" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
-                    <p>Mapbox custom style URL<br>
+                    <p>Mapbox aangepaste stijl URL<br>
                     <input id="mapbox-style" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
-                    <h3>HTML code</h3>
+                    <h3>HTML-code</h3>
                     <div style="text-align: left; overflow-wrap: break-word; padding:10px; border: 1px solid #ccc; background: #f5f5f5;">
                     <code id="embedding-code"></code>
                     </div>
-                    <h3>Preview</h3>
+                    <h3>Voorbeeld</h3>
                     <iframe id="preview" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
             </div>
             <div class="block">
-            <a name="terms"></a><h1>Terms of Services &#128214;</h1>
-            <p>Thank you for using <b>gpx.studio</b>. These terms of service (Terms) cover your use and access of our website and related software (our Services).</p>
-            <p>By accessing this website, you are agreeing to be bound by this website Terms of Services and to review our Privacy Policy. If you do not agree with any of these terms, you are prohibited from using or accessing this site.</p>
-            <h2>Changes to the Services</h2>
-            <p>We may change the features of our Services, withdraw or add new features from time to time.</p>
-            <h2>Warranties</h2>
-            <p>The services on the website are provided "as is". To the fullest extent permitted by law, we make no warranties either implied or expressed about the Services. We do not make any promise about the accuracy of specific functions of the services, their reliability or availability.</p>
-            <h2>Changes to Terms</h2>
-            <div>We reserve the right to modify these Terms at any time. We will notice you on the website so you can agree to the revised Terms.</div>
+            <a name="terms"></a><h1>Voorwaarden van diensten &#128214;</h1>
+            <p>Bedankt voor het gebruik van <b>gpx.studio</b>. Deze Voorwaarden van diensten (Voorwaarden) omvatten uw gebruik en toegang tot onze website en gerelateerde software (onze diensten).</p>
+            <p>Door toegang te krijgen tot deze website, ga je akkoord om gebonden te zijn aan de voorwaarden van deze website en om ons Privacybeleid te bekijken. Als je het niet eens bent met een van deze voorwaarden, mag u deze site niet gebruiken of bezoeken.</p>
+            <h2>Wijzigingen in de diensten</h2>
+            <p>We kunnen de functies van onze diensten wijzigen, af en toe nieuwe functies opnemen of toevoegen.</p>
+            <h2>Garanties</h2>
+            <p>De diensten op de website worden geleverd "as is". Voor zover mogelijk volgens de wet, geven we geen garanties over de diensten, zowel impliciet als expliciet. We beloven niets over de juistheid van bepaalde functies van de diensten, noch over hun betrouwbaarheid of beschikbaarheid.</p>
+            <h2>Wijzigingen in de voorwaarden</h2>
+            <div>We behouden ons het recht voor om deze voorwaarden op elk moment te wijzigen. We zullen dit melden op de website, zodat je akkoord kunt gaan met de herziene voorwaarden.</div>
             </div>
             <div class="block">
-            <a name="privacy"></a><h1>Privacy Policy &#128373;&#65039;</h1>
-            <p><b>gpx.studio</b> is an online GPX file editor which allows users to create, view and edit files.
-                We respect the privacy of our users and do not collect any personal information.</p>
-            <p>The files created, visualized or edited on the website are only read once and never stored on a server.
-                We only access the data contained in the files and handle all computations from your local browser (it is a pure client-side application).</p>
-            <p>However, we use third-party services which collect and use anonymized information:
+            <a name="privacy"></a><h1>Privacybeleid &#128373;&#65039;</h1>
+            <p><b>gpx.studio</b> is een online GPX bestandseditor waarmee gebruikers bestanden kunnen aanmaken, bekijken en bewerken.
+                Wij respecteren de privacy van onze gebruikers en verzamelen geen enkele persoonlijke informatie.</p>
+            <p>De bestanden die aangemaakt, gevisualiseerd of bewerkt zijn op de website worden slechts eenmaal gelezen en nooit opgeslagen op een server.
+                We hebben alleen toegang tot de gegevens in de bestanden en voeren alle berekeningen uit met uw lokale browser (het is een zuivere client-side applicatie).</p>
+            <p>We gebruiken echter diensten van derden die geanonimiseerde informatie verzamelen en gebruiken:
                 <ul>
-                    <li><b>Google Analytics</b>: measures the number of page views and clicks on buttons to help us enhance your overall experience.</li>
+                    <li><b>Google Analytics</b>: meet het aantal paginaweergaven en klikken op knoppen om ons te helpen uw algehele ervaring te verbeteren.</li>
                 </ul>
             </p>
             <h2>Google Drive</h2>
-            <p>The website offers the possibility to log in with Google Drive to upload and save files in order to facilitate the storage, versioning and sharing of GPX files.
-                That service authenticates you directly with your Google account, and an authentication token identifying you as the file owner is stored in your local browser session profile.
-                This information is used to browse GPX files in your Google Drive and to open only those you choose to open.
-                Furthermore, it is used to automatically authenticate users visiting the website again but it is never stored on our side.</p>
-            <p>We use standard Google Drive sharing functionality when you decide to share the file, and standard Google Drive authentication, authorization mechanisms for access control.
-                No other files than those you create with the tool or decide to open with it (either by opening from Google Drive or visiting its associated URL on the tool) will be accessed, and none will ever be stored.</p>
-            <p><b>gpx.studio</b>'s use of information received from Google APIs will adhere to the <a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
-            <p>Last updated July 26, 2021.</p>
+            <p>De website biedt de mogelijkheid om in te loggen bij Google Drive om bestanden te uploaden en op te slaan zodat het makkelijk wordt om GPX-bestanden op te slaan, te beheren en te delen.
+                Die service verifieert u rechtstreeks met uw Google-account, en een authenticatietoken dat u als eigenaar van het bestand identificeert wordt opgeslagen in uw lokale browsersessieprofiel.
+                Die informatie wordt gebruikt om de GPX-bestanden in uw Google Drive te bekijken en om alleen de gewenste bestanden te openen.
+                Verder wordt het gebruikt om gebruikers die de website weer bezoeken automatisch te authenticeren, maar het wordt nooit aan onze kant opgeslagen.</p>
+            <p>Wanneer u besluit een bestand te delen, gebruiken we de standaard functionaliteit van Google Drive voor delen en voor toegangsbeheer de standaard Google Drive-verificatie en autorisatiemechanismen.
+                Geen andere bestanden dan de bestanden die u met de tool aanmaakt of besluit ermee te openen (hetzij door Google Drive te openen of de bijbehorende URL op de tool te bezoeken) worden geopend, en geen enkele zal ooit worden opgeslagen.</p>
+            <p>De informatie die <b>gpx.studio</b> ontvangt van Google API's zal grbuikt worden volgens de <a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes">Google API Services Gebruikers Data Policy</a>, inclusief de eisen aan beperkt gebruik.</p>
+            <p>Laatst bijgewerkt op 26 juli 2021.</p>
             <br><br><br>
             </div>
         </div>
