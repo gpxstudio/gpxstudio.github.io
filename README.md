@@ -51,6 +51,7 @@ This project would not have been possible without the following amazing projects
 * [leaflet-control-window](https://github.com/mapshakers/leaflet-control-window): centered windows for all dialogs
 * [leaflet-control-geocoder](https://github.com/perliedman/leaflet-control-geocoder): search for locations with chosen API
 * [leaflet-locatecontrol](https://github.com/domoritz/leaflet-locatecontrol): center the map on user location
+* [leaflet-overpass-layer](https://github.com/GuillaumeAmat/leaflet-overpass-layer): get POI from Overpass API
 * [tilebelt](https://github.com/mapbox/tilebelt): find correct tiles to request and access elevation data
 * [PNG.js](https://github.com/arian/pngjs): read raw PNG data to decode elevation from [Mapbox Terrain-RGB tiles](https://docs.mapbox.com/help/troubleshooting/access-elevation-data/#mapbox-terrain-rgb)
 * [simplify2](https://github.com/geonome/simplify2-js): line simplification algorithm
@@ -58,4 +59,4 @@ This project would not have been possible without the following amazing projects
 * [SortableJS](https://github.com/SortableJS/Sortable): for swapping the tabs
 * [Font Awesome](https://fontawesome.com/): nice icons
 
-And the data, maps and APIs from [Mapbox](https://www.mapbox.com/), [GraphHopper](https://www.graphhopper.com/), [OpenStreetMap](https://www.openstreetmap.org/), [OpenTopoMap](https://opentopomap.org/), [Maps.Refuges.Info](https://wiki.openstreetmap.org/wiki/Hiking/mri), [CyclOSM](https://www.cyclosm.org/), [IGN](https://geoservices.ign.fr/) and [Strava](https://strava.com).
+And the data, maps and APIs from [Mapbox](https://www.mapbox.com/), [GraphHopper](https://www.graphhopper.com/), [OpenStreetMap](https://www.openstreetmap.org/), [OpenTopoMap](https://opentopomap.org/), [Maps.Refuges.Info](https://wiki.openstreetmap.org/wiki/Hiking/mri), [CyclOSM](https://www.cyclosm.org/), [IGN](https://geoservices.ign.fr/), [Strava](https://strava.com) and [Overpass](https://overpass-api.de).
