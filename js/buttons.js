@@ -134,7 +134,9 @@ export default class Buttons {
         this.include_surface = document.getElementById("include-surface");
         this.copy_link = document.getElementById("copy-link");
         this.copy_embed = document.getElementById("copy-embed");
+        this.merge_as_points = document.getElementById("merge-as-points");
         this.merge_as_segments = document.getElementById("merge-as-segments");
+        this.merge_as_tracks = document.getElementById("merge-as-tracks");
         this.merge_keep_time = document.getElementById("merge-keep");
         this.merge_stick_time = document.getElementById("merge-stick");
         this.merge_cancel = document.getElementById("merge-cancel");
@@ -1073,6 +1075,19 @@ export default class Buttons {
         });
     }
 
+    showEditingOptions() {
+        var total = this.total;
+        if (total.hasFocus) return;
+        var trace = total.traces[total.focusOn];
+        if (trace.isEdited) {
+            this.toggle_editing_options.style.display = 'block';
+            if (!this.editing_options.hidden) this.editing_options.style.display = 'block';
+        } else {
+            this.editing_options.style.display = '';
+            this.toggle_editing_options.style.display = '';
+        }
+    }
+
     addHandlersWithTotal(total) {
         this.total = total;
         this.elev.total = total;
@@ -1111,21 +1126,10 @@ export default class Buttons {
         });
         L.DomEvent.on(this.tabs,"mousewheel",L.DomEvent.stopPropagation);
         L.DomEvent.on(this.tabs,"MozMousePixelScroll",L.DomEvent.stopPropagation);
-        const show_editing_options = function () {
-            if (total.hasFocus) return;
-            var trace = total.traces[total.focusOn];
-            if (trace.isEdited) {
-                buttons.toggle_editing_options.style.display = 'block';
-                if (!buttons.editing_options.hidden) buttons.editing_options.style.display = 'block';
-            } else {
-                buttons.editing_options.style.display = '';
-                buttons.toggle_editing_options.style.display = '';
-            }
-        };
         this.draw.addEventListener("click", function () {
             const newTrace = total.addTrace(undefined, "new.gpx");
             newTrace.draw();
-            show_editing_options();
+            buttons.showEditingOptions();
             gtag('event', 'button', {'event_category' : 'draw'});
         });
         this.add_wpt.addEventListener("click", function () {
@@ -1390,7 +1394,7 @@ export default class Buttons {
                 trace.draw();
                 gtag('event', 'button', {'event_category' : 'edit-trace'});
             }
-            show_editing_options();
+            buttons.showEditingOptions();
         });
         this.toggle_editing_options.addEventListener('click', function () {
             buttons.editing_options.hidden = !buttons.editing_options.hidden;
@@ -1490,7 +1494,7 @@ export default class Buttons {
             const trace = total.traces[total.focusOn];
             if (trace.isEdited) return;
             if (!trace.can_extract) return;
-            const newTraces = trace.extract_segments();
+            const newTraces = trace.extract();
             for (var i=0; i<newTraces.length; i++) {
                 total.setTraceIndex(newTraces[i].index, trace.index+1+i);
             }
@@ -1651,9 +1655,9 @@ export default class Buttons {
             if (trace.isEdited) return;
             if (!trace.visible) trace.hideUnhide();
 
-            buttons.color_picker.value = trace.normal_style.color;
-            buttons.opacity_slider.value = trace.normal_style.opacity;
-            buttons.width_slider.value = trace.normal_style.weight;
+            buttons.color_picker.value = trace.style.color;
+            buttons.opacity_slider.value = trace.style.opacity;
+            buttons.width_slider.value = trace.style.weight;
             if (buttons.window_open) buttons.window_open.hide();
             buttons.window_open = buttons.color_window;
             buttons.color_window.show();
@@ -1663,50 +1667,27 @@ export default class Buttons {
             const color = buttons.color_picker.value;
             const opacity = buttons.opacity_slider.value;
             const weight = parseInt(buttons.width_slider.value);
-            total.changeColor(trace.normal_style.color, color);
-            trace.normal_style.color = color;
-            trace.focus_style.color = color;
-            trace.normal_style.opacity = opacity;
-            trace.focus_style.opacity = opacity;
-            trace.normal_style.weight = weight;
-            trace.focus_style.weight = weight+2;
+            total.changeColor(trace.style.color, color);
+            trace.style.color = color;
+            trace.style.opacity = opacity;
+            trace.style.weight = weight;
             if (buttons.color_checkbox.checked) total.same_color = true;
             if (buttons.color_checkbox.checked || buttons.opacity_checkbox.checked || buttons.width_checkbox.checked) {
                 for (var i=0; i<total.traces.length; i++) {
-                    if (buttons.color_checkbox.checked) {
-                        total.traces[i].normal_style.color = color;
-                        total.traces[i].focus_style.color = color;
-                    }
-                    if (buttons.opacity_checkbox.checked) {
-                        total.traces[i].normal_style.opacity = opacity;
-                        total.traces[i].focus_style.opacity = opacity;
-                    }
-                    if (buttons.width_checkbox.checked) {
-                        total.traces[i].normal_style.weight = weight;
-                        total.traces[i].focus_style.weight = weight+2;
-                    }
-                    total.traces[i].gpx.setStyle(total.traces[i].normal_style);
+                    if (buttons.color_checkbox.checked) total.traces[i].style.color = color;
+                    if (buttons.opacity_checkbox.checked) total.traces[i].style.opacity = opacity;
+                    if (buttons.width_checkbox.checked) total.traces[i].style.weight = weight;
+                    total.traces[i].updateStyle();
                     total.traces[i].updateTab();
-                    total.traces[i].set_color = true;
                 }
-                if (buttons.color_checkbox.checked) {
-                    total.normal_style.color = color;
-                    total.focus_style.color = color;
-                }
-                if (buttons.opacity_checkbox.checked) {
-                    total.normal_style.opacity = opacity;
-                    total.focus_style.opacity = opacity;
-                }
-                if (buttons.width_checkbox.checked) {
-                    total.normal_style.weight = weight;
-                    total.focus_style.weight = weight;
-                }
+                if (buttons.color_checkbox.checked) total.style.color = color;
+                if (buttons.opacity_checkbox.checked) total.style.opacity = opacity;
+                if (buttons.width_checkbox.checked) total.style.weight = weight;
             }
-            trace.gpx.setStyle(trace.focus_style);
+            trace.updateStyle();
             trace.showChevrons();
             trace.showDistanceMarkers();
             trace.updateTab();
-            trace.set_color = true;
             buttons.color_window.hide();
             gtag('event', 'button', {'event_category' : 'color'});
         });

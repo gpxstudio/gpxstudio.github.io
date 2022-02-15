@@ -65,9 +65,7 @@ var _DEFAULT_MARKER_OPTS = {
   shadowAnchor: [16, 47],
   clickable: true
 };
-var _DEFAULT_POLYLINE_OPTS = {
-  color: 'blue'
-};
+var _DEFAULT_POLYLINE_OPTS = {};
 var _DEFAULT_GPX_OPTS = {
   parseElements: ['track', 'route', 'waypoint'],
   joinTrackSegments: true
@@ -332,43 +330,12 @@ L.GPX = L.FeatureGroup.extend({
       this._info.copyright = copyright[0].textContent;
     }
 
-    var color = xml.getElementsByTagName('color');
-    if (color.length > 0) {
-        var s = new Option().style;
-        s.color = color[0].textContent;
-        if (s.color !== '') {
-            this._trace.total.changeColor(this._trace.normal_style.color, color[0].textContent);
-            this._trace.normal_style.color = color[0].textContent;
-            this._trace.focus_style.color = color[0].textContent;
-            this._trace.set_color = true;
-        }
-    }
-
-    var opacity = xml.getElementsByTagName('opacity');
-    if (opacity.length > 0) {
-        var op = parseFloat(opacity[0].textContent);
-        if (op >= 0 && op <= 1) {
-            this._trace.normal_style.opacity = op;
-            this._trace.focus_style.opacity = op;
-        } else if (op >= 0 && op <= 100) {
-            this._trace.normal_style.opacity = op/100;
-            this._trace.focus_style.opacity = op/100;
-        }
-    }
-
-    var weight = xml.getElementsByTagName('weight');
-    if (weight.length > 0) {
-        var we = parseInt(weight[0].textContent);
-        this._trace.normal_style.weight = we;
-        this._trace.focus_style.weight = we+2;
-    }
-
     var parseElements = options.gpx_options.parseElements;
     if (parseElements.indexOf('route') > -1) {
       // routes are <rtept> tags inside <rte> sections
       var routes = xml.getElementsByTagName('rte');
       for (i = 0; i < routes.length; i++) {
-        layers = layers.concat(this._parse_segment(routes[i], options, {}, 'rtept'));
+        layers.push(new L.FeatureGroup(this._parse_segment(routes[i], options, {}, 'rtept')));
       }
     }
 
@@ -378,21 +345,35 @@ L.GPX = L.FeatureGroup.extend({
       for (i = 0; i < tracks.length; i++) {
         var track = tracks[i];
         var polyline_options = this._extract_styling(track);
+        var trk = null;
 
         if (options.gpx_options.joinTrackSegments) {
-          layers = layers.concat(this._parse_segment(track, options, polyline_options, 'trkpt'));
+          trk = new L.FeatureGroup(this._parse_segment(track, options, polyline_options, 'trkpt'));
         } else {
           var segments = track.getElementsByTagName('trkseg');
+          var segs = [];
           for (j = 0; j < segments.length; j++) {
-            layers = layers.concat(this._parse_segment(segments[j], options, polyline_options, 'trkpt'));
+            segs = segs.concat(this._parse_segment(segments[j], options, polyline_options, 'trkpt'));
           }
+          trk = new L.FeatureGroup(segs);
         }
+
+        trk.style = polyline_options;
+
+        var trkName = tracks[i].getElementsByTagName('name');
+        if (trkName.length > 0) {
+          trk.name = trkName[0].textContent
+        }
+
+        layers.push(trk);
       }
     }
 
     // parse waypoints and add markers for each of them
     if (parseElements.indexOf('waypoint') > -1) {
       el = xml.getElementsByTagName('wpt');
+      var wpts = [];
+
       for (i = 0; i < el.length; i++) {
         var ll = new L.LatLng(
             el[i].getAttribute('lat'),
@@ -430,10 +411,9 @@ L.GPX = L.FeatureGroup.extend({
           sym = symEl[0].textContent;
         }
 
-        var marker = this._get_marker(ll, sym, name, desc, cmt, options);
-        this.fire('addpoint', { point: marker, point_type: 'waypoint', element: el[i] });
-        layers.push(marker);
+        wpts.push(this._get_marker(ll, sym, name, desc, cmt, options));
       }
+      layers.push(new L.FeatureGroup(wpts));
     }
 
     if (layers.length == 0) return null;
@@ -474,10 +454,10 @@ L.GPX = L.FeatureGroup.extend({
           },
           drag: function (e) {
               const pt = map.latLngToLayerPoint(e.latlng);
-              const layers = trace.getLayers();
+              const segments = trace.getSegments();
               var best_pt = null;
-              for (var l=0; l<layers.length; l++) if (layers[l]._latlngs) {
-                  const closest_pt = layers[l].closestLayerPoint(pt);
+              for (var s=0; s<segments.length; s++) {
+                  const closest_pt = segments[s].closestLayerPoint(pt);
                   if (closest_pt && (!best_pt || closest_pt.distance < best_pt.distance)) {
                       best_pt = closest_pt;
                   }
@@ -732,11 +712,7 @@ L.GPX = L.FeatureGroup.extend({
       }
 
       // recompute on remaining data
-      const layers = this.getLayers()[0].getLayers();
-      const segments = [];
-      for (var l=0; l<layers.length; l++) if (layers[l]._latlngs) {
-          segments.push(layers[l]);
-      }
+      const segments = this._trace.getSegments();
 
       var distance = 0.0, cumul = 0;
       for (var l=0; l<segments.length; l++) {
@@ -839,8 +815,8 @@ L.GPX = L.FeatureGroup.extend({
       }
   },
 
-  _extract_styling: function(el, base, overrides) {
-    var style = this._merge_objs(_DEFAULT_POLYLINE_OPTS, base);
+  _extract_styling: function(el) {
+    var style = {};
     var e = el.getElementsByTagNameNS(_GPX_STYLE_NS, 'line');
     if (e.length > 0) {
       var _ = e[0].getElementsByTagName('color');
@@ -849,10 +825,8 @@ L.GPX = L.FeatureGroup.extend({
       if (_.length > 0) style.opacity = _[0].textContent;
       var _ = e[0].getElementsByTagName('weight');
       if (_.length > 0) style.weight = _[0].textContent;
-      var _ = e[0].getElementsByTagName('linecap');
-      if (_.length > 0) style.lineCap = _[0].textContent;
     }
-    return this._merge_objs(style, overrides)
+    return style;
   },
 
   _dist2d: function(a, b) {

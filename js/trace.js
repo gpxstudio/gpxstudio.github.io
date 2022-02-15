@@ -17,7 +17,6 @@
 
 const options = {
     async: true,
-    polyline_options: { weight: 3, opacity: 1 },
     marker_options: {
         startIconUrl: '',
         endIconUrl: '',
@@ -44,12 +43,7 @@ export default class Trace {
         this.visible = true;
         this.popup = L.popup({closeButton: false});
         this.renaming = false;
-        this.normal_style = {...total.normal_style};
-        this.focus_style = {...total.focus_style};
-
-        const color = total.getColor();
-        this.normal_style.color = color;
-        this.focus_style.color = color;
+        this.style = { weight: total.style.weight, opacity: total.style.opacity };
 
         this.memory = [];
         this.at = -1;
@@ -64,7 +58,7 @@ export default class Trace {
 
         const trace = this;
         const mergeTrace = function () {
-            total.to_merge.merge(trace, total.buttons.merge_as_segments.checked, total.buttons.merge_stick_time.checked);
+            total.to_merge.merge(trace, total.buttons.merge_as_points.checked, total.buttons.merge_as_segments.checked, total.buttons.merge_as_tracks.checked, total.buttons.merge_stick_time.checked);
             total.removeTrace(trace.index);
             total.to_merge.focus();
             total.to_merge = null;
@@ -77,21 +71,21 @@ export default class Trace {
             total.removeTrace(trace.index);
             total.buttons.showLoadErrorPopup();
         }).on('loaded', function(e) {
-            if (this.getLayers().length > 0) {
-                var layers = this.getLayers()[0].getLayers();
-                var wptMissingEle = [];
-                for (var i=0; i<layers.length; i++) {
-                    if (layers[i]._latlng) { // wpt
-                        if (layers[i]._latlng.meta && layers[i]._latlng.meta.ele == -1) wptMissingEle.push(layers[i]._latlng);
-                    }
-                }
-                if (wptMissingEle.length > 0 && !trace.buttons.embedding) trace.askElevation(wptMissingEle);
+            var wpts = trace.getWaypoints();
+            var wptMissingEle = [];
+            for (var i=0; i<wpts.length; i++) {
+                if (wpts[i]._latlng.meta && wpts[i]._latlng.meta.ele == -1) wptMissingEle.push(wpts[i]._latlng);
             }
+            if (wptMissingEle.length > 0 && !trace.buttons.embedding) trace.askElevation(wptMissingEle);
             if (this.getLayers().length > 0) total.buttons.updateBounds();
+
+            var colors = trace.getTrackColors();
+            if (colors.length == 0) trace.style.color = total.getColor();
+            else trace.style.color = colors[0];
 
             var ul = document.getElementById("sortable");
             var li = document.createElement("li");
-            li.innerHTML = '<div class="tab-color" style="background:'+trace.normal_style.color+';"></div><div class="handle">'+name+'</div>';
+            li.innerHTML = '<div class="tab-color"></div><div class="handle"></div>';
             li.title = name;
             li.classList.add('tab','tab-draggable');
             li.trace = trace;
@@ -220,7 +214,8 @@ export default class Trace {
     }
 
     updateTab() {
-        this.tab.children[0].style.background = this.normal_style.color;
+        var colors = this.getTrackColors();
+        this.tab.children[0].style.background = this.getLinearGradient(colors);
         this.tab.children[1].innerText = this.name;
         this.tab.title = this.name;
     }
@@ -229,36 +224,46 @@ export default class Trace {
         const newTrace = this.total.addTrace(undefined, this.name);
         newTrace.gpx.addLayer(new L.FeatureGroup());
 
-        const segments = this.getSegments();
-        for (var l=0; l<segments.length; l++) {
-            const points = segments[l]._latlngs;
-            const cpy = [];
-            for (var i=0; i<points.length; i++) {
-                const pt = points[i].clone();
-                pt.meta = JSON.parse(JSON.stringify(points[i].meta));
-                if (pt.meta.time != null) pt.meta.time = new Date(pt.meta.time);
-                pt.index = points[i].index;
-                pt.routing = points[i].routing;
-                cpy.push(pt);
-            }
+        const tracks = this.getTracks();
+        for (var t=0; t<tracks.length; t++) {
+            const segments = this.getSegments(tracks[t]);
+            var segs = [];
+            for (var l=0; l<segments.length; l++) {
+                const points = segments[l]._latlngs;
+                const cpy = [];
+                for (var i=0; i<points.length; i++) {
+                    const pt = points[i].clone();
+                    pt.meta = JSON.parse(JSON.stringify(points[i].meta));
+                    if (pt.meta.time != null) pt.meta.time = new Date(pt.meta.time);
+                    pt.index = points[i].index;
+                    pt.routing = points[i].routing;
+                    cpy.push(pt);
+                }
 
-            if (cpy.length > 0) {
-                newTrace.gpx.getLayers()[0].addLayer(new L.Polyline(cpy, newTrace.gpx.options.polyline_options));
+                if (cpy.length > 0) segs.push(new L.Polyline(cpy));
+            }
+            if (segs.length > 0) {
+                var trk = new L.FeatureGroup(segs);
+                trk.style = tracks[t].style;
+                if (tracks[t].name) trk.name = tracks[t].name;
+                newTrace.gpx.getLayers()[0].addLayer(trk);
             }
         }
 
         newTrace.recomputeStats();
         newTrace.update();
-        newTrace.gpx.setStyle(newTrace.focus_style);
+        newTrace.setStyle(true);
+        newTrace.updateTab();
         newTrace.showChevrons();
         newTrace.showDistanceMarkers();
 
         const waypoints = this.getWaypoints();
+        var wpts = [];
         for (var i=0; i<waypoints.length; i++) {
             const marker = waypoints[i];
-            const newMarker = newTrace.gpx._get_marker(marker._latlng, marker.sym, marker.name, marker.desc, marker.cmt, this.gpx.options);
-            newTrace.gpx.getLayers()[0].addLayer(newMarker);
+            wpts.push(newTrace.gpx._get_marker(marker._latlng, marker.sym, marker.name, marker.desc, marker.cmt, this.gpx.options));
         }
+        if (wpts.length > 0) newTrace.gpx.getLayers()[0].addLayer(new L.FeatureGroup(wpts));
 
         return newTrace;
     }
@@ -266,7 +271,7 @@ export default class Trace {
     /*** LOGIC ***/
 
     remove() {
-        this.total.removeColor(this.normal_style.color);
+        this.total.removeColor(this.style.color);
         this.unfocus();
         this.gpx.clearLayers();
         if (document.body.contains(this.tab)) this.buttons.tabs.removeChild(this.tab);
@@ -274,12 +279,12 @@ export default class Trace {
 
     /*** DISPLAY ***/
 
-    focus(creation) {
+    focus() {
         this.total.unfocusAll();
         this.hasFocus = true;
         this.total.focusOn = this.index;
         this.total.hasFocus = false;
-        this.gpx.setStyle(this.focus_style);
+        this.setStyle(true);
         this.gpx.bringToFront();
         this.buttons.focusTabElement(this.tab);
         this.showData();
@@ -296,7 +301,7 @@ export default class Trace {
 
     unfocus() {
         this.hasFocus = false;
-        this.gpx.setStyle(this.normal_style);
+        this.setStyle(false);
         this.closePopup();
         this.hideWaypoints();
         this.hideChevrons();
@@ -305,6 +310,21 @@ export default class Trace {
         if (this.drawing) this.stopDraw();
         if (this.renaming) this.rename();
         if (this.buttons.slider.isActive()) this.buttons.slider.reset();
+    }
+
+    setStyle(focus) {
+        var tracks = this.getTracks();
+        for (var t=0; t<tracks.length; t++) {
+            tracks[t].setStyle(this.getTrackStyle(tracks[t], focus));
+        }
+    }
+
+    updateStyle() {
+        var tracks = this.getTracks();
+        for (var t=0; t<tracks.length; t++) {
+            tracks[t].style = this.gpx._merge_objs(tracks[t].style, this.style);
+        }
+        this.setStyle(this.hasFocus);
     }
 
     updateFocus() {
@@ -418,6 +438,7 @@ export default class Trace {
         this.buttons.redo.classList.add('unselected');
         this.buttons.undo.removeEventListener('click', this.undoListener);
         this.buttons.redo.removeEventListener('click', this.redoListener);
+        this.buttons.showEditingOptions();
 
         this.memory = [];
         this.at = -1;
@@ -486,17 +507,22 @@ export default class Trace {
     showChevrons() {
         if (this.buttons.show_direction) {
             this.hideChevrons();
-            this.gpx.setText('     ➜     ', {
-                repeat: true,
-                attributes: {
-                    fill: this.normal_style.color,
-                    opacity: this.normal_style.opacity,
-                    dy: '5px',
-                    'font-size': '14px',
-                    style: `text-shadow: 1px 1px 0 white, -1px 1px 0 white, 1px -1px 0 white, -1px -1px 0 white, 0px 1px 0 white, 0px -1px 0 white, -1px 0px 0 white, 1px 0px 0 white, 2px 2px 0 white, -2px 2px 0 white, 2px -2px 0 white, -2px -2px 0 white, 0px 2px 0 white, 0px -2px 0 white, -2px 0px 0 white, 2px 0px 0 white, 1px 2px 0 white, -1px 2px 0 white, 1px -2px 0 white, -1px -2px 0 white, 2px 1px 0 white, -2px 1px 0 white, 2px -1px 0 white, -2px -1px 0 white;
-                            -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;`
-                }
-            });
+
+            var tracks = this.getTracks();
+            for (var t=0; t<tracks.length; t++) {
+                var style = this.getTrackStyle(tracks[t]);
+                tracks[t].setText('     ➜     ', {
+                    repeat: true,
+                    attributes: {
+                        fill: style.color,
+                        opacity: style.opacity,
+                        dy: '5px',
+                        'font-size': '14px',
+                        style: `text-shadow: 1px 1px 0 white, -1px 1px 0 white, 1px -1px 0 white, -1px -1px 0 white, 0px 1px 0 white, 0px -1px 0 white, -1px 0px 0 white, 1px 0px 0 white, 2px 2px 0 white, -2px 2px 0 white, 2px -2px 0 white, -2px -2px 0 white, 0px 2px 0 white, 0px -2px 0 white, -2px 0px 0 white, 2px 0px 0 white, 1px 2px 0 white, -1px 2px 0 white, 1px -2px 0 white, -1px -2px 0 white, 2px 1px 0 white, -2px 1px 0 white, 2px -1px 0 white, -2px -1px 0 white;
+                                -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;`
+                    }
+                });
+            }
         }
     }
 
@@ -703,7 +729,7 @@ export default class Trace {
         const dist = Math.abs(bounds._southWest.lat - bounds._northEast.lat);
         const tol = dist * Math.pow(2, -value);
         if (this.preview) this.preview.clearLayers();
-        const color = this.normal_style.color;
+        const color = this.style.color;
         const preview_style = {
             color: `#${color.substring(3,7)}${color.substring(1,3)}`,
             weight: 4
@@ -749,16 +775,96 @@ export default class Trace {
 
     getLayers() {
         if (this.gpx.getLayers().length == 0) return [];
-        else return this.gpx.getLayers()[0].getLayers();
+
+        var layers = [];
+        var groups = this.gpx.getLayers()[0].getLayers();
+        for (var i=0; i<groups.length; i++) {
+            layers.push(...groups[i].getLayers());
+        }
+        return layers;
     }
 
-    getSegments() {
-        const layers = this.getLayers();
-        const segments = [];
-        for (var l=0; l<layers.length; l++) if (layers[l]._latlngs) {
-            segments.push(layers[l]);
+    getTracks() {
+        if (this.gpx.getLayers().length == 0) return [];
+
+        const tracks = [];
+        var groups = this.gpx.getLayers()[0].getLayers();
+        for (var i=0; i<groups.length; i++) {
+            var layers = groups[i].getLayers();
+            for (var l=0; l<layers.length; l++) {
+                if (layers[l]._latlngs) { // layer is a segment so feature group is a track
+                    tracks.push(groups[i]);
+                    break;
+                }
+            }
         }
-        return segments;
+        return tracks;
+    }
+
+    getTrackStyle(track, focus) {
+        var style = this.gpx._merge_objs(this.style, track.style);
+        if (focus) style.weight += 2;
+        return style;
+    }
+
+    getTrackColors() {
+        if (this.gpx.getLayers().length == 0) {
+            if (this.style.color) return [this.style.color];
+            else return [];
+        }
+
+        var colors = [];
+        var tracks = this.getTracks();
+        for (var t=0; t<tracks.length; t++) {
+            if (tracks[t].style && tracks[t].style.color) {
+                colors.push(tracks[t].style.color);
+            } else {
+                if (!this.style.color) this.style.color = this.total.getColor();
+                colors.push(this.style.color);
+            }
+        }
+        return colors;
+    }
+
+    getSegments(track) {
+        if (track) {
+            return track.getLayers();
+        } else {
+            const layers = this.getLayers();
+            const segments = [];
+            for (var l=0; l<layers.length; l++) if (layers[l]._latlngs) {
+                segments.push(layers[l]);
+            }
+            return segments;
+        }
+    }
+
+    getLinearGradient(colors) {
+        if (colors.length == 0) return '#ffffff';
+
+        var out = 'linear-gradient(to right';
+        for (var i=0; i<colors.length; i++) {
+            out += ', ' + colors[i] + ' ' + Math.round(i/colors.length * 100) + '%' + ' ' + Math.round((i+1)/colors.length * 100) + '%';
+        }
+        out += ')';
+
+        return out;
+    }
+
+    getWaypointsGroup() {
+        if (this.gpx.getLayers().length == 0) return null;
+
+        var groups = this.gpx.getLayers()[0].getLayers();
+        for (var i=0; i<groups.length; i++) {
+            var layers = groups[i].getLayers();
+            for (var l=0; l<layers.length; l++) {
+                if (layers[l]._latlng) {
+                    return groups[i];
+                }
+            }
+        }
+
+        return null;
     }
 
     getWaypoints() {
@@ -870,19 +976,22 @@ export default class Trace {
             copy = this.clone();
         }
 
-        const segments = this.getSegments();
+        const tracks = this.getTracks();
         var cumul = 0;
-        for (var i=0; i<segments.length; i++) {
-            const len = segments[i]._latlngs.length;
-            if (start >= cumul+len) this.gpx.getLayers()[0].removeLayer(segments[i]);
-            else if (end < cumul) this.gpx.getLayers()[0].removeLayer(segments[i]);
-            else if (start > cumul || end < cumul+len-1) {
-                if (end-cumul+1 < len) segments[i]._latlngs.splice(end-cumul+1);
-                if (start > cumul) segments[i]._latlngs.splice(0, start-cumul);
-                segments[i]._latlngs[0].routing = false;
-                segments[i]._latlngs[segments[i]._latlngs.length-1].routing = false;
+        for (var t=0; t<tracks.length; t++) {
+            const segments = this.getSegments(tracks[t]);
+            for (var i=0; i<segments.length; i++) {
+                const len = segments[i]._latlngs.length;
+                if (start >= cumul+len) tracks[t].removeLayer(segments[i]);
+                else if (end < cumul) tracks[t].removeLayer(segments[i]);
+                else if (start > cumul || end < cumul+len-1) {
+                    if (end-cumul+1 < len) segments[i]._latlngs.splice(end-cumul+1);
+                    if (start > cumul) segments[i]._latlngs.splice(0, start-cumul);
+                    segments[i]._latlngs[0].routing = false;
+                    segments[i]._latlngs[segments[i]._latlngs.length-1].routing = false;
+                }
+                cumul += len;
             }
-            cumul += len;
         }
 
         if (!no_recursion) {
@@ -904,19 +1013,33 @@ export default class Trace {
         this.recomputeStats();
         this.redraw();
         this.update();
+        this.updateTab();
         this.focus();
     }
 
     reverse() {
-        const segments = this.getSegments();
-        for (var l=0; l<segments.length; l++)
-            segments[l]._latlngs.reverse();
+        const tracks = this.getTracks();
+        for (var t=0; t<tracks.length; t++) {
+            const segments = this.getSegments(tracks[t]);
+            for (var l=0; l<segments.length; l++)
+                segments[l]._latlngs.reverse();
 
-        for (var l=0; l<segments.length; l++)
-            this.gpx.getLayers()[0].removeLayer(segments[l]);
+            for (var l=0; l<segments.length; l++)
+                tracks[t].removeLayer(segments[l]);
 
-        for (var l=segments.length-1; l>=0; l--)
-            this.gpx.getLayers()[0].addLayer(new L.Polyline(segments[l]._latlngs, this.gpx.options.polyline_options));
+            for (var l=segments.length-1; l>=0; l--)
+                tracks[t].addLayer(new L.Polyline(segments[l]._latlngs));
+        }
+
+        for (var t=0; t<tracks.length; t++)
+            this.gpx.getLayers()[0].removeLayer(tracks[t]);
+
+        for (var t=tracks.length-1; t>=0; t--) {
+            var trk = new L.FeatureGroup(this.getSegments(tracks[t]));
+            trk.style = tracks[t].style;
+            if (tracks[t].name) trk.name = tracks[t].name;
+            this.gpx.getLayers()[0].addLayer(trk);
+        }
 
         if (this.hasTimeData()) {
             const points = this.getPoints();
@@ -930,6 +1053,7 @@ export default class Trace {
         }
         this.buttons.slider.reset();
         this.update();
+        this.updateTab();
         this.redraw();
         this.focus();
     }
@@ -937,36 +1061,76 @@ export default class Trace {
     setStart(index) {
         this.save();
 
-        const segments = this.getSegments();
-        var cumul = 0, before = [], after = [];
+        const tracks = this.getTracks();
+        var cumul = 0, trackBefore = [], trackAfter = [], originalTrackBefore = [], originalTrackAfter = [];
+        for (var t=0; t<tracks.length; t++) {
+            this.gpx.getLayers()[0].removeLayer(tracks[t]);
 
-        for (var i=0; i<segments.length; i++) {
-            this.gpx.getLayers()[0].removeLayer(segments[i]);
-            if (index >= cumul + segments[i]._latlngs.length) before.push(segments[i]);
-            else if (index < cumul) after.push(segments[i]);
-            else { // split in this segment
-                if (segments.length == 1) {
-                    this.gpx.getLayers()[0].addLayer(new L.Polyline(segments[i]._latlngs.slice(index-cumul).concat(segments[i]._latlngs.slice(0, index-cumul+1)), this.gpx.options.polyline_options));
-                } else {
-                    before.push(new L.Polyline(segments[i]._latlngs.slice(0, index-cumul+1), this.gpx.options.polyline_options));
-                    after.push(new L.Polyline(segments[i]._latlngs.slice(index-cumul), this.gpx.options.polyline_options));
+            const segments = this.getSegments(tracks[t]);
+            var segmentBefore = [], segmentAfter = [];
+            for (var s=0; s<segments.length; s++) {
+                if (index >= cumul + segments[s]._latlngs.length) segmentBefore.push(segments[s]._latlngs);
+                else if (index < cumul) segmentAfter.push(segments[s]._latlngs);
+                else { // split in this segment
+                    if (tracks.length == 1 && segments.length == 1) {
+                        segmentAfter.push(segments[s]._latlngs.slice(index-cumul).concat(segments[s]._latlngs.slice(0, index-cumul+1)));
+                    } else {
+                        segmentBefore.push(segments[s]._latlngs.slice(0, index-cumul+1));
+                        segmentAfter.push(segments[s]._latlngs.slice(index-cumul));
+                    }
+                }
+                cumul += segments[s]._latlngs.length;
+            }
+
+            if (tracks.length == 1) {
+                trackAfter.push(segmentAfter.concat(segmentBefore));
+                originalTrackAfter.push(tracks[t]);
+            } else {
+                if (segmentBefore.length > 0) {
+                    trackBefore.push(segmentBefore);
+                    originalTrackBefore.push(tracks[t]);
+                }
+                if (segmentAfter.length > 0) {
+                    trackAfter.push(segmentAfter);
+                    originalTrackAfter.push(tracks[t]);
                 }
             }
-            cumul += segments[i]._latlngs.length;
         }
-        for (var i=0; i<after.length; i++)
-            this.gpx.getLayers()[0].addLayer(new L.Polyline(after[i]._latlngs, this.gpx.options.polyline_options));
-        for (var i=0; i<before.length; i++)
-            this.gpx.getLayers()[0].addLayer(new L.Polyline(before[i]._latlngs, this.gpx.options.polyline_options));
 
-        this.gpx.setStyle(this.focus_style);
+        for (var i=0; i<trackAfter.length; i++) {
+            var segs = [];
+            for (var j=0; j<trackAfter[i].length; j++) {
+                segs.push(new L.Polyline(trackAfter[i][j]));
+            }
+            if (segs.length > 0) {
+                var trk = new L.FeatureGroup(segs);
+                trk.style = originalTrackAfter[i].style;
+                if (originalTrackAfter[i].name) trk.name = originalTrackAfter[i].name;
+                this.gpx.getLayers()[0].addLayer(trk);
+            }
+        }
+
+        for (var i=0; i<trackBefore.length; i++) {
+            var segs = [];
+            for (var j=0; j<trackBefore[i].length; j++) {
+                segs.push(new L.Polyline(trackBefore[i][j]));
+            }
+            if (segs.length > 0) {
+                var trk = new L.FeatureGroup(segs);
+                trk.style = originalTrackBefore[i].style;
+                if (originalTrackBefore[i].name) trk.name = originalTrackBefore[i].name;
+                this.gpx.getLayers()[0].addLayer(trk);
+            }
+        }
+
+        this.setStyle(true);
 
         this.redraw();
         this.recomputeStats();
         this.update();
     }
 
-    merge(trace, as_segments, stick_time) {
+    merge(trace, as_points, as_segments, as_tracks, stick_time) {
         const points = this.getPoints();
         const otherPoints = trace.getPoints();
 
@@ -1015,29 +1179,67 @@ export default class Trace {
             }
         }
 
-        if (as_segments) {
-            const segments = trace.getSegments();
-            for (var l=0; l<segments.length; l++)
-                this.gpx.getLayers()[0].addLayer(new L.Polyline(segments[l]._latlngs, this.gpx.options.polyline_options));
-        } else {
-            if (this.hasPoints()) {
-                points.push(...otherPoints);
-                const segments = this.getSegments();
+        if (as_points) {
+            points.push(...otherPoints);
+            const tracks = this.getTracks();
+            for (var t=0; t<tracks.length; t++)
+                this.gpx.getLayers()[0].removeLayer(tracks[t]);
+            var trk = new L.FeatureGroup([new L.Polyline(points)]);
+            if (tracks.length > 0) {
+                trk.style = tracks[0].style;
+                if (tracks[0].name) trk.name = tracks[0].name;
+            }
+            this.gpx.getLayers()[0].addLayer(trk);
+        } else if (as_segments) {
+            const tracks = this.getTracks();
+            if (tracks.length > 0) {
+                const segments = trace.getSegments();
                 for (var l=0; l<segments.length; l++)
-                    this.gpx.getLayers()[0].removeLayer(segments[l]);
-                this.gpx.getLayers()[0].addLayer(new L.Polyline(points, this.gpx.options.polyline_options));
+                    tracks[tracks.length-1].addLayer(new L.Polyline(segments[l]._latlngs));
             } else {
-                this.gpx.getLayers()[0].addLayer(new L.Polyline(otherPoints, this.gpx.options.polyline_options));
+                const tracks = trace.getTracks();
+                for (var t=0; t<tracks.length; t++) {
+                    const segments = trace.getSegments(tracks[t]);
+                    var segs = [];
+                    for (var s=0; s<segments.length; s++) {
+                        segs.push(new L.Polyline(segments[s]._latlngs));
+                    }
+                    if (segs.length > 0) {
+                        var trk = new L.FeatureGroup(segs);
+                        trk.style = tracks[t].style;
+                        if (tracks[t].name) trk.name = tracks[t].name;
+                        this.gpx.getLayers()[0].addLayer(trk);
+                    }
+                }
+            }
+        } else {
+            const tracks = trace.getTracks();
+            for (var t=0; t<tracks.length; t++) {
+                const segments = trace.getSegments(tracks[t]);
+                var segs = [];
+                for (var s=0; s<segments.length; s++) {
+                    segs.push(new L.Polyline(segments[s]._latlngs));
+                }
+                if (segs.length > 0) {
+                    var trk = new L.FeatureGroup(segs);
+                    trk.style = tracks[t].style;
+                    if (tracks[t].name) trk.name = tracks[t].name;
+                    this.gpx.getLayers()[0].addLayer(trk);
+                }
             }
         }
 
-        this.gpx.setStyle(this.focus_style);
+        this.setStyle(true);
+        this.updateTab();
 
         const waypoints = trace.getWaypoints();
         for (var i=0; i<waypoints.length; i++) {
             const marker = waypoints[i];
             const newMarker = this.gpx._get_marker(marker._latlng, marker.sym, marker.name, marker.desc, marker.cmt, this.gpx.options);
-            this.gpx.getLayers()[0].addLayer(newMarker);
+
+            var wpt_group = this.getWaypointsGroup();
+            if (wpt_group) wpt_group.addLayer(newMarker);
+            else this.gpx.getLayers()[0].addLayer(new L.FeatureGroup([newMarker]));
         }
 
         this.recomputeStats();
@@ -1045,8 +1247,8 @@ export default class Trace {
         this.redraw();
     }
 
-    extract_segments() {
-        const segments = this.getSegments();
+    extract(as_segments) {
+        var segments = this.getSegments();
         const waypoints = this.getWaypoints();
         var count = 1;
         var lastTrace = null;
@@ -1071,36 +1273,81 @@ export default class Trace {
             }
         }
 
-        for (var l=0; l<segments.length; l++) {
-            const newTrace = this.total.addTrace(undefined, this.name);
-            newTrace.gpx.addLayer(new L.FeatureGroup());
+        var tracks = this.getTracks();
+        for (var t=0; t<tracks.length; t++) {
+            var segments = this.getSegments(tracks[t]);
+            var segs = [];
+            for (var l=0; l<segments.length; l++) {
+                const points = segments[l]._latlngs;
+                const cpy = [];
+                for (var i=0; i<points.length; i++) {
+                    const pt = points[i].clone();
+                    pt.meta = JSON.parse(JSON.stringify(points[i].meta));
+                    if (pt.meta.time != null) pt.meta.time = new Date(pt.meta.time);
+                    pt.index = points[i].index;
+                    pt.routing = points[i].routing;
+                    cpy.push(pt);
+                }
 
-            const points = segments[l]._latlngs;
-            const cpy = [];
-            for (var i=0; i<points.length; i++) {
-                const pt = points[i].clone();
-                pt.meta = JSON.parse(JSON.stringify(points[i].meta));
-                if (pt.meta.time != null) pt.meta.time = new Date(pt.meta.time);
-                pt.index = points[i].index;
-                pt.routing = points[i].routing;
-                cpy.push(pt);
+                if (as_segments) {
+                    const newTrace = this.total.addTrace(undefined, tracks[t].name ? tracks[t].name : this.name);
+                    newTrace.gpx.addLayer(new L.FeatureGroup());
+
+                    if (cpy.length > 0) {
+                        var trk = new L.FeatureGroup([new L.Polyline(cpy)]);
+                        trk.style = tracks[t].style;
+                        if (tracks[t].name) trk.name = tracks[t].name;
+                        newTrace.gpx.getLayers()[0].addLayer(trk);
+                    }
+
+                    for (var w=0; w<waypoints.length; w++) if (closestSegments[w].segments.includes(segments[l])) {
+                        const marker = waypoints[w];
+                        const newMarker = newTrace.gpx._get_marker(marker._latlng, marker.sym, marker.name, marker.desc, marker.cmt, this.gpx.options);
+                        const wpt_group = newTrace.getWaypointsGroup();
+                        if (wpt_group) wpt_group.addLayer(newMarker);
+                        else newTrace.gpx.getLayers()[0].addLayer(new L.FeatureGroup([newMarker]));
+                    }
+
+                    newTrace.recomputeStats();
+                    newTrace.updateTab();
+                    count++;
+
+                    lastTrace = newTrace;
+                    traces.push(newTrace);
+                } else if (cpy.length > 0) segs.push(new L.Polyline(cpy));
             }
 
-            if (cpy.length > 0) {
-                newTrace.gpx.getLayers()[0].addLayer(new L.Polyline(cpy, newTrace.gpx.options.polyline_options));
+            if (!as_segments) {
+                const newTrace = this.total.addTrace(undefined, tracks[t].name ? tracks[t].name : this.name);
+                newTrace.gpx.addLayer(new L.FeatureGroup());
+
+                if (segs.length > 0) {
+                    var trk = new L.FeatureGroup(segs);
+                    trk.style = tracks[t].style;
+                    if (tracks[t].name) trk.name = tracks[t].name;
+                    newTrace.gpx.getLayers()[0].addLayer(trk);
+                }
+
+                for (var w=0; w<waypoints.length; w++) {
+                    for (var s=0; s<closestSegments[w].segments.length; s++) {
+                        if (tracks[t].hasLayer(closestSegments[w].segments[s])) {
+                            const marker = waypoints[w];
+                            const newMarker = newTrace.gpx._get_marker(marker._latlng, marker.sym, marker.name, marker.desc, marker.cmt, this.gpx.options);
+                            const wpt_group = newTrace.getWaypointsGroup();
+                            if (wpt_group) wpt_group.addLayer(newMarker);
+                            else newTrace.gpx.getLayers()[0].addLayer(new L.FeatureGroup([newMarker]));
+                            break;
+                        }
+                    }
+                }
+
+                newTrace.recomputeStats();
+                newTrace.updateTab();
+                count++;
+
+                lastTrace = newTrace;
+                traces.push(newTrace);
             }
-
-            for (var w=0; w<waypoints.length; w++) if (closestSegments[w].segments.includes(segments[l])) {
-                const marker = waypoints[w];
-                const newMarker = newTrace.gpx._get_marker(marker._latlng, marker.sym, marker.name, marker.desc, marker.cmt, this.gpx.options);
-                newTrace.gpx.getLayers()[0].addLayer(newMarker);
-            }
-
-            newTrace.recomputeStats();
-            count++;
-
-            lastTrace = newTrace;
-            traces.push(newTrace);
         }
 
         lastTrace.focus();
@@ -1118,13 +1365,12 @@ export default class Trace {
         var segment = null;
 
         if (!this.hasPoints()) {
-            this.gpx.addLayer(new L.FeatureGroup());
-            this.gpx.getLayers()[0].addLayer(new L.Polyline([pt], this.gpx.options.polyline_options));
-            this.gpx.setStyle(this.focus_style);
+            this.gpx.addLayer(new L.FeatureGroup([new L.FeatureGroup([new L.Polyline([pt])])]));
+            this.setStyle(true);
             this.showChevrons();
             this.showDistanceMarkers();
             pt.index = 0;
-            segment = this.gpx.getLayers()[0].getLayers()[0];
+            segment = this.getSegments()[0];
         } else {
             const segments = this.getSegments();
             for (var i=segments.length-1; i>=0; i--) {
@@ -1187,7 +1433,11 @@ export default class Trace {
             this.buttons.clone_wpt ? this.buttons.clone_wpt.cmt : '',
             this.gpx.options
         );
-        this.gpx.getLayers()[0].addLayer(marker);
+
+        var wpt_group = this.getWaypointsGroup();
+        if (wpt_group) wpt_group.addLayer(marker);
+        else this.gpx.getLayers()[0].addLayer(new L.FeatureGroup([marker]));
+
         marker.fire('click');
         const edit_marker = document.getElementById('edit' + marker._popup._leaflet_id);
         edit_marker.click();
@@ -1196,7 +1446,8 @@ export default class Trace {
     }
 
     deleteWaypoint(marker) {
-        this.gpx.getLayers()[0].removeLayer(marker);
+        var wpt_group = this.getWaypointsGroup();
+        if (wpt_group) wpt_group.removeLayer(marker);
     }
 
     deletePointManual(marker) {
@@ -1242,40 +1493,49 @@ export default class Trace {
     }
 
     deleteZone(bounds, deletePts, deleteWpts, inside) {
-        const layers = this.getLayers();
-        for (var l=0; l<layers.length; l++) {
-            if (deletePts && layers[l]._latlngs) { // points
-                layers[l]._bounds = L.latLngBounds(layers[l]._latlngs);
-                if ((inside && bounds.intersects(layers[l].getBounds())) ||
-                (!inside && !bounds.contains(layers[l].getBounds()))) {
-                    var remove = true;
-                    var start = 0;
-                    while (remove) {
-                        const points = layers[l]._latlngs;
-                        var first = -1;
-                        remove = false;
-                        for (var i=start; i<points.length; i++) {
-                            const contains = bounds.contains(points[i]);
-                            if (inside == contains) {
-                                if (first == -1) first = i;
-                            } else if (first != -1) {
-                                points.splice(first, i-first);
-                                remove = true;
-                                start = first;
-                                break;
+        if (deletePts) {
+            const tracks = this.getTracks();
+            for (var t=0; t<tracks.length; t++) {
+                const segments = this.getSegments(tracks[t]);
+                for (var s=0; s<segments.length; s++) {
+                    segments[s]._bounds = L.latLngBounds(segments[s]._latlngs);
+                    if ((inside && bounds.intersects(segments[s].getBounds())) ||
+                        (!inside && !bounds.contains(segments[s].getBounds()))) {
+                        var remove = true;
+                        var start = 0;
+                        while (remove) {
+                            const points = segments[s]._latlngs;
+                            var first = -1;
+                            remove = false;
+                            for (var i=start; i<points.length; i++) {
+                                const contains = bounds.contains(points[i]);
+                                if (inside == contains) {
+                                    if (first == -1) first = i;
+                                } else if (first != -1) {
+                                    points.splice(first, i-first);
+                                    remove = true;
+                                    start = first;
+                                    break;
+                                }
+                            }
+                            if (!remove && first != -1) {
+                                if (first == 0) tracks[t].removeLayer(segments[s]);
+                                else points.splice(first);
                             }
                         }
-                        if (!remove && first != -1) {
-                            if (first == 0) this.gpx.getLayers()[0].removeLayer(layers[l]);
-                            else points.splice(first);
-                        }
+                        segments[s]._latlngs[0].routing = false;
+                        segments[s]._latlngs[segments[s]._latlngs.length-1].routing = false;
                     }
-                    layers[l]._latlngs[0].routing = false;
-                    layers[l]._latlngs[layers[l]._latlngs.length-1].routing = false;
                 }
-            } else if (deleteWpts && layers[l]._latlng) { // waypoints
-                const contains = bounds.contains(layers[l]._latlng);
-                if (inside == contains) this.deleteWaypoint(layers[l]);
+                if (tracks[t].getLayers().length == 0) this.gpx.getLayers()[0].removeLayer(tracks[t]);
+            }
+        }
+
+        if (deleteWpts) {
+            const waypoints = this.getWaypoints();
+            for (var i=0; i<waypoints.length; i++) {
+                const contains = bounds.contains(waypoints[i]._latlng);
+                if (inside == contains) this.deleteWaypoint(waypoints[i]);
             }
         }
 
@@ -1750,22 +2010,31 @@ export default class Trace {
         if (this.at != this.memory.length-1) this.memory.splice(this.at+1, this.memory.length);
         if (this.lastSaveIsNew) {
             const mem = [];
-            const segments = this.getSegments();
-            for (var l=0; l<segments.length; l++) {
-                const segment_mem = {
-                    index: l,
-                    points: []
-                };
-                const points = segments[l]._latlngs;
-                for (var i=0; i<points.length; i++) {
-                    const pt = points[i].clone();
-                    pt.meta = JSON.parse(JSON.stringify(points[i].meta));
-                    if (pt.meta.time != null) pt.meta.time = new Date(pt.meta.time);
-                    pt.index = points[i].index;
-                    pt.routing = points[i].routing;
-                    segment_mem.points.push(pt);
+            const tracks = this.getTracks();
+            for (var t=0; t<tracks.length; t++) {
+                const segments = this.getSegments(tracks[t]);
+                var segs = [];
+                for (var s=0; s<segments.length; s++) {
+                    const points = segments[s]._latlngs;
+                    var cpy = [];
+                    for (var i=0; i<points.length; i++) {
+                        const pt = points[i].clone();
+                        pt.meta = JSON.parse(JSON.stringify(points[i].meta));
+                        if (pt.meta.time != null) pt.meta.time = new Date(pt.meta.time);
+                        pt.index = points[i].index;
+                        pt.routing = points[i].routing;
+                        cpy.push(pt);
+                    }
+                    segs.push(cpy);
                 }
-                mem.push(segment_mem);
+                if (segs.length > 0) {
+                    var trk = {
+                        segments: segs,
+                        style: tracks[t].style
+                    };
+                    if (tracks[t].name) trk.name = tracks[t].name;
+                    mem.push(trk);
+                }
             }
             this.memory.push(mem);
             this.at++;
@@ -1800,23 +2069,33 @@ export default class Trace {
     }
 
     do() {
-        const segments = this.getSegments();
+        this.gpx.getLayers()[0].clearLayers();
         const mem = this.memory[this.at];
-        for (var l=0; l<mem.length; l++) {
-            const index = mem[l].index;
-            const points = mem[l].points;
-            const cpy = [];
-            for (var i=0; i<points.length; i++) {
-                const pt = points[i].clone();
-                pt.meta = JSON.parse(JSON.stringify(points[i].meta));
-                if (pt.meta.time != null) pt.meta.time = new Date(pt.meta.time);
-                pt.index = points[i].index;
-                pt.routing = points[i].routing;
-                cpy.push(pt);
+        for (var t=0; t<mem.length; t++) {
+            const segments = mem[t].segments;
+            var segs = [];
+            for (var s=0; s<segments.length; s++) {
+                const points = segments[s];
+                const cpy = [];
+                for (var i=0; i<points.length; i++) {
+                    const pt = points[i].clone();
+                    pt.meta = JSON.parse(JSON.stringify(points[i].meta));
+                    if (pt.meta.time != null) pt.meta.time = new Date(pt.meta.time);
+                    pt.index = points[i].index;
+                    pt.routing = points[i].routing;
+                    cpy.push(pt);
+                }
+                if (cpy.length > 0) segs.push(new L.Polyline(cpy));
             }
-            segments[index]._latlngs = cpy;
+            if (segs.length > 0) {
+                var trk = new L.FeatureGroup(segs);
+                trk.style = mem[t].style;
+                if (mem[t].name) trk.name = mem[t].name;
+                this.gpx.getLayers()[0].addLayer(trk);
+            }
         }
 
+        this.setStyle(true);
         this.updateUndoRedo();
         this.recomputeStats();
         this.update();

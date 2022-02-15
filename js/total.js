@@ -162,8 +162,8 @@ export default class Total {
         var bounds = new L.LatLngBounds();
         for (var i=0; i<this.traces.length; i++)
             bounds.extend(this.traces[i].getBounds());
-        bounds._northEast.lat += 0.10 * (bounds._northEast.lat - bounds._southWest.lat);
-        bounds._southWest.lat -= 0.45 * (bounds._northEast.lat - bounds._southWest.lat);
+        if (bounds._northEast) bounds._northEast.lat += 0.10 * (bounds._northEast.lat - bounds._southWest.lat);
+        if (bounds._southWest) bounds._southWest.lat -= 0.45 * (bounds._northEast.lat - bounds._southWest.lat);
         return bounds;
     }
 
@@ -317,7 +317,7 @@ export default class Total {
         }
 
         const xmlStart1 = `<?xml version="1.0" encoding="UTF-8"?>
-<gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" version="1.1" creator="https://gpx.studio">
+<gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd http://www.topografix.com/GPX/gpx_style/0/2 http://www.topografix.com/GPX/gpx_style/0/2/gpx_style.xsd" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:gpx_style="http://www.topografix.com/GPX/gpx_style/0/2" version="1.1" creator="https://gpx.studio">
 <metadata>
     <name>`;
         const xmlStart2 = `</name>
@@ -332,9 +332,16 @@ export default class Total {
         const xmlStart4 = `</name>
     <type>`+(this.buttons.activity != 'hike' ? 'Cycling' : 'Running')+`</type>
 `;
+        const styleOutputStart = `    <extensions>
+        <gpx_style:line>
+    `;
+        const styleOutputEnd = `</gpx_style:line>
+    </extensions>
+`;
 
-        const xmlEnd = `</trk>
-</gpx>`;
+        const xmlEnd1 = `</trk>
+`;
+        const xmlEnd2 = `</gpx>`;
 
         const output = [];
         var xmlOutput = '';
@@ -348,90 +355,117 @@ export default class Total {
             const cad = data.cad != null ? data.cad : (totalData ? totalData.cad : null);
             const power = data.power != null ? data.power : (totalData ? totalData.power : null);
 
-            const segments = this.traces[i].getSegments();
-            for (var l=0; l<segments.length; l++) {
-                xmlOutput += `    <trkseg>
-`;
-                const points = segments[l]._latlngs;
-                for (var j=0; j<points.length; j++) {
-                    const point = points[j];
-                    xmlOutput += `    <trkpt lat="${point.lat}" lon="${point.lng}">
-    `;
-                    if (point.meta) {
-                        if (point.meta.hasOwnProperty('ele')) {
-                            xmlOutput += `    <ele>${point.meta.ele.toFixed(1)}</ele>
-    `;
-                        }
-                        if (incl_time && point.meta.time) {
-                            xmlOutput += `    <time>${point.meta.time.toISOString()}</time>
-    `;
-                        }
+            const tracks = this.traces[i].getTracks();
+            for (var t=0; t<tracks.length; t++) {
+                xmlOutput += xmlStart3 + (tracks[t].name ? tracks[t].name : this.traces[i].name) + xmlStart4;
 
-                        var trackPointExtensionsOutput = '';
-                        if (incl_atemp) {
-                            if (point.meta.hasOwnProperty('atemp')) {
-                                trackPointExtensionsOutput += `    <gpxtpx:atemp>${point.meta.atemp}</gpxtpx:atemp>
+                if (tracks[t].style) {
+                    var styleOutput = '';
+                    if (tracks[t].style.color) {
+                        styleOutput += `    <color>${tracks[t].style.color.substring(1)}</color>
+        `;
+                    }
+                    if (tracks[t].style.opacity) {
+                        styleOutput += `    <opacity>${tracks[t].style.opacity}</opacity>
+        `;
+                    }
+                    if (tracks[t].style.weight) {
+                        styleOutput += `    <weight>${tracks[t].style.weight}</weight>
+        `;
+                    }
+
+                    if (styleOutput) {
+                        xmlOutput += styleOutputStart + styleOutput + styleOutputEnd;
+                    }
+                }
+
+                const segments = this.traces[i].getSegments(tracks[t]);
+                for (var s=0; s<segments.length; s++) {
+                    xmlOutput += `    <trkseg>
+`;
+                    const points = segments[s]._latlngs;
+                    for (var j=0; j<points.length; j++) {
+                        const point = points[j];
+                        xmlOutput += `    <trkpt lat="${point.lat}" lon="${point.lng}">
     `;
-                            } else if (atemp != null) {
-                                trackPointExtensionsOutput += `    <gpxtpx:atemp>${atemp}</gpxtpx:atemp>
+                        if (point.meta) {
+                            if (point.meta.hasOwnProperty('ele')) {
+                                xmlOutput += `    <ele>${point.meta.ele.toFixed(1)}</ele>
     `;
                             }
-                        }
-                        if (incl_hr) {
-                            if (point.meta.hasOwnProperty('hr')) {
-                                trackPointExtensionsOutput += `    <gpxtpx:hr>${point.meta.hr}</gpxtpx:hr>
-    `;
-                            } else if (hr != null) {
-                                trackPointExtensionsOutput += `    <gpxtpx:hr>${hr}</gpxtpx:hr>
+                            if (incl_time && point.meta.time) {
+                                xmlOutput += `    <time>${point.meta.time.toISOString()}</time>
     `;
                             }
-                        }
-                        if (incl_cad) {
-                            if (point.meta.hasOwnProperty('cad')) {
-                                trackPointExtensionsOutput += `    <gpxtpx:cad>${point.meta.cad}</gpxtpx:cad>
+
+                            var trackPointExtensionsOutput = '';
+                            if (incl_atemp) {
+                                if (point.meta.hasOwnProperty('atemp')) {
+                                    trackPointExtensionsOutput += `    <gpxtpx:atemp>${point.meta.atemp}</gpxtpx:atemp>
     `;
-                            } else if (cad != null) {
-                                trackPointExtensionsOutput += `    <gpxtpx:cad>${cad}</gpxtpx:cad>
+                                } else if (atemp != null) {
+                                    trackPointExtensionsOutput += `    <gpxtpx:atemp>${atemp}</gpxtpx:atemp>
     `;
+                                }
                             }
-                        }
-                        if (incl_surface) {
-                            if (point.meta.hasOwnProperty('surface') && point.meta.surface != "missing") {
-                                trackPointExtensionsOutput += `    <gpxtpx:Extensions>
+                            if (incl_hr) {
+                                if (point.meta.hasOwnProperty('hr')) {
+                                    trackPointExtensionsOutput += `    <gpxtpx:hr>${point.meta.hr}</gpxtpx:hr>
+    `;
+                                } else if (hr != null) {
+                                    trackPointExtensionsOutput += `    <gpxtpx:hr>${hr}</gpxtpx:hr>
+    `;
+                                }
+                            }
+                            if (incl_cad) {
+                                if (point.meta.hasOwnProperty('cad')) {
+                                    trackPointExtensionsOutput += `    <gpxtpx:cad>${point.meta.cad}</gpxtpx:cad>
+    `;
+                                } else if (cad != null) {
+                                    trackPointExtensionsOutput += `    <gpxtpx:cad>${cad}</gpxtpx:cad>
+    `;
+                                }
+                            }
+                            if (incl_surface) {
+                                if (point.meta.hasOwnProperty('surface') && point.meta.surface != "missing") {
+                                    trackPointExtensionsOutput += `    <gpxtpx:Extensions>
             <surface>${point.meta.surface}</surface>
         </gpxtpx:Extensions>
     `;
+                                }
                             }
-                        }
 
-                        var trackPointPowerOutput = '';
-                        if (incl_power) {
-                            if (point.meta.hasOwnProperty('power')) {
-                                trackPointPowerOutput += `    <power>${point.meta.power}</power>
+                            var trackPointPowerOutput = '';
+                            if (incl_power) {
+                                if (point.meta.hasOwnProperty('power')) {
+                                    trackPointPowerOutput += `    <power>${point.meta.power}</power>
     `;
-                        } else if (power != null) {
-                                trackPointPowerOutput += `    <power>${power}</power>
+                                } else if (power != null) {
+                                    trackPointPowerOutput += `    <power>${power}</power>
     `;
+                                }
                             }
-                        }
-                        if (trackPointExtensionsOutput.length > 0 || trackPointPowerOutput.length > 0) {
-                            xmlOutput += `    <extensions>
+                            if (trackPointExtensionsOutput.length > 0 || trackPointPowerOutput.length > 0) {
+                                xmlOutput += `    <extensions>
         <gpxtpx:TrackPointExtension>
     `;
-                            xmlOutput += trackPointExtensionsOutput;
-                            xmlOutput += `    </gpxtpx:TrackPointExtension>
+                                xmlOutput += trackPointExtensionsOutput;
+                                xmlOutput += `    </gpxtpx:TrackPointExtension>
     `;
-                            xmlOutput += trackPointPowerOutput;
-                            xmlOutput += `    </extensions>
+                                xmlOutput += trackPointPowerOutput;
+                                xmlOutput += `    </extensions>
     `;
+                            }
                         }
+                        xmlOutput += `</trkpt>
+`;
                     }
-                    xmlOutput += `</trkpt>
+
+                    xmlOutput += `    </trkseg>
 `;
                 }
 
-                xmlOutput += `    </trkseg>
-`;
+                xmlOutput += xmlEnd1;
             }
 
             const waypoints = this.traces[i].getWaypoints();
@@ -443,33 +477,30 @@ export default class Total {
                     waypointsOutput += `    <ele>${point._latlng.meta.ele.toFixed(1)}</ele>
 `;
                 }
-                waypointsOutput += `    <name>`+this.encodeString(point.name)+`</name>
+                if (point.name) {
+                    waypointsOutput += `    <name>`+this.encodeString(point.name)+`</name>
 `;
-                waypointsOutput += `    <cmt>`+this.encodeString(point.cmt)+`</cmt>
+                }
+                if (point.cmt) {
+                    waypointsOutput += `    <cmt>`+this.encodeString(point.cmt)+`</cmt>
 `;
-                waypointsOutput += `    <desc>`+this.encodeString(point.desc)+`</desc>
+                }
+                if (point.dec) {
+                    waypointsOutput += `    <desc>`+this.encodeString(point.desc)+`</desc>
 `;
-                waypointsOutput += `    <sym>${point.sym}</sym>
+                }
+                if (point.sym) {
+                    waypointsOutput += `    <sym>${point.sym}</sym>
 `;
+                }
                 waypointsOutput += `</wpt>
 `;
             }
 
             if (!mergeAll || this.traces.length == 1 || trace_idx!==undefined) {
-                const colorOutput = this.traces[i].set_color ? `    <extensions>
-        <gpxx:TrackExtension>
-        <gpxx:Extensions>
-        <color>`+this.traces[i].normal_style.color+`</color>
-        <opacity>`+this.traces[i].normal_style.opacity+`</opacity>
-        <weight>`+this.traces[i].normal_style.weight+`</weight>
-        </gpxx:Extensions>
-        </gpxx:TrackExtension>
-    </extensions>
-` : '';
-
                 output.push({
                     name: this.traces[i].name + '.gpx',
-                    text: (xmlStart1+this.traces[i].name+xmlStart2+waypointsOutput+xmlStart3+this.traces[i].name+xmlStart4+colorOutput+xmlOutput+xmlEnd)
+                    text: (xmlStart1+this.traces[i].name+xmlStart2+waypointsOutput+xmlOutput+xmlEnd2)
                 });
                 xmlOutput = '';
                 waypointsOutput = '';
@@ -479,7 +510,7 @@ export default class Total {
         if (mergeAll && this.traces.length > 1) {
             output.push({
                 name: 'track.gpx',
-                text: (xmlStart1+'track'+xmlStart2+waypointsOutput+xmlStart3+'track'+xmlStart4+xmlOutput+xmlEnd)
+                text: (xmlStart1+'track'+xmlStart2+waypointsOutput+xmlOutput+xmlEnd2)
             });
         }
 
@@ -527,13 +558,12 @@ export default class Total {
                 count: 0
             });
         }
-        this.normal_style = { weight: 3, opacity: 0.7 };
-        this.focus_style = { weight: 5, opacity: 0.7 };
         this.same_color = false;
+        this.style = { opacity: 0.7, weight: 3 };
     }
 
     getColor() {
-        if (this.same_color) return this.normal_style.color;
+        if (this.same_color) return this.style.color;
         var lowest_count = Infinity;
         var lowest_index = 0;
         for (var i=0; i<this.colors.length; i++) if (this.colors[i].count < lowest_count) {
