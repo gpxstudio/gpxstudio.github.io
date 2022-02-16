@@ -272,7 +272,8 @@ export default class Buttons {
                 elevation: this.elevation_info.innerText,
                 segment_length: document.getElementById('segment-text').innerText,
                 type: document.getElementById('type-text').innerText
-            }
+            },
+            selectedAttributeIdx: ((this.embedding && urlParams.has('slope')) ? 1 : 0)
         }).addTo(this.map);
         this.elev.buttons = this;
         window.addEventListener('resize', function () {

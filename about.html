@@ -401,7 +401,7 @@
                     <li><code>cosm</code>: CyclOSM</li>
                 </ul>
                 <p>To use Mapbox maps, you need to specify the <code>token</code> parameter with a valid <a href="https://account.mapbox.com/access-tokens/" target="_blank">Mapbox token</a>. You can also use a custom Mapbox style by directly specifying its URL with <code>mapbox-style=&lt;STYLE_URL&gt;</code>.</p>
-                <p>You can optionally add parameters to the source URL: <code>imperial</code> to get data in miles and feet, <code>running</code> to display the pace in minutes by unit of distance, <code>distance</code> to show distance markers and <code>direction</code> to show direction markers. Below is a playground to play with the parameters, see a preview and get the HTML code.</p>
+                <p>You can optionally add parameters to the source URL: <code>imperial</code> to get data in miles and feet, <code>running</code> to display the pace in minutes by unit of distance, <code>distance</code> to show distance markers, <code>direction</code> to show direction markers and <code>slope</code> to show the slope view of the elevation profile. Below is a playground to play with the parameters, see a preview and get the HTML code.</p>
                 <div class="guide-item">
                     <h3 style="margin-block-start: 0em;">Parameters</h3>
                     <p>File URLs (separated by commas)<br>
@@ -413,6 +413,7 @@
                         <span>Imperial <input id="imperial" type="checkbox" oninput="showPreview()"></span>
                         <span>Distance markers <input id="distance" type="checkbox" oninput="showPreview()" checked></span>
                         <span>Direction markers <input id="direction" type="checkbox" oninput="showPreview()"></span>
+                        <span>Slope <input id="slope" type="checkbox" oninput="showPreview()"></span>
                     </div>
                     <p>Default map <select id="sources" oninput="showPreview()">
                         <option value="outdoors">Mapbox Outdoors</option>
@@ -479,6 +480,7 @@
             const imperial = document.getElementById("imperial").checked;
             const distance = document.getElementById("distance").checked;
             const direction = document.getElementById("direction").checked;
+            const slope = document.getElementById("slope").checked;
             const mapbox_token = document.getElementById("mapbox-token").value;
             const mapbox_style = document.getElementById("mapbox-style").value;
             const source = document.getElementById("sources").value;
@@ -515,7 +517,8 @@
                 + (running ? '&running' : '')
                 + (imperial ? '&imperial' : '')
                 + (distance ? '&distance' : '')
-                + (direction ? '&direction' : '');
+                + (direction ? '&direction' : '')
+                + (slope ? '&slope' : '');
 
             const code = document.getElementById("embedding-code");
             code.innerHTML = '&lt;iframe src="https://gpx.studio'
@@ -529,6 +532,7 @@
                 + (imperial ? '&imperial' : '')
                 + (distance ? '&distance' : '')
                 + (direction ? '&direction' : '')
+                + (slope ? '&slope' : '')
                 + '" width="100%" height="500" frameborder="0" allowfullscreen&gt;&lt;p&gt;&lt;a href="https://gpx.studio'
                 + window.location.pathname.replace('about.html','')
                 + query
