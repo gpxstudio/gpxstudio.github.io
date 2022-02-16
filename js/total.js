@@ -335,7 +335,7 @@ export default class Total {
         const styleOutputStart = `    <extensions>
         <gpx_style:line>
     `;
-        const styleOutputEnd = `</gpx_style:line>
+        const styleOutputEnd = `    </gpx_style:line>
     </extensions>
 `;
 
@@ -363,15 +363,15 @@ export default class Total {
                     var styleOutput = '';
                     if (tracks[t].style.color) {
                         styleOutput += `    <color>${tracks[t].style.color.substring(1)}</color>
-        `;
+    `;
                     }
                     if (tracks[t].style.opacity) {
                         styleOutput += `    <opacity>${tracks[t].style.opacity}</opacity>
-        `;
+    `;
                     }
                     if (tracks[t].style.weight) {
                         styleOutput += `    <weight>${tracks[t].style.weight}</weight>
-        `;
+    `;
                     }
 
                     if (styleOutput) {

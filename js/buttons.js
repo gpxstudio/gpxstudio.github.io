@@ -1665,13 +1665,12 @@ export default class Buttons {
         this.color_ok.addEventListener("click", function () {
             const trace = total.traces[total.focusOn];
             const color = buttons.color_picker.value;
-            const opacity = buttons.opacity_slider.value;
+            const opacity = parseFloat(buttons.opacity_slider.value);
             const weight = parseInt(buttons.width_slider.value);
             total.changeColor(trace.style.color, color);
             trace.style.color = color;
             trace.style.opacity = opacity;
             trace.style.weight = weight;
-            if (buttons.color_checkbox.checked) total.same_color = true;
             if (buttons.color_checkbox.checked || buttons.opacity_checkbox.checked || buttons.width_checkbox.checked) {
                 for (var i=0; i<total.traces.length; i++) {
                     if (buttons.color_checkbox.checked) total.traces[i].style.color = color;
@@ -1680,7 +1679,10 @@ export default class Buttons {
                     total.traces[i].updateStyle();
                     total.traces[i].updateTab();
                 }
-                if (buttons.color_checkbox.checked) total.style.color = color;
+                if (buttons.color_checkbox.checked) {
+                    total.same_color = true;
+                    total.style.color = color;
+                }
                 if (buttons.opacity_checkbox.checked) total.style.opacity = opacity;
                 if (buttons.width_checkbox.checked) total.style.weight = weight;
             }

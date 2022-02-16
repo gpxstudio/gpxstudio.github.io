@@ -822,9 +822,9 @@ L.GPX = L.FeatureGroup.extend({
       var _ = e[0].getElementsByTagName('color');
       if (_.length > 0) style.color = '#' + _[0].textContent;
       var _ = e[0].getElementsByTagName('opacity');
-      if (_.length > 0) style.opacity = _[0].textContent;
+      if (_.length > 0) style.opacity = parseFloat(_[0].textContent);
       var _ = e[0].getElementsByTagName('weight');
-      if (_.length > 0) style.weight = _[0].textContent;
+      if (_.length > 0) style.weight = parseInt(_[0].textContent);
     }
     return style;
   },
