@@ -1698,7 +1698,6 @@ export default class Buttons {
             const color = buttons.color_picker.value;
             const opacity = parseFloat(buttons.opacity_slider.value);
             const weight = parseInt(buttons.width_slider.value);
-            total.changeColor(trace.style.color, color);
             trace.style.color = color;
             trace.style.opacity = opacity;
             trace.style.weight = weight;

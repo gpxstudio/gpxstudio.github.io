@@ -27,9 +27,11 @@ export default class Total {
         this.tab.addEventListener('click', function(e) {
             e.target.trace.updateFocus();
         });
+        this.color_index = 0;
+        this.same_color = false;
+        this.style = { opacity: 0.7, weight: 3 };
         this.buttons = buttons;
         this.focus();
-        this.initColors();
         this.buttons.addHandlersWithTotal(this);
     }
 
@@ -556,44 +558,32 @@ export default class Total {
       return minutes + ":" + seconds;
     }
 
-    // COLORS
-
-    initColors() {
-        this.colors = [];
-        for (var i=0; i<trace_colors.length; i++) {
-            this.colors.push({
-                color: trace_colors[i],
-                count: 0
-            });
-        }
-        this.same_color = false;
-        this.style = { opacity: 0.7, weight: 3 };
-    }
-
     getColor() {
         if (this.same_color) return this.style.color;
-        var lowest_count = Infinity;
-        var lowest_index = 0;
-        for (var i=0; i<this.colors.length; i++) if (this.colors[i].count < lowest_count) {
-            lowest_count = this.colors[i].count;
-            lowest_index = i;
-        }
-        this.colors[lowest_index].count++;
-        return this.colors[lowest_index].color;
-    }
 
-    removeColor(color) {
-        for (var i=0; i<this.colors.length; i++) if (this.colors[i].color == color) {
-            this.colors[i].count--;
-            break;
+        const colorCount = {};
+        for (var i=0; i<trace_colors.length; i++) {
+            colorCount[trace_colors[i]] = 0;
         }
-    }
 
-    changeColor(oldColor, newColor) {
-        this.removeColor(oldColor);
-        for (var i=0; i<this.colors.length; i++) if (this.colors[i].color == newColor) {
-            this.colors[i].count++;
-            break;
+        for (var i=0; i<this.traces.length; i++) {
+            const tracks = this.traces[i].getTracks();
+            for (var t=0; t<tracks.length; t++) {
+                var trackColor = this.traces[i].getTrackStyle(tracks[t]).color;
+                if (colorCount.hasOwnProperty(trackColor)) {
+                    colorCount[trackColor]++;
+                }
+            }
         }
+
+        var minCount = Infinity, color = null;
+        for (var i=0; i<trace_colors.length; i++) {
+            if (colorCount[trace_colors[i]] < minCount) {
+                minCount = colorCount[trace_colors[i]];
+                color = trace_colors[i];
+            }
+        }
+
+        return color;
     }
 }

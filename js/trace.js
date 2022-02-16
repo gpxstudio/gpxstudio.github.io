@@ -271,7 +271,6 @@ export default class Trace {
     /*** LOGIC ***/
 
     remove() {
-        this.total.removeColor(this.style.color);
         this.unfocus();
         this.gpx.clearLayers();
         if (document.body.contains(this.tab)) this.buttons.tabs.removeChild(this.tab);
@@ -1181,24 +1180,27 @@ export default class Trace {
         }
 
         if (as_points) {
-            points.push(...otherPoints);
-            const tracks = this.getTracks();
-            for (var t=0; t<tracks.length; t++)
-                this.gpx.getLayers()[0].removeLayer(tracks[t]);
-            var trk = new L.FeatureGroup([new L.Polyline(points)]);
+            var tracks = this.getTracks();
             if (tracks.length > 0) {
-                trk.style = tracks[0].style;
-                if (tracks[0].name) trk.name = tracks[0].name;
+                const segments = trace.getSegments(tracks[tracks.length-1]);
+                segments[segments.length-1]._latlngs.push(...otherPoints);
+            } else {
+                tracks = trace.getTracks();
+                var trk = new L.FeatureGroup([new L.Polyline(otherPoints)]);
+                if (tracks.length > 0) {
+                    trk.style = tracks[0].style;
+                    if (tracks[0].name) trk.name = tracks[0].name;
+                }
+                this.gpx.getLayers()[0].addLayer(trk);
             }
-            this.gpx.getLayers()[0].addLayer(trk);
         } else if (as_segments) {
-            const tracks = this.getTracks();
+            var tracks = this.getTracks();
             if (tracks.length > 0) {
                 const segments = trace.getSegments();
                 for (var l=0; l<segments.length; l++)
                     tracks[tracks.length-1].addLayer(new L.Polyline(segments[l]._latlngs));
             } else {
-                const tracks = trace.getTracks();
+                tracks = trace.getTracks();
                 for (var t=0; t<tracks.length; t++) {
                     const segments = trace.getSegments(tracks[t]);
                     var segs = [];
