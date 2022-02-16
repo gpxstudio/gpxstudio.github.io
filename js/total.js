@@ -574,6 +574,12 @@ export default class Total {
                     colorCount[trackColor]++;
                 }
             }
+
+            if (tracks.length == 0) {
+                if (colorCount.hasOwnProperty(this.traces[i].style.color)) {
+                    colorCount[this.traces[i].style.color]++;
+                }
+            }
         }
 
         var minCount = Infinity, color = null;
