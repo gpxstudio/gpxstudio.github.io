@@ -98,10 +98,12 @@
                 <div class="panels panels-val" id="speed-val"></div>
                 <div class="panels panels-info" id="duration">Moving time</div>
                 <div class="panels panels-val" id="duration-val"></div>
+                <div class="panels panels-info" id="tracks" style="display: none; padding-right: 5px;">Tracks</div>
+                <div class="panels panels-val" id="tracks-val" style="display: none; padding-right: 5px;">0</div>
+                <div class="panels panels-info" id="segments" style="display: none; padding-right: 5px;">Track segments</div>
+                <div class="panels panels-val" id="segments-val" style="display: none; padding-right: 5px;">0</div>
                 <div class="panels panels-info" id="points" style="display: none">Track points</div>
                 <div class="panels panels-val" id="points-val" style="display: none">0</div>
-                <div class="panels panels-info" id="segments" style="display: none; padding-right: 5px;">Segments</div>
-                <div class="panels panels-val" id="segments-val" style="display: none; padding-right: 5px;">0</div>
                 <div id="units-text" class="panels-info">Distance units</div>
                 <select id="units-input" name="units-input">
                     <option value="km">Metric</option>
@@ -373,7 +375,7 @@
                 <hr>
             </div>
             <div>
-                Choose how to add the second trace to the first one:<br>
+                Choose how to add the second trace to the first one<br>
                 <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Merge as track points</label><br>
                 <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Merge as track segments</label><br>
                 <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Merge as tracks</label>
@@ -381,6 +383,13 @@
             </div>
             Click on another trace or tab to merge the current trace with it<br>
             <div id="merge-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+        </div>
+        <div id="extract-content" class="popup-content">
+            Choose what to extract<br>
+            <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Tracks</label><br>
+            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Track segments</label><br>
+            <div id="extract-ok" class="panels custom-button normal-button">Ok</div>
+            <div id="extract-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
         </div>
         <div id="crop-content" class="popup-content">
             <input type="checkbox" id="crop-keep"><label for="crop-keep">Keep cropped parts in new files</label><br>

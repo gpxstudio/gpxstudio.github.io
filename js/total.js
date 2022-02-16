@@ -144,6 +144,7 @@ export default class Total {
         this.buttons.duration.innerHTML = this.msToTime(this.getMovingTime());
         this.buttons.points.innerHTML = this.getPoints();
         this.buttons.segments.innerHTML = this.getSegments();
+        this.buttons.tracks.innerHTML = this.getTracks();
     }
 
     showElevation() {
@@ -180,6 +181,13 @@ export default class Total {
         var tot = 0;
         for (var i=0; i<this.traces.length; i++)
             tot += this.traces[i].getSegments().length;
+        return tot;
+    }
+
+    getTracks() {
+        var tot = 0;
+        for (var i=0; i<this.traces.length; i++)
+            tot += this.traces[i].getTracks().length;
         return tot;
     }
 

@@ -242,12 +242,12 @@ html, body {
   grid-row: 3 / span 1;
 }
 
-#points {
+#tracks {
   grid-column: 5 / span 1;
   grid-row: 2 / span 1;
 }
 
-#points-val {
+#tracks-val {
   grid-column: 5 / span 1;
   grid-row: 1 / span 1;
 }
@@ -259,6 +259,16 @@ html, body {
 
 #segments-val {
   grid-column: 6 / span 1;
+  grid-row: 1 / span 1;
+}
+
+#points {
+  grid-column: 7 / span 1;
+  grid-row: 2 / span 1;
+}
+
+#points-val {
+  grid-column: 7 / span 1;
   grid-row: 1 / span 1;
 }
 

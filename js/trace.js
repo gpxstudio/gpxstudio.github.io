@@ -488,6 +488,7 @@ export default class Trace {
         this.buttons.duration.innerHTML = this.total.msToTime(this.getMovingTime());
         this.buttons.points.innerHTML = this.gpx._info.npoints;
         this.buttons.segments.innerHTML = this.gpx._info.nsegments;
+        this.buttons.tracks.innerHTML = this.gpx._info.ntracks;
     }
 
     showElevation() {

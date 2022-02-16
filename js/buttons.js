@@ -92,6 +92,9 @@ export default class Buttons {
         this.hide = document.getElementById("hide");
         this.reverse = document.getElementById("reverse");
         this.extract = document.getElementById("extract");
+        this.extract_ok = document.getElementById("extract-ok");
+        this.extract_cancel = document.getElementById("extract-cancel");
+        this.extract_as_segments = document.getElementById("extract-segment");
         this.reduce = document.getElementById("reduce");
         this.reduce_ok = document.getElementById("reduce-ok");
         this.reduce_cancel = document.getElementById("reduce-cancel");
@@ -158,6 +161,8 @@ export default class Buttons {
         this.points = document.getElementById("points-val");
         this.segments_info = document.getElementById("segments");
         this.segments = document.getElementById("segments-val");
+        this.tracks_info = document.getElementById("tracks");
+        this.tracks = document.getElementById("tracks-val");
         this.activity_input = document.getElementById("activity-input");
         this.routing_input = document.getElementById("routing-input");
         this.units_input = document.getElementById("units-input");
@@ -182,11 +187,11 @@ export default class Buttons {
         this.load_content = document.getElementById('load-content');
         this.share_content = document.getElementById('share-content');
         this.merge_content = document.getElementById('merge-content');
+        this.extract_content = document.getElementById('extract-content');
         this.merge_time_options = document.getElementById('merge-time-options');
         this.crop_content = document.getElementById('crop-content');
         this.load_error_content = document.getElementById('load-error-content');
         this.embed_content = document.getElementById('embed-content');
-        this.login_content = document.getElementById('login-content');
         this.trace_info_content = document.getElementById('info');
         this.toolbar_content = document.getElementById('toolbar');
         this.street_view_content = document.getElementById('street-view-content');
@@ -237,8 +242,8 @@ export default class Buttons {
         this.load_error_window = L.control.window(this.map,{title:'',content:this.load_error_content,className:'panels-container',closeButton:false});
         this.share_window = L.control.window(this.map,{title:'',content:this.share_content,className:'panels-container'});
         this.merge_window = L.control.window(this.map,{title:'',content:this.merge_content,className:'panels-container',closeButton:false});
+        this.extract_window = L.control.window(this.map,{title:'',content:this.extract_content,className:'panels-container',closeButton:false});
         this.crop_window = L.control.window(this.map,{title:'',content:this.crop_content,className:'panels-container',closeButton:false});
-        this.login_window = L.control.window(this.map,{title:'',content:this.login_content,className:'panels-container'});
 
         this.zoom = L.control.zoom({
             position: 'topright'
@@ -1494,11 +1499,36 @@ export default class Buttons {
             const trace = total.traces[total.focusOn];
             if (trace.isEdited) return;
             if (!trace.can_extract) return;
-            const newTraces = trace.extract();
-            for (var i=0; i<newTraces.length; i++) {
-                total.setTraceIndex(newTraces[i].index, trace.index+1+i);
+
+            var newTraces = null;
+            var ntracks = trace.getTracks().length;
+            var nsegments = trace.getSegments().length;
+            if (ntracks == 1) newTraces = trace.extract(true);
+            else if (ntracks == nsegments) newTraces = trace.extract(false);
+            else {
+                if (buttons.window_open) buttons.window_open.hide();
+                buttons.window_open = buttons.extract_window;
+                buttons.extract_window.show();
+                buttons.extract.trace = trace;
             }
+
+            if (newTraces) {
+                for (var i=0; i<newTraces.length; i++) {
+                    total.setTraceIndex(newTraces[i].index, trace.index+1+i);
+                }
+                gtag('event', 'button', {'event_category' : 'extract'});
+            }
+        });
+        this.extract_ok.addEventListener("click", function() {
+            const newTraces = buttons.extract.trace.extract(buttons.extract_as_segments.checked);
+            for (var i=0; i<newTraces.length; i++) {
+                total.setTraceIndex(newTraces[i].index, buttons.extract.trace.index+1+i);
+            }
+            buttons.extract_window.hide();
             gtag('event', 'button', {'event_category' : 'extract'});
+        });
+        this.extract_cancel.addEventListener("click", function() {
+            buttons.extract_window.hide();
         });
         const sliderCallback = function() {
             const npoints = buttons.reduce.trace.previewSimplify(buttons.reduce_slider.value);
@@ -1964,6 +1994,8 @@ export default class Buttons {
                 buttons.points_info.style.display = 'none';
                 buttons.segments.style.display = 'none';
                 buttons.segments_info.style.display = 'none';
+                buttons.tracks.style.display = 'none';
+                buttons.tracks_info.style.display = 'none';
 
                 buttons.speed.style.gridColumn = '';
                 buttons.speed.style.gridRow = '';
@@ -1991,6 +2023,8 @@ export default class Buttons {
                 buttons.points_info.style.display = '';
                 buttons.segments.style.display = '';
                 buttons.segments_info.style.display = '';
+                buttons.tracks.style.display = '';
+                buttons.tracks_info.style.display = '';
 
                 buttons.speed.style.gridColumn = '3 / span 1';
                 buttons.speed.style.gridRow = '1 / span 1';
@@ -2000,7 +2034,7 @@ export default class Buttons {
                 buttons.duration.style.gridRow = '1 / span 1';
                 buttons.duration_info.style.gridColumn = '4 / span 1';
                 buttons.duration_info.style.gridRow = '2 / span 1';
-                buttons.elevation_input.style.gridColumn = '7 / span 1';
+                buttons.elevation_input.style.gridColumn = '8 / span 1';
                 buttons.elevation_input.style.gridRow = '1 / span 2';
                 buttons.elevation_input.children[0].classList.remove('fa-minus');
                 buttons.elevation_input.children[0].classList.add('fa-chart-area');
