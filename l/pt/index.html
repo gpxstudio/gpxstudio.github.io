@@ -86,7 +86,7 @@
             <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Doar</b> <i class="fas fa-heart"></i></div>
         </div>
         <div id="info">
-            <ul id="sortable">
+            <ul id="sortable-tabs">
               <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">Total</li>
             </ul>
             <div id="info-grid" class="panels-container trace-info">
@@ -98,10 +98,12 @@
                 <div class="panels panels-val" id="speed-val"></div>
                 <div class="panels panels-info" id="duration">Tempo de Movimentação</div>
                 <div class="panels panels-val" id="duration-val"></div>
+                <div class="panels panels-info" id="tracks" style="display: none; padding-right: 5px;">Tracks</div>
+                <div class="panels panels-val" id="tracks-val" style="display: none; padding-right: 5px;">0</div>
+                <div class="panels panels-info" id="segments" style="display: none; padding-right: 5px;">Track segments</div>
+                <div class="panels panels-val" id="segments-val" style="display: none; padding-right: 5px;">0</div>
                 <div class="panels panels-info" id="points" style="display: none">Track points</div>
                 <div class="panels panels-val" id="points-val" style="display: none">0</div>
-                <div class="panels panels-info" id="segments" style="display: none; padding-right: 5px;">Segmentos</div>
-                <div class="panels panels-val" id="segments-val" style="display: none; padding-right: 5px;">0</div>
                 <div id="units-text" class="panels-info">Distance units</div>
                 <select id="units-input" name="units-input">
                     <option value="km">Metric</option>
@@ -128,13 +130,14 @@
                 <div class="panels-button" id="edit-time" title="Editar Tempo"><i class="fas fa-stopwatch custom-button"></i></div><br>
                 <div class="panels-button" id="reverse" title="Inverter"><i class="fas fa-exchange-alt custom-button"></i></div><br>
                 <div class="panels-button" id="combine" title="Mesclar com outra trilha"><i class="fas fa-plus-circle custom-button"></i></div><br>
-                <div class="panels-button" id="extract" title="Extrair segmentos da trilha"><i class="fas fa-list-ul custom-button"></i></div><br>
+                <div class="panels-button" id="extract" title="Extract tracks or track segments"><i class="fas fa-list-ul custom-button"></i></div><br>
                 <div class="panels-button" id="duplicate" title="Duplicar"><i class="fas fa-copy custom-button"></i></div><br>
-                <div class="panels-button" id="color" title="Alterar cor, opacidade e largura"><i class="fas fa-palette custom-button"></i></div><br>
                 <div class="panels-button" id="add-wpt" title="Adicionar ponto de parada"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
                 <div class="panels-button" id="reduce" title="Reduzir o número de pontos da trilha"><i class="fas fa-compress-alt custom-button"></i></div><br>
                 <div class="panels-button" id="zone-delete" title="Excluir toda a seleção de dentro/fora do retângulo"><i class="fas fa-vector-square custom-button"></i></div><br>
                 <div class="panels-button" id="hide" title="Ocultar/reexibir a trilha"><i class="fas fa-eye-slash custom-button"></i></div><br>
+                <div class="panels-button" id="color" title="Alterar cor, opacidade e largura"><i class="fas fa-palette custom-button"></i></div><br>
+                <div class="panels-button" id="structure" title="Manage the file structure"><i class="fas fa-folder-tree custom-button"></i></div><br>
                 <div class="panels-button" id="delete" title="Apagar"><i class="fas fa-trash-alt custom-button"></i></div><br>
             </div>
             <div id="editing-options" class="panels-container">
@@ -246,10 +249,6 @@
                 <td>Duplicar a trilha</td>
             </tr>
             <tr>
-                <td><i class="fas fa-palette"></i></td>
-                <td>Alterar a cor e a opacidade da tela, estes valores serão exportados e detectados quando reimportados</td>
-            </tr>
-            <tr>
                 <td><i class="fas fa-map-marker-alt"></i></td>
                 <td>Adicione um ponto de parada (arraste para alterar sua localização e use os botões para editar informações, duplicar ou remover)</td>
             </tr>
@@ -264,6 +263,14 @@
             <tr>
                 <td><i class="fas fa-eye-slash"></i></td>
                 <td>Ocultar ou reexibir a trilha</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-palette"></i></td>
+                <td>Alterar a cor e a opacidade da tela, estes valores serão exportados e detectados quando reimportados</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-folder-tree"></i></td>
+                <td>Manage the file structure, drag and drop files, tracks and track segments</td>
             </tr>
             <tr>
                 <td><i class="fas fa-trash-alt"></i></td>
@@ -373,7 +380,7 @@
                 <hr>
             </div>
             <div>
-                Choose how to add the second trace to the first one:<br>
+                Choose how to add the second trace to the first one<br>
                 <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Merge as track points</label><br>
                 <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Merge as track segments</label><br>
                 <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Merge as tracks</label>
@@ -381,6 +388,19 @@
             </div>
             Click on another trace or tab to merge the current trace with it<br>
             <div id="merge-cancel" class="panels custom-button normal-button"><b>Cancelar</b></div>
+        </div>
+        <div id="extract-content" class="popup-content">
+            Choose what to extract<br>
+            <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Tracks</label><br>
+            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Track segments</label><br>
+            <div id="extract-ok" class="panels custom-button normal-button">Ok</div>
+            <div id="extract-cancel" class="panels custom-button normal-button"><b>Cancelar</b></div>
+        </div>
+        <div id="structure-content" class="popup-content">
+            <div>Drag and drop the elements to rearrange the file structure</div>
+            <div>Move elements from or to the tabs above the elevation profile</div>
+            <div>Rename tracks or change their color</div>
+            <div id="file-structure"></div>
         </div>
         <div id="crop-content" class="popup-content">
             <input type="checkbox" id="crop-keep"><label for="crop-keep">Keep cropped parts in new files</label><br>
@@ -424,6 +444,8 @@
         <div id="search-input-text">Search...</div>
         <div id="search-button-text">Search for a place or paste GPS coordinates</div>
         <div id="locate-button-text">Show my position</div>
+        <span id="track-text">Track</span>
+        <span id="segment-text">Segment</span>
         <div id="edit-speed-popup-text">
             <div id="speed-text">Velocidade</div>
             <div id="pace-text">Ritmo</div>
@@ -451,27 +473,27 @@
             <div id="missing-text">Missing</div>,
             <div id="paved-text">Pavimentado</div>,
             <div id="unpaved-text">Não pavimentado</div>,
-            <div id="asphalt-text">Asfalto</div>,
-            <div id="concrete-text">Cimento</div>,
+            <div id="asphalt-text">Asphalt</div>,
+            <div id="concrete-text">Concrete</div>,
             <div id="chipseal-text">Chipseal</div>,
-            <div id="cobblestone-text">Empedrado</div>,
+            <div id="cobblestone-text">Cobblestone</div>,
             <div id="unhewn-cobblestone-text">Unhewn Cobblestone</div>,
-            <div id="paving-stones-text">Pedra de calçada</div>,
+            <div id="paving-stones-text">Paving Stones</div>,
             <div id="stepping-stones-text">Stepping Stones</div>,
             <div id="sett-text">Sett Paving</div>,
             <div id="metal-text">Metal</div>,
-            <div id="wood-text">Madeira</div>,
+            <div id="wood-text">Wood</div>,
             <div id="compacted-text">Compacted Gravel</div>,
             <div id="fine-gravel-text">Fine Gravel</div>,
-            <div id="gravel-text">Gravilha</div>,
+            <div id="gravel-text">Gravel</div>,
             <div id="pebblestone-text">Pebblestone</div>,
             <div id="rock-text">Rock</div>,
             <div id="dirt-text">Dirt</div>,
             <div id="ground-text">Ground</div>,
             <div id="earth-text">Earth</div>,
-            <div id="snow-text">Neve</div>,
-            <div id="ice-text">Gelo</div>,
-            <div id="salt-text">Sal</div>,
+            <div id="snow-text">Snow</div>,
+            <div id="ice-text">Ice</div>,
+            <div id="salt-text">Salt</div>,
             <div id="mud-text">Mud</div>,
             <div id="sand-text">Sand</div>,
             <div id="woodchips-text">Woodchips</div>,
@@ -508,7 +530,7 @@
     <script type="text/javascript" src="/include/condensed-attribution/leaflet-control-condended-attribution.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.74.1/dist/L.Control.Locate.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.13.0/Sortable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.14.0/Sortable.min.js"></script>
     <script src="https://unpkg.com/mapillary-js@4.0.0/dist/mapillary.js"></script>
     <script src="https://unpkg.com/leaflet.vectorgrid@1.3.0/dist/Leaflet.VectorGrid.min.js"></script>
     <script src="/include/sanitize/xss.min.js"></script>
