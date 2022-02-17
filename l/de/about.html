@@ -199,7 +199,7 @@
                     <ul>
                         <li>Click on <span class="button">Export</span> and then choose whether to:
                            <ul>
-                               <li>merge all open GPX files as track segments into one file, or export them separately.</li>
+                               <li>merge all open GPX files as tracks into one file, or export them separately.</li>
                                <li>include time, temperature, heartrate, cadence, power and surface data or not.</li>
                            </ul>
                            Then, click on <span class="button">Download <i class="fas fa-download"></i></span> to download the files on your computer or on <span class="button">Save to Google Drive</span> to save it in the cloud.
@@ -213,7 +213,7 @@
                     <ol>
                         <li>Click on <span class="button">Export</span> and then choose whether to:
                            <ul>
-                               <li>merge all open GPX files as track segments into one file, or export them separately.</li>
+                               <li>merge all open GPX files as tracks into one file, or export them separately.</li>
                                <li>include time, temperature, heartrate, cadence, power and surface data or not.</li>
                            </ul>
                         </li>
@@ -294,6 +294,12 @@
                         <li>Click on <i class="fas fa-plus-circle button"></i> (available only when more than two files are open).</li>
                         <li>Click on the tab of the second GPX file to merge or an the trace itself. The track points of the second GPX file will come after those of the first GPX file.</li>
                     </ol>
+                    You can also use the file structure tool:
+                    <ol>
+                        <li>Below the bottom panel, select the tab of the first GPX file you want to merge.</li>
+                        <li>Click on <i class="fas fa-folder-tree button"></i>.</li>
+                        <li>Drag the tab of the file you wish to merge into the first one and drop it in the file structure.</li>
+                    </ol>
                     If you want to merge all open GPX files at once:
                     <ol>
                         <li>Below the bottom panel, put the tabs in the order you want them to appear in the merged GPX file.</li>
@@ -304,8 +310,26 @@
                     When merging multiple GPX files: missing time, temperature, heartrate, cadence or power data will be automatically extended with the average value across merged files.
                     If some GPX files contains timestamps, it is ensured that the timestamps of the merged file are strictly increasing (the timestamps of some files are shifted if necessary).
                 </div></div>
-                <div class="guide-item"><a name="extract-segments" href="#extract-segments" class="my-anchor"><div class="guide-title" onclick="toggle('extract')">Extrahiere Wegpunkte aus einer GPX Datei</div></a>
-                <div id="extract" class="guide-content">Click on <i class="fas fa-list-ul button"></i> (available only if the file has more than one track segment). If the GPX file contains waypoints (points of interest), they are kept in the files for which the traces pass closest.</div></div>
+                <div class="guide-item"><a name="extract-segments" href="#extract-segments" class="my-anchor"><div class="guide-title" onclick="toggle('extract')">Extract tracks or tracks segments of a GPX file</div></a>
+                <div id="extract" class="guide-content">
+                    To extract all tracks or tracks segments from a trace, click on <i class="fas fa-list-ul button"></i> (available only if the file has more than one track or track segment).
+                    If the GPX file contains waypoints (points of interest), they are kept in the files for which the traces pass closest.<br><br>
+                    To extract a specific track or track segment:
+                    <ol>
+                        <li>Click on <i class="fas fa-folder-tree button"></i>.</li>
+                        <li>Drag the track or track segment you wish to extract from the file structure to the tabs above the elevation profile.</li>
+                    </ol>
+                </div></div>
+                <div class="guide-item"><a name="change-structure" href="#change-structure" class="my-anchor"><div class="guide-title" onclick="toggle('structure')">Change the structure of a GPX file</div></a>
+                <div id="structure" class="guide-content">
+                    Click on <i class="fas fa-folder-tree button"></i> and then you can:
+                    <ul>
+                        <li>Drag and drop tracks and track segments to rearrange them, or drop them in the tabs above the elevation profile to extract them.</li>
+                        <li>Drag and drop traces from the tabs above the elevation profile to merge them with the current trace.</li>
+                        <li>Assign a different color to each track.</li>
+                        <li>Rename each track.</li>
+                    </ul>
+                </div></div>
                 <div class="guide-item"><a name="copy-file" href="#copy-file" class="my-anchor"><div class="guide-title" onclick="toggle('copy')">Kopieren einer GPX-Datei</div></a>
                 <div id="copy" class="guide-content">Click on <i class="fas fa-copy button"></i> to duplicate a GPX file.</div></div>
                 <div class="guide-item"><a name="change-color" href="#change-color" class="my-anchor"><div class="guide-title" onclick="toggle('color')">Farbe, Deckkraft und Breite eines Tracks ändern</div></a>
@@ -317,7 +341,8 @@
                         <li>Move the width slider to change the width.</li>
                         <li>Click on <span class="button">Ok</span>.</li>
                     </ol>
-                    You can optionally apply the chosen color, opacity and width to all traces by using the checkboxes.
+                    You can optionally apply the chosen color, opacity and width to all traces by using the checkboxes.<br>
+                    For traces with multiple tracks, the file structure tool <i class="fas fa-folder-tree button"></i> can be used to assign a different color to each of them.
                 </div></div>
                 <div class="guide-item"><a name="add-waypoint" href="#add-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('add-wpt')">Wegpunkte (Sehenswürdigkeiten) zu einer GPX-Datei hinzufügen</div></a>
                 <div id="add-wpt" class="guide-content">
@@ -401,7 +426,7 @@
                     <li><code>cosm</code>: CyclOSM</li>
                 </ul>
                 <p>Um Mapbox-Karten zu verwenden, musst du den Parameter <code>Token</code> mit einem gültigen <a href="https://account.mapbox.com/access-tokens/" target="_blank">Mapbox-Token</a> spezifizieren. You can also use a custom Mapbox style by directly specifying its URL with <code>mapbox-style=&lt;STYLE_URL&gt;</code>.</p>
-                <p>Du kannst optional Parameter zur source URL hinzufügen: <code>imperial</code>, um Daten in Meilen und Fuß zu erhalten, <code>running</code>, um das Tempo in Minuten pro Entfernungseinheit anzuzeigen, <code>distance</code>, um Entfernungsmarkierungen anzuzeigen und <code>direction</code>, um Richtungsmarkierungen anzuzeigen. Du kannst im Folgenden mit den Parametern experimentieren und das Ergebnis in einer Vorschau begutachten. Der entsprechende HTML Code wird automatisch generiert.</p>
+                <p>You can optionally add parameters to the source URL: <code>imperial</code> to get data in miles and feet, <code>running</code> to display the pace in minutes by unit of distance, <code>distance</code> to show distance markers, <code>direction</code> to show direction markers and <code>slope</code> to show the slope view of the elevation profile. Du kannst im Folgenden mit den Parametern experimentieren und das Ergebnis in einer Vorschau begutachten. Der entsprechende HTML Code wird automatisch generiert.</p>
                 <div class="guide-item">
                     <h3 style="margin-block-start: 0em;">Parameter</h3>
                     <p>Datei URLs (getrennt durch Kommas)<br>
@@ -409,10 +434,11 @@
                     <p>Google Drive Datei IDs (getrennt durch Kommas)<br>
                     <input id="file-ids" type="text" oninput="showPreview()" value="10IbXh7W7QDO7ZKmapJYdcgN3vhdN2Q-e" style="width: 96%; margin: 5px;"></p>
                     <div style="display: flex; justify-content: space-between">
-                        <span>Running (Tempo in Minuten) <input id="running" type="checkbox" oninput="showPreview()"></span>
-                        <span>Imperial (Angabe in Meilen) <input id="imperial" type="checkbox" oninput="showPreview()"></span>
-                        <span>Entfernungsangaben <input id="distance" type="checkbox" oninput="showPreview()" checked></span>
-                        <span>Richtungsangaben <input id="direction" type="checkbox" oninput="showPreview()"></span>
+                        <span>Running <input id="running" type="checkbox" oninput="showPreview()"></span>
+                        <span>Imperial <input id="imperial" type="checkbox" oninput="showPreview()"></span>
+                        <span>Distance markers <input id="distance" type="checkbox" oninput="showPreview()" checked></span>
+                        <span>Direction markers <input id="direction" type="checkbox" oninput="showPreview()"></span>
+                        <span>Slope <input id="slope" type="checkbox" oninput="showPreview()"></span>
                     </div>
                     <p>Default Karte <select id="sources" oninput="showPreview()">
                         <option value="outdoors">Mapbox Outdoors</option>
@@ -479,6 +505,7 @@
             const imperial = document.getElementById("imperial").checked;
             const distance = document.getElementById("distance").checked;
             const direction = document.getElementById("direction").checked;
+            const slope = document.getElementById("slope").checked;
             const mapbox_token = document.getElementById("mapbox-token").value;
             const mapbox_style = document.getElementById("mapbox-style").value;
             const source = document.getElementById("sources").value;
@@ -515,7 +542,8 @@
                 + (running ? '&running' : '')
                 + (imperial ? '&imperial' : '')
                 + (distance ? '&distance' : '')
-                + (direction ? '&direction' : '');
+                + (direction ? '&direction' : '')
+                + (slope ? '&slope' : '');
 
             const code = document.getElementById("embedding-code");
             code.innerHTML = '&lt;iframe src="https://gpx.studio'
@@ -529,6 +557,7 @@
                 + (imperial ? '&imperial' : '')
                 + (distance ? '&distance' : '')
                 + (direction ? '&direction' : '')
+                + (slope ? '&slope' : '')
                 + '" width="100%" height="500" frameborder="0" allowfullscreen&gt;&lt;p&gt;&lt;a href="https://gpx.studio'
                 + window.location.pathname.replace('about.html','')
                 + query

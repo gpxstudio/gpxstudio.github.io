@@ -112,7 +112,7 @@
             <div>
                 A <a href="./"><b>gpx.studio</b></a> egy ingyenes online GPX fájl megjelenítő és szerkesztő, amely lehetővé teszi:
                 <ul>
-                    <li>több nyomvonal megjelenítése különböző színekben különböző térképeken (kerékpározás, futás/túrázás, műholdak, <a href="https://www.strava.com/heatmap" target="_blank">Strava heatmap</a> átfedés stb.)</li>
+                    <li>több útvonal megjelenítése különböző színekben különböző térképeken (kerékpározás, futás/túrázás, műholdak, <a href="https://www.strava.com/heatmap" target="_blank">Strava heatmap</a> átfedés stb.)</li>
                     <li>útvonalak szerkesztése útvonalpontok hozzáadásával, beszúrásával, mozgatásával vagy törlésével</li>
                     <li>útvonal útirány megfordítását</li>
                     <li>időbélyegek hozzáadása a útvonalhoz</li>
@@ -171,11 +171,11 @@
                 <div class="guide-item"><a name="create-file" href="#create-file" class="my-anchor"><div class="guide-title" onclick="toggle('create')">Új GPX útvonal</div></a>
                 <div id="create" class="guide-content">
                     <ol>
-                        <li>A felső eszköztáron kattintson az <span class="button">Új GPX útvonal</span> lehetőségre. A new tab called "new" appears above the bottom panel.</li>
+                        <li>A felső eszköztáron kattintson az <span class="button">Új GPX útvonal</span> lehetőségre. Az alsó szintkép és adatok panel bal felső részén (összes mellett) egy új lap jelenik meg, a "New" elnevezéssel.</li>
                         <li>Kezdje meg a szerkesztést. Válasza ki a kiindulási helyszínit. Helyezzen rögzítési útvonal pontokat a térképen azokra az utakra kattintva, amelyeken keresztül szeretne menni.</li>
                         <li>
-                            If routing is enabled, select the appropriate activity type in order to take the most suitable roads.
-                            Disabling the routing will allow you to draw straight lines freely on the map.
+                            Ha az útvonal rajzolási módban van, válassza ki a megfelelő tevékenységtípust, hogy a legmegfelelőbb utakra tudja szerkeszteni az útvonalat.
+                            Az útvonalkövetés szerkesztési mód letiltásával át válthat szabadkézi rajzolásba a térképen.
                         </li>
                         <li>Elhúzhat egy útvonal szerkesztési pontot vagy magát az útvonalat, hogy átirányítsa a tervezett útvonalat egy új útra.</li>
                         <li>Ha véletlenül hibázik vagy meggondolja magát az útvonallal kapcsolatban, a következőket teheti:
@@ -199,8 +199,8 @@
                     <ul>
                         <li>Kattintson az <span class="button">Exportálás</span> lehetőségre, majd válassza ki, hogy:
                            <ul>
-                               <li>merge all open GPX files as track segments into one file, or export them separately.</li>
-                               <li>include time, temperature, heartrate, cadence, power and surface data or not.</li>
+                               <li>merge all open GPX files as tracks into one file, or export them separately.</li>
+                               <li>tartalmazzák az időt, a hőmérsékletet, a pulzust, ütemet, a teljesítményt és a felületi adatokat, vagy nem.</li>
                            </ul>
                            Ezután kattintson a <span class="button">Letöltés <i class="fas fa-download"></i></span> lehetőségre a fájlok számítógépére való letöltéséhez, vagy a <span class="button">Mentés a Google Drive-ra</span> lehetőségre, ha a felhőbe menti.
                         </li>
@@ -213,8 +213,8 @@
                     <ol>
                         <li>Kattintson az <span class="button">Exportálás</span> lehetőségre, majd válassza ki, hogy:
                            <ul>
-                               <li>merge all open GPX files as track segments into one file, or export them separately.</li>
-                               <li>include time, temperature, heartrate, cadence, power and surface data or not.</li>
+                               <li>merge all open GPX files as tracks into one file, or export them separately.</li>
+                               <li>tartalmazzák az időt, a hőmérsékletet, a pulzust, ütemet, a teljesítményt és a felületi adatokat, vagy nem.</li>
                            </ul>
                         </li>
                         <li>Megosztás csak Google Drive-val lehetséges. Kattintson a <span class="button">Mentés a Google Drive-ra</span> lehetőségre.</li>
@@ -233,10 +233,10 @@
                         <li>kattintson a jobb gombbal egy útvonal szerkesztési pontra vagy a vonalra, és használja a <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> parancsot a nyomvonal szétválasztásához a kiválasztott helyen.</li>
                         <li>kattintson a jobb gombbal egy útvonal szerkesztési pontra vagy a vonalra, és használja a <span class="button"><i class="fas fa-undo"></i> <span>Rajt innen</span></span> parancsot, hogy az útvonal teljesítése egy kiválasztott helyről induljon.</li>
                     </ul>
-                    If you make a mistake or change your mind about the itinerary, use the undo <i class="fas fa-reply button"></i> and redo <i class="fas fa-share button"></i> buttons.<br><br>
-                    If routing is enabled, select the appropriate activity type in order to take the most suitable roads.
-                    Disabling the routing will allow you to draw straight lines freely on the map.<br><br>
-                    If you edit a GPX file containing time, temperature, heartrate, cadence or power data, new track points will automatically contain the average value for each of those fields.
+                    Ha hibázik, vagy meggondolja magát az útvonallal kapcsolatban, használja a visszavonás <i class="fas fa-reply button"></i> és az újra szerketés <i class="fas fa-share button"></i> gombokat.<br><br>
+                     Ha az útonal rajzolás engedélyezve van, válassza ki a megfelelő tevékenységtípust, hogy a legmegfelelőbb utakon haladjon.
+                    Az útvonalra szerkesztés letiltása lehetővé teszi, hogy szabadkézzel rajzoljon út vonalakat a térképen.<br><br>
+                     Ha szerkeszt egy GPX-fájlt, amely teljesítményadatokat tartalmaz, az új útvonalpontok automatikusan tartalmazzák az egyes mezők átlagos értékét.
                 </div></div>
                 <div class="guide-item"><a name="crop-file" href="#crop-file" class="my-anchor"><div class="guide-title" onclick="toggle('crop')">GPX file vágás</div></a>
                 <div id="crop" class="guide-content">Három lehetőség van:
@@ -292,7 +292,13 @@
                     <ol>
                         <li>Az alsó szintkép panel alatt válassza ki az első egyesíteni kívánt GPX-fájl fülét.</li>
                         <li>Kattintson a <i class="fas fa-plus-circle button"></i> elemre (csak akkor érhető el, ha kettőnél több fájl van megnyitva).</li>
-                        <li>Click on the tab of the second GPX file to merge or an the trace itself. A második GPX-fájl útvonal szerkesztési pontjai az első GPX-fájl útvonal szerkesztési pontjai után jönnek.</li>
+                        <li>Kattintson a második GPX-fájl fülére az egyesítéshez, vagy az útvonalra. A második GPX-fájl útvonal szerkesztési pontjai az első GPX-fájl útvonal szerkesztési pontjai után jönnek.</li>
+                    </ol>
+                    You can also use the file structure tool:
+                    <ol>
+                        <li>Az alsó szintkép panel alatt válassza ki az első egyesíteni kívánt GPX-fájl fülét.</li>
+                        <li>Click on <i class="fas fa-folder-tree button"></i>.</li>
+                        <li>Drag the tab of the file you wish to merge into the first one and drop it in the file structure.</li>
                     </ol>
                     Ha az összes nyitott GPX fájlt egyszerre szeretné egyesíteni:
                     <ol>
@@ -304,8 +310,26 @@
                     Több GPX-fájl egyesítésekor: a hiányzó idő-, hőmérséklet-, pulzus-, pedál/lépés ütem- vagy teljesítményadatok automatikusan kitöltődnek az egyesített fájlok átlagos értékével.
                     Ha egyes GPX-fájlok tartalmaznak időadatokat, akkor az egyesített fájl időadatai szigorúan növekednek (egyes fájlok időadatai szükség esetén eltolódnak).
                 </div></div>
-                <div class="guide-item"><a name="extract-segments" href="#extract-segments" class="my-anchor"><div class="guide-title" onclick="toggle('extract')">GPX-fájl útvonalszegmenseinek kibontása</div></a>
-                <div id="extract" class="guide-content">Kattintson a <i class="fas fa-list-ul button"></i> elemre (csak akkor érhető el, ha a fájl egynél több útszegmenst tartalmaz). Ha a GPX fájl útvonalpontokat (érdekes pontokat) tartalmaz, akkor ezeket azokban a fájlokban tárolja, amelyik úthoz a legközelebb haladnak el.</div></div>
+                <div class="guide-item"><a name="extract-segments" href="#extract-segments" class="my-anchor"><div class="guide-title" onclick="toggle('extract')">Extract tracks or tracks segments of a GPX file</div></a>
+                <div id="extract" class="guide-content">
+                    To extract all tracks or tracks segments from a trace, click on <i class="fas fa-list-ul button"></i> (available only if the file has more than one track or track segment).
+                    If the GPX file contains waypoints (points of interest), they are kept in the files for which the traces pass closest.<br><br>
+                    To extract a specific track or track segment:
+                    <ol>
+                        <li>Click on <i class="fas fa-folder-tree button"></i>.</li>
+                        <li>Drag the track or track segment you wish to extract from the file structure to the tabs above the elevation profile.</li>
+                    </ol>
+                </div></div>
+                <div class="guide-item"><a name="change-structure" href="#change-structure" class="my-anchor"><div class="guide-title" onclick="toggle('structure')">Change the structure of a GPX file</div></a>
+                <div id="structure" class="guide-content">
+                    Click on <i class="fas fa-folder-tree button"></i> and then you can:
+                    <ul>
+                        <li>Drag and drop tracks and track segments to rearrange them, or drop them in the tabs above the elevation profile to extract them.</li>
+                        <li>Drag and drop traces from the tabs above the elevation profile to merge them with the current trace.</li>
+                        <li>Assign a different color to each track.</li>
+                        <li>Rename each track.</li>
+                    </ul>
+                </div></div>
                 <div class="guide-item"><a name="copy-file" href="#copy-file" class="my-anchor"><div class="guide-title" onclick="toggle('copy')">GPX file másolás</div></a>
                 <div id="copy" class="guide-content">Kattintson <i class="fas fa-copy button"></i> ábrára a GPX file másoláshoz.</div></div>
                 <div class="guide-item"><a name="change-color" href="#change-color" class="my-anchor"><div class="guide-title" onclick="toggle('color')">Módosítsa a GPX-fájlban az útvonal színét, átlátszatlanságát és szélességét</div></a>
@@ -317,7 +341,8 @@
                         <li>Mozgassa a csúszkát a szélesség módosításához.</li>
                         <li>Kattintson <span class="button">Ok</span>.</li>
                     </ol>
-                    Opcionálisan alkalmazhatja a kiválasztott színt, átlátszatlanságot és szélességet az összes nyomvonalra a jelölőnégyzetek használatával.
+                    You can optionally apply the chosen color, opacity and width to all traces by using the checkboxes.<br>
+                    For traces with multiple tracks, the file structure tool <i class="fas fa-folder-tree button"></i> can be used to assign a different color to each of them.
                 </div></div>
                 <div class="guide-item"><a name="add-waypoint" href="#add-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('add-wpt')"> Útvonalpontok (érdekes, ellenőrző pontok) hozzáadása egy GPX-fájlhoz</div></a>
                 <div id="add-wpt" class="guide-content">
@@ -367,9 +392,9 @@
                 <div class="guide-item"><a name="hide-elevation" href="#hide-elevation" class="my-anchor"><div class="guide-title" onclick="toggle('profile')">A magassági szintkép elrejtése</div></a>
                 <div id="profile" class="guide-content">A magassági szintkép elrejtéséhez egyszerűen kattintson a <i class="fas fa-chart-area button"></i> elemre.</div></div>
                 <div class="guide-item"><a name="direction-markers" href="#direction-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-direction-markers')">Menetirány jelzés megjelenítése útvonalon</div></a>
-                <div id="show-direction-markers" class="guide-content">To show direction markers, go in the map layers <i class="fas fa-layer-group button"></i> and check the box <i class="far fa-check-square"></i> Direction markers.</div></div>
+                <div id="show-direction-markers" class="guide-content">Az menetirány megjelenítéséhez lépjen be a térképrétegekbe <i class="fas fa-layer-group button"></i>, és jelölje be az <i class="far fa-check-square"></i>menetirány jelőlése négyzetet.</div></div>
                 <div class="guide-item"><a name="distance-markers" href="#distance-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-distance-markers')">Távolság megjelenítése útvonalon</div></a>
-                <div id="show-distance-markers" class="guide-content">To show distance markers, go in the map layers <i class="fas fa-layer-group button"></i> and check the box <i class="far fa-check-square"></i> Distance markers.</div></div>
+                <div id="show-distance-markers" class="guide-content">A a km szakaszok megjelenítéséhez lépjen be a térképrétegekbe <i class="fas fa-layer-group button"></i>, és jelölje be a <i class="far fa-check-square"></i> Távolságjelzők négyzetet.</div></div>
                 <div class="guide-item"><a name="map-legends" href="#map-legends" class="my-anchor"><div class="guide-title" onclick="toggle('legend')">Térképmagyarázat</div></a>
                 <div id="legend" class="guide-content">
                     <ul>
@@ -400,8 +425,8 @@
                     <li><code>ohm</code>: OpenHikingMap</li>
                     <li><code>cosm</code>: CyclOSM</li>
                 </ul>
-                <p>A Mapbox térképek használatához meg kell adnia a <code>token</code> paramétert egy érvényes saját <a href="https://account.mapbox.com/access-tokens/" target="_blank">Mapbox tokennel</a>. You can also use a custom Mapbox style by directly specifying its URL with <code>mapbox-style=&lt;STYLE_URL&gt;</code>.</p>
-                <p>Opcionálisan adatokat is hozzáadhat a forrás URL-hez: <code>imperial</code> az adatok mérföldben és lábban való lekéréséhez, <code>running</code> a tempó percben, távolságegységenkénti megjelenítéséhez, <code>distance</code> a távolságjelzők, az <code>direction</code> pedig menetirányjelzők megjelenítéséhez. Az alábbiakban egy lehetőség található az igény szerinti adatok megjelenítéséhez, az előnézet megtekintéséhez és a HTML-kód beszerzéséhez.</p>
+                <p>A Mapbox térképek használatához meg kell adnia a <code>token</code> paramétert egy érvényes saját <a href="https://account.mapbox.com/access-tokens/" target="_blank">Mapbox tokennel</a>. Egyéni Mapbox stílust is használhat, ha közvetlenül adja meg az URL-t a <code>mapbox-style=&lt;STYLE_URL&gt;</code> paraméterrel.</p>
+                <p>You can optionally add parameters to the source URL: <code>imperial</code> to get data in miles and feet, <code>running</code> to display the pace in minutes by unit of distance, <code>distance</code> to show distance markers, <code>direction</code> to show direction markers and <code>slope</code> to show the slope view of the elevation profile. Az alábbiakban egy lehetőség található az igény szerinti adatok megjelenítéséhez, az előnézet megtekintéséhez és a HTML-kód beszerzéséhez.</p>
                 <div class="guide-item">
                     <h3 style="margin-block-start: 0em;">Útvonal megjelenítési adatok hozzáadása</h3>
                     <p>Fájl elérési URL-ek (vesszővel elválasztva)<br>
@@ -409,10 +434,11 @@
                     <p>Google Drive ID-ik (a fájlazonosítók vesszővel elválasztva)<br>
                     <input id="file-ids" type="text" oninput="showPreview()" value="10IbXh7W7QDO7ZKmapJYdcgN3vhdN2Q-e" style="width: 96%; margin: 5px;"></p>
                     <div style="display: flex; justify-content: space-between">
-                        <span>Futás <input id="running" type="checkbox" oninput="showPreview()"></span>
-                         <span>Mérföld/Láb <input id="imperial" type="checkbox" oninput="showPreview()"></span>
-                         <span>Távolságjelzők <input id="distance" type="checkbox" oninput="showPreview()" checked></span>
-                         <span>Menetirányjelzők <input id="direction" type="checkbox" oninput="showPreview()"></span>
+                        <span>Running <input id="running" type="checkbox" oninput="showPreview()"></span>
+                        <span>Imperial <input id="imperial" type="checkbox" oninput="showPreview()"></span>
+                        <span>Distance markers <input id="distance" type="checkbox" oninput="showPreview()" checked></span>
+                        <span>Direction markers <input id="direction" type="checkbox" oninput="showPreview()"></span>
+                        <span>Slope <input id="slope" type="checkbox" oninput="showPreview()"></span>
                     </div>
                     <p>Alapértelmezett térkép <select id="sources" oninput="showPreview()">
                         <option value="outdoors">Mapbox Outdoors</option>
@@ -424,7 +450,7 @@
                     </select></p>
                     <p>Mapbox token<br>
                     <input id="mapbox-token" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
-                    <p>Mapbox custom style URL<br>
+                    <p>Mapbox egyéni stílusú URL<br>
                     <input id="mapbox-style" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
                     <h3>Beágyazható HTML kód</h3>
                     <div style="text-align: left; overflow-wrap: break-word; padding:10px; border: 1px solid #ccc; background: #f5f5f5;">
@@ -479,6 +505,7 @@
             const imperial = document.getElementById("imperial").checked;
             const distance = document.getElementById("distance").checked;
             const direction = document.getElementById("direction").checked;
+            const slope = document.getElementById("slope").checked;
             const mapbox_token = document.getElementById("mapbox-token").value;
             const mapbox_style = document.getElementById("mapbox-style").value;
             const source = document.getElementById("sources").value;
@@ -515,7 +542,8 @@
                 + (running ? '&running' : '')
                 + (imperial ? '&imperial' : '')
                 + (distance ? '&distance' : '')
-                + (direction ? '&direction' : '');
+                + (direction ? '&direction' : '')
+                + (slope ? '&slope' : '');
 
             const code = document.getElementById("embedding-code");
             code.innerHTML = '&lt;iframe src="https://gpx.studio'
@@ -529,6 +557,7 @@
                 + (imperial ? '&imperial' : '')
                 + (distance ? '&distance' : '')
                 + (direction ? '&direction' : '')
+                + (slope ? '&slope' : '')
                 + '" width="100%" height="500" frameborder="0" allowfullscreen&gt;&lt;p&gt;&lt;a href="https://gpx.studio'
                 + window.location.pathname.replace('about.html','')
                 + query

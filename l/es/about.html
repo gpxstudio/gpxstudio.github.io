@@ -171,11 +171,11 @@
                 <div class="guide-item"><a name="create-file" href="#create-file" class="my-anchor"><div class="guide-title" onclick="toggle('create')">Crear un nuevo archivo GPX</div></a>
                 <div id="create" class="guide-content">
                     <ol>
-                        <li>En la barra de herramientas superior, haz clic en <span class="button">Crear GPX</span>. A new tab called "new" appears above the bottom panel.</li>
+                        <li>En la barra de herramientas superior, haz clic en <span class="button">Crear GPX</span>. Una nueva pestaña llamada "nuevo" aparecerá sobre el panel inferior.</li>
                         <li>Coloque puntos en el mapa haciendo clic en las ubicaciones que desea recorrer.</li>
                         <li>
-                            If routing is enabled, select the appropriate activity type in order to take the most suitable roads.
-                            Disabling the routing will allow you to draw straight lines freely on the map.
+                            Si el enrutamiento está habilitado, selecciona el tipo de actividad adecuado para elegir la ruta más adecuada.
+                            Deshabilitar el enrutamiento te permitirá trazar líneas rectas libremente en el mapa.
                         </li>
                         <li>Puedes arrastrar un punto o la línea en sí misma para volver a enrutar el track a través de una nueva ubicación.</li>
                         <li>Si cometes un error o cambias de opinión sobre el itinerario, puedes:
@@ -199,8 +199,8 @@
                     <ul>
                         <li>Haz clic en <span class="button">Exportar</span> y luego elije:
                            <ul>
-                               <li>merge all open GPX files as track segments into one file, or export them separately.</li>
-                               <li>include time, temperature, heartrate, cadence, power and surface data or not.</li>
+                               <li>merge all open GPX files as tracks into one file, or export them separately.</li>
+                               <li>incluye tiempo, temperatura, frecuencia cardíaca, cadencia, energía y datos de superficie o no.</li>
                            </ul>
                            Luego, haz clic en <span class="button">Descargar <i class="fas fa-download"></i></span> para guardar los archivos en tu ordenador o en <span class="button">Guardar en Google Drive</span> para guardarlos en la nube.
                         </li>
@@ -213,8 +213,8 @@
                     <ol>
                         <li>Haz clic en <span class="button">Exportar</span> y luego elije:
                            <ul>
-                               <li>merge all open GPX files as track segments into one file, or export them separately.</li>
-                               <li>include time, temperature, heartrate, cadence, power and surface data or not.</li>
+                               <li>merge all open GPX files as tracks into one file, or export them separately.</li>
+                               <li>incluye tiempo, temperatura, frecuencia cardíaca, cadencia, energía y datos de superficie o no.</li>
                            </ul>
                         </li>
                         <li>Haz clic en <span class="button">Guardar en Google Drive</span>.</li>
@@ -233,10 +233,10 @@
                         <li>haz clic derecho en un punto de ancla o en la línea y utiliza <span class="button"><i class="fas fa-cut"></i> <span>Dividir aquí</span></span> para dividir el track en una ubicación elegida.</li>
                         <li>haz clic derecho en un punto de ancla o en la línea y utiliza <span class="button"><i class="fas fa-undo"></i> <span>Iniciar bucle aquí</span></span> para hacer que el bucle comience en una ubicación elegida.</li>
                     </ul>
-                    If you make a mistake or change your mind about the itinerary, use the undo <i class="fas fa-reply button"></i> and redo <i class="fas fa-share button"></i> buttons.<br><br>
-                    If routing is enabled, select the appropriate activity type in order to take the most suitable roads.
-                    Disabling the routing will allow you to draw straight lines freely on the map.<br><br>
-                    If you edit a GPX file containing time, temperature, heartrate, cadence or power data, new track points will automatically contain the average value for each of those fields.
+                    Si cometes un error o cambias de opinión sobre el itinerario, usa los botones de deshacer <i class="fas fa-reply button"></i> y rehacer <i class="fas fa-share button"></i>.<br><br>
+                    Si el enrutamiento está habilitado, selecciona el tipo de actividad adecuado para elegir la ruta más adecuada.
+                    Desactivar el enrutamiento te permitirá trazar líneas rectas libremente en el mapa.<br><br>
+                    Si editas un archivo GPX que contiene tiempo, temperatura, frecuencia cardíaca, datos de cadencia o potencia, los nuevos puntos del track contendrán automáticamente el valor promedio de cada uno de esos campos.
                 </div></div>
                 <div class="guide-item"><a name="crop-file" href="#crop-file" class="my-anchor"><div class="guide-title" onclick="toggle('crop')">Recortar un archivo GPX</div></a>
                 <div id="crop" class="guide-content">Existen tres opciones:
@@ -292,7 +292,13 @@
                     <ol>
                         <li>Debajo del panel inferior, selecciona la pestaña del primer archivo GPX que deseas combinar.</li>
                         <li>Haz clic en <i class="fas fa-plus-circle button"></i> (disponible sólo cuando se abren más de dos archivos).</li>
-                        <li>Click on the tab of the second GPX file to merge or an the trace itself. Los puntos del track del segundo archivo GPX se añadirán después de los del primer archivo GPX.</li>
+                        <li>Haz clic en la pestaña del segundo archivo GPX para fusionar con el track en sí. Los puntos del track del segundo archivo GPX se añadirán después de los del primer archivo GPX.</li>
+                    </ol>
+                    You can also use the file structure tool:
+                    <ol>
+                        <li>Debajo del panel inferior, selecciona la pestaña del primer archivo GPX que deseas combinar.</li>
+                        <li>Click on <i class="fas fa-folder-tree button"></i>.</li>
+                        <li>Drag the tab of the file you wish to merge into the first one and drop it in the file structure.</li>
                     </ol>
                     Si quieres combinar todos los archivos GPX abiertos a la vez:
                     <ol>
@@ -304,8 +310,26 @@
                     Cuando se combinan varios archivos GPX: los datos no especificados de tiempo, temperatura, ritmo cardíaco, cadencia o datos de potencia se extenderán automáticamente con el valor promedio a través de archivos combinados.
                     Si algunos archivos GPX contienen marcas de tiempo, se asegura que las marcas de tiempo del archivo combinado estén aumentando (las marcas de tiempo de algunos archivos se cambian si es necesario).
                 </div></div>
-                <div class="guide-item"><a name="extract-segments" href="#extract-segments" class="my-anchor"><div class="guide-title" onclick="toggle('extract')">Extraer segmentos del track de un archivo GPX</div></a>
-                <div id="extract" class="guide-content">Haz clic en <i class="fas fa-list-ul button"></i> (disponible sólo si el archivo tiene más de un segmento en el track). Si el archivo GPX contiene waypoints (puntos de interés), se mantienen sólo los que pasen más cerca del track.</div></div>
+                <div class="guide-item"><a name="extract-segments" href="#extract-segments" class="my-anchor"><div class="guide-title" onclick="toggle('extract')">Extract tracks or tracks segments of a GPX file</div></a>
+                <div id="extract" class="guide-content">
+                    To extract all tracks or tracks segments from a trace, click on <i class="fas fa-list-ul button"></i> (available only if the file has more than one track or track segment).
+                    If the GPX file contains waypoints (points of interest), they are kept in the files for which the traces pass closest.<br><br>
+                    To extract a specific track or track segment:
+                    <ol>
+                        <li>Click on <i class="fas fa-folder-tree button"></i>.</li>
+                        <li>Drag the track or track segment you wish to extract from the file structure to the tabs above the elevation profile.</li>
+                    </ol>
+                </div></div>
+                <div class="guide-item"><a name="change-structure" href="#change-structure" class="my-anchor"><div class="guide-title" onclick="toggle('structure')">Change the structure of a GPX file</div></a>
+                <div id="structure" class="guide-content">
+                    Click on <i class="fas fa-folder-tree button"></i> and then you can:
+                    <ul>
+                        <li>Drag and drop tracks and track segments to rearrange them, or drop them in the tabs above the elevation profile to extract them.</li>
+                        <li>Drag and drop traces from the tabs above the elevation profile to merge them with the current trace.</li>
+                        <li>Assign a different color to each track.</li>
+                        <li>Rename each track.</li>
+                    </ul>
+                </div></div>
                 <div class="guide-item"><a name="copy-file" href="#copy-file" class="my-anchor"><div class="guide-title" onclick="toggle('copy')">Copiar un archivo GPX</div></a>
                 <div id="copy" class="guide-content">Haz clic en <i class="fas fa-copy button"></i> para duplicar un archivo GPX.</div></div>
                 <div class="guide-item"><a name="change-color" href="#change-color" class="my-anchor"><div class="guide-title" onclick="toggle('color')">Cambia el color, opacidad y ancho de un archivo GPX</div></a>
@@ -317,7 +341,8 @@
                         <li>Mueve la barra deslizante para cambiar el ancho.</li>
                         <li>Haz clic en <span class="button">Ok</span>.</li>
                     </ol>
-                    Opcionalmente puedes aplicar el color, la opacidad y el ancho escogido a todos los tracks usando las casillas de verificación.
+                    You can optionally apply the chosen color, opacity and width to all traces by using the checkboxes.<br>
+                    For traces with multiple tracks, the file structure tool <i class="fas fa-folder-tree button"></i> can be used to assign a different color to each of them.
                 </div></div>
                 <div class="guide-item"><a name="add-waypoint" href="#add-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('add-wpt')">Añadir waypoints (puntos de interés) a un archivo GPX</div></a>
                 <div id="add-wpt" class="guide-content">
@@ -367,9 +392,9 @@
                 <div class="guide-item"><a name="hide-elevation" href="#hide-elevation" class="my-anchor"><div class="guide-title" onclick="toggle('profile')">Ocultar el perfil de altura</div></a>
                 <div id="profile" class="guide-content">Para ocultar el perfil de altitud, simplemente haz clic en <i class="fas fa-chart-area button"></i>.</div></div>
                 <div class="guide-item"><a name="direction-markers" href="#direction-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-direction-markers')">Mostrar indicadores de dirección</div></a>
-                <div id="show-direction-markers" class="guide-content">To show direction markers, go in the map layers <i class="fas fa-layer-group button"></i> and check the box <i class="far fa-check-square"></i> Direction markers.</div></div>
+                <div id="show-direction-markers" class="guide-content">Para mostrar indicadores de dirección, ve a las capas del mapa <i class="fas fa-layer-group button"></i> y marca la casilla <i class="far fa-check-square"></i> Indicadores de dirección.</div></div>
                 <div class="guide-item"><a name="distance-markers" href="#distance-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-distance-markers')">Mostrar indicadores de distancia</div></a>
-                <div id="show-distance-markers" class="guide-content">To show distance markers, go in the map layers <i class="fas fa-layer-group button"></i> and check the box <i class="far fa-check-square"></i> Distance markers.</div></div>
+                <div id="show-distance-markers" class="guide-content">Para mostrar indicadores de distancia, ve a las capas del mapa <i class="fas fa-layer-group button"></i> y marca la casilla <i class="far fa-check-square"></i> Indicadores de distancia.</div></div>
                 <div class="guide-item"><a name="map-legends" href="#map-legends" class="my-anchor"><div class="guide-title" onclick="toggle('legend')">Leyendas del mapa</div></a>
                 <div id="legend" class="guide-content">
                     <ul>
@@ -400,8 +425,8 @@
                     <li><code>ohm</code>: OpenHikingMap</li>
                     <li><code>cosm</code>: CyclOSM</li>
                 </ul>
-                <p>Para usar los mapas de Mapbox, necesitas especificar el parámetro <code>token</code> con un <a href="https://account.mapbox.com/access-tokens/" target="_blank">Mapbox token</a> válido. You can also use a custom Mapbox style by directly specifying its URL with <code>mapbox-style=&lt;STYLE_URL&gt;</code>.</p>
-                <p>Opcionalmente puedes añadir los siguientes parámetros a la URL: <code>imperial</code> para obtener datos en millas y pies, <code>running</code> para mostrar el ritmo en minutos por unidad de distancia, <code>distance</code> para mostrar los indicadores de distancia y <code>direction</code> para mostrar los indicadores de dirección. A continuación hay un simulador con el que configurar los parámetros, ver una vista previa y obtener el código HTML.</p>
+                <p>Para usar los mapas de Mapbox, necesitas especificar el parámetro <code>token</code> con un <a href="https://account.mapbox.com/access-tokens/" target="_blank">Mapbox token</a> válido. También puedes utilizar un estilo personalizado de Mapbox especificando directamente su URL con <code>mapbox-style=&lt;STYLE_URL&gt;</code>.</p>
+                <p>You can optionally add parameters to the source URL: <code>imperial</code> to get data in miles and feet, <code>running</code> to display the pace in minutes by unit of distance, <code>distance</code> to show distance markers, <code>direction</code> to show direction markers and <code>slope</code> to show the slope view of the elevation profile. A continuación hay un simulador con el que configurar los parámetros, ver una vista previa y obtener el código HTML.</p>
                 <div class="guide-item">
                     <h3 style="margin-block-start: 0em;">Parámetros</h3>
                     <p>URLs de archivo (separados por comas)<br>
@@ -409,10 +434,11 @@
                     <p>IDs de archivo de Google Drive (separados por comas)<br>
                     <input id="file-ids" type="text" oninput="showPreview()" value="10IbXh7W7QDO7ZKmapJYdcgN3vhdN2Q-e" style="width: 96%; margin: 5px;"></p>
                     <div style="display: flex; justify-content: space-between">
-                        <span>Ritmo <input id="running" type="checkbox" oninput="showPreview()"></span>
-                        <span>Millas/Pies <input id="imperial" type="checkbox" oninput="showPreview()"></span>
-                        <span>Indicadores de distancia <input id="distance" type="checkbox" oninput="showPreview()" checked></span>
-                        <span>Indicadores de dirección <input id="direction" type="checkbox" oninput="showPreview()"></span>
+                        <span>Running <input id="running" type="checkbox" oninput="showPreview()"></span>
+                        <span>Imperial <input id="imperial" type="checkbox" oninput="showPreview()"></span>
+                        <span>Distance markers <input id="distance" type="checkbox" oninput="showPreview()" checked></span>
+                        <span>Direction markers <input id="direction" type="checkbox" oninput="showPreview()"></span>
+                        <span>Slope <input id="slope" type="checkbox" oninput="showPreview()"></span>
                     </div>
                     <p>Mapa por defecto <select id="sources" oninput="showPreview()">
                         <option value="outdoors">Mapbox Outdoors</option>
@@ -424,7 +450,7 @@
                     </select></p>
                     <p>Mapbox token<br>
                     <input id="mapbox-token" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
-                    <p>Mapbox custom style URL<br>
+                    <p>URL de estilo personalizado de Mapbox<br>
                     <input id="mapbox-style" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
                     <h3>Código HTML</h3>
                     <div style="text-align: left; overflow-wrap: break-word; padding:10px; border: 1px solid #ccc; background: #f5f5f5;">
@@ -479,6 +505,7 @@
             const imperial = document.getElementById("imperial").checked;
             const distance = document.getElementById("distance").checked;
             const direction = document.getElementById("direction").checked;
+            const slope = document.getElementById("slope").checked;
             const mapbox_token = document.getElementById("mapbox-token").value;
             const mapbox_style = document.getElementById("mapbox-style").value;
             const source = document.getElementById("sources").value;
@@ -515,7 +542,8 @@
                 + (running ? '&running' : '')
                 + (imperial ? '&imperial' : '')
                 + (distance ? '&distance' : '')
-                + (direction ? '&direction' : '');
+                + (direction ? '&direction' : '')
+                + (slope ? '&slope' : '');
 
             const code = document.getElementById("embedding-code");
             code.innerHTML = '&lt;iframe src="https://gpx.studio'
@@ -529,6 +557,7 @@
                 + (imperial ? '&imperial' : '')
                 + (distance ? '&distance' : '')
                 + (direction ? '&direction' : '')
+                + (slope ? '&slope' : '')
                 + '" width="100%" height="500" frameborder="0" allowfullscreen&gt;&lt;p&gt;&lt;a href="https://gpx.studio'
                 + window.location.pathname.replace('about.html','')
                 + query

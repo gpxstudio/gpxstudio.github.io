@@ -23,9 +23,9 @@
         </script>
         <meta charset="utf-8">
         <title>gpx.studio — de online GPX bestandsbewerker</title>
-        <meta name="description" content="Bekijk, bewerk en maak GPX bestanden online: maak, verplaats en verwijder punten, voeg meerdere bestanden samen, keer routes om, voeg tijdstempels toe, bewerk routepunten en meer!">
+        <meta name="description" content="Bekijk, bewerk en maak GPX-bestanden online: voeg punten toe, verplaats en verwijder ze, voeg meerdere bestanden samen, keer tracks om, voeg tijdstempels toe, bewerk waypoints en meer!">
         <meta property="og:title" content="gpx.studio — de online GPX bestandsbewerker" />
-        <meta property="og:description" content="Bekijk, bewerk en maak GPX bestanden online: maak, verplaats en verwijder punten, voeg meerdere bestanden samen, keer routes om, voeg tijdstempels toe, bewerk routepunten en meer!" />
+        <meta property="og:description" content="Bekijk, bewerk en maak GPX-bestanden online: voeg punten toe, verplaats en verwijder ze, voeg meerdere bestanden samen, keer tracks om, voeg tijdstempels toe, bewerk waypoints en meer!" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://gpx.studio/" />
         <meta property="og:image" content="https://gpx.studio/res/og_logo.png" />
@@ -86,7 +86,7 @@
             <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Doneren</b> <i class="fas fa-heart"></i></div>
         </div>
         <div id="info">
-            <ul id="sortable">
+            <ul id="sortable-tabs">
               <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">Totaal</li>
             </ul>
             <div id="info-grid" class="panels-container trace-info">
@@ -98,21 +98,23 @@
                 <div class="panels panels-val" id="speed-val"></div>
                 <div class="panels panels-info" id="duration">Verplaatsingstijd</div>
                 <div class="panels panels-val" id="duration-val"></div>
+                <div class="panels panels-info" id="tracks" style="display: none; padding-right: 5px;">Tracks</div>
+                <div class="panels panels-val" id="tracks-val" style="display: none; padding-right: 5px;">0</div>
+                <div class="panels panels-info" id="segments" style="display: none; padding-right: 5px;">Track segments</div>
+                <div class="panels panels-val" id="segments-val" style="display: none; padding-right: 5px;">0</div>
                 <div class="panels panels-info" id="points" style="display: none">Trackpunten</div>
                 <div class="panels panels-val" id="points-val" style="display: none">0</div>
-                <div class="panels panels-info" id="segments" style="display: none; padding-right: 5px;">Segmenten</div>
-                <div class="panels panels-val" id="segments-val" style="display: none; padding-right: 5px;">0</div>
                 <div id="units-text" class="panels-info">Distance units</div>
                 <select id="units-input" name="units-input">
-                    <option value="km">Metric</option>
-                    <option value="mi">Imperial</option>
+                    <option value="km">Metrisch</option>
+                    <option value="mi">Imperiaal</option>
                 </select>
                 <div id="speed-units-text" class="panels-info">Velocity units</div>
                 <select id="speed-units-input" name="speed-units-input">
                     <option value="speed">Snelheid</option>
                     <option value="pace">Snelheid</option>
                 </select>
-                <div id="elevation-input" class="panels-button custom-button" title="Toggle the elevation profile"><i class="fas fa-minus"></i></div>
+                <div id="elevation-input" class="panels-button custom-button" title="Toon/verberg het hoogte profiel"><i class="fas fa-minus"></i></div>
                 <div id="crop-container">
                     <div class="panels-button custom-button" id="validate"><i class="fas fa-check custom-button"></i></div>
                 </div>
@@ -128,26 +130,27 @@
                 <div class="panels-button" id="edit-time" title="Bewerk tijd"><i class="fas fa-stopwatch custom-button"></i></div><br>
                 <div class="panels-button" id="reverse" title="Richting omkeren"><i class="fas fa-exchange-alt custom-button"></i></div><br>
                 <div class="panels-button" id="combine" title="Samenvoegen met een andere route"><i class="fas fa-plus-circle custom-button"></i></div><br>
-                <div class="panels-button" id="extract" title="Tracksegmenten uitpakken"><i class="fas fa-list-ul custom-button"></i></div><br>
+                <div class="panels-button" id="extract" title="Extract tracks or track segments"><i class="fas fa-list-ul custom-button"></i></div><br>
                 <div class="panels-button" id="duplicate" title="Dupliceren"><i class="fas fa-copy custom-button"></i></div><br>
-                <div class="panels-button" id="color" title="Change color, opacity and width"><i class="fas fa-palette custom-button"></i></div><br>
                 <div class="panels-button" id="add-wpt" title="Waypoint toevoegen"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
                 <div class="panels-button" id="reduce" title="Verminder het aantal trackpunten"><i class="fas fa-compress-alt custom-button"></i></div><br>
                 <div class="panels-button" id="zone-delete" title="Verwijder alles binnen of buiten rechthoekige selectie"><i class="fas fa-vector-square custom-button"></i></div><br>
                 <div class="panels-button" id="hide" title="De route verbergen of tonen"><i class="fas fa-eye-slash custom-button"></i></div><br>
+                <div class="panels-button" id="color" title="Verander kleur, transparantie en breedte"><i class="fas fa-palette custom-button"></i></div><br>
+                <div class="panels-button" id="structure" title="Manage the file structure"><i class="fas fa-folder-tree custom-button"></i></div><br>
                 <div class="panels-button" id="delete" title="Verwijder"><i class="fas fa-trash-alt custom-button"></i></div><br>
             </div>
             <div id="editing-options" class="panels-container">
-                <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Toggle editing options"></i>
+                <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Wissel bewerkingsopties"></i>
                 <table class="panels">
                     <tr>
                         <td><b>Activity</b></td>
                         <td><select name="activity" id="activity-input">
-                            <option value="bike">Bike</option>
-                            <option value="racingbike">Racing bike</option>
-                            <option value="mtb">Mountain bike</option>
-                            <option value="hike">Run/hike</option>
-                            <option value="car">Motorcycle</option>
+                            <option value="bike">Fiets</option>
+                            <option value="racingbike">Race fiets</option>
+                            <option value="mtb">Mountainbike</option>
+                            <option value="hike">Rennen/wandelen</option>
+                            <option value="car">Motorfiets</option>
                         </select></td>
                     </tr>
                     <tr>
@@ -168,7 +171,7 @@
                 <input id="street-view-provider-google" type="radio" name="street-view-provider" value="google"> <label for="street-view-provider-google">Google</label>
                 <input id="street-view-provider-mapillary" type="radio" name="street-view-provider" value="mapillary" checked> <label for="street-view-provider-mapillary">Mapillary</label>
             </div>
-            <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Mapillary or Google Street View"></i>
+            <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Mapillary of Google Street View"></i>
         </div>
         <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Direction markers</label>
         <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Distance markers</label>
@@ -246,10 +249,6 @@
                 <td>Dupliceer de route</td>
             </tr>
             <tr>
-                <td><i class="fas fa-palette"></i></td>
-                <td>Verander de weergavekleur en transparantie. Deze waardes worden geëxporteerd en gedetecteerd wanneer opnieuw geïmporteerd</td>
-            </tr>
-            <tr>
                 <td><i class="fas fa-map-marker-alt"></i></td>
                 <td>Voeg een waypoint toe (sleep om de locatie te wijzigen en gebruik de knoppen om info te bewerken, te dupliceren of te verwijderen)</td>
             </tr>
@@ -264,6 +263,14 @@
             <tr>
                 <td><i class="fas fa-eye-slash"></i></td>
                 <td>De route verbergen of tonen</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-palette"></i></td>
+                <td>Verander de weergavekleur en transparantie. Deze waardes worden geëxporteerd en gedetecteerd wanneer opnieuw geïmporteerd</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-folder-tree"></i></td>
+                <td>Manage the file structure, drag and drop files, tracks and track segments</td>
             </tr>
             <tr>
                 <td><i class="fas fa-trash-alt"></i></td>
@@ -373,15 +380,30 @@
                 <hr>
             </div>
             <div>
-                Tick the following box if you wish to keep the traces disconnected<br>
-                <input type="checkbox" id="merge-as-segments"><label for="merge-as-segments">Merge as track segments</label>
+                Choose how to add the second trace to the first one<br>
+                <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Merge as track points</label><br>
+                <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Merge as track segments</label><br>
+                <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Merge as tracks</label>
                 <hr>
             </div>
             Click on another trace or tab to merge the current trace with it<br>
             <div id="merge-cancel" class="panels custom-button normal-button"><b>Annuleren</b></div>
         </div>
+        <div id="extract-content" class="popup-content">
+            Choose what to extract<br>
+            <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Tracks</label><br>
+            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Track segments</label><br>
+            <div id="extract-ok" class="panels custom-button normal-button">Ok</div>
+            <div id="extract-cancel" class="panels custom-button normal-button"><b>Annuleren</b></div>
+        </div>
+        <div id="structure-content" class="popup-content">
+            <div>Drag and drop the elements to rearrange the file structure</div>
+            <div>Move elements from or to the tabs above the elevation profile</div>
+            <div>Rename tracks or change their color</div>
+            <div id="file-structure"></div>
+        </div>
         <div id="crop-content" class="popup-content">
-            <input type="checkbox" id="crop-keep">Bijgesneden delen in nieuwe bestanden bewaren<br>
+            <input type="checkbox" id="crop-keep"><label for="crop-keep">Bewaar bijgesneden delen in nieuwe bestanden</label><br>
             <div id="crop-ok" class="panels custom-button normal-button">Ga verder</div>
             <div id="crop-cancel" class="panels custom-button normal-button"><b>Annuleren</b></div>
         </div>
@@ -422,6 +444,8 @@
         <div id="search-input-text">Search...</div>
         <div id="search-button-text">Search for a place or paste GPS coordinates</div>
         <div id="locate-button-text">Show my position</div>
+        <span id="track-text">Track</span>
+        <span id="segment-text">Segment</span>
         <div id="edit-speed-popup-text">
             <div id="speed-text">Snelheid</div>
             <div id="pace-text">Snelheid</div>
@@ -506,7 +530,7 @@
     <script type="text/javascript" src="/include/condensed-attribution/leaflet-control-condended-attribution.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.74.1/dist/L.Control.Locate.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.13.0/Sortable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.14.0/Sortable.min.js"></script>
     <script src="https://unpkg.com/mapillary-js@4.0.0/dist/mapillary.js"></script>
     <script src="https://unpkg.com/leaflet.vectorgrid@1.3.0/dist/Leaflet.VectorGrid.min.js"></script>
     <script src="/include/sanitize/xss.min.js"></script>
