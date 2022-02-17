@@ -832,10 +832,10 @@ export default class Trace {
         var tracks = this.getTracks();
         for (var t=0; t<tracks.length; t++) {
             if (tracks[t].style && tracks[t].style.color) {
-                colors.push(tracks[t].style.color);
+                if (!colors.includes(tracks[t].style.color)) colors.push(tracks[t].style.color);
             } else {
                 if (!this.style.color) this.style.color = this.total.getColor();
-                colors.push(this.style.color);
+                if (!colors.includes(this.style.color)) colors.push(this.style.color);
             }
         }
         return colors;
@@ -935,6 +935,7 @@ export default class Trace {
                         name: "segments",
                         pull: ["tabs", "tracks", "segments"]
                     },
+                    fallbackOnBody: true,
                     onUpdate: function (e) {
                         const segments = _this.getSegments(e.item.track);
                         _this.setSelectionIndex(e.newIndex, e.item.track, segments[e.oldIndex]);
@@ -980,6 +981,7 @@ export default class Trace {
                     pull: ["tabs"],
                     put: ["tabs", "segments"]
                 },
+                fallbackOnBody: true,
                 onUpdate: function (e) {
                         const tracks = _this.getTracks();
                         _this.setSelectionIndex(e.newIndex, tracks[e.oldIndex]);
@@ -1086,6 +1088,7 @@ export default class Trace {
                         trackDetails.removeChild(nameInput);
                     } catch (e) {}
                 });
+                nameInput.style.marginLeft = '10px';
                 trackDetails.insertBefore(nameInput, trackName);
                 trackName.style.display = 'none';
                 nameInput.focus();

@@ -199,7 +199,7 @@
                     <ul>
                         <li>Click on <span class="button">Export</span> and then choose whether to:
                            <ul>
-                               <li>merge all open GPX files as track segments into one file, or export them separately.</li>
+                               <li>merge all open GPX files as tracks into one file, or export them separately.</li>
                                <li>include time, temperature, heartrate, cadence, power and surface data or not.</li>
                            </ul>
                            Then, click on <span class="button">Download <i class="fas fa-download"></i></span> to download the files on your computer or on <span class="button">Save to Google Drive</span> to save it in the cloud.
@@ -213,7 +213,7 @@
                     <ol>
                         <li>Click on <span class="button">Export</span> and then choose whether to:
                            <ul>
-                               <li>merge all open GPX files as track segments into one file, or export them separately.</li>
+                               <li>merge all open GPX files as tracks into one file, or export them separately.</li>
                                <li>include time, temperature, heartrate, cadence, power and surface data or not.</li>
                            </ul>
                         </li>
@@ -294,6 +294,12 @@
                         <li>Click on <i class="fas fa-plus-circle button"></i> (available only when more than two files are open).</li>
                         <li>Click on the tab of the second GPX file to merge or an the trace itself. The track points of the second GPX file will come after those of the first GPX file.</li>
                     </ol>
+                    You can also use the file structure tool:
+                    <ol>
+                        <li>Below the bottom panel, select the tab of the first GPX file you want to merge.</li>
+                        <li>Click on <i class="fas fa-folder-tree button"></i>.</li>
+                        <li>Drag the tab of the file you wish to merge into the first one and drop it in the file structure.</li>
+                    </ol>
                     If you want to merge all open GPX files at once:
                     <ol>
                         <li>Below the bottom panel, put the tabs in the order you want them to appear in the merged GPX file.</li>
@@ -305,7 +311,25 @@
                     If some GPX files contains timestamps, it is ensured that the timestamps of the merged file are strictly increasing (the timestamps of some files are shifted if necessary).
                 </div></div>
                 <div class="guide-item"><a name="extract-segments" href="#extract-segments" class="my-anchor"><div class="guide-title" onclick="toggle('extract')">Extract tracks or tracks segments of a GPX file</div></a>
-                <div id="extract" class="guide-content">Click on <i class="fas fa-list-ul button"></i> (available only if the file has more than one track or track segment). If the GPX file contains waypoints (points of interest), they are kept in the files for which the traces pass closest.</div></div>
+                <div id="extract" class="guide-content">
+                    To extract all tracks or tracks segments from a trace, click on <i class="fas fa-list-ul button"></i> (available only if the file has more than one track or track segment).
+                    If the GPX file contains waypoints (points of interest), they are kept in the files for which the traces pass closest.<br><br>
+                    To extract a specific track or track segment:
+                    <ol>
+                        <li>Click on <i class="fas fa-folder-tree button"></i>.</li>
+                        <li>Drag the track or track segment you wish to extract from the file structure to the tabs above the elevation profile.</li>
+                    </ol>
+                </div></div>
+                <div class="guide-item"><a name="change-structure" href="#change-structure" class="my-anchor"><div class="guide-title" onclick="toggle('structure')">Change the structure of a GPX file</div></a>
+                <div id="structure" class="guide-content">
+                    Click on <i class="fas fa-folder-tree button"></i> and then you can:
+                    <ul>
+                        <li>Drag and drop tracks and track segments to rearrange them, or drop them in the tabs above the elevation profile to extract them.</li>
+                        <li>Drag and drop traces from the tabs above the elevation profile to merge them with the current trace.</li>
+                        <li>Assign a different color to each track.</li>
+                        <li>Rename each track.</li>
+                    </ul>
+                </div></div>
                 <div class="guide-item"><a name="copy-file" href="#copy-file" class="my-anchor"><div class="guide-title" onclick="toggle('copy')">Copy a GPX file</div></a>
                 <div id="copy" class="guide-content">Click on <i class="fas fa-copy button"></i> to duplicate a GPX file.</div></div>
                 <div class="guide-item"><a name="change-color" href="#change-color" class="my-anchor"><div class="guide-title" onclick="toggle('color')">Change the color, opacity and width of a GPX file</div></a>
@@ -317,7 +341,8 @@
                         <li>Move the width slider to change the width.</li>
                         <li>Click on <span class="button">Ok</span>.</li>
                     </ol>
-                    You can optionally apply the chosen color, opacity and width to all traces by using the checkboxes.
+                    You can optionally apply the chosen color, opacity and width to all traces by using the checkboxes.<br>
+                    For traces with multiple tracks, the file structure tool <i class="fas fa-folder-tree button"></i> can be used to assign a different color to each of them.
                 </div></div>
                 <div class="guide-item"><a name="add-waypoint" href="#add-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('add-wpt')">Add waypoints (points of interest) to a GPX file</div></a>
                 <div id="add-wpt" class="guide-content">
