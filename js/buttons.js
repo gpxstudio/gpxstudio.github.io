@@ -95,6 +95,7 @@ export default class Buttons {
         this.extract_ok = document.getElementById("extract-ok");
         this.extract_cancel = document.getElementById("extract-cancel");
         this.extract_as_segments = document.getElementById("extract-segment");
+        this.structure = document.getElementById("structure");
         this.reduce = document.getElementById("reduce");
         this.reduce_ok = document.getElementById("reduce-ok");
         this.reduce_cancel = document.getElementById("reduce-cancel");
@@ -146,7 +147,6 @@ export default class Buttons {
         this.edit_keep_avg = document.getElementById("edit-avg");
         this.edit_keep_time = document.getElementById("edit-keep");
         this.buttons_bar = document.getElementById('buttons-bar');
-        this.tabs = document.getElementById('sortable');
 
         // DISPLAYS
         this.distance_info = document.getElementById("distance");
@@ -175,7 +175,7 @@ export default class Buttons {
         this.start_slider = document.getElementById('start-point');
         this.end_slider = document.getElementById('end-point');
         this.total_tab = document.getElementById('total-tab');
-        this.tabs = document.getElementById('sortable');
+        this.tabs = document.getElementById('sortable-tabs');
         this.help_text = document.getElementById('help-text');
         this.export_content = document.getElementById('export-content');
         this.clear_content = document.getElementById('clear-content');
@@ -188,6 +188,10 @@ export default class Buttons {
         this.share_content = document.getElementById('share-content');
         this.merge_content = document.getElementById('merge-content');
         this.extract_content = document.getElementById('extract-content');
+        this.structure_content = document.getElementById('structure-content');
+        this.file_structure = document.getElementById('file-structure');
+        this.segment_text = document.getElementById('segment-text');
+        this.track_text = document.getElementById('track-text');
         this.merge_time_options = document.getElementById('merge-time-options');
         this.crop_content = document.getElementById('crop-content');
         this.load_error_content = document.getElementById('load-error-content');
@@ -243,6 +247,7 @@ export default class Buttons {
         this.share_window = L.control.window(this.map,{title:'',content:this.share_content,className:'panels-container'});
         this.merge_window = L.control.window(this.map,{title:'',content:this.merge_content,className:'panels-container',closeButton:false});
         this.extract_window = L.control.window(this.map,{title:'',content:this.extract_content,className:'panels-container',closeButton:false});
+        this.structure_window = L.control.window(this.map,{title:'',content:this.structure_content,className:'panels-container',closeButton:false});
         this.crop_window = L.control.window(this.map,{title:'',content:this.crop_content,className:'panels-container',closeButton:false});
 
         this.zoom = L.control.zoom({
@@ -933,6 +938,7 @@ export default class Buttons {
         this.color.classList.add('unselected','no-click');
         this.add_wpt.classList.add('unselected','no-click');
         this.reduce.classList.add('unselected','no-click');
+        this.structure.classList.add('unselected','no-click');
         this.hide.classList.add('unselected','no-click');
     }
 
@@ -948,6 +954,7 @@ export default class Buttons {
         this.color.classList.remove('unselected','no-click');
         this.add_wpt.classList.remove('unselected','no-click');
         this.reduce.classList.remove('unselected','no-click');
+        this.structure.classList.remove('unselected','no-click');
         this.hide.classList.remove('unselected','no-click');
         if (this.total.traces.length > 1) this.combine.classList.remove('unselected','no-click');
     }
@@ -964,6 +971,7 @@ export default class Buttons {
         this.color.classList.add('unselected','no-click');
         this.add_wpt.classList.add('unselected','no-click');
         this.reduce.classList.add('unselected','no-click');
+        this.structure.classList.add('unselected','no-click');
     }
 
     blackTraceButtons() {
@@ -977,6 +985,7 @@ export default class Buttons {
         this.color.classList.remove('unselected','no-click');
         this.add_wpt.classList.remove('unselected','no-click');
         this.reduce.classList.remove('unselected','no-click');
+        this.structure.classList.remove('unselected','no-click');
         if (this.total.traces.length > 1) this.combine.classList.remove('unselected','no-click');
     }
 
@@ -1101,8 +1110,13 @@ export default class Buttons {
         const map = this.map;
 
         this.sortable = Sortable.create(this.tabs, {
+            group: {
+                name: "tabs",
+                pull: ["tracks"],
+                put: ["tracks", "segments"]
+            },
             draggable: ".tab-draggable",
-            handle: ".handle",
+            direction: "horizontal",
             setData: function (dataTransfer, dragEl) {
                 const avgData = dragEl.trace.getAverageAdditionalData();
                 const data = total.outputGPX(false, true, avgData.hr, avgData.atemp, avgData.cad, avgData.power, true, dragEl.trace.index);
@@ -1111,7 +1125,7 @@ export default class Buttons {
                 dataTransfer.dropEffect = 'copy';
                 dataTransfer.effectAllowed = 'copy';
             },
-            onEnd: function (e) {
+            onUpdate: function (e) {
                 const order = total.buttons.tabs.childNodes;
                 const offset = 3;
 
@@ -1119,6 +1133,37 @@ export default class Buttons {
                     total.swapTraces(i-offset, order[i].trace.index);
 
                 if (total.hasFocus) total.update();
+            },
+            onAdd: function (e) {
+                const trace = e.item.trace;
+                const track = e.item.track;
+                const segment = e.item.segment;
+
+                if (segment) {
+                    const newTrace = trace.extractSelection(track, segment);
+                    total.setTraceIndex(newTrace.index, e.newIndex-1);
+                    trace.focus();
+                } else {
+                    const newTrace = trace.extractSelection(track);
+                    total.setTraceIndex(newTrace.index, e.newIndex-1);
+                    trace.focus();
+                }
+
+                buttons.tabs.removeChild(e.item);
+            },
+            onMove: function (e) {
+                const trace = e.dragged.trace;
+                if (trace == buttons.structure.trace) return false;
+
+                if (e.to.id == buttons.tabs.id) {
+                    e.dragged.classList.add('tab');
+                    e.dragged.children[0].style.display = '';
+                    if (e.dragged.children.length > 1) e.dragged.removeChild(e.dragged.children[1]);
+                } else {
+                    e.dragged.classList.remove('tab');
+                    e.dragged.children[0].style.display = 'none';
+                    if (e.dragged.children.length == 1) e.dragged.appendChild(trace.getFileStructure(false));
+                }
             }
         });
         this.tabs.addEventListener('wheel', function(e) {
@@ -1133,6 +1178,7 @@ export default class Buttons {
         L.DomEvent.on(this.tabs,"mousewheel",L.DomEvent.stopPropagation);
         L.DomEvent.on(this.tabs,"MozMousePixelScroll",L.DomEvent.stopPropagation);
         this.draw.addEventListener("click", function () {
+            if (buttons.window_open) buttons.window_open.hide();
             const newTrace = total.addTrace(undefined, "new.gpx");
             newTrace.draw();
             buttons.showEditingOptions();
@@ -1559,6 +1605,23 @@ export default class Buttons {
             buttons.reduce_window.hide();
         });
         this.reduce_slider.addEventListener("input", sliderCallback);
+        this.structure.addEventListener("click", function() {
+            if (total.hasFocus) return;
+            const trace = total.traces[total.focusOn];
+            if (trace.isEdited) return;
+            if (!trace.visible) trace.hideUnhide();
+            if (buttons.window_open) buttons.window_open.hide();
+
+            buttons.structure.trace = trace;
+            const callback = function () {
+                buttons.file_structure.innerHTML = '';
+                buttons.file_structure.appendChild(trace.getFileStructure(true, callback));
+            };
+            callback();
+
+            buttons.window_open = buttons.structure_window;
+            buttons.structure_window.show();
+        });
         map.on('mouseup', function (e) {
             map.dragging.enable();
             map.removeEventListener('mousemove');

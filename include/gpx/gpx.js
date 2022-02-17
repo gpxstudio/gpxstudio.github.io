@@ -718,9 +718,11 @@ L.GPX = L.FeatureGroup.extend({
       const tracks = this._trace.getTracks();
       for (var ti=0; ti<tracks.length; ti++) {
           var inc = false;
+          tracks[ti]._dist = distance;
 
           const segments = this._trace.getSegments(tracks[ti]);
           for (var l=0; l<segments.length; l++) {
+              segments[l]._dist = distance;
               var ll = null, last = null, last_ele = null;
               var current_ele_window = 0, current_ele_sum = 0;
               const points = segments[l]._latlngs;
@@ -823,7 +825,10 @@ L.GPX = L.FeatureGroup.extend({
               }
 
               cumul += points.length;
+              segments[l]._dist = distance - segments[l]._dist;
           }
+
+          tracks[ti]._dist = distance - tracks[ti]._dist;
       }
   },
 

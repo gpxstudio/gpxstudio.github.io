@@ -29,6 +29,7 @@ const options = {
     }
 };
 const ELEVATION_ZOOM = 14;
+const HOVER_STYLE = 'drop-shadow(1px 0 1px lightblue) drop-shadow(-1px 0 1px lightblue) drop-shadow(0 1px 1px lightblue) drop-shadow(0 -1px 1px lightblue)';
 
 export default class Trace {
     constructor(file, name, map, total, callback) {
@@ -83,9 +84,8 @@ export default class Trace {
             if (colors.length == 0) trace.style.color = total.getColor();
             else trace.style.color = colors[0];
 
-            var ul = document.getElementById("sortable");
+            var ul = total.buttons.tabs;
             var li = document.createElement("li");
-            li.innerHTML = '<div class="tab-color"></div><div class="handle"></div>';
             li.title = name;
             li.classList.add('tab','tab-draggable');
             li.trace = trace;
@@ -98,29 +98,26 @@ export default class Trace {
                 if (trace.renaming) return;
                 trace.renaming = true;
 
-                trace.nameInput = document.createElement("input");
-                trace.nameInput.type = "text";
-                trace.nameInput.classList.add("input-minimal");
-                trace.nameInput.minlength = 1;
-                trace.nameInput.size = trace.name.length;
-                trace.nameInput.value = trace.name;
-                li.appendChild(trace.nameInput);
-
-                trace.tab.children[1].style.display = 'none';
-
-                trace.nameInput.addEventListener('keydown', function (e) {
-                    if (e.key === 'Enter') {
-                        trace.rename();
-                        trace.nameInput.style.display = 'none';
-                        trace.tab.children[1].style.display = '';
-                    }
-                });
-                trace.nameInput.addEventListener('focusout', function (e) {
+                trace.nameInput = trace.getNameInput(trace.name, function () {
                     trace.rename();
-                    trace.nameInput.style.display = 'none';
-                    trace.tab.children[1].style.display = '';
+                    trace.tab.children[0].children[1].style.display = '';
                 });
+                li.appendChild(trace.nameInput);
                 trace.nameInput.focus();
+
+                trace.tab.children[0].children[1].style.display = 'none';
+            });
+            li.addEventListener('mouseover', function () {
+                const segments = trace.getSegments();
+                for (var s=0; s<segments.length; s++) {
+                    segments[s]._path.style.filter = HOVER_STYLE;
+                }
+            });
+            li.addEventListener('mouseout', function () {
+                const segments = trace.getSegments();
+                for (var s=0; s<segments.length; s++) {
+                    segments[s]._path.style.filter = '';
+                }
             });
             ul.appendChild(li);
             trace.tab = li;
@@ -206,6 +203,26 @@ export default class Trace {
         if (file === undefined) this.gpx.fire('loaded');
     }
 
+    getNameInput(name, callback) {
+        var nameInput = document.createElement("input");
+        nameInput.type = "text";
+        nameInput.classList.add("input-minimal");
+        nameInput.minlength = 1;
+        nameInput.size = name.length;
+        nameInput.value = name;
+        nameInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                nameInput.style.display = 'none';
+                callback();
+            }
+        });
+        nameInput.addEventListener('focusout', function (e) {
+            nameInput.style.display = 'none';
+            callback();
+        });
+        return nameInput;
+    }
+
     rename(name) {
         var newname = name ? name : this.nameInput.value;
         if (newname.length > 0) this.name = newname;
@@ -214,10 +231,8 @@ export default class Trace {
     }
 
     updateTab() {
-        var colors = this.getTrackColors();
-        this.tab.children[0].style.background = this.getLinearGradient(colors);
-        this.tab.children[1].innerText = this.name;
-        this.tab.title = this.name;
+        this.tab.innerHTML = '';
+        this.tab.appendChild(this.getTabHTML());
     }
 
     clone() {
@@ -273,7 +288,7 @@ export default class Trace {
     remove() {
         this.unfocus();
         this.gpx.clearLayers();
-        if (document.body.contains(this.tab)) this.buttons.tabs.removeChild(this.tab);
+        if (this.buttons.tabs.contains(this.tab)) this.buttons.tabs.removeChild(this.tab);
     }
 
     /*** DISPLAY ***/
@@ -839,6 +854,271 @@ export default class Trace {
         }
     }
 
+    getTabHTML(track) {
+        var tabColor = document.createElement('div');
+        tabColor.classList.add("tab-color");
+
+        if (track) tabColor.style.background = track.style.color ? track.style.color : this.total.getColor();
+        else tabColor.style.background = this.getLinearGradient(this.getTrackColors());
+
+        var tabName = document.createElement('div');
+        if (track) tabName.textContent = track.name ? track.name : this.name;
+        else tabName.textContent = this.name;
+
+        var tab = document.createElement('div');
+        tab.title = tabName.textContent;
+        tab.appendChild(tabColor);
+        tab.appendChild(tabName);
+        return tab;
+    }
+
+    getFileStructure(sortable, refreshCallback) {
+        const _this = this;
+        var trackList = document.createElement('ul');
+        trackList.classList.add('file-structure');
+
+        const tracks = this.getTracks();
+        for (var t=0; t<tracks.length; t++) {
+            var trackLi = document.createElement('li');
+            trackList.appendChild(trackLi);
+            var trackUl = document.createElement('ul');
+            trackUl.classList.add('file-structure');
+            trackLi.appendChild(trackUl);
+
+            let track = tracks[t];
+            const segments = this.getSegments(track);
+            for (var s=0; s<segments.length; s++) {
+                var segmentLi = document.createElement('li');
+                trackUl.appendChild(segmentLi);
+
+                let segment = segments[s];
+
+                var segmentDetails = this.getSegmentDetails(segment);
+                segmentLi.appendChild(segmentDetails);
+
+                if (sortable) {
+                    segmentLi.trace = this;
+                    segmentLi.track = track;
+                    segmentLi.segment = segment;
+
+                    segmentDetails.addEventListener('mouseover', function () {
+                        segment._path.style.filter = HOVER_STYLE;
+                    });
+                    segmentDetails.addEventListener('mouseout', function () {
+                        segment._path.style.filter = '';
+                    });
+                }
+            }
+
+            var trackDetails = this.getTrackDetails(tracks[t]);
+            trackLi.insertBefore(trackDetails, trackUl);
+
+            if (sortable) {
+                trackLi.trace = this;
+                trackLi.track = track;
+
+                trackDetails.addEventListener('mouseover', function () {
+                    const segments = _this.getSegments(track);
+                    for (var s=0; s<segments.length; s++) {
+                        segments[s]._path.style.filter = HOVER_STYLE;
+                    }
+                });
+                trackDetails.addEventListener('mouseout', function () {
+                    const segments = _this.getSegments(track);
+                    for (var s=0; s<segments.length; s++) {
+                        segments[s]._path.style.filter = '';
+                    }
+                });
+
+                var segmentSortable = Sortable.create(trackUl, {
+                    group: {
+                        name: "segments",
+                        pull: ["tabs", "tracks", "segments"]
+                    },
+                    onUpdate: function (e) {
+                        const segments = _this.getSegments(e.item.track);
+                        _this.setSelectionIndex(e.newIndex, e.item.track, segments[e.oldIndex]);
+                        if (refreshCallback) refreshCallback();
+                    },
+                    onAdd: function (e) {
+                        _this.moveSegmentToTrack(e.item.track, e.to.track, e.item.segment);
+                        var segments = _this.getSegments(e.to.track);
+                        _this.setSelectionIndex(e.newIndex, e.to.track, segments[segments.length-1]);
+                        if (refreshCallback) refreshCallback();
+                    },
+                    onMove: function (e) {
+                        const trace = e.dragged.trace;
+                        const track = e.dragged.track;
+                        const segment = e.dragged.segment;
+
+                        if (trace.getSegments().length == 1) return false;
+
+                        e.dragged.children[0].style.display = '';
+                        if (e.dragged.children.length > 1) e.dragged.removeChild(e.dragged.children[1]);
+                        if (e.to.track) e.dragged.children[0].style.marginTop = '';
+                        else e.dragged.children[0].style.marginTop = '10px';
+
+                        if (e.to.id == _this.buttons.tabs.id) {
+                            e.dragged.classList.add('tab');
+                            e.dragged.classList.remove('file-structure-item');
+                            e.dragged.children[0].style.display = 'none';
+                            e.dragged.appendChild(trace.getTabHTML(track));
+                        } else {
+                            e.dragged.classList.remove('tab');
+                            e.dragged.classList.add('file-structure-item');
+                        }
+                    }
+                });
+                segmentSortable.el.track = track;
+            }
+        }
+
+        if (sortable) {
+            Sortable.create(trackList, {
+                group: {
+                    name: "tracks",
+                    pull: ["tabs"],
+                    put: ["tabs", "segments"]
+                },
+                onUpdate: function (e) {
+                        const tracks = _this.getTracks();
+                        _this.setSelectionIndex(e.newIndex, tracks[e.oldIndex]);
+                        if (refreshCallback) refreshCallback();
+                },
+                onAdd: function (e) {
+                    if (e.from.id == _this.buttons.tabs.id) {
+                        var ntracks = e.item.trace.getTracks().length;
+                        _this.merge(e.item.trace, false, false, true);
+                        for (var i=0; i<ntracks; i++) {
+                            const tracks = _this.getTracks();
+                            _this.setSelectionIndex(e.newIndex, tracks[tracks.length-1]);
+                        }
+                        _this.total.removeTrace(e.item.trace.index);
+                        _this.focus();
+                    } else {
+                        _this.moveSegmentToTrack(e.item.track, null, e.item.segment);
+                        const tracks = _this.getTracks();
+                        _this.setSelectionIndex(e.newIndex, tracks[tracks.length-1]);
+                    }
+                    if (refreshCallback) refreshCallback();
+                },
+                onMove: function (e) {
+                    const trace = e.dragged.trace;
+                    const track = e.dragged.track;
+                    if (trace.getTracks().length == 1) return false;
+
+                    if (e.to.id == _this.buttons.tabs.id) {
+                        e.dragged.classList.add('tab');
+                        e.dragged.classList.remove('file-structure-item');
+                        e.dragged.children[0].style.display = 'none';
+                        e.dragged.children[1].style.display = 'none';
+                        if (e.dragged.children.length == 2) e.dragged.appendChild(trace.getTabHTML(track));
+                    } else {
+                        e.dragged.classList.remove('tab');
+                        e.dragged.classList.add('file-structure-item');
+                        e.dragged.children[0].style.display = '';
+                        e.dragged.children[1].style.display = '';
+                        if (e.dragged.children.length > 2) e.dragged.removeChild(e.dragged.children[2]);
+                    }
+                }
+            });
+        }
+
+        return trackList;
+    }
+
+    getTrackDetails(track, fake, segment) {
+        var trackDetails = document.createElement('div');
+        trackDetails.classList.add('file-structure-track');
+        trackDetails.style.display = 'flex';
+
+        var trackLabel = document.createElement('span');
+        trackDetails.appendChild(trackLabel);
+        trackLabel.textContent = this.buttons.track_text.textContent;
+        trackLabel.style.fontWeight = 'bold';
+
+        var trackName = document.createElement('span');
+        trackDetails.appendChild(trackName);
+        trackName.textContent = track.name ? track.name : this.name;
+
+        var trackColor = document.createElement('input');
+        trackDetails.appendChild(trackColor);
+        trackColor.type = 'color';
+        trackColor.classList.add('input-minimal');
+        trackColor.style.height = '18px';
+        trackColor.style.marginLeft = 'auto';
+
+        var trackStyle = this.getTrackStyle(track);
+        trackColor.value = trackStyle.color;
+
+        var trackLength = document.createElement('span');
+        trackDetails.appendChild(trackLength);
+        trackLength.textContent = (track._dist / 1000).toFixed(1).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text);
+
+        if (fake) {
+            var trackUl = document.createElement('ul');
+            trackUl.classList.add('file-structure');
+            trackDetails.appendChild(trackUl);
+            trackUl.style.width = "100%";
+
+            if (segment) {
+                var segmentLi = document.createElement('li');
+                trackUl.appendChild(segmentLi);
+                segmentLi.classList.add('file-structure-item');
+                segmentLi.appendChild(this.getSegmentDetails(segment));
+            } else {
+                const segments = this.getSegments(track);
+                for (var s=0; s<segments.length; s++) {
+                    var segmentLi = document.createElement('li');
+                    trackUl.appendChild(segmentLi);
+                    segmentLi.classList.add('file-structure-item');
+                    segmentLi.appendChild(this.getSegmentDetails(segments[s]));
+                }
+            }
+        } else {
+            const _this = this;
+            trackName.addEventListener('dblclick', function () {
+                var nameInput = _this.getNameInput(track.name ? track.name : _this.name, function () {
+                    track.name = nameInput.value;
+                    trackName.textContent = track.name;
+                    trackName.style.display = '';
+                    try {
+                        trackDetails.removeChild(nameInput);
+                    } catch (e) {}
+                });
+                trackDetails.insertBefore(nameInput, trackName);
+                trackName.style.display = 'none';
+                nameInput.focus();
+            });
+            trackColor.addEventListener('change', function () {
+                if (track.style) track.style.color = trackColor.value;
+                else track.style = {color: trackColor.value};
+                _this.setStyle(_this.hasFocus);
+                _this.updateTab();
+            });
+        }
+
+        return trackDetails;
+    }
+
+    getSegmentDetails(segment) {
+        var segmentDetails = document.createElement('div');
+        segmentDetails.classList.add('file-structure-segment');
+        segmentDetails.style.display = 'flex';
+
+        var segmentLabel = document.createElement('span');
+        segmentDetails.appendChild(segmentLabel);
+        segmentLabel.textContent = this.buttons.segment_text.textContent;
+        segmentLabel.style.fontWeight = 'bold';
+
+        var segmentLength = document.createElement('span');
+        segmentDetails.appendChild(segmentLength);
+        segmentLength.textContent = (segment._dist / 1000).toFixed(1).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text);
+        segmentLength.style.marginLeft = 'auto';
+
+        return segmentDetails;
+    }
+
     getLinearGradient(colors) {
         if (colors.length == 0) return '#ffffff';
 
@@ -1130,6 +1410,68 @@ export default class Trace {
         this.update();
     }
 
+    setSelectionIndex(newIndex, track, segment) {
+        if (segment) {
+            const segments = this.getSegments(track);
+            var oldIndex = segments.indexOf(segment);
+            if (oldIndex == -1) return;
+
+            if (oldIndex < newIndex) newIndex++;
+
+            for (var s=newIndex; s<segments.length; s++) {
+                if (s != oldIndex) track.removeLayer(segments[s]);
+            }
+            track.removeLayer(segment);
+
+            track.addLayer(new L.Polyline(segment._latlngs));
+            for (var s=newIndex; s<segments.length; s++) {
+                if (s != oldIndex) track.addLayer(new L.Polyline(segments[s]._latlngs));
+            }
+        } else {
+            const tracks = this.getTracks();
+            var oldIndex = tracks.indexOf(track);
+            if (oldIndex == -1) return;
+
+            if (oldIndex < newIndex) newIndex++;
+
+            for (var t=newIndex; t<tracks.length; t++) {
+                if (t != oldIndex) this.gpx.getLayers()[0].removeLayer(tracks[t]);
+            }
+            this.gpx.getLayers()[0].removeLayer(track);
+
+            var trk = new L.FeatureGroup(this.getSegments(track));
+            trk.style = track.style;
+            if (track.name) trk.name = track.name;
+            this.gpx.getLayers()[0].addLayer(trk);
+            for (var t=newIndex; t<tracks.length; t++) {
+                if (t != oldIndex) {
+                    trk = new L.FeatureGroup(this.getSegments(tracks[t]));
+                    trk.style = tracks[t].style;
+                    if (tracks[t].name) trk.name = tracks[t].name;
+                    this.gpx.getLayers()[0].addLayer(trk);
+                }
+            }
+        }
+
+        this.setStyle(true);
+        this.updateTab();
+        this.timeConsistency();
+        this.recomputeStats();
+        this.update();
+        this.redraw();
+    }
+
+    moveSegmentToTrack(oldTrack, newTrack, segment) {
+        if (newTrack) newTrack.addLayer(new L.Polyline(segment._latlngs));
+        else {
+            var trk = new L.FeatureGroup([new L.Polyline(segment._latlngs)]);
+            trk.style = {...oldTrack.style};
+            if (oldTrack.name) trk.name = oldTrack.name;
+            this.gpx.getLayers()[0].addLayer(trk);
+        }
+        oldTrack.removeLayer(segment);
+    }
+
     merge(trace, as_points, as_segments, as_tracks, stick_time) {
         const points = this.getPoints();
         const otherPoints = trace.getPoints();
@@ -1227,6 +1569,7 @@ export default class Trace {
                     var trk = new L.FeatureGroup(segs);
                     trk.style = tracks[t].style;
                     if (tracks[t].name) trk.name = tracks[t].name;
+                    else trk.name = trace.name;
                     this.gpx.getLayers()[0].addLayer(trk);
                 }
             }
@@ -1356,6 +1699,39 @@ export default class Trace {
         lastTrace.focus();
 
         return traces;
+    }
+
+    extractSelection(track, segment) {
+        const newTrace = this.total.addTrace(undefined, track.name ? track.name : this.name);
+        newTrace.gpx.addLayer(new L.FeatureGroup());
+
+        var segs = [];
+        if (segment) segs.push(new L.Polyline(segment._latlngs))
+        else {
+            const segments = this.getSegments(track);
+            for (var s=0; s<segments.length; s++) {
+                segs.push(new L.Polyline(segments[s]._latlngs))
+            }
+        }
+
+        var trk = new L.FeatureGroup(segs);
+        trk.style = track.style;
+        if (track.name) trk.name = track.name;
+        newTrace.gpx.getLayers()[0].addLayer(trk);
+
+        newTrace.recomputeStats();
+        newTrace.update();
+        newTrace.updateTab();
+        newTrace.setStyle(newTrace.hasFocus);
+
+        if (segment) track.removeLayer(segment);
+        else this.gpx.getLayers()[0].removeLayer(track);
+
+        this.recomputeStats();
+        this.update();
+        this.updateTab();
+
+        return newTrace;
     }
 
     addEndPoint(lat, lng) {
@@ -1787,22 +2163,25 @@ export default class Trace {
     timeConsistency() {
         if (!this.hasTimeData()) return;
 
+        const avg = this.getMovingSpeed(true);
         const points = this.getPoints();
-        if (this.getMovingSpeed(true) <= 0) {
+        if (avg <= 0) {
             for (var i=0; i<points.length; i++) {
                 points[i].meta.time = null;
                 points[i].meta.original_time = false;
             }
         } else {
-            var lastTime = null;
-            for (var i=0; i<points.length; i++) {
-                if (points[i].meta.time) {
-                    if (lastTime && lastTime > points[i].meta.time) {
-                        points[i].meta.time = lastTime;
-                        points[i].meta.original_time = true;
+            var last = points[0].meta.time;
+            for (var i=1; i<points.length; i++) {
+                if (points[i].meta.time <= points[i-1].meta.time) {
+                    var newTime = new Date(points[i-1].meta.time.getTime() + (points[i].meta.time.getTime() - last.getTime()));
+                    if (newTime <= points[i-1].meta.time) {
+                        const dist = this.gpx._dist2d(points[i-1], points[i]);
+                        newTime = new Date(points[i-1].meta.time.getTime() +  + 1000 * 60 * 60 * dist/(1000 * avg));
                     }
-                    lastTime = points[i].meta.time;
-                }
+                    last = points[i].meta.time;
+                    points[i].meta.time = newTime;
+                } else last = points[i].meta.time;
             }
         }
     }

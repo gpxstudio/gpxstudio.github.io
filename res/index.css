@@ -440,7 +440,7 @@ html, body {
     left: -7px;
 }
 
-#sortable {
+#sortable-tabs {
     max-width: 100vw;
     padding: 0;
     overflow-x: scroll;
@@ -480,6 +480,31 @@ html, body {
 }
 ul::-webkit-scrollbar { display: none; }
 ul { -ms-overflow-style: none; scrollbar-width: none; }
+
+.file-structure {
+    list-style-type: none;
+    padding-inline-start: 0;
+    text-align: left;
+}
+
+.file-structure-track {
+    border: solid 1px;
+    margin-top: 16px;
+    background: #ececec;
+}
+
+.file-structure-track > span {
+    padding: 0px 10px;
+}
+
+.file-structure-segment {
+    border: solid 1px;
+    margin-top: -1px;
+}
+
+.file-structure-segment > span {
+    padding: 0px 10px;
+}
 
 .leaflet-interactive.mouseDown {
     cursor: grabbing !important;
