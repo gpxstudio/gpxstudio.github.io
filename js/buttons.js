@@ -143,7 +143,6 @@ export default class Buttons {
         this.merge_as_tracks = document.getElementById("merge-as-tracks");
         this.merge_keep_time = document.getElementById("merge-keep");
         this.merge_stick_time = document.getElementById("merge-stick");
-        this.merge_cancel = document.getElementById("merge-cancel");
         this.edit_keep_avg = document.getElementById("edit-avg");
         this.edit_keep_time = document.getElementById("edit-keep");
         this.buttons_bar = document.getElementById('buttons-bar');
@@ -245,7 +244,7 @@ export default class Buttons {
         this.load_window = L.control.window(this.map,{title:'',content:this.load_content,className:'panels-container'});
         this.load_error_window = L.control.window(this.map,{title:'',content:this.load_error_content,className:'panels-container',closeButton:false});
         this.share_window = L.control.window(this.map,{title:'',content:this.share_content,className:'panels-container'});
-        this.merge_window = L.control.window(this.map,{title:'',content:this.merge_content,className:'panels-container',closeButton:false});
+        this.merge_window = L.control.window(this.map,{title:'',content:this.merge_content,className:'panels-container'});
         this.extract_window = L.control.window(this.map,{title:'',content:this.extract_content,className:'panels-container',closeButton:false});
         this.structure_window = L.control.window(this.map,{title:'',content:this.structure_content,className:'panels-container'});
         this.crop_window = L.control.window(this.map,{title:'',content:this.crop_content,className:'panels-container',closeButton:false});
@@ -1820,9 +1819,6 @@ export default class Buttons {
             buttons.merge_window.addEventListener('hide', function (e) {
                 total.to_merge = null;
             });
-        });
-        this.merge_cancel.addEventListener("click", function () {
-            buttons.merge_window.hide();
         });
         this.hide.addEventListener("click", function () {
             if (total.hasFocus) return;
