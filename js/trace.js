@@ -1030,7 +1030,6 @@ export default class Trace {
     getTrackDetails(track, fake, segment) {
         var trackDetails = document.createElement('div');
         trackDetails.classList.add('file-structure-track');
-        trackDetails.style.display = 'flex';
 
         var trackLabel = document.createElement('span');
         trackDetails.appendChild(trackLabel);
@@ -1105,7 +1104,6 @@ export default class Trace {
     getSegmentDetails(segment) {
         var segmentDetails = document.createElement('div');
         segmentDetails.classList.add('file-structure-segment');
-        segmentDetails.style.display = 'flex';
 
         var segmentLabel = document.createElement('span');
         segmentDetails.appendChild(segmentLabel);

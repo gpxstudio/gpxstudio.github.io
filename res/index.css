@@ -491,6 +491,7 @@ ul { -ms-overflow-style: none; scrollbar-width: none; }
     border: solid 1px;
     margin-top: 16px;
     background: #ececec;
+    display: flex;
 }
 
 .file-structure-track > span {
@@ -500,6 +501,7 @@ ul { -ms-overflow-style: none; scrollbar-width: none; }
 .file-structure-segment {
     border: solid 1px;
     margin-top: -1px;
+    display: flex;
 }
 
 .file-structure-segment > span {
