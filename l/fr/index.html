@@ -380,14 +380,12 @@
                 <hr>
             </div>
             <div>
-                Choisissez comment ajouter la seconde trace à la première<br>
-                <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Fusionner les points</label><br>
-                <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Fusionner les segments</label><br>
-                <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Fusionner les tracks</label>
-                <hr>
+                <div style="margin-right: 16px">Cliquez sur une autre trace ou sur un autre onglet pour fusionner la trace actuelle avec la trace correspondante</div><hr>
+                Choisissez comment fusionner la seconde trace avec la première<br>
+                <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Fusionner en tant que points</label><br>
+                <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Fusionner en tant que segments</label><br>
+                <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Fusionner en tant que tracks</label>
             </div>
-            Cliquez sur une autre trace ou sur un autre onglet pour fusionner la trace actuelle avec la trace correspondante<br>
-            <div id="merge-cancel" class="panels custom-button normal-button"><b>Annuler</b></div>
         </div>
         <div id="extract-content" class="popup-content">
             Choisissez quoi extraire<br>
@@ -397,7 +395,7 @@
             <div id="extract-cancel" class="panels custom-button normal-button"><b>Annuler</b></div>
         </div>
         <div id="structure-content" class="popup-content">
-            <div>Glissez-déposez les éléments pour réorganiser la structure du fichier</div>
+            <div style="margin-right: 16px">Glissez-déposez les éléments pour réorganiser la structure du fichier</div>
             <div>Déplacez les éléments depuis ou vers les onglets au-dessus du profil d'altitude</div>
             <div>Renommez les tracks ou modifiez leur couleur</div>
             <div id="file-structure"></div>
