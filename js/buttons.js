@@ -247,7 +247,7 @@ export default class Buttons {
         this.share_window = L.control.window(this.map,{title:'',content:this.share_content,className:'panels-container'});
         this.merge_window = L.control.window(this.map,{title:'',content:this.merge_content,className:'panels-container',closeButton:false});
         this.extract_window = L.control.window(this.map,{title:'',content:this.extract_content,className:'panels-container',closeButton:false});
-        this.structure_window = L.control.window(this.map,{title:'',content:this.structure_content,className:'panels-container',closeButton:false});
+        this.structure_window = L.control.window(this.map,{title:'',content:this.structure_content,className:'panels-container'});
         this.crop_window = L.control.window(this.map,{title:'',content:this.crop_content,className:'panels-container',closeButton:false});
 
         this.zoom = L.control.zoom({
@@ -1621,6 +1621,7 @@ export default class Buttons {
 
             buttons.window_open = buttons.structure_window;
             buttons.structure_window.show();
+            gtag('event', 'button', {'event_category' : 'structure'});
         });
         map.on('mouseup', function (e) {
             map.dragging.enable();
