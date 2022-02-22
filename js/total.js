@@ -284,8 +284,7 @@ export default class Total {
     /*** OUTPUT ***/
 
     outputGPX(mergeAll, incl_time, incl_hr, incl_atemp, incl_cad, incl_power, incl_surface, trace_idx) {
-        if (incl_time && this.getMovingTime() > 0 && trace_idx === undefined) { // at least one track has time data
-            for (var i=0; i<this.traces.length; i++) this.traces[i].timeConsistency();
+        if (mergeAll && incl_time && this.getMovingTime() > 0 && trace_idx === undefined) { // at least one track has time data
             const avg = this.getMovingSpeed(true);
             var lastPoints = null;
             for (var i=0; i<this.traces.length; i++) {
@@ -293,10 +292,10 @@ export default class Total {
                 if (points.length == 0) continue;
                 if (!this.traces[i].hasTimeData()) { // no time data
                     var startTime = new Date();
-                    if(lastPoints) {
+                    if (lastPoints) {
                         const a = lastPoints[lastPoints.length-1];
                         const b = points[0];
-                        const dist = mergeAll ? this.traces[i].gpx._dist2d(a, b) : 0;
+                        const dist = this.traces[i].gpx._dist2d(a, b);
                         startTime = new Date(a.meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
                     } else if (i < this.traces.length-1) {
                         var a = points[points.length-1];
@@ -306,7 +305,7 @@ export default class Total {
                             const cur_points = this.traces[j].getPoints();
                             if (cur_points.length == 0) continue;
                             b = cur_points[0];
-                            if (mergeAll) dist += this.traces[j].gpx._dist2d(a, b);
+                            dist += this.traces[j].gpx._dist2d(a, b);
                             if (!this.traces[j].hasTimeData()) dist += this.traces[j].getDistance(true);
                             else break;
                             a = cur_points[cur_points.length-1];
@@ -314,13 +313,15 @@ export default class Total {
                         startTime = new Date(b.meta.time.getTime() - 1000 * 60 * 60 * dist/(1000 * avg));
                     }
                     this.traces[i].changeTimeData(startTime, avg);
-                } else if (mergeAll && lastPoints && points[0].meta.time < lastPoints[lastPoints.length-1].meta.time) { // time precedence constraint
+                    this.traces[i].recomputeStats();
+                } else if (lastPoints && points[0].meta.time < lastPoints[lastPoints.length-1].meta.time) { // time precedence constraint
                     const a = lastPoints[lastPoints.length-1];
                     const b = points[0];
                     const dist = this.traces[i].gpx._dist2d(a, b);
                     const startTime = new Date(a.meta.time.getTime() + 1000 * 60 * 60 * dist/(1000 * avg));
                     const curAvg = this.traces[i].getMovingSpeed(true);
                     this.traces[i].changeTimeData(startTime, curAvg > 0 ? curAvg : avg);
+                    this.traces[i].recomputeStats();
                 }
                 lastPoints = points;
             }
@@ -360,10 +361,10 @@ export default class Total {
         const totalData = this.additionalAvgData;
         for (var i=(trace_idx!==undefined ? trace_idx : 0); i<(trace_idx!==undefined ? trace_idx+1 : this.traces.length); i++) {
             const data = this.traces[i].additionalAvgData;
-            const hr = data.hr != null ? data.hr : (totalData ? totalData.hr : null);
-            const atemp = data.atemp != null ? data.atemp : (totalData ? totalData.atemp : null);
-            const cad = data.cad != null ? data.cad : (totalData ? totalData.cad : null);
-            const power = data.power != null ? data.power : (totalData ? totalData.power : null);
+            const hr = data.hr != null ? data.hr : ((mergeAll && totalData) ? totalData.hr : null);
+            const atemp = data.atemp != null ? data.atemp : ((mergeAll && totalData) ? totalData.atemp : null);
+            const cad = data.cad != null ? data.cad : ((mergeAll && totalData) ? totalData.cad : null);
+            const power = data.power != null ? data.power : ((mergeAll && totalData) ? totalData.power : null);
 
             const tracks = this.traces[i].getTracks();
             for (var t=0; t<tracks.length; t++) {
