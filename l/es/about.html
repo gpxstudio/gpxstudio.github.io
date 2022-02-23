@@ -426,7 +426,7 @@
                     <li><code>cosm</code>: CyclOSM</li>
                 </ul>
                 <p>Para usar los mapas de Mapbox, necesitas especificar el parámetro <code>token</code> con un <a href="https://account.mapbox.com/access-tokens/" target="_blank">Mapbox token</a> válido. También puedes utilizar un estilo personalizado de Mapbox especificando directamente su URL con <code>mapbox-style=&lt;STYLE_URL&gt;</code>.</p>
-                <p>You can optionally add parameters to the source URL: <code>imperial</code> to get data in miles and feet, <code>running</code> to display the pace in minutes by unit of distance, <code>distance</code> to show distance markers, <code>direction</code> to show direction markers and <code>slope</code> to show the slope view of the elevation profile. A continuación hay un simulador con el que configurar los parámetros, ver una vista previa y obtener el código HTML.</p>
+                <p>Opcionalmente puedes añadir los siguientes parámetros a la URL: <code>imperial</code> para obtener datos en millas y pies, <code>running</code> para mostrar el ritmo en minutos por unidad de distancia, <code>distancia</code> para mostrar los indicadores de distancia, <code>direction</code> para mostrar los indicadores de dirección y <code>pendiente</code> para mostrar la vista de la pendiente del peril de elevación. A continuación hay un simulador con el que configurar los parámetros, ver una vista previa y obtener el código HTML.</p>
                 <div class="guide-item">
                     <h3 style="margin-block-start: 0em;">Parámetros</h3>
                     <p>URLs de archivo (separados por comas)<br>
@@ -434,11 +434,11 @@
                     <p>IDs de archivo de Google Drive (separados por comas)<br>
                     <input id="file-ids" type="text" oninput="showPreview()" value="10IbXh7W7QDO7ZKmapJYdcgN3vhdN2Q-e" style="width: 96%; margin: 5px;"></p>
                     <div style="display: flex; justify-content: space-between">
-                        <span>Running <input id="running" type="checkbox" oninput="showPreview()"></span>
+                        <span>Ritmo<input id="running" type="checkbox" oninput="showPreview()"></span>
                         <span>Imperial <input id="imperial" type="checkbox" oninput="showPreview()"></span>
-                        <span>Distance markers <input id="distance" type="checkbox" oninput="showPreview()" checked></span>
-                        <span>Direction markers <input id="direction" type="checkbox" oninput="showPreview()"></span>
-                        <span>Slope <input id="slope" type="checkbox" oninput="showPreview()"></span>
+                        <span>Marcadores de distancia <input id="distance" type="checkbox" oninput="showPreview()" checked></span>
+                        <span>Marcadores de dirección <input id="direction" type="checkbox" oninput="showPreview()"></span>
+                        <span>Pendiente<input id="slope" type="checkbox" oninput="showPreview()"></span>
                     </div>
                     <p>Mapa por defecto <select id="sources" oninput="showPreview()">
                         <option value="outdoors">Mapbox Outdoors</option>
