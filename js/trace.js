@@ -89,7 +89,10 @@ export default class Trace {
             li.trace = trace;
             li.addEventListener('click', function (e) {
                 if (total.to_merge && total.to_merge != trace && total.buttons.window_open == total.buttons.merge_window) mergeTrace();
-                else if (!trace.hasFocus) trace.focus();
+                else if (!trace.hasFocus) {
+                    trace.focus();
+                    if (total.buttons.window_open == total.buttons.structure_window && total.buttons.structure_window._wrapper.classList.contains('visible')) total.buttons.structure.click();
+                }
             });
             li.addEventListener('dblclick', function (e) {
                 if (trace.buttons.embedding) return;
@@ -139,7 +142,10 @@ export default class Trace {
                 return;
             }
             if (!trace.total.hasFocus && trace.total.focusOn != trace.index && trace.total.traces[trace.total.focusOn].isEdited) return;
-            if (!e.target.trace.isEdited) e.target.trace.updateFocus();
+            if (!trace.isEdited) {
+                trace.updateFocus();
+                if (total.buttons.window_open == total.buttons.structure_window && total.buttons.structure_window._wrapper.classList.contains('visible')) total.buttons.structure.click();
+            }
         }).on('mousedown', function (e) {
             if (trace.buttons.disable_trace) return;
             if (trace.isEdited) {
