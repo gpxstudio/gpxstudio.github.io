@@ -74,47 +74,47 @@
         <div id="mly"><div id="mly-controls"><i id="mly-move" class="fas fa-arrows-alt custom-button"></i><i id="mly-close" class="fas fa-times custom-button"></i></div></div>
         <div style="display: none">
         <div id="toolbar" class="panels-container center-leaflet">
-            <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 4px 6px" alt="logo of gpx.studio, the online GPX file editor"></a>
-            <div id="load" class="panels custom-button">Load GPX</div>
-            <div id="manual" class="panels custom-button">New GPX</div>
-            <div id="export" class="panels custom-button">Export</div>
+            <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 4px 6px" alt="gpx.studio - Ο online επεξεργαστής αρχείων GPX"></a>
+            <div id="load" class="panels custom-button">Φόρτωση GPX</div>
+            <div id="manual" class="panels custom-button">Νέο GPX</div>
+            <div id="export" class="panels custom-button">Εξαγωγή</div>
             <div class="panels custom-button unselected no-click2" id="undo"><i class="fas fa-reply"></i></div>
             <div class="panels custom-button unselected no-click2" id="redo"><i class="fas fa-share"></i></div>
-            <div id="clear" class="panels custom-button">Clear all</div>
-            <div id="help" class="panels custom-button">Help</div>
-            <div id="about" class="panels custom-button">About</div>
-            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Donate</b> <i class="fas fa-heart"></i></div>
+            <div id="clear" class="panels custom-button">Εκκαθάριση όλων</div>
+            <div id="help" class="panels custom-button">Βοήθεια</div>
+            <div id="about" class="panels custom-button">Σχετικά</div>
+            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Δωρεά</b> <i class="fas fa-heart"></i></div>
         </div>
         <div id="info">
             <ul id="sortable-tabs">
-              <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">Total</li>
+              <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">Σύνολο</li>
             </ul>
             <div id="info-grid" class="panels-container trace-info">
-                <div class="panels panels-info" id="distance">Distance</div>
+                <div class="panels panels-info" id="distance">Απόσταση</div>
                 <div class="panels panels-val" id="distance-val"></div>
-                <div class="panels panels-info" id="elevation">Elevation</div>
+                <div class="panels panels-info" id="elevation">Υψόμετρο</div>
                 <div class="panels panels-val" id="elevation-val"></div>
-                <div class="panels panels-info" id="speed">Speed</div>
+                <div class="panels panels-info" id="speed">Ταχύτητα</div>
                 <div class="panels panels-val" id="speed-val"></div>
-                <div class="panels panels-info" id="duration">Moving time</div>
+                <div class="panels panels-info" id="duration">Διάρκεια κίνησης</div>
                 <div class="panels panels-val" id="duration-val"></div>
-                <div class="panels panels-info" id="tracks" style="display: none; padding-right: 5px;">Tracks</div>
+                <div class="panels panels-info" id="tracks" style="display: none; padding-right: 5px;">Διαδρομές</div>
                 <div class="panels panels-val" id="tracks-val" style="display: none; padding-right: 5px;">0</div>
-                <div class="panels panels-info" id="segments" style="display: none; padding-right: 5px;">Track segments</div>
+                <div class="panels panels-info" id="segments" style="display: none; padding-right: 5px;">Τμήματα διαδρομής</div>
                 <div class="panels panels-val" id="segments-val" style="display: none; padding-right: 5px;">0</div>
-                <div class="panels panels-info" id="points" style="display: none">Track points</div>
+                <div class="panels panels-info" id="points" style="display: none">Σημεία διαδρομής</div>
                 <div class="panels panels-val" id="points-val" style="display: none">0</div>
-                <div id="units-text" class="panels-info">Distance units</div>
+                <div id="units-text" class="panels-info">Μονάδες απόστασης</div>
                 <select id="units-input" name="units-input">
-                    <option value="km">Metric</option>
-                    <option value="mi">Imperial</option>
+                    <option value="km">Μονάδες Μέτρησης</option>
+                    <option value="mi">Αγγλοσαξωνικό Σύστημα</option>
                 </select>
-                <div id="speed-units-text" class="panels-info">Velocity units</div>
+                <div id="speed-units-text" class="panels-info">Μονάδες ταχύτητας</div>
                 <select id="speed-units-input" name="speed-units-input">
-                    <option value="speed">Speed</option>
-                    <option value="pace">Pace</option>
+                    <option value="speed">Ταχύτητα</option>
+                    <option value="pace">Ρυθμός</option>
                 </select>
-                <div id="elevation-input" class="panels-button custom-button" title="Toggle the elevation profile"><i class="fas fa-minus"></i></div>
+                <div id="elevation-input" class="panels-button custom-button" title="Εναλλαγή του προφίλ υψομέτρου"><i class="fas fa-minus"></i></div>
                 <div id="crop-container">
                     <div class="panels-button custom-button" id="validate"><i class="fas fa-check custom-button"></i></div>
                 </div>
@@ -126,15 +126,15 @@
         </div>
         <div id="buttons-bar" class="vcenter-leaflet">
             <div id="buttons" class="panels-container">
-                <div class="panels-button" id="edit" title="Edit track points"><i class="fas fa-pencil-alt custom-button"></i></div><br>
-                <div class="panels-button" id="edit-time" title="Edit time"><i class="fas fa-stopwatch custom-button"></i></div><br>
+                <div class="panels-button" id="edit" title="Επεξεργασία σημείων διαδρομής"><i class="fas fa-pencil-alt custom-button"></i></div><br>
+                <div class="panels-button" id="edit-time" title="Επεξεργασία χρόνου"><i class="fas fa-stopwatch custom-button"></i></div><br>
                 <div class="panels-button" id="reverse" title="Αντίστροφη"><i class="fas fa-exchange-alt custom-button"></i></div><br>
                 <div class="panels-button" id="combine" title="Συγχώνευση με άλλη διαδρομή"><i class="fas fa-plus-circle custom-button"></i></div><br>
-                <div class="panels-button" id="extract" title="Extract tracks or track segments"><i class="fas fa-list-ul custom-button"></i></div><br>
+                <div class="panels-button" id="extract" title="Εξαγωγή διαδρομών ή τμημάτων διαδρομής"><i class="fas fa-list-ul custom-button"></i></div><br>
                 <div class="panels-button" id="duplicate" title="Δημιουργία Αντιγράφου"><i class="fas fa-copy custom-button"></i></div><br>
                 <div class="panels-button" id="add-wpt" title="Προσθήκη Σημείου Αναφοράς"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
                 <div class="panels-button" id="reduce" title="Μείωση αριθμού σημείων της διαδρομής"><i class="fas fa-compress-alt custom-button"></i></div><br>
-                <div class="panels-button" id="zone-delete" title="Delete all inside/outside rectangle selection"><i class="fas fa-vector-square custom-button"></i></div><br>
+                <div class="panels-button" id="zone-delete" title="Διαγραφή όλων των εσωτερικών/εξωτερικών ορθογωνίων"><i class="fas fa-vector-square custom-button"></i></div><br>
                 <div class="panels-button" id="hide" title="Απόκρυψη/εμφάνιση της διαδρομής"><i class="fas fa-eye-slash custom-button"></i></div><br>
                 <div class="panels-button" id="color" title="Αλλαγή χρώματος, αδιαφάνειας και πλάτους"><i class="fas fa-palette custom-button"></i></div><br>
                 <div class="panels-button" id="structure" title="Διαχείριση της δομής αρχείου"><i class="fas fa-folder-tree custom-button"></i></div><br>
@@ -144,13 +144,13 @@
                 <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Εναλλαγή επιλογών επεξεργασίας"></i>
                 <table class="panels">
                     <tr>
-                        <td><b>Activity</b></td>
+                        <td><b>Δραστηριότητα</b></td>
                         <td><select name="activity" id="activity-input">
                             <option value="bike">Ποδήλατο</option>
                             <option value="racingbike">Αγωνιστικό ποδήλατο</option>
                             <option value="mtb">Ποδήλατο βουνού</option>
                             <option value="hike">Τρέξιμο/πεζοπορία</option>
-                            <option value="car">Motorcycle</option>
+                            <option value="car">Μοτοσικλέτα</option>
                         </select></td>
                     </tr>
                     <tr>
@@ -171,7 +171,7 @@
                 <input id="street-view-provider-google" type="radio" name="street-view-provider" value="google"> <label for="street-view-provider-google">Google</label>
                 <input id="street-view-provider-mapillary" type="radio" name="street-view-provider" value="mapillary" checked> <label for="street-view-provider-mapillary">Mapillary</label>
             </div>
-            <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Mapillary or Google Street View"></i>
+            <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Άνοιγμα σε Mapillary ή Google Street View"></i>
         </div>
         <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Direction markers</label>
         <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Distance markers</label>
@@ -187,17 +187,17 @@
             </colgroup>
             <tbody>
             <tr>
-                <td><b>Load GPX</b></td>
+                <td><b>Φόρτωση GPX</b></td>
                 <td>Ctrl+O</td>
                 <td>Import and visualize GPX files (or drag and drop anywhere in the window)</td>
             </tr>
             <tr>
-                <td><b>New GPX</b></td>
+                <td><b>Νέο GPX</b></td>
                 <td>Ctrl+D</td>
                 <td>Start drawing a new route by placing track points on the map</td>
             </tr>
             <tr>
-                <td><b>Export</b></td>
+                <td><b>Εξαγωγή</b></td>
                 <td>Ctrl+S</td>
                 <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Time, heart rate, cadence, power and temperature data are automatically extended. Optionally, merge all files <b>in the chosen order</b>. You can also drag a tab to your desktop to download the file.</td>
             </tr>
@@ -207,9 +207,9 @@
                 <td>Undo and redo actions in edition mode</td>
             </tr>
             <tr>
-                <td><b>Clear all</b></td>
+                <td><b>Εκκαθάριση όλων</b></td>
                 <td>Ctrl+K</td>
-                <td>Delete all traces</td>
+                <td>Διαγραφή όλων των διαδρομών</td>
             </tr>
             <tr>
                 <td></td>
@@ -246,7 +246,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-copy"></i></td>
-                <td>Duplicate the trace</td>
+                <td>Δημιουργία αντιγράφου διαδρομής</td>
             </tr>
             <tr>
                 <td><i class="fas fa-map-marker-alt"></i></td>
@@ -334,18 +334,18 @@
             </table>
             <div style="color:#0f92c5;">&#9888;&#65039; The tool is <b>free</b> to use but <b>not free</b> to run &#9888;&#65039;<br>Each map display, track point added or moved is billed.</div>
             <div id="donate-2" class="panels custom-button fancy-button"><b>Help keep the website free</b> &#128591;</div><br>
-            <div id="export-2" class="panels custom-button fancy-button">Download <i class="fas fa-download"></i></div>
+            <div id="export-2" class="panels custom-button fancy-button">Λήψη <i class="fas fa-download"></i></div>
             <div id="save-drive" class="panels custom-button fancy-button">Save to Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
         </div>
         <div id="clear-content" class="popup-content">
             This will delete all open traces.<br>Do you wish to continue?<br>
-            <div id="clear2" class="panels custom-button normal-button">Yes</div>
-            <div id="cancelclear" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="clear2" class="panels custom-button normal-button">Ναι</div>
+            <div id="cancelclear" class="panels custom-button normal-button"><b>Ακύρωση</b></div>
         </div>
         <div id="delete-content" class="popup-content">
             This will delete the current trace.<br>Do you wish to continue?<br>
-            <div id="delete2" class="panels custom-button normal-button">Yes</div>
-            <div id="canceldelete" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="delete2" class="panels custom-button normal-button">Ναι</div>
+            <div id="canceldelete" class="panels custom-button normal-button"><b>Ακύρωση</b></div>
         </div>
         <div id="color-content" class="popup-content">
             <div style="text-align: left">
@@ -356,19 +356,19 @@
                 <label for="width-slider">Width</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
                 <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Apply width to all traces</label>
             </div>
-            <div id="validate-color" class="panels custom-button normal-button">Ok</div>
-            <div id="cancel-color" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="validate-color" class="panels custom-button normal-button">Εντάξει</div>
+            <div id="cancel-color" class="panels custom-button normal-button"><b>Ακύρωση</b></div>
         </div>
         <div id="load-content" class="popup-content">
-            Choose files from<br>
-            <div id="load2" class="panels custom-button normal-button">Desktop</div>
+            Επιλογή αρχείου<br>
+            <div id="load2" class="panels custom-button normal-button">Συσκευή</div>
             <div id="load-drive" class="panels custom-button normal-button">Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div><br>
-            (or drag and drop anywhere in the window)
+            (ή σύρετε και αφήστε οπουδήποτε στο παράθυρο)
         </div>
         <div id="share-content" class="popup-content">
-            Done!<br>
-            <div id="copy-link" class="panels custom-button fancy-button">Copy link <i class="fas fa-link"></i></div><br>
-            <div id="copy-embed" class="panels custom-button fancy-button">Copy embedding code <i class="fas fa-code"></i></div><br>
+            Ολοκληρώθηκε!<br>
+            <div id="copy-link" class="panels custom-button fancy-button">Αντιγραφή συνδέσμου <i class="fas fa-link"></i></div><br>
+            <div id="copy-embed" class="panels custom-button fancy-button">Αντιγραφή κωδικού ενσωμάτωσης <i class="fas fa-code"></i></div><br>
         </div>
         <div id="merge-content" class="popup-content">
             <div id="merge-time-options">
@@ -391,8 +391,8 @@
             Choose what to extract<br>
             <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Tracks</label><br>
             <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Track segments</label><br>
-            <div id="extract-ok" class="panels custom-button normal-button">Ok</div>
-            <div id="extract-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="extract-ok" class="panels custom-button normal-button">Εντάξει</div>
+            <div id="extract-cancel" class="panels custom-button normal-button"><b>Ακύρωση</b></div>
         </div>
         <div id="structure-content" class="popup-content">
             <div style="margin-right: 16px">Drag and drop the elements to rearrange the file structure</div>
@@ -403,50 +403,50 @@
         <div id="crop-content" class="popup-content">
             <input type="checkbox" id="crop-keep"><label for="crop-keep">Keep cropped parts in new files</label><br>
             <div id="crop-ok" class="panels custom-button normal-button">Proceed</div>
-            <div id="crop-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="crop-cancel" class="panels custom-button normal-button"><b>Ακύρωση</b></div>
         </div>
         <div id="reduce-content" class="popup-content">
             Choose the amount of detail to keep<br>
             Number of track points: <span id="reduce-npoints">0</span><br>
             <input type="range" min="0" max="1000" id="reduce-slider" style="width: 90%"><br>
-            <div id="reduce-ok" class="panels custom-button normal-button">Ok</div>
-            <div id="reduce-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="reduce-ok" class="panels custom-button normal-button">Εντάξει</div>
+            <div id="reduce-cancel" class="panels custom-button normal-button"><b>Ακύρωση</b></div>
         </div>
         <div id="zone-delete-content" class="popup-content">
             Choose what to delete<br>
-            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Track points</label>
+            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Σημεία διαδρομής</label>
             <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
             <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inside selection</label>
             <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
             <div id="zone-delete-ok" class="panels custom-button normal-button">Proceed</div>
-            <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Ακύρωση</b></div>
         </div>
         <div id="load-error-content" class="popup-content">
             There was an error loading your GPX file.<br>
             Please check the file format.<br>
-            <div id="load-error-ok" class="panels custom-button normal-button">Ok</div>
+            <div id="load-error-ok" class="panels custom-button normal-button">Εντάξει</div>
         </div>
         <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
-            <b>Open in</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logo of gpx.studio, the online GPX file editor">
+            <b>Open in</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="gpx.studio - Ο online επεξεργαστής αρχείων GPX">
         </div>
-        <div id="unit-kilometers-text">km</div>
-        <div id="unit-miles-text">mi</div>
-        <div id="unit-meters-text">m</div>
-        <div id="unit-feet-text">ft</div>
-        <div id="unit-hours-text">h</div>
-        <div id="unit-minutes-text">min</div>
+        <div id="unit-kilometers-text">χλμ</div>
+        <div id="unit-miles-text">μίλια</div>
+        <div id="unit-meters-text">μέτρα</div>
+        <div id="unit-feet-text">πόδια</div>
+        <div id="unit-hours-text">ώρες</div>
+        <div id="unit-minutes-text">λεπτά</div>
         <div id="duplicate-text">Δημιουργία Αντιγράφου</div>
         <div id="delete-text">Διαγραφή</div>
-        <div id="ok-button-text">Ok</div>
-        <div id="cancel-button-text">Cancel</div>
-        <div id="search-input-text">Search...</div>
+        <div id="ok-button-text">Εντάξει</div>
+        <div id="cancel-button-text">Ακύρωση</div>
+        <div id="search-input-text">Αναζήτηση...</div>
         <div id="search-button-text">Search for a place or paste GPS coordinates</div>
-        <div id="locate-button-text">Show my position</div>
-        <span id="track-text">Track</span>
+        <div id="locate-button-text">Εμφάνιση της θέσης μου</div>
+        <span id="track-text">Διαδρομή</span>
         <span id="segment-text">Segment</span>
         <div id="edit-speed-popup-text">
-            <div id="speed-text">Speed</div>
-            <div id="pace-text">Pace</div>
+            <div id="speed-text">Ταχύτητα</div>
+            <div id="pace-text">Ρυθμός</div>
             <div id="start-text">Start</div>
             <div id="experimental-info-text">Generate speed considering the slope and the activity type<br><b><i class="fas fa-exclamation-triangle"></i> erases all existing time data</b></div>
         </div>
@@ -483,13 +483,13 @@
             <div id="wood-text">Wood</div>,
             <div id="compacted-text">Compacted Gravel</div>,
             <div id="fine-gravel-text">Fine Gravel</div>,
-            <div id="gravel-text">Gravel</div>,
+            <div id="gravel-text">Χαλίκι</div>,
             <div id="pebblestone-text">Pebblestone</div>,
-            <div id="rock-text">Rock</div>,
+            <div id="rock-text">Βράχος</div>,
             <div id="dirt-text">Dirt</div>,
-            <div id="ground-text">Ground</div>,
+            <div id="ground-text">Χώμα</div>,
             <div id="earth-text">Earth</div>,
-            <div id="snow-text">Snow</div>,
+            <div id="snow-text">Χιόνι</div>,
             <div id="ice-text">Ice</div>,
             <div id="salt-text">Salt</div>,
             <div id="mud-text">Mud</div>,
