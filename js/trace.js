@@ -224,6 +224,8 @@ export default class Trace {
     rename(name) {
         var newname = name ? name : this.nameInput.value;
         if (newname.length > 0) this.name = newname;
+        const tracks = this.getTracks();
+        if (tracks.length == 1 && tracks[0].name) tracks[0].name = this.name;
         this.updateTab();
         this.renaming = false;
     }
@@ -856,7 +858,7 @@ export default class Trace {
         var tabColor = document.createElement('div');
         tabColor.classList.add("tab-color");
 
-        if (track) tabColor.style.background = track.style.color ? track.style.color : this.total.getColor();
+        if (track) tabColor.style.background = (track.style && track.style.color) ? track.style.color : this.total.getColor();
         else tabColor.style.background = this.getLinearGradient(this.getTrackColors());
 
         var tabName = document.createElement('div');
