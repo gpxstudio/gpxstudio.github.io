@@ -57,15 +57,30 @@ const layers = {
     }),
     ordnanceSurvey: L.tileLayer('https://api.os.uk/maps/raster/v1/zxy/Outdoor_3857/{z}/{x}/{y}.png?key=piCT8WysfuC3xLSUW7sGLfrAAJoYDvQz', {
         maxZoom: 20,
-        attribution: '&copy; <a href="http://www.ordnancesurvey.co.uk/">Ordnance Survey</a>'
+        attribution: '&copy; <a href="http://www.ordnancesurvey.co.uk/" target="_blank">Ordnance Survey</a>'
+    }),
+    norvegeTopo: L.tileLayer('https://{s}.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=topo4&zoom={z}&x={x}&y={y}', {
+        maxZoom: 20,
+        subdomains: ['opencache', 'opencache2', 'opencache3'],
+        attribution: '&copy; <a href="https://www.geonorge.no/" target="_blank">Geonorge</a>'
+    }),
+    swedenTopo: L.tileLayer('https://api.lantmateriet.se/open/topowebb-ccby/v1/wmts/token/1d54dd14-a28c-38a9-b6f3-b4ebfcc3c204/1.0.0/topowebb/default/3857/{z}/{y}/{x}.png', {
+        maxZoom: 20,
+        maxNativeZoom: 14,
+        attribution: '&copy; <a href="https://www.lantmateriet.se" target="_blank">Lantmäteriet</a>'
+    }),
+    finlandTopo: L.tileLayer('https://avoin-karttakuva.maanmittauslaitos.fi/avoin/wmts?layer=maastokartta&amp;style=default&tilematrixset=WGS84_Pseudo-Mercator&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image/png&TileMatrix={z}&TileCol={x}&TileRow={y}&api-key=30cb768c-c968-493c-ae24-2b0b974ebd29', {
+        maxZoom: 20,
+        maxNativeZoom: 18,
+        attribution: '&copy; <a href="https://www.maanmittauslaitos.fi/" target="_blank">Maanmittauslaitos</a>'
     }),
     usgs: L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}?blankTile=false', {
         maxNativeZoom: 16,
         maxZoom: 20,
-        attribution: '&copy; <a href="usgs.gov">USGS</a>'
+        attribution: '&copy; <a href="usgs.gov" target="_blank">USGS</a>'
     }),
     linz: L.mapboxGL({
-        attribution: '&copy; <a target="_blank" href="//www.linz.govt.nz/data/linz-data/linz-basemaps/data-attribution">LINZ</a>',
+        attribution: '&copy; <a href="//www.linz.govt.nz/data/linz-data/linz-basemaps/data-attribution" target="_blank">LINZ</a>',
         maxZoom: 20,
         style: 'https://basemaps.linz.govt.nz/v1/tiles/topographic/EPSG:3857/style/topographic.json?api=d01fbtg0ar23gctac5m0jgyy2ds',
         interactive: true,

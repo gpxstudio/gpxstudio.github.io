@@ -600,14 +600,23 @@ export default class Buttons {
                                     "Austria & Germany": {
                                         "Kompass" : layers.et4
                                     },
+                                    "Finland": {
+                                        "Lantmäteriverket Terrängkarta": layers.finlandTopo
+                                    },
                                     "France": {
                                         "IGN SCAN25" : layers.ignFrScan25
                                     },
                                     "New Zealand": {
                                         "LINZ": layers.linz
                                     },
+                                    "Norvege": {
+                                        "Topografisk Norgeskart 4": layers.norvegeTopo
+                                    },
                                     "Spain": {
                                         "IGN": layers.ignEs
+                                    },
+                                    "Sweden": {
+                                        "Lantmäteriet Topo": layers.swedenTopo
                                     },
                                     "Switzerland": {
                                         "swisstopo": layers.swisstopo
@@ -664,11 +673,20 @@ export default class Buttons {
                                     "Austria & Germany": {
                                         "Kompass" : layers.et4
                                     },
+                                    "Finland": {
+                                        "Lantmäteriverket Terrängkarta": layers.finlandTopo
+                                    },
                                     "France": {
                                         "IGN SCAN25" : layers.ignFrScan25
                                     },
+                                    "Norvege": {
+                                        "Topografisk Norgeskart 4": layers.norvegeTopo
+                                    },
                                     "Spain": {
                                         "IGN": layers.ignEs
+                                    },
+                                    "Sweden": {
+                                        "Lantmäteriet Topo": layers.swedenTopo
                                     },
                                     "Switzerland": {
                                         "swisstopo": layers.swisstopo
