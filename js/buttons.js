@@ -663,6 +663,7 @@ export default class Buttons {
                                 endPoint: "https://overpass-api.de/api/",
                                 query: "node({{bbox}})" + poi.query + ";out;",
                                 markerIcon: L.icon.glyph({
+                                    iconUrl: 'res/poi.png',
                                     prefix: "fas",
                                     glyph: poi.glyph,
                                 }),
