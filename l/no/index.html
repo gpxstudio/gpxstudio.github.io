@@ -75,43 +75,43 @@
         <div style="display: none">
         <div id="toolbar" class="panels-container center-leaflet">
             <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 4px 6px" alt="Logoen til gpx.studio, online GPX-fil editor"></a>
-            <div id="load" class="panels custom-button">Load GPX</div>
-            <div id="manual" class="panels custom-button">New GPX</div>
-            <div id="export" class="panels custom-button">Export</div>
+            <div id="load" class="panels custom-button">Last opp GPX</div>
+            <div id="manual" class="panels custom-button">Ny GPX</div>
+            <div id="export" class="panels custom-button">Eksporter</div>
             <div class="panels custom-button unselected no-click2" id="undo"><i class="fas fa-reply"></i></div>
             <div class="panels custom-button unselected no-click2" id="redo"><i class="fas fa-share"></i></div>
-            <div id="clear" class="panels custom-button">Clear all</div>
-            <div id="help" class="panels custom-button">Help</div>
-            <div id="about" class="panels custom-button">About</div>
-            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Donate</b> <i class="fas fa-heart"></i></div>
+            <div id="clear" class="panels custom-button">Fjern alt</div>
+            <div id="help" class="panels custom-button">Hjelp</div>
+            <div id="about" class="panels custom-button">Om</div>
+            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Doner</b> <i class="fas fa-heart"></i></div>
         </div>
         <div id="info">
             <ul id="sortable-tabs">
-              <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">Total</li>
+              <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">Totalt</li>
             </ul>
             <div id="info-grid" class="panels-container trace-info">
-                <div class="panels panels-info" id="distance">Distance</div>
+                <div class="panels panels-info" id="distance">Avstand</div>
                 <div class="panels panels-val" id="distance-val"></div>
-                <div class="panels panels-info" id="elevation">Elevation</div>
+                <div class="panels panels-info" id="elevation">Høyde</div>
                 <div class="panels panels-val" id="elevation-val"></div>
-                <div class="panels panels-info" id="speed">Speed</div>
+                <div class="panels panels-info" id="speed">Hastighet</div>
                 <div class="panels panels-val" id="speed-val"></div>
-                <div class="panels panels-info" id="duration">Moving time</div>
+                <div class="panels panels-info" id="duration">Bevegelsestid</div>
                 <div class="panels panels-val" id="duration-val"></div>
-                <div class="panels panels-info" id="tracks" style="display: none; padding-right: 5px;">Tracks</div>
+                <div class="panels panels-info" id="tracks" style="display: none; padding-right: 5px;">Spor</div>
                 <div class="panels panels-val" id="tracks-val" style="display: none; padding-right: 5px;">0</div>
-                <div class="panels panels-info" id="segments" style="display: none; padding-right: 5px;">Track segments</div>
+                <div class="panels panels-info" id="segments" style="display: none; padding-right: 5px;">Spor grupper</div>
                 <div class="panels panels-val" id="segments-val" style="display: none; padding-right: 5px;">0</div>
-                <div class="panels panels-info" id="points" style="display: none">Track points</div>
+                <div class="panels panels-info" id="points" style="display: none">Sporingspunkt</div>
                 <div class="panels panels-val" id="points-val" style="display: none">0</div>
-                <div id="units-text" class="panels-info">Distance units</div>
+                <div id="units-text" class="panels-info">Avstandsenhet</div>
                 <select id="units-input" name="units-input">
                     <option value="km">Metric</option>
                     <option value="mi">Imperial</option>
                 </select>
-                <div id="speed-units-text" class="panels-info">Velocity units</div>
+                <div id="speed-units-text" class="panels-info">Hastighetsenhet</div>
                 <select id="speed-units-input" name="speed-units-input">
-                    <option value="speed">Speed</option>
+                    <option value="speed">Hastighet</option>
                     <option value="pace">Tempo</option>
                 </select>
                 <div id="elevation-input" class="panels-button custom-button" title="Veksle mellom høydeprofilen"><i class="fas fa-minus"></i></div>
@@ -144,7 +144,7 @@
                 <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Veksle mellom redigeringsvalg"></i>
                 <table class="panels">
                     <tr>
-                        <td><b>Activity</b></td>
+                        <td><b>Aktivitet</b></td>
                         <td><select name="activity" id="activity-input">
                             <option value="bike">Sykkel</option>
                             <option value="racingbike">Racersykkel</option>
@@ -154,10 +154,10 @@
                         </select></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><label for="routing-input"><b>Routing (follow roads)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
+                        <td colspan="2"><label for="routing-input"><b>Rute (følg veier)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><label for="edit-time-strategy"><b>Time data management</b></label></td>
+                        <td colspan="2"><label for="edit-time-strategy"><b>Administrasjon av tidsdata</b></label></td>
                     </tr>
                     <tr>
                         <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
@@ -187,17 +187,17 @@
             </colgroup>
             <tbody>
             <tr>
-                <td><b>Load GPX</b></td>
+                <td><b>Last opp GPX</b></td>
                 <td>Ctrl+O</td>
                 <td>Import and visualize GPX files (or drag and drop anywhere in the window)</td>
             </tr>
             <tr>
-                <td><b>New GPX</b></td>
+                <td><b>Ny GPX</b></td>
                 <td>Ctrl+D</td>
                 <td>Start drawing a new route by placing track points on the map</td>
             </tr>
             <tr>
-                <td><b>Export</b></td>
+                <td><b>Eksporter</b></td>
                 <td>Ctrl+S</td>
                 <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Time, heart rate, cadence, power and temperature data are automatically extended. Optionally, merge all files <b>in the chosen order</b>. You can also drag a tab to your desktop to download the file.</td>
             </tr>
@@ -207,7 +207,7 @@
                 <td>Undo and redo actions in edition mode</td>
             </tr>
             <tr>
-                <td><b>Clear all</b></td>
+                <td><b>Fjern alt</b></td>
                 <td>Ctrl+K</td>
                 <td>Delete all traces</td>
             </tr>
@@ -414,7 +414,7 @@
         </div>
         <div id="zone-delete-content" class="popup-content">
             Choose what to delete<br>
-            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Track points</label>
+            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Sporingspunkt</label>
             <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
             <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inside selection</label>
             <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
@@ -445,7 +445,7 @@
         <span id="track-text">Track</span>
         <span id="segment-text">Segment</span>
         <div id="edit-speed-popup-text">
-            <div id="speed-text">Speed</div>
+            <div id="speed-text">Hastighet</div>
             <div id="pace-text">Tempo</div>
             <div id="start-text">Start</div>
             <div id="experimental-info-text">Generate speed considering the slope and the activity type<br><b><i class="fas fa-exclamation-triangle"></i> erases all existing time data</b></div>
