@@ -160,8 +160,8 @@
                         <td colspan="2"><label for="edit-time-strategy"><b>Administrasjon av tidsdata</b></label></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
-                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preserve the original timestamps</label></td>
+                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Bevar gjennomsnittlig hastighet</label><br>
+                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Bevar de opprinnelige tidsstemplene</label></td>
                     </tr>
                 </table>
             </div>
@@ -173,11 +173,11 @@
             </div>
             <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Åpne Mapillary eller Google gatevisning"></i>
         </div>
-        <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Direction markers</label>
-        <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Distance markers</label>
+        <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Retningsmarkører</label>
+        <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Distansemarkører</label>
         <div id="help-text">
         <div style="text-align: center; font-size: 10pt; color: #476947">
-            <b>Check out the <a href="./about.html#guide" target="_blank">User Guide</a> for more info and small tutorials!</b>
+            <b>Sjekk ut <a href="./about.html#guide" target="_blank">brukerhåndboken</a> for mer informasjon og små veiledere!</b>
         </div><br>
         <table style="width: 100%">
             <colgroup>
@@ -189,32 +189,32 @@
             <tr>
                 <td><b>Last opp GPX</b></td>
                 <td>Ctrl+O</td>
-                <td>Import and visualize GPX files (or drag and drop anywhere in the window)</td>
+                <td>Importer og visualiser GPX-filer (eller dra og slipp hvor som helst i vinduet)</td>
             </tr>
             <tr>
                 <td><b>Ny GPX</b></td>
                 <td>Ctrl+D</td>
-                <td>Start drawing a new route by placing track points on the map</td>
+                <td>Begynn å tegne en ny rute ved å plassere sporpunkter på kartet</td>
             </tr>
             <tr>
                 <td><b>Eksporter</b></td>
                 <td>Ctrl+S</td>
-                <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Time, heart rate, cadence, power and temperature data are automatically extended. Optionally, merge all files <b>in the chosen order</b>. You can also drag a tab to your desktop to download the file.</td>
+                <td>Last ned filene til ditt skrivebordet eller lagre på Google Drive™ for å få en <b>delbar link</b> og <b>innebygd kode</b>. Tid, hjertefrekvens, skrittfrekvens, kraft og temperaturdata blir automatisk forlenget. Alternativt kan du slå sammen alle filene <b>i den valgte rekkefølgen</b>. Du kan også dra en fane til skrivebordet for å laste ned filen.</td>
             </tr>
             <tr>
                 <td><i class="fas fa-reply"></i> <i class="fas fa-share"></i></td>
                 <td>Ctrl+Z/Y</td>
-                <td>Undo and redo actions in edition mode</td>
+                <td>Angre og gjør om handlinger i redigeringsmodus</td>
             </tr>
             <tr>
                 <td><b>Fjern alt</b></td>
                 <td>Ctrl+K</td>
-                <td>Delete all traces</td>
+                <td>Slett alle spor</td>
             </tr>
             <tr>
                 <td></td>
-                <td>Escape</td>
-                <td>Exit current menu or tool</td>
+                <td>Avslutt</td>
+                <td>Lukk gjeldende meny eller verktøy</td>
             </tr>
             </tbody>
         </table><br>
@@ -226,35 +226,35 @@
             <tbody>
             <tr>
                 <td><i class="fas fa-pencil-alt"></i></td>
-                <td>Enter edition mode to add, move, insert (by dragging the line), delete or split (right-click) track points</td>
+                <td>Start redigeringsmodus for å legge til, flytte, sette inn (ved å dra linjen), slette eller dele (høyreklikk) sporpunkter</td>
             </tr>
             <tr>
                 <td><i class="fas fa-stopwatch"></i></td>
-                <td>Change the speed and starting time of the trace</td>
+                <td>Endre hastighet og starttidspunkt for sporet</td>
             </tr>
             <tr>
                 <td><i class="fas fa-exchange-alt"></i></td>
-                <td>Reverse the trace and adapt the timestamps</td>
+                <td>Reverser sporet og tilpass tidsstemplene</td>
             </tr>
             <tr>
                 <td><i class="fas fa-plus-circle"></i></td>
-                <td>Merge with another trace (automatically extends time, heart rate, cadence, power and temperature data)</td>
+                <td>Slå sammen med et annet spor (automatisk forlenge tid, hjertefrekvens, skrittfrekvens, kraft og temperaturdata)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-list-ul"></i></td>
-                <td>Extract all track segments and creates one trace for each</td>
+                <td>Del opp alle sporgrupper og lag ett spor for hver</td>
             </tr>
             <tr>
                 <td><i class="fas fa-copy"></i></td>
-                <td>Duplicate the trace</td>
+                <td>Dupliser sporet</td>
             </tr>
             <tr>
                 <td><i class="fas fa-map-marker-alt"></i></td>
-                <td>Add a waypoint (drag to change its location and use the buttons to edit info, duplicate or remove)</td>
+                <td>Legg til et veipunkt (dra for å endre dens plassering og bruk knappene for å redigere informasjon, duplisere eller fjerne)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-compress-alt"></i></td>
-                <td>Reduce the number of track points</td>
+                <td>Reduser antall sporpunkter</td>
             </tr>
             <tr>
                 <td><i class="fas fa-vector-square"></i></td>
