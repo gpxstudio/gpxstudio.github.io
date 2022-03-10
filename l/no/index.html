@@ -319,68 +319,68 @@
                     <td><input type="checkbox" id="merge"> <label for="merge">Slå sammen alle spor</label></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-time" checked> <label for="include-time">Time</label></td>
-                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Surface</label></td>
+                    <td><input type="checkbox" id="include-time" checked> <label for="include-time">Tid</label></td>
+                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Overflate</label></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-cad" checked> <label for="include-cad">Cadence</label></td>
-                    <td><input type="checkbox" id="include-hr" checked> <label for="include-hr">Heartrate</label></td>
+                    <td><input type="checkbox" id="include-cad" checked> <label for="include-cad">Tråkkfrekvens</label></td>
+                    <td><input type="checkbox" id="include-hr" checked> <label for="include-hr">Puls</label></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Temperature</label></td>
-                    <td><input type="checkbox" id="include-power" checked> <label for="include-power">Power</label></td>
+                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Temperatur</label></td>
+                    <td><input type="checkbox" id="include-power" checked> <label for="include-power">Effekt</label></td>
                 </tr>
                 </tbody>
             </table>
-            <div style="color:#0f92c5;">&#9888;&#65039; The tool is <b>free</b> to use but <b>not free</b> to run &#9888;&#65039;<br>Each map display, track point added or moved is billed.</div>
-            <div id="donate-2" class="panels custom-button fancy-button"><b>Help keep the website free</b> &#128591;</div><br>
-            <div id="export-2" class="panels custom-button fancy-button">Download <i class="fas fa-download"></i></div>
-            <div id="save-drive" class="panels custom-button fancy-button">Save to Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
+            <div style="color:#0f92c5;">&#9888;&#65039; Dette verktøyet er <b>gratis</b> å bruke, men <b>ikke gratis</b> å kjøre &#9888;&#65039;<br>Hver kartvisning, sporpunkt som blir lagt til eller flyttet blir fakturert.</div>
+            <div id="donate-2" class="panels custom-button fancy-button"><b>Hjelp å holde nettsiden gratis</b> &#128591;</div><br>
+            <div id="export-2" class="panels custom-button fancy-button">Last ned<i class="fas fa-download"></i></div>
+            <div id="save-drive" class="panels custom-button fancy-button">Lagret i Google Drive<img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
         </div>
         <div id="clear-content" class="popup-content">
-            This will delete all open traces.<br>Do you wish to continue?<br>
-            <div id="clear2" class="panels custom-button normal-button">Yes</div>
-            <div id="cancelclear" class="panels custom-button normal-button"><b>Cancel</b></div>
+            Dette vil slette alle åpne spor.<br>Vil du fortsette?<br>
+            <div id="clear2" class="panels custom-button normal-button">Ja</div>
+            <div id="cancelclear" class="panels custom-button normal-button"><b>Avbryt</b></div>
         </div>
         <div id="delete-content" class="popup-content">
-            This will delete the current trace.<br>Do you wish to continue?<br>
-            <div id="delete2" class="panels custom-button normal-button">Yes</div>
-            <div id="canceldelete" class="panels custom-button normal-button"><b>Cancel</b></div>
+            Dette vil slette det nåværende sporet.<br>Er du sikker på at du vil fortsette?<br>
+            <div id="delete2" class="panels custom-button normal-button">Ja</div>
+            <div id="canceldelete" class="panels custom-button normal-button"><b>Avbryt</b></div>
         </div>
         <div id="color-content" class="popup-content">
             <div style="text-align: left">
-                <label for="color-picker">Pick a new color</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
-                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Apply color to all traces</label><br>
-                <label for="opacity-slider">Opacity</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
-                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Apply opacity to all traces</label><br>
-                <label for="width-slider">Width</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
-                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Apply width to all traces</label>
+                <label for="color-picker">Velg en ny farge</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
+                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Bruk fargen på alle spor</label><br>
+                <label for="opacity-slider">Gjennomsiktighet</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
+                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Bruk gjennomsiktigheten på alle spor</label><br>
+                <label for="width-slider">Tykkelse</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
+                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Bruk tykkelsen på alle spor</label>
             </div>
             <div id="validate-color" class="panels custom-button normal-button">Ok</div>
-            <div id="cancel-color" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="cancel-color" class="panels custom-button normal-button"><b>Avbryt</b></div>
         </div>
         <div id="load-content" class="popup-content">
-            Choose files from<br>
-            <div id="load2" class="panels custom-button normal-button">Desktop</div>
+            Velg filer fra<br>
+            <div id="load2" class="panels custom-button normal-button">Skrivebord</div>
             <div id="load-drive" class="panels custom-button normal-button">Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div><br>
-            (or drag and drop anywhere in the window)
+            (eller dra og slipp hvor som helst i vinduet)
         </div>
         <div id="share-content" class="popup-content">
-            Done!<br>
-            <div id="copy-link" class="panels custom-button fancy-button">Copy link <i class="fas fa-link"></i></div><br>
-            <div id="copy-embed" class="panels custom-button fancy-button">Copy embedding code <i class="fas fa-code"></i></div><br>
+            Ferdig!<br>
+            <div id="copy-link" class="panels custom-button fancy-button">Kopier lenke <i class="fas fa-link"></i></div><br>
+            <div id="copy-embed" class="panels custom-button fancy-button">Kopier innbyggingskode <i class="fas fa-code"></i></div><br>
         </div>
         <div id="merge-content" class="popup-content">
             <div id="merge-time-options">
-                <i class="fas fa-stopwatch"></i> Choose how to adapt the timestamps of the second trace (if any)
+                <i class="fas fa-stopwatch"></i> Velg hvordan man skal tilpasse tidsstempel for det andre sporet (hvis det finnes)
                 <div class="center-leaflet" style="text-align: left; width: min-content;">
-                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Keep the original timestamps (as long as they come after those of the first trace)</label><br>
-                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Make the second trace start right after the first one</label>
+                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Behold de originale tidsstemplene (så lenge de kommer etter det første sporet)</label><br>
+                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">La det andre sporet starte rett etter det første</label>
                 </div>
                 <hr>
             </div>
             <div>
-                <div style="margin-right: 16px">Click on another trace or tab to merge the current trace with it</div><hr>
+                <div style="margin-right: 16px">Klikk på et annet spor eller mappekort for å slå sammen med gjeldende spor</div><hr>
                 Choose how to add the second trace to the first one<br>
                 <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Merge as track points</label><br>
                 <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Merge as track segments</label><br>
@@ -392,7 +392,7 @@
             <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Tracks</label><br>
             <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Track segments</label><br>
             <div id="extract-ok" class="panels custom-button normal-button">Ok</div>
-            <div id="extract-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="extract-cancel" class="panels custom-button normal-button"><b>Avbryt</b></div>
         </div>
         <div id="structure-content" class="popup-content">
             <div style="margin-right: 16px">Drag and drop the elements to rearrange the file structure</div>
@@ -403,14 +403,14 @@
         <div id="crop-content" class="popup-content">
             <input type="checkbox" id="crop-keep"><label for="crop-keep">Behold beskårede deler i nye filer</label><br>
             <div id="crop-ok" class="panels custom-button normal-button">Fortsett</div>
-            <div id="crop-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="crop-cancel" class="panels custom-button normal-button"><b>Avbryt</b></div>
         </div>
         <div id="reduce-content" class="popup-content">
             Velg mengde detaljer som skal beholdes<br>
             Antall sporpunkter: <span id="reduce-npoints">0</span><br>
             <input type="range" min="0" max="1000" id="reduce-slider" style="width: 90%"><br>
             <div id="reduce-ok" class="panels custom-button normal-button">Ok</div>
-            <div id="reduce-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="reduce-cancel" class="panels custom-button normal-button"><b>Avbryt</b></div>
         </div>
         <div id="zone-delete-content" class="popup-content">
             Velg hva som skal slettes<br>
@@ -419,7 +419,7 @@
             <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Innsiden av utvalg</label>
             <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Utsiden av utvalg</label><br>
             <div id="zone-delete-ok" class="panels custom-button normal-button">Fortsett</div>
-            <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Avbryt</b></div>
         </div>
         <div id="load-error-content" class="popup-content">
             Det oppstod en feil under lasting av GPX filen.<br>
@@ -438,7 +438,7 @@
         <div id="duplicate-text">Dupliser</div>
         <div id="delete-text">Slett</div>
         <div id="ok-button-text">Ok</div>
-        <div id="cancel-button-text">Cancel</div>
+        <div id="cancel-button-text">Avbryt</div>
         <div id="search-input-text">Søk ...</div>
         <div id="search-button-text">Søk etter et sted eller lim inn GPS-koordinater</div>
         <div id="locate-button-text">Vis min posisjon</div>
