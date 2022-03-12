@@ -14,7 +14,7 @@ for (var category in pointsOfInterest) {
             endPoint: "https://overpass.kumi.systems/api/",
             query: "node({{bbox}})" + poi.query + ";out;",
             markerIcon: L.icon.glyph({
-                iconUrl: 'res/poi.png',
+                iconUrl: '/res/poi.png',
                 prefix: "fas",
                 glyph: poi.glyph,
             }),
