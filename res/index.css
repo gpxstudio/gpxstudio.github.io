@@ -21,12 +21,14 @@ html, body {
 }
 
 .vcenter-leaflet {
+    position: absolute;
     margin-top: 50vh !important;
     transform: translateY(-80%);
 }
 
 .leaflet-top {
     height: 100%;
+    z-index: 2000;
 }
 
 .leaflet-left {
