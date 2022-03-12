@@ -59,4 +59,4 @@ This project would not have been possible without the following amazing projects
 * [SortableJS](https://github.com/SortableJS/Sortable): for swapping the tabs
 * [Font Awesome](https://fontawesome.com/): nice icons
 
-And the data, maps and APIs from [Mapbox](https://www.mapbox.com/), [GraphHopper](https://www.graphhopper.com/), [OpenStreetMap](https://www.openstreetmap.org/), [OpenTopoMap](https://opentopomap.org/), [Maps.Refuges.Info](https://wiki.openstreetmap.org/wiki/Hiking/mri), [CyclOSM](https://www.cyclosm.org/), [IGN](https://geoservices.ign.fr/), [Strava](https://strava.com) and [Overpass](https://overpass-api.de).
+And the data, maps and APIs from [Mapbox](https://www.mapbox.com/), [GraphHopper](https://www.graphhopper.com/), [OpenStreetMap](https://www.openstreetmap.org/), [OpenTopoMap](https://opentopomap.org/), [Maps.Refuges.Info](https://wiki.openstreetmap.org/wiki/Hiking/mri), [CyclOSM](https://www.cyclosm.org/), [IGN](https://geoservices.ign.fr/), [Strava](https://strava.com) and [Kumi Systems](https://kumi.systems)

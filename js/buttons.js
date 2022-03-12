@@ -660,7 +660,7 @@ export default class Buttons {
                             _this.pointsOfInterest[category][poi.name] = new L.OverPassLayer({
                                 debug: false,
                                 minZoom: 14,
-                                endPoint: "https://overpass-api.de/api/",
+                                endPoint: "https://overpass.kumi.systems/api/",
                                 query: "node({{bbox}})" + poi.query + ";out;",
                                 markerIcon: L.icon.glyph({
                                     iconUrl: 'res/poi.png',
