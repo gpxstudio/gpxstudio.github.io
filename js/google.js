@@ -106,7 +106,6 @@ export default class Google {
 
     loadPicker(folderMode) {
         this.folderMode = folderMode;
-        console.log(Date.now(), this.refresh_time);
         if (!this.access_token || Date.now() >= this.refresh_time) {
             this.mustLoadPicker = true;
             this.tokenClient.requestAccessToken();
