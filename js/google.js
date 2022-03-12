@@ -7,8 +7,7 @@ export default class Google {
         this.scope = ['https://www.googleapis.com/auth/drive.file',
                       'https://www.googleapis.com/auth/drive.install',
                       'https://www.googleapis.com/auth/drive.readonly'];
-        this.scope2 = 'https://www.googleapis.com/auth/drive.install https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.readonly';
-        this.pickerApiLoaded = false;
+        this.scope2 = this.scope.join(' ');
         this.buttons = buttons;
 
         const _this = this;
@@ -16,40 +15,45 @@ export default class Google {
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
 
-        gapi.load('client:auth', {
-            callback: function () {
-                gapi.client.init({
-                    apiKey: _this.developerKey,
-                    clientId: _this.clientId,
-                    scope: _this.scope2
-                }).then(function () {
-                    if (urlParams.has('state')) {
-                        const params = JSON.parse(urlParams.get('state'));
-                        if (params.hasOwnProperty('userId')) {
-                            var oauth = gapi.auth2.getAuthInstance();
-                            var user = oauth.currentUser.get();
-                            var isAuthorized = user.hasGrantedScopes(_this.scope2);
-                            if (!isAuthorized || params['userId'] != user.getId()) {
-                                oauth.signIn({
-                                    scope: _this.scope2
-                                }).then(_this.downloadFiles.bind(_this));
-                            } else _this.downloadFiles();
-                        } else _this.downloadFiles();
-                        gtag('event', 'button', {'event_category' : 'open-drive'});
-                    }
-                }, function () {
-                    // private browsing, try to retrieve public files without gapi
-                    if (urlParams.has('state')) {
-                        const params = JSON.parse(urlParams.get('state'));
-                        _this.downloadFiles(true);
-                        gtag('event', 'button', {'event_category' : 'open-drive'});
-                    }
-                });
+        gapi.load('client', {
+            callback: function() {
+                gapi.client.init({})
             }
         });
+
+        var filesLoaded = false;
+
+        this.tokenClient = google.accounts.oauth2.initTokenClient({
+            client_id: this.clientId,
+            scope: this.scope2,
+            callback: (tokenResponse) => {
+                _this.access_token = tokenResponse.access_token;
+                if (tokenResponse.expires_in) _this.refresh_time = Date.now() + tokenResponse.expires_in * 1000;
+
+                if (!filesLoaded && urlParams.has('state')) {
+                    filesLoaded = true;
+                    _this.downloadFiles();
+                }
+
+                if (_this.mustLoadPicker) {
+                    _this.mustLoadPicker = false;
+                    _this.loadPicker();
+                }
+            },
+        });
+
+        if (urlParams.has('state')) {
+            const params = JSON.parse(urlParams.get('state'));
+            if (!buttons.embedding && params.hasOwnProperty('userId')) this.tokenClient.requestAccessToken();
+            else {
+                filesLoaded = true;
+                _this.downloadFiles();
+            }
+        }
     }
 
-    downloadFiles(private_mode) {
+
+    downloadFiles() {
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const params = JSON.parse(urlParams.get('state'));
@@ -70,7 +74,6 @@ export default class Google {
             const file_id = params.ids[i];
             this.downloadFile(
                 {id:file_id, name:'track.gpx'},
-                params.hasOwnProperty('userId') && !private_mode,
                 function (trace) {
                     countDone++;
                     if (trace) {
@@ -97,29 +100,20 @@ export default class Google {
                 }
             );
         }
+
+        gtag('event', 'button', {'event_category' : 'open-drive'});
     }
 
     loadPicker(folderMode) {
         this.folderMode = folderMode;
-        if (!this.oauthToken)
-            gapi.load('auth', {'callback': this.onAuthApiLoad.bind(this)});
-        gapi.load('picker', {'callback': this.onPickerApiLoad.bind(this)});
-    }
-
-    onAuthApiLoad() {
-        const authResult = gapi.auth.getToken();
-        if (authResult) {
-            this.handleAuthResult(authResult);
-        } else {
-            window.gapi.auth.authorize(
-                {
-                    'client_id': this.clientId,
-                    'scope': this.scope,
-                    'immediate': false
-                },
-                this.handleAuthResult.bind(this)
-            );
+        console.log(Date.now(), this.refresh_time);
+        if (!this.access_token || Date.now() >= this.refresh_time) {
+            this.mustLoadPicker = true;
+            this.tokenClient.requestAccessToken();
+            return;
         }
+        if (this.pickerApiLoaded) this.createPicker();
+        else gapi.load('picker', {'callback': this.onPickerApiLoad.bind(this)});
     }
 
     onPickerApiLoad() {
@@ -127,21 +121,14 @@ export default class Google {
         this.createPicker();
     }
 
-    handleAuthResult(authResult) {
-        if (authResult && !authResult.error) {
-            this.oauthToken = authResult.access_token;
-            this.createPicker();
-        }
-    }
-
     createPicker() {
-        if (this.pickerApiLoaded && this.oauthToken) {
+        if (this.pickerApiLoaded && this.access_token) {
             if (this.folderMode) {
                 var view = new google.picker.DocsView(google.picker.ViewId.FOLDERS)
                     .setSelectFolderEnabled(true);
                 var picker = new google.picker.PickerBuilder()
                     .setAppId(this.appId)
-                    .setOAuthToken(this.oauthToken)
+                    .setOAuthToken(this.access_token)
                     .addView(view)
                     .setDeveloperKey(this.developerKey)
                     .setCallback(this.folderPickerCallback.bind(this))
@@ -154,7 +141,7 @@ export default class Google {
                     .enableFeature(google.picker.Feature.NAV_HIDDEN)
                     .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
                     .setAppId(this.appId)
-                    .setOAuthToken(this.oauthToken)
+                    .setOAuthToken(this.access_token)
                     .addView(view)
                     .setDeveloperKey(this.developerKey)
                     .setCallback(this.pickerCallback.bind(this))
@@ -167,7 +154,7 @@ export default class Google {
     pickerCallback(data) {
         if (data.action == google.picker.Action.PICKED) {
             for (var i=0; i<data.docs.length; i++)
-                this.downloadFile(data.docs[i], true);
+                this.downloadFile(data.docs[i]);
             gtag('event', 'button', {'event_category' : 'load-drive'});
         }
     }
@@ -224,12 +211,10 @@ export default class Google {
             'parents': [{"kind": "drive#parentReference", "id": folderid}]
         };
 
-        var accessToken = gapi.auth.getToken().access_token;
-
         const _this = this;
         const options = {
             file: file,
-            token: accessToken,
+            token: _this.access_token,
             metadata: metadata,
             onComplete: function (resp) {
                 const ans = JSON.parse(resp);
@@ -240,7 +225,7 @@ export default class Google {
                     'method': 'POST',
                     'headers': {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + accessToken
+                        'Authorization': 'Bearer ' + _this.access_token
                     },
                     'body':{
                         'role': 'reader',
@@ -283,17 +268,15 @@ export default class Google {
         uploader.upload();
     }
 
-    downloadFile(file, auth, callback) {
+    downloadFile(file, callback) {
         if (file.name.split('.').pop() != 'gpx') return;
         const buttons = this.buttons;
 
         const request = new XMLHttpRequest();
         var file_url = 'https://content.googleapis.com/drive/v2/files/'+file.id+'?key='+this.developerKey;
         request.open('GET', file_url, true);
-        if (auth) {
-            const token = gapi.auth.getToken();
-            if (token) request.setRequestHeader('Authorization', 'Bearer ' + token.access_token);
-        }
+        if (this.access_token) request.setRequestHeader('Authorization', 'Bearer ' + this.access_token);
+        const _this = this;
         request.onreadystatechange = function () {
             if (request.readyState == 4 && request.status == 200) {
                 const xhr = new XMLHttpRequest();
@@ -302,10 +285,7 @@ export default class Google {
                 if (file_url) {
                     file_url = file_url.replace('content.google','www.google');
                     xhr.open('GET', file_url, true);
-                    if (auth) {
-                        const token = gapi.auth.getToken();
-                        if (token) xhr.setRequestHeader('Authorization', 'Bearer ' + token.access_token);
-                    }
+                    if (_this.access_token) xhr.setRequestHeader('Authorization', 'Bearer ' + _this.access_token);
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState == 4 && xhr.status == 200) {
                             const trace = buttons.total.addTrace(xhr.response, resp.title, callback);
