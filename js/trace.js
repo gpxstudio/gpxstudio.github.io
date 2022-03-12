@@ -89,7 +89,10 @@ export default class Trace {
             li.trace = trace;
             li.addEventListener('click', function (e) {
                 if (total.to_merge && total.to_merge != trace && total.buttons.window_open == total.buttons.merge_window) mergeTrace();
-                else if (!trace.hasFocus) trace.focus();
+                else if (!trace.hasFocus) {
+                    trace.focus();
+                    if (total.buttons.window_open == total.buttons.structure_window && total.buttons.structure_window._wrapper.classList.contains('visible')) total.buttons.structure.click();
+                }
             });
             li.addEventListener('dblclick', function (e) {
                 if (trace.buttons.embedding) return;
@@ -139,7 +142,10 @@ export default class Trace {
                 return;
             }
             if (!trace.total.hasFocus && trace.total.focusOn != trace.index && trace.total.traces[trace.total.focusOn].isEdited) return;
-            if (!e.target.trace.isEdited) e.target.trace.updateFocus();
+            if (!trace.isEdited) {
+                trace.updateFocus();
+                if (total.buttons.window_open == total.buttons.structure_window && total.buttons.structure_window._wrapper.classList.contains('visible')) total.buttons.structure.click();
+            }
         }).on('mousedown', function (e) {
             if (trace.buttons.disable_trace) return;
             if (trace.isEdited) {
@@ -224,6 +230,8 @@ export default class Trace {
     rename(name) {
         var newname = name ? name : this.nameInput.value;
         if (newname.length > 0) this.name = newname;
+        const tracks = this.getTracks();
+        if (tracks.length == 1 && tracks[0].name) tracks[0].name = this.name;
         this.updateTab();
         this.renaming = false;
     }
@@ -856,7 +864,7 @@ export default class Trace {
         var tabColor = document.createElement('div');
         tabColor.classList.add("tab-color");
 
-        if (track) tabColor.style.background = track.style.color ? track.style.color : this.total.getColor();
+        if (track) tabColor.style.background = (track.style && track.style.color) ? track.style.color : this.total.getColor();
         else tabColor.style.background = this.getLinearGradient(this.getTrackColors());
 
         var tabName = document.createElement('div');

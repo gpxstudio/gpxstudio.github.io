@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="el">
     <head>
         <!-- ADD_LANGUAGE -->
         <link rel="alternate" hreflang="x-default" href="https://gpx.studio/"/>
@@ -22,10 +22,10 @@
             }
         </script>
         <meta charset="utf-8">
-        <title>gpx.studio — l'editor di file GPX online</title>
-        <meta name="description" content="Visualizza, modifica e crea file GPX online: aggiungi, sposta ed elimina trackpoint, unisci e inverti le tracce, aggiungi marche temporali, modifica waypoint e molto altro!">
-        <meta property="og:title" content="gpx.studio — l'editor di file GPX online" />
-        <meta property="og:description" content="Visualizza, modifica e crea file GPX online: aggiungi, sposta ed elimina trackpoint, unisci e inverti le tracce, aggiungi marche temporali, modifica waypoint e molto altro!" />
+        <title>gpx.studio — the online GPX file editor</title>
+        <meta name="description" content="View, edit and create GPX files online: add, move and delete points, merge multiple files, reverse, add timestamps, edit waypoints and more!">
+        <meta property="og:title" content="gpx.studio — the online GPX file editor" />
+        <meta property="og:description" content="View, edit and create GPX files online: add, move and delete points, merge multiple files, reverse, add timestamps, edit waypoints and more!" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://gpx.studio/" />
         <meta property="og:image" content="https://gpx.studio/res/og_logo.png" />
@@ -74,47 +74,47 @@
         <div id="mly"><div id="mly-controls"><i id="mly-move" class="fas fa-arrows-alt custom-button"></i><i id="mly-close" class="fas fa-times custom-button"></i></div></div>
         <div style="display: none">
         <div id="toolbar" class="panels-container center-leaflet">
-            <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 4px 6px" alt="logo di gpx.studio, l'editor di file GPX online"></a>
-            <div id="load" class="panels custom-button">Carica GPX</div>
-            <div id="manual" class="panels custom-button">Nuovo GPX</div>
-            <div id="export" class="panels custom-button">Esporta</div>
+            <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 4px 6px" alt="gpx.studio - Ο online επεξεργαστής αρχείων GPX"></a>
+            <div id="load" class="panels custom-button">Φόρτωση GPX</div>
+            <div id="manual" class="panels custom-button">Νέο GPX</div>
+            <div id="export" class="panels custom-button">Εξαγωγή</div>
             <div class="panels custom-button unselected no-click2" id="undo"><i class="fas fa-reply"></i></div>
             <div class="panels custom-button unselected no-click2" id="redo"><i class="fas fa-share"></i></div>
-            <div id="clear" class="panels custom-button">Cancella tutto</div>
-            <div id="help" class="panels custom-button">Aiuto</div>
-            <div id="about" class="panels custom-button">Informazioni</div>
-            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Dona</b> <i class="fas fa-heart"></i></div>
+            <div id="clear" class="panels custom-button">Εκκαθάριση όλων</div>
+            <div id="help" class="panels custom-button">Βοήθεια</div>
+            <div id="about" class="panels custom-button">Σχετικά</div>
+            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Δωρεά</b> <i class="fas fa-heart"></i></div>
         </div>
         <div id="info">
             <ul id="sortable-tabs">
-              <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">Totale</li>
+              <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">Σύνολο</li>
             </ul>
             <div id="info-grid" class="panels-container trace-info">
-                <div class="panels panels-info" id="distance">Distanza</div>
+                <div class="panels panels-info" id="distance">Απόσταση</div>
                 <div class="panels panels-val" id="distance-val"></div>
-                <div class="panels panels-info" id="elevation">Dislivello</div>
+                <div class="panels panels-info" id="elevation">Υψόμετρο</div>
                 <div class="panels panels-val" id="elevation-val"></div>
-                <div class="panels panels-info" id="speed">Velocità</div>
+                <div class="panels panels-info" id="speed">Ταχύτητα</div>
                 <div class="panels panels-val" id="speed-val"></div>
-                <div class="panels panels-info" id="duration">Tempo in movimento</div>
+                <div class="panels panels-info" id="duration">Διάρκεια κίνησης</div>
                 <div class="panels panels-val" id="duration-val"></div>
-                <div class="panels panels-info" id="tracks" style="display: none; padding-right: 5px;">Tracks</div>
+                <div class="panels panels-info" id="tracks" style="display: none; padding-right: 5px;">Διαδρομές</div>
                 <div class="panels panels-val" id="tracks-val" style="display: none; padding-right: 5px;">0</div>
-                <div class="panels panels-info" id="segments" style="display: none; padding-right: 5px;">Track segments</div>
+                <div class="panels panels-info" id="segments" style="display: none; padding-right: 5px;">Τμήματα διαδρομής</div>
                 <div class="panels panels-val" id="segments-val" style="display: none; padding-right: 5px;">0</div>
-                <div class="panels panels-info" id="points" style="display: none">Punti della traccia</div>
+                <div class="panels panels-info" id="points" style="display: none">Σημεία διαδρομής</div>
                 <div class="panels panels-val" id="points-val" style="display: none">0</div>
-                <div id="units-text" class="panels-info">Distance units</div>
+                <div id="units-text" class="panels-info">Μονάδες απόστασης</div>
                 <select id="units-input" name="units-input">
-                    <option value="km">Metric</option>
-                    <option value="mi">Imperial</option>
+                    <option value="km">Μονάδες Μέτρησης</option>
+                    <option value="mi">Αγγλοσαξωνικό Σύστημα</option>
                 </select>
-                <div id="speed-units-text" class="panels-info">Velocity units</div>
+                <div id="speed-units-text" class="panels-info">Μονάδες ταχύτητας</div>
                 <select id="speed-units-input" name="speed-units-input">
-                    <option value="speed">Velocità</option>
-                    <option value="pace">Passo</option>
+                    <option value="speed">Ταχύτητα</option>
+                    <option value="pace">Ρυθμός</option>
                 </select>
-                <div id="elevation-input" class="panels-button custom-button" title="Mostra/Nascondi il profilo altimetrico"><i class="fas fa-minus"></i></div>
+                <div id="elevation-input" class="panels-button custom-button" title="Εναλλαγή του προφίλ υψομέτρου"><i class="fas fa-minus"></i></div>
                 <div id="crop-container">
                     <div class="panels-button custom-button" id="validate"><i class="fas fa-check custom-button"></i></div>
                 </div>
@@ -126,31 +126,31 @@
         </div>
         <div id="buttons-bar" class="vcenter-leaflet">
             <div id="buttons" class="panels-container">
-                <div class="panels-button" id="edit" title="Modifica i punti della traccia"><i class="fas fa-pencil-alt custom-button"></i></div><br>
-                <div class="panels-button" id="edit-time" title="Modifica le informazioni temporali"><i class="fas fa-stopwatch custom-button"></i></div><br>
-                <div class="panels-button" id="reverse" title="Inverti la traccia"><i class="fas fa-exchange-alt custom-button"></i></div><br>
-                <div class="panels-button" id="combine" title="Unisci ad un altra traccia"><i class="fas fa-plus-circle custom-button"></i></div><br>
-                <div class="panels-button" id="extract" title="Extract tracks or track segments"><i class="fas fa-list-ul custom-button"></i></div><br>
-                <div class="panels-button" id="duplicate" title="Duplica"><i class="fas fa-copy custom-button"></i></div><br>
-                <div class="panels-button" id="add-wpt" title="Aggiungi waypoint"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
-                <div class="panels-button" id="reduce" title="Riduci il numero di punti della traccia"><i class="fas fa-compress-alt custom-button"></i></div><br>
-                <div class="panels-button" id="zone-delete" title="Elimina tutto all'interno/esterno della selezione"><i class="fas fa-vector-square custom-button"></i></div><br>
-                <div class="panels-button" id="hide" title="Nascondi/mostra la traccia"><i class="fas fa-eye-slash custom-button"></i></div><br>
-                <div class="panels-button" id="color" title="Cambia colore, opacità e larghezza"><i class="fas fa-palette custom-button"></i></div><br>
-                <div class="panels-button" id="structure" title="Manage the file structure"><i class="fas fa-folder-tree custom-button"></i></div><br>
-                <div class="panels-button" id="delete" title="Elimina"><i class="fas fa-trash-alt custom-button"></i></div><br>
+                <div class="panels-button" id="edit" title="Επεξεργασία σημείων διαδρομής"><i class="fas fa-pencil-alt custom-button"></i></div><br>
+                <div class="panels-button" id="edit-time" title="Επεξεργασία χρόνου"><i class="fas fa-stopwatch custom-button"></i></div><br>
+                <div class="panels-button" id="reverse" title="Αντίστροφη"><i class="fas fa-exchange-alt custom-button"></i></div><br>
+                <div class="panels-button" id="combine" title="Συγχώνευση με άλλη διαδρομή"><i class="fas fa-plus-circle custom-button"></i></div><br>
+                <div class="panels-button" id="extract" title="Εξαγωγή διαδρομών ή τμημάτων διαδρομής"><i class="fas fa-list-ul custom-button"></i></div><br>
+                <div class="panels-button" id="duplicate" title="Δημιουργία Αντιγράφου"><i class="fas fa-copy custom-button"></i></div><br>
+                <div class="panels-button" id="add-wpt" title="Προσθήκη Σημείου Αναφοράς"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
+                <div class="panels-button" id="reduce" title="Μείωση αριθμού σημείων της διαδρομής"><i class="fas fa-compress-alt custom-button"></i></div><br>
+                <div class="panels-button" id="zone-delete" title="Διαγραφή όλων των εσωτερικών/εξωτερικών ορθογωνίων"><i class="fas fa-vector-square custom-button"></i></div><br>
+                <div class="panels-button" id="hide" title="Απόκρυψη/εμφάνιση της διαδρομής"><i class="fas fa-eye-slash custom-button"></i></div><br>
+                <div class="panels-button" id="color" title="Αλλαγή χρώματος, αδιαφάνειας και πλάτους"><i class="fas fa-palette custom-button"></i></div><br>
+                <div class="panels-button" id="structure" title="Διαχείριση της δομής αρχείου"><i class="fas fa-folder-tree custom-button"></i></div><br>
+                <div class="panels-button" id="delete" title="Διαγραφή"><i class="fas fa-trash-alt custom-button"></i></div><br>
             </div>
             <div id="editing-options" class="panels-container">
-                <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Toggle editing options"></i>
+                <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Εναλλαγή επιλογών επεξεργασίας"></i>
                 <table class="panels">
                     <tr>
-                        <td><b>Activity</b></td>
+                        <td><b>Δραστηριότητα</b></td>
                         <td><select name="activity" id="activity-input">
-                            <option value="bike">Bike</option>
-                            <option value="racingbike">Racing bike</option>
-                            <option value="mtb">Mountain bike</option>
-                            <option value="hike">Run/hike</option>
-                            <option value="car">Motorcycle</option>
+                            <option value="bike">Ποδήλατο</option>
+                            <option value="racingbike">Αγωνιστικό ποδήλατο</option>
+                            <option value="mtb">Ποδήλατο βουνού</option>
+                            <option value="hike">Τρέξιμο/πεζοπορία</option>
+                            <option value="car">Μοτοσικλέτα</option>
                         </select></td>
                     </tr>
                     <tr>
@@ -171,13 +171,13 @@
                 <input id="street-view-provider-google" type="radio" name="street-view-provider" value="google"> <label for="street-view-provider-google">Google</label>
                 <input id="street-view-provider-mapillary" type="radio" name="street-view-provider" value="mapillary" checked> <label for="street-view-provider-mapillary">Mapillary</label>
             </div>
-            <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Mapillary or Google Street View"></i>
+            <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Άνοιγμα σε Mapillary ή Google Street View"></i>
         </div>
-        <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Indicatori di direzione</label>
-        <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Indicatori di distanza</label>
+        <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Direction markers</label>
+        <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Distance markers</label>
         <div id="help-text">
         <div style="text-align: center; font-size: 10pt; color: #476947">
-            <b>Consulta la <a href="./about.html#guide" target="_blank">Guida Utente</a> per ulteriori informazioni e suggerimenti!</b>
+            <b>Check out the <a href="./about.html#guide" target="_blank">User Guide</a> for more info and small tutorials!</b>
         </div><br>
         <table style="width: 100%">
             <colgroup>
@@ -187,34 +187,34 @@
             </colgroup>
             <tbody>
             <tr>
-                <td><b>Carica GPX</b></td>
+                <td><b>Φόρτωση GPX</b></td>
                 <td>Ctrl+O</td>
-                <td>Importa e visualizza i file GPX (o trascinali ovunque nella finestra)</td>
+                <td>Import and visualize GPX files (or drag and drop anywhere in the window)</td>
             </tr>
             <tr>
-                <td><b>Nuovo GPX</b></td>
+                <td><b>Νέο GPX</b></td>
                 <td>Ctrl+D</td>
-                <td>Inizia a creare una nuova traccia posizionando i punti sulla mappa</td>
+                <td>Start drawing a new route by placing track points on the map</td>
             </tr>
             <tr>
-                <td><b>Esporta</b></td>
+                <td><b>Εξαγωγή</b></td>
                 <td>Ctrl+S</td>
-                <td>Scarica i file sul tuo dispositivo o salvali in Google Drive™ per ottenere un <b>link condivisibile</b> e un <b>codice di incorporamento</b>. I dati sul tempo, la frequenza cardiaca, la cadenza, la potenza e la temperatura vengono estesi automaticamente. Facoltativamente, puoi unire tutti i file <b>nell'ordine in cui sono visualizzati nelle schede</b>. Puoi anche trascinare una scheda sul tuo computer per scaricare il file.</td>
+                <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Time, heart rate, cadence, power and temperature data are automatically extended. Optionally, merge all files <b>in the chosen order</b>. You can also drag a tab to your desktop to download the file.</td>
             </tr>
             <tr>
                 <td><i class="fas fa-reply"></i> <i class="fas fa-share"></i></td>
                 <td>Ctrl+Z/Y</td>
-                <td>Annulla e ripeti le azioni effettuate in modalità di modifica</td>
+                <td>Undo and redo actions in edition mode</td>
             </tr>
             <tr>
-                <td><b>Cancella tutto</b></td>
+                <td><b>Εκκαθάριση όλων</b></td>
                 <td>Ctrl+K</td>
-                <td>Cancella tutte le tracce</td>
+                <td>Διαγραφή όλων των διαδρομών</td>
             </tr>
             <tr>
                 <td></td>
-                <td>Esc</td>
-                <td>Chiudi il menù o lo strumento corrente</td>
+                <td>Escape</td>
+                <td>Exit current menu or tool</td>
             </tr>
             </tbody>
         </table><br>
@@ -226,47 +226,47 @@
             <tbody>
             <tr>
                 <td><i class="fas fa-pencil-alt"></i></td>
-                <td>Entra in modalità di modifica per aggiungere, spostare, inserire (trascinando la linea della traccia), eliminare o dividere (clic destro) i punti della traccia</td>
+                <td>Enter edition mode to add, move, insert (by dragging the line), delete or split (right-click) track points</td>
             </tr>
             <tr>
                 <td><i class="fas fa-stopwatch"></i></td>
-                <td>Modifica la velocità e la data/ora di partenza della traccia</td>
+                <td>Change the speed and starting time of the trace</td>
             </tr>
             <tr>
                 <td><i class="fas fa-exchange-alt"></i></td>
-                <td>Inverti la traccia e adatta le informazioni temporali</td>
+                <td>Reverse the trace and adapt the timestamps</td>
             </tr>
             <tr>
                 <td><i class="fas fa-plus-circle"></i></td>
-                <td>Unisci ad un'altra traccia (i dati sul tempo, la frequenza cardiaca, la cadenza, la potenza e la temperatura verranno estesi automaticamente)</td>
+                <td>Merge with another trace (automatically extends time, heart rate, cadence, power and temperature data)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-list-ul"></i></td>
-                <td>Estrai tutti i segmenti dal file e crea una nuova traccia per ciscuno</td>
+                <td>Extract all track segments and creates one trace for each</td>
             </tr>
             <tr>
                 <td><i class="fas fa-copy"></i></td>
-                <td>Duplica la traccia</td>
+                <td>Δημιουργία αντιγράφου διαδρομής</td>
             </tr>
             <tr>
                 <td><i class="fas fa-map-marker-alt"></i></td>
-                <td>Aggiungi un waypoint (trascinalo per cambiarne la posizione e usa i pulsanti visualizzati per modificarne le impostazioni, duplicarlo o rimuoverlo)</td>
+                <td>Add a waypoint (drag to change its location and use the buttons to edit info, duplicate or remove)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-compress-alt"></i></td>
-                <td>Riduci il numero di punti della traccia</td>
+                <td>Reduce the number of track points</td>
             </tr>
             <tr>
                 <td><i class="fas fa-vector-square"></i></td>
-                <td>Elimina i punti della traccia e/o i waypoint contenuti all'interno/esterno della selezione rettangolare</td>
+                <td>Delete track points and/or waypoints inside/outside rectangle selection</td>
             </tr>
             <tr>
                 <td><i class="fas fa-eye-slash"></i></td>
-                <td>Mostra o nascondi la traccia</td>
+                <td>Hide or unhide the trace</td>
             </tr>
             <tr>
                 <td><i class="fas fa-palette"></i></td>
-                <td>Cambia il colore mostrato e l'opacità, questi valori verranno esportati e rilevati quando reimportati</td>
+                <td>Change the display color and opacity, these values will be exported and detected when re-imported</td>
             </tr>
             <tr>
                 <td><i class="fas fa-folder-tree"></i></td>
@@ -274,7 +274,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-trash-alt"></i></td>
-                <td>Elimina la traccia</td>
+                <td>Delete the trace</td>
             </tr>
             </tbody>
         </table><br>
@@ -293,20 +293,20 @@
             <tr>
                 <td></td>
                 <td>F2</td>
-                <td>Cambia la modalità di instradamento tra <i>segui la strada</i> e <i>linea d'aria</i> (linee rette tra i punti della traccia) quando modifichi le tracce</td>
+                <td>Switch between routing and <i>as the crow flies</i> (straight lines between track points) when editing traces</td>
             </tr>
             <tr>
                 <td><i class="fas fa-chart-area"></i></td>
                 <td>Ctrl+H</td>
-                <td>Mostra o nascondi il profilo altimetrico</td>
+                <td>Show or hide the elevation profile</td>
             </tr>
             </tbody>
         </table><br>
-        In basso, puoi vedere un pannello con le informazioni sulle tracce che importi.
-        La scheda <b>Totale</b> mostra le informazioni complessive di tutte le tracce aperte.
-        <b>Scambia le schede</b> per definire l'ordine in cui le tracce devono essere mostrate e <b>fai doppio clic</b> sui loro nomi per modificarli.
-        Quando hai molte schede, puoi navigare attraverso di esse scorrendo orizzontalmente.
-        Usa lo <b>slider</b> per spostare il punto di partenza/arrivo e tagliare il percorso.
+        At the bottom, you can see a panel with information about the traces you import.
+        The <b>Total</b> tab displays information about all open traces merged into one.
+        <b>Swap the tabs</b> to define the order in which the traces should appear and <b>double-click</b> on them to change their names.
+        When you have many tabs, navigate through them by scrolling horizontally.
+        Use the <b>slider</b> to move the start/end point and cut the route.
         </div>
         <div id="export-content" class="popup-content">
             <table style="text-align: left">
@@ -332,20 +332,20 @@
                 </tr>
                 </tbody>
             </table>
-            <div style="color:#0f92c5;">&#9888;&#65039; Questo strumento è utilizzabile <b>gratuitamente</b> ma mantenerlo <b>ha un costo</b> &#9888;&#65039;<br>Ogni mappa mostrata, punto delle tracce aggiunto o spostato viene pagato.</div>
-            <div id="donate-2" class="panels custom-button fancy-button"><b>Aiutaci a mantenere il sito gratuito</b> &#128591;</div><br>
-            <div id="export-2" class="panels custom-button fancy-button">Scarica <i class="fas fa-download"></i></div>
-            <div id="save-drive" class="panels custom-button fancy-button">Salva in Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
+            <div style="color:#0f92c5;">&#9888;&#65039; The tool is <b>free</b> to use but <b>not free</b> to run &#9888;&#65039;<br>Each map display, track point added or moved is billed.</div>
+            <div id="donate-2" class="panels custom-button fancy-button"><b>Help keep the website free</b> &#128591;</div><br>
+            <div id="export-2" class="panels custom-button fancy-button">Λήψη <i class="fas fa-download"></i></div>
+            <div id="save-drive" class="panels custom-button fancy-button">Save to Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
         </div>
         <div id="clear-content" class="popup-content">
-            Tutte le tracce aperte verranno eliminate.<br>Desideri continuare?<br>
-            <div id="clear2" class="panels custom-button normal-button">Sì</div>
-            <div id="cancelclear" class="panels custom-button normal-button"><b>Annulla</b></div>
+            This will delete all open traces.<br>Do you wish to continue?<br>
+            <div id="clear2" class="panels custom-button normal-button">Ναι</div>
+            <div id="cancelclear" class="panels custom-button normal-button"><b>Ακύρωση</b></div>
         </div>
         <div id="delete-content" class="popup-content">
-            La traccia corrente verrà eliminata.<br>Desideri continuare?<br>
-            <div id="delete2" class="panels custom-button normal-button">Sì</div>
-            <div id="canceldelete" class="panels custom-button normal-button"><b>Annulla</b></div>
+            This will delete the current trace.<br>Do you wish to continue?<br>
+            <div id="delete2" class="panels custom-button normal-button">Ναι</div>
+            <div id="canceldelete" class="panels custom-button normal-button"><b>Ακύρωση</b></div>
         </div>
         <div id="color-content" class="popup-content">
             <div style="text-align: left">
@@ -356,19 +356,19 @@
                 <label for="width-slider">Width</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
                 <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Apply width to all traces</label>
             </div>
-            <div id="validate-color" class="panels custom-button normal-button">Ok</div>
-            <div id="cancel-color" class="panels custom-button normal-button"><b>Annulla</b></div>
+            <div id="validate-color" class="panels custom-button normal-button">Εντάξει</div>
+            <div id="cancel-color" class="panels custom-button normal-button"><b>Ακύρωση</b></div>
         </div>
         <div id="load-content" class="popup-content">
-            Seleziona i file da<br>
-            <div id="load2" class="panels custom-button normal-button">Dispositivo</div>
+            Επιλογή αρχείου<br>
+            <div id="load2" class="panels custom-button normal-button">Συσκευή</div>
             <div id="load-drive" class="panels custom-button normal-button">Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div><br>
-            (o trascinali ovunque nella finestra)
+            (ή σύρετε και αφήστε οπουδήποτε στο παράθυρο)
         </div>
         <div id="share-content" class="popup-content">
-            Fatto!<br>
-            <div id="copy-link" class="panels custom-button fancy-button">Copia link <i class="fas fa-link"></i></div><br>
-            <div id="copy-embed" class="panels custom-button fancy-button">Copia codice di incorporamento <i class="fas fa-code"></i></div><br>
+            Ολοκληρώθηκε!<br>
+            <div id="copy-link" class="panels custom-button fancy-button">Αντιγραφή συνδέσμου <i class="fas fa-link"></i></div><br>
+            <div id="copy-embed" class="panels custom-button fancy-button">Αντιγραφή κωδικού ενσωμάτωσης <i class="fas fa-code"></i></div><br>
         </div>
         <div id="merge-content" class="popup-content">
             <div id="merge-time-options">
@@ -391,8 +391,8 @@
             Choose what to extract<br>
             <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Tracks</label><br>
             <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Track segments</label><br>
-            <div id="extract-ok" class="panels custom-button normal-button">Ok</div>
-            <div id="extract-cancel" class="panels custom-button normal-button"><b>Annulla</b></div>
+            <div id="extract-ok" class="panels custom-button normal-button">Εντάξει</div>
+            <div id="extract-cancel" class="panels custom-button normal-button"><b>Ακύρωση</b></div>
         </div>
         <div id="structure-content" class="popup-content">
             <div style="margin-right: 16px">Drag and drop the elements to rearrange the file structure</div>
@@ -402,112 +402,112 @@
         </div>
         <div id="crop-content" class="popup-content">
             <input type="checkbox" id="crop-keep"><label for="crop-keep">Keep cropped parts in new files</label><br>
-            <div id="crop-ok" class="panels custom-button normal-button">Conferma</div>
-            <div id="crop-cancel" class="panels custom-button normal-button"><b>Annulla</b></div>
+            <div id="crop-ok" class="panels custom-button normal-button">Proceed</div>
+            <div id="crop-cancel" class="panels custom-button normal-button"><b>Ακύρωση</b></div>
         </div>
         <div id="reduce-content" class="popup-content">
-            Scegli la quantità di dettagli da mantenere<br>
-            Numero di punti della traccia: <span id="reduce-npoints">0</span><br>
+            Choose the amount of detail to keep<br>
+            Number of track points: <span id="reduce-npoints">0</span><br>
             <input type="range" min="0" max="1000" id="reduce-slider" style="width: 90%"><br>
-            <div id="reduce-ok" class="panels custom-button normal-button">Ok</div>
-            <div id="reduce-cancel" class="panels custom-button normal-button"><b>Annulla</b></div>
+            <div id="reduce-ok" class="panels custom-button normal-button">Εντάξει</div>
+            <div id="reduce-cancel" class="panels custom-button normal-button"><b>Ακύρωση</b></div>
         </div>
         <div id="zone-delete-content" class="popup-content">
-            Scegli cosa eliminare<br>
-            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Punti della traccia</label>
-            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoint</label><br>
-            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Interni</label>
-            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Esterni</label><br>
-            <div id="zone-delete-ok" class="panels custom-button normal-button">Conferma</div>
-            <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Annulla</b></div>
+            Choose what to delete<br>
+            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Σημεία διαδρομής</label>
+            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
+            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inside selection</label>
+            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
+            <div id="zone-delete-ok" class="panels custom-button normal-button">Proceed</div>
+            <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Ακύρωση</b></div>
         </div>
         <div id="load-error-content" class="popup-content">
-            Si è verificato un errore durante il caricamento del file GPX.<br>
-            Controlla il formato del file.<br>
-            <div id="load-error-ok" class="panels custom-button normal-button">Ok</div>
+            There was an error loading your GPX file.<br>
+            Please check the file format.<br>
+            <div id="load-error-ok" class="panels custom-button normal-button">Εντάξει</div>
         </div>
         <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
-            <b>Apri in</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logo di gpx.studio, l'editor di file GPX online">
+            <b>Open in</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="gpx.studio - Ο online επεξεργαστής αρχείων GPX">
         </div>
-        <div id="unit-kilometers-text">km</div>
-        <div id="unit-miles-text">mi</div>
-        <div id="unit-meters-text">m</div>
-        <div id="unit-feet-text">ft</div>
-        <div id="unit-hours-text">h</div>
-        <div id="unit-minutes-text">min</div>
-        <div id="duplicate-text">Duplica</div>
-        <div id="delete-text">Elimina</div>
-        <div id="ok-button-text">Ok</div>
-        <div id="cancel-button-text">Annulla</div>
-        <div id="search-input-text">Search...</div>
+        <div id="unit-kilometers-text">χλμ</div>
+        <div id="unit-miles-text">μίλια</div>
+        <div id="unit-meters-text">μέτρα</div>
+        <div id="unit-feet-text">πόδια</div>
+        <div id="unit-hours-text">ώρες</div>
+        <div id="unit-minutes-text">λεπτά</div>
+        <div id="duplicate-text">Δημιουργία Αντιγράφου</div>
+        <div id="delete-text">Διαγραφή</div>
+        <div id="ok-button-text">Εντάξει</div>
+        <div id="cancel-button-text">Ακύρωση</div>
+        <div id="search-input-text">Αναζήτηση...</div>
         <div id="search-button-text">Search for a place or paste GPS coordinates</div>
-        <div id="locate-button-text">Show my position</div>
-        <span id="track-text">Track</span>
+        <div id="locate-button-text">Εμφάνιση της θέσης μου</div>
+        <span id="track-text">Διαδρομή</span>
         <span id="segment-text">Segment</span>
         <div id="edit-speed-popup-text">
-            <div id="speed-text">Velocità</div>
-            <div id="pace-text">Passo</div>
-            <div id="start-text">Partenza</div>
-            <div id="experimental-info-text">Genera la velocità considerando la pendenza e il tipo di attività<br><b><i class="fas fa-exclamation-triangle"></i> Elimina tutte le informazioni temporali esistenti</b></div>
+            <div id="speed-text">Ταχύτητα</div>
+            <div id="pace-text">Ρυθμός</div>
+            <div id="start-text">Start</div>
+            <div id="experimental-info-text">Generate speed considering the slope and the activity type<br><b><i class="fas fa-exclamation-triangle"></i> erases all existing time data</b></div>
         </div>
         <div id="waypoint-popup-text">
-            <div id="empty-title-text">senza nome</div>
-            <div id="name-text">Nome</div>
-            <div id="comment-text">Commento (per i dispositivi GPS)</div>
-            <div id="description-text">Descrizione (per gli utenti)</div>
-            <div id="symbol-text">Icona</div>
-            <div id="edit-info-text">Modifica info</div>
+            <div id="empty-title-text">empty title</div>
+            <div id="name-text">Name</div>
+            <div id="comment-text">Comment (for GPS devices)</div>
+            <div id="description-text">Description (for users)</div>
+            <div id="symbol-text">Symbol</div>
+            <div id="edit-info-text">Edit info</div>
         </div>
         <div id="right-click-popup-text">
-            <div id="split-text">Dividi qui</div>
+            <div id="split-text">Split here</div>
             <div id="start-loop-text">Start loop here</div>
-            <div id="remove-pt-text">Rimuovi punto</div>
+            <div id="remove-pt-text">Remove point</div>
         </div>
         <div id="elevation-text">
-            <div id="segment-text">Lunghezza del segmento</div>
-            <div id="type-text">Categoria</div>
-            <div id="surface-text">Superficie</div>
-            <div id="slope-text">Pendenza</div>
-            <div id="missing-text">Mancante</div>,
+            <div id="segment-text">Segment length</div>
+            <div id="type-text">Category</div>
+            <div id="surface-text">Surface</div>
+            <div id="slope-text">Slope</div>
+            <div id="missing-text">Missing</div>,
             <div id="paved-text">Paved</div>,
             <div id="unpaved-text">Unpaved</div>,
-            <div id="asphalt-text">Asfalto</div>,
-            <div id="concrete-text">Calcestruzzo</div>,
+            <div id="asphalt-text">Asphalt</div>,
+            <div id="concrete-text">Concrete</div>,
             <div id="chipseal-text">Chipseal</div>,
             <div id="cobblestone-text">Cobblestone</div>,
             <div id="unhewn-cobblestone-text">Unhewn Cobblestone</div>,
             <div id="paving-stones-text">Paving Stones</div>,
             <div id="stepping-stones-text">Stepping Stones</div>,
             <div id="sett-text">Sett Paving</div>,
-            <div id="metal-text">Metallo</div>,
-            <div id="wood-text">Legno</div>,
+            <div id="metal-text">Metal</div>,
+            <div id="wood-text">Wood</div>,
             <div id="compacted-text">Compacted Gravel</div>,
-            <div id="fine-gravel-text">Ghiaia Fine</div>,
-            <div id="gravel-text">Ghiaia</div>,
+            <div id="fine-gravel-text">Fine Gravel</div>,
+            <div id="gravel-text">Χαλίκι</div>,
             <div id="pebblestone-text">Pebblestone</div>,
-            <div id="rock-text">Roccia</div>,
-            <div id="dirt-text">Terra</div>,
-            <div id="ground-text">Ground</div>,
+            <div id="rock-text">Βράχος</div>,
+            <div id="dirt-text">Dirt</div>,
+            <div id="ground-text">Χώμα</div>,
             <div id="earth-text">Earth</div>,
-            <div id="snow-text">Neve</div>,
-            <div id="ice-text">Ghiaccio</div>,
-            <div id="salt-text">Sale</div>,
-            <div id="mud-text">Fango</div>,
-            <div id="sand-text">Sabbia</div>,
+            <div id="snow-text">Χιόνι</div>,
+            <div id="ice-text">Ice</div>,
+            <div id="salt-text">Salt</div>,
+            <div id="mud-text">Mud</div>,
+            <div id="sand-text">Sand</div>,
             <div id="woodchips-text">Woodchips</div>,
-            <div id="grass-text">Erba</div>,
+            <div id="grass-text">Grass</div>,
             <div id="grass-paver-text">Grass Paver</div>
         </div>
-        <h1>editor GPX online</h1>
-        <h1>visualizzatore GPX online</h1>
-        <h1>modificare file GPX online</h1>
-        <h1>visualizzare file GPX online</h1>
-        <h1>unire tracce GPX online</h1>
-        <h1>esportare segmenti file GPX online</h1>
-        <h1>invertire traccia GPX online</h1>
-        <h1>aggiungere dati tempo file GPX online</h1>
-        <h1>comprimere semplificare ridurre punti traccia GPX online</h1>
-        <h1>visualizzare e aggiungiere waypoint file GPX online</h1>
+        <h1>online gpx editor</h1>
+        <h1>online gpx viewer</h1>
+        <h1>edit gpx files online</h1>
+        <h1>view gpx files online</h1>
+        <h1>merge gpx files online</h1>
+        <h1>extract segments gpx file online</h1>
+        <h1>reverse gpx file online</h1>
+        <h1>add timestamps to gpx file online</h1>
+        <h1>compress simplify reduce number points gpx file online</h1>
+        <h1>view and add waypoints gpx file online</h1>
         <h1>edit Strava activity</h1>
         <h1>correct Strava activity</h1>
         <h1>merge Strava activities</h1>

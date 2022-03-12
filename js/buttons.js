@@ -406,29 +406,6 @@ export default class Buttons {
 
                 // TILES
 
-                _this.openStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
-                    maxZoom: 20,
-                    maxNativeZoom: 19
-                });
-
-                _this.cyclOSM = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
-                    maxZoom: 20,
-                    attribution: '&copy; <a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                });
-
-                _this.openHikingMap = L.tileLayer('https://maps.refuges.info/hiking/{z}/{x}/{y}.png', {
-                    maxZoom: 20,
-                    maxNativeZoom: 18,
-                    attribution: '&copy; <a href="https://wiki.openstreetmap.org/wiki/Hiking/mri" target="_blank">sly</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
-                });
-
-                _this.openTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 20,
-                    maxNativeZoom: 17,
-                    attribution: '&copy; <a href="https://www.opentopomap.org" target="_blank">OpenTopoMap</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
-                });
-
                 if (_this.embedding) {
                     if (urlParams.has('token') && _this.supportsWebGL()) {
                         _this.mapboxMap = L.mapboxGL({
@@ -455,9 +432,9 @@ export default class Buttons {
 
                     if (urlParams.has('source')) {
                         const mapSource = urlParams.get('source');
-                        if (mapSource == 'osm') _this.openStreetMap.addTo(_this.map);
-                        else if (mapSource == 'otm') _this.openTopoMap.addTo(_this.map);
-                        else if (mapSource == 'ohm') _this.openHikingMap.addTo(_this.map);
+                        if (mapSource == 'osm') layers.openStreetMap.addTo(_this.map);
+                        else if (mapSource == 'otm') layers.openTopoMap.addTo(_this.map);
+                        else if (mapSource == 'ohm') layers.openHikingMap.addTo(_this.map);
                         else if (mapSource == 'cosm') _this.cyclOSM.addTo(_this.map);
                         else if (mapSource == 'outdoors' && urlParams.has('token') && _this.supportsWebGL()) _this.mapboxMap.addTo(_this.map);
                         else if (mapSource == 'satellite' && urlParams.has('token') && _this.supportsWebGL()) {
@@ -466,25 +443,25 @@ export default class Buttons {
                             _this.mapboxMap.getMapboxMap().setStyle("mapbox://styles/mapbox/satellite-v9", {diff: false});
                         } else _this.openStreetMap.addTo(_this.map);
                     } else if (urlParams.has('token') && _this.supportsWebGL()) _this.mapboxMap.addTo(_this.map);
-                    else _this.openStreetMap.addTo(_this.map);
+                    else layers.openStreetMap.addTo(_this.map);
 
                     if (urlParams.has('token') && _this.supportsWebGL()) {
                         _this.controlLayers = L.control.layers({
                             [_this.custom_style ? "Mapbox" : "Mapbox Outdoors"] : _this.mapboxMap,
                             "Mapbox Satellite" : _this.mapboxMap,
-                            "OpenStreetMap" : _this.openStreetMap,
-                            "OpenTopoMap" : _this.openTopoMap,
-                            "OpenHikingMap" : _this.openHikingMap,
-                            "CyclOSM" : _this.cyclOSM
+                            "OpenStreetMap" : layers.openStreetMap,
+                            "OpenTopoMap" : layers.openTopoMap,
+                            "OpenHikingMap" : layers.openHikingMap,
+                            "CyclOSM" : layers.cyclOSM
                         }).addTo(_this.map);
 
                         _this.addSwitchMapboxLayers();
                     } else {
                         _this.controlLayers = L.control.layers({
-                            "OpenStreetMap" : _this.openStreetMap,
-                            "OpenTopoMap" : _this.openTopoMap,
-                            "OpenHikingMap" : _this.openHikingMap,
-                            "CyclOSM" : _this.cyclOSM
+                            "OpenStreetMap" : layers.openStreetMap,
+                            "OpenTopoMap" : layers.openTopoMap,
+                            "OpenHikingMap" : layers.openHikingMap,
+                            "CyclOSM" : layers.cyclOSM
                         }).addTo(_this.map);
                     }
                 } else {
@@ -515,61 +492,6 @@ export default class Buttons {
                         return div;
                     };
                     _this.streetView.addTo(_this.map);
-
-                    _this.swisstopo = L.tileLayer('https://wmts20.geo.admin.ch/1.0.0/ch.swisstopo.pixelkarte-farbe/default/current/3857/{z}/{x}/{y}.jpeg', {
-                        maxZoom: 20,
-                        maxNativeZoom: 18,
-                        attribution : '&copy; <a href="https://www.swisstopo.admin.ch" target="_blank">swisstopo</a>'
-                    });
-
-                    _this.swisstopoSlope = L.tileLayer('https://wmts.geo.admin.ch/1.0.0/ch.swisstopo.hangneigung-ueber_30/default/current/3857/{z}/{x}/{y}.png', {
-                        maxZoom: 20,
-                        maxNativeZoom: 17,
-                        opacity: 0.4,
-                        attribution : '&copy; <a href="https://www.swisstopo.admin.ch" target="_blank">swisstopo</a>'
-                    });
-
-                    _this.et4 = L.tileLayer('http://ec{s}.cdn.ecmaps.de/WmsGateway.ashx.jpg?Experience=demo-dahoam&MapStyle=KOMPASS&TileX={x}&TileY={y}&ZoomLevel={z}', {
-            			maxZoom: 20,
-                        maxNativeZoom: 15,
-            			subdomains: '0123',
-            			attribution: '<a href="http://hubermedia.de/et4-maps/" target="_blank">eT4&reg; MAPS</a> &copy; <a href="http://www.kompass.de" target="_blank">KOMPASS Karten GmbH</a> <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
-            		});
-
-                    _this.ignFrScan25 = L.tileLayer('https://wxs.ign.fr/csxlabhak328gg7s096cu55r/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR&FORMAT=image/jpeg&STYLE=normal', {
-                        maxZoom: 20,
-                        maxNativeZoom: 16,
-                        attribution : "IGN-F/Géoportail"
-                    });
-
-                    _this.ignFrCadastre = L.tileLayer('https://wxs.ign.fr/parcellaire/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}&LAYER=CADASTRALPARCELS.PARCELS&FORMAT=image/png&STYLE=normal', {
-                        maxZoom: 20,
-                        opacity: 0.5,
-                        attribution : "IGN-F/Géoportail"
-                    });
-
-                    _this.ignEs = L.tileLayer('https://www.ign.es/wmts/mapa-raster?layer=MTN&style=default&tilematrixset=GoogleMapsCompatible&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image/jpeg&TileMatrix={z}&TileCol={x}&TileRow={y}', {
-                        maxZoom: 20,
-                        attribution : "IGN-F/Géoportail"
-                    });
-
-                    _this.ignSlope = L.tileLayer('https://wxs.ign.fr/altimetrie/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&TileMatrixSet=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&Layer=GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN&FORMAT=image/png&Style=normal', {
-                        maxZoom: 20,
-                        maxNativeZoom: 17,
-                        opacity: 0.4,
-                        attribution : "IGN-F/Géoportail"
-                    });
-
-                    _this.ordnanceSurvey = L.tileLayer('https://api.os.uk/maps/raster/v1/zxy/Outdoor_3857/{z}/{x}/{y}.png?key=piCT8WysfuC3xLSUW7sGLfrAAJoYDvQz', {
-                        maxZoom: 20,
-                        attribution: '&copy; <a href="http://www.ordnancesurvey.co.uk/">Ordnance Survey</a>'
-                    });
-
-                    _this.usgs = L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}?blankTile=false', {
-                        maxNativeZoom: 16,
-                        maxZoom: 20,
-                        attribution: '&copy; <a href="usgs.gov">USGS</a>'
-                    });
 
                     _this.stravaHeatmapRide = L.tileLayer('', {
                         maxZoom: 20,
@@ -611,69 +533,6 @@ export default class Buttons {
                         _this.updateStravaCookies();
                     });
 
-                    _this.waymarkedTrailsHiking = L.tileLayer('https://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png', {
-                        maxZoom: 20,
-                        maxNativeZoom: 18,
-                        attribution: '&copy; <a href="https://www.waymarkedtrails.org" target="_blank">Waymarked Trails</a>'
-                    });
-
-                    _this.waymarkedTrailsCycling = L.tileLayer('https://tile.waymarkedtrails.org/cycling/{z}/{x}/{y}.png', {
-                        maxZoom: 20,
-                        maxNativeZoom: 18,
-                        attribution: '&copy; <a href="https://www.waymarkedtrails.org" target="_blank">Waymarked Trails</a>'
-                    });
-
-                    _this.waymarkedTrailsMTB = L.tileLayer('https://tile.waymarkedtrails.org/mtb/{z}/{x}/{y}.png', {
-                        maxZoom: 20,
-                        maxNativeZoom: 18,
-                        attribution: '&copy; <a href="https://www.waymarkedtrails.org" target="_blank">Waymarked Trails</a>'
-                    });
-
-                    _this.waymarkedTrailsSkating = L.tileLayer('https://tile.waymarkedtrails.org/skating/{z}/{x}/{y}.png', {
-                        maxZoom: 20,
-                        maxNativeZoom: 18,
-                        attribution: '&copy; <a href="https://www.waymarkedtrails.org" target="_blank">Waymarked Trails</a>'
-                    });
-
-                    _this.waymarkedTrailsHorseRiding = L.tileLayer('https://tile.waymarkedtrails.org/riding/{z}/{x}/{y}.png', {
-                        maxZoom: 20,
-                        maxNativeZoom: 18,
-                        attribution: '&copy; <a href="https://www.waymarkedtrails.org" target="_blank">Waymarked Trails</a>'
-                    });
-
-                    _this.waymarkedTrailsWinter = L.tileLayer('https://tile.waymarkedtrails.org/slopes/{z}/{x}/{y}.png', {
-                        maxZoom: 20,
-                        maxNativeZoom: 18,
-                        attribution: '&copy; <a href="https://www.waymarkedtrails.org" target="_blank">Waymarked Trails</a>'
-                    });
-
-                    const overPassMinZoomOptions =  {
-                            position: 'topright',
-                            minZoomMessage: 'Zoom in to refresh POI'
-                        };
-                    const overPassAttribution = '&copy; <a href="https://www.overpass-api.de" target="_blank">Overpass API</a>'
-
-                    _this.pointsOfInterest = {};
-                    for (var category in pointsOfInterest) {
-                        _this.pointsOfInterest[category] = {};
-                        for (var poi of pointsOfInterest[category]) {
-                            _this.pointsOfInterest[category][poi.name] = new L.OverPassLayer({
-                                debug: false,
-                                minZoom: 14,
-                                endPoint: "https://overpass.kumi.systems/api/",
-                                query: "node({{bbox}})" + poi.query + ";out;",
-                                markerIcon: L.icon.glyph({
-                                    iconUrl: 'res/poi.png',
-                                    prefix: "fas",
-                                    glyph: poi.glyph,
-                                }),
-                                minZoomIndicatorOptions: overPassMinZoomOptions,
-                                attribution: overPassAttribution
-                            });
-                        }
-                    }
-
-
                     if (_this.supportsWebGL()) {
                         _this.mapboxMap = L.mapboxGL({
                             attribution: '&copy; <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
@@ -694,22 +553,6 @@ export default class Buttons {
 
                         _this.mapboxMap.getMapboxMap().on('load', () => {
                             _this.mapboxSKUToken = _this.mapboxMap.getMapboxMap()._requestManager._skuToken;
-                        });
-
-                        _this.linz = L.mapboxGL({
-                            attribution: '&copy; <a target="_blank" href="//www.linz.govt.nz/data/linz-data/linz-basemaps/data-attribution">LINZ</a>',
-                            maxZoom: 20,
-                            style: 'https://basemaps.linz.govt.nz/v1/tiles/topographic/EPSG:3857/style/topographic.json?api=d01fbtg0ar23gctac5m0jgyy2ds',
-                            interactive: true,
-                            minZoom: 1,
-                            dragRotate: false,
-                            touchZoomRotate: false,
-                            boxZoom: false,
-                            dragPan: false,
-                            touchPitch: false,
-                            doubleClickZoom: false,
-                            scrollZoom: false,
-                            boxZoom: false
                         });
 
                         _this.mapillary_coverageZoomed = L.vectorGrid.protobuf('https://tiles.mapillary.com/maps/vtp/mly1_computed_public/2/{z}/{x}/{y}?access_token=MLY|4381405525255083|3204871ec181638c3c31320490f03011', {
@@ -748,32 +591,41 @@ export default class Buttons {
                                 "World": {
                                     "Mapbox Outdoors" : _this.mapboxMap,
                                     "Mapbox Satellite" : _this.mapboxMap,
-                                    "OpenStreetMap" : _this.openStreetMap,
-                                    "OpenTopoMap" : _this.openTopoMap,
-                                    "OpenHikingMap" : _this.openHikingMap,
-                                    "CyclOSM" : _this.cyclOSM
+                                    "OpenStreetMap" : layers.openStreetMap,
+                                    "OpenTopoMap" : layers.openTopoMap,
+                                    "OpenHikingMap" : layers.openHikingMap,
+                                    "CyclOSM" : layers.cyclOSM
                                 },
                                 "Countries": {
                                     "Austria & Germany": {
-                                        "Kompass" : _this.et4
+                                        "Kompass" : layers.et4
+                                    },
+                                    "Finland": {
+                                        "Lantmäteriverket Terrängkarta": layers.finlandTopo
                                     },
                                     "France": {
-                                        "IGN SCAN25" : _this.ignFrScan25
+                                        "IGN SCAN25" : layers.ignFrScan25
                                     },
                                     "New Zealand": {
-                                        "LINZ": _this.linz
+                                        "LINZ": layers.linz
+                                    },
+                                    "Norvege": {
+                                        "Topografisk Norgeskart 4": layers.norvegeTopo
                                     },
                                     "Spain": {
-                                        "IGN": _this.ignEs
+                                        "IGN": layers.ignEs
+                                    },
+                                    "Sweden": {
+                                        "Lantmäteriet Topo": layers.swedenTopo
                                     },
                                     "Switzerland": {
-                                        "swisstopo": _this.swisstopo
+                                        "swisstopo": layers.swisstopo
                                     },
                                     "United Kingdom": {
-                                        "Ordnance Survey": _this.ordnanceSurvey
+                                        "Ordnance Survey": layers.ordnanceSurvey
                                     },
                                     "United States": {
-                                        "USGS": _this.usgs
+                                        "USGS": layers.usgs
                                     }
                                 }
                             }
@@ -786,21 +638,21 @@ export default class Buttons {
                                     "Winter" : _this.stravaHeatmapWinter
                                 },
                                 "Waymarked Trails": {
-                                    "Hiking": _this.waymarkedTrailsHiking,
-                                    "Cycling": _this.waymarkedTrailsCycling,
-                                    "MTB": _this.waymarkedTrailsMTB,
-                                    "Skating": _this.waymarkedTrailsSkating,
-                                    "Horse riding": _this.waymarkedTrailsHorseRiding,
-                                    "Slopes": _this.waymarkedTrailsWinter
+                                    "Hiking": layers.waymarkedTrailsHiking,
+                                    "Cycling": layers.waymarkedTrailsCycling,
+                                    "MTB": layers.waymarkedTrailsMTB,
+                                    "Skating": layers.waymarkedTrailsSkating,
+                                    "Horse riding": layers.waymarkedTrailsHorseRiding,
+                                    "Slopes": layers.waymarkedTrailsWinter
                                 },
-                                "POI": _this.pointsOfInterest,
+                                "POI": layers.pointsOfInterest,
                                 "Countries": {
                                     "France": {
-                                        "IGN Slope": _this.ignSlope,
-                                        "IGN Cadastre": _this.ignFrCadastre
+                                        "IGN Slope": layers.ignSlope,
+                                        "IGN Cadastre": layers.ignFrCadastre
                                     },
                                     "Switzerland": {
-                                        "swisstopo Slope": _this.swisstopoSlope
+                                        "swisstopo Slope": layers.swisstopoSlope
                                     }
                                 }
                             }
@@ -813,29 +665,38 @@ export default class Buttons {
                         _this.controlLayers = L.control.layers({
                             "Basemaps": {
                                 "World": {
-                                    "OpenStreetMap" : _this.openStreetMap,
-                                    "OpenTopoMap" : _this.openTopoMap,
-                                    "OpenHikingMap" : _this.openHikingMap,
-                                    "CyclOSM" : _this.cyclOSM
+                                    "OpenStreetMap" : layers.openStreetMap,
+                                    "OpenTopoMap" : layers.openTopoMap,
+                                    "OpenHikingMap" : layers.openHikingMap,
+                                    "CyclOSM" : layers.cyclOSM
                                 },
                                 "Countries": {
                                     "Austria & Germany": {
-                                        "Kompass" : _this.et4
+                                        "Kompass" : layers.et4
+                                    },
+                                    "Finland": {
+                                        "Lantmäteriverket Terrängkarta": layers.finlandTopo
                                     },
                                     "France": {
-                                        "IGN SCAN25" : _this.ignFrScan25
+                                        "IGN SCAN25" : layers.ignFrScan25
+                                    },
+                                    "Norvege": {
+                                        "Topografisk Norgeskart 4": layers.norvegeTopo
                                     },
                                     "Spain": {
-                                        "IGN": _this.ignEs
+                                        "IGN": layers.ignEs
+                                    },
+                                    "Sweden": {
+                                        "Lantmäteriet Topo": layers.swedenTopo
                                     },
                                     "Switzerland": {
-                                        "swisstopo": _this.swisstopo
+                                        "swisstopo": layers.swisstopo
                                     },
                                     "United Kingdom": {
-                                        "Ordnance Survey": _this.ordnanceSurvey
+                                        "Ordnance Survey": layers.ordnanceSurvey
                                     },
                                     "United States": {
-                                        "USGS": _this.usgs
+                                        "USGS": layers.usgs
                                     }
                                 }
                             }
@@ -848,21 +709,21 @@ export default class Buttons {
                                     "Winter" : _this.stravaHeatmapWinter
                                 },
                                 "Waymarked Trails": {
-                                    "Hiking": _this.waymarkedTrailsHiking,
-                                    "Cycling": _this.waymarkedTrailsCycling,
-                                    "MTB": _this.waymarkedTrailsMTB,
-                                    "Skating": _this.waymarkedTrailsSkating,
-                                    "Horse riding": _this.waymarkedTrailsHorseRiding,
-                                    "Slopes": _this.waymarkedTrailsWinter
+                                    "Hiking": layers.waymarkedTrailsHiking,
+                                    "Cycling": layers.waymarkedTrailsCycling,
+                                    "MTB": layers.waymarkedTrailsMTB,
+                                    "Skating": layers.waymarkedTrailsSkating,
+                                    "Horse riding": layers.waymarkedTrailsHorseRiding,
+                                    "Slopes": layers.waymarkedTrailsWinter
                                 },
                                 "POI": _this.pointsOfInterest,
                                 "Countries": {
                                     "France": {
-                                        "IGN Slope": _this.ignSlope,
-                                        "IGN Cadastre": _this.ignFrCadastre
+                                        "IGN Slope": layers.ignSlope,
+                                        "IGN Cadastre": layers.ignFrCadastre
                                     },
                                     "Switzerland": {
-                                        "swisstopo Slope": _this.swisstopoSlope
+                                        "swisstopo Slope": layers.swisstopoSlope
                                     }
                                 }
                             }
