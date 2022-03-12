@@ -43,6 +43,7 @@ html, body {
 
 .leaflet-popup-content {
     margin: 4px 6px;
+    max-width: 60vw;
     width: max-content !important;
 }
 
