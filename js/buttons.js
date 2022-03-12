@@ -645,6 +645,7 @@ export default class Buttons {
                                     "Horse riding": layers.waymarkedTrailsHorseRiding,
                                     "Slopes": layers.waymarkedTrailsWinter
                                 },
+                                "POI": layers.pointsOfInterest,
                                 "Countries": {
                                     "France": {
                                         "IGN Slope": layers.ignSlope,
@@ -715,6 +716,7 @@ export default class Buttons {
                                     "Horse riding": layers.waymarkedTrailsHorseRiding,
                                     "Slopes": layers.waymarkedTrailsWinter
                                 },
+                                "POI": _this.pointsOfInterest,
                                 "Countries": {
                                     "France": {
                                         "IGN Slope": layers.ignSlope,
