@@ -39,6 +39,14 @@ L.Control.Layers.include({
         return layers;
     },
 
+    getLayerId: function(layer) {
+        for (var i=0; i<this._layers.length; i++) {
+            if (this._layers[i].layer == layer) {
+                return i;
+            }
+        }
+    },
+
     showLayer: function(layerId) {
         var obj = this._layers[layerId];
         for (var i=0; i<obj.domParents.length; i++) {

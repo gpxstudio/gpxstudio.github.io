@@ -476,43 +476,43 @@ export default class Buttons {
                     };
                     _this.streetView.addTo(_this.map);
 
-                    _this.stravaHeatmapRide = L.tileLayer('', {
+                    layers.stravaHeatmapRide = L.tileLayer('', {
                         maxZoom: 20,
                         maxNativeZoom: 14,
                         attribution: '&copy; <a href="https://www.strava.com" target="_blank">Strava</a>'
                     });
 
-                    _this.stravaHeatmapRide.on('tileerror', function () {
+                    layers.stravaHeatmapRide.on('tileerror', function () {
                         _this.updateStravaCookies();
                     });
 
-                    _this.stravaHeatmapRun = L.tileLayer('', {
+                    layers.stravaHeatmapRun = L.tileLayer('', {
                         maxZoom: 20,
                         maxNativeZoom: 14,
                         attribution: '&copy; <a href="https://www.strava.com" target="_blank">Strava</a>'
                     });
 
-                    _this.stravaHeatmapRun.on('tileerror', function () {
+                    layers.stravaHeatmapRun.on('tileerror', function () {
                         _this.updateStravaCookies();
                     });
 
-                    _this.stravaHeatmapWater = L.tileLayer('', {
+                    layers.stravaHeatmapWater = L.tileLayer('', {
                         maxZoom: 20,
                         maxNativeZoom: 14,
                         attribution: '&copy; <a href="https://www.strava.com" target="_blank">Strava</a>'
                     });
 
-                    _this.stravaHeatmapWater.on('tileerror', function () {
+                    layers.stravaHeatmapWater.on('tileerror', function () {
                         _this.updateStravaCookies();
                     });
 
-                    _this.stravaHeatmapWinter = L.tileLayer('', {
+                    layers.stravaHeatmapWinter = L.tileLayer('', {
                         maxZoom: 20,
                         maxNativeZoom: 14,
                         attribution: '&copy; <a href="https://www.strava.com" target="_blank">Strava</a>'
                     });
 
-                    _this.stravaHeatmapWinter.on('tileerror', function () {
+                    layers.stravaHeatmapWinter.on('tileerror', function () {
                         _this.updateStravaCookies();
                     });
 
@@ -615,10 +615,10 @@ export default class Buttons {
                         },{
                             "Overlays": {
                                 "Strava Heatmap": {
-                                    "Ride" : _this.stravaHeatmapRide,
-                                    "Run" : _this.stravaHeatmapRun,
-                                    "Water" : _this.stravaHeatmapWater,
-                                    "Winter" : _this.stravaHeatmapWinter
+                                    "Ride" : layers.stravaHeatmapRide,
+                                    "Run" : layers.stravaHeatmapRun,
+                                    "Water" : layers.stravaHeatmapWater,
+                                    "Winter" : layers.stravaHeatmapWinter
                                 },
                                 "Waymarked Trails": {
                                     "Hiking": layers.waymarkedTrailsHiking,
@@ -628,7 +628,7 @@ export default class Buttons {
                                     "Horse riding": layers.waymarkedTrailsHorseRiding,
                                     "Slopes": layers.waymarkedTrailsWinter
                                 },
-                                "POI": layers.pointsOfInterest,
+                                "POI": pointsOfInterestLayers,
                                 "Countries": {
                                     "France": {
                                         "IGN Slope": layers.ignSlope,
@@ -686,10 +686,10 @@ export default class Buttons {
                         },{
                             "Overlays": {
                                 "Strava Heatmap": {
-                                    "Ride" : _this.stravaHeatmapRide,
-                                    "Run" : _this.stravaHeatmapRun,
-                                    "Water" : _this.stravaHeatmapWater,
-                                    "Winter" : _this.stravaHeatmapWinter
+                                    "Ride" : layers.stravaHeatmapRide,
+                                    "Run" : layers.stravaHeatmapRun,
+                                    "Water" : layers.stravaHeatmapWater,
+                                    "Winter" : layers.stravaHeatmapWinter
                                 },
                                 "Waymarked Trails": {
                                     "Hiking": layers.waymarkedTrailsHiking,
@@ -699,7 +699,7 @@ export default class Buttons {
                                     "Horse riding": layers.waymarkedTrailsHorseRiding,
                                     "Slopes": layers.waymarkedTrailsWinter
                                 },
-                                "POI": _this.pointsOfInterest,
+                                "POI": pointsOfInterestLayers,
                                 "Countries": {
                                     "France": {
                                         "IGN Slope": layers.ignSlope,
@@ -714,13 +714,18 @@ export default class Buttons {
                     }
 
                     if (localStorage.hasOwnProperty('lastbasemap')) {
-                        _this.controlLayers._layerControlInputs[localStorage.getItem('lastbasemap')].click();
-                        _this.controlLayers.showLayer(localStorage.getItem('lastbasemap'));
+                        const basemap = layers[localStorage.getItem('lastbasemap')];
+                        const basemapId = _this.controlLayers.getLayerId(basemap);
+                        if (basemapId) {
+                            _this.controlLayers._layerControlInputs[basemapId].click();
+                            _this.controlLayers.showLayer(basemapId);
+                        }
                     }
                     if (localStorage.hasOwnProperty('lastoverlays')) {
                         const overlays = JSON.parse(localStorage.getItem('lastoverlays'));
                         for (var i=0; i<overlays.length; i++) {
-                            _this.controlLayers.showLayer(overlays[i]);
+                            const overlayId = _this.controlLayers.getLayerId(layers[overlays[i]]);
+                            if (overlayId) _this.controlLayers.showLayer(overlayId);
                         }
                     }
                 }
@@ -765,12 +770,20 @@ export default class Buttons {
                 _this.mapboxSatelliteSelector.addEventListener('click', function (e) {
                     _this.mapboxMap.getMapboxMap().setStyle("mapbox://styles/mapbox/satellite-v9", {diff: false});
                 });
+                if (localStorage.hasOwnProperty('lastbasemap') && localStorage.getItem('lastbasemap') == 'mapbox-satellite') {
+                    _this.mapboxSatelliteSelector.click();
+                    _this.controlLayers.showLayer(i);
+                }
             } else if (span.textContent.includes("Mapbox")) {
                 _this.mapboxOutdoorsSelector = layerSelectors[i];
                 _this.mapboxOutdoorsSelector.checked = this.mapboxMap._map && (_this.mapboxMap.options.style == _this.mapbox_style);
                 _this.mapboxOutdoorsSelector.addEventListener('click', function (e) {
                     _this.mapboxMap.getMapboxMap().setStyle(_this.mapbox_style, {diff: false});
                 });
+                if (localStorage.hasOwnProperty('lastbasemap') && localStorage.getItem('lastbasemap') == 'mapbox') {
+                    _this.mapboxOutdoorsSelector.click();
+                    _this.controlLayers.showLayer(i);
+                }
             }
         }
     }
@@ -786,10 +799,10 @@ export default class Buttons {
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 _this.stravaCookies = JSON.parse(xhr.response);
-                _this.stravaHeatmapRide.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/ride/bluered/{z}/{x}/{y}@2x.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
-                _this.stravaHeatmapRun.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/run/bluered/{z}/{x}/{y}@2x.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
-                _this.stravaHeatmapWater.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/water/bluered/{z}/{x}/{y}@2x.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
-                _this.stravaHeatmapWinter.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/winter/bluered/{z}/{x}/{y}@2x.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
+                layers.stravaHeatmapRide.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/ride/bluered/{z}/{x}/{y}@2x.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
+                layers.stravaHeatmapRun.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/run/bluered/{z}/{x}/{y}@2x.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
+                layers.stravaHeatmapWater.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/water/bluered/{z}/{x}/{y}@2x.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
+                layers.stravaHeatmapWinter.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/winter/bluered/{z}/{x}/{y}@2x.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
                 _this.updatingStravaCookies = false;
             }
         }
@@ -1338,15 +1351,23 @@ export default class Buttons {
         });
         const saveLayers = function (unload) {
             const activeLayers = [];
-            for (var i=0; i<buttons.controlLayers._layers.length; i++) {
-                if (buttons.controlLayers._layers[i].overlay &&
-                    buttons.map.hasLayer(buttons.controlLayers._layers[i].layer)) {
-                    buttons.controlLayers._layerControlInputs[i].click();
-                    activeLayers.push(i);
-                } else if (unload && buttons.map.hasLayer(buttons.controlLayers._layers[i].layer)
-                            && buttons.controlLayers._layerControlInputs[i].checked) {
-                    localStorage.setItem('lastbasemap', i);
+            for (var layerName in layers) {
+                const layer = layers[layerName];
+                if (buttons.map.hasLayer(layer)) {
+                    const layerId = buttons.controlLayers.getLayerId(layer);
+                    if (layerId) {
+                        if (buttons.controlLayers._layers[layerId].overlay) {
+                            buttons.controlLayers._layerControlInputs[layerId].click();
+                            activeLayers.push(layerName);
+                        } else if (unload && buttons.controlLayers._layerControlInputs[layerId].checked) {
+                            localStorage.setItem('lastbasemap', layerName);
+                        }
+                    }
                 }
+            }
+            if (buttons.map.hasLayer(buttons.mapboxMap)) {
+                if (buttons.mapboxSatelliteSelector.checked) localStorage.setItem('lastbasemap', 'mapbox-satellite');
+                else localStorage.setItem('lastbasemap', 'mapbox');
             }
             if (activeLayers.length > 0) {
                 localStorage.setItem('lastoverlays', JSON.stringify(activeLayers));
@@ -1373,7 +1394,8 @@ export default class Buttons {
                 } else if (localStorage.hasOwnProperty('lastoverlays')) {
                     const activeLayers = JSON.parse(localStorage.getItem('lastoverlays'));
                     for (var i=0; i<activeLayers.length; i++) {
-                        buttons.controlLayers._layerControlInputs[activeLayers[i]].click();
+                        const layerId = buttons.controlLayers.getLayerId(layers[activeLayers[i]]);
+                        if (layerId) buttons.controlLayers._layerControlInputs[layerId].click();
                     }
                     localStorage.removeItem('lastoverlays');
                 }

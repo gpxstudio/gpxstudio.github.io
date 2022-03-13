@@ -1,29 +1,3 @@
-const overPassMinZoomOptions =  {
-        position: 'topright',
-        minZoomMessage: 'Zoom in to refresh POI'
-    };
-const overPassAttribution = '&copy; <a href="https://www.overpass-api.de" target="_blank">Overpass API</a>'
-
-let pointsOfInterestLayers = {};
-for (var category in pointsOfInterest) {
-    pointsOfInterestLayers[category] = {};
-    for (var poi of pointsOfInterest[category]) {
-        pointsOfInterestLayers[category][poi.name] = new L.OverPassLayer({
-            debug: false,
-            minZoom: 14,
-            endPoint: "https://overpass.kumi.systems/api/",
-            query: "node({{bbox}})" + poi.query + ";out;",
-            markerIcon: L.icon.glyph({
-                iconUrl: '/res/poi.png',
-                prefix: "fas",
-                glyph: poi.glyph,
-            }),
-            minZoomIndicatorOptions: overPassMinZoomOptions,
-            attribution: overPassAttribution
-        });
-    }
-}
-
 const layers = {
     openStreetMap: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
@@ -149,6 +123,32 @@ const layers = {
         maxZoom: 20,
         maxNativeZoom: 18,
         attribution: '&copy; <a href="https://www.waymarkedtrails.org" target="_blank">Waymarked Trails</a>'
-    }),
-    pointsOfInterest: pointsOfInterestLayers
+    })
 };
+
+const overPassMinZoomOptions =  {
+        position: 'topright',
+        minZoomMessage: 'Zoom in to refresh POI'
+    };
+const overPassAttribution = '&copy; <a href="https://www.overpass-api.de" target="_blank">Overpass API</a>'
+
+let pointsOfInterestLayers = {};
+for (var category in pointsOfInterest) {
+    pointsOfInterestLayers[category] = {};
+    for (var poi of pointsOfInterest[category]) {
+        pointsOfInterestLayers[category][poi.name] = new L.OverPassLayer({
+            debug: false,
+            minZoom: 14,
+            endPoint: "https://overpass.kumi.systems/api/",
+            query: "node({{bbox}})" + poi.query + ";out;",
+            markerIcon: L.icon.glyph({
+                iconUrl: '/res/poi.png',
+                prefix: "fas",
+                glyph: poi.glyph,
+            }),
+            minZoomIndicatorOptions: overPassMinZoomOptions,
+            attribution: overPassAttribution
+        });
+        layers["poi"+poi.query] = pointsOfInterestLayers[category][poi.name];
+    }
+}
