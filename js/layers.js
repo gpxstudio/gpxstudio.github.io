@@ -123,6 +123,26 @@ const layers = {
         maxZoom: 20,
         maxNativeZoom: 18,
         attribution: '&copy; <a href="https://www.waymarkedtrails.org" target="_blank">Waymarked Trails</a>'
+    }),
+    stravaHeatmapRide: L.tileLayer('', {
+        maxZoom: 20,
+        maxNativeZoom: 14,
+        attribution: '&copy; <a href="https://www.strava.com" target="_blank">Strava</a>'
+    }),
+    stravaHeatmapRun: L.tileLayer('', {
+        maxZoom: 20,
+        maxNativeZoom: 14,
+        attribution: '&copy; <a href="https://www.strava.com" target="_blank">Strava</a>'
+    }),
+    stravaHeatmapWater: L.tileLayer('', {
+        maxZoom: 20,
+        maxNativeZoom: 14,
+        attribution: '&copy; <a href="https://www.strava.com" target="_blank">Strava</a>'
+    }),
+    stravaHeatmapWinter: L.tileLayer('', {
+        maxZoom: 20,
+        maxNativeZoom: 14,
+        attribution: '&copy; <a href="https://www.strava.com" target="_blank">Strava</a>'
     })
 };
 
@@ -132,9 +152,10 @@ const overPassMinZoomOptions =  {
     };
 const overPassAttribution = '&copy; <a href="https://www.overpass-api.de" target="_blank">Overpass API</a>'
 
-let pointsOfInterestLayers = {};
+let pointsOfInterestLayers = {}, pointsOfInterestLayerSelection = {};
 for (var category in pointsOfInterest) {
     pointsOfInterestLayers[category] = {};
+    pointsOfInterestLayerSelection[category] = {};
     for (var poi of pointsOfInterest[category]) {
         pointsOfInterestLayers[category][poi.name] = new L.OverPassLayer({
             debug: false,
@@ -149,6 +170,7 @@ for (var category in pointsOfInterest) {
             minZoomIndicatorOptions: overPassMinZoomOptions,
             attribution: overPassAttribution
         });
+        pointsOfInterestLayerSelection[category][poi.name] = true;
         layers["poi"+poi.query] = pointsOfInterestLayers[category][poi.name];
     }
 }

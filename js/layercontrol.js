@@ -4,12 +4,21 @@ const icon_unfolded = '<i class="fas fa-caret-down"></i>';
 L.Control.Layers.include({
     __initialize: L.Control.Layers.prototype.initialize,
     __addItem: L.Control.Layers.prototype._addItem,
+    __onAdd: L.Control.Layers.prototype.onAdd,
 
     initialize: function (baselayersHierarchy, overlaysHierarchy, options) {
         this._baselayersHierarchy = baselayersHierarchy;
         this._overlaysHierarchy = overlaysHierarchy;
 
         this.__initialize(this._getLayers(baselayersHierarchy), this._getLayers(overlaysHierarchy), options);
+    },
+
+    onAdd: function (map) {
+        this.__onAdd(map);
+
+        if (this.options.editable) this._addLayerSelectionButton();
+
+        return this._container;
     },
 
     _getLayers: function (hierarchy) {
@@ -21,6 +30,8 @@ L.Control.Layers.include({
 
         if (obj) {
             Object.keys(obj).forEach(key => {
+                if (key == 'parent') return;
+
                 if (obj[key] instanceof L.Layer) {
                     layers[key] = obj[key];
                     layers[key]._parents = parents;
@@ -49,11 +60,10 @@ L.Control.Layers.include({
 
     showLayer: function(layerId) {
         var obj = this._layers[layerId];
-        for (var i=0; i<obj.domParents.length; i++) {
-            if (!obj.domParents[i]._toggled) {
-                var span = obj.domParents[i].children[0];
-                span.click();
-            }
+        var parent = obj.overlay ? this._overlaysDivHierarchy : this._baselayersDivHierarchy;
+        for (var i=0; i<obj.layer._parents.length; i++) {
+            parent = parent[obj.layer._parents[i]];
+            if (!parent.toggled) parent.div.children[0].click();
         }
     },
 
@@ -64,8 +74,10 @@ L.Control.Layers.include({
 		L.DomUtil.empty(this._overlaysList);
 
         // >
-        this._addHierarchy(this._baselayersHierarchy, this._baseLayersList, 0);
-        this._addHierarchy(this._overlaysHierarchy, this._overlaysList, 0);
+        this._baselayersDivHierarchy = { toggled: true, visible: true };
+        this._overlaysDivHierarchy = { toggled: true, visible: true };
+        this._addHierarchy(this._baselayersHierarchy, this._baseLayersList, 0, this._baselayersDivHierarchy);
+        this._addHierarchy(this._overlaysHierarchy, this._overlaysList, 0, this._overlaysDivHierarchy);
         // <
 
 		this._layerControlInputs = [];
@@ -90,13 +102,15 @@ L.Control.Layers.include({
 		return this;
     },
 
-    _addHierarchy: function (obj, parent, count) {
+    _addHierarchy: function (obj, parent, count, hierarchy) {
+        const _this = this;
         if (obj) {
             Object.keys(obj).forEach(key => {
+                if (key == 'parent') return;
+
                 if (!(obj[key] instanceof L.Layer)) {
                     const div = L.DomUtil.create('div');
-                    div._toggled = false;
-                    if (parent != this._baseLayersList && parent != this._overlaysList) {
+                    if (count > 0) {
                         div.style.display = 'none';
                         div.style.paddingLeft = '10px';
                     }
@@ -104,19 +118,26 @@ L.Control.Layers.include({
                     const span = L.DomUtil.create('span', 'custom-button dontselect');
                     span.innerHTML = icon_folded + ' ' + key;
 
+                    hierarchy[key] = { div: div, toggled: false, visible: true };
+
                     L.DomEvent.on(span, 'click', function () {
-                        div._toggled = !div._toggled;
-                        span.innerHTML = (div._toggled ? icon_unfolded : icon_folded) + ' ' + key;
-                        for (var i=0; i<div.children.length; i++) {
-                            if (div.children[i].tagName == 'SPAN') continue;
-                            div.children[i].style.display = div._toggled ? '' : 'none';
-                        }
+                        hierarchy[key].toggled = !hierarchy[key].toggled;
+                        span.innerHTML = (hierarchy[key].toggled ? icon_unfolded : icon_folded) + ' ' + key;
+
+                        Object.keys(obj[key]).forEach(child => {
+                            if (child == 'parent') return;
+                            if (hierarchy[key][child].visible) {
+                                hierarchy[key][child].div.style.display = hierarchy[key].toggled ? '' : 'none';
+                            }
+                        });
+
+                        if (_this._isExpanded()) _this.expand();
                     });
 
                     div.appendChild(span);
                     parent.appendChild(div);
 
-                    this._addHierarchy(obj[key], div, count+1);
+                    this._addHierarchy(obj[key], div, count+1, hierarchy[key]);
                 }
             });
         }
@@ -127,21 +148,151 @@ L.Control.Layers.include({
         obj.domParents = [];
         if (obj.layer._parents.length > 0) node.style.display = 'none';
 
-        var parentNode = obj.overlay ? this._overlaysList : this._baseLayersList;
+        var parent = obj.overlay ? this._overlaysDivHierarchy : this._baselayersDivHierarchy;
         for (var i=0; i<obj.layer._parents.length; i++) {
-            const parentName = obj.layer._parents[i];
-
-            for (var j=0; j<parentNode.children.length; j++) {
-                if (parentNode.children[j].children.length == 0) continue;
-                const elementName = parentNode.children[j].children[0].innerText.trimStart();
-                if (parentName == elementName) {
-                    parentNode = parentNode.children[j];
-                    obj.domParents.push(parentNode);
-                    break;
-                }
-            }
+            parent = parent[obj.layer._parents[i]];
         }
+        if (parent.div) parent.div.appendChild(node);
+        parent[obj.name] = { div: node, visible: true };
+    },
 
-        parentNode.appendChild(node);
+    _addLayerSelectionButton: function () {
+        if (this._layer_selection_button) return;
+        this._layer_selection_button = L.DomUtil.create('i', 'fa-solid fa-gear custom-button');
+        this._layer_selection_button.style.position = 'absolute';
+        this._layer_selection_button.style.top = '2px';
+        this._layer_selection_button.style.right = '-3px';
+        this._section.appendChild(this._layer_selection_button);
+    },
+
+    _addLayerSelectionContent: function (parent) {
+        this._layerSelectionContainer = parent;
+        this._checkboxCount = 0;
+        this._baselayersCheckboxHierarchy = {};
+        this._overlaysCheckboxHierarchy = {};
+        this._addSelectionHierarchy(this._baselayersHierarchy, this._baselayersDivHierarchy, parent, 0, this._baselayersCheckboxHierarchy);
+        this._addSelectionHierarchy(this._overlaysHierarchy, this._overlaysDivHierarchy, parent, 0, this._overlaysCheckboxHierarchy);
+
+        parent.style.textAlign = 'left';
+    },
+
+    _addSelectionHierarchy: function (obj, divHierarchy, parent, count, hierarchy) {
+        const _this = this;
+        if (obj) {
+            Object.keys(obj).forEach(key => {
+                if (key == 'parent') return;
+
+                const div = L.DomUtil.create('div');
+                parent.appendChild(div);
+                div.style.paddingLeft = '10px';
+                if (count > 1) {
+                    div.style.display = 'none';
+                }
+
+                const span = L.DomUtil.create('span', 'custom-button dontselect');
+                div.appendChild(span);
+
+                const checkbox = L.DomUtil.create('input');
+                span.appendChild(checkbox);
+                checkbox.type = 'checkbox';
+                checkbox.id = 'checkbox-layer-'+this._checkboxCount++;
+                checkbox.checked = (count == 0 || hierarchy.checkbox.checked) && divHierarchy[key].visible;
+
+                const label = L.DomUtil.create('label');
+                span.appendChild(label);
+                label.innerText = key;
+                label.htmlFor = checkbox.id;
+
+                hierarchy[key] = { checkbox: checkbox, span: span, parent: hierarchy, toggled: false };
+                obj[key].parent = obj;
+
+                if (!(obj[key] instanceof L.Layer)) {
+                    const icon = L.DomUtil.create('span');
+                    span.insertBefore(icon, checkbox);
+                    icon.innerHTML = icon_folded;
+
+                    L.DomEvent.on(icon, 'click', function () {
+                        hierarchy[key].toggled = !hierarchy[key].toggled;
+                        icon.innerHTML = hierarchy[key].toggled ? icon_unfolded : icon_folded;
+                        for (var i=1; i<div.children.length; i++) {
+                            div.children[i].style.display = hierarchy[key].toggled ? '' : 'none';
+                        }
+                    });
+
+                    this._addSelectionHierarchy(obj[key], divHierarchy[key], div, count+1, hierarchy[key]);
+                }
+
+                L.DomEvent.on(checkbox, 'change', function () {
+                    const children_boxes = div.getElementsByTagName('input');
+                    for (var i=0; i<children_boxes.length; i++) children_boxes[i].checked = checkbox.checked;
+
+                    var current = obj;
+                    var currentCheckbox = hierarchy;
+                    while (current.parent) {
+                        var checked = false;
+                        Object.keys(current).forEach(key => {
+                            if (key == 'parent') return;
+                            checked ||= currentCheckbox[key].checkbox.checked;
+                        });
+                        currentCheckbox.checkbox.checked = checked;
+                        current = current.parent;
+                        currentCheckbox = currentCheckbox.parent;
+                    }
+                });
+            });
+        }
+    },
+
+    _getSelectedBaselayersHierarchy: function () {
+        const hierarchy = {};
+        this._getSelectedHierarchy(this._baselayersHierarchy, this._baselayersCheckboxHierarchy, hierarchy);
+        return hierarchy;
+    },
+
+    _getSelectedOverlaysHierarchy: function () {
+        const hierarchy = {};
+        this._getSelectedHierarchy(this._overlaysHierarchy, this._overlaysCheckboxHierarchy, hierarchy);
+        return hierarchy;
+    },
+
+    _getSelectedHierarchy: function (layersHierarchy, checkboxHierarchy, outputHierarchy) {
+        if (layersHierarchy) {
+            Object.keys(layersHierarchy).forEach(key => {
+                if (key == 'parent') return;
+                if (checkboxHierarchy[key].checkbox.checked) {
+                    if (layersHierarchy[key] instanceof L.Layer) outputHierarchy[key] = true;
+                    else {
+                        outputHierarchy[key] = {};
+                        this._getSelectedHierarchy(layersHierarchy[key], checkboxHierarchy[key], outputHierarchy[key]);
+                    }
+                }
+            });
+        }
+    },
+
+    applySelections: function (selectedBaselayersHierarchy, selectedOverlaysHierarchy) {
+        this._applySelection(this._baselayersHierarchy, selectedBaselayersHierarchy, this._baselayersDivHierarchy);
+        this._applySelection(this._overlaysHierarchy, selectedOverlaysHierarchy, this._overlaysDivHierarchy);
+    },
+
+    _applySelection: function (layersHierarchy, selectedHierarchy, divHierarchy, count) {
+        Object.keys(layersHierarchy).forEach(key => {
+            if (key == 'parent') return;
+            if (selectedHierarchy.hasOwnProperty(key)) {
+                divHierarchy[key].visible = true;
+                divHierarchy[key].div.style.display = divHierarchy.toggled ? '' : 'none';
+                if (!(layersHierarchy[key] instanceof L.Layer)) {
+                    this._applySelection(layersHierarchy[key], selectedHierarchy[key], divHierarchy[key]);
+                }
+            } else {
+                divHierarchy[key].visible = false;
+                divHierarchy[key].div.style.display = 'none';
+            }
+        });
+    },
+
+    _isExpanded: function () {
+        return this._container.classList.contains('leaflet-control-layers-expanded');
     }
+
 });
