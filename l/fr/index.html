@@ -424,25 +424,25 @@
         </div>
         <div id="layer-selection-content">
             <div id="layer-creation">
-                Add or replace a custom layer here
+                Ajoutez ou remplacez une couche personnalisée
                 <table style="text-align: left">
                     <tr>
-                        <td><label for="layer-name">Layer name</label></td>
+                        <td><label for="layer-name">Nom de la couche</label></td>
                         <td><input type="text" id="layer-name" size="35"></td>
                     </tr>
                     <tr>
-                        <td><label for="layer-url">Tiles URL</label></td>
+                        <td><label for="layer-url">URL des tuiles</label></td>
                         <td><input type="text" id="layer-url" placeholder="https://{s}.domain.com/{z}/{y}/{x}.png" size="35"></td>
                     </tr>
                     <tr>
-                        <td><label for="layer-max-zoom">Max zoom level</label></td>
+                        <td><label for="layer-max-zoom">Niveau de zoom maximum</label></td>
                         <td><input type="number" id="layer-max-zoom" value="20" min="1" max="20"></td>
                     </tr>
                     <tr>
-                        <td><label for="layer-type">Layer type</label></td>
+                        <td><label for="layer-type">Type de couche</label></td>
                         <td><select id="layer-type">
-                            <option value="baselayer">Basemap</option>
-                            <option value="overlay">Overlay</option>
+                            <option value="baselayer">Carte de base</option>
+                            <option value="overlay">Calque de superposition</option>
                         </select></td>
                     </tr>
                     <tr>
@@ -450,12 +450,12 @@
                     </tr>
                 </table>
                 <div id="preview-map" style="width: 100%; height: 200px"></div>
-                <div id="layer-creation-ok" class="panels custom-button normal-button">Add layer</div>
+                <div id="layer-creation-ok" class="panels custom-button normal-button">Ajouter la couche</div>
             </div>
             <div id="layer-selection">
-                <span class="close-spacing">Select the layers you want to appear in the interface</span>
+                <span class="close-spacing">Sélectionnez les couches que vous voulez afficher dans l'interface</span>
                 <div id="layer-selection-area"></div>
-                <div id="layer-selection-ok" class="panels custom-button normal-button">Save</div>
+                <div id="layer-selection-ok" class="panels custom-button normal-button">Sauver</div>
             </div>
         </div>
         <div id="load-error-content" class="popup-content">
