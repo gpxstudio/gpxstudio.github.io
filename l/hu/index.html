@@ -9,6 +9,7 @@
         <link rel="alternate" hreflang="fr" href="https://gpx.studio/l/fr/"/>
         <link rel="alternate" hreflang="it" href="https://gpx.studio/l/it/"/>
         <link rel="alternate" hreflang="nl" href="https://gpx.studio/l/nl/"/>
+        <link rel="alternate" hreflang="no" href="https://gpx.studio/l/no/"/>
         <link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/"/>
         <link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/"/>
         <link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/"/>
@@ -145,7 +146,7 @@
                 <table class="panels">
                     <tr>
                         <td><b>Tevékenység</b></td>
-                        <td><select name="activity" id="activity-input">
+                        <td><select name="activity" id="activity-input" class="close-spacing">
                             <option value="bike">Kerékpár</option>
                             <option value="racingbike">Versenykerékpár</option>
                             <option value="mtb">Mountain bike</option>
@@ -380,7 +381,7 @@
                 <hr>
             </div>
             <div>
-                <div style="margin-right: 16px">Kattintson egy másik útvonalra vagy útvonal fülre, hogy az aktuális útvonalat egyesítse vele</div><hr>
+                <div class="close-spacing">Kattintson egy másik útvonalra vagy útvonal fülre, hogy az aktuális útvonalat egyesítse vele</div><hr>
                 Válassza ki, hogyan szeretne egyesíteni két útvonalat<br>
                 <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Egyesítés útvonalpont alapján</label><br>
                 <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Egyesítés útvonal szakaszként</label><br>
@@ -395,7 +396,7 @@
             <div id="extract-cancel" class="panels custom-button normal-button"><b>Mégsem</b></div>
         </div>
         <div id="structure-content" class="popup-content">
-            <div style="margin-right: 16px">Drag and drop the elements to rearrange the file structure</div>
+            <div class="close-spacing">Drag and drop the elements to rearrange the file structure</div>
             <div>Move elements from or to the tabs above the elevation profile</div>
             <div>Rename tracks or change their color</div>
             <div id="file-structure"></div>
@@ -420,6 +421,42 @@
             <input type="radio" name="where" id="zone-delete-outside">Külső választás<br>
             <div id="zone-delete-ok" class="panels custom-button normal-button">Folytassa</div>
             <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Mégsem</b></div>
+        </div>
+        <div id="layer-selection-content">
+            <div id="layer-creation">
+                Add or replace a custom layer here
+                <table style="text-align: left">
+                    <tr>
+                        <td><label for="layer-name">Layer name</label></td>
+                        <td><input type="text" id="layer-name" size="35"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="layer-url">Tiles URL</label></td>
+                        <td><input type="text" id="layer-url" placeholder="https://{s}.domain.com/{z}/{y}/{x}.png" size="35"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="layer-max-zoom">Max zoom level</label></td>
+                        <td><input type="number" id="layer-max-zoom" value="20" min="1" max="20"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="layer-type">Layer type</label></td>
+                        <td><select id="layer-type">
+                            <option value="baselayer">Basemap</option>
+                            <option value="overlay">Overlay</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td>Előnézet</td>
+                    </tr>
+                </table>
+                <div id="preview-map" style="width: 100%; height: 200px"></div>
+                <div id="layer-creation-ok" class="panels custom-button normal-button">Add layer</div>
+            </div>
+            <div id="layer-selection">
+                <span class="close-spacing">Select the layers you want to appear in the interface</span>
+                <div id="layer-selection-area"></div>
+                <div id="layer-selection-ok" class="panels custom-button normal-button">Save</div>
+            </div>
         </div>
         <div id="load-error-content" class="popup-content">
             Hiba történt a GPX-fájl betöltésekor.<br>
@@ -474,29 +511,29 @@
             <div id="asphalt-text">Aszfalt</div>,
             <div id="concrete-text">Beton</div>,
             <div id="chipseal-text">Törmelékes</div>,
-            <div id="cobblestone-text">Macskaköves</div>,
-            <div id="unhewn-cobblestone-text">Faragatlan macskakő</div>,
-            <div id="paving-stones-text">Kő burkolat</div>,
-            <div id="stepping-stones-text">Lépcsők</div>,
-            <div id="sett-text">Kőlap</div>,
-            <div id="metal-text">Fém</div>,
-            <div id="wood-text">Fa</div>,
-            <div id="compacted-text">Tömörített kavics</div>,
-            <div id="fine-gravel-text">Finom kavics</div>,
-            <div id="gravel-text">Kavics</div>,
-            <div id="pebblestone-text">Kavicsos kő</div>,
-            <div id="rock-text">Szikla</div>,
-            <div id="dirt-text">Piszok</div>,
-            <div id="ground-text">Föld</div>,
-            <div id="earth-text">Föld</div>,
-            <div id="snow-text">Hó</div>,
-            <div id="ice-text">Jég</div>,
-            <div id="salt-text">Só</div>,
-            <div id="mud-text">Sár</div>,
-            <div id="sand-text">Homok</div>,
-            <div id="woodchips-text">Faforgács</div>,
-            <div id="grass-text">Fű</div>,
-            <div id="grass-paver-text">Füves burkolat</div>
+            <div id="cobblestone-text">Cobblestone</div>,
+            <div id="unhewn-cobblestone-text">Unhewn Cobblestone</div>,
+            <div id="paving-stones-text">Paving Stones</div>,
+            <div id="stepping-stones-text">Stepping Stones</div>,
+            <div id="sett-text">Sett Paving</div>,
+            <div id="metal-text">Metal</div>,
+            <div id="wood-text">Wood</div>,
+            <div id="compacted-text">Compacted Gravel</div>,
+            <div id="fine-gravel-text">Fine Gravel</div>,
+            <div id="gravel-text">Gravel</div>,
+            <div id="pebblestone-text">Pebblestone</div>,
+            <div id="rock-text">Rock</div>,
+            <div id="dirt-text">Dirt</div>,
+            <div id="ground-text">Ground</div>,
+            <div id="earth-text">Earth</div>,
+            <div id="snow-text">Snow</div>,
+            <div id="ice-text">Ice</div>,
+            <div id="salt-text">Salt</div>,
+            <div id="mud-text">Mud</div>,
+            <div id="sand-text">Sand</div>,
+            <div id="woodchips-text">Woodchips</div>,
+            <div id="grass-text">Grass</div>,
+            <div id="grass-paver-text">Grass Paver</div>
         </div>
         <h1>online gpx szerkesztő</h1>
         <h1>online gpx megjelenítő</h1>
