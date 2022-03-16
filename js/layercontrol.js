@@ -13,6 +13,35 @@ L.Control.Layers.include({
         this.__initialize(this._getLayers(baselayersHierarchy), this._getLayers(overlaysHierarchy), options);
     },
 
+    addLayer: function (layer, parents, overlay) {
+        var current = overlay ? this._overlaysHierarchy : this._baselayersHierarchy;
+        for (var i=0; i<parents.length; i++) {
+            if (i == parents.length-1) current[parents[i]] = layer;
+            else if (!current.hasOwnProperty(parents[i])) current[parents[i]] = {};
+            current = current[parents[i]];
+        }
+
+        this.__initialize(this._getLayers(this._baselayersHierarchy), this._getLayers(this._overlaysHierarchy), this.options);
+        this._update();
+    },
+
+    removeLayer: function (parents, overlay) {
+        var current = overlay ? this._overlaysHierarchy : this._baselayersHierarchy;
+        for (var i=0; i<parents.length; i++) {
+            if (i == parents.length-1) delete current[parents[i]];
+            else current = current[parents[i]];
+        }
+        current = current.parent;
+        for (var i=parents.length-2; i>=0; i--) {
+            if (Object.keys(current[parents[i]]).length == 1) delete current[parents[i]];
+            else break;
+            current = current.parent;
+        }
+
+        this.__initialize(this._getLayers(this._baselayersHierarchy), this._getLayers(this._overlaysHierarchy), this.options);
+        this._update();
+    },
+
     onAdd: function (map) {
         this.__onAdd(map);
 
@@ -209,7 +238,7 @@ L.Control.Layers.include({
                 if (!(obj[key] instanceof L.Layer)) {
                     const icon = L.DomUtil.create('span');
                     span.insertBefore(icon, checkbox);
-                    icon.innerHTML = icon_folded;
+                    icon.innerHTML = count > 0 ? icon_folded : icon_unfolded;
 
                     L.DomEvent.on(icon, 'click', function () {
                         hierarchy[key].toggled = !hierarchy[key].toggled;

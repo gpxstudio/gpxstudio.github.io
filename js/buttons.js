@@ -13,6 +13,8 @@ export default class Buttons {
         this.disable_trace = false;
         this.show_direction = false;
         this.show_distance = false;
+        this.custom_layers = localStorage.hasOwnProperty('custom-layers') ? JSON.parse(localStorage.getItem('custom-layers')) : [];
+        this.custom_layers_object = [];
 
         this.terrain_cache = new Map();
         this.tilebelt = require('/include/tilebelt/index.js');
@@ -106,7 +108,6 @@ export default class Buttons {
         this.crop_cancel = document.getElementById("crop-cancel");
         this.crop_keep = document.getElementById("crop-keep");
         this.layer_selection_ok = document.getElementById("layer-selection-ok");
-        this.layer_selection_cancel = document.getElementById("layer-selection-cancel");
         this.export = document.getElementById("export");
         this.export2 = document.getElementById("export-2");
         this.save_drive = document.getElementById("save-drive");
@@ -179,7 +180,12 @@ export default class Buttons {
         this.merge_time_options = document.getElementById('merge-time-options');
         this.crop_content = document.getElementById('crop-content');
         this.layer_selection_content = document.getElementById('layer-selection-content');
-        this.layer_selection = document.getElementById('layer-selection');
+        this.layer_selection = document.getElementById('layer-selection-area');
+        this.layer_creation = document.getElementById('layer-creation-ok');
+        this.layer_name = document.getElementById('layer-name');
+        this.layer_url = document.getElementById('layer-url');
+        this.layer_max_zom = document.getElementById('layer-max-zoom');
+        this.layer_type = document.getElementById('layer-type');
         this.load_error_content = document.getElementById('load-error-content');
         this.embed_content = document.getElementById('embed-content');
         this.trace_info_content = document.getElementById('info');
@@ -235,7 +241,7 @@ export default class Buttons {
         this.extract_window = L.control.window(this.map,{title:'',content:this.extract_content,className:'panels-container',closeButton:false});
         this.structure_window = L.control.window(this.map,{title:'',content:this.structure_content,className:'panels-container'});
         this.crop_window = L.control.window(this.map,{title:'',content:this.crop_content,className:'panels-container',closeButton:false});
-        this.layer_selection_window = L.control.window(this.map,{title:'',content:this.layer_selection_content,className:'panels-container',closeButton:false});
+        this.layer_selection_window = L.control.window(this.map,{title:'',content:this.layer_selection_content,className:'panels-container'});
 
         this.zoom = L.control.zoom({
             position: 'topright'
@@ -511,7 +517,7 @@ export default class Buttons {
                                 "Austria & Germany": { "Kompass" : layers.et4 },
                                 "Finland": { "Lantmäteriverket Terrängkarta": layers.finlandTopo },
                                 "France": { "IGN SCAN25" : layers.ignFrScan25 },
-                                "Norvege": { "Topografisk Norgeskart 4": layers.norvegeTopo },
+                                "Norway": { "Topografisk Norgeskart 4": layers.norwayTopo },
                                 "Spain": { "IGN": layers.ignEs },
                                 "Sweden": { "Lantmäteriet Topo": layers.swedenTopo },
                                 "Switzerland": { "swisstopo": layers.swisstopo },
@@ -636,18 +642,31 @@ export default class Buttons {
                             },
                             rendererFactory: L.canvas.tile
                         });
-
-                        _this.controlLayers = L.control.layers(baselayersHierarchy, overlaysHierarchy, {editable: true}).addTo(_this.map);
-
-                        _this.addSwitchMapboxLayers();
                     } else {
                         delete baselayersHierarchy["Basemaps"]["World"]["Mapbox Outdoors"];
                         delete baselayersHierarchy["Basemaps"]["World"]["Mapbox Satellite"];
 
                         layers.openStreetMap.addTo(_this.map);
-
-                        _this.controlLayers = L.control.layers(baselayersHierarchy, overlaysHierarchy, {editable: true}).addTo(_this.map);
                     }
+
+                    for (var i=0; i<_this.custom_layers.length; i++) {
+                        const newLayer = L.tileLayer(_this.custom_layers[i].url, {
+                            maxZoom: _this.custom_layers[i].maxZoom
+                        });
+                        _this.custom_layers_object.push(newLayer);
+                        layers[_this.custom_layers[i].id] = newLayer;
+
+                        const overlay = _this.custom_layers[i].type == "overlay";
+                        if (overlay) {
+                            if (!overlaysHierarchy["Overlays"].hasOwnProperty("Custom")) overlaysHierarchy["Overlays"]["Custom"] = {};
+                            overlaysHierarchy["Overlays"]["Custom"][_this.custom_layers[i].name] = newLayer;
+                        } else {
+                            if (!baselayersHierarchy["Basemaps"].hasOwnProperty("Custom")) baselayersHierarchy["Basemaps"]["Custom"] = {};
+                            baselayersHierarchy["Basemaps"]["Custom"][_this.custom_layers[i].name] = newLayer;
+                        }
+                    }
+
+                    _this.controlLayers = L.control.layers(baselayersHierarchy, overlaysHierarchy, {editable: true}).addTo(_this.map);
 
                     if (localStorage.hasOwnProperty('lastbasemap')) {
                         const basemap = layers[localStorage.getItem('lastbasemap')];
@@ -665,8 +684,12 @@ export default class Buttons {
                         }
                     }
                     if (localStorage.hasOwnProperty('baselayer-selection')) baselayerSelection = JSON.parse(localStorage.getItem('baselayer-selection'));
+                    else localStorage.setItem('baselayer-selection', JSON.stringify(baselayerSelection));
                     if (localStorage.hasOwnProperty('overlay-selection')) overlaySelection = JSON.parse(localStorage.getItem('overlay-selection'));
+                    else localStorage.setItem('overlay-selection', JSON.stringify(overlaySelection));
                     _this.controlLayers.applySelections(baselayerSelection, overlaySelection);
+
+                    if (_this.supportsWebGL()) _this.addSwitchMapboxLayers();
                 }
 
                 const toggle = document.getElementsByClassName('leaflet-control-layers-toggle')[0];
@@ -698,7 +721,7 @@ export default class Buttons {
         xhr.send();
     }
 
-    addSwitchMapboxLayers() {
+    addSwitchMapboxLayers(update) {
         const _this = this;
         const layerSelectors = _this.controlLayers._layerControlInputs;
         for (var i=0; i<layerSelectors.length; i++) {
@@ -709,7 +732,7 @@ export default class Buttons {
                 _this.mapboxSatelliteSelector.addEventListener('click', function (e) {
                     _this.mapboxMap.getMapboxMap().setStyle("mapbox://styles/mapbox/satellite-v9", {diff: false});
                 });
-                if (localStorage.hasOwnProperty('lastbasemap') && localStorage.getItem('lastbasemap') == 'mapbox-satellite') {
+                if (!update && localStorage.hasOwnProperty('lastbasemap') && localStorage.getItem('lastbasemap') == 'mapbox-satellite') {
                     _this.mapboxSatelliteSelector.click();
                     _this.controlLayers.showLayer(i);
                 }
@@ -719,7 +742,7 @@ export default class Buttons {
                 _this.mapboxOutdoorsSelector.addEventListener('click', function (e) {
                     _this.mapboxMap.getMapboxMap().setStyle(_this.mapbox_style, {diff: false});
                 });
-                if (localStorage.hasOwnProperty('lastbasemap') && localStorage.getItem('lastbasemap') == 'mapbox') {
+                if (!update && localStorage.hasOwnProperty('lastbasemap') && localStorage.getItem('lastbasemap') == 'mapbox') {
                     _this.mapboxOutdoorsSelector.click();
                     _this.controlLayers.showLayer(i);
                 }
@@ -1624,15 +1647,63 @@ export default class Buttons {
             buttons.color_window.hide();
         });
         this.layer_selection_ok.addEventListener('click', function () {
-            const selectedBaselayers = buttons.controlLayers._getSelectedBaselayersHierarchy();
-            const selectedOverlays = buttons.controlLayers._getSelectedOverlaysHierarchy();
-            window.localStorage.setItem('baselayer-selection', JSON.stringify(selectedBaselayers));
-            window.localStorage.setItem('overlay-selection', JSON.stringify(selectedOverlays));
-            buttons.controlLayers.applySelections(selectedBaselayers, selectedOverlays);
+            const baselayerSelection = buttons.controlLayers._getSelectedBaselayersHierarchy();
+            const overlaySelection = buttons.controlLayers._getSelectedOverlaysHierarchy();
+            localStorage.setItem('baselayer-selection', JSON.stringify(baselayerSelection));
+            localStorage.setItem('overlay-selection', JSON.stringify(overlaySelection));
+            buttons.controlLayers.applySelections(baselayerSelection, overlaySelection);
             buttons.layer_selection_window.hide();
         });
-        this.layer_selection_cancel.addEventListener('click', function () {
-            buttons.layer_selection_window.hide();
+        this.layer_url.addEventListener('change', function () {
+            buttons.layer_map.eachLayer(function (layer) {
+                buttons.layer_map.removeLayer(layer);
+            });
+            L.tileLayer(buttons.layer_url.value).addTo(buttons.layer_map);
+        });
+        this.layer_creation.addEventListener('click', function () {
+            if (buttons.layer_name.value.length == 0) return;
+
+            const newLayer = L.tileLayer(buttons.layer_url.value, {
+                maxZoom: buttons.layer_max_zom.value
+            });
+
+            const id = 'custom-'+Math.random().toString(16).slice(2);
+
+            layers[id] = newLayer;
+            buttons.custom_layers.push({
+                name: buttons.layer_name.value,
+                url: buttons.layer_url.value,
+                type: buttons.layer_type.value,
+                maxZoom: buttons.layer_max_zom.value,
+                id: id
+            });
+            buttons.custom_layers_object.push(newLayer);
+            localStorage.setItem('custom-layers', JSON.stringify(buttons.custom_layers));
+
+            const overlay = buttons.layer_type.value == "overlay";
+            const parents = [overlay ? "Overlays" : "Basemaps", "Custom", buttons.layer_name.value];
+            buttons.controlLayers.addLayer(newLayer, parents, overlay);
+            if (buttons.supportsWebGL()) buttons.addSwitchMapboxLayers(true);
+
+            const baselayerSelection = JSON.parse(localStorage.getItem('baselayer-selection'));
+            const overlaySelection = JSON.parse(localStorage.getItem('overlay-selection'));
+            var current = overlay ? overlaySelection : baselayerSelection;
+            for (var i=0; i<parents.length; i++) {
+                if (i == parents.length-1) current[parents[i]] = true;
+                else if (!current.hasOwnProperty(parents[i])) current[parents[i]] = {};
+                current = current[parents[i]];
+            }
+            buttons.controlLayers.applySelections(baselayerSelection, overlaySelection);
+            localStorage.setItem('baselayer-selection', JSON.stringify(baselayerSelection));
+            localStorage.setItem('overlay-selection', JSON.stringify(overlaySelection));
+
+            buttons.layer_name.value = '';
+            buttons.layer_url.value = '';
+            buttons.layer_map.eachLayer(function (layer) {
+                buttons.layer_map.removeLayer(layer);
+            });
+
+            buttons.controlLayers._layer_selection_button.click();
         });
         this.about.addEventListener("click", function () {
             window.open('./about.html');
@@ -1672,12 +1743,46 @@ export default class Buttons {
             gtag('event', 'button', {'event_category' : 'hide'});
         });
         if (!this.embedding) {
+            this.layer_map = L.map('preview-map', {
+                zoomControl: false,
+                condensedAttributionControl: false
+            });
             this.controlLayers._layer_selection_button.addEventListener('click', function () {
                 if (buttons.window_open) buttons.window_open.hide();
                 buttons.window_open = buttons.layer_selection_window;
                 buttons.layer_selection_window.show();
                 buttons.layer_selection.innerHTML = '';
                 buttons.controlLayers._addLayerSelectionContent(buttons.layer_selection);
+                buttons.layer_map.fitBounds(buttons.map.getBounds());
+
+                for (var i=0; i<buttons.custom_layers.length; i++) {
+                    var span;
+                    if (buttons.custom_layers[i].type == "baselayer") span = buttons.controlLayers._baselayersCheckboxHierarchy["Basemaps"]["Custom"][buttons.custom_layers[i].name].span;
+                    else span = buttons.controlLayers._overlaysCheckboxHierarchy["Overlays"]["Custom"][buttons.custom_layers[i].name].span;
+
+                    const delete_layer = L.DomUtil.create('i', 'fas fa-trash-alt');
+                    delete_layer.style.paddingLeft = '15px';
+                    span.appendChild(delete_layer);
+
+                    const layerIndex = i;
+                    delete_layer.addEventListener('click', function () {
+                        const overlay = buttons.custom_layers[layerIndex].type == "overlay";
+                        const parents = [overlay ? "Overlays" : "Basemaps", "Custom", buttons.custom_layers[layerIndex].name];
+                        const layer = buttons.custom_layers_object[layerIndex];
+
+                        if (buttons.map.hasLayer(layer)) buttons.map.removeLayer(layer);
+
+                        buttons.controlLayers.removeLayer(parents, overlay);
+                        delete layers[buttons.custom_layers[layerIndex].id];
+                        buttons.custom_layers.splice(layerIndex, 1);
+                        buttons.custom_layers_object.splice(layerIndex, 1);
+                        localStorage.setItem('custom-layers', JSON.stringify(buttons.custom_layers));
+
+                        buttons.controlLayers._layer_selection_button.click();
+
+                        if (buttons.supportsWebGL()) buttons.addSwitchMapboxLayers(true);
+                    });
+                }
             });
             this.street_view_button.mapillary = true;
             this.street_view_mapillary.addEventListener('change', function () {

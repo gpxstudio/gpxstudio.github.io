@@ -59,7 +59,7 @@ const layers = {
         maxZoom: 20,
         attribution: '&copy; <a href="http://www.ordnancesurvey.co.uk/" target="_blank">Ordnance Survey</a>'
     }),
-    norvegeTopo: L.tileLayer('https://{s}.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=topo4&zoom={z}&x={x}&y={y}', {
+    norwayTopo: L.tileLayer('https://{s}.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=topo4&zoom={z}&x={x}&y={y}', {
         maxZoom: 20,
         subdomains: ['opencache', 'opencache2', 'opencache3'],
         attribution: '&copy; <a href="https://www.geonorge.no/" target="_blank">Geonorge</a>'
