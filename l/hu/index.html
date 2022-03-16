@@ -9,6 +9,7 @@
         <link rel="alternate" hreflang="fr" href="https://gpx.studio/l/fr/"/>
         <link rel="alternate" hreflang="it" href="https://gpx.studio/l/it/"/>
         <link rel="alternate" hreflang="nl" href="https://gpx.studio/l/nl/"/>
+        <link rel="alternate" hreflang="no" href="https://gpx.studio/l/no/"/>
         <link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/"/>
         <link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/"/>
         <link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/"/>
@@ -145,7 +146,7 @@
                 <table class="panels">
                     <tr>
                         <td><b>Tevékenység</b></td>
-                        <td><select name="activity" id="activity-input">
+                        <td><select name="activity" id="activity-input" class="close-spacing">
                             <option value="bike">Kerékpár</option>
                             <option value="racingbike">Versenykerékpár</option>
                             <option value="mtb">Mountain bike</option>
@@ -380,7 +381,7 @@
                 <hr>
             </div>
             <div>
-                <div style="margin-right: 16px">Kattintson egy másik útvonalra vagy útvonal fülre, hogy az aktuális útvonalat egyesítse vele</div><hr>
+                <div class="close-spacing">Kattintson egy másik útvonalra vagy útvonal fülre, hogy az aktuális útvonalat egyesítse vele</div><hr>
                 Válassza ki, hogyan szeretne egyesíteni két útvonalat<br>
                 <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Egyesítés útvonalpont alapján</label><br>
                 <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Egyesítés útvonal szakaszként</label><br>
@@ -395,7 +396,7 @@
             <div id="extract-cancel" class="panels custom-button normal-button"><b>Mégsem</b></div>
         </div>
         <div id="structure-content" class="popup-content">
-            <div style="margin-right: 16px">Drag and drop the elements to rearrange the file structure</div>
+            <div class="close-spacing">Drag and drop the elements to rearrange the file structure</div>
             <div>Move elements from or to the tabs above the elevation profile</div>
             <div>Rename tracks or change their color</div>
             <div id="file-structure"></div>
@@ -420,6 +421,42 @@
             <input type="radio" name="where" id="zone-delete-outside">Külső választás<br>
             <div id="zone-delete-ok" class="panels custom-button normal-button">Folytassa</div>
             <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Mégsem</b></div>
+        </div>
+        <div id="layer-selection-content">
+            <div id="layer-creation">
+                Add or replace a custom layer here
+                <table style="text-align: left">
+                    <tr>
+                        <td><label for="layer-name">Layer name</label></td>
+                        <td><input type="text" id="layer-name" size="35"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="layer-url">Tiles URL</label></td>
+                        <td><input type="text" id="layer-url" placeholder="https://{s}.domain.com/{z}/{y}/{x}.png" size="35"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="layer-max-zoom">Max zoom level</label></td>
+                        <td><input type="number" id="layer-max-zoom" value="20" min="1" max="20"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="layer-type">Layer type</label></td>
+                        <td><select id="layer-type">
+                            <option value="baselayer">Basemap</option>
+                            <option value="overlay">Overlay</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td>Előnézet</td>
+                    </tr>
+                </table>
+                <div id="preview-map" style="width: 100%; height: 200px"></div>
+                <div id="layer-creation-ok" class="panels custom-button normal-button">Add layer</div>
+            </div>
+            <div id="layer-selection">
+                <span class="close-spacing">Select the layers you want to appear in the interface</span>
+                <div id="layer-selection-area"></div>
+                <div id="layer-selection-ok" class="panels custom-button normal-button">Save</div>
+            </div>
         </div>
         <div id="load-error-content" class="popup-content">
             Hiba történt a GPX-fájl betöltésekor.<br>
