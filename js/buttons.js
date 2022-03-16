@@ -184,7 +184,7 @@ export default class Buttons {
         this.layer_creation = document.getElementById('layer-creation-ok');
         this.layer_name = document.getElementById('layer-name');
         this.layer_url = document.getElementById('layer-url');
-        this.layer_max_zom = document.getElementById('layer-max-zoom');
+        this.layer_max_zoom = document.getElementById('layer-max-zoom');
         this.layer_type = document.getElementById('layer-type');
         this.load_error_content = document.getElementById('load-error-content');
         this.embed_content = document.getElementById('embed-content');
@@ -651,7 +651,8 @@ export default class Buttons {
 
                     for (var i=0; i<_this.custom_layers.length; i++) {
                         const newLayer = L.tileLayer(_this.custom_layers[i].url, {
-                            maxZoom: _this.custom_layers[i].maxZoom
+                            maxNativeZoom: _this.custom_layers[i].maxZoom,
+                            maxZoom: 20
                         });
                         _this.custom_layers_object.push(newLayer);
                         layers[_this.custom_layers[i].id] = newLayer;
@@ -1658,13 +1659,31 @@ export default class Buttons {
             buttons.layer_map.eachLayer(function (layer) {
                 buttons.layer_map.removeLayer(layer);
             });
-            L.tileLayer(buttons.layer_url.value).addTo(buttons.layer_map);
+            const maxZoom = parseInt(buttons.layer_max_zoom.value);
+            if (buttons.layer_map.getZoom() > maxZoom) buttons.layer_map.setZoom(maxZoom);
+            L.tileLayer(buttons.layer_url.value, {
+                maxNativeZoom: maxZoom,
+                maxZoom: 20
+            }).addTo(buttons.layer_map);
+        });
+        this.layer_max_zoom.addEventListener('change', function () {
+            buttons.layer_map.eachLayer(function (layer) {
+                buttons.layer_map.removeLayer(layer);
+            });
+            const maxZoom = parseInt(buttons.layer_max_zoom.value);
+            if (buttons.layer_map.getZoom() > maxZoom) buttons.layer_map.setZoom(maxZoom);
+            L.tileLayer(buttons.layer_url.value, {
+                maxNativeZoom: maxZoom,
+                maxZoom: 20
+            }).addTo(buttons.layer_map);
         });
         this.layer_creation.addEventListener('click', function () {
             if (buttons.layer_name.value.length == 0) return;
 
+            const maxZoom = parseInt(buttons.layer_max_zoom.value);
             const newLayer = L.tileLayer(buttons.layer_url.value, {
-                maxZoom: buttons.layer_max_zom.value
+                maxNativeZoom: maxZoom,
+                maxZoom: 20
             });
 
             const id = 'custom-'+Math.random().toString(16).slice(2);
@@ -1674,7 +1693,7 @@ export default class Buttons {
                 name: buttons.layer_name.value,
                 url: buttons.layer_url.value,
                 type: buttons.layer_type.value,
-                maxZoom: buttons.layer_max_zom.value,
+                maxZoom: maxZoom,
                 id: id
             });
             buttons.custom_layers_object.push(newLayer);
