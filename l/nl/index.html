@@ -9,6 +9,7 @@
         <link rel="alternate" hreflang="fr" href="https://gpx.studio/l/fr/"/>
         <link rel="alternate" hreflang="it" href="https://gpx.studio/l/it/"/>
         <link rel="alternate" hreflang="nl" href="https://gpx.studio/l/nl/"/>
+        <link rel="alternate" hreflang="no" href="https://gpx.studio/l/no/"/>
         <link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/"/>
         <link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/"/>
         <link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/"/>
@@ -145,7 +146,7 @@
                 <table class="panels">
                     <tr>
                         <td><b>Activity</b></td>
-                        <td><select name="activity" id="activity-input">
+                        <td><select name="activity" id="activity-input" class="close-spacing">
                             <option value="bike">Fiets</option>
                             <option value="racingbike">Race fiets</option>
                             <option value="mtb">Mountainbike</option>
@@ -380,7 +381,7 @@
                 <hr>
             </div>
             <div>
-                <div style="margin-right: 16px">Klik op een andere track of tabblad om het huidige spoor er mee samen te voegen</div><hr>
+                <div class="close-spacing">Klik op een andere track of tabblad om het huidige spoor er mee samen te voegen</div><hr>
                 Kies hoe je de tweede track aan de eerste wilt toevoegen<br>
                 <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Samenvoegen als trackpunten</label><br>
                 <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Samenvoegen met tracksegmenten</label><br>
@@ -395,7 +396,7 @@
             <div id="extract-cancel" class="panels custom-button normal-button"><b>Annuleren</b></div>
         </div>
         <div id="structure-content" class="popup-content">
-            <div style="margin-right: 16px">Versleep de elementen om de bestandsstructuur te herschikken</div>
+            <div class="close-spacing">Versleep de elementen om de bestandsstructuur te herschikken</div>
             <div>Verplaats elementen vanuit of naar de tabbladen boven het hoogteprofiel</div>
             <div>Hernoem tracks of wijzig hun kleur</div>
             <div id="file-structure"></div>
@@ -420,6 +421,42 @@
             <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Buiten selectie</label><br>
             <div id="zone-delete-ok" class="panels custom-button normal-button">Ga verder</div>
             <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Annuleren</b></div>
+        </div>
+        <div id="layer-selection-content">
+            <div id="layer-creation">
+                Add or replace a custom layer here
+                <table style="text-align: left">
+                    <tr>
+                        <td><label for="layer-name">Layer name</label></td>
+                        <td><input type="text" id="layer-name" size="35"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="layer-url">Tiles URL</label></td>
+                        <td><input type="text" id="layer-url" placeholder="https://{s}.domain.com/{z}/{y}/{x}.png" size="35"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="layer-max-zoom">Max zoom level</label></td>
+                        <td><input type="number" id="layer-max-zoom" value="20" min="1" max="20"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="layer-type">Layer type</label></td>
+                        <td><select id="layer-type">
+                            <option value="baselayer">Basemap</option>
+                            <option value="overlay">Overlay</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td>Voorbeeld</td>
+                    </tr>
+                </table>
+                <div id="preview-map" style="width: 100%; height: 200px"></div>
+                <div id="layer-creation-ok" class="panels custom-button normal-button">Add layer</div>
+            </div>
+            <div id="layer-selection">
+                <span class="close-spacing">Select the layers you want to appear in the interface</span>
+                <div id="layer-selection-area"></div>
+                <div id="layer-selection-ok" class="panels custom-button normal-button">Save</div>
+            </div>
         </div>
         <div id="load-error-content" class="popup-content">
             Er is een fout opgetreden bij het laden van je GPX-bestand.<br>
@@ -469,12 +506,12 @@
             <div id="surface-text">Oppervlak</div>
             <div id="slope-text">Helling</div>
             <div id="missing-text">Ontbrekend</div>,
-            <div id="paved-text">Verhard</div>,
-            <div id="unpaved-text">Onverhard</div>,
-            <div id="asphalt-text">Asfalt</div>,
-            <div id="concrete-text">Beton</div>,
+            <div id="paved-text">Paved</div>,
+            <div id="unpaved-text">Unpaved</div>,
+            <div id="asphalt-text">Asphalt</div>,
+            <div id="concrete-text">Concrete</div>,
             <div id="chipseal-text">Chipseal</div>,
-            <div id="cobblestone-text">Klinkers</div>,
+            <div id="cobblestone-text">Cobblestone</div>,
             <div id="unhewn-cobblestone-text">Unhewn Cobblestone</div>,
             <div id="paving-stones-text">Paving Stones</div>,
             <div id="stepping-stones-text">Stepping Stones</div>,
