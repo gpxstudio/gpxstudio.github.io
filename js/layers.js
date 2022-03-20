@@ -29,6 +29,16 @@ const layers = {
         opacity: 0.4,
         attribution : '&copy; <a href="https://www.swisstopo.admin.ch" target="_blank">swisstopo</a>'
     }),
+    swisstopoCycling: L.tileLayer('https://wmts.geo.admin.ch/1.0.0/ch.astra.veloland/default/current/3857/{z}/{x}/{y}.png', {
+        maxZoom: 20,
+        maxNativeZoom: 18,
+        attribution : '&copy; <a href="https://www.swisstopo.admin.ch" target="_blank">swisstopo</a>'
+    }),
+    swisstopoMountainBike: L.tileLayer('https://wmts.geo.admin.ch/1.0.0/ch.astra.mountainbikeland/default/current/3857/{z}/{x}/{y}.png', {
+        maxZoom: 20,
+        maxNativeZoom: 18,
+        attribution : '&copy; <a href="https://www.swisstopo.admin.ch" target="_blank">swisstopo</a>'
+    }),
     et4: L.tileLayer('http://ec{s}.cdn.ecmaps.de/WmsGateway.ashx.jpg?Experience=demo-dahoam&MapStyle=KOMPASS&TileX={x}&TileY={y}&ZoomLevel={z}', {
         maxZoom: 20,
         maxNativeZoom: 15,
