@@ -517,6 +517,7 @@ export default class Buttons {
                                 "Austria & Germany": { "Kompass" : layers.et4 },
                                 "Finland": { "Lantmäteriverket Terrängkarta": layers.finlandTopo },
                                 "France": { "IGN SCAN25" : layers.ignFrScan25 },
+                                "New Zealand": { "Linz Topo": layers.linz },
                                 "Norway": { "Topografisk Norgeskart 4": layers.norwayTopo },
                                 "Spain": { "IGN": layers.ignEs },
                                 "Sweden": { "Lantmäteriet Topo": layers.swedenTopo },
@@ -649,6 +650,7 @@ export default class Buttons {
                     } else {
                         delete baselayersHierarchy["Basemaps"]["World"]["Mapbox Outdoors"];
                         delete baselayersHierarchy["Basemaps"]["World"]["Mapbox Satellite"];
+                        delete baselayersHierarchy["Basemaps"]["Countries"]["New Zealand"];
 
                         layers.openStreetMap.addTo(_this.map);
                     }
