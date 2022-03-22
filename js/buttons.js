@@ -549,7 +549,11 @@ export default class Buttons {
                                     "IGN Slope": layers.ignSlope,
                                     "IGN Cadastre": layers.ignFrCadastre
                                 },
-                                "Switzerland": { "swisstopo Slope": layers.swisstopoSlope }
+                                "Switzerland": {
+                                    "swisstopo Slope": layers.swisstopoSlope,
+                                    "swisstopo Cycling": layers.swisstopoCycling,
+                                    "swisstopo Mountain Bike": layers.swisstopoMountainBike,
+                                }
                             }
                         }
                     };
