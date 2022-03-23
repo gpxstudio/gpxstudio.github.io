@@ -2441,7 +2441,9 @@ export default class Trace {
     }
 
     do() {
-        this.gpx.getLayers()[0].clearLayers();
+        const tracks = this.getTracks();
+        for (var t=0; t<tracks.length; t++) this.gpx.getLayers()[0].removeLayer(tracks[t]);
+
         const mem = this.memory[this.at];
         for (var t=0; t<mem.length; t++) {
             const segments = mem[t].segments;
