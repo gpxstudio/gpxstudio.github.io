@@ -479,7 +479,7 @@ export default class Total {
                     waypointsOutput += `    <cmt>`+this.encodeString(point.cmt)+`</cmt>
 `;
                 }
-                if (point.dec) {
+                if (point.desc) {
                     waypointsOutput += `    <desc>`+this.encodeString(point.desc)+`</desc>
 `;
                 }
