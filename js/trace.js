@@ -13,6 +13,13 @@ const options = {
 };
 const ELEVATION_ZOOM = 14;
 const HOVER_STYLE = 'drop-shadow(1px 0 1px lightblue) drop-shadow(-1px 0 1px lightblue) drop-shadow(0 1px 1px lightblue) drop-shadow(0 -1px 1px lightblue)';
+const getSurface = function (message) {
+    const fields = message.split(" ");
+    for (var i=0; i<fields.length; i++) if (fields[i].startsWith("surface=")) {
+        return fields[i].substr(8);
+    }
+    return "missing";
+};
 
 export default class Trace {
     constructor(file, name, map, total, callback) {
@@ -2273,12 +2280,8 @@ export default class Trace {
 
     askRoute(a, b, c, layer) {
         const Http = new XMLHttpRequest();
-        var url = "https://graphhopper.com/api/1/route?"
-        url += "point=" + a.lat + ',' + a.lng;
-        if (!a.equals(b) && !b.equals(c)) url += "&point=" + b.lat + ',' + b.lng;
-        url += "&point=" + + c.lat + ',' + c.lng;
-        url += "&vehicle=" + this.buttons.activity;
-        url += "&elevation=true&details=surface&points_encoded=false&key="+this.buttons.graphhopper_token;
+        var url = (a.equals(b) || b.equals(c)) ? `https://routing.gpx.studio?lonlats=${a.lng},${a.lat}|${c.lng},${c.lat}&profile=${this.buttons.activity}&alternativeidx=0&format=geojson` :
+            `https://routing.gpx.studio?lonlats=${a.lng},${a.lat}|${b.lng},${b.lat}|${c.lng},${c.lat}&profile=${this.buttons.activity}&alternativeidx=0&format=geojson`;
         Http.open("GET", url);
         Http.send();
 
@@ -2287,18 +2290,41 @@ export default class Trace {
         Http.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 var ans = JSON.parse(this.responseText);
-                const new_pts = ans.paths[0].points.coordinates;
-                const details = ans.paths[0].details.surface;
                 const new_points = [];
+                const new_pts = ans.features[0].geometry.coordinates;
+                const lngIdx = ans.features[0].properties.messages[0].indexOf("Longitude");
+                const latIdx = ans.features[0].properties.messages[0].indexOf("Latitude");
+                const tagIdx = ans.features[0].properties.messages[0].indexOf("WayTags");
+                var messageIdx = 1;
+                var surface = getSurface(ans.features[0].properties.messages[messageIdx][tagIdx]);
+
                 var mid = -1, dist = -1, j = 0;
                 for (var i=0; i<new_pts.length; i++) {
-                    if (i > details[j][1]) j++;
+                    if (new_pts[i].length == 2) { // unknown elevation (eg in tunnels)
+                        for (var j=i-1; j>=0 && new_pts[i].length == 2; j--) {
+                            if (new_pts[j].length == 3) new_pts[i].push(new_pts[j][2]);
+                        }
+                        for (var j=i+1; j<new_pts.length && new_pts[i].length == 2; j++) {
+                            if (new_pts[j].length == 3) new_pts[i].push(new_pts[j][2]);
+                        }
+                    }
+
                     new_points.push(L.latLng(new_pts[i][1],new_pts[i][0]));
-                    new_points[i].meta = {time:null, original_time:false, ele:new_pts[i][2], surface:details[j][2]};
+                    new_points[i].meta = {time:null, original_time:false, ele:new_pts[i][2], surface:surface};
                     new_points[i].routing = true;
+
                     if (mid == -1 || new_points[i].distanceTo(b) < dist) {
                         dist = new_points[i].distanceTo(b);
                         mid = i;
+                    }
+
+                    if (new_points[i].lng.toPrecision(ans.features[0].properties.messages[messageIdx][lngIdx].length).replace('.','') == ans.features[0].properties.messages[messageIdx][lngIdx] &&
+                        new_points[i].lat.toPrecision(ans.features[0].properties.messages[messageIdx][latIdx].length).replace('.','') == ans.features[0].properties.messages[messageIdx][latIdx]){
+                        messageIdx++;
+                        if (messageIdx == ans.features[0].properties.messages.length) {
+                            surface = "missing";
+                            messageIdx--;
+                        } else surface = getSurface(ans.features[0].properties.messages[messageIdx][tagIdx]);
                     }
                 }
                 if (!a.equals(b) && !b.equals(c)) new_points[mid].routing = false;
@@ -2329,11 +2355,7 @@ export default class Trace {
 
     askRoute2(a, b, layer) {
         const Http = new XMLHttpRequest();
-        var url = "https://graphhopper.com/api/1/route?"
-        url += "point=" + a.lat + ',' + a.lng;
-        url += "&point=" + b.lat + ',' + b.lng;
-        url += "&vehicle=" + this.buttons.activity;
-        url += "&elevation=true&details=surface&points_encoded=false&key="+this.buttons.graphhopper_token;
+        var url = `https://routing.gpx.studio?lonlats=${a.lng},${a.lat}|${b.lng},${b.lat}&profile=${this.buttons.activity}&alternativeidx=0&format=geojson`;
         Http.open("GET", url);
         Http.send();
 
@@ -2342,15 +2364,37 @@ export default class Trace {
         Http.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 var ans = JSON.parse(this.responseText);
-                const new_pts = ans.paths[0].points.coordinates;
-                const details = ans.paths[0].details.surface;
+                const new_pts = ans.features[0].geometry.coordinates;
+                const lngIdx = ans.features[0].properties.messages[0].indexOf("Longitude");
+                const latIdx = ans.features[0].properties.messages[0].indexOf("Latitude");
+                const tagIdx = ans.features[0].properties.messages[0].indexOf("WayTags");
+                var messageIdx = 1;
+                var surface = getSurface(ans.features[0].properties.messages[messageIdx][tagIdx]);
+
                 const new_points = [];
                 var j=0;
                 for (var i=0; i<new_pts.length; i++) {
-                    if (i > details[j][1]) j++;
+                    if (new_pts[i].length == 2) { // unknown elevation (eg in tunnels)
+                        for (var j=i-1; j>=0 && new_pts[i].length == 2; j--) {
+                            if (new_pts[j].length == 3) new_pts[i].push(new_pts[j][2]);
+                        }
+                        for (var j=i+1; j<new_pts.length && new_pts[i].length == 2; j++) {
+                            if (new_pts[j].length == 3) new_pts[i].push(new_pts[j][2]);
+                        }
+                    }
+
                     new_points.push(L.latLng(new_pts[i][1],new_pts[i][0]));
-                    new_points[i].meta = {time:null, original_time:false, ele:new_pts[i][2], surface:details[j][2]};
+                    new_points[i].meta = {time:null, original_time:false, ele:new_pts[i][2], surface:surface};
                     new_points[i].routing = true;
+
+                    if (new_points[i].lng.toPrecision(ans.features[0].properties.messages[messageIdx][lngIdx].length).replace('.','') == ans.features[0].properties.messages[messageIdx][lngIdx] &&
+                        new_points[i].lat.toPrecision(ans.features[0].properties.messages[messageIdx][latIdx].length).replace('.','') == ans.features[0].properties.messages[messageIdx][latIdx]){
+                        messageIdx++;
+                        if (messageIdx == ans.features[0].properties.messages.length) {
+                            surface = "missing";
+                            messageIdx--;
+                        } else surface = getSurface(ans.features[0].properties.messages[messageIdx][tagIdx]);
+                    }
                 }
                 new_points[new_points.length-1].routing = false;
                 trace.addRoute2(new_points, a, b, layer);

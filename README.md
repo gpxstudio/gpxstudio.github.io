@@ -8,7 +8,7 @@ This repository contains the source code of the website [gpx.studio](https://gpx
 ## Run the code
 
 To play with the code locally:
-* Get your own tokens at [Mapbox](https://www.mapbox.com/) and [GraphHopper](https://www.graphhopper.com/) and put them in `res/keys.json`.
+* Get your own tokens at [Mapbox](https://www.mapbox.com/) and put them in `res/keys.json`.
 * Launch a local server in the root directory, for example using `python3 -m http.server`.
 
 ## Features
@@ -59,4 +59,4 @@ This project would not have been possible without the following amazing projects
 * [SortableJS](https://github.com/SortableJS/Sortable): for swapping the tabs
 * [Font Awesome](https://fontawesome.com/): nice icons
 
-And the data, maps and APIs from [Mapbox](https://www.mapbox.com/), [GraphHopper](https://www.graphhopper.com/), [OpenStreetMap](https://www.openstreetmap.org/), [OpenTopoMap](https://opentopomap.org/), [Maps.Refuges.Info](https://wiki.openstreetmap.org/wiki/Hiking/mri), [CyclOSM](https://www.cyclosm.org/), [IGN](https://geoservices.ign.fr/), [Strava](https://strava.com) and [Kumi Systems](https://kumi.systems).
+And the data, maps and APIs from [Mapbox](https://www.mapbox.com/), [OpenStreetMap](https://www.openstreetmap.org/), [OpenTopoMap](https://opentopomap.org/), [Maps.Refuges.Info](https://wiki.openstreetmap.org/wiki/Hiking/mri), [CyclOSM](https://www.cyclosm.org/), [IGN](https://geoservices.ign.fr/), [Strava](https://strava.com) and [Kumi Systems](https://kumi.systems).

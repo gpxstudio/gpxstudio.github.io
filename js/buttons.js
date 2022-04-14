@@ -7,7 +7,7 @@ export default class Buttons {
         // SETTINGS
         this.km = localStorage.hasOwnProperty('km') ? localStorage.getItem('km') == 'true' : true;
         this.speed_units = localStorage.hasOwnProperty('speed') ? localStorage.getItem('speed') == 'true' : true;
-        this.activity = localStorage.hasOwnProperty('activity') ? localStorage.getItem('activity') : 'bike';
+        this.activity = localStorage.hasOwnProperty('activity') ? localStorage.getItem('activity') : document.getElementById('activity-input').children[0].value;
         this.routing = localStorage.hasOwnProperty('routing') ? localStorage.getItem('routing') == 'true' : true;
         this.keep_timestamps = false;
         this.disable_trace = false;
@@ -375,7 +375,7 @@ export default class Buttons {
         L.control.condensedAttribution({
             position: 'bottomleft',
             emblem: '<i class="fas fa-circle-info"></i>',
-            prefix: '<a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>' + (this.embedding ? '' : ' | Powered by <a href="https://www.graphhopper.com/">GraphHopper API</a>')
+            prefix: '<a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>'
         }).addTo(this.map);
 
         this.hideTraceButtons();
@@ -386,7 +386,6 @@ export default class Buttons {
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 const keys = JSON.parse(xhr.responseText);
-                _this.graphhopper_token = keys.graphhopper;
                 _this.mapbox_style = 'mapbox://styles/mapbox/outdoors-v11';
 
                 if (_this.embedding && urlParams.has('token')) {
