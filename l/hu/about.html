@@ -144,9 +144,8 @@
             <div class="block">
             <a name="funding"></a><h1>Segítsen megőrizni a webhely ingyenességét (és reklám mentességét) &#128591;</h1>
             <div>
-                Each time you add or move a track point, we make a request to our servers to retrieve a route on the road network.
-                We also rely on APIs from <a href="https://www.mapbox.com/" target="_blank">Mapbox</a> to load beautiful maps, retrieve elevation data and process geocoding requests (looking for a place in the search bar).<br><br>
-                Unfortunately this is very costly so if you like the tool and use it frequently, please consider making even a small donation so that this website can stay <b>free to use</b> and <b>ad-free</b>. Köszönöm a támogatásod!<br><br>
+                Minden alkalommal, amikor egy útvonalat hozol létre egy külső szervertől le kell kérnünk a térképet az útvonalhoz.
+                Külsős <a href="https://www.mapbox.com/" target="_blank">Mapbox</a> API-kra is támaszkodunk a szép térképek jó magassági adataok betöltéséhez, geokódolási kérések feldolgozásához (amikor például egy helyre keresel a keresőben).<br><br> Sajnos ez költséges, ezért ha teszik ez az eszköz, és gyakran használod, kérjük támoagsd a munkánk, hogy a webhely <b>ingyenesen használható</b> és <b>hirdetésmentes</b> maradjon. Köszönöm a támogatásod!<br><br>
                 <div style="text-align: center;"><script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support gpx.studio on Ko-fi', '#29abe0', 'F1F1303GH');kofiwidget2.draw();</script></div>
             </div>
             </div>
@@ -289,11 +288,11 @@
                         <li>Kattintson a <i class="fas fa-plus-circle button"></i> elemre (csak akkor érhető el, ha kettőnél több fájl van megnyitva).</li>
                         <li>Kattintson a második GPX-fájl fülére az egyesítéshez, vagy az útvonalra. A második GPX-fájl útvonal szerkesztési pontjai az első GPX-fájl útvonal szerkesztési pontjai után jönnek.</li>
                     </ol>
-                    You can also use the file structure tool:
+                    Használhatja a fájlszerkezeti eszközt is:
                     <ol>
                         <li>Az alsó szintkép panel alatt válassza ki az első egyesíteni kívánt GPX-fájl fülét.</li>
-                        <li>Click on <i class="fas fa-folder-tree button"></i>.</li>
-                        <li>Drag the tab of the file you wish to merge into the first one and drop it in the file structure.</li>
+                        <li>Kattintson a <i class="fas fa-folder-tree button"></i> ikonra.</li>
+                        <li>Húzza az egyesíteni kívánt fájl fülét az elsőbe, és dobja be a fájlszerkezetbe.</li>
                     </ol>
                     Ha az összes nyitott GPX fájlt egyszerre szeretné egyesíteni:
                     <ol>
@@ -305,24 +304,23 @@
                     Több GPX-fájl egyesítésekor: a hiányzó idő-, hőmérséklet-, pulzus-, pedál/lépés ütem- vagy teljesítményadatok automatikusan kitöltődnek az egyesített fájlok átlagos értékével.
                     Ha egyes GPX-fájlok tartalmaznak időadatokat, akkor az egyesített fájl időadatai szigorúan növekednek (egyes fájlok időadatai szükség esetén eltolódnak).
                 </div></div>
-                <div class="guide-item"><a name="extract-segments" href="#extract-segments" class="my-anchor"><div class="guide-title" onclick="toggle('extract')">Extract tracks or tracks segments of a GPX file</div></a>
+                <div class="guide-item"><a name="extract-segments" href="#extract-segments" class="my-anchor"><div class="guide-title" onclick="toggle('extract')">Útvonalak és szegmensek részekre bontása gpx-fájlból</div></a>
                 <div id="extract" class="guide-content">
-                    To extract all tracks or tracks segments from a trace, click on <i class="fas fa-list-ul button"></i> (available only if the file has more than one track or track segment).
-                    If the GPX file contains waypoints (points of interest), they are kept in the files for which the traces pass closest.<br><br>
-                    To extract a specific track or track segment:
+                    Ha az összes útvonalat vagy szegmenset szét szeretné bontani egy teljes útvonalból, kattintson a gombra (csak akkor érhető el, ha a fájl egynél több útvonalat vagy szegmenst tartalmaz).
+                    Ha a GPX fájl útvonalpontokat (érdekes pontokat, POI-kat) tartalmaz, akkor azokat, azokban a fájlokban tárolja, amelyekhez az útvonalak a legközelebb haladnak:
                     <ol>
-                        <li>Click on <i class="fas fa-folder-tree button"></i>.</li>
-                        <li>Drag the track or track segment you wish to extract from the file structure to the tabs above the elevation profile.</li>
+                        <li>Kattintson a <i class="fas fa-folder-tree button"></i> ikonra.</li>
+                        <li>Húzza a fájlstruktúrából kivonni kívánt útvonalat vagy útszakaszt a magassági profil feletti fülekre.</li>
                     </ol>
                 </div></div>
-                <div class="guide-item"><a name="change-structure" href="#change-structure" class="my-anchor"><div class="guide-title" onclick="toggle('structure')">Change the structure of a GPX file</div></a>
+                <div class="guide-item"><a name="change-structure" href="#change-structure" class="my-anchor"><div class="guide-title" onclick="toggle('structure')">GPX-fájl szerkezetének módosítása</div></a>
                 <div id="structure" class="guide-content">
-                    Click on <i class="fas fa-folder-tree button"></i> and then you can:
+                    Kattintson a <i class="fas fa-folder-tree button"></i> elemre, és válaszon a lehetőségek közül:
                     <ul>
-                        <li>Drag and drop tracks and track segments to rearrange them, or drop them in the tabs above the elevation profile to extract them.</li>
-                        <li>Drag and drop traces from the tabs above the elevation profile to merge them with the current trace.</li>
-                        <li>Assign a different color to each track.</li>
-                        <li>Rename each track.</li>
+                        <li>Húzza át a útvonalakat és a pályaszegmenseket az átrendezésükhöz, vagy tegye őket a magassági profil feletti külön lapokra ha csak azt szeretné külön gpx fáljba menteni.</li>
+                        <li>Húzza át a útvonalakat a magassági profil feletti lapokról a tréképre, hogy egyesítse őket az aktuális útvonallal.</li>
+                        <li>Minden útvonalhoz rendeljen külömböző színeket.</li>
+                        <li>Nevezze át az útvonalakt.</li>
                     </ul>
                 </div></div>
                 <div class="guide-item"><a name="copy-file" href="#copy-file" class="my-anchor"><div class="guide-title" onclick="toggle('copy')">GPX file másolás</div></a>
@@ -336,8 +334,8 @@
                         <li>Mozgassa a csúszkát a szélesség módosításához.</li>
                         <li>Kattintson <span class="button">Ok</span>.</li>
                     </ol>
-                    You can optionally apply the chosen color, opacity and width to all traces by using the checkboxes.<br>
-                    For traces with multiple tracks, the file structure tool <i class="fas fa-folder-tree button"></i> can be used to assign a different color to each of them.
+                    Opcionálisan alkalmazhatja a kiválasztott színt, átlátszatlanságot és szélességet az összes nyomvonalra a jelölőnégyzetek használatával.<br>
+                     Több útvonal esetén a <i class="fas fa-folder-tree button"></i> fájlstruktúra eszközzel mindegyikhez más-más színt rendelhet.
                 </div></div>
                 <div class="guide-item"><a name="add-waypoint" href="#add-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('add-wpt')"> Útvonalpontok (érdekes, ellenőrző pontok) hozzáadása egy GPX-fájlhoz</div></a>
                 <div id="add-wpt" class="guide-content">
@@ -421,7 +419,7 @@
                     <li><code>cosm</code>: CyclOSM</li>
                 </ul>
                 <p>A Mapbox térképek használatához meg kell adnia a <code>token</code> paramétert egy érvényes saját <a href="https://account.mapbox.com/access-tokens/" target="_blank">Mapbox tokennel</a>. Egyéni Mapbox stílust is használhat, ha közvetlenül adja meg az URL-t a <code>mapbox-style=&lt;STYLE_URL&gt;</code> paraméterrel.</p>
-                <p>You can optionally add parameters to the source URL: <code>imperial</code> to get data in miles and feet, <code>running</code> to display the pace in minutes by unit of distance, <code>distance</code> to show distance markers, <code>direction</code> to show direction markers and <code>slope</code> to show the slope view of the elevation profile. Az alábbiakban egy lehetőség található az igény szerinti adatok megjelenítéséhez, az előnézet megtekintéséhez és a HTML-kód beszerzéséhez.</p>
+                <p>Opcionálisan adatokat is hozzáadhat a forrás URL-hez: <code>imperial</code> az adatok mérföldben és lábban való lekéréséhez, <code>running</code> a tempó percben, távolságegységenkénti megjelenítéséhez, <code>distance</code> a távolságjelzők, az <code>direction</code> pedig menetirányjelzők megjelenítéséhez. Az alábbiakban egy lehetőség található az igény szerinti adatok megjelenítéséhez, az előnézet megtekintéséhez és a HTML-kód beszerzéséhez.</p>
                 <div class="guide-item">
                     <h3 style="margin-block-start: 0em;">Útvonal megjelenítési adatok hozzáadása</h3>
                     <p>Fájl elérési URL-ek (vesszővel elválasztva)<br>
