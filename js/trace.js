@@ -1749,12 +1749,7 @@ export default class Trace {
             segment = this.getSegments()[0];
         } else {
             const segments = this.getSegments();
-            for (var i=segments.length-1; i>=0; i--) {
-                pt.index = segments[i]._latlngs.length;
-                segment = segments[i];
-                segments[i]._latlngs.push(pt);
-                break;
-            }
+            segment = segments[segments.length-1];
         }
 
         const len = this._editMarkers.length;
@@ -1930,11 +1925,10 @@ export default class Trace {
 
         const new_points = [];
         if (marker._prec == marker._pt || marker._pt == marker._succ) { // start or end of line
-            new_points.splice(new_points.length, 0, ...this.getIntermediatePoints(marker._prec, marker._succ));
+            new_points.splice(0, 0, ...this.getIntermediatePoints(marker._prec, marker._succ));
         } else {
-            new_points.push(marker._pt);
-            new_points.splice(0, 0, ...this.getIntermediatePoints(marker._prec, marker._pt));
-            new_points.splice(new_points.length, 0, ...this.getIntermediatePoints(marker._pt, marker._succ));
+            new_points.splice(0, 0, ...this.getIntermediatePoints(marker._pt, marker._succ));
+            new_points.splice(0, 1, ...this.getIntermediatePoints(marker._prec, marker._pt));
         }
 
         this.addRoute(new_points, marker._prec, marker._succ, marker._layer);
@@ -1951,21 +1945,17 @@ export default class Trace {
         d_pt = d_pt.divideBy(d_pt.distanceTo(origin)/step.distanceTo(origin));
 
         const pts = [];
-        for (var i=1; pt1.distanceTo(pt1.add(d_pt.multiplyBy(i))) < pt1.distanceTo(pt2); i++) {
+        for (var i=0; pt1.distanceTo(pt1.add(d_pt.multiplyBy(i))) < pt1.distanceTo(pt2); i++) {
             const pt = L.Projection.SphericalMercator.unproject(pt1.add(d_pt.multiplyBy(i)));
             pt.meta = {time:null, original_time:false, ele:0, surface:"missing"};
             pt.routing = true;
             pts.push(pt);
         }
 
-        if (pts.length == 0) {
-            d_pt = pt2.subtract(pt1);
-            d_pt = d_pt.divideBy(2);
-            const pt = L.Projection.SphericalMercator.unproject(pt1.add(d_pt));
-            pt.meta = {time:null, original_time: false, ele:0, surface:"missing"};
-            pt.routing = true;
-            pts.push(pt);
-        }
+        pts.push(b);
+
+        pts[0].routing = false;
+        pts[pts.length-1].routing = false;
 
         return pts;
     }
@@ -2327,21 +2317,20 @@ export default class Trace {
                         } else surface = getSurface(ans.features[0].properties.messages[messageIdx][tagIdx]);
                     }
                 }
+                new_points[0].routing = false;
+                new_points[new_points.length-1].routing = false;
                 if (!a.equals(b) && !b.equals(c)) new_points[mid].routing = false;
 
                 trace.addRoute(new_points, a, c, layer);
             } else if (this.readyState == 4) {
-                trace.addRoute([b], a, c, layer);
+                trace.addRoute([a,b,c], a, c, layer);
             }
         }
     }
 
     addRoute(new_points, a, c, layer) {
         const pts = layer._latlngs;
-        // remove old
-        pts.splice(a.index+1, c.index-a.index-1);
-        // add new
-        pts.splice(a.index+1, 0, ...new_points);
+        pts.splice(a.index, c.index-a.index+1, ...new_points);
         // update points indices
         this.updatePointIndices();
         // update markers indices
@@ -2396,10 +2385,11 @@ export default class Trace {
                         } else surface = getSurface(ans.features[0].properties.messages[messageIdx][tagIdx]);
                     }
                 }
+                new_points[0].routing = false;
                 new_points[new_points.length-1].routing = false;
                 trace.addRoute2(new_points, a, b, layer);
             } else if (this.readyState == 4) {
-                trace.addRoute2([b], a, b, layer);
+                trace.addRoute2([a,b], a, b, layer);
             }
         }
     }
@@ -2407,7 +2397,7 @@ export default class Trace {
     addRoute2(new_points, a, b, layer) {
         const pts = layer._latlngs;
         // add new
-        pts.splice(a.index+1, 1, ...new_points);
+        pts.splice(a.index, 1, ...new_points);
         // update points indices
         this.updatePointIndices();
         // update markers indices
