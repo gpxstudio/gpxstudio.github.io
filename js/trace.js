@@ -1214,19 +1214,19 @@ export default class Trace {
         const points = this.getPoints();
 
         for (var i=0; i<points.length; i++) {
-            if (points[i].meta.hasOwnProperty('hr')) {
+            if (points[i].meta.hasOwnProperty('hr') && points[i].meta.hr != null) {
                 totHr += points[i].meta.hr;
                 cntHr++;
             }
-            if (points[i].meta.hasOwnProperty('atemp')) {
+            if (points[i].meta.hasOwnProperty('atemp') && points[i].meta.atemp != null) {
                 totTemp += points[i].meta.atemp;
                 cntTemp++;
             }
-            if (points[i].meta.hasOwnProperty('cad')) {
+            if (points[i].meta.hasOwnProperty('cad') && points[i].meta.cad != null) {
                 totCad += points[i].meta.cad;
                 cntCad++;
             }
-            if (points[i].meta.hasOwnProperty('power')) {
+            if (points[i].meta.hasOwnProperty('power') && points[i].meta.power != null) {
                 totPower += points[i].meta.power;
                 cntPower++;
             }

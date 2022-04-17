@@ -394,7 +394,7 @@ export default class Total {
 
                             var trackPointExtensionsOutput = '';
                             if (incl_atemp) {
-                                if (point.meta.hasOwnProperty('atemp')) {
+                                if (point.meta.hasOwnProperty('atemp') && point.meta.atemp != null) {
                                     trackPointExtensionsOutput += `    <gpxtpx:atemp>${point.meta.atemp}</gpxtpx:atemp>
     `;
                                 } else if (atemp != null) {
@@ -403,7 +403,7 @@ export default class Total {
                                 }
                             }
                             if (incl_hr) {
-                                if (point.meta.hasOwnProperty('hr')) {
+                                if (point.meta.hasOwnProperty('hr') && point.meta.hr != null) {
                                     trackPointExtensionsOutput += `    <gpxtpx:hr>${point.meta.hr}</gpxtpx:hr>
     `;
                                 } else if (hr != null) {
@@ -412,7 +412,7 @@ export default class Total {
                                 }
                             }
                             if (incl_cad) {
-                                if (point.meta.hasOwnProperty('cad')) {
+                                if (point.meta.hasOwnProperty('cad') && point.meta.cad != null) {
                                     trackPointExtensionsOutput += `    <gpxtpx:cad>${point.meta.cad}</gpxtpx:cad>
     `;
                                 } else if (cad != null) {
@@ -431,7 +431,7 @@ export default class Total {
 
                             var trackPointPowerOutput = '';
                             if (incl_power) {
-                                if (point.meta.hasOwnProperty('power')) {
+                                if (point.meta.hasOwnProperty('power') && point.meta.power != null) {
                                     trackPointPowerOutput += `    <power>${point.meta.power}</power>
     `;
                                 } else if (power != null) {
