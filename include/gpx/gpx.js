@@ -750,7 +750,6 @@ L.GPX = L.FeatureGroup.extend({
                       distance += dist;
 
                       var t = Math.abs(ll.meta.time - last.meta.time);
-
                       if (in_bounds(cumul+i) && last.meta.time != null && ll.meta.time != null) {
                           this._info.duration.total += t;
                           if (this._moving_criterion(dist, t)) {
@@ -760,10 +759,12 @@ L.GPX = L.FeatureGroup.extend({
                       }
 
                       t = ll.meta.smoothed_ele - last.meta.smoothed_ele;
-                      if (t > 0) {
-                        this._info.elevation.gain += t;
-                      } else {
-                        this._info.elevation.loss += Math.abs(t);
+                      if (in_bounds(cumul+i)) {
+                          if (t > 0) {
+                            this._info.elevation.gain += t;
+                          } else {
+                            this._info.elevation.loss += Math.abs(t);
+                          }
                       }
                   }
 
