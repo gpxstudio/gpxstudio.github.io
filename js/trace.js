@@ -1760,7 +1760,6 @@ export default class Trace {
             this.askRoute2(this._editMarkers[len-1]._pt, pt, segment);
         } else {
             const new_points = this.getIntermediatePoints(this._editMarkers[len-1]._pt, pt);
-            new_points.push(pt);
             this.askElevation(new_points);
             this.addRoute2(new_points, this._editMarkers[len-1]._pt, pt, segment);
         }
@@ -1942,7 +1941,7 @@ export default class Trace {
         const origin = L.point(0,0);
         const step = L.point(100, 100);
         var d_pt = pt2.subtract(pt1);
-        d_pt = d_pt.divideBy(d_pt.distanceTo(origin)/step.distanceTo(origin));
+        d_pt = d_pt.divideBy(Math.max(2, d_pt.distanceTo(origin)/step.distanceTo(origin)));
 
         const pts = [];
         for (var i=0; pt1.distanceTo(pt1.add(d_pt.multiplyBy(i))) < pt1.distanceTo(pt2); i++) {
@@ -1952,7 +1951,10 @@ export default class Trace {
             pts.push(pt);
         }
 
-        pts.push(b);
+        const pt = new L.latLng(b.lat, b.lng);
+        pt.meta = {time:null, original_time:false, ele:0, surface:"missing"};
+
+        pts.push(pt);
 
         pts[0].routing = false;
         pts[pts.length-1].routing = false;
