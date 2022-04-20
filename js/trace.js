@@ -1781,15 +1781,10 @@ export default class Trace {
         var b = marker._pt;
         var c = marker._succ;
 
-        this.deletePointManual(marker);
-
-        if (this.buttons.routing) {
-            if(!marker._prec.equals(marker._pt) && !marker._succ.equals(marker._pt)) this.askRoute2(a, c, marker._layer);
-            else {
-                this.recomputeStats();
-                this.update();
-                this.redraw();
-            }
+        if (this.buttons.routing && !marker._prec.equals(marker._pt) && !marker._succ.equals(marker._pt)) {
+            this.askRoute(a, a, c, marker._layer);
+        } else {
+            this.deletePointManual(marker);
         }
     }
 
@@ -1855,11 +1850,9 @@ export default class Trace {
         }
         this._editMarkers.splice(idx, 1);
 
-        if (!this.buttons.routing) {
-            this.recomputeStats();
-            this.update();
-            this.redraw();
-        }
+        this.recomputeStats();
+        this.update();
+        this.redraw();
     }
 
     deleteZone(bounds, deletePts, deleteWpts, inside) {
