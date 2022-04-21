@@ -1228,7 +1228,7 @@ export default class Trace {
                 if (start >= cumul+len) tracks[t].removeLayer(segments[i]);
                 else if (end < cumul) tracks[t].removeLayer(segments[i]);
                 else if (start > cumul || end < cumul+len-1) {
-                    if (end-cumul+1 < len) segments[i]._latlngs.splice(end-cumul+1);
+                    if (end < len+cumul+len-1) segments[i]._latlngs.splice(end-cumul+1);
                     if (start > cumul) segments[i]._latlngs.splice(0, start-cumul);
                     segments[i]._latlngs[0].routing = false;
                     segments[i]._latlngs[segments[i]._latlngs.length-1].routing = false;

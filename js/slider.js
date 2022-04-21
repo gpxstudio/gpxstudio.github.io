@@ -101,10 +101,10 @@ export default class Slider {
     }
 
     getIndexStart() {
-        return this.getIndex(this.start.value);
+        return this.buttons.elev._originalData[this.buttons.elev.options.selectedAttributeIdx][this.getIndex(this.start.value)].trace_index;
     }
 
     getIndexEnd() {
-        return this.getIndex(this.end.value);
+        return this.buttons.elev._originalData[this.buttons.elev.options.selectedAttributeIdx][this.getIndex(this.end.value)].trace_index;
     }
 }
