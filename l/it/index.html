@@ -271,7 +271,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-folder-tree"></i></td>
-                <td>Manage the file structure, drag and drop files, tracks and track segments</td>
+                <td>Gestisci la struttura dei file trascinando file, tracce e segmenti di traccia</td>
             </tr>
             <tr>
                 <td><i class="fas fa-trash-alt"></i></td>
@@ -289,7 +289,7 @@
             <tr>
                 <td></td>
                 <td>F1</td>
-                <td>Show or hide the overlays currently used.</td>
+                <td>Mostra o nascondi gli overlay in uso.</td>
             </tr>
             <tr>
                 <td></td>
@@ -373,7 +373,7 @@
         </div>
         <div id="merge-content" class="popup-content">
             <div id="merge-time-options">
-                <i class="fas fa-stopwatch"></i> Choose how to adapt the timestamps of the second trace (if any)
+                <i class="fas fa-stopwatch"></i> Scegli come adattare i timestamp della seconda traccia (se presenti)
                 <div class="center-leaflet" style="text-align: left; width: min-content;">
                     <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Keep the original timestamps (as long as they come after those of the first trace)</label><br>
                     <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Make the second trace start right after the first one</label>
@@ -381,11 +381,11 @@
                 <hr>
             </div>
             <div>
-                <div class="close-spacing">Click on another trace or tab to merge the current trace with it</div><hr>
-                Choose how to add the second trace to the first one<br>
-                <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Merge as track points</label><br>
-                <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Merge as track segments</label><br>
-                <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Merge as tracks</label>
+                <div class="close-spacing">Clicca su un'altra traccia o su un'altra scheda per unirla con la traccia corrente</div><hr>
+                Scegli come unire la seconda traccia alla prima<br>
+                <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Unisci come punti di traccia</label><br>
+                <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Unisci come segmenti di traccia</label><br>
+                <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Unisci come tracce</label>
             </div>
         </div>
         <div id="extract-content" class="popup-content">
@@ -398,7 +398,7 @@
         <div id="structure-content" class="popup-content">
             <div class="close-spacing">Trascina e rilascia gli elementi per riorganizzare la struttura del file</div>
             <div>Move elements from or to the tabs above the elevation profile</div>
-            <div>Rename tracks or change their color</div>
+            <div>Rinomina le tracce o cambiane il colore</div>
             <div id="file-structure"></div>
         </div>
         <div id="crop-content" class="popup-content">
@@ -424,22 +424,22 @@
         </div>
         <div id="layer-selection-content">
             <div id="layer-creation">
-                Add or replace a custom layer here
+                Aggiungi o sostituisci un layer personalizzato
                 <table style="text-align: left">
                     <tr>
-                        <td><label for="layer-name">Layer name</label></td>
+                        <td><label for="layer-name">Nome del layer</label></td>
                         <td><input type="text" id="layer-name" size="35"></td>
                     </tr>
                     <tr>
-                        <td><label for="layer-url">Tiles URL</label></td>
+                        <td><label for="layer-url">URL dei tile</label></td>
                         <td><input type="text" id="layer-url" placeholder="https://{s}.domain.com/{z}/{y}/{x}.png" size="35"></td>
                     </tr>
                     <tr>
-                        <td><label for="layer-max-zoom">Max zoom level</label></td>
+                        <td><label for="layer-max-zoom">Massimo livello di zoom</label></td>
                         <td><input type="number" id="layer-max-zoom" value="20" min="1" max="20"></td>
                     </tr>
                     <tr>
-                        <td><label for="layer-type">Layer type</label></td>
+                        <td><label for="layer-type">Tipo del layer</label></td>
                         <td><select id="layer-type">
                             <option value="baselayer">Basemap</option>
                             <option value="overlay">Overlay</option>
@@ -450,10 +450,10 @@
                     </tr>
                 </table>
                 <div id="preview-map" style="width: 100%; height: 200px"></div>
-                <div id="layer-creation-ok" class="panels custom-button normal-button">Add layer</div>
+                <div id="layer-creation-ok" class="panels custom-button normal-button">Aggiungi layer</div>
             </div>
             <div id="layer-selection">
-                <span class="close-spacing">Select the layers you want to appear in the interface</span>
+                <span class="close-spacing">Seleziona i layer che vuoi visualizzare nell'interfaccia</span>
                 <div id="layer-selection-area"></div>
                 <div id="layer-selection-ok" class="panels custom-button normal-button">Salva</div>
             </div>
@@ -477,7 +477,7 @@
         <div id="ok-button-text">Ok</div>
         <div id="cancel-button-text">Annulla</div>
         <div id="search-input-text">Cerca...</div>
-        <div id="search-button-text">Search for a place or paste GPS coordinates</div>
+        <div id="search-button-text">Cerca un luogo o incolla delle coordinate GPS</div>
         <div id="locate-button-text">Mostra la mia posizione</div>
         <span id="track-text">Traccia</span>
         <span id="segment-text">Segment</span>
@@ -545,9 +545,9 @@
         <h1>aggiungere dati tempo file GPX online</h1>
         <h1>comprimere semplificare ridurre punti traccia GPX online</h1>
         <h1>visualizzare e aggiungiere waypoint file GPX online</h1>
-        <h1>edit Strava activity</h1>
-        <h1>correct Strava activity</h1>
-        <h1>merge Strava activities</h1>
+        <h1>modifica attività Strava</h1>
+        <h1>correggi attività Strava</h1>
+        <h1>unisci attività Strava</h1>
         </div>
     </body>
     <script src="/include/leaflet/leaflet.js"></script>
