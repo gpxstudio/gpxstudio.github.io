@@ -1040,7 +1040,6 @@ export default class Buttons {
         this.add_wpt.addEventListener("click", function () {
             if (total.hasFocus) return;
             const trace = total.traces[total.focusOn];
-            if (trace.isEdited) return;
             if (!trace.visible) trace.hideUnhide();
             buttons.disable_trace = true;
             map._container.style.cursor = 'crosshair';
@@ -1484,29 +1483,6 @@ export default class Buttons {
             buttons.window_open = buttons.structure_window;
             buttons.structure_window.show();
             gtag('event', 'button', {'event_category' : 'structure'});
-        });
-        map.on('mouseup', function (e) {
-            map.dragging.enable();
-            map.removeEventListener('mousemove');
-            if (map._draggedMarker) {
-                if (total.hasFocus) return;
-                var trace = total.traces[total.focusOn];
-                const marker = map._draggedMarker;
-                marker.getElement().style.cursor = 'pointer';
-                if (marker._pt) {
-                    trace.updatePoint(marker, e.latlng.lat, e.latlng.lng);
-                    trace.refreshEditMarkers();
-                    map._container.style.cursor = 'crosshair';
-                } else {
-                    if (marker._latlng != marker._latlng_origin) {
-                        marker._latlng.meta = {'ele': 0};
-                        trace.askElevation([marker._latlng], true);
-                    }
-                    if (trace.isEdited) map._container.style.cursor = 'crosshair';
-                    else map._container.style.cursor = '';
-                }
-                map._draggedMarker = null;
-            }
         });
         this.time.addEventListener("click", function (e) {
             if (total.hasFocus) return;
@@ -1966,22 +1942,22 @@ export default class Buttons {
 
                     if (buttons.add_wpt.active) {
                         trace.addWaypoint(e.latlng);
-                        map._container.style.cursor = '';
-                        var mapboxgl_canvas = document.getElementsByClassName('mapboxgl-canvas');
-                        if (mapboxgl_canvas.length > 0) {
-                            mapboxgl_canvas = mapboxgl_canvas[0];
-                            mapboxgl_canvas.style.cursor = '';
+                        if (!trace.isEdited) {
+                            map._container.style.cursor = '';
+                            var mapboxgl_canvas = document.getElementsByClassName('mapboxgl-canvas');
+                            if (mapboxgl_canvas.length > 0) {
+                                mapboxgl_canvas = mapboxgl_canvas[0];
+                                mapboxgl_canvas.style.cursor = '';
+                            }
                         }
                         buttons.disable_trace = false;
                         buttons.add_wpt.active = false;
                         gtag('event', 'button', {'event_category' : 'waypoint'});
                         return;
-                    }
-
-                    if (trace.drawing) {
+                    } else if (trace.drawing) {
                         if (buttons.disable_trace) return;
-                        if (!trace.insertingMarker) trace.addEndPoint(e.latlng.lat, e.latlng.lng);
-                        trace.insertingMarker = false;
+                        if (buttons.lastUpdatePointTime && Date.now() - buttons.lastUpdatePointTime < 100) return;
+                        trace.addEndPoint(e.latlng.lat, e.latlng.lng);
                     }
                 }
             });

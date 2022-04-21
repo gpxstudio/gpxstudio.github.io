@@ -445,10 +445,7 @@ L.GPX = L.FeatureGroup.extend({
               if (trace.buttons.embedding) return;
               if (trace.total.hasFocus) return;
               if (e.originalEvent !== undefined && e.originalEvent.which == 3) return false;
-              map.dragging.disable();
               marker._latlng_origin = marker._latlng;
-              map._draggedMarker = marker;
-              marker.getElement().style.cursor = 'grabbing';
           },
           drag: function (e) {
               const pt = map.latLngToLayerPoint(e.latlng);
@@ -462,6 +459,12 @@ L.GPX = L.FeatureGroup.extend({
               }
               if (best_pt && best_pt.distance < 15) {
                   marker.setLatLng(map.layerPointToLatLng(best_pt));
+              }
+          },
+          dragend: function (e) {
+              if (marker._latlng != marker._latlng_origin) {
+                  marker._latlng.meta = {'ele': 0};
+                  trace.askElevation([marker._latlng], true);
               }
           },
           click: function () {
@@ -736,6 +739,7 @@ L.GPX = L.FeatureGroup.extend({
               for (var i=0; i<points.length; i++) {
                   ll = points[i];
                   ll.index = i;
+                  ll.trace_index = cumul + i;
 
                   if (in_bounds(cumul+i)) {
                       this._info.npoints++;

@@ -136,61 +136,27 @@ export default class Trace {
                 trace.updateFocus();
                 if (total.buttons.window_open == total.buttons.structure_window && total.buttons.structure_window._wrapper.classList.contains('visible')) total.buttons.structure.click();
             }
-        }).on('mousedown', function (e) {
+        }).on('mouseover', function (e) {
             if (trace.buttons.disable_trace) return;
             if (trace.isEdited) {
                 if (e.originalEvent.which == 3) return;
                 if (e.layer._latlng) return;
-                trace.insertingMarker = true;
-                const marker = trace.insertEditMarker(e.layer, e.layerPoint);
-                marker.fire('mousedown');
-            }
-        }).on('contextmenu', function (e) {
-            if (!trace.isEdited) return;
-
-            var best_idx = -1, best_dist = null;
-            const points = trace.getPoints();
-            for (var i=0; i<points.length; i++) {
-                const dist = points[i].distanceTo(e.latlng);
-                if (best_idx == -1 || dist < best_dist) {
-                    best_idx = i;
-                    best_dist = dist;
+                if (!trace.tmpEditMarker) {
+                    trace.tmpEditMarker = trace.newEditMarker(e.latlng, e.layer);
+                    trace.tmpEditMarker.setZIndexOffset(-10);
+                    const layer = e.layer;
+                    map.on('mousemove', function (e) {
+                        var pt = layer.closestLayerPoint(e.layerPoint);
+                        if (pt.distance > 12) {
+                            trace.tmpEditMarker.remove();
+                            trace.tmpEditMarker = null;
+                            map.off('mousemove');
+                        } else {
+                            trace.tmpEditMarker.setLatLng(map.layerPointToLatLng(pt));
+                        }
+                    });
                 }
             }
-
-            if (!best_idx) return;
-
-            trace.popup.setContent(`<div id="split" class="custom-button popup-action"><i class="fas fa-cut"></i> `+trace.buttons.split_text+`</div>
-                                    <div id="start-loop" class="custom-button popup-action"><i class="fas fa-undo"></i> `+trace.buttons.start_loop_text+`</div>
-                                    <div id="close-popup" class="custom-button" style="position: absolute; top: 4px; right: 6px;"><i class="fas fa-times"></i></div>`);
-            trace.popup.setLatLng(e.latlng);
-            trace.popup.openOn(map);
-            trace.popup.addEventListener('remove', function (e) {
-                trace.closePopup();
-            });
-
-            var button = document.getElementById("split");
-            button.addEventListener("click", function () {
-                const copy = trace.clone();
-                total.setTraceIndex(copy.index, trace.index+1);
-                copy.crop(best_idx, copy.getPoints().length, true);
-                trace.crop(0, best_idx, true);
-                trace.closePopup();
-                trace.draw();
-            });
-
-            var button2 = document.getElementById("start-loop");
-            button2.addEventListener("click", function () {
-                trace.setStart(best_idx);
-                trace.closePopup();
-            });
-
-            var close = document.getElementById("close-popup");
-            close.addEventListener("click", function () {
-                trace.closePopup();
-            });
-
-            return false;
         });
         L.DomEvent.on(this.gpx, 'dblclick', L.DomEvent.stopPropagation);
 
@@ -422,7 +388,6 @@ export default class Trace {
 
     edit() {
         this.isEdited = true;
-        this.updatePointIndices();
         this.updateEditMarkers();
         this.buttons.greyTraceButtons();
         if (this.buttons.slider.isActive()) this.buttons.slider.reset();
@@ -559,27 +524,39 @@ export default class Trace {
     newEditMarker(point, layer) {
         const trace = this;
         const map = this.map;
-        const marker = L.circleMarker([point.lat, point.lng], {
-            className: 'edit-marker',
-            radius: 4,
-            pane: 'markerPane'
+        const marker = L.marker([point.lat, point.lng], {
+            icon: L.icon({
+                iconUrl: '/res/circle.svg',
+                iconSize: [9, 9]
+            }),
+            draggable: true
         }).addTo(map);
         marker._pt = point;
         marker._prec = point;
         marker._succ = point;
         marker._layer = layer;
+        const insertTmpEditMarker = function () {
+            if (marker == trace.tmpEditMarker) {
+                trace.insertEditMarker(marker, marker._latlng);
+                marker.setZIndexOffset(0);
+                trace.tmpEditMarker = null;
+                map.off('mousemove');
+            }
+        };
         marker.on({
-            mousedown: function (e) {
-                if (e.originalEvent !== undefined && e.originalEvent.which == 3) return;
-                map.dragging.disable();
-                map.on('mousemove', function (e) {
-                    marker.setLatLng(e.latlng);
-                });
-                map._draggedMarker = marker;
-                marker.getElement().style.cursor = 'grabbing';
+            dragstart: function (e) {
+                insertTmpEditMarker();
+            },
+            dragend: function (e) {
+                trace.updatePoint(marker, marker._latlng.lat, marker._latlng.lng);
+            },
+            click: function (e) {
+                insertTmpEditMarker();
+                L.DomEvent.stopPropagation(e);
             },
             contextmenu: function (e) {
                 if (trace._editMarkers.length == 1) return;
+                insertTmpEditMarker();
                 var content = '<div id="close-popup" class="custom-button" style="float: right;"><i class="fas fa-times"></i></div>';
                 if (marker != trace._editMarkers[0] && marker != trace._editMarkers[trace._editMarkers.length-1]) {
                     content += `<div id="split-waypoint" class="custom-button popup-action"><i class="fas fa-cut"></i> `+trace.buttons.split_text+`</div>
@@ -631,8 +608,9 @@ export default class Trace {
         return marker;
     }
 
-    insertEditMarker(layer, layer_point) {
-        const pt = this.map.layerPointToLatLng(layer_point);
+    insertEditMarker(marker, pt) {
+        const layer = marker._layer;
+        const layer_point = this.map.latLngToLayerPoint(pt);
         const points = layer._latlngs;
         var best_dist = -1, best_idx = -1;
         for (var i=0; i<points.length-1; i++) {
@@ -653,10 +631,15 @@ export default class Trace {
             ele: (points[best_idx-1].meta.ele + points[best_idx].meta.ele) / 2,
             surface: "missing"
         };
+        newPt.routing = false;
         points.splice(best_idx, 0, newPt);
-        this.updatePointIndices();
 
-        const marker = this.newEditMarker(newPt, layer);
+        this.recomputeStats();
+
+        marker._pt = newPt;
+        marker._prec = newPt;
+        marker._succ = newPt;
+
         var marker_idx = -1;
         // find index for new marker (could binary search)
         for (var i=0; i<this._editMarkers.length; i++) {
@@ -715,23 +698,6 @@ export default class Trace {
                 }
             }
         }
-    }
-
-    updatePointIndices() {
-        const segments = this.getSegments();
-        var k = 0;
-        for (var l=0; l<segments.length; l++) {
-            const points = segments[l]._latlngs;
-            for (var i=0; i<points.length; i++) {
-                points[i].index = i;
-                points[i].trace_index = k++;
-            }
-        }
-    }
-
-    refreshEditMarkers() {
-        for (var i=0; i<this._editMarkers.length; i++)
-            this._editMarkers[i].bringToFront();
     }
 
     previewSimplify(value) {
@@ -1349,11 +1315,18 @@ export default class Trace {
                 if (index >= cumul + segments[s]._latlngs.length) segmentBefore.push(segments[s]._latlngs);
                 else if (index < cumul) segmentAfter.push(segments[s]._latlngs);
                 else { // split in this segment
+                    const before = segments[s]._latlngs.slice(0, index-cumul);
+                    const after = segments[s]._latlngs.slice(index-cumul);
+                    const pt = after[0].clone();
+                    pt.meta = JSON.parse(JSON.stringify(after[0].meta));
+                    if (pt.meta.time != null) pt.meta.time = new Date(pt.meta.time);
+                    pt.routing = false;
+                    before.push(pt)
                     if (tracks.length == 1 && segments.length == 1) {
-                        segmentAfter.push(segments[s]._latlngs.slice(index-cumul).concat(segments[s]._latlngs.slice(0, index-cumul+1)));
+                        segmentAfter.push(after.concat(before));
                     } else {
-                        segmentBefore.push(segments[s]._latlngs.slice(0, index-cumul+1));
-                        segmentAfter.push(segments[s]._latlngs.slice(index-cumul));
+                        segmentBefore.push(before);
+                        segmentAfter.push(after);
                     }
                 }
                 cumul += segments[s]._latlngs.length;
@@ -1401,9 +1374,10 @@ export default class Trace {
         }
 
         this.setStyle(true);
-
         this.redraw();
+
         this.recomputeStats();
+        this.updateEditMarkers();
         this.update();
     }
 
@@ -1766,6 +1740,7 @@ export default class Trace {
     }
 
     updatePoint(marker, lat, lng) {
+        this.buttons.lastUpdatePointTime = Date.now();
         this.save();
 
         if (this.buttons.routing) this.updatePointRouting(marker, lat, lng);
@@ -1830,7 +1805,8 @@ export default class Trace {
         } else {
             res = points.splice(prec_idx+1, succ_idx-prec_idx-1);
         }
-        this.updatePointIndices();
+
+        this.recomputeStats();
 
         // update markers indices
         var idx = -1;
@@ -1850,7 +1826,6 @@ export default class Trace {
         }
         this._editMarkers.splice(idx, 1);
 
-        this.recomputeStats();
         this.update();
         this.redraw();
     }
@@ -2326,14 +2301,10 @@ export default class Trace {
     addRoute(new_points, a, c, layer) {
         const pts = layer._latlngs;
         pts.splice(a.index, c.index-a.index+1, ...new_points);
-        // update points indices
-        this.updatePointIndices();
-        // update markers indices
-        this.updateEditMarkers();
         this.extendTimeData(this.buttons.keep_timestamps);
-
         this.redraw();
         this.recomputeStats();
+        this.updateEditMarkers();
         this.update();
     }
 
@@ -2393,14 +2364,11 @@ export default class Trace {
         const pts = layer._latlngs;
         // add new
         pts.splice(a.index, 1, ...new_points);
-        // update points indices
-        this.updatePointIndices();
-        // update markers indices
-        this.updateEditMarkers();
-        this.extendTimeData(this.buttons.keep_timestamps);
 
+        this.extendTimeData(this.buttons.keep_timestamps);
         this.redraw();
         this.recomputeStats();
+        this.updateEditMarkers();
         this.update();
     }
 
