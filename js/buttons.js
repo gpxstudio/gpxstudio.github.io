@@ -1103,6 +1103,7 @@ export default class Buttons {
                     map.removeEventListener("mousedown", createRect);
                     map.removeEventListener("mousemove", extendRect);
                     map.removeEventListener("click", endRect);
+                    map.dragging.enable();
                     return;
                 }
                 buttons.zone_delete.rect = L.rectangle([
@@ -1121,6 +1122,7 @@ export default class Buttons {
                     map.removeEventListener("mousedown", createRect);
                     map.removeEventListener("mousemove", extendRect);
                     map.removeEventListener("mouseup", endRect);
+                    map.dragging.enable();
 
                     buttons.zone_delete_window.show();
                     buttons.zone_delete_window.addEventListener('hide', function (e) {
