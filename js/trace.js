@@ -2267,6 +2267,7 @@ export default class Trace {
                         for (var j=i+1; j<new_pts.length && new_pts[i].length == 2; j++) {
                             if (new_pts[j].length == 3) new_pts[i].push(new_pts[j][2]);
                         }
+                        if (new_pts[i].length == 2) new_pts[i].push(0);
                     }
 
                     new_points.push(L.latLng(new_pts[i][1],new_pts[i][0]));
@@ -2336,6 +2337,7 @@ export default class Trace {
                         for (var j=i+1; j<new_pts.length && new_pts[i].length == 2; j++) {
                             if (new_pts[j].length == 3) new_pts[i].push(new_pts[j][2]);
                         }
+                        if (new_pts[i].length == 2) new_pts[i].push(0);
                     }
 
                     new_points.push(L.latLng(new_pts[i][1],new_pts[i][0]));
