@@ -609,6 +609,7 @@ export default class Buttons {
 
                         _this.mapboxMap.getMapboxMap().on('load', () => {
                             _this.mapboxSKUToken = _this.mapboxMap.getMapboxMap()._requestManager._skuToken;
+                            _this.mapboxgl_canvas = _this.mapboxMap._container.querySelector('.mapboxgl-canvas');
                         });
 
                         baselayersHierarchy["Basemaps"]["World"]["Mapbox Outdoors"] = _this.mapboxMap;
@@ -1043,11 +1044,7 @@ export default class Buttons {
             if (!trace.visible) trace.hideUnhide();
             buttons.disable_trace = true;
             map._container.style.cursor = 'crosshair';
-            var mapboxgl_canvas = document.getElementsByClassName('mapboxgl-canvas');
-            if (mapboxgl_canvas.length > 0) {
-                mapboxgl_canvas = mapboxgl_canvas[0];
-                mapboxgl_canvas.style.cursor = 'crosshair';
-            } else mapboxgl_canvas = null;
+            if (buttons.mapboxgl_canvas) buttons.mapboxgl_canvas.style.cursor = 'crosshair';
             buttons.add_wpt.active = true;
         });
         this.clear.addEventListener("click", function () {
@@ -1087,18 +1084,14 @@ export default class Buttons {
             buttons.window_open = buttons.zone_delete_window;
 
             map._container.style.cursor = 'crosshair';
-            var mapboxgl_canvas = document.getElementsByClassName('mapboxgl-canvas');
-            if (mapboxgl_canvas.length > 0) {
-                mapboxgl_canvas = mapboxgl_canvas[0];
-                mapboxgl_canvas.style.cursor = 'crosshair';
-            } else mapboxgl_canvas = null;
+            if (buttons.mapboxgl_canvas) buttons.mapboxgl_canvas.style.cursor = 'crosshair';
             map.dragging.disable();
 
             var start_pt = null;
 
             const createRect = function (e) {
                 map._container.style.cursor = '';
-                if (mapboxgl_canvas) mapboxgl_canvas.style.cursor = '';
+                if (buttons.mapboxgl_canvas) buttons.mapboxgl_canvas.style.cursor = '';
                 if (buttons.window_open != buttons.zone_delete_window) {
                     map.removeEventListener("mousedown", createRect);
                     map.removeEventListener("mousemove", extendRect);
@@ -1896,7 +1889,7 @@ export default class Buttons {
                 if (buttons.street_view_button.open) {
                     if (total.hasFocus || !total.traces[total.focusOn].isEdited) {
                         map._container.style.cursor = '';
-                        if (buttons.street_view_button.mapboxgl_canvas) buttons.street_view_button.mapboxgl_canvas.style.cursor = '';
+                        if (buttons.mapboxgl_canvas) buttons.mapboxgl_canvas.style.cursor = '';
                     }
                     buttons.disable_trace = false;
                     buttons.street_view_button.style.color = '';
@@ -1912,11 +1905,7 @@ export default class Buttons {
                     }
                     buttons.disable_trace = true;
                     map._container.style.cursor = 'crosshair';
-                    var mapboxgl_canvas = document.getElementsByClassName('mapboxgl-canvas');
-                    if (mapboxgl_canvas.length > 0) {
-                        buttons.street_view_button.mapboxgl_canvas = mapboxgl_canvas[0];
-                        buttons.street_view_button.mapboxgl_canvas.style.cursor = 'crosshair';
-                    } else buttons.street_view_button.mapboxgl_canvas = null;
+                    if (buttons.mapboxgl_canvas) buttons.mapboxgl_canvas.style.cursor = 'crosshair';
                     if (buttons.street_view_button.mapillary) {
                         buttons.mapillary_coverage.addTo(map);
                         buttons.mapillary_coverageZoomed.addTo(map);
@@ -1955,11 +1944,7 @@ export default class Buttons {
                         trace.addWaypoint(e.latlng);
                         if (!trace.isEdited) {
                             map._container.style.cursor = '';
-                            var mapboxgl_canvas = document.getElementsByClassName('mapboxgl-canvas');
-                            if (mapboxgl_canvas.length > 0) {
-                                mapboxgl_canvas = mapboxgl_canvas[0];
-                                mapboxgl_canvas.style.cursor = '';
-                            }
+                            if (buttons.mapboxgl_canvas) buttons.mapboxgl_canvas.style.cursor = '';
                         }
                         buttons.disable_trace = false;
                         buttons.add_wpt.active = false;

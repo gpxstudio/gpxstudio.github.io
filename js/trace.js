@@ -423,18 +423,12 @@ export default class Trace {
         this.edit();
         this.drawing = true;
         this.buttons.map._container.style.cursor = 'crosshair';
-        var mapboxgl_canvas = document.getElementsByClassName('mapboxgl-canvas');
-        if (mapboxgl_canvas.length > 0) {
-            mapboxgl_canvas = mapboxgl_canvas[0];
-            mapboxgl_canvas.style.cursor = 'crosshair';
-            this.mapboxgl_canvas = mapboxgl_canvas;
-        } else this.mapboxgl_canvas = null;
+        if (this.buttons.mapboxgl_canvas) this.buttons.mapboxgl_canvas.style.cursor = 'crosshair';
     }
 
     stopDraw() {
         this.buttons.map._container.style.cursor = '';
-        var mapboxgl_canvas = document.getElementsByClassName('mapboxgl-canvas');
-        if (this.mapboxgl_canvas) this.mapboxgl_canvas.style.cursor = '';
+        if (this.buttons.mapboxgl_canvas) this.buttons.mapboxgl_canvas.style.cursor = '';
         this.drawing = false;
         if (this.getPoints().length == 0) {
             this.total.removeTrace(this.index);
