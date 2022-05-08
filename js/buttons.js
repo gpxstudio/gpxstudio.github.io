@@ -1330,10 +1330,17 @@ export default class Buttons {
             }
         };
         document.addEventListener("keydown", function (e) {
-            if (e.key === "Escape") {
+            if (e.key === "Backspace") {
+                const trace = total.traces[total.focusOn];
+                if (trace.waypointOpen && trace.waypointOpen.type === 'view' && e.code === 'Backspace') {
+                    e.preventDefault();
+                    trace.deleteWaypoint(trace.waypointOpen);
+                    trace.waypointOpen = null;
+                }
+            } else if (e.key === "Escape") {
                 if (buttons.window_open) buttons.window_open.hide();
                 if (total.hasFocus) return;
-                var trace = total.traces[total.focusOn];
+                const trace = total.traces[total.focusOn];
                 if (trace.isEdited) buttons.edit.click();
                 e.preventDefault();
             } else if (e.key === "F1") {

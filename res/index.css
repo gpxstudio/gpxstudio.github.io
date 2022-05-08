@@ -1,7 +1,7 @@
 html, body {
-        height: 100%;
-        padding: 0;
-        margin: 0;
+    height: 100%;
+    padding: 0;
+    margin: 0;
 }
 
 #mapid {
@@ -47,6 +47,40 @@ html, body {
     margin: 4px 6px;
     max-width: 60vw;
     width: max-content !important;
+}
+
+.leaflet-popup-content > .waypoint {
+    width: 300px;
+    display: inline-block;
+    overflow-wrap: break-word;
+}
+
+.leaflet-popup-content .waypoint__heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    word-break: break-word;
+    border-bottom: 1px solid #eee;
+}
+
+.leaflet-popup-content .waypoint__actions {
+    margin-left: 5px;
+    min-width: 70px;
+    text-align: right;
+}
+
+.leaflet-popup-content .waypoint__actions > i {
+    font-size: 16px;
+    margin: 0 3px;
+}
+
+.leaflet-popup-content .waypoint__actions > i:first-of-type {
+    margin-left: 0;
+}
+
+.leaflet-popup-content .waypoint__actions > i:last-of-type {
+    margin-right: 0;
 }
 
 .leaflet-popup-tip {
@@ -605,6 +639,10 @@ ul {
     height: fit-content !important;
 }
 
+.wpt-cmt {
+    margin: 0;
+}
+
 .wpt-cmt img {
    width: 100%;
 }
@@ -615,6 +653,11 @@ ul {
     padding: 1px 2px;
     border: solid 1px;
     border-radius: 2px;
+    margin-bottom: 8px;
+}
+
+.wpt-input__label {
+    font-weight: bold;
 }
 
 #mly {
