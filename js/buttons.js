@@ -515,7 +515,11 @@ export default class Buttons {
                             "Countries": {
                                 "Austria & Germany": { "Kompass" : layers.et4 },
                                 "Finland": { "Lantmäteriverket Terrängkarta": layers.finlandTopo },
-                                "France": { "IGN SCAN25" : layers.ignFrScan25 },
+                                "France": { 
+                                    "IGN SCAN25" : layers.ignFrScan25,
+                                    "IGN Plan" : layers.ignPlanV2,
+                                    "IGN Satellite" : layers.ignSatellite
+                                 },
                                 "New Zealand": { "Linz Topo": layers.linz },
                                 "Norway": { "Topografisk Norgeskart 4": layers.norwayTopo },
                                 "Spain": { "IGN": layers.ignEs },

@@ -45,9 +45,19 @@ const layers = {
         subdomains: '0123',
         attribution: '<a href="http://hubermedia.de/et4-maps/" target="_blank">eT4&reg; MAPS</a> &copy; <a href="http://www.kompass.de" target="_blank">KOMPASS Karten GmbH</a> <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
     }),
+    ignPlanV2: L.tileLayer('https://wxs.ign.fr/cartes/geoportail/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/png&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}', {
+        maxZoom: 20,
+        maxNativeZoom: 18,
+        attribution : "IGN-F/Géoportail"
+    }),
     ignFrScan25: L.tileLayer('https://wxs.ign.fr/csxlabhak328gg7s096cu55r/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR&FORMAT=image/jpeg&STYLE=normal', {
         maxZoom: 20,
         maxNativeZoom: 16,
+        attribution : "IGN-F/Géoportail"
+    }),
+    ignSatellite: L.tileLayer('https://wxs.ign.fr/ortho/geoportail/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}', {
+        maxZoom: 20,
+        maxNativeZoom: 19,
         attribution : "IGN-F/Géoportail"
     }),
     ignFrCadastre: L.tileLayer('https://wxs.ign.fr/parcellaire/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}&LAYER=CADASTRALPARCELS.PARCELS&FORMAT=image/png&STYLE=normal', {
