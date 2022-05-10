@@ -199,6 +199,10 @@ html, body {
     padding-left: 10px;
 }
 
+#importexport-configuration {
+    display: inline-block;
+}
+
 .close-spacing {
     margin-right: 16px;
 }

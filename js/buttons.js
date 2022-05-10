@@ -48,6 +48,7 @@ export default class Buttons {
 
         // BUTTONS
         this.input = document.getElementById("input-file");
+        this.input_configuration = document.getElementById("input-configuration-file");
         this.load = document.getElementById("load");
         this.load2 = document.getElementById("load2");
         this.load_drive = document.getElementById("load-drive");
@@ -108,6 +109,8 @@ export default class Buttons {
         this.crop_cancel = document.getElementById("crop-cancel");
         this.crop_keep = document.getElementById("crop-keep");
         this.layer_selection_ok = document.getElementById("layer-selection-ok");
+        this.import_configuration_ok = document.getElementById("import-configuration-ok");
+        this.export_configuration_ok = document.getElementById("export-configuration-ok");
         this.export = document.getElementById("export");
         this.export2 = document.getElementById("export-2");
         this.save_drive = document.getElementById("save-drive");
@@ -433,7 +436,7 @@ export default class Buttons {
                         else if (mapSource == 'satellite' && urlParams.has('token') && _this.supportsWebGL()) {
                             _this.mapboxMap.addTo(_this.map);
                             _this.mapboxMap.options.style = "mapbox://styles/mapbox/satellite-v9";
-                            _this.mapboxMap.getMapboxMap().setStyle("mapbox://styles/mapbox/satellite-v9", {diff: false});
+                            _this.mapboxMap.getMapboxMap().setStyle("mapbox://styles/mapbox/satellite-v9", { diff: false });
                         } else layers.openStreetMap.addTo(_this.map);
                     } else if (urlParams.has('token') && _this.supportsWebGL()) _this.mapboxMap.addTo(_this.map);
                     else layers.openStreetMap.addTo(_this.map);
@@ -911,6 +914,9 @@ export default class Buttons {
         const map = this.map;
         this.input.oninput = function() {
             buttons.loadFiles(this.files)
+        };
+        this.input_configuration.oninput = function () {
+            buttons.loadConfigurationFiles(this.files)
         };
         this.load.addEventListener("click", function () {
             if (buttons.window_open) buttons.window_open.hide();
@@ -1709,6 +1715,28 @@ export default class Buttons {
 
             buttons.controlLayers._layer_selection_button.click();
         });
+        this.import_configuration_ok.addEventListener('click', function () {
+            buttons.input_configuration.click();
+        });
+        this.export_configuration_ok.addEventListener('click', function () {
+
+            const toExport = {
+                'custom-layers': localStorage.getItem('custom-layers'),
+                'baselayer-selection': localStorage.getItem('baselayer-selection'),
+                'overlay-selection': localStorage.getItem('overlay-selection'),
+                'lastbasemap': localStorage.getItem('lastbasemap'),
+                'beforelastbasemap': localStorage.getItem('beforelastbasemap'),
+                'lastoverlays': localStorage.getItem('lastoverlays')
+            }
+
+            var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(toExport));
+            var downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", "gpxstudio-configuration.json");
+            document.body.appendChild(downloadAnchorNode); // required for firefox
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+        });
         this.about.addEventListener("click", function () {
             window.open('./about.html');
         });
@@ -2094,7 +2122,32 @@ export default class Buttons {
             reader.readAsDataURL(file);
         }
         this.input.value = "";
-        gtag('event', 'button', {'event_category' : 'load'});
+        gtag('event', 'button', { 'event_category': 'load' });
+    }
+
+    loadConfigurationFiles(files) {
+        if (files.length > 0) {
+            const file = files[0];
+            if (file.name.split('.').pop().toLowerCase() != 'json') return;
+            var reader = new FileReader();
+            reader.onload = (function (f, name) {
+                return function (e) {
+                    const configuration = JSON.parse(e.target.result);
+
+                    localStorage.setItem('custom-layers', configuration['custom-layers']);
+                    localStorage.setItem('baselayer-selection', configuration['baselayer-selection']);
+                    localStorage.setItem('overlay-selection', configuration['overlay-selection']);
+                    localStorage.setItem('lastbasemap', configuration['lastbasemap']);
+                    localStorage.setItem('beforelastbasemap', configuration['beforelastbasemap']);
+                    localStorage.setItem('lastoverlays', configuration['lastoverlays']);
+
+                    window.location.reload();
+
+                };
+            })(file, file.name);
+            reader.readAsText(file);
+            this.input_configuration.value = "";
+        }
     }
 
     openURLs() {

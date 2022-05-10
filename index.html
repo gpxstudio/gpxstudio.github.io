@@ -71,6 +71,7 @@
     </head>
     <body>
         <input id="input-file" type="file" accept=".gpx" multiple style="display: none"/>
+        <input id="input-configuration-file" type="file" accept=".json" multiple style="display: none"/>
         <div id="mapid"></div>
         <div id="mly"><div id="mly-controls"><i id="mly-move" class="fas fa-arrows-alt custom-button"></i><i id="mly-close" class="fas fa-times custom-button"></i></div></div>
         <div style="display: none">
@@ -461,6 +462,10 @@
                 <span class="close-spacing">Select the layers you want to appear in the interface</span>
                 <div id="layer-selection-area"></div>
                 <div id="layer-selection-ok" class="panels custom-button normal-button">Save</div>
+            </div>
+            <div id="importexport-configuration">
+                <div id="import-configuration-ok" class="panels custom-button normal-button">Import</div>
+                <div id="export-configuration-ok" class="panels custom-button normal-button">Export</div>
             </div>
         </div>
         <div id="load-error-content" class="popup-content">
