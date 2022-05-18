@@ -76,43 +76,43 @@
         <div style="display: none">
         <div id="toolbar" class="panels-container center-leaflet">
             <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 4px 6px" alt="logo of gpx.studio, the online GPX file editor"></a>
-            <div id="load" class="panels custom-button">Load GPX</div>
-            <div id="manual" class="panels custom-button">New GPX</div>
-            <div id="export" class="panels custom-button">Export</div>
+            <div id="load" class="panels custom-button">Wczytaj GPX</div>
+            <div id="manual" class="panels custom-button">Nowy GPX</div>
+            <div id="export" class="panels custom-button">Eksport</div>
             <div class="panels custom-button unselected no-click2" id="undo"><i class="fas fa-reply"></i></div>
             <div class="panels custom-button unselected no-click2" id="redo"><i class="fas fa-share"></i></div>
-            <div id="clear" class="panels custom-button">Clear all</div>
-            <div id="help" class="panels custom-button">Help</div>
-            <div id="about" class="panels custom-button">About</div>
-            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Donate</b> <i class="fas fa-heart"></i></div>
+            <div id="clear" class="panels custom-button">Wyczyść wszystko</div>
+            <div id="help" class="panels custom-button">Pomoc</div>
+            <div id="about" class="panels custom-button">O aplikacji</div>
+            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Wesprzyj</b> <i class="fas fa-heart"></i></div>
         </div>
         <div id="info">
             <ul id="sortable-tabs">
               <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">Total</li>
             </ul>
             <div id="info-grid" class="panels-container trace-info">
-                <div class="panels panels-info" id="distance">Distance</div>
+                <div class="panels panels-info" id="distance">Dystans</div>
                 <div class="panels panels-val" id="distance-val"></div>
-                <div class="panels panels-info" id="elevation">Elevation</div>
+                <div class="panels panels-info" id="elevation">Przewyższenie</div>
                 <div class="panels panels-val" id="elevation-val"></div>
-                <div class="panels panels-info" id="speed">Speed</div>
+                <div class="panels panels-info" id="speed">Prędkość</div>
                 <div class="panels panels-val" id="speed-val"></div>
-                <div class="panels panels-info" id="duration">Moving time</div>
+                <div class="panels panels-info" id="duration">Czas ruchu</div>
                 <div class="panels panels-val" id="duration-val"></div>
-                <div class="panels panels-info" id="tracks" style="display: none; padding-right: 5px;">Tracks</div>
+                <div class="panels panels-info" id="tracks" style="display: none; padding-right: 5px;">Trasy</div>
                 <div class="panels panels-val" id="tracks-val" style="display: none; padding-right: 5px;">0</div>
-                <div class="panels panels-info" id="segments" style="display: none; padding-right: 5px;">Track segments</div>
+                <div class="panels panels-info" id="segments" style="display: none; padding-right: 5px;">Odcinki trasy</div>
                 <div class="panels panels-val" id="segments-val" style="display: none; padding-right: 5px;">0</div>
-                <div class="panels panels-info" id="points" style="display: none">Track points</div>
+                <div class="panels panels-info" id="points" style="display: none">Punkty trasy</div>
                 <div class="panels panels-val" id="points-val" style="display: none">0</div>
-                <div id="units-text" class="panels-info">Distance units</div>
+                <div id="units-text" class="panels-info">Jednostki odległości</div>
                 <select id="units-input" name="units-input">
                     <option value="km">Metryczne</option>
                     <option value="mi">Imperialne</option>
                 </select>
-                <div id="speed-units-text" class="panels-info">Velocity units</div>
+                <div id="speed-units-text" class="panels-info">Jednostki prędkości</div>
                 <select id="speed-units-input" name="speed-units-input">
-                    <option value="speed">Speed</option>
+                    <option value="speed">Prędkość</option>
                     <option value="pace">Tempo</option>
                 </select>
                 <div id="elevation-input" class="panels-button custom-button" title="Przełącz profil nachylenia"><i class="fas fa-minus"></i></div>
@@ -188,17 +188,17 @@
             </colgroup>
             <tbody>
             <tr>
-                <td><b>Load GPX</b></td>
+                <td><b>Wczytaj GPX</b></td>
                 <td>Ctrl+O</td>
                 <td>Import and visualize GPX files (or drag and drop anywhere in the window)</td>
             </tr>
             <tr>
-                <td><b>New GPX</b></td>
+                <td><b>Nowy GPX</b></td>
                 <td>Ctrl+D</td>
                 <td>Start drawing a new route by placing track points on the map</td>
             </tr>
             <tr>
-                <td><b>Export</b></td>
+                <td><b>Eksport</b></td>
                 <td>Ctrl+S</td>
                 <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Time, heart rate, cadence, power and temperature data are automatically extended. Optionally, merge all files <b>in the chosen order</b>. You can also drag a tab to your desktop to download the file.</td>
             </tr>
@@ -208,9 +208,9 @@
                 <td>Undo and redo actions in edition mode</td>
             </tr>
             <tr>
-                <td><b>Clear all</b></td>
+                <td><b>Wyczyść wszystko</b></td>
                 <td>Ctrl+K</td>
-                <td>Delete all traces</td>
+                <td>Usuń wszystkie ślady</td>
             </tr>
             <tr>
                 <td></td>
@@ -420,7 +420,7 @@
         </div>
         <div id="zone-delete-content" class="popup-content">
             Choose what to delete<br>
-            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Track points</label>
+            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Punkty trasy</label>
             <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
             <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inside selection</label>
             <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
@@ -487,7 +487,7 @@
         <span id="track-text">Track</span>
         <span id="segment-text">Segment</span>
         <div id="edit-speed-popup-text">
-            <div id="speed-text">Speed</div>
+            <div id="speed-text">Prędkość</div>
             <div id="pace-text">Tempo</div>
             <div id="start-text">Start</div>
             <div id="experimental-info-text">Generate speed considering the slope and the activity type<br><b><i class="fas fa-exclamation-triangle"></i> erases all existing time data</b></div>
