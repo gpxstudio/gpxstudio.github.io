@@ -546,6 +546,10 @@ export default class Trace {
             },
             click: function (e) {
                 insertTmpEditMarker();
+                if (e.originalEvent.shiftKey) {
+                    trace.deletePoint(marker);
+                    marker.remove();
+                }
                 L.DomEvent.stopPropagation(e);
             },
             contextmenu: function (e) {

@@ -467,7 +467,7 @@ L.GPX = L.FeatureGroup.extend({
                   trace.askElevation([marker._latlng], true);
               }
           },
-          click: function () {
+          click: function (e) {
               if (this.isPopupOpen()) {
                   this.closePopup();
               } else {
@@ -484,6 +484,12 @@ L.GPX = L.FeatureGroup.extend({
                                         (marker.cmt.length > 0 ? (marker.cmt + '<br>') : '')+`<i class="wpt-cmt">`+marker.desc+`</i></div>
                                     </div>`);
                   if (!trace.buttons.embedding) {
+                      if (e.originalEvent && e.originalEvent.shiftKey) {
+                          trace.deleteWaypoint(marker);
+                          popup.remove();
+                          return;
+                      }
+
                       const edit = document.getElementById('edit' + popup._leaflet_id);
                       edit.addEventListener('click', function () {
                           popup.setContent(`<div style="width: 300px; display: inline-block; overflow-wrap: break-word;">
