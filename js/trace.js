@@ -998,23 +998,34 @@ export default class Trace {
         trackLabel.textContent = this.buttons.track_text.textContent;
         trackLabel.style.fontWeight = 'bold';
 
-        var trackName = document.createElement('span');
-        trackDetails.appendChild(trackName);
-        trackName.textContent = track.name ? track.name : this.name;
-
         var trackColor = document.createElement('input');
         trackDetails.appendChild(trackColor);
         trackColor.type = 'color';
         trackColor.classList.add('input-minimal');
         trackColor.style.height = '18px';
-        trackColor.style.marginLeft = 'auto';
 
         var trackStyle = this.getTrackStyle(track);
         trackColor.value = trackStyle.color;
 
+        var trackName = document.createElement('span');
+        trackDetails.appendChild(trackName);
+        trackName.textContent = track.name ? track.name : this.name;
+
         var trackLength = document.createElement('span');
         trackDetails.appendChild(trackLength);
         trackLength.textContent = (track._dist / 1000).toFixed(1).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text);
+        trackLength.style.marginLeft = 'auto';
+
+        var trackElevation = document.createElement('span');
+        trackDetails.appendChild(trackElevation);
+        trackElevation.innerHTML = '<i class="fas fa-angle-up"></i> ' + track._elevation.gain.toFixed(0).toString() + (this.buttons.km ? this.buttons.unit_meters_text : this.buttons.unit_feet_text) +
+            ' <i class="fas fa-angle-down"></i> ' + track._elevation.loss.toFixed(0).toString() + (this.buttons.km ? this.buttons.unit_meters_text : this.buttons.unit_feet_text);
+
+        if (this.hasTimeData()) {
+            var trackTime = document.createElement('span');
+            trackDetails.appendChild(trackTime);
+            trackTime.textContent = this.total.msToTime(track._duration);
+        }
 
         if (fake) {
             var trackUl = document.createElement('ul');
@@ -1076,6 +1087,17 @@ export default class Trace {
         segmentDetails.appendChild(segmentLength);
         segmentLength.textContent = (segment._dist / 1000).toFixed(1).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text);
         segmentLength.style.marginLeft = 'auto';
+
+        var segmentElevation = document.createElement('span');
+        segmentDetails.appendChild(segmentElevation);
+        segmentElevation.innerHTML = '<i class="fas fa-angle-up"></i> ' + segment._elevation.gain.toFixed(0).toString() + (this.buttons.km ? this.buttons.unit_meters_text : this.buttons.unit_feet_text) +
+            ' <i class="fas fa-angle-down"></i> ' + segment._elevation.loss.toFixed(0).toString() + (this.buttons.km ? this.buttons.unit_meters_text : this.buttons.unit_feet_text);
+
+        if (this.hasTimeData()) {
+            var segmentTime = document.createElement('span');
+            segmentDetails.appendChild(segmentTime);
+            segmentTime.textContent = this.total.msToTime(segment._duration);
+        }
 
         return segmentDetails;
     }

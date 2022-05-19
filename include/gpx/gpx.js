@@ -726,10 +726,14 @@ L.GPX = L.FeatureGroup.extend({
       for (var ti=0; ti<tracks.length; ti++) {
           var inc = false;
           tracks[ti]._dist = distance;
+          tracks[ti]._elevation = { gain: this._info.elevation.gain, loss: this._info.elevation.loss };
+          tracks[ti]._duration = this._info.duration.moving;
 
           const segments = this._trace.getSegments(tracks[ti]);
           for (var l=0; l<segments.length; l++) {
               segments[l]._dist = distance;
+              segments[l]._elevation = { gain: this._info.elevation.gain, loss: this._info.elevation.loss };
+              segments[l]._duration = this._info.duration.moving;
               var ll = null, last = null, last_ele = null;
               var current_ele_window = 0, current_ele_sum = 0;
               const points = segments[l]._latlngs;
@@ -788,9 +792,15 @@ L.GPX = L.FeatureGroup.extend({
 
               cumul += points.length;
               segments[l]._dist = distance - segments[l]._dist;
+              segments[l]._elevation.gain = this._info.elevation.gain - segments[l]._elevation.gain;
+              segments[l]._elevation.loss = this._info.elevation.loss - segments[l]._elevation.loss;
+              segments[l]._duration = this._info.duration.moving - segments[l]._duration;
           }
 
           tracks[ti]._dist = distance - tracks[ti]._dist;
+          tracks[ti]._elevation.gain = this._info.elevation.gain - tracks[ti]._elevation.gain;
+          tracks[ti]._elevation.loss = this._info.elevation.loss - tracks[ti]._elevation.loss;
+          tracks[ti]._duration = this._info.duration.moving - tracks[ti]._duration;
       }
   },
 
