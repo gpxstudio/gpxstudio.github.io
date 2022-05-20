@@ -393,6 +393,14 @@
                 <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Útvonalak egyesítése</label>
             </div>
         </div>
+        <div id="split-content" class="popup-content">
+            Choose how to split the trace<br>
+            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Split into separate files</label><br>
+            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Split into separate tracks</label><br>
+            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Split into separate track segments</label><br>
+            <div id="split-ok" class="panels custom-button normal-button">Rendben</div>
+            <div id="split-cancel" class="panels custom-button normal-button"><b>Mégsem</b></div>
+        </div>
         <div id="extract-content" class="popup-content">
             Choose what to extract<br>
             <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Tracks</label><br>
@@ -408,23 +416,23 @@
         </div>
         <div id="crop-content" class="popup-content">
             <input type="checkbox" id="crop-keep"><label for="crop-keep">A kivágott részek megőrzése új fájlokban</label><br>
-            <div id="crop-ok" class="panels custom-button normal-button">Folytassa</div>
+            <div id="crop-ok" class="panels custom-button normal-button">Proceed</div>
             <div id="crop-cancel" class="panels custom-button normal-button"><b>Mégsem</b></div>
         </div>
         <div id="reduce-content" class="popup-content">
-            Válassza ki az útvonal pontok sűrűségét<br>
-            Útvonal pontok száma: <span id="reduce-npoints">0</span><br>
+            Choose the amount of detail to keep<br>
+            Number of track points: <span id="reduce-npoints">0</span><br>
             <input type="range" min="0" max="1000" id="reduce-slider" style="width: 90%"><br>
             <div id="reduce-ok" class="panels custom-button normal-button">Rendben</div>
             <div id="reduce-cancel" class="panels custom-button normal-button"><b>Mégsem</b></div>
         </div>
         <div id="zone-delete-content" class="popup-content">
-            Válassza ki, mit szeretne törölni<br>
+            Choose what to delete<br>
             <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Útvonal pontok</label>
-            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Útvonalpontok</label><br>
-            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Belső kiválasztás</label>
-            <input type="radio" name="where" id="zone-delete-outside">Külső választás<br>
-            <div id="zone-delete-ok" class="panels custom-button normal-button">Folytassa</div>
+            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
+            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inside selection</label>
+            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
+            <div id="zone-delete-ok" class="panels custom-button normal-button">Proceed</div>
             <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Mégsem</b></div>
         </div>
         <div id="layer-selection-content">
@@ -446,8 +454,8 @@
                     <tr>
                         <td><label for="layer-type">Layer type</label></td>
                         <td><select id="layer-type">
-                            <option value="baselayer">Alap térkép</option>
-                            <option value="overlay">Térkép rétegek</option>
+                            <option value="baselayer">Basemap</option>
+                            <option value="overlay">Overlay</option>
                         </select></td>
                     </tr>
                     <tr>
@@ -464,12 +472,12 @@
             </div>
         </div>
         <div id="load-error-content" class="popup-content">
-            Hiba történt a GPX-fájl betöltésekor.<br>
-             Kérjük, ellenőrizze a fájlformátumot.<br>
+            There was an error loading your GPX file.<br>
+            Please check the file format.<br>
             <div id="load-error-ok" class="panels custom-button normal-button">Rendben</div>
         </div>
         <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
-            <b>Megnyitás itt</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="a gpx.studio, az online GPX fájlszerkesztő logója">
+            <b>Open in</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="a gpx.studio, az online GPX fájlszerkesztő logója">
         </div>
         <div id="unit-kilometers-text">km</div>
         <div id="unit-miles-text">mi</div>
@@ -481,64 +489,64 @@
         <div id="delete-text">Törlés</div>
         <div id="ok-button-text">Rendben</div>
         <div id="cancel-button-text">Mégsem</div>
-        <div id="search-input-text">Kereső...</div>
-        <div id="search-button-text">Keressen egy ki indulási helyet, vagy illessze be a GPS-koordinátákat</div>
-        <div id="locate-button-text">Saját pozició</div>
+        <div id="search-input-text">Search...</div>
+        <div id="search-button-text">Search for a place or paste GPS coordinates</div>
+        <div id="locate-button-text">Show my position</div>
         <span id="track-text">Track</span>
         <span id="segment-text">Segment</span>
         <div id="edit-speed-popup-text">
             <div id="speed-text">Sebesség</div>
             <div id="pace-text">Tempó</div>
-            <div id="start-text">Rajt</div>
-            <div id="experimental-info-text">A sebesség generálása a szintkülönbség és a tevékenység típusának figyelembevételével<br><b><i class="fas fa-exclamation-triangle"></i> törli az összes meglévő időadatot</b></div>
+            <div id="start-text">Start</div>
+            <div id="experimental-info-text">Generate speed considering the slope and the activity type<br><b><i class="fas fa-exclamation-triangle"></i> erases all existing time data</b></div>
         </div>
         <div id="waypoint-popup-text">
-            <div id="empty-title-text">üres cím</div>
-            <div id="name-text">Név</div>
-            <div id="comment-text">Megjegyzés (GPS-eszközökhöz)</div>
-            <div id="description-text">Leírás (felhasználóknak)</div>
-            <div id="symbol-text">Szimbólum</div>
-            <div id="edit-info-text">Adat szerkesztése</div>
+            <div id="empty-title-text">empty title</div>
+            <div id="name-text">Name</div>
+            <div id="comment-text">Comment (for GPS devices)</div>
+            <div id="description-text">Description (for users)</div>
+            <div id="symbol-text">Symbol</div>
+            <div id="edit-info-text">Edit info</div>
         </div>
         <div id="right-click-popup-text">
-            <div id="split-text">Vágás itt</div>
-            <div id="start-loop-text">Rajt áthelyezése ide</div>
-            <div id="remove-pt-text">Útvonalpont eltávolítása</div>
+            <div id="split-text">Split here</div>
+            <div id="start-loop-text">Start loop here</div>
+            <div id="remove-pt-text">Remove point</div>
         </div>
         <div id="elevation-text">
-            <div id="segment-text">Szegmens hossza</div>
-            <div id="type-text">Kategória</div>
-            <div id="surface-text">Szintkép</div>
-            <div id="slope-text">Erőkifejtési szintkép színekkel</div>
-            <div id="missing-text">Hiányzó</div>,
-            <div id="paved-text">Szilárd burkolatú</div>,
-            <div id="unpaved-text">Földes</div>,
-            <div id="asphalt-text">Aszfalt</div>,
-            <div id="concrete-text">Beton</div>,
-            <div id="chipseal-text">Törmelékes</div>,
-            <div id="cobblestone-text">Macskaköves</div>,
-            <div id="unhewn-cobblestone-text">Faragatlan macskakő</div>,
-            <div id="paving-stones-text">Kő burkolat</div>,
-            <div id="stepping-stones-text">Lépcsők</div>,
-            <div id="sett-text">Kőlap</div>,
-            <div id="metal-text">Fém</div>,
-            <div id="wood-text">Fa</div>,
-            <div id="compacted-text">Tömörített kavics</div>,
-            <div id="fine-gravel-text">Finom kavics</div>,
-            <div id="gravel-text">Kavics</div>,
-            <div id="pebblestone-text">Kavicsos kő</div>,
-            <div id="rock-text">Szikla</div>,
-            <div id="dirt-text">Piszok</div>,
-            <div id="ground-text">Föld</div>,
-            <div id="earth-text">Föld</div>,
-            <div id="snow-text">Hó</div>,
-            <div id="ice-text">Jég</div>,
-            <div id="salt-text">Só</div>,
-            <div id="mud-text">Sár</div>,
-            <div id="sand-text">Homok</div>,
-            <div id="woodchips-text">Faforgács</div>,
-            <div id="grass-text">Fű</div>,
-            <div id="grass-paver-text">Füves burkolat</div>
+            <div id="segment-text">Segment length</div>
+            <div id="type-text">Category</div>
+            <div id="surface-text">Surface</div>
+            <div id="slope-text">Slope</div>
+            <div id="missing-text">Missing</div>,
+            <div id="paved-text">Paved</div>,
+            <div id="unpaved-text">Unpaved</div>,
+            <div id="asphalt-text">Asphalt</div>,
+            <div id="concrete-text">Concrete</div>,
+            <div id="chipseal-text">Chipseal</div>,
+            <div id="cobblestone-text">Cobblestone</div>,
+            <div id="unhewn-cobblestone-text">Unhewn Cobblestone</div>,
+            <div id="paving-stones-text">Paving Stones</div>,
+            <div id="stepping-stones-text">Stepping Stones</div>,
+            <div id="sett-text">Sett Paving</div>,
+            <div id="metal-text">Metal</div>,
+            <div id="wood-text">Wood</div>,
+            <div id="compacted-text">Compacted Gravel</div>,
+            <div id="fine-gravel-text">Fine Gravel</div>,
+            <div id="gravel-text">Gravel</div>,
+            <div id="pebblestone-text">Pebblestone</div>,
+            <div id="rock-text">Rock</div>,
+            <div id="dirt-text">Dirt</div>,
+            <div id="ground-text">Ground</div>,
+            <div id="earth-text">Earth</div>,
+            <div id="snow-text">Snow</div>,
+            <div id="ice-text">Ice</div>,
+            <div id="salt-text">Salt</div>,
+            <div id="mud-text">Mud</div>,
+            <div id="sand-text">Sand</div>,
+            <div id="woodchips-text">Woodchips</div>,
+            <div id="grass-text">Grass</div>,
+            <div id="grass-paver-text">Grass Paver</div>
         </div>
         <h1>online gpx szerkesztő</h1>
         <h1>online gpx megjelenítő</h1>
