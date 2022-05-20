@@ -577,15 +577,78 @@ export default class Trace {
                 });
 
                 if (marker != trace._editMarkers[0] && marker != trace._editMarkers[trace._editMarkers.length-1]) {
+                    var split = function () {
+                        trace.buttons.split_ok.removeEventListener('click', split);
+                        trace.buttons.split_cancel.removeEventListener('click', cancel);
+
+                        trace.buttons.split_window.hide();
+
+                        if (trace.buttons.split_as_files.checked) {
+                            const copy = trace.clone();
+                            copy.total.setTraceIndex(copy.index, trace.index+1);
+                            copy.crop(marker._pt.trace_index, copy.getPoints().length-1, true);
+                            trace.crop(0, marker._pt.trace_index, true);
+                        } else if (trace.buttons.split_as_tracks.checked || trace.buttons.split_as_segments.checked) {
+                            var tracks = trace.getTracks();
+                            for (var t=0; t<tracks.length; t++) {
+                                var segments = trace.getSegments(tracks[t]);
+                                var i = segments.indexOf(marker._layer);
+                                if (i >= 0) {
+                                    const rem = segments[i]._latlngs.splice(marker._pt.index);
+                                    segments[i]._latlngs[segments[i]._latlngs.length-1].routing = false;
+                                    rem[0].routing = false;
+
+                                    if (trace.buttons.split_as_segments.checked) {
+                                        tracks[t].addLayer(new L.Polyline(rem));
+                                        for (var j=i+1; j<segments.length; j++) {
+                                            tracks[t].removeLayer(segments[j]);
+                                            tracks[t].addLayer(new L.Polyline(segments[j]._latlngs));
+                                        }
+                                    } else {
+                                        var segs = [new L.Polyline(rem)];
+                                        for (var j=i+1; j<segments.length; j++) {
+                                            tracks[t].removeLayer(segments[j]);
+                                            segs.push(new L.Polyline(segments[j]._latlngs));
+                                        }
+                                        trace.gpx.getLayers()[0].addLayer(new L.FeatureGroup(segs));
+
+                                        for (var j=t+1; j<tracks.length; j++) {
+                                            trace.gpx.getLayers()[0].removeLayer(tracks[j]);
+                                            var trk = new L.FeatureGroup(trace.getSegments(tracks[j]));
+                                            trk.style = tracks[j].style;
+                                            if (tracks[j].name) trk.name = tracks[j].name;
+                                            trace.gpx.getLayers()[0].addLayer(trk);
+                                        }
+                                    }
+
+                                    break;
+                                }
+                            }
+
+                            trace.recomputeStats();
+                            trace.focus();
+                            trace.redraw();
+                            trace.update();
+                        }
+
+                        trace.draw();
+                    };
+                    var cancel = function () {
+                        trace.buttons.split_ok.removeEventListener('click', split);
+                        trace.buttons.split_cancel.removeEventListener('click', cancel);
+
+                        trace.buttons.split_window.hide();
+                    };
+
                     var button2 = document.getElementById("split-waypoint");
                     button2.addEventListener("click", function () {
-                        const copy = trace.clone();
-                        copy.total.setTraceIndex(copy.index, trace.index+1);
-                        copy.crop(marker._pt.trace_index, copy.getPoints().length, true);
-                        trace.crop(0, marker._pt.trace_index, true);
-                        marker.remove();
+                        if (trace.buttons.window_open) trace.buttons.window_open.hide();
+                        trace.buttons.window_open = trace.buttons.split_window;
+                        trace.buttons.split_window.show();
                         trace.closePopup();
-                        trace.draw();
+
+                        trace.buttons.split_ok.addEventListener('click', split);
+                        trace.buttons.split_cancel.addEventListener('click', cancel);
                     });
 
                     var button3 = document.getElementById("start-loop-waypoint");
@@ -630,6 +693,9 @@ export default class Trace {
             surface: "missing"
         };
         newPt.routing = false;
+        if (points[best_idx-1].meta.time != null && points[best_idx].meta.time != null) {
+            newPt.meta.time = new Date((points[best_idx-1].meta.time.getTime() + points[best_idx].meta.time.getTime()) / 2);
+        }
         points.splice(best_idx, 0, newPt);
 
         this.recomputeStats();
@@ -1015,16 +1081,19 @@ export default class Trace {
         trackDetails.appendChild(trackLength);
         trackLength.textContent = (track._dist / 1000).toFixed(1).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text);
         trackLength.style.marginLeft = 'auto';
+        trackLength.classList.add('info');
 
         var trackElevation = document.createElement('span');
         trackDetails.appendChild(trackElevation);
         trackElevation.innerHTML = '<i class="fas fa-angle-up"></i> ' + track._elevation.gain.toFixed(0).toString() + (this.buttons.km ? this.buttons.unit_meters_text : this.buttons.unit_feet_text) +
             ' <i class="fas fa-angle-down"></i> ' + track._elevation.loss.toFixed(0).toString() + (this.buttons.km ? this.buttons.unit_meters_text : this.buttons.unit_feet_text);
+        trackElevation.classList.add('info');
 
         if (this.hasTimeData()) {
             var trackTime = document.createElement('span');
             trackDetails.appendChild(trackTime);
             trackTime.textContent = this.total.msToTime(track._duration);
+            trackTime.classList.add('time-info');
         }
 
         if (fake) {
@@ -1087,16 +1156,19 @@ export default class Trace {
         segmentDetails.appendChild(segmentLength);
         segmentLength.textContent = (segment._dist / 1000).toFixed(1).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text);
         segmentLength.style.marginLeft = 'auto';
+        segmentLength.classList.add('info');
 
         var segmentElevation = document.createElement('span');
         segmentDetails.appendChild(segmentElevation);
         segmentElevation.innerHTML = '<i class="fas fa-angle-up"></i> ' + segment._elevation.gain.toFixed(0).toString() + (this.buttons.km ? this.buttons.unit_meters_text : this.buttons.unit_feet_text) +
             ' <i class="fas fa-angle-down"></i> ' + segment._elevation.loss.toFixed(0).toString() + (this.buttons.km ? this.buttons.unit_meters_text : this.buttons.unit_feet_text);
+        segmentElevation.classList.add('info');
 
         if (this.hasTimeData()) {
             var segmentTime = document.createElement('span');
             segmentDetails.appendChild(segmentTime);
             segmentTime.textContent = this.total.msToTime(segment._duration);
+            segmentTime.classList.add('time-info');
         }
 
         return segmentDetails;

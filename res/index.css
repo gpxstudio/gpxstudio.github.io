@@ -504,6 +504,16 @@ ul { -ms-overflow-style: none; scrollbar-width: none; }
     padding: 0px 10px;
 }
 
+.file-structure-track > .info {
+    min-width: 100px;
+    text-align: right;
+}
+
+.file-structure-track > .time-info {
+    min-width: 50px;
+    text-align: right;
+}
+
 .file-structure-segment {
     border: solid 1px;
     margin-top: -1px;
@@ -512,6 +522,16 @@ ul { -ms-overflow-style: none; scrollbar-width: none; }
 
 .file-structure-segment > span {
     padding: 0px 10px;
+}
+
+.file-structure-segment > .info {
+    min-width: 100px;
+    text-align: right;
+}
+
+.file-structure-segment > .time-info {
+    min-width: 50px;
+    text-align: right;
 }
 
 .leaflet-interactive.mouseDown {

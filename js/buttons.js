@@ -76,6 +76,11 @@ export default class Buttons {
         this.zone_delete_outside.value = 'outside';
         this.hide = document.getElementById("hide");
         this.reverse = document.getElementById("reverse");
+        this.split_ok = document.getElementById("split-ok");
+        this.split_cancel = document.getElementById("split-cancel");
+        this.split_as_files = document.getElementById("split-as-files");
+        this.split_as_tracks = document.getElementById("split-as-tracks");
+        this.split_as_segments = document.getElementById("split-as-segments");
         this.extract = document.getElementById("extract");
         this.extract_ok = document.getElementById("extract-ok");
         this.extract_cancel = document.getElementById("extract-cancel");
@@ -172,6 +177,7 @@ export default class Buttons {
         this.load_content = document.getElementById('load-content');
         this.share_content = document.getElementById('share-content');
         this.merge_content = document.getElementById('merge-content');
+        this.split_content = document.getElementById('split-content');
         this.extract_content = document.getElementById('extract-content');
         this.structure_content = document.getElementById('structure-content');
         this.file_structure = document.getElementById('file-structure');
@@ -238,6 +244,7 @@ export default class Buttons {
         this.load_error_window = L.control.window(this.map,{title:'',content:this.load_error_content,className:'panels-container',closeButton:false});
         this.share_window = L.control.window(this.map,{title:'',content:this.share_content,className:'panels-container'});
         this.merge_window = L.control.window(this.map,{title:'',content:this.merge_content,className:'panels-container'});
+        this.split_window = L.control.window(this.map,{title:'',content:this.split_content,className:'panels-container'});
         this.extract_window = L.control.window(this.map,{title:'',content:this.extract_content,className:'panels-container',closeButton:false});
         this.structure_window = L.control.window(this.map,{title:'',content:this.structure_content,className:'panels-container'});
         this.crop_window = L.control.window(this.map,{title:'',content:this.crop_content,className:'panels-container',closeButton:false});
@@ -515,7 +522,7 @@ export default class Buttons {
                             "Countries": {
                                 "Austria & Germany": { "Kompass" : layers.et4 },
                                 "Finland": { "Lantmäteriverket Terrängkarta": layers.finlandTopo },
-                                "France": { 
+                                "France": {
                                     "IGN SCAN25" : layers.ignFrScan25,
                                     "IGN Plan" : layers.ignPlanV2,
                                     "IGN Satellite" : layers.ignSatellite
