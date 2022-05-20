@@ -393,6 +393,14 @@
                 <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Slå sammen som spor</label>
             </div>
         </div>
+        <div id="split-content" class="popup-content">
+            Choose how to split the trace<br>
+            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Split into separate files</label><br>
+            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Split into separate tracks</label><br>
+            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Split into separate track segments</label><br>
+            <div id="split-ok" class="panels custom-button normal-button">Ok</div>
+            <div id="split-cancel" class="panels custom-button normal-button"><b>Avbryt</b></div>
+        </div>
         <div id="extract-content" class="popup-content">
             Velg hva du vil trekke ut<br>
             <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Spor</label><br>
@@ -469,76 +477,76 @@
             <div id="load-error-ok" class="panels custom-button normal-button">Ok</div>
         </div>
         <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
-            <b>Åpne i</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="Logoen til gpx.studio, online GPX-fil editor">
+            <b>Open in</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="Logoen til gpx.studio, online GPX-fil editor">
         </div>
         <div id="unit-kilometers-text">km</div>
         <div id="unit-miles-text">mi</div>
         <div id="unit-meters-text">m</div>
         <div id="unit-feet-text">ft</div>
-        <div id="unit-hours-text">t</div>
+        <div id="unit-hours-text">h</div>
         <div id="unit-minutes-text">min</div>
         <div id="duplicate-text">Dupliser</div>
         <div id="delete-text">Slett</div>
         <div id="ok-button-text">Ok</div>
         <div id="cancel-button-text">Avbryt</div>
-        <div id="search-input-text">Søk ...</div>
-        <div id="search-button-text">Søk etter et sted eller lim inn GPS-koordinater</div>
-        <div id="locate-button-text">Vis min posisjon</div>
+        <div id="search-input-text">Search...</div>
+        <div id="search-button-text">Search for a place or paste GPS coordinates</div>
+        <div id="locate-button-text">Show my position</div>
         <span id="track-text">Spor</span>
         <span id="segment-text">Segment</span>
         <div id="edit-speed-popup-text">
             <div id="speed-text">Hastighet</div>
             <div id="pace-text">Tempo</div>
             <div id="start-text">Start</div>
-            <div id="experimental-info-text">Generer fart ut fra skråning og aktivitetstype<br><b><i class="fas fa-exclamation-triangle"></i> sletter all eksisterende tidsdata</b></div>
+            <div id="experimental-info-text">Generate speed considering the slope and the activity type<br><b><i class="fas fa-exclamation-triangle"></i> erases all existing time data</b></div>
         </div>
         <div id="waypoint-popup-text">
-            <div id="empty-title-text">tom tittel</div>
-            <div id="name-text">Navn</div>
-            <div id="comment-text">Kommentar (for GPS-enheter)</div>
-            <div id="description-text">Beskrivelse (for brukere)</div>
+            <div id="empty-title-text">empty title</div>
+            <div id="name-text">Name</div>
+            <div id="comment-text">Comment (for GPS devices)</div>
+            <div id="description-text">Description (for users)</div>
             <div id="symbol-text">Symbol</div>
-            <div id="edit-info-text">Rediger informasjon</div>
+            <div id="edit-info-text">Edit info</div>
         </div>
         <div id="right-click-popup-text">
-            <div id="split-text">Del her</div>
-            <div id="start-loop-text">Start sløyfe her</div>
-            <div id="remove-pt-text">Fjern punkt</div>
+            <div id="split-text">Split here</div>
+            <div id="start-loop-text">Start loop here</div>
+            <div id="remove-pt-text">Remove point</div>
         </div>
         <div id="elevation-text">
-            <div id="segment-text">Segment lengde</div>
-            <div id="type-text">Kategori</div>
-            <div id="surface-text">Overflate</div>
-            <div id="slope-text">Skråning</div>
-            <div id="missing-text">Mangler</div>,
-            <div id="paved-text">Belegning</div>,
-            <div id="unpaved-text">Uasfaltert</div>,
-            <div id="asphalt-text">Asfalt</div>,
-            <div id="concrete-text">Betong</div>,
-            <div id="chipseal-text">Grov asfalt</div>,
-            <div id="cobblestone-text">Brostein</div>,
-            <div id="unhewn-cobblestone-text">Uhugget brostein</div>,
-            <div id="paving-stones-text">Belegningsstein</div>,
-            <div id="stepping-stones-text">Byggestener</div>,
-            <div id="sett-text">Sett underlag</div>,
-            <div id="metal-text">Metall</div>,
-            <div id="wood-text">Treverk</div>,
-            <div id="compacted-text">Komprimert grus</div>,
-            <div id="fine-gravel-text">Fin grus</div>,
-            <div id="gravel-text">Grus</div>,
-            <div id="pebblestone-text">Rullestein</div>,
-            <div id="rock-text">Stein</div>,
-            <div id="dirt-text">Jord</div>,
-            <div id="ground-text">Bakke</div>,
-            <div id="earth-text">Jorden</div>,
-            <div id="snow-text">Snø</div>,
-            <div id="ice-text">Is</div>,
+            <div id="segment-text">Segment length</div>
+            <div id="type-text">Category</div>
+            <div id="surface-text">Surface</div>
+            <div id="slope-text">Slope</div>
+            <div id="missing-text">Missing</div>,
+            <div id="paved-text">Paved</div>,
+            <div id="unpaved-text">Unpaved</div>,
+            <div id="asphalt-text">Asphalt</div>,
+            <div id="concrete-text">Concrete</div>,
+            <div id="chipseal-text">Chipseal</div>,
+            <div id="cobblestone-text">Cobblestone</div>,
+            <div id="unhewn-cobblestone-text">Unhewn Cobblestone</div>,
+            <div id="paving-stones-text">Paving Stones</div>,
+            <div id="stepping-stones-text">Stepping Stones</div>,
+            <div id="sett-text">Sett Paving</div>,
+            <div id="metal-text">Metal</div>,
+            <div id="wood-text">Wood</div>,
+            <div id="compacted-text">Compacted Gravel</div>,
+            <div id="fine-gravel-text">Fine Gravel</div>,
+            <div id="gravel-text">Gravel</div>,
+            <div id="pebblestone-text">Pebblestone</div>,
+            <div id="rock-text">Rock</div>,
+            <div id="dirt-text">Dirt</div>,
+            <div id="ground-text">Ground</div>,
+            <div id="earth-text">Earth</div>,
+            <div id="snow-text">Snow</div>,
+            <div id="ice-text">Ice</div>,
             <div id="salt-text">Salt</div>,
-            <div id="mud-text">Gjørme</div>,
+            <div id="mud-text">Mud</div>,
             <div id="sand-text">Sand</div>,
-            <div id="woodchips-text">Treflis</div>,
-            <div id="grass-text">Gress</div>,
-            <div id="grass-paver-text">Gressutlegg</div>
+            <div id="woodchips-text">Woodchips</div>,
+            <div id="grass-text">Grass</div>,
+            <div id="grass-paver-text">Grass Paver</div>
         </div>
         <h1>online gpx editor</h1>
         <h1>online gpx viewer</h1>
