@@ -195,7 +195,7 @@
             <tr>
                 <td><b>Új útvonal lérehozás</b></td>
                 <td>Ctrl+D</td>
-                <td>Új útvonal rajzolás megkezdése útvonal pontok megadásával</td>
+                <td>Kezdje el új útvonal rajzolását útvonal pontok elhelyezésével a térképen</td>
             </tr>
             <tr>
                 <td><b>Gpx fájl letöltés</b></td>
@@ -227,7 +227,7 @@
             <tbody>
             <tr>
                 <td><i class="fas fa-pencil-alt"></i></td>
-                <td>Belépés az útvonal szerkesztési módba a nyomvonalpontok hozzáadásához, áthelyezéséhez, beszúrásához (a vonal vagy a pontok húzásával), törléséhez, szakaszolásához ( egér jobb gombbal)</td>
+                <td>Lépjen be a szeksztési módba a útvonal rögzítési pontok hozzáadásához, áthelyezéséhez, beszúrásához vagy törléséhez (Shift+kattintás), kattintson a jobb gombbal a rögzítési pontokra a további lehetőségekért (felosztás, kezdés módosítása, törlés)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-stopwatch"></i></td>
@@ -392,6 +392,14 @@
                 <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Egyesítés útvonal szakaszként</label><br>
                 <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Útvonalak egyesítése</label>
             </div>
+        </div>
+        <div id="split-content" class="popup-content">
+            Choose how to split the trace<br>
+            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Split into separate files</label><br>
+            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Split into separate tracks</label><br>
+            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Split into separate track segments</label><br>
+            <div id="split-ok" class="panels custom-button normal-button">Rendben</div>
+            <div id="split-cancel" class="panels custom-button normal-button"><b>Mégsem</b></div>
         </div>
         <div id="extract-content" class="popup-content">
             Choose what to extract<br>

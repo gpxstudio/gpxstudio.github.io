@@ -227,7 +227,7 @@
             <tbody>
             <tr>
                 <td><i class="fas fa-pencil-alt"></i></td>
-                <td>Schakel de bewerkingsmodus in om trackpunten toe te voegen, te verplaatsen, in te voegen (door de lijn te verslepen), te verwijderen of te splitsen (rechtsklik)</td>
+                <td>Start de bewerkingsmodus in trackpunten toe te voegen, te verplaatsen, invoegen of te verwijderen (Shift+klik), rechtsklik op trackpunten voor meer opties (splitsen, verander startpunt, verwijderen)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-stopwatch"></i></td>
@@ -289,12 +289,12 @@
             <tr>
                 <td></td>
                 <td>F1</td>
-                <td>Show the last basemap used.</td>
+                <td>Toon de laatst gebruikte basiskaart.</td>
             </tr>
             <tr>
                 <td></td>
                 <td>F2</td>
-                <td>Show or hide the overlays currently used.</td>
+                <td>Toon of verberg de actuele overlays.</td>
             </tr>
             <tr>
                 <td></td>
@@ -392,6 +392,14 @@
                 <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Samenvoegen met tracksegmenten</label><br>
                 <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Samenvoegen als tracks</label>
             </div>
+        </div>
+        <div id="split-content" class="popup-content">
+            Choose how to split the trace<br>
+            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Split into separate files</label><br>
+            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Split into separate tracks</label><br>
+            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Split into separate track segments</label><br>
+            <div id="split-ok" class="panels custom-button normal-button">Ok</div>
+            <div id="split-cancel" class="panels custom-button normal-button"><b>Annuleren</b></div>
         </div>
         <div id="extract-content" class="popup-content">
             Kies wat je wilt uitpakken<br>

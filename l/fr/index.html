@@ -227,7 +227,7 @@
             <tbody>
             <tr>
                 <td><i class="fas fa-pencil-alt"></i></td>
-                <td>Activer le mode édition pour ajouter, déplacer, insérer (en tirant la trace), supprimer ou diviser (clic droit) des points de passage</td>
+                <td>Activer le mode édition pour ajouter, déplacer, insérer ou supprimer (Maj+clic) des points de passage, faites un clic droit sur les points de passage pour plus d'options (diviser, changer le point de départ, supprimer)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-stopwatch"></i></td>
@@ -392,6 +392,14 @@
                 <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Fusionner en tant que segments</label><br>
                 <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Fusionner en tant que tracks</label>
             </div>
+        </div>
+        <div id="split-content" class="popup-content">
+            Choisisser comment diviser la trace<br>
+            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Diviser en traces distinctes</label><br>
+            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Diviser en tracks distinctes</label><br>
+            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Diviser en segments distincts</label><br>
+            <div id="split-ok" class="panels custom-button normal-button">Ok</div>
+            <div id="split-cancel" class="panels custom-button normal-button"><b>Annuler</b></div>
         </div>
         <div id="extract-content" class="popup-content">
             Choisissez quoi extraire<br>

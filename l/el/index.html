@@ -195,7 +195,7 @@
             <tr>
                 <td><b>Νέο GPX</b></td>
                 <td>Ctrl+D</td>
-                <td>Start drawing a new route by placing track points on the map</td>
+                <td>Start drawing a new route by placing anchor points on the map</td>
             </tr>
             <tr>
                 <td><b>Εξαγωγή</b></td>
@@ -227,7 +227,7 @@
             <tbody>
             <tr>
                 <td><i class="fas fa-pencil-alt"></i></td>
-                <td>Enter edition mode to add, move, insert (by dragging the line), delete or split (right-click) track points</td>
+                <td>Enter edition mode to add, move, insert or delete (Shift+click) anchor points, right-click on anchor points for more options (split, change start, delete)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-stopwatch"></i></td>
@@ -392,6 +392,14 @@
                 <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Merge as track segments</label><br>
                 <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Merge as tracks</label>
             </div>
+        </div>
+        <div id="split-content" class="popup-content">
+            Choose how to split the trace<br>
+            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Split into separate files</label><br>
+            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Split into separate tracks</label><br>
+            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Split into separate track segments</label><br>
+            <div id="split-ok" class="panels custom-button normal-button">Εντάξει</div>
+            <div id="split-cancel" class="panels custom-button normal-button"><b>Ακύρωση</b></div>
         </div>
         <div id="extract-content" class="popup-content">
             Choose what to extract<br>
