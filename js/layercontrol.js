@@ -261,7 +261,7 @@ L.Control.Layers.include({
                         var checked = false;
                         Object.keys(current).forEach(key => {
                             if (key == 'parent') return;
-                            checked ||= currentCheckbox[key].checkbox.checked;
+                            checked = checked || currentCheckbox[key].checkbox.checked;
                         });
                         currentCheckbox.checkbox.checked = checked;
                         current = current.parent;
