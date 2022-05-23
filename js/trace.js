@@ -1079,14 +1079,14 @@ export default class Trace {
 
         var trackLength = document.createElement('span');
         trackDetails.appendChild(trackLength);
-        trackLength.textContent = (track._dist / 1000).toFixed(1).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text);
+        trackLength.textContent = (track._dist / 1000 / (this.buttons.km ? 1 : 1.609344)).toFixed(1).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text);
         trackLength.style.marginLeft = 'auto';
         trackLength.classList.add('info');
 
         var trackElevation = document.createElement('span');
         trackDetails.appendChild(trackElevation);
-        trackElevation.innerHTML = '<i class="fas fa-angle-up"></i> ' + track._elevation.gain.toFixed(0).toString() + (this.buttons.km ? this.buttons.unit_meters_text : this.buttons.unit_feet_text) +
-            ' <i class="fas fa-angle-down"></i> ' + track._elevation.loss.toFixed(0).toString() + (this.buttons.km ? this.buttons.unit_meters_text : this.buttons.unit_feet_text);
+        trackElevation.innerHTML = '<i class="fas fa-angle-up"></i> ' + (track._elevation.gain * (this.buttons.km ? 1 : 3.280839895)).toFixed(0).toString() + (this.buttons.km ? this.buttons.unit_meters_text : this.buttons.unit_feet_text) +
+            ' <i class="fas fa-angle-down"></i> ' + (track._elevation.loss * (this.buttons.km ? 1 : 3.280839895)).toFixed(0).toString() + (this.buttons.km ? this.buttons.unit_meters_text : this.buttons.unit_feet_text);
         trackElevation.classList.add('info');
 
         if (this.hasTimeData()) {
@@ -1154,14 +1154,14 @@ export default class Trace {
 
         var segmentLength = document.createElement('span');
         segmentDetails.appendChild(segmentLength);
-        segmentLength.textContent = (segment._dist / 1000).toFixed(1).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text);
+        segmentLength.textContent = (segment._dist / 1000 / (this.buttons.km ? 1 : 1.609344)).toFixed(1).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text);
         segmentLength.style.marginLeft = 'auto';
         segmentLength.classList.add('info');
 
         var segmentElevation = document.createElement('span');
         segmentDetails.appendChild(segmentElevation);
-        segmentElevation.innerHTML = '<i class="fas fa-angle-up"></i> ' + segment._elevation.gain.toFixed(0).toString() + (this.buttons.km ? this.buttons.unit_meters_text : this.buttons.unit_feet_text) +
-            ' <i class="fas fa-angle-down"></i> ' + segment._elevation.loss.toFixed(0).toString() + (this.buttons.km ? this.buttons.unit_meters_text : this.buttons.unit_feet_text);
+        segmentElevation.innerHTML = '<i class="fas fa-angle-up"></i> ' + (segment._elevation.gain * (this.buttons.km ? 1 : 3.280839895)).toFixed(0).toString() + (this.buttons.km ? this.buttons.unit_meters_text : this.buttons.unit_feet_text) +
+            ' <i class="fas fa-angle-down"></i> ' + (segment._elevation.loss * (this.buttons.km ? 1 : 3.280839895)).toFixed(0).toString() + (this.buttons.km ? this.buttons.unit_meters_text : this.buttons.unit_feet_text);
         segmentElevation.classList.add('info');
 
         if (this.hasTimeData()) {
