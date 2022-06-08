@@ -227,7 +227,7 @@
             <tbody>
             <tr>
                 <td><i class="fas fa-pencil-alt"></i></td>
-                <td>Enter edition mode to add, move, insert or delete (Shift+click) anchor points, right-click on anchor points for more options (split, change start, delete)</td>
+                <td>Aktiviere den Edition-Modus zum Hinzufügen, Verschieben, Einfügen oder Löschen (Umschalt+Klick) von Ankerpunkten, rechts-klick auf Ankerpunkte für weitere Optionen (teilen, Start ändern, löschen)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-stopwatch"></i></td>
@@ -271,7 +271,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-folder-tree"></i></td>
-                <td>Manage the file structure, drag and drop files, tracks and track segments</td>
+                <td>Verwalten der Datei-Struktur, klicke und ziehe Dateien, Strecken und Strecken-Segmente</td>
             </tr>
             <tr>
                 <td><i class="fas fa-trash-alt"></i></td>
@@ -289,7 +289,7 @@
             <tr>
                 <td></td>
                 <td>F1</td>
-                <td>Show the last basemap used.</td>
+                <td>Zeige die zuletzt verwendete Basiskarte.</td>
             </tr>
             <tr>
                 <td></td>
@@ -321,20 +321,20 @@
                    <col span="1">
                 </colgroup>
                 <tbody>
-                    <td><b>Export settings</b></td>
-                    <td><input type="checkbox" id="merge"> <label for="merge">Merge all traces</label></td>
+                    <td><b>Einstellungen exportieren</b></td>
+                    <td><input type="checkbox" id="merge"> <label for="merge">Alle Tracks zusammenführen</label></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-time" checked> <label for="include-time">Time</label></td>
-                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Surface</label></td>
+                    <td><input type="checkbox" id="include-time" checked> <label for="include-time">Zeit</label></td>
+                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Oberfläche</label></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-cad" checked> <label for="include-cad">Cadence</label></td>
-                    <td><input type="checkbox" id="include-hr" checked> <label for="include-hr">Heartrate</label></td>
+                    <td><input type="checkbox" id="include-cad" checked> <label for="include-cad">Kadenz</label></td>
+                    <td><input type="checkbox" id="include-hr" checked> <label for="include-hr">Herzfrequenz</label></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Temperature</label></td>
-                    <td><input type="checkbox" id="include-power" checked> <label for="include-power">Power</label></td>
+                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Temperatur</label></td>
+                    <td><input type="checkbox" id="include-power" checked> <label for="include-power">Leistung</label></td>
                 </tr>
                 </tbody>
             </table>
@@ -355,12 +355,12 @@
         </div>
         <div id="color-content" class="popup-content">
             <div style="text-align: left">
-                <label for="color-picker">Pick a new color</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
-                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Apply color to all traces</label><br>
-                <label for="opacity-slider">Opacity</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
-                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Apply opacity to all traces</label><br>
-                <label for="width-slider">Width</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
-                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Apply width to all traces</label>
+                <label for="color-picker">Wähle eine neue Farbe</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
+                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Farbe auf alle Tracks anwenden</label><br>
+                <label for="opacity-slider">Deckkraft</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
+                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Deckkraft auf alle Tracks anwenden</label><br>
+                <label for="width-slider">Breite</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
+                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Breite auf alle Tracks anwenden</label>
             </div>
             <div id="validate-color" class="panels custom-button normal-button">Ok</div>
             <div id="cancel-color" class="panels custom-button normal-button"><b>Abbrechen</b></div>
@@ -378,44 +378,44 @@
         </div>
         <div id="merge-content" class="popup-content">
             <div id="merge-time-options">
-                <i class="fas fa-stopwatch"></i> Choose how to adapt the timestamps of the second trace (if any)
+                <i class="fas fa-stopwatch"></i> Wähle wie die Zeitstempel des zweiten Tracks angepasst werden sollen (falls vorhanden)
                 <div class="center-leaflet" style="text-align: left; width: min-content;">
-                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Keep the original timestamps (as long as they come after those of the first trace)</label><br>
-                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Make the second trace start right after the first one</label>
+                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Behalte die ursprünglichen Zeitstempel (solange sie nach denen des ersten Track kommen)</label><br>
+                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Lass den zweiten Track direkt nach dem ersten starten</label> machen
                 </div>
                 <hr>
             </div>
             <div>
-                <div class="close-spacing">Click on another trace or tab to merge the current trace with it</div><hr>
-                Choose how to add the second trace to the first one<br>
-                <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Merge as track points</label><br>
-                <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Merge as track segments</label><br>
-                <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Merge as tracks</label>
+                <div class="close-spacing">Klicke auf einen anderen Track oder eine Registerkarte um ihn mit dem aktuelle Track zusammenzuführen</div><hr>
+                Wähle wie der zweiten Track zum ersten hinzugefügt werden soll<br>
+                <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Als Trackpunkte zusammenführen</label><br>
+                <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Als Streckensegmente zusammenführen</label><br>
+                <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Als Tracks zusammenführen</label>
             </div>
         </div>
         <div id="split-content" class="popup-content">
-            Choose how to split the trace<br>
-            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Split into separate files</label><br>
-            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Split into separate tracks</label><br>
-            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Split into separate track segments</label><br>
+            Wähle wie der Track geteilt werden soll<br>
+            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">In getrennte Dateien aufteilen</label><br>
+            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">In getrennte Tracks aufteilen</label><br>
+            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">In getrennte Tracksegmente aufteilen</label><br>
             <div id="split-ok" class="panels custom-button normal-button">Ok</div>
             <div id="split-cancel" class="panels custom-button normal-button"><b>Abbrechen</b></div>
         </div>
         <div id="extract-content" class="popup-content">
-            Choose what to extract<br>
+            Wähle was extrahiert werden soll<br>
             <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Tracks</label><br>
-            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Track segments</label><br>
+            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Tracksegmente</label><br>
             <div id="extract-ok" class="panels custom-button normal-button">Ok</div>
             <div id="extract-cancel" class="panels custom-button normal-button"><b>Abbrechen</b></div>
         </div>
         <div id="structure-content" class="popup-content">
-            <div class="close-spacing">Drag and drop the elements to rearrange the file structure</div>
-            <div>Move elements from or to the tabs above the elevation profile</div>
-            <div>Rename tracks or change their color</div>
+            <div class="close-spacing">Ziehen und Ablegen der Elemente, um die Dateistruktur neu zu ordnen</div>
+            <div>Elemente von oder zu Registerkarten über dem Höhenprofil verschieben</div>
+            <div>Tracks umbenennen oder ihre Farbe ändern</div>
             <div id="file-structure"></div>
         </div>
         <div id="crop-content" class="popup-content">
-            <input type="checkbox" id="crop-keep"><label for="crop-keep">Keep cropped parts in new files</label><br>
+            <input type="checkbox" id="crop-keep"><label for="crop-keep">Behalte getrennte Abschnitte in neuen Dateien</label><br>
             <div id="crop-ok" class="panels custom-button normal-button">Weiter</div>
             <div id="crop-cancel" class="panels custom-button normal-button"><b>Abbrechen</b></div>
         </div>
@@ -437,22 +437,22 @@
         </div>
         <div id="layer-selection-content">
             <div id="layer-creation">
-                Add or replace a custom layer here
+                Eigene Ebene hinzufügen oder ersetzen
                 <table style="text-align: left">
                     <tr>
-                        <td><label for="layer-name">Layer name</label></td>
+                        <td><label for="layer-name">Name der Ebene</label></td>
                         <td><input type="text" id="layer-name" size="35"></td>
                     </tr>
                     <tr>
-                        <td><label for="layer-url">Tiles URL</label></td>
+                        <td><label for="layer-url">Kacheladresse</label></td>
                         <td><input type="text" id="layer-url" placeholder="https://{s}.domain.com/{z}/{y}/{x}.png" size="35"></td>
                     </tr>
                     <tr>
-                        <td><label for="layer-max-zoom">Max zoom level</label></td>
+                        <td><label for="layer-max-zoom">Maximale Zoomstufe</label></td>
                         <td><input type="number" id="layer-max-zoom" value="20" min="1" max="20"></td>
                     </tr>
                     <tr>
-                        <td><label for="layer-type">Layer type</label></td>
+                        <td><label for="layer-type">Ebenenart</label></td>
                         <td><select id="layer-type">
                             <option value="baselayer">Basiskarte</option>
                             <option value="overlay">Einblendung</option>
@@ -463,12 +463,12 @@
                     </tr>
                 </table>
                 <div id="preview-map" style="width: 100%; height: 200px"></div>
-                <div id="layer-creation-ok" class="panels custom-button normal-button">Add layer</div>
+                <div id="layer-creation-ok" class="panels custom-button normal-button">Ebene hinzufügen</div>
             </div>
             <div id="layer-selection">
-                <span class="close-spacing">Select the layers you want to appear in the interface</span>
+                <span class="close-spacing">Wähle die Ebenen aus, die in der Oberfläche angezeigt werden sollen</span>
                 <div id="layer-selection-area"></div>
-                <div id="layer-selection-ok" class="panels custom-button normal-button">Save</div>
+                <div id="layer-selection-ok" class="panels custom-button normal-button">Speichern</div>
             </div>
         </div>
         <div id="load-error-content" class="popup-content">
