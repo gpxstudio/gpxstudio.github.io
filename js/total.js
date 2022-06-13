@@ -383,7 +383,7 @@ export default class Total {
                         xmlOutput += `    <trkpt lat="${point.lat}" lon="${point.lng}">
     `;
                         if (point.meta) {
-                            if (point.meta.hasOwnProperty('ele')) {
+                            if (point.meta.hasOwnProperty('ele') && point.meta.ele != null) {
                                 xmlOutput += `    <ele>${point.meta.ele.toFixed(1)}</ele>
     `;
                             }
