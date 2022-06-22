@@ -115,7 +115,7 @@
                 <a href="./"><b>gpx.studio</b></a> est un visualiseur et éditeur de fichiers GPX en ligne gratuit qui permet de :
                 <ul>
                     <li>visualiser plusieurs traces avec des couleurs différentes et grâce à de nombreuses cartes (vélo, randonnée, satellite, <a href="https://www.strava.com/heatmap" target="_blank">Strava heatmap</a> , etc)</li>
-                    <li>éditer les traces en ajoutant, insérant, déplaçant ou supprimant des points de passage</li>
+                    <li>éditer les traces en ajoutant, insérant, déplaçant ou supprimant des points d'ancrage</li>
                     <li>inverser des traces</li>
                     <li>ajouter des données de temps aux traces</li>
                     <li>visualiser, ajouter, modifier et supprimer des points d'intérêt</li>
@@ -144,7 +144,7 @@
             <div class="block">
             <a name="funding"></a><h1>Aidez le site à rester gratuit (et sans publicité) &#128591;</h1>
             <div>
-                Chaque fois que vous ajoutez ou déplacez un point de passage, une requête est envoyée à nos serveurs pour générer un chemin sur le réseau routier.
+                Chaque fois que vous ajoutez ou déplacez un point d'ancrage, une requête est envoyée à nos serveurs pour générer un chemin sur le réseau routier.
                 Nous utilisons également les API de <a href="https://www.mapbox.com/" target="_blank">Mapbox</a> pour afficher de belles cartes, récupérer les données d'altitude et traiter les requêtes de géocodage (recherche d'un endroit dans la barre de recherche).<br><br>
                 Donc, si vous appréciez l'outil et l'utilisez fréquemment, envisagez de faire même un petit don pour que ce site puisse rester <b>gratuit à utiliser</b> et <b>sans publicité</b>. Merci pour votre soutien !<br><br>
                 <div style="text-align: center;"><script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support gpx.studio on Ko-fi', '#29abe0', 'F1F1303GH');kofiwidget2.draw();</script></div>
@@ -167,7 +167,7 @@
                 <div id="create" class="guide-content">
                     <ol>
                         <li>Dans la barre supérieure, cliquez sur <span class="button">Créer GPX</span>. Un nouvel onglet appelé "new" apparaît au-dessus du panneau inférieur.</li>
-                        <li>Placez des points de passage sur la carte en cliquant sur les endroits que vous souhaitez visiter.</li>
+                        <li>Placez des points d'ancrage sur la carte en cliquant sur les endroits que vous souhaitez visiter.</li>
                         <li>
                             Si le routage est activé, sélectionnez le type d'activité voulu afin d'emprunter les routes les plus appropriées.
                             Désactiver le routage vous permettra de tracer des lignes droites librement sur la carte.
@@ -176,7 +176,7 @@
                         <li>Si vous faites une erreur ou changez d'avis sur l'itinéraire, vous pouvez:
                             <ul>
                                 <li>utiliser les boutons annuler <i class="fas fa-reply button"></i> et rétablir <i class="fas fa-share button"></i>.</li>
-                                <li>click on an anchor point and use <span class="button"><i class="fas fa-trash-alt"></i> <span>Remove point</span></span> to remove it, or simply Shift+click on it.</li>
+                                <li>cliquer sur un point d'ancrage et utiliser <span class="button"><i class="fas fa-trash-alt"></i> <span>Supprimer le point</span></span> pour le supprimer, ou simplement utiliser Maj+clic dessus.</li>
                             </ul>
                         </li>
                     </ol>
@@ -220,13 +220,13 @@
                     Si vous voulez utiliser <b>gpx.studio</b> pour ouvrir des fichiers GPX stockés sur votre Google Drive, vous pouvez installer <a href="https://gsuite.google.com/marketplace/app/gpxstudio_the_online_gpx_editor/666808960580" target="_blank">l'add-on Google Drive</a>.
                 </div></div>
                 <div class="guide-item"><a name="edit-track-points" href="#edit-track-points" class="my-anchor"><div class="guide-title" onclick="toggle('edit-track')">Éditer les points de passage d'un fichier GPX</div></a>
-                <div id="edit-track" class="guide-content">Cliquez sur <i class="fas fa-pencil-alt button"></i> pour passer en mode édition. En fonction du niveau de zoom, un ensemble de points de passage apparaît. Plus vous zoomez, plus les points de passage sont rapprochés.<br>Vous pouvez ensuite :
+                <div id="edit-track" class="guide-content">Cliquez sur <i class="fas fa-pencil-alt button"></i> pour passer en mode édition. En fonction du niveau de zoom, un ensemble de points d'ancrage apparaît. Plus vous zoomez, plus les points d'ancrage sont rapprochés.<br>Vous pouvez ensuite :
                     <ul>
-                        <li>ajouter des points de passage en fin de trace en cliquant sur la carte à l'endroit où vous souhaitez passer.</li>
-                        <li>faire glisser un point de passage ou la ligne elle-même pour rediriger la trace.</li>
-                        <li>click on an anchor point and use <span class="button"><i class="fas fa-trash-alt"></i> <span>Remove point</span></span> to remove it, or simply Shift+click on it.</li>
-                        <li>click on an anchor point or on the line and use <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> to split the trace at a chosen location.</li>
-                        <li>click on an anchor point or on the line and use <span class="button"><i class="fas fa-undo"></i> <span>Start loop here</span></span> to make the loop start at a chosen location.</li>
+                        <li>ajouter des points d'ancrage en fin de trace en cliquant sur la carte à l'endroit où vous souhaitez passer.</li>
+                        <li>faire glisser un point d'ancrage ou la ligne elle-même pour rediriger la trace.</li>
+                        <li>cliquer sur un point d'ancrage et utiliser <span class="button"><i class="fas fa-trash-alt"></i> <span>Supprimer le point</span></span> pour le supprimer, ou simplement utiliser Maj+clic dessus.</li>
+                        <li>cliquer sur un point d'ancrage ou sur la trace et utiliser <span class="button"><i class="fas fa-cut"></i> <span>Diviser ici</span></span> pour diviser la trace à cet endroit.</li>
+                        <li>cliquer sur un point d'ancrage ou sur la trace et utiliser <span class="button"><i class="fas fa-undo"></i> <span>Démarrer la boucle ici</span></span> pour faire démarrer la boucle à cet endroit.</li>
                     </ul>
                     Si vous faites une erreur ou changez d'avis sur l'itinéraire, utilisez les boutons annuler <i class="fas fa-reply button"></i> et rétablir <i class="fas fa-share button"></i> .<br><br>
                     Si le routage est activé, sélectionnez le type d'activité voulu afin d'emprunter les routes les plus appropriées.
@@ -237,7 +237,7 @@
                 <div id="crop" class="guide-content">Vous avez 3 options :
                     <ul>
                         <li>Utilisez le slider dans le panneau inférieur pour déplacer les points de départ et d'arrivée de la trace. Cliquez sur <i class="fas fa-check button"></i> pour valider la sélection. Vous pouvez choisir si vous voulez conserver les parties rognées dans des fichiers séparés.</li>
-                        <li>Passez en mode édition en cliquant sur <i class="fas fa-pencil-alt button"></i>. Then, click on an anchor point or on the line and use <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> to split the trace at a chosen location.</li>
+                        <li>Passez en mode édition en cliquant sur <i class="fas fa-pencil-alt button"></i>. Ensuite, cliquez sur un point d'ancrage ou sur la trace et utilisez <span class="button"><i class="fas fa-cut"></i> <span>Diviser ici</span></span> pour diviser la trace à cet endroit.</li>
                         <li>Cliquez sur <i class="fas fa-vector-square button"></i> et sélectionnez une zone contenant les points que vous souhaitez conserver ou supprimer. Décochez la case <i class="far fa-check-square"></i> Points d'intérêt si vous ne voulez pas supprimer des points d'intérêt en même temps. Ensuite, choisissez si vous voulez supprimer les points de passage à l'intérieur ou en-dehors de la sélection. Enfin, cliquez sur <span class="button">Appliquer</span>.</li>
                     </ul>
                 </div></div>
@@ -245,12 +245,12 @@
                 <div id="split" class="guide-content">Vous avez 2 options :
                     <ul>
                         <li>Utilisez le slider dans le panneau inférieur pour déplacer les points de départ et d'arrivée de la trace. Cliquez sur <i class="fas fa-check button"></i> pour valider la sélection. Cochez la case <i class="far fa-check-square"></i> Conserver les parties rognées dans de nouveaux fichiers, puis cliquez sur <span class="button">Appliquer</span>.</li>
-                        <li>Passez en mode édition en cliquant sur <i class="fas fa-pencil-alt button"></i>. Then, click on an anchor point or on the line and use <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> to split the trace at a chosen location.</li>
+                        <li>Passez en mode édition en cliquant sur <i class="fas fa-pencil-alt button"></i>. Ensuite, cliquez sur un point d'ancrage ou sur la trace et utilisez <span class="button"><i class="fas fa-cut"></i> <span>Diviser ici</span></span> pour diviser la trace à cet endroit.</li>
                     </ul>
                 </div></div>
                 <div class="guide-item"><a name="change-start-loop" href="#change-start-loop" class="my-anchor"><div class="guide-title" onclick="toggle('change-start')">Changer le point de départ d'une boucle</div></a>
                 <div id="change-start" class="guide-content">
-                    Passez en mode édition en cliquant sur <i class="fas fa-pencil-alt button"></i>. Then, click on an anchor point or on the line and use <span class="button"><i class="fas fa-undo"></i> <span>Start loop here</span></span> to make the loop start at a chosen location.</li>
+                    Passez en mode édition en cliquant sur <i class="fas fa-pencil-alt button"></i>. Ensuite, cliquez sur un point d'ancrage ou sur la trace et utilisez <span class="button"><i class="fas fa-undo"></i> <span>Démarrer la boucle ici</span></span> pour faire démarrer la boucle à cet endroit.</li>
                 </div></div>
                 <div class="guide-item"><a name="add-timestamps" href="#add-timestamps" class="my-anchor"><div class="guide-title" onclick="toggle('timestamps')">Ajouter des données de temps à un fichier GPX</div></a>
                 <div id="timestamps" class="guide-content">
@@ -347,7 +347,7 @@
                         <li>Remplissez quelques informations sur le point d'intérêt (vous pouvez utiliser du HTML pour formater ces informations, et donc même ajouter des images).</li>
                         <li>Cliquez sur <span class="button">Ok</span>.</li>
                     </ol>
-                    If you want to reuse a waypoint at another location or for another trace, click on the waypoint and press <i class="fas fa-copy button"></i> inside the popup. Ensuite, cliquez sur la carte pour ajouter une copie du point d'intérêt à l'emplacement choisi.
+                    Si vous voulez réutiliser un point d'intérêt à un autre endroit ou pour une autre trace, cliquez sur le point d'intérêt et appuyez sur <i class="fas fa-copy button"></i> dans le popup. Ensuite, cliquez sur la carte pour ajouter une copie du point d'intérêt à l'emplacement choisi.
                 </div></div>
                 <div class="guide-item"><a name="edit-waypoint" href="#edit-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('edit-wpt')">Éditer les points d'intérêt d'un fichier GPX</div></a>
                 <div id="edit-wpt" class="guide-content">Pour changer la position d'un point d'intérêt, vous pouvez simplement le faire glisser vers un nouvel emplacement. Lorsque vous faites glisser un point d'intérêt près de la trace, il est automatiquement attiré pour que vous puissiez le placer parfaitement sur la trace. Faites un zoom avant ou arrière pour changer la distance à laquelle les points d'intérêt sont attirés.<br>
