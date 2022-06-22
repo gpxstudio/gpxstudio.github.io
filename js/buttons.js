@@ -181,6 +181,8 @@ export default class Buttons {
         this.extract_content = document.getElementById('extract-content');
         this.structure_content = document.getElementById('structure-content');
         this.file_structure = document.getElementById('file-structure');
+        this.merge_selection = document.getElementById('merge-selection');
+        this.delete_selection = document.getElementById('delete-selection');
         this.segment_text = document.getElementById('segment-text');
         this.track_text = document.getElementById('track-text');
         this.merge_time_options = document.getElementById('merge-time-options');
@@ -1484,6 +1486,10 @@ export default class Buttons {
             buttons.reduce_window.hide();
         });
         this.reduce_slider.addEventListener("input", sliderCallback);
+        const structure_callback = function () {
+            buttons.file_structure.innerHTML = '';
+            buttons.file_structure.appendChild(buttons.structure.trace.getFileStructure(true, structure_callback));
+        };
         this.structure.addEventListener("click", function() {
             if (total.hasFocus) return;
             const trace = total.traces[total.focusOn];
@@ -1492,15 +1498,41 @@ export default class Buttons {
             if (buttons.window_open) buttons.window_open.hide();
 
             buttons.structure.trace = trace;
-            const callback = function () {
-                buttons.file_structure.innerHTML = '';
-                buttons.file_structure.appendChild(trace.getFileStructure(true, callback));
-            };
-            callback();
+            structure_callback();
 
             buttons.window_open = buttons.structure_window;
             buttons.structure_window.show();
             gtag('event', 'button', {'event_category' : 'structure'});
+        });
+        this.merge_selection.addEventListener("mousedown", function () {
+            const items = buttons.file_structure.getElementsByClassName('multidrag-selected');
+            var tracks = [], segments = [];
+            for (var i=0; i<items.length; i++) {
+                if (items[i].segment) {
+                    segments.push(items[i].segment);
+                    if (tracks.length == 0) tracks.push(items[i].track);
+                } else {
+                    tracks.push(items[i].track);
+                }
+            }
+            if (segments.length > 0) buttons.structure.trace.mergeSelection(tracks, segments);
+            else buttons.structure.trace.mergeSelection(tracks);
+            structure_callback();
+        });
+        this.delete_selection.addEventListener("mousedown", function () {
+            const items = buttons.file_structure.getElementsByClassName('multidrag-selected');
+            var tracks = [], segments = [];
+            for (var i=0; i<items.length; i++) {
+                if (items[i].segment) {
+                    segments.push(items[i].segment);
+                    if (tracks.length == 0) tracks.push(items[i].track);
+                } else {
+                    tracks.push(items[i].track);
+                }
+            }
+            if (segments.length > 0) buttons.structure.trace.deleteSelection(tracks, segments);
+            else buttons.structure.trace.deleteSelection(tracks);
+            structure_callback();
         });
         this.time.addEventListener("click", function (e) {
             if (total.hasFocus) return;

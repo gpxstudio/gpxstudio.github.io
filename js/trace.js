@@ -1839,6 +1839,50 @@ export default class Trace {
         return newTrace;
     }
 
+    mergeSelection(tracks, segments) {
+        if (segments) {
+            const track = tracks[0];
+
+            for (var s=1; s<segments.length; s++) {
+                segments[0]._latlngs.push(...segments[s]._latlngs);
+                track.removeLayer(segments[s]);
+            }
+        } else {
+            for (var t=1; t<tracks.length; t++) {
+                const segments = this.getSegments(tracks[t]);
+                this.gpx.getLayers()[0].removeLayer(tracks[t]);
+                for (var s=0; s<segments.length; s++) {
+                    tracks[0].addLayer(new L.Polyline(segments[s]._latlngs));
+                }
+            }
+        }
+
+        this.timeConsistency();
+        this.recomputeStats();
+        this.update();
+        this.updateTab();
+        this.redraw();
+        this.focus();
+    }
+
+    deleteSelection(tracks, segments) {
+        if (segments) {
+            const track = tracks[0];
+            for (var s=0; s<segments.length; s++) {
+                track.removeLayer(segments[s]);
+            }
+        } else {
+            for (var t=0; t<tracks.length; t++) {
+                this.gpx.getLayers()[0].removeLayer(tracks[t]);
+            }
+        }
+
+        this.recomputeStats();
+        this.update();
+        this.updateTab();
+        this.redraw();
+    }
+
     addEndPoint(lat, lng) {
         if (!this.visible) this.hideUnhide();
 
