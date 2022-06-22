@@ -537,6 +537,119 @@ export default class Trace {
                 map.off('mousemove');
             }
         };
+        const open_popup = function (e) {
+            if (trace._editMarkers.length == 1) return;
+            insertTmpEditMarker();
+            var content = '<div id="close-popup" class="custom-button" style="float: right;"><i class="fas fa-times"></i></div>';
+            if (marker != trace._editMarkers[0] && marker != trace._editMarkers[trace._editMarkers.length-1]) {
+                content += `<div id="split-waypoint" class="custom-button popup-action"><i class="fas fa-cut"></i> `+trace.buttons.split_text+`</div>
+                            <div id="start-loop-waypoint" class="custom-button popup-action"><i class="fas fa-undo"></i> `+trace.buttons.start_loop_text+`</div>`;
+            }
+            content += `<div id="remove-waypoint" class="custom-button popup-action"><i class="fas fa-trash-alt"></i> `+trace.buttons.remove_pt_text+`</div>`;
+
+            trace.popup.setContent(content);
+            trace.popup.setLatLng(e.latlng);
+            trace.popup.openOn(map);
+            trace.popup.addEventListener('remove', function (e) {
+                trace.closePopup();
+            });
+
+            var button = document.getElementById("remove-waypoint");
+            button.addEventListener("click", function () {
+                trace.deletePoint(marker);
+                marker.remove();
+                trace.closePopup();
+            });
+
+            if (marker != trace._editMarkers[0] && marker != trace._editMarkers[trace._editMarkers.length-1]) {
+                var split = function () {
+                    trace.buttons.split_ok.removeEventListener('click', split);
+                    trace.buttons.split_cancel.removeEventListener('click', cancel);
+
+                    trace.buttons.split_window.hide();
+
+                    if (trace.buttons.split_as_files.checked) {
+                        const copy = trace.clone();
+                        copy.total.setTraceIndex(copy.index, trace.index+1);
+                        copy.crop(marker._pt.trace_index, copy.getPoints().length-1, true);
+                        trace.crop(0, marker._pt.trace_index, true);
+                    } else if (trace.buttons.split_as_tracks.checked || trace.buttons.split_as_segments.checked) {
+                        var tracks = trace.getTracks();
+                        for (var t=0; t<tracks.length; t++) {
+                            var segments = trace.getSegments(tracks[t]);
+                            var i = segments.indexOf(marker._layer);
+                            if (i >= 0) {
+                                const rem = segments[i]._latlngs.splice(marker._pt.index);
+                                segments[i]._latlngs[segments[i]._latlngs.length-1].routing = false;
+                                rem[0].routing = false;
+
+                                if (trace.buttons.split_as_segments.checked) {
+                                    tracks[t].addLayer(new L.Polyline(rem));
+                                    for (var j=i+1; j<segments.length; j++) {
+                                        tracks[t].removeLayer(segments[j]);
+                                        tracks[t].addLayer(new L.Polyline(segments[j]._latlngs));
+                                    }
+                                } else {
+                                    var segs = [new L.Polyline(rem)];
+                                    for (var j=i+1; j<segments.length; j++) {
+                                        tracks[t].removeLayer(segments[j]);
+                                        segs.push(new L.Polyline(segments[j]._latlngs));
+                                    }
+                                    trace.gpx.getLayers()[0].addLayer(new L.FeatureGroup(segs));
+
+                                    for (var j=t+1; j<tracks.length; j++) {
+                                        trace.gpx.getLayers()[0].removeLayer(tracks[j]);
+                                        var trk = new L.FeatureGroup(trace.getSegments(tracks[j]));
+                                        trk.style = tracks[j].style;
+                                        if (tracks[j].name) trk.name = tracks[j].name;
+                                        trace.gpx.getLayers()[0].addLayer(trk);
+                                    }
+                                }
+
+                                break;
+                            }
+                        }
+
+                        trace.recomputeStats();
+                        trace.focus();
+                        trace.redraw();
+                        trace.update();
+                    }
+
+                    trace.draw();
+                };
+                var cancel = function () {
+                    trace.buttons.split_ok.removeEventListener('click', split);
+                    trace.buttons.split_cancel.removeEventListener('click', cancel);
+
+                    trace.buttons.split_window.hide();
+                };
+
+                var button2 = document.getElementById("split-waypoint");
+                button2.addEventListener("click", function () {
+                    if (trace.buttons.window_open) trace.buttons.window_open.hide();
+                    trace.buttons.window_open = trace.buttons.split_window;
+                    trace.buttons.split_window.show();
+                    trace.closePopup();
+
+                    trace.buttons.split_ok.addEventListener('click', split);
+                    trace.buttons.split_cancel.addEventListener('click', cancel);
+                });
+
+                var button3 = document.getElementById("start-loop-waypoint");
+                button3.addEventListener("click", function () {
+                    trace.setStart(marker._pt.trace_index);
+                    trace.closePopup();
+                });
+            }
+
+            var close = document.getElementById("close-popup");
+            close.addEventListener("click", function () {
+                trace.closePopup();
+            });
+
+            return false;
+        };
         marker.on({
             dragstart: function (e) {
                 insertTmpEditMarker();
@@ -549,122 +662,12 @@ export default class Trace {
                 if (e.originalEvent.shiftKey) {
                     trace.deletePoint(marker);
                     marker.remove();
+                } else {
+                    open_popup(e);
                 }
                 L.DomEvent.stopPropagation(e);
             },
-            contextmenu: function (e) {
-                if (trace._editMarkers.length == 1) return;
-                insertTmpEditMarker();
-                var content = '<div id="close-popup" class="custom-button" style="float: right;"><i class="fas fa-times"></i></div>';
-                if (marker != trace._editMarkers[0] && marker != trace._editMarkers[trace._editMarkers.length-1]) {
-                    content += `<div id="split-waypoint" class="custom-button popup-action"><i class="fas fa-cut"></i> `+trace.buttons.split_text+`</div>
-                                <div id="start-loop-waypoint" class="custom-button popup-action"><i class="fas fa-undo"></i> `+trace.buttons.start_loop_text+`</div>`;
-                }
-                content += `<div id="remove-waypoint" class="custom-button popup-action"><i class="fas fa-trash-alt"></i> `+trace.buttons.remove_pt_text+`</div>`;
-
-                trace.popup.setContent(content);
-                trace.popup.setLatLng(e.latlng);
-                trace.popup.openOn(map);
-                trace.popup.addEventListener('remove', function (e) {
-                    trace.closePopup();
-                });
-
-                var button = document.getElementById("remove-waypoint");
-                button.addEventListener("click", function () {
-                    trace.deletePoint(marker);
-                    marker.remove();
-                    trace.closePopup();
-                });
-
-                if (marker != trace._editMarkers[0] && marker != trace._editMarkers[trace._editMarkers.length-1]) {
-                    var split = function () {
-                        trace.buttons.split_ok.removeEventListener('click', split);
-                        trace.buttons.split_cancel.removeEventListener('click', cancel);
-
-                        trace.buttons.split_window.hide();
-
-                        if (trace.buttons.split_as_files.checked) {
-                            const copy = trace.clone();
-                            copy.total.setTraceIndex(copy.index, trace.index+1);
-                            copy.crop(marker._pt.trace_index, copy.getPoints().length-1, true);
-                            trace.crop(0, marker._pt.trace_index, true);
-                        } else if (trace.buttons.split_as_tracks.checked || trace.buttons.split_as_segments.checked) {
-                            var tracks = trace.getTracks();
-                            for (var t=0; t<tracks.length; t++) {
-                                var segments = trace.getSegments(tracks[t]);
-                                var i = segments.indexOf(marker._layer);
-                                if (i >= 0) {
-                                    const rem = segments[i]._latlngs.splice(marker._pt.index);
-                                    segments[i]._latlngs[segments[i]._latlngs.length-1].routing = false;
-                                    rem[0].routing = false;
-
-                                    if (trace.buttons.split_as_segments.checked) {
-                                        tracks[t].addLayer(new L.Polyline(rem));
-                                        for (var j=i+1; j<segments.length; j++) {
-                                            tracks[t].removeLayer(segments[j]);
-                                            tracks[t].addLayer(new L.Polyline(segments[j]._latlngs));
-                                        }
-                                    } else {
-                                        var segs = [new L.Polyline(rem)];
-                                        for (var j=i+1; j<segments.length; j++) {
-                                            tracks[t].removeLayer(segments[j]);
-                                            segs.push(new L.Polyline(segments[j]._latlngs));
-                                        }
-                                        trace.gpx.getLayers()[0].addLayer(new L.FeatureGroup(segs));
-
-                                        for (var j=t+1; j<tracks.length; j++) {
-                                            trace.gpx.getLayers()[0].removeLayer(tracks[j]);
-                                            var trk = new L.FeatureGroup(trace.getSegments(tracks[j]));
-                                            trk.style = tracks[j].style;
-                                            if (tracks[j].name) trk.name = tracks[j].name;
-                                            trace.gpx.getLayers()[0].addLayer(trk);
-                                        }
-                                    }
-
-                                    break;
-                                }
-                            }
-
-                            trace.recomputeStats();
-                            trace.focus();
-                            trace.redraw();
-                            trace.update();
-                        }
-
-                        trace.draw();
-                    };
-                    var cancel = function () {
-                        trace.buttons.split_ok.removeEventListener('click', split);
-                        trace.buttons.split_cancel.removeEventListener('click', cancel);
-
-                        trace.buttons.split_window.hide();
-                    };
-
-                    var button2 = document.getElementById("split-waypoint");
-                    button2.addEventListener("click", function () {
-                        if (trace.buttons.window_open) trace.buttons.window_open.hide();
-                        trace.buttons.window_open = trace.buttons.split_window;
-                        trace.buttons.split_window.show();
-                        trace.closePopup();
-
-                        trace.buttons.split_ok.addEventListener('click', split);
-                        trace.buttons.split_cancel.addEventListener('click', cancel);
-                    });
-
-                    var button3 = document.getElementById("start-loop-waypoint");
-                    button3.addEventListener("click", function () {
-                        trace.setStart(marker._pt.trace_index);
-                        trace.closePopup();
-                    });
-                }
-
-                var close = document.getElementById("close-popup");
-                close.addEventListener("click", function () {
-                    trace.closePopup();
-                });
-
-                return false;
-            }
+            contextmenu: open_popup
         });
         return marker;
     }
