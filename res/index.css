@@ -514,6 +514,12 @@ ul { -ms-overflow-style: none; scrollbar-width: none; }
     text-align: right;
 }
 
+.multidrag-selected > .file-structure-track {
+    border: solid #0000dd 1px;
+    color: #0000dd;
+    background: aliceblue;
+}
+
 .file-structure-segment {
     border: solid 1px;
     margin-top: -1px;
@@ -532,6 +538,12 @@ ul { -ms-overflow-style: none; scrollbar-width: none; }
 .file-structure-segment > .time-info {
     min-width: 50px;
     text-align: right;
+}
+
+.multidrag-selected > .file-structure-segment {
+    border: solid #0000dd 1px;
+    color: #0000dd;
+    background: aliceblue;
 }
 
 .leaflet-interactive.mouseDown {

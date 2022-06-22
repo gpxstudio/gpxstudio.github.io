@@ -1000,21 +1000,24 @@ export default class Buttons {
                 if (total.hasFocus) total.update();
             },
             onAdd: function (e) {
-                const trace = e.item.trace;
-                const track = e.item.track;
-                const segment = e.item.segment;
-
-                if (segment) {
-                    const newTrace = trace.extractSelection(track, segment);
-                    total.setTraceIndex(newTrace.index, e.newIndex-1);
-                    trace.focus();
+                var trace, newTrace;
+                if (e.items.length > 0) {
+                    trace = e.items[0].trace;
+                    if (e.items[0].segment) newTrace = trace.extractSelection([e.items[0].track], e.items.map(x => x.segment));
+                    else newTrace = trace.extractSelection(e.items.map(x => x.track));
+                    for (var i=0; i<e.items.length; i++) {
+                        buttons.tabs.removeChild(e.items[i]);
+                    }
+                    total.setTraceIndex(newTrace.index, e.newIndicies[0].index-1);
                 } else {
-                    const newTrace = trace.extractSelection(track);
+                    trace = e.item.trace;
+                    if (e.item.segment) newTrace = trace.extractSelection([e.item.track], [e.item.segment]);
+                    else newTrace = trace.extractSelection([e.item.track]);
+                    buttons.tabs.removeChild(e.item);
                     total.setTraceIndex(newTrace.index, e.newIndex-1);
-                    trace.focus();
                 }
 
-                buttons.tabs.removeChild(e.item);
+                trace.focus();
             },
             onMove: function (e) {
                 const trace = e.dragged.trace;

@@ -962,15 +962,27 @@ export default class Trace {
                         pull: ["tabs", "tracks", "segments"]
                     },
                     fallbackOnBody: true,
+                    multiDrag: true,
+                    selectedClass: 'multidrag-selected',
                     onUpdate: function (e) {
-                        const segments = _this.getSegments(e.item.track);
-                        _this.setSelectionIndex(e.newIndex, e.item.track, segments[e.oldIndex]);
+                        if (e.items.length > 0) _this.setSelectionIndex(e.oldIndicies.map(x => x.index), e.newIndicies.map(x => x.index), e.items[0].track);
+                        else _this.setSelectionIndex([e.oldIndex], [e.newIndex], e.item.track);
                         if (refreshCallback) refreshCallback();
                     },
                     onAdd: function (e) {
-                        _this.moveSegmentToTrack(e.item.track, e.to.track, e.item.segment);
-                        var segments = _this.getSegments(e.to.track);
-                        _this.setSelectionIndex(e.newIndex, e.to.track, segments[segments.length-1]);
+                        if (e.items.length > 0) {
+                            var nsegments = _this.getSegments(e.to.track).length;
+                            _this.moveSegmentsToTrack(e.from.track, e.to.track, e.items.map(x => x.segment));
+                            var oldIndicies = [];
+                            for (var s=0; s<e.items.length; s++) {
+                                oldIndicies.push(nsegments + s);
+                            }
+                            _this.setSelectionIndex(oldIndicies, e.newIndicies.map(x => x.index), e.to.track);
+                        } else {
+                            _this.moveSegmentsToTrack(e.item.track, e.to.track, [e.item.segment]);
+                            var segments = _this.getSegments(e.to.track);
+                            _this.setSelectionIndex([segments.length-1], [e.newIndex], e.to.track);
+                        }
                         if (refreshCallback) refreshCallback();
                     },
                     onMove: function (e) {
@@ -994,7 +1006,14 @@ export default class Trace {
                             e.dragged.classList.remove('tab');
                             e.dragged.classList.add('file-structure-item');
                         }
-                    }
+                    },
+                    onSelect: function(e) {
+                        for (var i=0; i<e.items.length; i++) {
+                            if (!e.items[i].segment) {
+                                Sortable.utils.deselect(e.items[i]);
+                            }
+                        }
+                	}
                 });
                 segmentSortable.el.track = track;
             }
@@ -1008,25 +1027,34 @@ export default class Trace {
                     put: ["tabs", "segments"]
                 },
                 fallbackOnBody: true,
+                multiDrag: true,
+                selectedClass: 'multidrag-selected',
                 onUpdate: function (e) {
-                        const tracks = _this.getTracks();
-                        _this.setSelectionIndex(e.newIndex, tracks[e.oldIndex]);
-                        if (refreshCallback) refreshCallback();
+                    if (e.items.length > 0) _this.setSelectionIndex(e.oldIndicies.map(x => x.index), e.newIndicies.map(x => x.index));
+                    else _this.setSelectionIndex([e.oldIndex], [e.newIndex]);
+                    if (refreshCallback) refreshCallback();
                 },
                 onAdd: function (e) {
                     if (e.from.id == _this.buttons.tabs.id) {
-                        var ntracks = e.item.trace.getTracks().length;
-                        _this.merge(e.item.trace, false, false, true);
-                        for (var i=0; i<ntracks; i++) {
-                            const tracks = _this.getTracks();
-                            _this.setSelectionIndex(e.newIndex, tracks[tracks.length-1]);
+                        var ntracks = _this.getTracks().length;
+                        var ntracks_new = e.item.trace.getTracks().length;
+                        var oldIndicies = [], newIndicies = [];
+                        for (var t=0; t<ntracks_new; t++) {
+                            oldIndicies.push(ntracks + t);
+                            newIndicies.push(e.newIndex + t);
                         }
+                        _this.merge(e.item.trace, false, false, true);
+                        _this.setSelectionIndex(oldIndicies, newIndicies);
                         _this.total.removeTrace(e.item.trace.index);
                         _this.focus();
-                    } else {
-                        _this.moveSegmentToTrack(e.item.track, null, e.item.segment);
+                    } else if (e.items.length > 0) {
+                        _this.moveSegmentsToTrack(e.from.track, null, e.items.map(x => x.segment));
                         const tracks = _this.getTracks();
-                        _this.setSelectionIndex(e.newIndex, tracks[tracks.length-1]);
+                        _this.setSelectionIndex([tracks.length-1], [e.newIndicies[0].index]);
+                    } else {
+                        _this.moveSegmentsToTrack(e.item.track, null, [e.item.segment]);
+                        const tracks = _this.getTracks();
+                        _this.setSelectionIndex([tracks.length-1], [e.newIndex]);
                     }
                     if (refreshCallback) refreshCallback();
                 },
@@ -1047,6 +1075,13 @@ export default class Trace {
                         e.dragged.children[0].style.display = '';
                         e.dragged.children[1].style.display = '';
                         if (e.dragged.children.length > 2) e.dragged.removeChild(e.dragged.children[2]);
+                    }
+                },
+                onSelect: function(e) {
+                    for (var i=0; i<e.items.length; i++) {
+                        if (e.items[i].segment) {
+                            Sortable.utils.deselect(e.items[i]);
+                        }
                     }
                 }
             });
@@ -1473,46 +1508,39 @@ export default class Trace {
         this.update();
     }
 
-    setSelectionIndex(newIndex, track, segment) {
-        if (segment) {
-            const segments = this.getSegments(track);
-            var oldIndex = segments.indexOf(segment);
-            if (oldIndex == -1) return;
-
-            if (oldIndex < newIndex) newIndex++;
-
-            for (var s=newIndex; s<segments.length; s++) {
-                if (s != oldIndex) track.removeLayer(segments[s]);
+    setSelectionIndex(oldIndicies, newIndicies, track) {
+        if (track) {
+            var segments = this.getSegments(track);
+            for (var s=0; s<segments.length; s++) {
+                track.removeLayer(segments[s]);
             }
-            track.removeLayer(segment);
 
-            track.addLayer(new L.Polyline(segment._latlngs));
-            for (var s=newIndex; s<segments.length; s++) {
-                if (s != oldIndex) track.addLayer(new L.Polyline(segments[s]._latlngs));
+            var to_move = [];
+            for (var i=oldIndicies.length-1; i>=0; i--) {
+                to_move.splice(0, 0, segments.splice(oldIndicies[i], 1)[0]);
+            }
+            segments.splice(newIndicies[0], 0, ...to_move);
+
+            for (var s=0; s<segments.length; s++) {
+                track.addLayer(new L.Polyline(segments[s]._latlngs));
             }
         } else {
             const tracks = this.getTracks();
-            var oldIndex = tracks.indexOf(track);
-            if (oldIndex == -1) return;
-
-            if (oldIndex < newIndex) newIndex++;
-
-            for (var t=newIndex; t<tracks.length; t++) {
-                if (t != oldIndex) this.gpx.getLayers()[0].removeLayer(tracks[t]);
+            for (var t=0; t<tracks.length; t++) {
+                this.gpx.getLayers()[0].removeLayer(tracks[t]);
             }
-            this.gpx.getLayers()[0].removeLayer(track);
 
-            var trk = new L.FeatureGroup(this.getSegments(track));
-            trk.style = track.style;
-            if (track.name) trk.name = track.name;
-            this.gpx.getLayers()[0].addLayer(trk);
-            for (var t=newIndex; t<tracks.length; t++) {
-                if (t != oldIndex) {
-                    trk = new L.FeatureGroup(this.getSegments(tracks[t]));
-                    trk.style = tracks[t].style;
-                    if (tracks[t].name) trk.name = tracks[t].name;
-                    this.gpx.getLayers()[0].addLayer(trk);
-                }
+            var to_move = [];
+            for (var i=oldIndicies.length-1; i>=0; i--) {
+                to_move.splice(0, 0, tracks.splice(oldIndicies[i], 1)[0]);
+            }
+            tracks.splice(newIndicies[0], 0, ...to_move);
+
+            for (var t=0; t<tracks.length; t++) {
+                var trk = new L.FeatureGroup(this.getSegments(tracks[t]));
+                trk.style = tracks[t].style;
+                if (tracks[t].name) trk.name = tracks[t].name;
+                this.gpx.getLayers()[0].addLayer(trk);
             }
         }
 
@@ -1524,15 +1552,24 @@ export default class Trace {
         this.redraw();
     }
 
-    moveSegmentToTrack(oldTrack, newTrack, segment) {
-        if (newTrack) newTrack.addLayer(new L.Polyline(segment._latlngs));
-        else {
-            var trk = new L.FeatureGroup([new L.Polyline(segment._latlngs)]);
+    moveSegmentsToTrack(oldTrack, newTrack, segments) {
+        if (newTrack) {
+            for (var s=0; s<segments.length; s++) {
+                newTrack.addLayer(new L.Polyline(segments[s]._latlngs));
+            }
+        } else {
+            var segs = [];
+            for (var s=0; s<segments.length; s++) {
+                segs.push(new L.Polyline(segments[s]._latlngs));
+            }
+            var trk = new L.FeatureGroup(segs);
             trk.style = {...oldTrack.style};
             if (oldTrack.name) trk.name = oldTrack.name;
             this.gpx.getLayers()[0].addLayer(trk);
         }
-        oldTrack.removeLayer(segment);
+        for (var s=0; s<segments.length; s++) {
+            oldTrack.removeLayer(segments[s]);
+        }
     }
 
     merge(trace, as_points, as_segments, as_tracks, stick_time) {
@@ -1764,31 +1801,36 @@ export default class Trace {
         return traces;
     }
 
-    extractSelection(track, segment) {
-        const newTrace = this.total.addTrace(undefined, track.name ? track.name : this.name);
+    extractSelection(tracks, segments) {
+        const newTrace = this.total.addTrace(undefined, segments ? (tracks[0].name ? tracks[0].name : this.name) : (tracks.length == 1 && tracks[0].name) ? tracks[0].name : this.name);
         newTrace.gpx.addLayer(new L.FeatureGroup());
 
         var segs = [];
-        if (segment) segs.push(new L.Polyline(segment._latlngs))
-        else {
-            const segments = this.getSegments(track);
+        if (segments) {
+            const track = tracks[0];
             for (var s=0; s<segments.length; s++) {
-                segs.push(new L.Polyline(segments[s]._latlngs))
+                segs.push(new L.Polyline(segments[s]._latlngs));
+                track.removeLayer(segments[s]);
+            }
+
+            var trk = new L.FeatureGroup(segs);
+            trk.style = track.style;
+            if (track.name) trk.name = track.name;
+            newTrace.gpx.getLayers()[0].addLayer(trk);
+        } else {
+            for (var t=0; t<tracks.length; t++) {
+                this.gpx.getLayers()[0].removeLayer(tracks[t]);
+                var trk = new L.FeatureGroup(this.getSegments(tracks[t]));
+                trk.style = tracks[t].style;
+                if (tracks[t].name) trk.name = tracks[t].name;
+                newTrace.gpx.getLayers()[0].addLayer(trk);
             }
         }
-
-        var trk = new L.FeatureGroup(segs);
-        trk.style = track.style;
-        if (track.name) trk.name = track.name;
-        newTrace.gpx.getLayers()[0].addLayer(trk);
 
         newTrace.recomputeStats();
         newTrace.update();
         newTrace.updateTab();
-        newTrace.setStyle(newTrace.hasFocus);
-
-        if (segment) track.removeLayer(segment);
-        else this.gpx.getLayers()[0].removeLayer(track);
+        newTrace.setStyle(false);
 
         this.recomputeStats();
         this.update();
