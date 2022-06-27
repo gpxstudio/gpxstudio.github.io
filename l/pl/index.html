@@ -145,7 +145,7 @@
                 <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Przełącz opcje edycji"></i>
                 <table class="panels">
                     <tr>
-                        <td><b>Activity</b></td>
+                        <td><b>Aktywność</b></td>
                         <td><select name="activity" id="activity-input" class="close-spacing">
                             <option value="Trekking-dry">Rower</option>
                             <option value="fastbike">Rower szosowy</option>
@@ -174,8 +174,8 @@
             </div>
             <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Otwórz Mapillary lub Google Street View"></i>
         </div>
-        <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Direction markers</label>
-        <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Distance markers</label>
+        <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Znaczniki kierunku</label>
+        <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Znaczniki odległości</label>
         <div id="help-text">
         <div style="text-align: center; font-size: 10pt; color: #476947">
             <b>Check out the <a href="./about.html#guide" target="_blank">User Guide</a> for more info and small tutorials!</b>
@@ -231,11 +231,11 @@
             </tr>
             <tr>
                 <td><i class="fas fa-stopwatch"></i></td>
-                <td>Change the speed and starting time of the trace</td>
+                <td>Zmień prędkość i czas rozpoczęcia trasy</td>
             </tr>
             <tr>
                 <td><i class="fas fa-exchange-alt"></i></td>
-                <td>Reverse the trace and adapt the timestamps</td>
+                <td>Odwróć trasę i dostosuj znaczniki czasu</td>
             </tr>
             <tr>
                 <td><i class="fas fa-plus-circle"></i></td>
@@ -247,7 +247,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-copy"></i></td>
-                <td>Duplicate the trace</td>
+                <td>Duplikuj trasę</td>
             </tr>
             <tr>
                 <td><i class="fas fa-map-marker-alt"></i></td>
@@ -263,19 +263,19 @@
             </tr>
             <tr>
                 <td><i class="fas fa-eye-slash"></i></td>
-                <td>Hide or unhide the trace</td>
+                <td>Ukryj lub pokaż trasę</td>
             </tr>
             <tr>
                 <td><i class="fas fa-palette"></i></td>
-                <td>Change the display color and opacity, these values will be exported and detected when re-imported</td>
+                <td>Zmień kolor i przezroczystość, wartości te będą wyeksportowane i wykryte przy ponownym imporcie</td>
             </tr>
             <tr>
                 <td><i class="fas fa-folder-tree"></i></td>
-                <td>Manage the file structure, drag and drop files, tracks and track segments</td>
+                <td>Zarządzaj strukturą pliku, przeciągaj i upuszczaj pliki, trasy i odcinki tras</td>
             </tr>
             <tr>
                 <td><i class="fas fa-trash-alt"></i></td>
-                <td>Delete the trace</td>
+                <td>Usuń trasę</td>
             </tr>
             </tbody>
         </table><br>
@@ -294,7 +294,7 @@
             <tr>
                 <td></td>
                 <td>F2</td>
-                <td>Show or hide the overlays currently used.</td>
+                <td>Pokaż lub ukryj obecnie użyte nakładki.</td>
             </tr>
             <tr>
                 <td></td>
@@ -322,10 +322,10 @@
                 </colgroup>
                 <tbody>
                     <td><b>Ustawienia eksportu</b></td>
-                    <td><input type="checkbox" id="merge"> <label for="merge">Merge all traces</label></td>
+                    <td><input type="checkbox" id="merge"> <label for="merge">Scal wszystkie trasy</label></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-time" checked> <label for="include-time">Time</label></td>
+                    <td><input type="checkbox" id="include-time" checked> <label for="include-time">Czas</label></td>
                     <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Surface</label></td>
                 </tr>
                 <tr>
@@ -442,7 +442,7 @@
                 Add or replace a custom layer here
                 <table style="text-align: left">
                     <tr>
-                        <td><label for="layer-name">Layer name</label></td>
+                        <td><label for="layer-name">Nazwa warstwy</label></td>
                         <td><input type="text" id="layer-name" size="35"></td>
                     </tr>
                     <tr>
@@ -450,11 +450,11 @@
                         <td><input type="text" id="layer-url" placeholder="https://{s}.domain.com/{z}/{y}/{x}.png" size="35"></td>
                     </tr>
                     <tr>
-                        <td><label for="layer-max-zoom">Max zoom level</label></td>
+                        <td><label for="layer-max-zoom">Maksymalny poziom przybliżenia</label></td>
                         <td><input type="number" id="layer-max-zoom" value="20" min="1" max="20"></td>
                     </tr>
                     <tr>
-                        <td><label for="layer-type">Layer type</label></td>
+                        <td><label for="layer-type">Rodzaj warstwy</label></td>
                         <td><select id="layer-type">
                             <option value="baselayer">Basemap</option>
                             <option value="overlay">Nakładka</option>
@@ -465,21 +465,21 @@
                     </tr>
                 </table>
                 <div id="preview-map" style="width: 100%; height: 200px"></div>
-                <div id="layer-creation-ok" class="panels custom-button normal-button">Add layer</div>
+                <div id="layer-creation-ok" class="panels custom-button normal-button">Dodaj warstwę</div>
             </div>
             <div id="layer-selection">
                 <span class="close-spacing">Select the layers you want to appear in the interface</span>
                 <div id="layer-selection-area"></div>
-                <div id="layer-selection-ok" class="panels custom-button normal-button">Save</div>
+                <div id="layer-selection-ok" class="panels custom-button normal-button">Zapisz</div>
             </div>
         </div>
         <div id="load-error-content" class="popup-content">
-            There was an error loading your GPX file.<br>
-            Please check the file format.<br>
+            Wystąpił błąd podczas ładowania pliku GPX.<br>
+            Sprawdź format pliku.<br>
             <div id="load-error-ok" class="panels custom-button normal-button">Ok</div>
         </div>
         <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
-            <b>Open in</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logo gpx.studio, internetowego edytora plików GPX">
+            <b>Otwórz w</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logo gpx.studio, internetowego edytora plików GPX">
         </div>
         <div id="unit-kilometers-text">km</div>
         <div id="unit-miles-text">mi</div>
@@ -532,29 +532,29 @@
             <div id="stepping-stones-text">Stepping Stones</div>,
             <div id="sett-text">Sett Paving</div>,
             <div id="metal-text">Metal</div>,
-            <div id="wood-text">Wood</div>,
+            <div id="wood-text">Drewno</div>,
             <div id="compacted-text">Compacted Gravel</div>,
             <div id="fine-gravel-text">Fine Gravel</div>,
-            <div id="gravel-text">Gravel</div>,
+            <div id="gravel-text">Żwir</div>,
             <div id="pebblestone-text">Pebblestone</div>,
             <div id="rock-text">Rock</div>,
             <div id="dirt-text">Dirt</div>,
             <div id="ground-text">Ground</div>,
             <div id="earth-text">Earth</div>,
-            <div id="snow-text">Snow</div>,
-            <div id="ice-text">Ice</div>,
+            <div id="snow-text">Śnieg</div>,
+            <div id="ice-text">Lód</div>,
             <div id="salt-text">Salt</div>,
-            <div id="mud-text">Mud</div>,
-            <div id="sand-text">Sand</div>,
+            <div id="mud-text">Błoto</div>,
+            <div id="sand-text">Piasek</div>,
             <div id="woodchips-text">Woodchips</div>,
-            <div id="grass-text">Grass</div>,
+            <div id="grass-text">Trawa</div>,
             <div id="grass-paver-text">Grass Paver</div>
         </div>
-        <h1>online gpx editor</h1>
-        <h1>online gpx viewer</h1>
-        <h1>edit gpx files online</h1>
-        <h1>view gpx files online</h1>
-        <h1>merge gpx files online</h1>
+        <h1>internetowy edytor gpx</h1>
+        <h1>internetowa przeglądarka gpx</h1>
+        <h1>edytuj pliki gpx online</h1>
+        <h1>przeglądaj pliki gpx online</h1>
+        <h1>scalaj pliki gpx online</h1>
         <h1>extract segments gpx file online</h1>
         <h1>reverse gpx file online</h1>
         <h1>add timestamps to gpx file online</h1>
