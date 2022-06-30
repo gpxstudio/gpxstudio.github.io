@@ -114,16 +114,17 @@
             <div>
                 <a href="./"><b>gpx.studio</b></a> é um visualizador e editor de GPX online gratuito que permite:
                 <ul>
-                    <li>visualizar várias trilhas em cores diferentes e assistidas por vários mapas (pedalada, caminhada, satélite, <a href="https://www.strava.com/heatmap" target="_blank">sobreposição com o heatmap do Strava</a>, etc)</li>
+                    <li>visualize multiple traces in different colors and aided by many different maps (cycling, hiking, satellite, etc)</li>
                     <li>editar as trilhas adicionando, inserindo, movendo ou excluindo pontos</li>
                     <li>inverter rotas</li>
-                    <li>adicionar timestamps à trilha</li>
+                    <li>add or change the timestamps of a trace</li>
                     <li>visualizar, adicionar, editar e remover waypoints</li>
                     <li>reduzir o número de pontos da trilha</li>
-                    <li>adicionar automaticamente dados de elevação aos trechos se estiver faltando</li>
-                    <li>mesclar várias trilhas, estendendo o tempo, a frequência cardíaca, a cadência, a potência e a temperatura quando necessário</li>
-                    <li>extrair segmentos de trilhas e executar qualquer outra ação mantendo a estrutura dos segmentos dentro de arquivos</li>
-                    <li>salvar o resultado em seu computador ou no seu Google Drive™ para obter um link compartilhável e o código de incorporação</li>
+                    <li>view and rework the structure of the file</li>
+                    <li>automatically add elevation data to traces if missing</li>
+                    <li>merge multiple traces, extending time, heart rate, cadence, power and temperature data where needed</li>
+                    <li>extract segments from traces and perform any other action while maintaining the segments' structure within files</li>
+                    <li>save the result on your computer or to your Google Drive™ to get a shareable link and embedding code</li>
                 </ul>
                 É um projeto pessoal criado após manipular arquivos GPX por algum tempo. O código-fonte do projeto está disponível publicamente no <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank">GitHub</a>. Siga-nos no <a href="https://facebook.com/gpx.studio" target="_blank">Facebook</a> e no <a href="https://twitter.com/gpxstudio" target="_blank">Twitter</a> para ser notificado sobre atualizações desta ferramenta.
             </div>
@@ -323,6 +324,7 @@
                         <li>Drag and drop traces from the tabs above the elevation profile to merge them with the current trace.</li>
                         <li>Assign a different color to each track.</li>
                         <li>Rename each track.</li>
+                        <li>Select a set of tracks or track segments to delete or merge them.</li>
                     </ul>
                 </div></div>
                 <div class="guide-item"><a name="copy-file" href="#copy-file" class="my-anchor"><div class="guide-title" onclick="toggle('copy')">Copiar um arquivo GPX</div></a>
@@ -390,6 +392,22 @@
                 <div id="show-direction-markers" class="guide-content">To show direction markers, go in the map layers <i class="fas fa-layer-group button"></i> and check the box <i class="far fa-check-square"></i> Direction markers.</div></div>
                 <div class="guide-item"><a name="distance-markers" href="#distance-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-distance-markers')">Show distance markers</div></a>
                 <div id="show-distance-markers" class="guide-content">To show distance markers, go in the map layers <i class="fas fa-layer-group button"></i> and check the box <i class="far fa-check-square"></i> Distance markers.</div></div>
+                <div class="guide-item"><a name="toggle-layer" href="#toggle-layer" class="my-anchor"><div class="guide-title" onclick="toggle('layer')">Show or hide map layers</div></a>
+                <div id="layer" class="guide-content">
+                    <ol>
+                        <li>Hover over <i class="fas fa-layer-group button"></i> in the top-right corner.</li>
+                        <li>Click on <i class="fas fa-gear button"></i>.</li>
+                        <li>Select the layers you want to appear in the interface.</li>
+                    </ol>
+                </div></div>
+                <div class="guide-item"><a name="custom-layer" href="#custom-layer" class="my-anchor"><div class="guide-title" onclick="toggle('custom')">Add custom map layers</div></a>
+                <div id="custom" class="guide-content">
+                    <ol>
+                        <li>Hover over <i class="fas fa-layer-group button"></i> in the top-right corner.</li>
+                        <li>Click on <i class="fas fa-gear button"></i>.</li>
+                        <li>Fill out the form to add or replace a map layer.</li>
+                    </ol>
+                </div></div>
                 <div class="guide-item"><a name="map-legends" href="#map-legends" class="my-anchor"><div class="guide-title" onclick="toggle('legend')">Map legends</div></a>
                 <div id="legend" class="guide-content">
                     <ul>
