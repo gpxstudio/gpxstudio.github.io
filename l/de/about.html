@@ -114,12 +114,13 @@
             <div>
                 <a href="./"><b>gpx.studio</b></a> ist ein kostenloses Online-GPX-Betrachtungs- und Bearbeitungsprogramm, das es ermöglicht:
                 <ul>
-                    <li>Mehrere Tracks in unterschiedlichen Farben auf verschiedenen Karten (Radfahren, Wandern, Satelliten, <a href="https://www.strava.com/heatmap" target="_blank">Strava Heatmap</a>, Overlay usw.) anzuzeigen</li>
+                    <li>visualize multiple traces in different colors and aided by many different maps (cycling, hiking, satellite, etc)</li>
                     <li>Bearbeite Spuren durch Hinzufügen, Einfügen, Verschieben oder Löschen von Wegpunkten</li>
                     <li>Spuren umkehren</li>
-                    <li>einem Track Zeitstempel hinzufügen</li>
+                    <li>add or change the timestamps of a trace</li>
                     <li>Wegpunkte anzuzeigen, hinzuzufügen, sie zu bearbeiten und zu löschen</li>
                     <li>Die Anzahl Wegpunkte verringern</li>
+                    <li>view and rework the structure of the file</li>
                     <li>Fehlende Höhendaten automatisch hinzuzufügen</li>
                     <li>Tracks zusammenzuführen und mit Zeit-, Herzfrequenz-, Trittfrequenz-, Leistungs- und Temperaturdaten zu ergänzen</li>
                     <li>Segmente aus Tracks zu extrahieren und viele andere Aktionen zur Bearbeitung der Segmentstruktur in Dateien anzuwenden</li>
@@ -323,6 +324,7 @@ Wenn du eine GPX-Datei bearbeitest die Zeit-, Temperatur-, Puls-, Kadenz- oder L
                         <li>Drag-and-drop Strecken aus den Tabs über dem Höhenprofil, um sie mit der aktuellen Strecke zusammenzuführen.</li>
                         <li>Weisen Sie jeder Strecke eine andere Farbe zu.</li>
                         <li>Jede Strecke umbenennen.</li>
+                        <li>Select a set of tracks or track segments to delete or merge them.</li>
                     </ul>
                 </div></div>
                 <div class="guide-item"><a name="copy-file" href="#copy-file" class="my-anchor"><div class="guide-title" onclick="toggle('copy')">Kopieren einer GPX-Datei</div></a>
@@ -390,6 +392,22 @@ Um alle Wegpunkte innerhalb oder ausserhalb eines Bereichs zu entfernen, klicke 
                 <div id="show-direction-markers" class="guide-content">Um Richtungsmarkierungen anzuzeigen, gehen Sie in die Kartenebenen <i class="fas fa-layer-group button"></i> und wählen Sie das Kästchen <i class="far fa-check-square"></i> Richtungsmarker.</div></div>
                 <div class="guide-item"><a name="distance-markers" href="#distance-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-distance-markers')">Abstandsmarkierungen anzeigen</div></a>
                 <div id="show-distance-markers" class="guide-content">Um Entfernungsmarkierungen anzuzeigen, gehe in die Kartenebenen <i class="fas fa-layer-group button"></i> und wähle das Kästchen <i class="far fa-check-square"></i> Entfernungsmarkierung.</div></div>
+                <div class="guide-item"><a name="toggle-layer" href="#toggle-layer" class="my-anchor"><div class="guide-title" onclick="toggle('layer')">Show or hide map layers</div></a>
+                <div id="layer" class="guide-content">
+                    <ol>
+                        <li>Hover over <i class="fas fa-layer-group button"></i> in the top-right corner.</li>
+                        <li>Click on <i class="fas fa-gear button"></i>.</li>
+                        <li>Select the layers you want to appear in the interface.</li>
+                    </ol>
+                </div></div>
+                <div class="guide-item"><a name="custom-layer" href="#custom-layer" class="my-anchor"><div class="guide-title" onclick="toggle('custom')">Add custom map layers</div></a>
+                <div id="custom" class="guide-content">
+                    <ol>
+                        <li>Hover over <i class="fas fa-layer-group button"></i> in the top-right corner.</li>
+                        <li>Click on <i class="fas fa-gear button"></i>.</li>
+                        <li>Fill out the form to add or replace a map layer.</li>
+                    </ol>
+                </div></div>
                 <div class="guide-item"><a name="map-legends" href="#map-legends" class="my-anchor"><div class="guide-title" onclick="toggle('legend')">Kartenlegende</div></a>
                 <div id="legend" class="guide-content">
                     <ul>
