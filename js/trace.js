@@ -2421,8 +2421,9 @@ export default class Trace {
 
     askRoute(a, b, c, layer) {
         const Http = new XMLHttpRequest();
-        var url = (a.equals(b) || b.equals(c)) ? `https://routing.gpx.studio?lonlats=${a.lng},${a.lat}|${c.lng},${c.lat}&profile=${this.buttons.activity}&alternativeidx=0&format=geojson` :
-            `https://routing.gpx.studio?lonlats=${a.lng},${a.lat}|${b.lng},${b.lat}|${c.lng},${c.lat}&profile=${this.buttons.activity}&alternativeidx=0&format=geojson`;
+        var url = this.buttons.routing_url + ((a.equals(b) || b.equals(c)) ?
+            `?lonlats=${a.lng},${a.lat}|${c.lng},${c.lat}&profile=${this.buttons.activity}&alternativeidx=0&format=geojson` :
+            `?lonlats=${a.lng},${a.lat}|${b.lng},${b.lat}|${c.lng},${c.lat}&profile=${this.buttons.activity}&alternativeidx=0&format=geojson`);
         Http.open("GET", url);
         Http.send();
 
@@ -2492,7 +2493,7 @@ export default class Trace {
 
     askRoute2(a, b, layer) {
         const Http = new XMLHttpRequest();
-        var url = `https://routing.gpx.studio?lonlats=${a.lng},${a.lat}|${b.lng},${b.lat}&profile=${this.buttons.activity}&alternativeidx=0&format=geojson`;
+        var url = this.buttons.routing_url + `?lonlats=${a.lng},${a.lat}|${b.lng},${b.lat}&profile=${this.buttons.activity}&alternativeidx=0&format=geojson`;
         Http.open("GET", url);
         Http.send();
 

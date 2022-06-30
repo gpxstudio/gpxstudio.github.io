@@ -395,6 +395,7 @@ export default class Buttons {
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 const keys = JSON.parse(xhr.responseText);
+                _this.routing_url = keys.routing_url;
                 _this.mapbox_style = 'mapbox://styles/mapbox/outdoors-v11';
 
                 if (_this.embedding && urlParams.has('token')) {
