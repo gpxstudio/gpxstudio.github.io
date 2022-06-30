@@ -114,12 +114,13 @@
             <div>
                 A <a href="./"><b>gpx.studio</b></a> egy ingyenes online GPX fájl megjelenítő és szerkesztő, amely lehetővé teszi:
                 <ul>
-                    <li>több útvonal megjelenítése különböző színekben különböző térképeken (kerékpározás, futás/túrázás, műholdak, <a href="https://www.strava.com/heatmap" target="_blank">Strava heatmap</a> átfedés stb.)</li>
+                    <li>visualize multiple traces in different colors and aided by many different maps (cycling, hiking, satellite, etc)</li>
                     <li>útvonalak szerkesztése útvonalpontok hozzáadásával, beszúrásával, mozgatásával vagy törlésével</li>
                     <li>útvonal útirány megfordítását</li>
-                    <li>időbélyegek hozzáadása a útvonalhoz</li>
+                    <li>add or change the timestamps of a trace</li>
                     <li>útpontok megtekintése, hozzáadása, szerkesztése és eltávolítása</li>
                     <li>útvonalpontok csökkentése vagy növelése</li>
+                    <li>view and rework the structure of the file</li>
                     <li>automatikus magassági adatokat ad az útvonalhoz, ha nincs megadva</li>
                     <li>több útvonal egyesítése, szükség esetén kiterjesztve az időt, a pulzusszámot, a ritmus-, a teljesítmény- és a hőmérsékletadatokat</li>
                     <li>szegmensek kinyerése a útvonalból és egyéb műveletek végrehajtása, miközben megőrzi a szegmensek szerkezetét a fájlokban</li>
@@ -321,6 +322,7 @@
                         <li>Húzza át a útvonalakat a magassági profil feletti lapokról a tréképre, hogy egyesítse őket az aktuális útvonallal.</li>
                         <li>Minden útvonalhoz rendeljen külömböző színeket.</li>
                         <li>Nevezze át az útvonalakt.</li>
+                        <li>Select a set of tracks or track segments to delete or merge them.</li>
                     </ul>
                 </div></div>
                 <div class="guide-item"><a name="copy-file" href="#copy-file" class="my-anchor"><div class="guide-title" onclick="toggle('copy')">GPX file másolás</div></a>
@@ -388,6 +390,22 @@
                 <div id="show-direction-markers" class="guide-content">Az menetirány megjelenítéséhez lépjen be a térképrétegekbe <i class="fas fa-layer-group button"></i>, és jelölje be az <i class="far fa-check-square"></i>menetirány jelőlése négyzetet.</div></div>
                 <div class="guide-item"><a name="distance-markers" href="#distance-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-distance-markers')">Távolság megjelenítése útvonalon</div></a>
                 <div id="show-distance-markers" class="guide-content">A a km szakaszok megjelenítéséhez lépjen be a térképrétegekbe <i class="fas fa-layer-group button"></i>, és jelölje be a <i class="far fa-check-square"></i> Távolságjelzők négyzetet.</div></div>
+                <div class="guide-item"><a name="toggle-layer" href="#toggle-layer" class="my-anchor"><div class="guide-title" onclick="toggle('layer')">Show or hide map layers</div></a>
+                <div id="layer" class="guide-content">
+                    <ol>
+                        <li>Hover over <i class="fas fa-layer-group button"></i> in the top-right corner.</li>
+                        <li>Click on <i class="fas fa-gear button"></i>.</li>
+                        <li>Select the layers you want to appear in the interface.</li>
+                    </ol>
+                </div></div>
+                <div class="guide-item"><a name="custom-layer" href="#custom-layer" class="my-anchor"><div class="guide-title" onclick="toggle('custom')">Add custom map layers</div></a>
+                <div id="custom" class="guide-content">
+                    <ol>
+                        <li>Hover over <i class="fas fa-layer-group button"></i> in the top-right corner.</li>
+                        <li>Click on <i class="fas fa-gear button"></i>.</li>
+                        <li>Fill out the form to add or replace a map layer.</li>
+                    </ol>
+                </div></div>
                 <div class="guide-item"><a name="map-legends" href="#map-legends" class="my-anchor"><div class="guide-title" onclick="toggle('legend')">Térképmagyarázat</div></a>
                 <div id="legend" class="guide-content">
                     <ul>
