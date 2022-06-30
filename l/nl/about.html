@@ -114,16 +114,17 @@
             <div>
                 <a href="./"><b>gpx.studio</b></a> is een gratis online GPX viewer en editor die het mogelijk maakt om:
                 <ul>
-                    <li>visualiseer meerdere routes in verschillende kleuren die zijn ondersteund door veel verschillende kaarten (fietsen, wandelen, satelliet, <a href="https://www.strava.com/heatmap" target="_blank">Strava heatmap</a> overlay, etc)</li>
+                    <li>visualize multiple traces in different colors and aided by many different maps (cycling, hiking, satellite, etc)</li>
                     <li>routes bewerken door het toevoegen, invoegen, verplaatsen of verwijderen van routepunten</li>
                     <li>routes omkeren</li>
-                    <li>voeg tijdstempels toe aan een route</li>
+                    <li>add or change the timestamps of a trace</li>
                     <li>routepunten bekijken, toevoegen, bewerken en verwijderen</li>
                     <li>verminder het aantal track points</li>
-                    <li>automatisch hoogtegegevens toevoegen aan traces als dit ontbreekt</li>
-                    <li>voeg meerdere sporen samen, verhoog tijd, hartritme, cadans, vermogen- en temperatuurgegevens indien nodig</li>
-                    <li>segmenten uit sporen halen en voer andere acties uit terwijl de structuur van de segmenten in bestanden wordt behouden</li>
-                    <li>sla het resultaat op uw computer of Google Drive™ op om een deelbare link en embedded code te krijgen</li>
+                    <li>view and rework the structure of the file</li>
+                    <li>automatically add elevation data to traces if missing</li>
+                    <li>merge multiple traces, extending time, heart rate, cadence, power and temperature data where needed</li>
+                    <li>extract segments from traces and perform any other action while maintaining the segments' structure within files</li>
+                    <li>save the result on your computer or to your Google Drive™ to get a shareable link and embedding code</li>
                 </ul>
                 Het is een project gemaakt door 1 persoon na het experimenteren met GPX bestanden. De broncode van het project is publiekelijk beschikbaar op <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank">GitHub</a>. Volg ons op <a href="https://facebook.com/gpx.studio" target="_blank">Facebook</a> en <a href="https://twitter.com/gpxstudio" target="_blank">Twitter</a> om te worden geïnformeerd over updates van de tool.
             </div>
@@ -323,6 +324,7 @@
                         <li>Versleep tracks uit de tabbladen boven het hoogteprofiel om ze samen te voegen met het huidige spoor.</li>
                         <li>Wijs een andere kleur toe aan elke track.</li>
                         <li>Hernoem elke track.</li>
+                        <li>Select a set of tracks or track segments to delete or merge them.</li>
                     </ul>
                 </div></div>
                 <div class="guide-item"><a name="copy-file" href="#copy-file" class="my-anchor"><div class="guide-title" onclick="toggle('copy')">Kopieer een GPX-bestand</div></a>
@@ -390,13 +392,29 @@
                 <div id="show-direction-markers" class="guide-content">Om de richtingmarkeringen te tonen, ga naar de kaartlagen <i class="fas fa-layer-group button"></i> en vink het vakje <i class="far fa-check-square"></i> richtingmarkeringen aan.</div></div>
                 <div class="guide-item"><a name="distance-markers" href="#distance-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-distance-markers')">Toon afstandsmarkeringen</div></a>
                 <div id="show-distance-markers" class="guide-content">Om afstandsmarkeringen te tonen, ga naar de kaartlagen <i class="fas fa-layer-group button"></i> en vink het vakje <i class="far fa-check-square"></i> afstandsmarkeringen aan.</div></div>
-                <div class="guide-item"><a name="map-legends" href="#map-legends" class="my-anchor"><div class="guide-title" onclick="toggle('legend')">Kaart legenda</div></a>
+                <div class="guide-item"><a name="toggle-layer" href="#toggle-layer" class="my-anchor"><div class="guide-title" onclick="toggle('layer')">Show or hide map layers</div></a>
+                <div id="layer" class="guide-content">
+                    <ol>
+                        <li>Hover over <i class="fas fa-layer-group button"></i> in the top-right corner.</li>
+                        <li>Click on <i class="fas fa-gear button"></i>.</li>
+                        <li>Select the layers you want to appear in the interface.</li>
+                    </ol>
+                </div></div>
+                <div class="guide-item"><a name="custom-layer" href="#custom-layer" class="my-anchor"><div class="guide-title" onclick="toggle('custom')">Add custom map layers</div></a>
+                <div id="custom" class="guide-content">
+                    <ol>
+                        <li>Hover over <i class="fas fa-layer-group button"></i> in the top-right corner.</li>
+                        <li>Click on <i class="fas fa-gear button"></i>.</li>
+                        <li>Fill out the form to add or replace a map layer.</li>
+                    </ol>
+                </div></div>
+                <div class="guide-item"><a name="map-legends" href="#map-legends" class="my-anchor"><div class="guide-title" onclick="toggle('legend')">Map legends</div></a>
                 <div id="legend" class="guide-content">
                     <ul>
                         <li><a href="https://footpathapp.com/user-guide/maps/mapbox-outdoors/" target="_blank">Mapbox Outdoors</a></li>
                         <li><a href="https://wiki.openstreetmap.org/wiki/LinesTab" target="_blank">OpenStreetMap</a></li>
                         <li><a href="https://opentopomap.org/about" target="_blank">OpenTopoMap</a></li>
-                        <li>OpenHikingMap: hetzelfde als OpenTopoMap maar met wandelpaden.</li>
+                        <li>OpenHikingMap: same than OpenTopoMap but with hiking trails.</li>
                         <li><a href="https://www.cyclosm.org/legend.html" target="_blank">CyclOSM</a></li>
                     </ul>
                 </div></div>
