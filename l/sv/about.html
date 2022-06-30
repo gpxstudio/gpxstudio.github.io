@@ -114,12 +114,13 @@
             <div>
                 <a href="./"><b>gpx.studio</b></a> är en gratis GPX-läsare och redigerare på nätet som tillåter att:
                 <ul>
-                    <li>visualisera flera spår i olika färger och med hjälp av många olika kartor (cykling, vandring, satellit, <a href="https://www.strava.com/heatmap" target="_blank">Strava heatmap</a> overlay, etc)</li>
+                    <li>visualize multiple traces in different colors and aided by many different maps (cycling, hiking, satellite, etc)</li>
                     <li>redigera spår genom att lägga till, infoga, flytta eller ta bort referenspunkter</li>
                     <li>omvända spår</li>
-                    <li>lägg till tidsstämplar i ett spår</li>
+                    <li>add or change the timestamps of a trace</li>
                     <li>visa, lägga till, redigera och ta bort referenspunkter</li>
                     <li>reduce the number of track points</li>
+                    <li>view and rework the structure of the file</li>
                     <li>automatically add elevation data to traces if missing</li>
                     <li>merge multiple traces, extending time, heart rate, cadence, power and temperature data where needed</li>
                     <li>extract segments from traces and perform any other action while maintaining the segments' structure within files</li>
@@ -323,6 +324,7 @@
                         <li>Drag and drop traces from the tabs above the elevation profile to merge them with the current trace.</li>
                         <li>Assign a different color to each track.</li>
                         <li>Rename each track.</li>
+                        <li>Select a set of tracks or track segments to delete or merge them.</li>
                     </ul>
                 </div></div>
                 <div class="guide-item"><a name="copy-file" href="#copy-file" class="my-anchor"><div class="guide-title" onclick="toggle('copy')">Copy a GPX file</div></a>
@@ -390,6 +392,22 @@
                 <div id="show-direction-markers" class="guide-content">To show direction markers, go in the map layers <i class="fas fa-layer-group button"></i> and check the box <i class="far fa-check-square"></i> Direction markers.</div></div>
                 <div class="guide-item"><a name="distance-markers" href="#distance-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-distance-markers')">Show distance markers</div></a>
                 <div id="show-distance-markers" class="guide-content">To show distance markers, go in the map layers <i class="fas fa-layer-group button"></i> and check the box <i class="far fa-check-square"></i> Distance markers.</div></div>
+                <div class="guide-item"><a name="toggle-layer" href="#toggle-layer" class="my-anchor"><div class="guide-title" onclick="toggle('layer')">Show or hide map layers</div></a>
+                <div id="layer" class="guide-content">
+                    <ol>
+                        <li>Hover over <i class="fas fa-layer-group button"></i> in the top-right corner.</li>
+                        <li>Click on <i class="fas fa-gear button"></i>.</li>
+                        <li>Select the layers you want to appear in the interface.</li>
+                    </ol>
+                </div></div>
+                <div class="guide-item"><a name="custom-layer" href="#custom-layer" class="my-anchor"><div class="guide-title" onclick="toggle('custom')">Add custom map layers</div></a>
+                <div id="custom" class="guide-content">
+                    <ol>
+                        <li>Hover over <i class="fas fa-layer-group button"></i> in the top-right corner.</li>
+                        <li>Click on <i class="fas fa-gear button"></i>.</li>
+                        <li>Fill out the form to add or replace a map layer.</li>
+                    </ol>
+                </div></div>
                 <div class="guide-item"><a name="map-legends" href="#map-legends" class="my-anchor"><div class="guide-title" onclick="toggle('legend')">Map legends</div></a>
                 <div id="legend" class="guide-content">
                     <ul>
