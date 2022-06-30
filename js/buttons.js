@@ -738,7 +738,7 @@ export default class Buttons {
                 _this.openLocalStorage();
             }
         }
-        xhr.open('GET', '/res/keys.json');
+        xhr.open('GET', '/res/config.json');
         xhr.send();
     }
 
