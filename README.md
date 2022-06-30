@@ -1,31 +1,36 @@
 ![logo of gpx.studio](res/logo.png)
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/F1F1303GH)
 
-This repository contains the source code of the website [gpx.studio](https://gpx.studio), an online tool for GPX editing.
-
-![Preview of the online app.](res/preview.png)
+This repository contains the source code of the website [**gpx.studio**](https://gpx.studio), an online tool for GPX editing.
 
 ## Run the code
 
 To play with the code locally:
-* Get your own tokens at [Mapbox](https://www.mapbox.com/) and put them in `res/keys.json`.
-* Launch a local server in the root directory, for example using `python3 -m http.server`.
+1. Get your own API token at [Mapbox](https://www.mapbox.com/) and put it in `res/config.json`
+1. Launch a local server in the root directory, for example using `python3 -m http.server`
+1. *(Optional)* To test the software with a routing server:
+    - download [BRouter](https://github.com/abrensch/brouter) and follow the instructions [here](https://github.com/abrensch/brouter#brouter-on-windowslinuxmac-os) on how to launch a local instance
+    - change the URL of the routing server in `res/config.json`
 
-## Features
+## Main features
 
 * Load, edit and create new GPX files
+* Support for multiple tracks (`<trk>`) and track segments (`<trkseg>`): extraction with smart waypoints matching and merge as track segments
+* Support for waypoints (`<wpt>`): place and drag, edit information, duplicate
+* Support for files with timestamps, temperature, heartrate, cadence and power data
 * Change the starting time and speed of the activity
 * Reverse the direction of a trace
 * Reduce the number of track points
 * Merge multiple traces together
-* Support for waypoints: place and drag, edit information, duplicate
-* Support for track segments (`<trkseg>`) : extraction with smart waypoints matching and merge as track segments
 * Delete points and/or waypoints inside or outside a rectangle selection
+* View and rework the structure of the file
 * Export multiple traces as one or separately in the chosen order and respecting time precedence constraints (if any time data)
-* Preserve and automatically extend speed, heart rate, cadence, power and temperature data
 * Drag and drop to load and export files
 * Support as many traces as you want with scrollable tabs
+* Support for custom map layers
 * Google Drive integration and [add-on](https://gsuite.google.com/marketplace/app/gpxstudio_the_online_gpx_editor/666808960580): select a file, save the new version and get a shareable link as well as code to embed the map
+
+Read the [User Guide](https://gpx.studio/about.html#guide) for more details.
 
 ## Contributing
 
@@ -47,6 +52,7 @@ This project would not have been possible without the following amazing projects
 * [Leaflet.Heightgraph](https://github.com/GIScience/Leaflet.Heightgraph): elevation profile
 * [Leaflet.Icon.Glyph](https://github.com/Leaflet/Leaflet.Icon.Glyph): markers with icons for the waypoints
 * [Leaflet.TextPath](https://github.com/makinacorpus/Leaflet.TextPath): direction markers
+* [Leaflet.VectorGrid](https://github.com/Leaflet/Leaflet.VectorGrid): to display some vector tiles
 * [leaflet-distance-markers](https://github.com/adoroszlai/leaflet-distance-markers): distance markers
 * [leaflet-control-window](https://github.com/mapshakers/leaflet-control-window): centered windows for all dialogs
 * [leaflet-control-geocoder](https://github.com/perliedman/leaflet-control-geocoder): search for locations with chosen API
@@ -59,4 +65,4 @@ This project would not have been possible without the following amazing projects
 * [SortableJS](https://github.com/SortableJS/Sortable): for swapping the tabs
 * [Font Awesome](https://fontawesome.com/): nice icons
 
-And the data, maps and APIs from [Mapbox](https://www.mapbox.com/), [OpenStreetMap](https://www.openstreetmap.org/), [OpenTopoMap](https://opentopomap.org/), [Maps.Refuges.Info](https://wiki.openstreetmap.org/wiki/Hiking/mri), [CyclOSM](https://www.cyclosm.org/), [IGN](https://geoservices.ign.fr/), [Strava](https://strava.com) and [Kumi Systems](https://kumi.systems).
+And of course [OpenStreetMap](https://www.openstreetmap.org/) for the worldwide map data on which are based most of the map layers and the routing server.
