@@ -114,16 +114,17 @@
             <div>
                 A <a href="./"><b>gpx.studio</b></a> egy ingyenes online GPX fájl megjelenítő és szerkesztő, amely lehetővé teszi:
                 <ul>
-                    <li>több útvonal megjelenítése különböző színekben különböző térképeken (kerékpározás, futás/túrázás, műholdak, <a href="https://www.strava.com/heatmap" target="_blank">Strava heatmap</a> átfedés stb.)</li>
+                    <li>visualize multiple traces in different colors and aided by many different maps (cycling, hiking, satellite, etc)</li>
                     <li>útvonalak szerkesztése útvonalpontok hozzáadásával, beszúrásával, mozgatásával vagy törlésével</li>
                     <li>útvonal útirány megfordítását</li>
-                    <li>időbélyegek hozzáadása a útvonalhoz</li>
+                    <li>add or change the timestamps of a trace</li>
                     <li>útpontok megtekintése, hozzáadása, szerkesztése és eltávolítása</li>
                     <li>útvonalpontok csökkentése vagy növelése</li>
+                    <li>view and rework the structure of the file</li>
                     <li>automatikus magassági adatokat ad az útvonalhoz, ha nincs megadva</li>
                     <li>több útvonal egyesítése, szükség esetén kiterjesztve az időt, a pulzusszámot, a ritmus-, a teljesítmény- és a hőmérsékletadatokat</li>
                     <li>szegmensek kinyerése a útvonalból és egyéb műveletek végrehajtása, miközben megőrzi a szegmensek szerkezetét a fájlokban</li>
-                    <li>Töltsd le a kész útvonalad számítógépedre vagy mentsd el "Google Drive™-ra egy megosztott mappába mappa, megosztási link és beágyazható kód:</li>
+                    <li>save the result on your computer or to your Google Drive™ to get a shareable link and embedding code</li>
                 </ul>
                 Ez egyszemélyes projekt, amelyet 1 személy hozott létre, miután kísérletezett GPX fájlokkal. A projekt forráskódja nyilvánosan elérhető a <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank">GitHubon</a>. Kövessen minket a <a href="https://facebook.com/gpx.studio" target="_blank">Facebookon</a> és a <a href="https://twitter.com/gpxstudio" target="_blank">Twitteren</a>, hogy értesüljön az eszköz frissítéseiről.
             </div>
@@ -321,6 +322,7 @@
                         <li>Húzza át a útvonalakat a magassági profil feletti lapokról a tréképre, hogy egyesítse őket az aktuális útvonallal.</li>
                         <li>Minden útvonalhoz rendeljen külömböző színeket.</li>
                         <li>Nevezze át az útvonalakt.</li>
+                        <li>Select a set of tracks or track segments to delete or merge them.</li>
                     </ul>
                 </div></div>
                 <div class="guide-item"><a name="copy-file" href="#copy-file" class="my-anchor"><div class="guide-title" onclick="toggle('copy')">GPX file másolás</div></a>
@@ -388,13 +390,29 @@
                 <div id="show-direction-markers" class="guide-content">Az menetirány megjelenítéséhez lépjen be a térképrétegekbe <i class="fas fa-layer-group button"></i>, és jelölje be az <i class="far fa-check-square"></i>menetirány jelőlése négyzetet.</div></div>
                 <div class="guide-item"><a name="distance-markers" href="#distance-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-distance-markers')">Távolság megjelenítése útvonalon</div></a>
                 <div id="show-distance-markers" class="guide-content">A a km szakaszok megjelenítéséhez lépjen be a térképrétegekbe <i class="fas fa-layer-group button"></i>, és jelölje be a <i class="far fa-check-square"></i> Távolságjelzők négyzetet.</div></div>
-                <div class="guide-item"><a name="map-legends" href="#map-legends" class="my-anchor"><div class="guide-title" onclick="toggle('legend')">Térképmagyarázat</div></a>
+                <div class="guide-item"><a name="toggle-layer" href="#toggle-layer" class="my-anchor"><div class="guide-title" onclick="toggle('layer')">Show or hide map layers</div></a>
+                <div id="layer" class="guide-content">
+                    <ol>
+                        <li>Hover over <i class="fas fa-layer-group button"></i> in the top-right corner.</li>
+                        <li>Click on <i class="fas fa-gear button"></i>.</li>
+                        <li>Select the layers you want to appear in the interface.</li>
+                    </ol>
+                </div></div>
+                <div class="guide-item"><a name="custom-layer" href="#custom-layer" class="my-anchor"><div class="guide-title" onclick="toggle('custom')">Add custom map layers</div></a>
+                <div id="custom" class="guide-content">
+                    <ol>
+                        <li>Hover over <i class="fas fa-layer-group button"></i> in the top-right corner.</li>
+                        <li>Click on <i class="fas fa-gear button"></i>.</li>
+                        <li>Fill out the form to add or replace a map layer.</li>
+                    </ol>
+                </div></div>
+                <div class="guide-item"><a name="map-legends" href="#map-legends" class="my-anchor"><div class="guide-title" onclick="toggle('legend')">Map legends</div></a>
                 <div id="legend" class="guide-content">
                     <ul>
                         <li><a href="https://footpathapp.com/user-guide/maps/mapbox-outdoors/" target="_blank">Mapbox Outdoors</a></li>
                         <li><a href="https://wiki.openstreetmap.org/wiki/LinesTab" target="_blank">OpenStreetMap</a></li>
                         <li><a href="https://opentopomap.org/about" target="_blank">OpenTopoMap</a></li>
-                        <li>OpenHikingMap: ugyanaz, mint az OpenTopoMap, de jelzett túraútvonalakkal.</li>
+                        <li>OpenHikingMap: same than OpenTopoMap but with hiking trails.</li>
                         <li><a href="https://www.cyclosm.org/legend.html" target="_blank">CyclOSM</a></li>
                     </ul>
                 </div></div>
