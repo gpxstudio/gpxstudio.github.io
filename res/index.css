@@ -169,10 +169,12 @@ html, body {
 
 #buttons-bar {
     display: flex;
+    pointer-events: none;
 }
 
 #buttons {
     border-radius: 0px 4px 4px 0px;
+    pointer-events: all;
 }
 
 #editing-options {
@@ -181,6 +183,7 @@ html, body {
     border-radius: 0px 4px 4px 0px;
     margin-left: -2px;
     height: fit-content;
+    pointer-events: all;
 }
 
 #toggle-editing-options {
