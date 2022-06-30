@@ -267,9 +267,14 @@ export default class Google {
         uploader.upload();
     }
 
-    downloadFile(file, callback) {
+    async downloadFile(file, callback) {
         if (file.name.split('.').pop() != 'gpx') return;
         const buttons = this.buttons;
+
+        if (this.last_request && Date.now() - this.last_request.getTime() < 500) {
+            this.last_request = new Date(this.last_request.getTime() + 500);
+            await buttons.pause(this.last_request.getTime() - Date.now());
+        } else this.last_request = new Date();
 
         const request = new XMLHttpRequest();
         var file_url = 'https://content.googleapis.com/drive/v2/files/'+file.id+'?key='+this.developerKey;
