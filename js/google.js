@@ -267,7 +267,7 @@ export default class Google {
         uploader.upload();
     }
 
-    async downloadFile(file, callback) {
+    async downloadFile(file, callback, retry = 0) {
         if (file.name.split('.').pop() != 'gpx') return;
         const buttons = this.buttons;
 
@@ -294,11 +294,15 @@ export default class Google {
                         if (xhr.readyState == 4 && xhr.status == 200) {
                             const trace = buttons.total.addTrace(xhr.response, resp.title, callback);
                         } else if (xhr.readyState == 4 && xhr.status != 200) {
-                            if (callback) callback();
+                            if (retry > 5) callback();
+                            else _this.downloadFile(file, callback, retry + 1);
                         }
                     }
                     xhr.send();
                 }
+            } else if (request.readyState == 4 && request.status != 200) {
+                if (retry > 5) callback();
+                else _this.downloadFile(file, callback, retry + 1);
             }
         }
         request.send();
