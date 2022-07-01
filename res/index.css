@@ -189,6 +189,7 @@ html, body {
 #toggle-editing-options {
     display: none;
     height: fit-content;
+    pointer-events: all;
 }
 
 #layer-creation {
