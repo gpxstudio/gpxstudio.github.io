@@ -9,6 +9,7 @@ export default class Buttons {
         this.speed_units = localStorage.hasOwnProperty('speed') ? localStorage.getItem('speed') == 'true' : true;
         this.activity = localStorage.hasOwnProperty('activity') ? localStorage.getItem('activity') : document.getElementById('activity-input').children[0].value;
         this.routing = localStorage.hasOwnProperty('routing') ? localStorage.getItem('routing') == 'true' : true;
+        this.strava_color = localStorage.hasOwnProperty('strava-color') ? localStorage.getItem('strava-color') : 'bluered';
         this.keep_timestamps = false;
         this.disable_trace = false;
         this.show_direction = false;
@@ -155,6 +156,7 @@ export default class Buttons {
         this.tracks = document.getElementById("tracks-val");
         this.activity_input = document.getElementById("activity-input");
         this.routing_input = document.getElementById("routing-input");
+        this.strava_color_input = document.getElementById("strava-color-input");
         this.units_input = document.getElementById("units-input");
         this.units_text = document.getElementById("units-text");
         this.speed_units_input = document.getElementById("speed-units-input");
@@ -782,15 +784,20 @@ export default class Buttons {
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 _this.stravaCookies = JSON.parse(xhr.response);
-                layers.stravaHeatmapRide.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/ride/bluered/{z}/{x}/{y}@2x.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
-                layers.stravaHeatmapRun.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/run/bluered/{z}/{x}/{y}@2x.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
-                layers.stravaHeatmapWater.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/water/bluered/{z}/{x}/{y}@2x.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
-                layers.stravaHeatmapWinter.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/winter/bluered/{z}/{x}/{y}@2x.png?Signature=${_this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${_this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${_this.stravaCookies['CloudFront-Policy']}`);
+                _this.updateStravaColor();
                 _this.updatingStravaCookies = false;
             }
         }
         xhr.open('GET', 'https://s.gpx.studio');
         xhr.send();
+    }
+
+    updateStravaColor() {
+        if (!this.stravaCookies) return;
+        layers.stravaHeatmapRide.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/ride/${this.strava_color}/{z}/{x}/{y}@2x.png?Signature=${this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${this.stravaCookies['CloudFront-Policy']}`);
+        layers.stravaHeatmapRun.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/run/${this.strava_color}/{z}/{x}/{y}@2x.png?Signature=${this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${this.stravaCookies['CloudFront-Policy']}`);
+        layers.stravaHeatmapWater.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/water/${this.strava_color}/{z}/{x}/{y}@2x.png?Signature=${this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${this.stravaCookies['CloudFront-Policy']}`);
+        layers.stravaHeatmapWinter.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/winter/${this.strava_color}/{z}/{x}/{y}@2x.png?Signature=${this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${this.stravaCookies['CloudFront-Policy']}`);
     }
 
     hideTraceButtons() {
@@ -1289,6 +1296,12 @@ export default class Buttons {
             localStorage.setItem('routing',buttons.routing);
         });
         this.routing_input.checked = buttons.routing;
+        this.strava_color_input.addEventListener("change", function (e) {
+            buttons.strava_color = buttons.strava_color_input.value;
+            localStorage.setItem('strava-color', buttons.strava_color);
+            buttons.updateStravaColor();
+        });
+        this.strava_color_input.value = this.strava_color;
         const editing_time_option = function () {
             buttons.keep_timestamps = buttons.edit_keep_time.checked;
         };
