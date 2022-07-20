@@ -78,8 +78,7 @@ h1 {
     -ms-user-select: none;
     user-select: none;
 }
-.guide-content {
-    display: none;
+.guide-content:not([hidden="until-found"]) {
     padding: 10px 20px 0px 20px;
 }
 .my-anchor {

@@ -580,12 +580,30 @@
         var toggledElement = null;
         function toggle(id) {
             const element = document.getElementById(id);
-            if (toggledElement) toggledElement.style.display = '';
+            if (toggledElement) toggledElement.hidden = 'until-found';
             if (element == toggledElement) toggledElement = null;
             else {
-                element.style.display = 'block';
+                element.hidden = false;
                 toggledElement = element;
             }
+        }
+
+        const guideItems = document.getElementsByClassName('guide-item');
+        for (var i=0; i<guideItems.length; i++) {
+            const anchor = guideItems[i].children[0];
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                history.replaceState({}, '', this.href);
+            });
+        }
+
+        const guideContents = document.getElementsByClassName('guide-content');
+        for (var i=0; i<guideContents.length; i++) {
+            const content = guideContents[i];
+            content.hidden = 'until-found';
+            content.addEventListener('beforematch', function () {
+                toggle(content.id);
+            });
         }
 
         if (window.location.hash) {
@@ -596,15 +614,6 @@
         }
 
         showPreview();
-
-        const guideItems = document.getElementsByClassName('guide-item');
-        for (var i=0; i<guideItems.length; i++) {
-            const anchor = guideItems[i].children[0];
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                history.replaceState({}, '', this.href);
-            });
-        }
 
         const languageInput = document.getElementById("language-input");
         languageInput.value = language;
