@@ -1681,9 +1681,15 @@ export default class Trace {
         this.setStyle(true);
         this.updateTab();
 
+        const existing_waypoints = this.getWaypoints();
         const waypoints = trace.getWaypoints();
         for (var i=0; i<waypoints.length; i++) {
             const marker = waypoints[i];
+
+            // test if wpt already exists
+            const same = existing_waypoints.filter(wpt => wpt._latlng.equals(marker._latlng) && wpt.name == marker.name && wpt.cmt == marker.cmt && wpt.desc == marker.desc && wpt.sym == marker.sym);
+            if (same.length > 0) continue;
+
             const newMarker = this.gpx._get_marker(marker._latlng, marker.sym, marker.name, marker.desc, marker.cmt, this.gpx.options);
 
             var wpt_group = this.getWaypointsGroup();
