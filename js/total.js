@@ -340,6 +340,7 @@ export default class Total {
         const output = [];
         var xmlOutput = '';
         var waypointsOutput = '';
+        const waypointsInOutput = [];
 
         const totalData = this.additionalAvgData;
         for (var i=(trace_idx!==undefined ? trace_idx : 0); i<(trace_idx!==undefined ? trace_idx+1 : this.traces.length); i++) {
@@ -465,6 +466,13 @@ export default class Total {
             const waypoints = this.traces[i].getWaypoints();
             for (var j=0; j<waypoints.length; j++) {
                 const point = waypoints[j];
+
+                if (mergeAll) {
+                    const same = waypointsInOutput.filter(wpt => wpt._latlng.equals(point._latlng) && wpt.name == point.name && wpt.cmt == point.cmt && wpt.desc == point.desc && wpt.sym == point.sym);
+                    if (same.length > 0) continue;
+                    else waypointsInOutput.push(point);
+                }
+
                 waypointsOutput += `<wpt lat="${point._latlng.lat}" lon="${point._latlng.lng}">
 `;
                 if (point._latlng.meta.hasOwnProperty('ele')) {
