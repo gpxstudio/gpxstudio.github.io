@@ -101,7 +101,7 @@
                 <div class="panels panels-val" id="duration-val"></div>
                 <div class="panels panels-info" id="tracks" style="display: none; padding-right: 5px;">Trasy</div>
                 <div class="panels panels-val" id="tracks-val" style="display: none; padding-right: 5px;">0</div>
-                <div class="panels panels-info" id="segments" style="display: none; padding-right: 5px;">Odcinki trasy</div>
+                <div class="panels panels-info" id="segments" style="display: none; padding-right: 5px;">Segmenty trasy</div>
                 <div class="panels panels-val" id="segments-val" style="display: none; padding-right: 5px;">0</div>
                 <div class="panels panels-info" id="points" style="display: none">Punkty trasy</div>
                 <div class="panels panels-val" id="points-val" style="display: none">0</div>
@@ -133,7 +133,7 @@
                 <div class="panels-button" id="combine" title="Scal z inną trasą"><i class="fas fa-plus-circle custom-button"></i></div><br>
                 <div class="panels-button" id="extract" title="Wyodrębnij trasę lub segmenty trasy"><i class="fas fa-list-ul custom-button"></i></div><br>
                 <div class="panels-button" id="duplicate" title="Duplikuj"><i class="fas fa-copy custom-button"></i></div><br>
-                <div class="panels-button" id="add-wpt" title="Dodaj punkt trasy"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
+                <div class="panels-button" id="add-wpt" title="Dodaj POI"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
                 <div class="panels-button" id="reduce" title="Zredukuj liczbę punktów trasy"><i class="fas fa-compress-alt custom-button"></i></div><br>
                 <div class="panels-button" id="zone-delete" title="Skasuj wszystko wewnątrz/na zewnątrz zaznaczenia"><i class="fas fa-vector-square custom-button"></i></div><br>
                 <div class="panels-button" id="hide" title="Ukryj/Pokaż trasę"><i class="fas fa-eye-slash custom-button"></i></div><br>
@@ -158,11 +158,11 @@
                         <td colspan="2"><label for="routing-input"><b>Routing (follow roads)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><label for="edit-time-strategy"><b>Time data management</b></label></td>
+                        <td colspan="2"><label for="edit-time-strategy"><b>Zarządzanie danymi czasu</b></label></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
-                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preserve the original timestamps</label></td>
+                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Zachowaj średnią prędkość</label><br>
+                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Zachowaj oryginalne znaczniki czasu</label></td>
                     </tr>
                 </table>
             </div>
@@ -178,7 +178,7 @@
         <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Znaczniki odległości</label>
         <div id="help-text">
         <div style="text-align: center; font-size: 10pt; color: #476947">
-            <b>Check out the <a href="./about.html#guide" target="_blank">User Guide</a> for more info and small tutorials!</b>
+            <b>Sprawdź <a href="./about.html#guide" target="_blank">Poradnik użytkownika</a>, aby uzyskać więcej informacji i dostęp do małych samouczków!</b>
         </div><br>
         <table style="width: 100%">
             <colgroup>
@@ -190,22 +190,22 @@
             <tr>
                 <td><b>Wczytaj GPX</b></td>
                 <td>Ctrl+O</td>
-                <td>Import and visualize GPX files (or drag and drop anywhere in the window)</td>
+                <td>Importuj i wizualizuj pliki GPX (lub przeciągnij i upuść gdziekolwiek w oknie)</td>
             </tr>
             <tr>
                 <td><b>Nowy GPX</b></td>
                 <td>Ctrl+D</td>
-                <td>Start drawing a new route by placing anchor points on the map</td>
+                <td>Rozpocznij rysowanie nowej trasy poprzez umieszczenie punktów zakotwiczenia na mapie</td>
             </tr>
             <tr>
                 <td><b>Eksport</b></td>
                 <td>Ctrl+S</td>
-                <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Time, heart rate, cadence, power and temperature data are automatically extended. Optionally, merge all files <b>in the chosen order</b>. You can also drag a tab to your desktop to download the file.</td>
+                <td>Pobierz pliki na pulpit lub zapisz na Dysku Google, aby uzyskać <b>udostępnialny link</b> i <b>kod osadzenia</b>. Czas, częstość akcji serca, kadencja, moc i temperatura są automatycznie przedłużane. Opcjonalnie, scalaj wszystkie pliki <b>w wybranej kolejności</b>. Możesz również przeciągnąć kartę na pulpit, aby pobrać plik.</td>
             </tr>
             <tr>
                 <td><i class="fas fa-reply"></i> <i class="fas fa-share"></i></td>
                 <td>Ctrl+Z/Y</td>
-                <td>Undo and redo actions in edition mode</td>
+                <td>Cofnij i ponów akcje w trybie edycji</td>
             </tr>
             <tr>
                 <td><b>Wyczyść wszystko</b></td>
@@ -289,7 +289,7 @@
             <tr>
                 <td></td>
                 <td>F1</td>
-                <td>Show the last basemap used.</td>
+                <td>Pokaż ostatnio używaną mapę bazową.</td>
             </tr>
             <tr>
                 <td></td>
@@ -468,7 +468,7 @@
                 <div id="layer-creation-ok" class="panels custom-button normal-button">Dodaj warstwę</div>
             </div>
             <div id="layer-selection">
-                <span>Choose the Strava Heatmap color</span>
+                <span>Wybierz kolor mapy cieplnej Strava</span>
                 <select name="strava-color" id="strava-color-input" class="close-spacing">
                     <option value="hot">Gorący</option>
                     <option value="blue">Niebieski</option>
@@ -476,7 +476,7 @@
                     <option value="gray">Szary</option>
                     <option value="bluered">Niebiesko-czerwony</option>
                 </select><br>
-                <span>Select the layers you want to appear in the interface</span>
+                <span>Wybierz warstwy do pokazania na ekranie</span>
                 <div id="layer-selection-area"></div>
                 <div id="layer-selection-ok" class="panels custom-button normal-button">Zapisz</div>
             </div>
@@ -524,7 +524,7 @@
             <div id="remove-pt-text">Usuń punkt</div>
         </div>
         <div id="elevation-text">
-            <div id="segment-text">Długość odcinka</div>
+            <div id="segment-text">Długość segmentu</div>
             <div id="type-text">Kategoria</div>
             <div id="surface-text">Powierzchnia</div>
             <div id="slope-text">Nachylenie</div>
