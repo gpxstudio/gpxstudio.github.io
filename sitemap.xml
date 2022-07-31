@@ -13,6 +13,7 @@
     <xhtml:link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/"/>
     <xhtml:link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/"/>
   </url>
   <url>
     <loc>https://gpx.studio/l/de/</loc>
@@ -26,6 +27,7 @@
     <xhtml:link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/"/>
     <xhtml:link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/"/>
   </url>
   <url>
     <loc>https://gpx.studio/l/es/</loc>
@@ -39,6 +41,7 @@
     <xhtml:link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/"/>
     <xhtml:link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/"/>
   </url>
   <url>
     <loc>https://gpx.studio/l/fr/</loc>
@@ -52,6 +55,7 @@
     <xhtml:link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/"/>
     <xhtml:link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/"/>
   </url>
   <url>
     <loc>https://gpx.studio/l/it/</loc>
@@ -65,6 +69,7 @@
     <xhtml:link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/"/>
     <xhtml:link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/"/>
   </url>
   <url>
     <loc>https://gpx.studio/l/nl/</loc>
@@ -78,6 +83,7 @@
     <xhtml:link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/"/>
     <xhtml:link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/"/>
   </url>
   <url>
     <loc>https://gpx.studio/l/pt/</loc>
@@ -91,6 +97,7 @@
     <xhtml:link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/"/>
     <xhtml:link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/"/>
   </url>
   <url>
     <loc>https://gpx.studio/l/ru/</loc>
@@ -104,6 +111,7 @@
     <xhtml:link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/"/>
     <xhtml:link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/"/>
   </url>
   <url>
     <loc>https://gpx.studio/l/hu/</loc>
@@ -117,6 +125,7 @@
     <xhtml:link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/"/>
     <xhtml:link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/"/>
   </url>
   <url>
     <loc>https://gpx.studio/l/no/</loc>
@@ -130,6 +139,21 @@
     <xhtml:link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/"/>
     <xhtml:link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/"/>
+  </url>
+  <url>
+    <loc>https://gpx.studio/l/pl/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gpx.studio/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://gpx.studio/l/de/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://gpx.studio/l/fr/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://gpx.studio/l/es/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gpx.studio/l/it/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://gpx.studio/l/nl/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://gpx.studio/l/no/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/"/>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/"/>
   </url>
   <url>
     <loc>https://gpx.studio/about.html</loc>
@@ -143,6 +167,7 @@
     <xhtml:link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/about.html"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/about.html"/>
     <xhtml:link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/about.html"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/about.html"/>
   </url>
   <url>
     <loc>https://gpx.studio/l/de/about.html</loc>
@@ -156,6 +181,7 @@
     <xhtml:link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/about.html"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/about.html"/>
     <xhtml:link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/about.html"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/about.html"/>
   </url>
   <url>
     <loc>https://gpx.studio/l/es/about.html</loc>
@@ -169,6 +195,7 @@
     <xhtml:link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/about.html"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/about.html"/>
     <xhtml:link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/about.html"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/about.html"/>
   </url>
   <url>
     <loc>https://gpx.studio/l/fr/about.html</loc>
@@ -182,6 +209,7 @@
     <xhtml:link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/about.html"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/about.html"/>
     <xhtml:link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/about.html"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/about.html"/>
   </url>
   <url>
     <loc>https://gpx.studio/l/it/about.html</loc>
@@ -195,6 +223,7 @@
     <xhtml:link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/about.html"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/about.html"/>
     <xhtml:link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/about.html"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/about.html"/>
   </url>
   <url>
     <loc>https://gpx.studio/l/nl/about.html</loc>
@@ -208,6 +237,7 @@
     <xhtml:link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/about.html"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/about.html"/>
     <xhtml:link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/about.html"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/about.html"/>
   </url>
   <url>
     <loc>https://gpx.studio/l/pt/about.html</loc>
@@ -221,6 +251,7 @@
     <xhtml:link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/about.html"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/about.html"/>
     <xhtml:link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/about.html"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/about.html"/>
   </url>
   <url>
     <loc>https://gpx.studio/l/ru/about.html</loc>
@@ -234,6 +265,7 @@
     <xhtml:link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/about.html"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/about.html"/>
     <xhtml:link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/about.html"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/about.html"/>
   </url>
   <url>
     <loc>https://gpx.studio/l/hu/about.html</loc>
@@ -247,6 +279,7 @@
     <xhtml:link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/about.html"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/about.html"/>
     <xhtml:link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/about.html"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/about.html"/>
   </url>
   <url>
     <loc>https://gpx.studio/l/no/about.html</loc>
@@ -260,5 +293,20 @@
     <xhtml:link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/about.html"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/about.html"/>
     <xhtml:link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/about.html"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/about.html"/>
+  </url>
+  <url>
+    <loc>https://gpx.studio/l/pl/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gpx.studio/about.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://gpx.studio/l/de/about.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://gpx.studio/l/fr/about.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://gpx.studio/l/es/about.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://gpx.studio/l/it/about.html"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://gpx.studio/l/nl/about.html"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://gpx.studio/l/no/about.html"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/about.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/about.html"/>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/about.html"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/about.html"/>
   </url>
 </urlset>
