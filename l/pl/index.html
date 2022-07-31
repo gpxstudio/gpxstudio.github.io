@@ -75,7 +75,7 @@
         <div id="mly"><div id="mly-controls"><i id="mly-move" class="fas fa-arrows-alt custom-button"></i><i id="mly-close" class="fas fa-times custom-button"></i></div></div>
         <div style="display: none">
         <div id="toolbar" class="panels-container center-leaflet">
-            <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 4px 6px" alt="logo gpx.studio, internetowego edytora plików GPX"></a>
+            <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 4px 6px" alt="logo gpx.studio, internetowy edytor plików GPX"></a>
             <div id="load" class="panels custom-button">Wczytaj GPX</div>
             <div id="manual" class="panels custom-button">Nowy GPX</div>
             <div id="export" class="panels custom-button">Eksport</div>
@@ -101,7 +101,7 @@
                 <div class="panels panels-val" id="duration-val"></div>
                 <div class="panels panels-info" id="tracks" style="display: none; padding-right: 5px;">Trasy</div>
                 <div class="panels panels-val" id="tracks-val" style="display: none; padding-right: 5px;">0</div>
-                <div class="panels panels-info" id="segments" style="display: none; padding-right: 5px;">Odcinki trasy</div>
+                <div class="panels panels-info" id="segments" style="display: none; padding-right: 5px;">Segmenty trasy</div>
                 <div class="panels panels-val" id="segments-val" style="display: none; padding-right: 5px;">0</div>
                 <div class="panels panels-info" id="points" style="display: none">Punkty trasy</div>
                 <div class="panels panels-val" id="points-val" style="display: none">0</div>
@@ -115,7 +115,7 @@
                     <option value="speed">Prędkość</option>
                     <option value="pace">Tempo</option>
                 </select>
-                <div id="elevation-input" class="panels-button custom-button" title="Przełącz profil nachylenia"><i class="fas fa-minus"></i></div>
+                <div id="elevation-input" class="panels-button custom-button" title="Przełącz profil przewyższenia"><i class="fas fa-minus"></i></div>
                 <div id="crop-container">
                     <div class="panels-button custom-button" id="validate"><i class="fas fa-check custom-button"></i></div>
                 </div>
@@ -133,9 +133,9 @@
                 <div class="panels-button" id="combine" title="Scal z inną trasą"><i class="fas fa-plus-circle custom-button"></i></div><br>
                 <div class="panels-button" id="extract" title="Wyodrębnij trasę lub segmenty trasy"><i class="fas fa-list-ul custom-button"></i></div><br>
                 <div class="panels-button" id="duplicate" title="Duplikuj"><i class="fas fa-copy custom-button"></i></div><br>
-                <div class="panels-button" id="add-wpt" title="Dodaj punkt trasy"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
+                <div class="panels-button" id="add-wpt" title="Dodaj POI"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
                 <div class="panels-button" id="reduce" title="Zredukuj liczbę punktów trasy"><i class="fas fa-compress-alt custom-button"></i></div><br>
-                <div class="panels-button" id="zone-delete" title="Skasuj wszystko wewnątrz/na zewnątrz zaznaczenia prostokątnego"><i class="fas fa-vector-square custom-button"></i></div><br>
+                <div class="panels-button" id="zone-delete" title="Usuń wszystko wewnątrz/na zewnątrz zaznaczenia"><i class="fas fa-vector-square custom-button"></i></div><br>
                 <div class="panels-button" id="hide" title="Ukryj/Pokaż trasę"><i class="fas fa-eye-slash custom-button"></i></div><br>
                 <div class="panels-button" id="color" title="Zmień kolor, przezroczystość i szerokość"><i class="fas fa-palette custom-button"></i></div><br>
                 <div class="panels-button" id="structure" title="Zarządzaj strukturą pliku"><i class="fas fa-folder-tree custom-button"></i></div><br>
@@ -149,20 +149,20 @@
                         <td><select name="activity" id="activity-input" class="close-spacing">
                             <option value="Trekking-dry">Rower</option>
                             <option value="fastbike">Rower szosowy</option>
-                            <option value="MTB">Rower Górski</option>
+                            <option value="MTB">Rower górski</option>
                             <option value="Hiking-Alpine-SAC6">Bieg/Wędrówka</option>
                             <option value="Car-FastEco">Motocykl</option>
                         </select></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><label for="routing-input"><b>Routing (follow roads)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
+                        <td colspan="2"><label for="routing-input"><b>Routing (po drogach)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><label for="edit-time-strategy"><b>Time data management</b></label></td>
+                        <td colspan="2"><label for="edit-time-strategy"><b>Zarządzanie danymi czasu</b></label></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
-                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preserve the original timestamps</label></td>
+                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Zachowaj średnią prędkość</label><br>
+                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Zachowaj oryginalne znaczniki czasu</label></td>
                     </tr>
                 </table>
             </div>
@@ -178,7 +178,7 @@
         <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Znaczniki odległości</label>
         <div id="help-text">
         <div style="text-align: center; font-size: 10pt; color: #476947">
-            <b>Check out the <a href="./about.html#guide" target="_blank">User Guide</a> for more info and small tutorials!</b>
+            <b>Sprawdź <a href="./about.html#guide" target="_blank">Poradnik użytkownika</a>, aby uzyskać więcej informacji i dostęp do małych samouczków!</b>
         </div><br>
         <table style="width: 100%">
             <colgroup>
@@ -190,22 +190,22 @@
             <tr>
                 <td><b>Wczytaj GPX</b></td>
                 <td>Ctrl+O</td>
-                <td>Import and visualize GPX files (or drag and drop anywhere in the window)</td>
+                <td>Importuj i wizualizuj pliki GPX (lub przeciągnij i upuść gdziekolwiek w oknie)</td>
             </tr>
             <tr>
                 <td><b>Nowy GPX</b></td>
                 <td>Ctrl+D</td>
-                <td>Start drawing a new route by placing anchor points on the map</td>
+                <td>Rozpocznij rysowanie nowej trasy poprzez umieszczenie punktów zakotwiczenia na mapie</td>
             </tr>
             <tr>
                 <td><b>Eksport</b></td>
                 <td>Ctrl+S</td>
-                <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Time, heart rate, cadence, power and temperature data are automatically extended. Optionally, merge all files <b>in the chosen order</b>. You can also drag a tab to your desktop to download the file.</td>
+                <td>Pobierz pliki na pulpit lub zapisz na Dysku Google, aby uzyskać <b>udostępnialny link</b> i <b>kod osadzenia</b>. Czas, częstość akcji serca, kadencja, moc i temperatura są automatycznie przedłużane. Opcjonalnie, scalaj wszystkie pliki <b>w wybranej kolejności</b>. Możesz również przeciągnąć kartę na pulpit, aby pobrać plik.</td>
             </tr>
             <tr>
                 <td><i class="fas fa-reply"></i> <i class="fas fa-share"></i></td>
                 <td>Ctrl+Z/Y</td>
-                <td>Undo and redo actions in edition mode</td>
+                <td>Cofnij i ponów akcje w trybie edycji</td>
             </tr>
             <tr>
                 <td><b>Wyczyść wszystko</b></td>
@@ -215,7 +215,7 @@
             <tr>
                 <td></td>
                 <td>Escape</td>
-                <td>Exit current menu or tool</td>
+                <td>Wyjdź z bieżącego menu lub narzędzia</td>
             </tr>
             </tbody>
         </table><br>
@@ -227,7 +227,7 @@
             <tbody>
             <tr>
                 <td><i class="fas fa-pencil-alt"></i></td>
-                <td>Enter edition mode to add, move, insert or delete (Shift+click) anchor points, right-click on anchor points for more options (split, change start, delete)</td>
+                <td>Wejdź do trybu edycji, aby dodawać, zmieniać, wstawiać lub usuwać punkty kotwicy (Shift+kliknięcie), kliknij prawym przyciskiem myszy na punkty kotwicy, aby uzyskać więcej opcji (podziel, zmień początek, usuń)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-stopwatch"></i></td>
@@ -239,11 +239,11 @@
             </tr>
             <tr>
                 <td><i class="fas fa-plus-circle"></i></td>
-                <td>Merge with another trace (automatically extends time, heart rate, cadence, power and temperature data)</td>
+                <td>Scal z innym śladem (automatycznie przedłuża czas, prędkość serca, kadencję, moc i dane temperatury)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-list-ul"></i></td>
-                <td>Extract all track segments and creates one trace for each</td>
+                <td>Wyodrębnij wszystkie segmenty śladu i twórz osobne ślady dla każdego</td>
             </tr>
             <tr>
                 <td><i class="fas fa-copy"></i></td>
@@ -251,15 +251,15 @@
             </tr>
             <tr>
                 <td><i class="fas fa-map-marker-alt"></i></td>
-                <td>Add a waypoint (drag to change its location and use the buttons to edit info, duplicate or remove)</td>
+                <td>Dodaj POI (przeciągnij, aby zmienić jego lokalizację i użyj przycisków do edycji informacji, zduplikowania lub usunięcia)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-compress-alt"></i></td>
-                <td>Reduce the number of track points</td>
+                <td>Zredukuj liczbę punktów trasy</td>
             </tr>
             <tr>
                 <td><i class="fas fa-vector-square"></i></td>
-                <td>Delete track points and/or waypoints inside/outside rectangle selection</td>
+                <td>Usuń punkty trasy i/lub punkty tras wewnątrz lub poza zaznaczeniem</td>
             </tr>
             <tr>
                 <td><i class="fas fa-eye-slash"></i></td>
@@ -271,7 +271,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-folder-tree"></i></td>
-                <td>Zarządzaj strukturą pliku, przeciągaj i upuszczaj pliki, trasy i odcinki tras</td>
+                <td>Zarządzaj strukturą pliku, przeciągaj i upuszczaj pliki, trasy i segmenty tras</td>
             </tr>
             <tr>
                 <td><i class="fas fa-trash-alt"></i></td>
@@ -289,7 +289,7 @@
             <tr>
                 <td></td>
                 <td>F1</td>
-                <td>Show the last basemap used.</td>
+                <td>Pokaż ostatnio używaną mapę bazową.</td>
             </tr>
             <tr>
                 <td></td>
@@ -299,20 +299,20 @@
             <tr>
                 <td></td>
                 <td>F3</td>
-                <td>Switch between routing and <i>as the crow flies</i> (straight lines between track points) when editing traces</td>
+                <td>Przełącz pomiędzy routingiem (po drogach) a liniami prostymi (między punktami trasy) podczas edycji tras</td>
             </tr>
             <tr>
                 <td><i class="fas fa-chart-area"></i></td>
                 <td>Ctrl+H</td>
-                <td>Show or hide the elevation profile</td>
+                <td>Pokaż/Ukryj profil wysokości</td>
             </tr>
             </tbody>
         </table><br>
-        At the bottom, you can see a panel with information about the traces you import.
-        The <b>Total</b> tab displays information about all open traces merged into one.
-        <b>Swap the tabs</b> to define the order in which the traces should appear and <b>double-click</b> on them to change their names.
-        When you have many tabs, navigate through them by scrolling horizontally.
-        Use the <b>slider</b> to move the start/end point and cut the route.
+        Na dole możesz zobaczyć panel z informacjami o importowanych trasach.
+        Karta <b>Total</b> wyświetla informacje o wszystkich otwartych trasach scalonych w jedną.
+        <b>Zamień karty</b>, aby zdefiniować kolejność, w której powinny pojawiać się trasy i <b>kliknij dwukrotnie</b>, aby zmienić ich nazwy.
+        Kiedy masz wiele kart, nawiguj między nimi przewijając je poziomo.
+        Użyj suwaka <b></b>, aby przesunąć punkt początkowy/końcowy i przeciąć trasę.
         </div>
         <div id="export-content" class="popup-content">
             <table style="text-align: left">
@@ -326,20 +326,20 @@
                 </tr>
                 <tr>
                     <td><input type="checkbox" id="include-time" checked> <label for="include-time">Czas</label></td>
-                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Surface</label></td>
+                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Nawierzchnia</label></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-cad" checked> <label for="include-cad">Cadence</label></td>
+                    <td><input type="checkbox" id="include-cad" checked> <label for="include-cad">Kadencja</label></td>
                     <td><input type="checkbox" id="include-hr" checked> <label for="include-hr">Tętno</label></td>
                 </tr>
                 <tr>
                     <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Temperatura</label></td>
-                    <td><input type="checkbox" id="include-power" checked> <label for="include-power">Power</label></td>
+                    <td><input type="checkbox" id="include-power" checked> <label for="include-power">Moc</label></td>
                 </tr>
                 </tbody>
             </table>
-            <div style="color:#0f92c5;">&#9888;&#65039; The tool is <b>free</b> to use but <b>not free</b> to run &#9888;&#65039;<br>Each map display, track point added or moved is billed.</div>
-            <div id="donate-2" class="panels custom-button fancy-button"><b>Pomóż utrzymać stronę darmową</b> &#128591;</div><br>
+            <div style="color:#0f92c5;">&#9888;&#65039; Narzędzie <b>jest darmowe</b> do użytokowania, ale jego działanie <b>nie jest darmowe</b> &#9888;&#65039;<br>Każda mapa, dodany lub przeniesiony punkt trasy jest rozliczany.</div>
+            <div id="donate-2" class="panels custom-button fancy-button"><b>Wspomóż, by strona nadal była darmowa</b> &#128591;</div><br>
             <div id="export-2" class="panels custom-button fancy-button">Pobierz <i class="fas fa-download"></i></div>
             <div id="save-drive" class="panels custom-button fancy-button">Zapisz na Dysku Google <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
         </div>
@@ -378,26 +378,26 @@
         </div>
         <div id="merge-content" class="popup-content">
             <div id="merge-time-options">
-                <i class="fas fa-stopwatch"></i> Choose how to adapt the timestamps of the second trace (if any)
+                <i class="fas fa-stopwatch"></i> Wybierz sposób dostosowania znaczników czasu drugiego śladu (jeśli istnieją)
                 <div class="center-leaflet" style="text-align: left; width: min-content;">
-                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Keep the original timestamps (as long as they come after those of the first trace)</label><br>
-                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Make the second trace start right after the first one</label>
+                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Zachowaj oryginalne znaczniki czasu (jeśli pojawiają się po znacznikach trasy pierwszej)</label><br>
+                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Utwórz drugą trasę zaraz po pierwszej</label>
                 </div>
                 <hr>
             </div>
             <div>
-                <div class="close-spacing">Click on another trace or tab to merge the current trace with it</div><hr>
-                Choose how to add the second trace to the first one<br>
+                <div class="close-spacing">Kliknij na inną trasę lub zakładkę, aby scalić z nią trasę bieżącą</div><hr>
+                Wybierz jak dodać drugą trasę do pierwszej<br>
                 <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Scal jako punkty trasy</label><br>
-                <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Scal jako odcinki trasy</label><br>
+                <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Scal jako segmenty trasy</label><br>
                 <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Scal jako trasy</label>
             </div>
         </div>
         <div id="split-content" class="popup-content">
-            Wybierz jak scalić trasę<br>
+            Wybierz jak podzielić trasę<br>
             <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Podziel na odrębne pliki</label><br>
             <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Podziel na osobne trasy</label><br>
-            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Podziel na oddzielne odcinki trasy</label><br>
+            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Podziel na oddzielne segmenty</label><br>
             <div id="split-ok" class="panels custom-button normal-button">Ok</div>
             <div id="split-cancel" class="panels custom-button normal-button"><b>Anuluj</b></div>
         </div>
@@ -409,21 +409,21 @@
             <div id="extract-cancel" class="panels custom-button normal-button"><b>Anuluj</b></div>
         </div>
         <div id="structure-content" class="popup-content">
-            <div class="close-spacing">Drag and drop the elements to rearrange the file structure</div>
-            <div>Move elements from or to the tabs above the elevation profile</div>
-            <div>Rename tracks or change their color</div>
+            <div class="close-spacing">Przeciągnij i upuść elementy, aby zmienić strukturę pliku</div>
+            <div>Przenieś elementy z lub na karty powyżej profilu wysokości</div>
+            <div>Zmień nazwę tras lub zmień ich kolor</div>
             <div id="file-structure"></div>
-            <div id="merge-selection" class="panels custom-button normal-button">Scal zaznaczone</div>
-            <div id="delete-selection" class="panels custom-button normal-button">Usuń zaznaczone</div>
+            <div id="merge-selection" class="panels custom-button normal-button">Scal zaznaczenie</div>
+            <div id="delete-selection" class="panels custom-button normal-button">Usuń zaznaczenie</div>
         </div>
         <div id="crop-content" class="popup-content">
-            <input type="checkbox" id="crop-keep"><label for="crop-keep">Keep cropped parts in new files</label><br>
+            <input type="checkbox" id="crop-keep"><label for="crop-keep">Zachowaj przycięte części w nowych plikach</label><br>
             <div id="crop-ok" class="panels custom-button normal-button">Kontynuuj</div>
             <div id="crop-cancel" class="panels custom-button normal-button"><b>Anuluj</b></div>
         </div>
         <div id="reduce-content" class="popup-content">
-            Choose the amount of detail to keep<br>
-            Number of track points: <span id="reduce-npoints">0</span><br>
+            Wybierz ilość szczegółów do zachowania<br>
+            Liczba punktów trasy: <span id="reduce-npoints">0</span><br>
             <input type="range" min="0" max="1000" id="reduce-slider" style="width: 90%"><br>
             <div id="reduce-ok" class="panels custom-button normal-button">Ok</div>
             <div id="reduce-cancel" class="panels custom-button normal-button"><b>Anuluj</b></div>
@@ -431,22 +431,22 @@
         <div id="zone-delete-content" class="popup-content">
             Wybierz, co usunąć<br>
             <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Punkty trasy</label>
-            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
-            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inside selection</label>
-            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
+            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">POI</label><br>
+            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Wewnątrz zaznaczenia</label>
+            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Na zewnątrz zaznaczenia</label><br>
             <div id="zone-delete-ok" class="panels custom-button normal-button">Kontynuuj</div>
             <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Anuluj</b></div>
         </div>
         <div id="layer-selection-content">
             <div id="layer-creation">
-                Add or replace a custom layer here
+                Dodaj lub zastąp tutaj niestandardową warstwę
                 <table style="text-align: left">
                     <tr>
                         <td><label for="layer-name">Nazwa warstwy</label></td>
                         <td><input type="text" id="layer-name" size="35"></td>
                     </tr>
                     <tr>
-                        <td><label for="layer-url">Tiles URL</label></td>
+                        <td><label for="layer-url">URL kafelków</label></td>
                         <td><input type="text" id="layer-url" placeholder="https://{s}.domain.com/{z}/{y}/{x}.png" size="35"></td>
                     </tr>
                     <tr>
@@ -456,7 +456,7 @@
                     <tr>
                         <td><label for="layer-type">Rodzaj warstwy</label></td>
                         <td><select id="layer-type">
-                            <option value="baselayer">Basemap</option>
+                            <option value="baselayer">Mapa bazowa</option>
                             <option value="overlay">Nakładka</option>
                         </select></td>
                     </tr>
@@ -468,15 +468,15 @@
                 <div id="layer-creation-ok" class="panels custom-button normal-button">Dodaj warstwę</div>
             </div>
             <div id="layer-selection">
-                <span>Choose the Strava Heatmap color</span>
+                <span>Wybierz kolor mapy cieplnej Strava</span>
                 <select name="strava-color" id="strava-color-input" class="close-spacing">
-                    <option value="hot">Hot</option>
-                    <option value="blue">Blue</option>
-                    <option value="purple">Purple</option>
-                    <option value="gray">Gray</option>
-                    <option value="bluered">Blue-red</option>
+                    <option value="hot">Gorący</option>
+                    <option value="blue">Niebieski</option>
+                    <option value="purple">Fioletowy</option>
+                    <option value="gray">Szary</option>
+                    <option value="bluered">Niebiesko-czerwony</option>
                 </select><br>
-                <span>Select the layers you want to appear in the interface</span>
+                <span>Wybierz warstwy do pokazania na ekranie</span>
                 <div id="layer-selection-area"></div>
                 <div id="layer-selection-ok" class="panels custom-button normal-button">Zapisz</div>
             </div>
@@ -487,7 +487,7 @@
             <div id="load-error-ok" class="panels custom-button normal-button">Ok</div>
         </div>
         <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
-            <b>Otwórz w</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logo gpx.studio, internetowego edytora plików GPX">
+            <b>Otwórz w</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logo gpx.studio, internetowy edytor plików GPX">
         </div>
         <div id="unit-kilometers-text">km</div>
         <div id="unit-miles-text">mi</div>
@@ -503,7 +503,7 @@
         <div id="search-button-text">Wyszukaj miejsce lub wklej współrzędne GPS</div>
         <div id="locate-button-text">Pokaż moją lokalizację</div>
         <span id="track-text">Trasa</span>
-        <span id="segment-text">Odcinek</span>
+        <span id="segment-text">Segment</span>
         <div id="edit-speed-popup-text">
             <div id="speed-text">Prędkość</div>
             <div id="pace-text">Tempo</div>
@@ -519,58 +519,58 @@
             <div id="edit-info-text">Edytuj informacje</div>
         </div>
         <div id="right-click-popup-text">
-            <div id="split-text">Rozdziel tutaj</div>
+            <div id="split-text">Podziel tutaj</div>
             <div id="start-loop-text">Rozpocznij pętlę tutaj</div>
             <div id="remove-pt-text">Usuń punkt</div>
         </div>
         <div id="elevation-text">
-            <div id="segment-text">Długość odcinka</div>
+            <div id="segment-text">Długość segmentu</div>
             <div id="type-text">Kategoria</div>
             <div id="surface-text">Powierzchnia</div>
             <div id="slope-text">Nachylenie</div>
-            <div id="missing-text">Missing</div>,
-            <div id="paved-text">Paved</div>,
-            <div id="unpaved-text">Unpaved</div>,
+            <div id="missing-text">Brak</div>,
+            <div id="paved-text">Utwardzona</div>,
+            <div id="unpaved-text">Nieutwardzona</div>,
             <div id="asphalt-text">Asfalt</div>,
             <div id="concrete-text">Beton</div>,
-            <div id="chipseal-text">Chipseal</div>,
+            <div id="chipseal-text">Nawierzchnia utrwalana powierzchniowo</div>,
             <div id="cobblestone-text">Bruk</div>,
-            <div id="unhewn-cobblestone-text">Unhewn Cobblestone</div>,
-            <div id="paving-stones-text">Paving Stones</div>,
-            <div id="stepping-stones-text">Stepping Stones</div>,
-            <div id="sett-text">Sett Paving</div>,
+            <div id="unhewn-cobblestone-text">Nieociosany bruk</div>,
+            <div id="paving-stones-text">Kostka brukowa</div>,
+            <div id="stepping-stones-text">Kamienne stopnie</div>,
+            <div id="sett-text">Bruk</div>,
             <div id="metal-text">Metal</div>,
             <div id="wood-text">Drewno</div>,
-            <div id="compacted-text">Compacted Gravel</div>,
-            <div id="fine-gravel-text">Fine Gravel</div>,
+            <div id="compacted-text">Utwardzony żwir</div>,
+            <div id="fine-gravel-text">Drobny żwir</div>,
             <div id="gravel-text">Żwir</div>,
-            <div id="pebblestone-text">Pebblestone</div>,
+            <div id="pebblestone-text">Otoczak</div>,
             <div id="rock-text">Kamień</div>,
-            <div id="dirt-text">Dirt</div>,
-            <div id="ground-text">Ground</div>,
-            <div id="earth-text">Earth</div>,
+            <div id="dirt-text">Ziemia</div>,
+            <div id="ground-text">Teren</div>,
+            <div id="earth-text">Ziemia</div>,
             <div id="snow-text">Śnieg</div>,
             <div id="ice-text">Lód</div>,
             <div id="salt-text">Sól</div>,
             <div id="mud-text">Błoto</div>,
             <div id="sand-text">Piasek</div>,
-            <div id="woodchips-text">Woodchips</div>,
+            <div id="woodchips-text">Zrębki</div>,
             <div id="grass-text">Trawa</div>,
-            <div id="grass-paver-text">Grass Paver</div>
+            <div id="grass-paver-text">Płyta ażurowa</div>
         </div>
-        <h1>internetowy edytor gpx</h1>
+        <h1>edytor gpx online</h1>
         <h1>internetowa przeglądarka gpx</h1>
         <h1>edytuj pliki gpx online</h1>
-        <h1>przeglądaj pliki gpx online</h1>
-        <h1>scalaj pliki gpx online</h1>
-        <h1>extract segments gpx file online</h1>
-        <h1>reverse gpx file online</h1>
-        <h1>dodaj znaczniki czasu do pliku gpx przez internet</h1>
-        <h1>compress simplify reduce number points gpx file online</h1>
-        <h1>view and add waypoints gpx file online</h1>
-        <h1>edytuj aktywność z aplikacji Strava</h1>
-        <h1>correct Strava activity</h1>
-        <h1>scal aktywności z aplikacji Strava</h1>
+        <h1>podejrzyj pliki gpx online</h1>
+        <h1>scal pliki gpx online</h1>
+        <h1>wyodrębnij segmenty pliku gpx online</h1>
+        <h1>odwróć plik gpx online</h1>
+        <h1>dodaj znaczniki czasu do pliku gpx online</h1>
+        <h1>kompresja uproszczenie redukcja liczby punktów w pliku gpx online</h1>
+        <h1>wyświetl i dodaj plik POI-gpx online</h1>
+        <h1>edytuj aktywność Strava</h1>
+        <h1>popraw aktywność Strava</h1>
+        <h1>scal aktywności Strava</h1>
         </div>
     </body>
     <script src="/include/leaflet/leaflet.js"></script>
