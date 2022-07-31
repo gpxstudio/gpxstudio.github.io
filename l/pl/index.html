@@ -135,7 +135,7 @@
                 <div class="panels-button" id="duplicate" title="Duplikuj"><i class="fas fa-copy custom-button"></i></div><br>
                 <div class="panels-button" id="add-wpt" title="Dodaj POI"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
                 <div class="panels-button" id="reduce" title="Zredukuj liczbę punktów trasy"><i class="fas fa-compress-alt custom-button"></i></div><br>
-                <div class="panels-button" id="zone-delete" title="Skasuj wszystko wewnątrz/na zewnątrz zaznaczenia"><i class="fas fa-vector-square custom-button"></i></div><br>
+                <div class="panels-button" id="zone-delete" title="Usuń wszystko wewnątrz/na zewnątrz zaznaczenia"><i class="fas fa-vector-square custom-button"></i></div><br>
                 <div class="panels-button" id="hide" title="Ukryj/Pokaż trasę"><i class="fas fa-eye-slash custom-button"></i></div><br>
                 <div class="panels-button" id="color" title="Zmień kolor, przezroczystość i szerokość"><i class="fas fa-palette custom-button"></i></div><br>
                 <div class="panels-button" id="structure" title="Zarządzaj strukturą pliku"><i class="fas fa-folder-tree custom-button"></i></div><br>
@@ -339,7 +339,7 @@
                 </tbody>
             </table>
             <div style="color:#0f92c5;">&#9888;&#65039; Narzędzie <b>jest darmowe</b> do użytokowania, ale jego działanie <b>nie jest darmowe</b> &#9888;&#65039;<br>Każda mapa, dodany lub przeniesiony punkt trasy jest rozliczany.</div>
-            <div id="donate-2" class="panels custom-button fancy-button"><b>Pomóż utrzymać stronę darmową</b> &#128591;</div><br>
+            <div id="donate-2" class="panels custom-button fancy-button"><b>Wspomóż, by strona nadal była darmowa</b> &#128591;</div><br>
             <div id="export-2" class="panels custom-button fancy-button">Pobierz <i class="fas fa-download"></i></div>
             <div id="save-drive" class="panels custom-button fancy-button">Zapisz na Dysku Google <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
         </div>
@@ -378,26 +378,26 @@
         </div>
         <div id="merge-content" class="popup-content">
             <div id="merge-time-options">
-                <i class="fas fa-stopwatch"></i> Choose how to adapt the timestamps of the second trace (if any)
+                <i class="fas fa-stopwatch"></i> Wybierz sposób dostosowania znaczników czasu drugiego śladu (jeśli istnieją)
                 <div class="center-leaflet" style="text-align: left; width: min-content;">
-                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Keep the original timestamps (as long as they come after those of the first trace)</label><br>
-                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Make the second trace start right after the first one</label>
+                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Zachowaj oryginalne znaczniki czasu (jeśli pojawiają się po znacznikach trasy pierwszej)</label><br>
+                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Utwórz drugą trasę zaraz po pierwszej</label>
                 </div>
                 <hr>
             </div>
             <div>
-                <div class="close-spacing">Click on another trace or tab to merge the current trace with it</div><hr>
-                Choose how to add the second trace to the first one<br>
+                <div class="close-spacing">Kliknij na inną trasę lub zakładkę, aby scalić z nią trasę bieżącą</div><hr>
+                Wybierz jak dodać drugą trasę do pierwszej<br>
                 <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Scal jako punkty trasy</label><br>
-                <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Scal jako odcinki trasy</label><br>
+                <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Scal jako segmenty trasy</label><br>
                 <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Scal jako trasy</label>
             </div>
         </div>
         <div id="split-content" class="popup-content">
-            Wybierz jak scalić trasę<br>
+            Wybierz jak podzielić trasę<br>
             <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Podziel na odrębne pliki</label><br>
             <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Podziel na osobne trasy</label><br>
-            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Podziel na oddzielne odcinki trasy</label><br>
+            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Podziel na oddzielne segmenty</label><br>
             <div id="split-ok" class="panels custom-button normal-button">Ok</div>
             <div id="split-cancel" class="panels custom-button normal-button"><b>Anuluj</b></div>
         </div>
@@ -409,21 +409,21 @@
             <div id="extract-cancel" class="panels custom-button normal-button"><b>Anuluj</b></div>
         </div>
         <div id="structure-content" class="popup-content">
-            <div class="close-spacing">Drag and drop the elements to rearrange the file structure</div>
-            <div>Move elements from or to the tabs above the elevation profile</div>
-            <div>Rename tracks or change their color</div>
+            <div class="close-spacing">Przeciągnij i upuść elementy, aby zmienić strukturę pliku</div>
+            <div>Przenieś elementy z lub na karty powyżej profilu wysokości</div>
+            <div>Zmień nazwę tras lub zmień ich kolor</div>
             <div id="file-structure"></div>
-            <div id="merge-selection" class="panels custom-button normal-button">Scal zaznaczone</div>
-            <div id="delete-selection" class="panels custom-button normal-button">Usuń zaznaczone</div>
+            <div id="merge-selection" class="panels custom-button normal-button">Scal zaznaczenie</div>
+            <div id="delete-selection" class="panels custom-button normal-button">Usuń zaznaczenie</div>
         </div>
         <div id="crop-content" class="popup-content">
-            <input type="checkbox" id="crop-keep"><label for="crop-keep">Keep cropped parts in new files</label><br>
+            <input type="checkbox" id="crop-keep"><label for="crop-keep">Zachowaj przycięte części w nowych plikach</label><br>
             <div id="crop-ok" class="panels custom-button normal-button">Kontynuuj</div>
             <div id="crop-cancel" class="panels custom-button normal-button"><b>Anuluj</b></div>
         </div>
         <div id="reduce-content" class="popup-content">
-            Choose the amount of detail to keep<br>
-            Number of track points: <span id="reduce-npoints">0</span><br>
+            Wybierz ilość szczegółów do zachowania<br>
+            Liczba punktów trasy: <span id="reduce-npoints">0</span><br>
             <input type="range" min="0" max="1000" id="reduce-slider" style="width: 90%"><br>
             <div id="reduce-ok" class="panels custom-button normal-button">Ok</div>
             <div id="reduce-cancel" class="panels custom-button normal-button"><b>Anuluj</b></div>
@@ -431,22 +431,22 @@
         <div id="zone-delete-content" class="popup-content">
             Wybierz, co usunąć<br>
             <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Punkty trasy</label>
-            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
-            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inside selection</label>
-            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
+            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">POI</label><br>
+            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Wewnątrz zaznaczenia</label>
+            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Na zewnątrz zaznaczenia</label><br>
             <div id="zone-delete-ok" class="panels custom-button normal-button">Kontynuuj</div>
             <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Anuluj</b></div>
         </div>
         <div id="layer-selection-content">
             <div id="layer-creation">
-                Add or replace a custom layer here
+                Dodaj lub zastąp tutaj niestandardową warstwę
                 <table style="text-align: left">
                     <tr>
                         <td><label for="layer-name">Nazwa warstwy</label></td>
                         <td><input type="text" id="layer-name" size="35"></td>
                     </tr>
                     <tr>
-                        <td><label for="layer-url">Tiles URL</label></td>
+                        <td><label for="layer-url">URL kafelków</label></td>
                         <td><input type="text" id="layer-url" placeholder="https://{s}.domain.com/{z}/{y}/{x}.png" size="35"></td>
                     </tr>
                     <tr>
@@ -519,7 +519,7 @@
             <div id="edit-info-text">Edytuj informacje</div>
         </div>
         <div id="right-click-popup-text">
-            <div id="split-text">Rozdziel tutaj</div>
+            <div id="split-text">Podziel tutaj</div>
             <div id="start-loop-text">Rozpocznij pętlę tutaj</div>
             <div id="remove-pt-text">Usuń punkt</div>
         </div>
@@ -546,7 +546,7 @@
             <div id="gravel-text">Żwir</div>,
             <div id="pebblestone-text">Otoczak</div>,
             <div id="rock-text">Kamień</div>,
-            <div id="dirt-text">Dirt</div>,
+            <div id="dirt-text">Ziemia</div>,
             <div id="ground-text">Teren</div>,
             <div id="earth-text">Ziemia</div>,
             <div id="snow-text">Śnieg</div>,
