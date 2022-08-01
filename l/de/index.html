@@ -109,7 +109,7 @@
                 <div id="units-text" class="panels-info">Entfernungseinheiten</div>
                 <select id="units-input" name="units-input">
                     <option value="km">Metrisch</option>
-                    <option value="mi">US-Maße</option>
+                    <option value="mi">Imperial</option>
                 </select>
                 <div id="speed-units-text" class="panels-info">Geschwindigkeitseinheiten</div>
                 <select id="speed-units-input" name="speed-units-input">
@@ -173,7 +173,7 @@
                 <input id="street-view-provider-google" type="radio" name="street-view-provider" value="google"> <label for="street-view-provider-google">Google</label>
                 <input id="street-view-provider-mapillary" type="radio" name="street-view-provider" value="mapillary" checked> <label for="street-view-provider-mapillary">Mapillary</label>
             </div>
-            <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Öffne Mapillary oder Google Street View"></i>
+            <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Mapillary oder Google Street View öffnen"></i>
         </div>
         <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Richtungsmarkierungen</label>
         <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Entfernungsmarkierungen</label>
@@ -414,8 +414,8 @@
             <div>Elemente von oder zu Registerkarten über dem Höhenprofil verschieben</div>
             <div>Tracks umbenennen oder ihre Farbe ändern</div>
             <div id="file-structure"></div>
-            <div id="merge-selection" class="panels custom-button normal-button">Merge selection</div>
-            <div id="delete-selection" class="panels custom-button normal-button">Delete selection</div>
+            <div id="merge-selection" class="panels custom-button normal-button">Auswahl zusammenführen</div>
+            <div id="delete-selection" class="panels custom-button normal-button">Auswahl löschen</div>
         </div>
         <div id="crop-content" class="popup-content">
             <input type="checkbox" id="crop-keep"><label for="crop-keep">Behalte getrennte Abschnitte in neuen Dateien</label><br>
@@ -469,13 +469,13 @@
                 <div id="layer-creation-ok" class="panels custom-button normal-button">Ebene hinzufügen</div>
             </div>
             <div id="layer-selection">
-                <span>Choose the Strava Heatmap color</span>
+                <span>Strava Heatmap-Farbe wählen</span>
                 <select name="strava-color" id="strava-color-input" class="close-spacing">
-                    <option value="hot">Hot</option>
-                    <option value="blue">Blue</option>
-                    <option value="purple">Purple</option>
-                    <option value="gray">Gray</option>
-                    <option value="bluered">Blue-red</option>
+                    <option value="hot">Heiß</option>
+                    <option value="blue">Blau</option>
+                    <option value="purple">Lila</option>
+                    <option value="gray">Grau</option>
+                    <option value="bluered">Blau Rot</option>
                 </select><br>
                 <span>Wähle die Ebenen aus, die in der Oberfläche angezeigt werden sollen</span>
                 <div id="layer-selection-area"></div>
