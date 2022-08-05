@@ -100,9 +100,9 @@
                 <div class="panels panels-val" id="speed-val"></div>
                 <div class="panels panels-info" id="duration">Mozgási idő</div>
                 <div class="panels panels-val" id="duration-val"></div>
-                <div class="panels panels-info" id="tracks" style="display: none; padding-right: 5px;">Tracks</div>
+                <div class="panels panels-info" id="tracks" style="display: none; padding-right: 5px;">Útvonalak</div>
                 <div class="panels panels-val" id="tracks-val" style="display: none; padding-right: 5px;">0</div>
-                <div class="panels panels-info" id="segments" style="display: none; padding-right: 5px;">Track segments</div>
+                <div class="panels panels-info" id="segments" style="display: none; padding-right: 5px;">Útvonal szegmensek</div>
                 <div class="panels panels-val" id="segments-val" style="display: none; padding-right: 5px;">0</div>
                 <div class="panels panels-info" id="points" style="display: none">Útvonal pontok</div>
                 <div class="panels panels-val" id="points-val" style="display: none">0</div>
@@ -139,7 +139,7 @@
                 <div class="panels-button" id="zone-delete" title="Töröljön mindent a téglalap kijelölésen belül és kívül"><i class="fas fa-vector-square custom-button"></i></div><br>
                 <div class="panels-button" id="hide" title="Útvonal elrejtése/felfedése"><i class="fas fa-eye-slash custom-button"></i></div><br>
                 <div class="panels-button" id="color" title="Útvonal szín, átlátszóság, szélesség megváltoztatása"><i class="fas fa-palette custom-button"></i></div><br>
-                <div class="panels-button" id="structure" title="Manage the file structure"><i class="fas fa-folder-tree custom-button"></i></div><br>
+                <div class="panels-button" id="structure" title="Fájlok szerkezeti szerkesztése"><i class="fas fa-folder-tree custom-button"></i></div><br>
                 <div class="panels-button" id="delete" title="Törlés"><i class="fas fa-trash-alt custom-button"></i></div><br>
             </div>
             <div id="editing-options" class="panels-container">
@@ -173,7 +173,7 @@
                 <input id="street-view-provider-google" type="radio" name="street-view-provider" value="google"> <label for="street-view-provider-google">Google</label>
                 <input id="street-view-provider-mapillary" type="radio" name="street-view-provider" value="mapillary" checked> <label for="street-view-provider-mapillary">Mapillary</label>
             </div>
-            <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Mapillary or Google Street View"></i>
+            <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Mapillary vagy Google Street nézet"></i>
         </div>
         <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Menetirány mutatása</label>
         <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Távolsági km szakaszok mutatása</label>
@@ -272,7 +272,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-folder-tree"></i></td>
-                <td>Manage the file structure, drag and drop files, tracks and track segments</td>
+                <td>Szerkesztés egyszeű ráhuzással</td>
             </tr>
             <tr>
                 <td><i class="fas fa-trash-alt"></i></td>
@@ -290,7 +290,7 @@
             <tr>
                 <td></td>
                 <td>F1</td>
-                <td>Show the last basemap used.</td>
+                <td>Legutóljára használt alaptérkép megjelenítése.</td>
             </tr>
             <tr>
                 <td></td>
@@ -395,27 +395,27 @@
             </div>
         </div>
         <div id="split-content" class="popup-content">
-            Choose how to split the trace<br>
-            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Split into separate files</label><br>
-            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Split into separate tracks</label><br>
-            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Split into separate track segments</label><br>
+            Válassza ki a útvonal szétvágásának módját<br>
+            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Szétvágás külön fájlokra</label><br>
+            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Szétvágás külön útvonalakra</label><br>
+            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Szétvágás külön útvonal szegmensekre</label><br>
             <div id="split-ok" class="panels custom-button normal-button">Rendben</div>
             <div id="split-cancel" class="panels custom-button normal-button"><b>Mégsem</b></div>
         </div>
         <div id="extract-content" class="popup-content">
-            Choose what to extract<br>
-            <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Tracks</label><br>
-            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Track segments</label><br>
+            Válassza ki, hogy mit szeretne kitörölni<br>
+            <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Útvonalak</label><br>
+            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment"> Útvonal szegmens</label><br>
             <div id="extract-ok" class="panels custom-button normal-button">Rendben</div>
             <div id="extract-cancel" class="panels custom-button normal-button"><b>Mégsem</b></div>
         </div>
         <div id="structure-content" class="popup-content">
-            <div class="close-spacing">Drag and drop the elements to rearrange the file structure</div>
+            <div class="close-spacing">Húzza át az elemeket a fájlszerkezet átrendezéséhez</div>
             <div>Move elements from or to the tabs above the elevation profile</div>
-            <div>Rename tracks or change their color</div>
+            <div>Az útvonalak átnevezése vagy más útvonalszín megadása</div>
             <div id="file-structure"></div>
-            <div id="merge-selection" class="panels custom-button normal-button">Merge selection</div>
-            <div id="delete-selection" class="panels custom-button normal-button">Delete selection</div>
+            <div id="merge-selection" class="panels custom-button normal-button">Egyesítés kijelőlés</div>
+            <div id="delete-selection" class="panels custom-button normal-button">Jelőlés törlése</div>
         </div>
         <div id="crop-content" class="popup-content">
             <input type="checkbox" id="crop-keep"><label for="crop-keep">A kivágott részek megőrzése új fájlokban</label><br>
@@ -440,22 +440,22 @@
         </div>
         <div id="layer-selection-content">
             <div id="layer-creation">
-                Add or replace a custom layer here
+                Egyéni réteg hozzáadása vagy cseréje itt
                 <table style="text-align: left">
                     <tr>
-                        <td><label for="layer-name">Layer name</label></td>
+                        <td><label for="layer-name">Réteg név</label></td>
                         <td><input type="text" id="layer-name" size="35"></td>
                     </tr>
                     <tr>
-                        <td><label for="layer-url">Tiles URL</label></td>
+                        <td><label for="layer-url">Csempe URL</label></td>
                         <td><input type="text" id="layer-url" placeholder="https://{s}.domain.com/{z}/{y}/{x}.png" size="35"></td>
                     </tr>
                     <tr>
-                        <td><label for="layer-max-zoom">Max zoom level</label></td>
+                        <td><label for="layer-max-zoom">Maximum nagyítás</label></td>
                         <td><input type="number" id="layer-max-zoom" value="20" min="1" max="20"></td>
                     </tr>
                     <tr>
-                        <td><label for="layer-type">Layer type</label></td>
+                        <td><label for="layer-type">Réteg típus</label></td>
                         <td><select id="layer-type">
                             <option value="baselayer">Alap térkép</option>
                             <option value="overlay">Térkép rétegek</option>
@@ -466,20 +466,20 @@
                     </tr>
                 </table>
                 <div id="preview-map" style="width: 100%; height: 200px"></div>
-                <div id="layer-creation-ok" class="panels custom-button normal-button">Add layer</div>
+                <div id="layer-creation-ok" class="panels custom-button normal-button">Réteg hozzáadása</div>
             </div>
             <div id="layer-selection">
-                <span>Choose the Strava Heatmap color</span>
+                <span>Válassza ki a Strava Heatmap színét</span>
                 <select name="strava-color" id="strava-color-input" class="close-spacing">
-                    <option value="hot">Hot</option>
-                    <option value="blue">Blue</option>
-                    <option value="purple">Purple</option>
-                    <option value="gray">Gray</option>
-                    <option value="bluered">Blue-red</option>
+                    <option value="hot">Legérdekesebb</option>
+                    <option value="blue">Kék</option>
+                    <option value="purple">Lila</option>
+                    <option value="gray">Szürke</option>
+                    <option value="bluered">Kék és piros</option>
                 </select><br>
                 <span>Válassza ki a felületen megjeleníteni kívánt rétegeket</span>
                 <div id="layer-selection-area"></div>
-                <div id="layer-selection-ok" class="panels custom-button normal-button">Save</div>
+                <div id="layer-selection-ok" class="panels custom-button normal-button">Mentés</div>
             </div>
         </div>
         <div id="load-error-content" class="popup-content">
@@ -503,8 +503,8 @@
         <div id="search-input-text">Kereső...</div>
         <div id="search-button-text">Keressen egy ki indulási helyet, vagy illessze be a GPS-koordinátákat</div>
         <div id="locate-button-text">Saját pozició</div>
-        <span id="track-text">Track</span>
-        <span id="segment-text">Segment</span>
+        <span id="track-text">Útvonal</span>
+        <span id="segment-text">Szegmens</span>
         <div id="edit-speed-popup-text">
             <div id="speed-text">Sebesség</div>
             <div id="pace-text">Tempó</div>
@@ -569,9 +569,9 @@
         <h1>időbélyegek hozzáadása a gpx fájlhoz online</h1>
         <h1>útvonalpontok csökkentése vagy növelése gpx fájlban online</h1>
         <h1>útvonalpont megjelenítés és hozzáadás gpx fájlba online</h1>
-        <h1>edit Strava activity</h1>
-        <h1>correct Strava activity</h1>
-        <h1>merge Strava activities</h1>
+        <h1>strava tevékenység szerkesztése</h1>
+        <h1>sikeres Strava tevékenyésg</h1>
+        <h1>strava tevékenységek egyesítése</h1>
         </div>
     </body>
     <script src="/include/leaflet/leaflet.js"></script>
