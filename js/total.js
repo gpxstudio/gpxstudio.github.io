@@ -353,7 +353,7 @@ export default class Total {
 
             const tracks = this.traces[i].getTracks();
             for (var t=0; t<tracks.length; t++) {
-                xmlOutput += xmlStart4 + (tracks[t].name ? tracks[t].name : this.traces[i].name) + xmlStart5;
+                xmlOutput += xmlStart4 + this.encodeString(tracks[t].name ? tracks[t].name : this.traces[i].name) + xmlStart5;
 
                 if (tracks[t].style) {
                     var styleOutput = '';
@@ -504,7 +504,7 @@ export default class Total {
                 var creator = this.traces[i].gpx._info.creator || "https://gpx.studio";
                 output.push({
                     name: this.traces[i].name + '.gpx',
-                    text: (xmlStart1+creator+xmlStart2+this.traces[i].name+xmlStart3+waypointsOutput+xmlOutput+xmlEnd2)
+                    text: (xmlStart1+creator+xmlStart2+this.encodeString(this.traces[i].name)+xmlStart3+waypointsOutput+xmlOutput+xmlEnd2)
                 });
                 xmlOutput = '';
                 waypointsOutput = '';
