@@ -325,7 +325,7 @@ export default class Total {
         const xmlStart4 = `<trk>
     <name>`;
         const xmlStart5 = `</name>
-    <type>`+(this.buttons.activity != 'hike' ? 'Cycling' : 'Running')+`</type>
+    <type>`+(this.buttons.activity != 'Hiking-Alpine-SAC6' ? 'Cycling' : 'Running')+`</type>
 `;
         const styleOutputStart = `    <extensions>
         <gpx_style:line>
