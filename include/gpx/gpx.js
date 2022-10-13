@@ -258,7 +258,8 @@ L.GPX = L.FeatureGroup.extend({
       power: {avg: 0, _total: 0, _points: []},
       npoints: 0,
       nsegments: 0,
-      ntracks: 0
+      ntracks: 0,
+      creator: this._info ? this._info.creator : null,
     };
   },
 
@@ -322,6 +323,10 @@ L.GPX = L.FeatureGroup.extend({
     var author = xml.getElementsByTagName('author');
     if (author.length > 0) {
       this._info.author = author[0].textContent;
+    }
+    var creator = xml.getElementsByTagName('gpx')[0].attributes.creator;
+    if (creator) {
+        this._info["creator"] = creator.value;
     }
     var copyright = xml.getElementsByTagName('copyright');
     if (copyright.length > 0) {

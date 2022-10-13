@@ -311,19 +311,20 @@ export default class Total {
         }
 
         const xmlStart1 = `<?xml version="1.0" encoding="UTF-8"?>
-<gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd http://www.topografix.com/GPX/gpx_style/0/2 http://www.topografix.com/GPX/gpx_style/0/2/gpx_style.xsd" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:gpx_style="http://www.topografix.com/GPX/gpx_style/0/2" version="1.1" creator="https://gpx.studio">
+<gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd http://www.topografix.com/GPX/gpx_style/0/2 http://www.topografix.com/GPX/gpx_style/0/2/gpx_style.xsd" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:gpx_style="http://www.topografix.com/GPX/gpx_style/0/2" version="1.1" creator="`;
+        const xmlStart2 = `">
 <metadata>
     <name>`;
-        const xmlStart2 = `</name>
+        const xmlStart3 = `</name>
     <author>
         <name>gpx.studio</name>
         <link href="https://gpx.studio"></link>
     </author>
 </metadata>
 `;
-        const xmlStart3 = `<trk>
+        const xmlStart4 = `<trk>
     <name>`;
-        const xmlStart4 = `</name>
+        const xmlStart5 = `</name>
     <type>`+(this.buttons.activity != 'hike' ? 'Cycling' : 'Running')+`</type>
 `;
         const styleOutputStart = `    <extensions>
@@ -352,7 +353,7 @@ export default class Total {
 
             const tracks = this.traces[i].getTracks();
             for (var t=0; t<tracks.length; t++) {
-                xmlOutput += xmlStart3 + (tracks[t].name ? tracks[t].name : this.traces[i].name) + xmlStart4;
+                xmlOutput += xmlStart4 + (tracks[t].name ? tracks[t].name : this.traces[i].name) + xmlStart5;
 
                 if (tracks[t].style) {
                     var styleOutput = '';
@@ -499,10 +500,11 @@ export default class Total {
 `;
             }
 
-            if (!mergeAll || this.traces.length == 1 || trace_idx!==undefined) {
+            if (!mergeAll || this.traces.length == 1 || trace_idx !== undefined) {
+                var creator = this.traces[i].gpx._info.creator || "https://gpx.studio";
                 output.push({
                     name: this.traces[i].name + '.gpx',
-                    text: (xmlStart1+this.traces[i].name+xmlStart2+waypointsOutput+xmlOutput+xmlEnd2)
+                    text: (xmlStart1+creator+xmlStart2+this.traces[i].name+xmlStart3+waypointsOutput+xmlOutput+xmlEnd2)
                 });
                 xmlOutput = '';
                 waypointsOutput = '';
@@ -510,9 +512,16 @@ export default class Total {
         }
 
         if (mergeAll && this.traces.length > 1) {
+            var creator = "https://gpx.studio";
+            for (var i=0; i<this.traces.length; i++) {
+                if (this.traces[i].gpx._info.creator) {
+                    creator = this.traces[i].gpx._info.creator;
+                    break;
+                }
+            }
             output.push({
                 name: 'track.gpx',
-                text: (xmlStart1+'track'+xmlStart2+waypointsOutput+xmlOutput+xmlEnd2)
+                text: (xmlStart1+creator+xmlStart2+'track'+xmlStart3+waypointsOutput+xmlOutput+xmlEnd2)
             });
         }
 

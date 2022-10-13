@@ -200,6 +200,7 @@ export default class Trace {
     clone() {
         const newTrace = this.total.addTrace(undefined, this.name);
         newTrace.gpx.addLayer(new L.FeatureGroup());
+        newTrace.gpx._info.creator = this.gpx._info.creator;
 
         const tracks = this.getTracks();
         for (var t=0; t<tracks.length; t++) {
@@ -1576,6 +1577,8 @@ export default class Trace {
     }
 
     merge(trace, as_points, as_segments, as_tracks, stick_time) {
+        this.gpx._info["creator"] = this.gpx._info["creator"] || trace.gpx._info["creator"];
+
         const points = this.getPoints();
         const otherPoints = trace.getPoints();
 
@@ -1747,6 +1750,7 @@ export default class Trace {
                 if (as_segments) {
                     const newTrace = this.total.addTrace(undefined, tracks[t].name ? tracks[t].name : this.name);
                     newTrace.gpx.addLayer(new L.FeatureGroup());
+                    newTrace.gpx._info.creator = this.gpx._info.creator;
 
                     if (cpy.length > 0) {
                         var trk = new L.FeatureGroup([new L.Polyline(cpy)]);
@@ -1775,6 +1779,7 @@ export default class Trace {
             if (!as_segments) {
                 const newTrace = this.total.addTrace(undefined, tracks[t].name ? tracks[t].name : this.name);
                 newTrace.gpx.addLayer(new L.FeatureGroup());
+                newTrace.gpx._info.creator = this.gpx._info.creator;
 
                 if (segs.length > 0) {
                     var trk = new L.FeatureGroup(segs);
@@ -1813,6 +1818,7 @@ export default class Trace {
     extractSelection(tracks, segments) {
         const newTrace = this.total.addTrace(undefined, segments ? (tracks[0].name ? tracks[0].name : this.name) : (tracks.length == 1 && tracks[0].name) ? tracks[0].name : this.name);
         newTrace.gpx.addLayer(new L.FeatureGroup());
+        newTrace.gpx._info.creator = this.gpx._info.creator;
 
         var segs = [];
         if (segments) {
