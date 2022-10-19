@@ -46,38 +46,43 @@
 
 
 .leaflet-control-window .titlebar{
-    min-height: 38px;
     cursor: grab;
     cursor: -webkit-grab;
     cursor: -moz-grab;
-    padding: 10px 45px 10px 10px;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    background-color: #ccc;
+    padding-top: 24px;
+    margin-bottom: 8px;
 }
+
+.leaflet-control-window .titlebar .title {
+    margin: 0px;
+}
+
 
 .leaflet-control-window .close {
     position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 28px;
-    height: 28px;
-    border-radius: 100%;
-    font: 16px/14px Tahoma, Verdana, sans-serif;
+    top: 4px;
+    right: 4px;
+    width: 16px;
+    height: 16px;
+    font-family: Tahoma, Verdana, sans-serif;
     cursor: pointer;
     z-index:30;
 
-    background-color: rgba(0, 0, 0, 0.40);
-    transition-property: background;
+    transition-property: color;
     transition-duration: 0.2s;
     transition-timing-function: linear;
 
-
-    color: #e4e4e4;
-    font-size: 22pt;
+    color: #535353;
+    font-size: 1rem;
     text-align: center;
-    line-height: 0.9em;
+    line-height: 0.9rem;
 }
 
 .leaflet-control-window .close:hover {
-    background-color: rgba(0, 0, 0, 0.65);
+    color: rgba(0, 0, 0);
 }
 
 .leaflet-control-window .content{
@@ -89,7 +94,6 @@
 
 .leaflet-control-window .promptButtons{
     text-align: right;
-    padding: 16px;
 }
 
 .leaflet-control-window button{
