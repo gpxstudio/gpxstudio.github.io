@@ -32,14 +32,15 @@ L.Control.Window = L.Control.extend({
         this._wrapper = L.DomUtil.create('div',modality+' leaflet-control-window-wrapper', L.DomUtil.get(this.options.element));
 
         this._container = L.DomUtil.create('div', 'leaflet-control leaflet-control-window '+this.options.className,this._wrapper);
-        //this._container.setAttribute('style','max-width:'+this.options.maxWidth+'px');
+        this._container.setAttribute('style','max-width:'+this.options.maxWidth+'px');
 
         this._containerTitleBar = L.DomUtil.create('div', 'titlebar',this._container);
+        this.titleContent = L.DomUtil.create('h2', 'title',this._containerTitleBar);
         this._containerContent =  L.DomUtil.create('div', 'content' ,this._container);
         this._containerPromptButtons =  L.DomUtil.create('div', 'promptButtons' ,this._container);
 
         if (this.options.closeButton) {
-            this._closeButton = L.DomUtil.create('span', 'close',this._containerTitleBar);
+            this._closeButton = L.DomUtil.create('a', 'close',this._containerTitleBar);
             this._closeButton.innerHTML = '&times;';
         }
 
@@ -58,6 +59,9 @@ L.Control.Window = L.Control.extend({
         if (this.options.closeButton) {
             var close = this._closeButton;
             L.DomEvent.on(close, 'click', this.hide, this);
+        }
+        if (this.options.title){
+            this.title(this.options.title);
         }
         if (this.options.content) {
             this.content(this.options.content);
@@ -79,10 +83,19 @@ L.Control.Window = L.Control.extend({
 			this._btnOK.disabled=false;
 			this._btnOK.className='';
 	},
+    title: function(titleContent){
+        if (titleContent==undefined){
+            return this.options.title
+        }
+
+        this.options.title = titleContent;
+        var title = titleContent || '';
+        this.titleContent.innerHTML = title;
+        return this;
+    },
     remove: function () {
 
-        if (L.DomUtil.get(this.options.element).contains(this._wrapper))
-            L.DomUtil.get(this.options.element).removeChild(this._wrapper);
+        L.DomUtil.get(this.options.element).removeChild(this._wrapper);
 
         // Unregister events to prevent memory leak
         var stop = L.DomEvent.stopPropagation;
@@ -116,6 +129,39 @@ L.Control.Window = L.Control.extend({
 
 
         this.setContentMaxHeight();
+        var thisWidth = this._container.offsetWidth;
+        var thisHeight = this._container.offsetHeight;
+        var margin = 8;
+
+        var el =  L.DomUtil.get(this.options.element);
+        var rect = el.getBoundingClientRect();
+        var width = rect.right -rect.left ||  Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+        var height = rect.bottom -rect.top ||  Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
+        var top = rect.top;
+        var left = rect.left;
+        var offset =0;
+
+        // SET POSITION OF WINDOW
+        if (this.options.position == 'topLeft'){
+            this.showOn([left,top+offset])
+            } else if (this.options.position == 'left') {
+            this.showOn([left, top+height/2-thisHeight/2-margin+offset])
+        } else if (this.options.position == 'bottomLeft') {
+            this.showOn([left, top+height-thisHeight-margin*2-offset])
+        } else if (this.options.position == 'top') {
+            this.showOn([left+width/2-thisWidth/2-margin,top+offset])
+        } else if (this.options.position == 'topRight') {
+            this.showOn([left+width-thisWidth-margin*2,top+ offset])
+        } else if (this.options.position == 'right') {
+            this.showOn([left+width-thisWidth-margin*2, top+height/2-thisHeight/2-margin+offset])
+        } else if (this.options.position == 'bottomRight') {
+            this.showOn([left+width-thisWidth-margin*2,top+ height-thisHeight-margin*2-offset])
+        } else if (this.options.position == 'bottom') {
+            this.showOn([left+width/2-thisWidth/2-margin,top+ height-thisHeight-margin*2-offset])
+        } else {
+            this.showOn([left+width/2-thisWidth/2-margin, top+top+height/2-thisHeight/2-margin+offset])
+        }
 
         return this;
     },
@@ -123,6 +169,9 @@ L.Control.Window = L.Control.extend({
 
         this.setContentMaxHeight();
         L.DomUtil.setPosition(this._container, L.point(Math.round(point[0]),Math.round(point[1]),true));
+
+        var draggable = new L.Draggable(this._container,this._containerTitleBar);
+        draggable.enable();
 
         L.DomUtil.addClass(this._wrapper, 'visible');
         this.fire('show');
@@ -143,8 +192,7 @@ L.Control.Window = L.Control.extend({
             return this.options.content
         }
         this.options.content = content;
-        if(typeof content == 'string') this.getContainer().innerHTML = content;
-        else this.getContainer().appendChild(content);
+        this.getContainer().innerHTML = content;
         return this;
     },
     prompt : function(promptObject){
@@ -156,7 +204,7 @@ L.Control.Window = L.Control.extend({
         this.options.prompt = promptObject;
 
         this.setPromptCallback(promptObject.callback);
-
+        
         this.setActionCallback(promptObject.action);
 
         var cancel = this.options.prompt.buttonCancel || undefined;
@@ -174,9 +222,9 @@ L.Control.Window = L.Control.extend({
         var btnOK= L.DomUtil.create('button','',this._containerPromptButtons);
         L.DomEvent.on(btnOK, 'click',this.promptCallback, this);
         btnOK.innerHTML=ok;
-
+        
         this._btnOK=btnOK;
-
+        
         if (cancel != undefined) {
 	        var btnCancel= L.DomUtil.create('button','',this._containerPromptButtons);
 	        L.DomEvent.on(btnCancel, 'click', this.close, this);
@@ -193,7 +241,7 @@ L.Control.Window = L.Control.extend({
         this._container.innerHTML = containerContent;
 
         if (this.options.closeButton) {
-            this._closeButton = L.DomUtil.create('span', 'close',this._container);
+            this._closeButton = L.DomUtil.create('a', 'close',this._container);
             this._closeButton.innerHTML = '&times;';
             L.DomEvent.on(this._closeButton, 'click', this.close, this);
         }
@@ -216,8 +264,11 @@ L.Control.Window = L.Control.extend({
     },
 
     setContentMaxHeight : function(){
-        var margin = 40;
+        var margin = 68;
 
+        if (this.options.title){
+            margin += this._containerTitleBar.offsetHeight-36;
+        }
         if (typeof(this.options.prompt) == 'object'){
             margin += this._containerPromptButtons.offsetHeight-20
         }

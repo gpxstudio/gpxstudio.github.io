@@ -28,42 +28,101 @@
 
 .leaflet-control-window{
     position: absolute;
-    transform: translate(-50%, -50%);
-    left: 50%;
-    top: 50%;
     z-index: 2000;
-    padding: 6px;
-    background: #fcfcfc;
-    color: #535353;
+    border-radius: 2px;
+    margin: 8px;
 
     /** BOX SHADOW **/
-    box-shadow: 2px 2px 2px #BCBCBC;
-    -webkit-box-shadow: 2px 2px 2px #BCBCBC;
-    -moz-box-shadow: 2px 2px 2px #BCBCBC;
+    -webkit-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.75);
+    box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.75);
 }
 
 .control-window{
     background-color: #ffffff;
     color: #353535;
+    font: 14px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+
+.leaflet-control-window .titlebar{
+    min-height: 38px;
+    cursor: grab;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+    padding: 10px 45px 10px 10px;
 }
 
 .leaflet-control-window .close {
     position: absolute;
-    right: 4px;
+    top: 8px;
+    right: 8px;
+    width: 28px;
+    height: 28px;
+    border-radius: 100%;
+    font: 16px/14px Tahoma, Verdana, sans-serif;
     cursor: pointer;
     z-index:30;
 
-    font-size: 14pt;
+    background-color: rgba(0, 0, 0, 0.40);
+    transition-property: background;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+
+
+    color: #e4e4e4;
+    font-size: 22pt;
     text-align: center;
-    line-height: 0.3;
+    line-height: 0.9em;
+}
+
+.leaflet-control-window .close:hover {
+    background-color: rgba(0, 0, 0, 0.65);
 }
 
 .leaflet-control-window .content{
+    padding: 8px;
+    margin-top: -10px;
     z-index:29;
     overflow: auto;
 }
 
+.leaflet-control-window .promptButtons{
+    text-align: right;
+    padding: 16px;
+}
 
+.leaflet-control-window button{
+    position: relative;
+    display: inline-block;
+    background-color: transparent;
+    color: inherit;
+
+    opacity: 0.5;
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+
+    cursor:pointer;
+    font-size: medium;
+    font-weight: bold;
+    text-decoration:none;
+    text-align: center;
+    vertical-align: middle;
+    border: 0;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    padding: 8px;
+    margin: 12px 8px 0 8px;
+}
+
+.leaflet-control-window button:focus {
+    outline:0;
+}
+
+.leaflet-control-window button:hover {
+    opacity: 1;
+}
 .disabled{
 	opacity: .5;
 	pointer-events:none;
