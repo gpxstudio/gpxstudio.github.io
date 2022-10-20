@@ -32,7 +32,9 @@ L.Control.Window = L.Control.extend({
         this._wrapper = L.DomUtil.create('div',modality+' leaflet-control-window-wrapper', L.DomUtil.get(this.options.element));
 
         this._container = L.DomUtil.create('div', 'leaflet-control leaflet-control-window '+this.options.className,this._wrapper);
-        this._container.setAttribute('style','max-width:'+this.options.maxWidth+'px');
+
+        //this._container.setAttribute('style','max-width:'+this.options.maxWidth+'px');
+        this._container.setAttribute('style','min-width:0px');
 
         this._containerTitleBar = L.DomUtil.create('div', 'titlebar',this._container);
         this.titleContent = L.DomUtil.create('h2', 'title',this._containerTitleBar);
