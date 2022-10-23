@@ -107,13 +107,14 @@ L.Control.Window = L.Control.extend({
       // this.show()
     },
     show: function (position) {
-
         if (position){
             this.options.position = position
         }
 
-        L.DomUtil.addClass(this._wrapper, 'visible');
+        var draggable = new L.Draggable(this._container);
+        draggable.enable();
 
+        L.DomUtil.addClass(this._wrapper, 'visible');
 
         this.setContentMaxHeight();
 

@@ -1500,10 +1500,12 @@ export default class Buttons {
             buttons.reduce_window.hide();
         });
         this.reduce_slider.addEventListener("input", sliderCallback);
+        L.DomEvent.on(this.reduce_slider, "mousedown", L.DomEvent.stopPropagation);
         const structure_callback = function () {
             buttons.file_structure.innerHTML = '';
             buttons.file_structure.appendChild(buttons.structure.trace.getFileStructure(true, structure_callback));
         };
+        L.DomEvent.on(this.file_structure, "mousedown", L.DomEvent.stopPropagation);
         this.structure.addEventListener("click", function() {
             if (total.hasFocus) return;
             const trace = total.traces[total.focusOn];
@@ -1692,6 +1694,8 @@ export default class Buttons {
         this.color_cancel.addEventListener("click", function () {
             buttons.color_window.hide();
         });
+        L.DomEvent.on(this.opacity_slider, "mousedown", L.DomEvent.stopPropagation);
+        L.DomEvent.on(this.width_slider, "mousedown", L.DomEvent.stopPropagation);
         this.layer_selection_ok.addEventListener('click', function () {
             const baselayerSelection = buttons.controlLayers._getSelectedBaselayersHierarchy();
             const overlaySelection = buttons.controlLayers._getSelectedOverlaysHierarchy();
