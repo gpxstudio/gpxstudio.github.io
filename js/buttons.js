@@ -996,7 +996,7 @@ export default class Buttons {
                 const avgData = dragEl.trace.getAverageAdditionalData();
                 const data = total.outputGPX(false, true, avgData.hr, avgData.atemp, avgData.cad, avgData.power, true, dragEl.trace.index);
 
-                dataTransfer.setData('DownloadURL', 'application/gpx+xml:'+data[0].name+':data:text/plain;charset=utf-8,'+encodeURIComponent(data[0].text));
+                dataTransfer.setData('DownloadURL', 'application/gpx+xml:'+data[0].name+':data:text/octet-stream;charset=utf-8,'+encodeURIComponent(data[0].text));
                 dataTransfer.dropEffect = 'copy';
                 dataTransfer.effectAllowed = 'copy';
             },
@@ -2262,7 +2262,7 @@ export default class Buttons {
 
     download(filename, text) {
         var element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('href', 'data:text/octet-stream;charset=utf-8,' + encodeURIComponent(text));
         element.setAttribute('download', filename);
         element.style.display = 'none';
         document.body.appendChild(element);
