@@ -415,7 +415,7 @@ export default class Buttons {
                     if (urlParams.has('token') && _this.supportsWebGL()) {
                         _this.mapboxMap = L.mapboxGL({
                             attribution: '&copy; <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
-                            maxZoom: 20,
+                            maxZoom: MAX_ZOOM,
                             accessToken: _this.mapbox_token,
                             style: _this.mapbox_style,
                             interactive: true,
@@ -525,14 +525,16 @@ export default class Buttons {
                                 "CyclOSM" : layers.cyclOSM
                             },
                             "Countries": {
-                                "Austria & Germany": { "Kompass" : layers.et4 },
                                 "Finland": { "Lantmäteriverket Terrängkarta": layers.finlandTopo },
                                 "France": {
                                     "IGN SCAN25" : layers.ignFrScan25,
                                     "IGN Plan" : layers.ignPlanV2,
                                     "IGN Satellite" : layers.ignSatellite
                                  },
-                                "New Zealand": { "Linz Topo": layers.linz },
+                                "New Zealand": {
+                                    "Linz": layers.linz,
+                                    "Linz Topo": layers.linzTopo
+                                },
                                 "Norway": { "Topografisk Norgeskart 4": layers.norwayTopo },
                                 "Spain": { "IGN": layers.ignEs },
                                 "Sweden": { "Lantmäteriet Topo": layers.swedenTopo },
@@ -545,21 +547,24 @@ export default class Buttons {
 
                     const overlaysHierarchy = {
                         "Overlays": {
-                            "Strava Heatmap": {
-                                "Ride" : layers.stravaHeatmapRide,
-                                "Run" : layers.stravaHeatmapRun,
-                                "Water" : layers.stravaHeatmapWater,
-                                "Winter" : layers.stravaHeatmapWinter
+                            "World": {
+                                "CyclOSM Lite" : layers.cyclOSMLite,
+                                "Strava Heatmap": {
+                                    "Ride" : layers.stravaHeatmapRide,
+                                    "Run" : layers.stravaHeatmapRun,
+                                    "Water" : layers.stravaHeatmapWater,
+                                    "Winter" : layers.stravaHeatmapWinter
+                                },
+                                "Waymarked Trails": {
+                                    "Hiking": layers.waymarkedTrailsHiking,
+                                    "Cycling": layers.waymarkedTrailsCycling,
+                                    "MTB": layers.waymarkedTrailsMTB,
+                                    "Skating": layers.waymarkedTrailsSkating,
+                                    "Horse riding": layers.waymarkedTrailsHorseRiding,
+                                    "Slopes": layers.waymarkedTrailsWinter
+                                },
+                                "POI": pointsOfInterestLayers,
                             },
-                            "Waymarked Trails": {
-                                "Hiking": layers.waymarkedTrailsHiking,
-                                "Cycling": layers.waymarkedTrailsCycling,
-                                "MTB": layers.waymarkedTrailsMTB,
-                                "Skating": layers.waymarkedTrailsSkating,
-                                "Horse riding": layers.waymarkedTrailsHorseRiding,
-                                "Slopes": layers.waymarkedTrailsWinter
-                            },
-                            "POI": pointsOfInterestLayers,
                             "Countries": {
                                 "France": {
                                     "IGN Slope": layers.ignSlope,
@@ -608,7 +613,7 @@ export default class Buttons {
                     if (_this.supportsWebGL()) {
                         _this.mapboxMap = L.mapboxGL({
                             attribution: '&copy; <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
-                            maxZoom: 20,
+                            maxZoom: MAX_ZOOM,
                             accessToken: _this.mapbox_token,
                             style: 'mapbox://styles/mapbox/outdoors-v11',
                             interactive: true,
@@ -674,7 +679,7 @@ export default class Buttons {
                     for (var i=0; i<_this.custom_layers.length; i++) {
                         const newLayer = L.tileLayer(_this.custom_layers[i].url, {
                             maxNativeZoom: _this.custom_layers[i].maxZoom,
-                            maxZoom: 20
+                            maxZoom: MAX_ZOOM
                         });
                         _this.custom_layers_object.push(newLayer);
                         layers[_this.custom_layers[i].id] = newLayer;
@@ -1712,7 +1717,7 @@ export default class Buttons {
             if (buttons.layer_map.getZoom() > maxZoom) buttons.layer_map.setZoom(maxZoom);
             L.tileLayer(buttons.layer_url.value, {
                 maxNativeZoom: maxZoom,
-                maxZoom: 20
+                maxZoom: MAX_ZOOM
             }).addTo(buttons.layer_map);
         });
         this.layer_max_zoom.addEventListener('change', function () {
@@ -1723,7 +1728,7 @@ export default class Buttons {
             if (buttons.layer_map.getZoom() > maxZoom) buttons.layer_map.setZoom(maxZoom);
             L.tileLayer(buttons.layer_url.value, {
                 maxNativeZoom: maxZoom,
-                maxZoom: 20
+                maxZoom: MAX_ZOOM
             }).addTo(buttons.layer_map);
         });
         this.layer_creation.addEventListener('click', function () {
@@ -1732,7 +1737,7 @@ export default class Buttons {
             const maxZoom = parseInt(buttons.layer_max_zoom.value);
             const newLayer = L.tileLayer(buttons.layer_url.value, {
                 maxNativeZoom: maxZoom,
-                maxZoom: 20
+                maxZoom: MAX_ZOOM
             });
 
             const id = 'custom-'+Math.random().toString(16).slice(2);
