@@ -532,8 +532,8 @@ export default class Buttons {
                                     "IGN Satellite" : layers.ignSatellite
                                  },
                                 "New Zealand": {
-                                    "Linz": layers.linz,
-                                    "Linz Topo": layers.linzTopo
+                                    "Linz Topo": layers.linz,
+                                    "Linz Topo50": layers.linzTopo
                                 },
                                 "Norway": { "Topografisk Norgeskart 4": layers.norwayTopo },
                                 "Spain": { "IGN": layers.ignEs },
