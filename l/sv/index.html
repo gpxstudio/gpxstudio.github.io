@@ -76,7 +76,7 @@
         <div id="mly"><div id="mly-controls"><i id="mly-move" class="fas fa-arrows-alt custom-button"></i><i id="mly-close" class="fas fa-times custom-button"></i></div></div>
         <div style="display: none">
         <div id="toolbar" class="panels-container center-leaflet">
-            <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 4px 6px" alt="logo of gpx.studio, the online GPX file editor"></a>
+            <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 4px 6px" alt="gpx.studio's logo, GPX filredigeraren på nätet"></a>
             <div id="load" class="panels custom-button">Load GPX</div>
             <div id="manual" class="panels custom-button">New GPX</div>
             <div id="export" class="panels custom-button">Export</div>
@@ -108,15 +108,15 @@
                 <div class="panels panels-val" id="points-val" style="display: none">0</div>
                 <div id="units-text" class="panels-info">Distance units</div>
                 <select id="units-input" name="units-input">
-                    <option value="km">Metric</option>
-                    <option value="mi">Imperial</option>
+                    <option value="km">Metrisk</option>
+                    <option value="mi">Imperisk</option>
                 </select>
                 <div id="speed-units-text" class="panels-info">Velocity units</div>
                 <select id="speed-units-input" name="speed-units-input">
                     <option value="speed">Speed</option>
-                    <option value="pace">Pace</option>
+                    <option value="pace">Tempo</option>
                 </select>
-                <div id="elevation-input" class="panels-button custom-button" title="Toggle the elevation profile"><i class="fas fa-minus"></i></div>
+                <div id="elevation-input" class="panels-button custom-button" title="Slå på/av höjdprofilen"><i class="fas fa-minus"></i></div>
                 <div id="crop-container">
                     <div class="panels-button custom-button" id="validate"><i class="fas fa-check custom-button"></i></div>
                 </div>
@@ -128,11 +128,11 @@
         </div>
         <div id="buttons-bar" class="vcenter-leaflet">
             <div id="buttons" class="panels-container">
-                <div class="panels-button" id="edit" title="Edit track points"><i class="fas fa-pencil-alt custom-button"></i></div><br>
-                <div class="panels-button" id="edit-time" title="Edit time"><i class="fas fa-stopwatch custom-button"></i></div><br>
-                <div class="panels-button" id="reverse" title="Reverse"><i class="fas fa-exchange-alt custom-button"></i></div><br>
-                <div class="panels-button" id="combine" title="Merge with another trace"><i class="fas fa-plus-circle custom-button"></i></div><br>
-                <div class="panels-button" id="extract" title="Extract tracks or track segments"><i class="fas fa-list-ul custom-button"></i></div><br>
+                <div class="panels-button" id="edit" title="Ändra spårpunkter"><i class="fas fa-pencil-alt custom-button"></i></div><br>
+                <div class="panels-button" id="edit-time" title="Ändra tid"><i class="fas fa-stopwatch custom-button"></i></div><br>
+                <div class="panels-button" id="reverse" title="Reversera"><i class="fas fa-exchange-alt custom-button"></i></div><br>
+                <div class="panels-button" id="combine" title="Slå samman med ett annat spår"><i class="fas fa-plus-circle custom-button"></i></div><br>
+                <div class="panels-button" id="extract" title="Extrahera spår eller spårsegment"><i class="fas fa-list-ul custom-button"></i></div><br>
                 <div class="panels-button" id="duplicate" title="Duplicate"><i class="fas fa-copy custom-button"></i></div><br>
                 <div class="panels-button" id="add-wpt" title="Add waypoint"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
                 <div class="panels-button" id="reduce" title="Reduce number of track points"><i class="fas fa-compress-alt custom-button"></i></div><br>
@@ -488,7 +488,7 @@
             <div id="load-error-ok" class="panels custom-button normal-button">Ok</div>
         </div>
         <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
-            <b>Open in</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logo of gpx.studio, the online GPX file editor">
+            <b>Open in</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="gpx.studio's logo, GPX filredigeraren på nätet">
         </div>
         <div id="unit-kilometers-text">km</div>
         <div id="unit-miles-text">mi</div>
@@ -507,7 +507,7 @@
         <span id="segment-text">Segment</span>
         <div id="edit-speed-popup-text">
             <div id="speed-text">Speed</div>
-            <div id="pace-text">Pace</div>
+            <div id="pace-text">Tempo</div>
             <div id="start-text">Start</div>
             <div id="experimental-info-text">Generate speed considering the slope and the activity type<br><b><i class="fas fa-exclamation-triangle"></i> erases all existing time data</b></div>
         </div>
