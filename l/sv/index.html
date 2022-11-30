@@ -327,87 +327,87 @@
                 </tr>
                 <tr>
                     <td><input type="checkbox" id="include-time" checked> <label for="include-time">Tid</label></td>
-                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Surface</label></td>
+                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Yta</label></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-cad" checked> <label for="include-cad">Cadence</label></td>
-                    <td><input type="checkbox" id="include-hr" checked> <label for="include-hr">Heartrate</label></td>
+                    <td><input type="checkbox" id="include-cad" checked> <label for="include-cad">Kadens</label></td>
+                    <td><input type="checkbox" id="include-hr" checked> <label for="include-hr">Puls</label></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Temperature</label></td>
-                    <td><input type="checkbox" id="include-power" checked> <label for="include-power">Power</label></td>
+                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Temperatur</label></td>
+                    <td><input type="checkbox" id="include-power" checked> <label for="include-power">Effekt</label></td>
                 </tr>
                 </tbody>
             </table>
-            <div style="color:#0f92c5;">&#9888;&#65039; The tool is <b>free</b> to use but <b>not free</b> to run &#9888;&#65039;<br>Each map display, track point added or moved is billed.</div>
-            <div id="donate-2" class="panels custom-button fancy-button"><b>Help keep the website free</b> &#128591;</div><br>
-            <div id="export-2" class="panels custom-button fancy-button">Download <i class="fas fa-download"></i></div>
-            <div id="save-drive" class="panels custom-button fancy-button">Save to Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
+            <div style="color:#0f92c5;">&#9888;&#65039; Verktyget är <b>gratis</b> att använda men <b>inte gratis</b> att driftsätta &#9888;&#65039;<br>Varje kartvisning, spårpunkt läggs till eller flyttas faktureras.</div>
+            <div id="donate-2" class="panels custom-button fancy-button"><b>Hjälp till att hålla webbsidan gratis</b> &#128591;</div><br>
+            <div id="export-2" class="panels custom-button fancy-button">Ladda ner <i class="fas fa-download"></i></div>
+            <div id="save-drive" class="panels custom-button fancy-button">Spara på Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
         </div>
         <div id="clear-content" class="popup-content">
-            This will delete all open traces.<br>Do you wish to continue?<br>
-            <div id="clear2" class="panels custom-button normal-button">Yes</div>
-            <div id="cancelclear" class="panels custom-button normal-button"><b>Cancel</b></div>
+            Detta kommer att ta bort alla öppna spår.<br>Vill du fortsätta?<br>
+            <div id="clear2" class="panels custom-button normal-button">Ja</div>
+            <div id="cancelclear" class="panels custom-button normal-button"><b>Avbryt</b></div>
         </div>
         <div id="delete-content" class="popup-content">
-            This will delete the current trace.<br>Do you wish to continue?<br>
-            <div id="delete2" class="panels custom-button normal-button">Yes</div>
-            <div id="canceldelete" class="panels custom-button normal-button"><b>Cancel</b></div>
+            Detta kommer att ta bort det öppna spåret.<br>Vill du fortsätta?<br>
+            <div id="delete2" class="panels custom-button normal-button">Ja</div>
+            <div id="canceldelete" class="panels custom-button normal-button"><b>Avbryt</b></div>
         </div>
         <div id="color-content" class="popup-content">
             <div style="text-align: left">
-                <label for="color-picker">Pick a new color</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
-                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Apply color to all traces</label><br>
-                <label for="opacity-slider">Opacity</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
-                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Apply opacity to all traces</label><br>
-                <label for="width-slider">Width</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
-                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Apply width to all traces</label>
+                <label for="color-picker">Välj en ny färg</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
+                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Applicera färg på alla spår</label><br>
+                <label for="opacity-slider">Opacitet</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
+                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Tillämpa opacitet på alla spår</label><br>
+                <label for="width-slider">Tjocklek</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
+                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Tillämpa tjocklek på alla spår</label>
             </div>
             <div id="validate-color" class="panels custom-button normal-button">Ok</div>
-            <div id="cancel-color" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="cancel-color" class="panels custom-button normal-button"><b>Avbryt</b></div>
         </div>
         <div id="load-content" class="popup-content">
-            Choose files from<br>
-            <div id="load2" class="panels custom-button normal-button">Desktop</div>
+            Välj filer från<br>
+            <div id="load2" class="panels custom-button normal-button">Skrivbord</div>
             <div id="load-drive" class="panels custom-button normal-button">Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div><br>
-            (or drag and drop anywhere in the window)
+            (eller dra och släpp var som helst i fönstret)
         </div>
         <div id="share-content" class="popup-content">
-            Done!<br>
-            <div id="copy-link" class="panels custom-button fancy-button">Copy link <i class="fas fa-link"></i></div><br>
-            <div id="copy-embed" class="panels custom-button fancy-button">Copy embedding code <i class="fas fa-code"></i></div><br>
+            Klart!<br>
+            <div id="copy-link" class="panels custom-button fancy-button">Kopiera länk <i class="fas fa-link"></i></div><br>
+            <div id="copy-embed" class="panels custom-button fancy-button">Kopiera inbäddningskod <i class="fas fa-code"></i></div><br>
         </div>
         <div id="merge-content" class="popup-content">
             <div id="merge-time-options">
-                <i class="fas fa-stopwatch"></i> Choose how to adapt the timestamps of the second trace (if any)
+                <i class="fas fa-stopwatch"></i> Välj hur tidsstämplarna ska tillpassas för det andra spåret (om något)
                 <div class="center-leaflet" style="text-align: left; width: min-content;">
-                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Keep the original timestamps (as long as they come after those of the first trace)</label><br>
-                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Make the second trace start right after the first one</label>
+                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Behåll de ursprungliga tidsstämplarna (så länge de kommer efter de i det första spåret)</label><br>
+                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Gör så att det andra spåret startar direkt efter det första</label>
                 </div>
                 <hr>
             </div>
             <div>
-                <div class="close-spacing">Click on another trace or tab to merge the current trace with it</div><hr>
-                Choose how to add the second trace to the first one<br>
-                <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Merge as track points</label><br>
-                <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Merge as track segments</label><br>
-                <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Merge as tracks</label>
+                <div class="close-spacing">Klicka på ett annat spår eller flik för att slå ihop det med det aktuella spåret</div><hr>
+                Välj hur det andra spåret ska läggas till det första<br>
+                <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Slå ihop som spårpunkter</label><br>
+                <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Slå ihop som spårsegment</label><br>
+                <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Slå ihop som spår</label>
             </div>
         </div>
         <div id="split-content" class="popup-content">
-            Choose how to split the trace<br>
+            Välj hur du vill dela upp spåret<br>
             <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Dela upp i separata filer</label><br>
             <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Dela upp i separata spår</label><br>
             <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Delas upp i separata spårsegment</label><br>
             <div id="split-ok" class="panels custom-button normal-button">Ok</div>
-            <div id="split-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="split-cancel" class="panels custom-button normal-button"><b>Avbryt</b></div>
         </div>
         <div id="extract-content" class="popup-content">
             Välj vad du ska extrahera<br>
             <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Spår</label><br>
             <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Spårsegment</label><br>
             <div id="extract-ok" class="panels custom-button normal-button">Ok</div>
-            <div id="extract-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="extract-cancel" class="panels custom-button normal-button"><b>Avbryt</b></div>
         </div>
         <div id="structure-content" class="popup-content">
             <div class="close-spacing">Dra och släpp elementen för att ordna om filstrukturen</div>
@@ -420,14 +420,14 @@
         <div id="crop-content" class="popup-content">
             <input type="checkbox" id="crop-keep"><label for="crop-keep">Behåll beskurna delar i nya filer</label><br>
             <div id="crop-ok" class="panels custom-button normal-button">Fortsätt</div>
-            <div id="crop-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="crop-cancel" class="panels custom-button normal-button"><b>Avbryt</b></div>
         </div>
         <div id="reduce-content" class="popup-content">
             Välj vilken detaljnivå att behålla<br>
             Antal spårpunkter: <span id="reduce-npoints">0</span><br>
             <input type="range" min="0" max="1000" id="reduce-slider" style="width: 90%"><br>
             <div id="reduce-ok" class="panels custom-button normal-button">Ok</div>
-            <div id="reduce-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="reduce-cancel" class="panels custom-button normal-button"><b>Avbryt</b></div>
         </div>
         <div id="zone-delete-content" class="popup-content">
             Välj vad du vill ta bort<br>
@@ -436,7 +436,7 @@
             <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inuti markering</label>
             <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Utanför markering</label><br>
             <div id="zone-delete-ok" class="panels custom-button normal-button">Fortsätt</div>
-            <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Avbryt</b></div>
         </div>
         <div id="layer-selection-content">
             <div id="layer-creation">
@@ -499,7 +499,7 @@
         <div id="duplicate-text">Duplicera</div>
         <div id="delete-text">Radera</div>
         <div id="ok-button-text">Ok</div>
-        <div id="cancel-button-text">Cancel</div>
+        <div id="cancel-button-text">Avbryt</div>
         <div id="search-input-text">Sök...</div>
         <div id="search-button-text">Sök efter en plats eller klistra in GPS-koordinater</div>
         <div id="locate-button-text">Visa min position</div>
@@ -522,56 +522,56 @@
         <div id="right-click-popup-text">
             <div id="split-text">Dela här</div>
             <div id="start-loop-text">Starta loopen här</div>
-            <div id="remove-pt-text">Remove point</div>
+            <div id="remove-pt-text">Ta bort punkt</div>
         </div>
         <div id="elevation-text">
-            <div id="segment-text">Segment length</div>
-            <div id="type-text">Category</div>
-            <div id="surface-text">Surface</div>
-            <div id="slope-text">Slope</div>
-            <div id="missing-text">Missing</div>,
-            <div id="paved-text">Paved</div>,
-            <div id="unpaved-text">Unpaved</div>,
-            <div id="asphalt-text">Asphalt</div>,
-            <div id="concrete-text">Concrete</div>,
-            <div id="chipseal-text">Chipseal</div>,
-            <div id="cobblestone-text">Cobblestone</div>,
-            <div id="unhewn-cobblestone-text">Unhewn Cobblestone</div>,
-            <div id="paving-stones-text">Paving Stones</div>,
-            <div id="stepping-stones-text">Stepping Stones</div>,
-            <div id="sett-text">Sett Paving</div>,
-            <div id="metal-text">Metal</div>,
-            <div id="wood-text">Wood</div>,
-            <div id="compacted-text">Compacted Gravel</div>,
-            <div id="fine-gravel-text">Fine Gravel</div>,
-            <div id="gravel-text">Gravel</div>,
-            <div id="pebblestone-text">Pebblestone</div>,
-            <div id="rock-text">Rock</div>,
-            <div id="dirt-text">Dirt</div>,
-            <div id="ground-text">Ground</div>,
-            <div id="earth-text">Earth</div>,
-            <div id="snow-text">Snow</div>,
-            <div id="ice-text">Ice</div>,
+            <div id="segment-text">Segmentets längd</div>
+            <div id="type-text">Kategori</div>
+            <div id="surface-text">Yta</div>
+            <div id="slope-text">Lutning</div>
+            <div id="missing-text">Saknas</div>,
+            <div id="paved-text">Asfalterad</div>,
+            <div id="unpaved-text">Oasfalterad</div>,
+            <div id="asphalt-text">Asfalt</div>,
+            <div id="concrete-text">Betong</div>,
+            <div id="chipseal-text">Oljegrus</div>,
+            <div id="cobblestone-text">Kullersten</div>,
+            <div id="unhewn-cobblestone-text">Ohuggen kullersten</div>,
+            <div id="paving-stones-text">Gatstenar</div>,
+            <div id="stepping-stones-text">Trappsten</div>,
+            <div id="sett-text">Gatsten</div>,
+            <div id="metal-text">Metall</div>,
+            <div id="wood-text">Trä</div>,
+            <div id="compacted-text">Komprimerat Grus</div>,
+            <div id="fine-gravel-text">Fint Grus</div>,
+            <div id="gravel-text">Grus</div>,
+            <div id="pebblestone-text">Småsten</div>,
+            <div id="rock-text">Sten</div>,
+            <div id="dirt-text">Jord</div>,
+            <div id="ground-text">Mark</div>,
+            <div id="earth-text">Jord</div>,
+            <div id="snow-text">Snö</div>,
+            <div id="ice-text">Is</div>,
             <div id="salt-text">Salt</div>,
-            <div id="mud-text">Mud</div>,
+            <div id="mud-text">Lera</div>,
             <div id="sand-text">Sand</div>,
-            <div id="woodchips-text">Woodchips</div>,
-            <div id="grass-text">Grass</div>,
-            <div id="grass-paver-text">Grass Paver</div>
+            <div id="woodchips-text">Träflis</div>,
+            <div id="grass-text">Gräs</div>,
+            <div id="grass-paver-text">Gräsbeläggning</div>
         </div>
-        <h1>online gpx editor</h1>
-        <h1>online gpx viewer</h1>
-        <h1>edit gpx files online</h1>
-        <h1>view gpx files online</h1>
-        <h1>merge gpx files online</h1>
-        <h1>extract segments gpx file online</h1>
-        <h1>reverse gpx file online</h1>
-        <h1>add timestamps to gpx file online</h1>
-        <h1>compress simplify reduce number points gpx file online</h1>
-        <h1>view and add waypoints gpx file online</h1>
-        <h1>edit Strava activity</h1>
-        <h1>correct Strava activity</h1>
-        <h1>merge Strava activities</h1>
+        <h1>online gpx-redigerare</h1>
+        <h1>online gpx-läsare</h1>
+        <h1>redigera gpx-filer på nätet</h1>
+        <h1>visa gpx-filer på nätet</h1>
+        <h1>sammanfoga gpx-filer på nätet</h1>
+        <h1>extrahera segment från gpx-filer på nätet</h1>
+        <h1>omvända gpx-filer på nätet</h1>
+        <h1>lägg till tidsstämplar i gpx-fil på nätet</h1>
+        <h1>komprimera förenkla minska antalet punkter gpx fil på nätet</h1>
+        <h1>visa och lägga till waypoints gpx-fil på nätet</h1>
+        <h1>redigera Strava aktivitet</h1>
+        <h1>rätta till Strava aktivitet</h1>
+        <h1>slå samman Strava aktiviteter</h1>
         </div>
     </body>
     <script src="/include/leaflet/leaflet.js"></script>
