@@ -1578,7 +1578,7 @@ export default class Buttons {
             }
 
             content += `<div id="start-change">`+buttons.start_text+`
-                        <input type="datetime-local" id="start-time"></div></div><br>
+                        <input type="datetime-local" id="start-time" step="1"></div></div><br>
                         <div style="display: flex;align-items: center; padding: 10px; border: dashed;"><div style="max-width: 200px;display: inline-block;white-space: normal;">`+buttons.experimental_info_text+`</div><input type="checkbox" id="slope-speed" style="vertical-align:super"></div><br>
                         <div id="edit-speed" class="panels custom-button normal-button">`+buttons.ok_button_text+`</div>
                         <div id="cancel-speed" class="panels custom-button normal-button"><b>`+buttons.cancel_button_text+`</b></div>`;
@@ -1619,8 +1619,8 @@ export default class Buttons {
             var start = document.getElementById("start-time");
             if (trace.hasPoints()) {
                 const points = trace.getPoints();
-                if (points[0].meta.time) start.value = (new Date(points[0].meta.time.getTime() + offset * 60 * 60 * 1000)).toISOString().substring(0, 16);
-                else start.value = new Date().toISOString().substring(0, 16);
+                if (points[0].meta.time) start.value = (new Date(points[0].meta.time.getTime() + offset * 60 * 60 * 1000)).toISOString().substring(0, 19);
+                else start.value = new Date().toISOString().substring(0, 19);
             }
 
             const ok = document.getElementById("edit-speed");
