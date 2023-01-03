@@ -972,7 +972,7 @@ export default class Buttons {
         });
     }
 
-    showEditingOptions() {
+    showOrHideEditingOptions() {
         var total = this.total;
         if (total.hasFocus) return;
         var trace = total.traces[total.focusOn];
@@ -1066,7 +1066,6 @@ export default class Buttons {
             if (buttons.window_open) buttons.window_open.hide();
             const newTrace = total.addTrace(undefined, "new.gpx");
             newTrace.draw();
-            buttons.showEditingOptions();
             gtag('event', 'button', {'event_category' : 'draw'});
         });
         this.add_wpt.addEventListener("click", function () {
@@ -1330,7 +1329,6 @@ export default class Buttons {
                 trace.draw();
                 gtag('event', 'button', {'event_category' : 'edit-trace'});
             }
-            buttons.showEditingOptions();
         });
         this.toggle_editing_options.addEventListener('click', function () {
             buttons.editing_options.hidden = !buttons.editing_options.hidden;

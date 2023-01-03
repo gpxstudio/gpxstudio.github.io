@@ -399,6 +399,7 @@ export default class Trace {
         this.buttons.undo.addEventListener('click', this.undoListener = this.undo.bind(this));
         this.buttons.redo.addEventListener('click', this.redoListener = this.redo.bind(this));
         this.updateUndoRedo();
+        this.buttons.showOrHideEditingOptions();
     }
 
     stopEdit() {
@@ -414,7 +415,7 @@ export default class Trace {
         this.buttons.redo.classList.add('unselected');
         this.buttons.undo.removeEventListener('click', this.undoListener);
         this.buttons.redo.removeEventListener('click', this.redoListener);
-        this.buttons.showEditingOptions();
+        this.buttons.showOrHideEditingOptions();
 
         this.memory = [];
         this.at = -1;
