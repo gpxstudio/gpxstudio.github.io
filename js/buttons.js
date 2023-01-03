@@ -592,21 +592,23 @@ export default class Buttons {
 
                     var overlaySelection = {
                         "Overlays": {
-                            "Strava Heatmap": {
-                                "Ride" : true,
-                                "Run" : true,
-                                "Water" : true,
-                                "Winter" : true
-                            },
-                            "Waymarked Trails": {
-                                "Hiking": true,
-                                "Cycling": true,
-                                "MTB": true,
-                                "Skating": true,
-                                "Horse riding": true,
-                                "Slopes": true
-                            },
-                            "POI": pointsOfInterestLayerSelection
+                            "World": {
+                                "Strava Heatmap": {
+                                    "Ride" : true,
+                                    "Run" : true,
+                                    "Water" : true,
+                                    "Winter" : true
+                                },
+                                "Waymarked Trails": {
+                                    "Hiking": true,
+                                    "Cycling": true,
+                                    "MTB": true,
+                                    "Skating": true,
+                                    "Horse riding": true,
+                                    "Slopes": true
+                                },
+                                "POI": pointsOfInterestLayerSelection
+                            }
                         }
                     };
 
