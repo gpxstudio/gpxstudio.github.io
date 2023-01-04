@@ -25,6 +25,7 @@
             }
         </script>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
         <title>gpx.studio — l'éditeur de fichiers GPX en ligne</title>
         <meta name="description" content="Affichez, éditez et créez des fichiers GPX en ligne : ajoutez, déplacez et supprimez des points, fusionnez plusieurs fichiers, inversez, ajoutez des données de temps, éditez les points d'intérêt et plus encore !">
         <meta property="og:title" content="gpx.studio — l'éditeur de fichiers GPX en ligne" />
@@ -77,12 +78,17 @@
         <div id="mly"><div id="mly-controls"><i id="mly-move" class="fas fa-arrows-alt custom-button"></i><i id="mly-close" class="fas fa-times custom-button"></i></div></div>
         <div style="display: none">
         <div id="toolbar" class="panels-container center-leaflet">
-            <a href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 0px 4px 6px" alt="logo de gpx.studio, l'éditeur de fichiers GPX en ligne"></a>
+            <div id="burger-logo">
+                <i id="burger" class="fa-solid fa-bars panels custom-button"></i>
+                <a id="logo" href="./about.html" target="_blank"><img src="/res/logo.png" height="21" class="panels" style="vertical-align: middle; padding: 2px 6px 4px 6px" alt="logo de gpx.studio, l'éditeur de fichiers GPX en ligne"></a>
+            </div>
             <div id="load" class="panels custom-button">Importer GPX</div>
             <div id="manual" class="panels custom-button">Créer GPX</div>
             <div id="export" class="panels custom-button">Exporter</div>
-            <div class="panels custom-button unselected no-click2" id="undo"><i class="fas fa-reply"></i></div>
-            <div class="panels custom-button unselected no-click2" id="redo"><i class="fas fa-share"></i></div>
+            <div style="display: inline-block">
+                <div class="panels custom-button unselected no-click2" id="undo"><i class="fas fa-reply"></i></div>
+                <div class="panels custom-button unselected no-click2" id="redo"><i class="fas fa-share"></i></div>
+            </div>
             <div id="clear" class="panels custom-button">Tout supprimer</div>
             <div id="help" class="panels custom-button">Aide</div>
             <div id="about" class="panels custom-button">À propos</div>
@@ -92,7 +98,7 @@
             <ul id="sortable-tabs">
               <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">Total</li>
             </ul>
-            <div id="info-grid" class="panels-container trace-info">
+            <div id="info-grid" class="panels-container trace-info maximized">
                 <div class="panels panels-info" id="distance">Distance</div>
                 <div class="panels panels-val" id="distance-val"></div>
                 <div class="panels panels-info" id="elevation">Dénivelé</div>
@@ -101,19 +107,19 @@
                 <div class="panels panels-val" id="speed-val"></div>
                 <div class="panels panels-info" id="duration">Temps en mouvement</div>
                 <div class="panels panels-val" id="duration-val"></div>
-                <div class="panels panels-info" id="tracks" style="display: none; padding-right: 5px;">Tracks</div>
-                <div class="panels panels-val" id="tracks-val" style="display: none; padding-right: 5px;">0</div>
-                <div class="panels panels-info" id="segments" style="display: none; padding-right: 5px;">Segments</div>
-                <div class="panels panels-val" id="segments-val" style="display: none; padding-right: 5px;">0</div>
-                <div class="panels panels-info" id="points" style="display: none">Points de passage</div>
-                <div class="panels panels-val" id="points-val" style="display: none">0</div>
-                <div id="units-text" class="panels-info">Unités de distance</div>
-                <select id="units-input" name="units-input">
+                <div class="panels panels-info" id="tracks">Tracks</div>
+                <div class="panels panels-val" id="tracks-val">0</div>
+                <div class="panels panels-info" id="segments">Segments</div>
+                <div class="panels panels-val" id="segments-val">0</div>
+                <div class="panels panels-info" id="points">Points de passage</div>
+                <div class="panels panels-val" id="points-val">0</div>
+                <div id="units-text" class="panels panels-info">Unités de distance</div>
+                <select id="units-input" name="panels panels-val units-input">
                     <option value="km">Métrique</option>
                     <option value="mi">Impérial</option>
                 </select>
-                <div id="speed-units-text" class="panels-info">Unités de vitesse</div>
-                <select id="speed-units-input" name="speed-units-input">
+                <div id="speed-units-text" class="panels panels-info">Unités de vitesse</div>
+                <select id="speed-units-input" name="panels panels-val speed-units-input">
                     <option value="speed">Vitesse</option>
                     <option value="pace">Allure</option>
                 </select>
@@ -129,19 +135,19 @@
         </div>
         <div id="buttons-bar" class="vcenter-leaflet">
             <div id="buttons" class="panels-container">
-                <div class="panels-button" id="edit" title="Modifier les points de passage"><i class="fas fa-pencil-alt custom-button"></i></div><br>
-                <div class="panels-button" id="edit-time" title="Modifier les données de temps"><i class="fas fa-stopwatch custom-button"></i></div><br>
-                <div class="panels-button" id="reverse" title="Inverser"><i class="fas fa-exchange-alt custom-button"></i></div><br>
-                <div class="panels-button" id="combine" title="Fusionner avec une autre trace"><i class="fas fa-plus-circle custom-button"></i></div><br>
-                <div class="panels-button" id="extract" title="Extraire les tracks ou les segments"><i class="fas fa-list-ul custom-button"></i></div><br>
-                <div class="panels-button" id="duplicate" title="Dupliquer"><i class="fas fa-copy custom-button"></i></div><br>
-                <div class="panels-button" id="add-wpt" title="Ajouter un point d'intérêt"><i class="fas fa-map-marker-alt custom-button"></i></div><br>
-                <div class="panels-button" id="reduce" title="Réduire le nombre de points de passage"><i class="fas fa-compress-alt custom-button"></i></div><br>
-                <div class="panels-button" id="zone-delete" title="Supprimer à l'intérieur/extérieur d'un rectangle de sélection"><i class="fas fa-vector-square custom-button"></i></div><br>
-                <div class="panels-button" id="hide" title="Masquer/afficher la trace"><i class="fas fa-eye-slash custom-button"></i></div><br>
-                <div class="panels-button" id="color" title="Changer la couleur, l'opacité et l'épaisseur"><i class="fas fa-palette custom-button"></i></div><br>
-                <div class="panels-button" id="structure" title="Gérer la structure du fichier"><i class="fas fa-folder-tree custom-button"></i></div><br>
-                <div class="panels-button" id="delete" title="Supprimer"><i class="fas fa-trash-alt custom-button"></i></div><br>
+                <div class="panels-button" id="edit" title="Modifier les points de passage"><i class="fas fa-pencil-alt custom-button"></i></div>
+                <div class="panels-button" id="edit-time" title="Modifier les données de temps"><i class="fas fa-stopwatch custom-button"></i></div>
+                <div class="panels-button" id="reverse" title="Inverser"><i class="fas fa-exchange-alt custom-button"></i></div>
+                <div class="panels-button" id="combine" title="Fusionner avec une autre trace"><i class="fas fa-plus-circle custom-button"></i></div>
+                <div class="panels-button" id="extract" title="Extraire les tracks ou les segments"><i class="fas fa-list-ul custom-button"></i></div>
+                <div class="panels-button" id="duplicate" title="Dupliquer"><i class="fas fa-copy custom-button"></i></div>
+                <div class="panels-button" id="add-wpt" title="Ajouter un point d'intérêt"><i class="fas fa-map-marker-alt custom-button"></i></div>
+                <div class="panels-button" id="reduce" title="Réduire le nombre de points de passage"><i class="fas fa-compress-alt custom-button"></i></div>
+                <div class="panels-button" id="zone-delete" title="Supprimer à l'intérieur/extérieur d'un rectangle de sélection"><i class="fas fa-vector-square custom-button"></i></div>
+                <div class="panels-button" id="hide" title="Masquer/afficher la trace"><i class="fas fa-eye-slash custom-button"></i></div>
+                <div class="panels-button" id="color" title="Changer la couleur, l'opacité et l'épaisseur"><i class="fas fa-palette custom-button"></i></div>
+                <div class="panels-button" id="structure" title="Gérer la structure du fichier"><i class="fas fa-folder-tree custom-button"></i></div>
+                <div class="panels-button" id="delete" title="Supprimer"><i class="fas fa-trash-alt custom-button"></i></div>
             </div>
             <div id="editing-options" class="panels-container">
                 <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Afficher ou masquer les options d'édition"></i>
@@ -381,7 +387,7 @@
         <div id="merge-content" class="popup-content">
             <div id="merge-time-options">
                 <i class="fas fa-stopwatch"></i> Choisissez comment adapter les données de temps de la seconde trace (si présents)
-                <div class="center-leaflet" style="text-align: left; width: min-content;">
+                <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
                     <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Garder les horodatages originaux (pour autant qu'ils suivent ceux de la première trace)</label><br>
                     <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Faire commencer la seconde trace juste après la première</label>
                 </div>
@@ -389,10 +395,12 @@
             </div>
             <div>
                 <div class="close-spacing">Cliquez sur une autre trace ou sur un autre onglet pour fusionner la trace actuelle avec la trace correspondante</div><hr>
-                Choisissez comment fusionner la seconde trace avec la première<br>
-                <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Fusionner en tant que points</label><br>
-                <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Fusionner en tant que segments</label><br>
-                <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Fusionner en tant que tracks</label>
+                Choisissez comment fusionner la seconde trace avec la première
+                <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
+                    <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Merge as track points</label><br>
+                    <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Merge as track segments</label><br>
+                    <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Merge as tracks</label>
+                </div>
             </div>
         </div>
         <div id="split-content" class="popup-content">
