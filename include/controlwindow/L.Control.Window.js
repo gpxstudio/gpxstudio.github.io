@@ -111,8 +111,10 @@ L.Control.Window = L.Control.extend({
             this.options.position = position
         }
 
-        var draggable = new L.Draggable(this._container);
-        draggable.enable();
+        if (window.innerWidth > 600 && window.innerHeight > 600) {
+            var draggable = new L.Draggable(this._container);
+            draggable.enable();
+        }
 
         L.DomUtil.addClass(this._wrapper, 'visible');
 
