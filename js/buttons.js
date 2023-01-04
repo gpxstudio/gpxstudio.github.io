@@ -925,7 +925,7 @@ export default class Buttons {
         this.elev.resize({width: elevation_profile_width, height: this.elevation_profile_height});
 
         if (this.elevation_profile) this.elevation_profile.style.display = '';
-        this.slide_container.style.display = '';
+        if (!this.embedding) this.slide_container.style.display = '';
         this.trace_info_grid.style.width = '';
 
     };
