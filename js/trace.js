@@ -136,6 +136,10 @@ export default class Trace {
                 trace.updateFocus();
                 if (total.buttons.window_open == total.buttons.structure_window && total.buttons.structure_window._wrapper.classList.contains('visible')) total.buttons.structure.click();
             }
+            if (trace.isEdited && !trace.buttons.disable_trace) {
+                trace.tmpEditMarker = trace.newEditMarker(e.latlng, e.layer);
+                L.DomEvent.stopPropagation(e);
+            }
         }).on('mouseover', function (e) {
             if (trace.buttons.disable_trace) return;
             if (trace.isEdited) {
@@ -521,10 +525,11 @@ export default class Trace {
     newEditMarker(point, layer) {
         const trace = this;
         const map = this.map;
+        const size = this.buttons.isMobile() ? 14 : 9;
         const marker = L.marker([point.lat, point.lng], {
             icon: L.icon({
                 iconUrl: '/res/circle.svg',
-                iconSize: [9, 9]
+                iconSize: [size, size]
             }),
             draggable: true
         }).addTo(map);

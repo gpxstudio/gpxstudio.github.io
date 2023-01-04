@@ -2224,6 +2224,10 @@ export default class Buttons {
         document.body.removeChild(element);
     }
 
+    isMobile() {
+        return window.innerWidth < 600 || window.innerHeight < 600;
+    }
+
     supportsWebGL() {
         var canvas = document.createElement("canvas");
         var gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");

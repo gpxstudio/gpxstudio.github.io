@@ -12,7 +12,7 @@ export default class Total {
         });
         this.color_index = 0;
         this.same_color = false;
-        this.style = { opacity: 0.7, weight: 3 };
+        this.style = { opacity: 0.7, weight: (buttons.isMobile() ? 6 : 3) };
         this.buttons = buttons;
         this.focus();
         this.buttons.addHandlersWithTotal(this);
