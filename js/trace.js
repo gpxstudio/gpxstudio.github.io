@@ -137,7 +137,8 @@ export default class Trace {
                 if (total.buttons.window_open == total.buttons.structure_window && total.buttons.structure_window._wrapper.classList.contains('visible')) total.buttons.structure.click();
             }
             if (trace.isEdited && !trace.buttons.disable_trace) {
-                trace.tmpEditMarker = trace.newEditMarker(e.latlng, e.layer);
+                const marker = trace.newEditMarker(e.latlng, e.layer);
+                trace.insertEditMarker(marker, e.latlng);
                 L.DomEvent.stopPropagation(e);
             }
         }).on('mouseover', function (e) {
