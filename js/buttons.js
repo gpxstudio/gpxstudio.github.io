@@ -261,14 +261,10 @@ export default class Buttons {
         var _this = this;
 
         // ELEVATION PROFILE
-        var mapWidth = this.map._container.offsetWidth;
-        var elevation_profile_height = this.embedding ? 120 : 160;
-        var elevation_profile_width = Math.min(mapWidth * 2 / 3, mapWidth - 250);
-        var mobileEmbeddingStyle = this.embedding && elevation_profile_width < 200;
-        if (mobileEmbeddingStyle) elevation_profile_width = Math.min(mapWidth - 100, mapWidth * 4 / 5);
+        this.elevation_profile_height = this.embedding ? 120 : 160;
         this.elev = L.control.heightgraph({
-            width: elevation_profile_width,
-        	height: elevation_profile_height,
+            width: 100,
+        	height: this.elevation_profile_height,
             margins:{
                 top:15,
                 right:10,
@@ -285,30 +281,10 @@ export default class Buttons {
             selectedAttributeIdx: ((this.embedding && urlParams.has('slope')) ? 1 : 0)
         }).addTo(this.map);
         this.elev.buttons = this;
-        window.addEventListener('resize', function () {
-            mapWidth = _this.map._container.offsetWidth;
-            elevation_profile_width = Math.min(mapWidth * 2 / 3, mapWidth - 250);
-            if (mobileEmbeddingStyle) elevation_profile_width = Math.min(mapWidth - 100, mapWidth * 4 / 5);
-            _this.elev.resize({width: elevation_profile_width, height: elevation_profile_height});
-        });
 
         this.elevation_profile = document.getElementsByClassName('heightgraph')[0];
         this.elevation_profile.style.gridColumn = '3 / span 1';
         this.elevation_profile.style.gridRow = '1 / span 6';
-        if (mobileEmbeddingStyle) {
-            this.duration.style.display = 'none';
-            this.duration_info.style.display = 'none';
-            this.speed.style.display = 'none';
-            this.speed_info.style.display = 'none';
-
-            this.distance.style.minWidth = 0;
-            this.elevation.style.minWidth = 0;
-
-            this.elevation.style.gridColumn = '1 / span 1';
-            this.elevation.style.gridRow = '3 / span 1';
-            this.elevation_info.style.gridColumn = '1 / span 1';
-            this.elevation_info.style.gridRow = '4 / span 1';
-        }
 
         // OVERLAY COMPONENTS
         if (this.embedding) {
@@ -491,7 +467,7 @@ export default class Buttons {
                         position: 'topright'
                     });
                     _this.streetView.onAdd = function (map) {
-                        var div = L.DomUtil.create('div', 'leaflet-control-layers leaflet-bar');
+                        var div = L.DomUtil.create('div', 'leaflet-control-street-view leaflet-control-layers leaflet-bar');
                         div.appendChild(_this.street_view_content);
                         L.DomEvent.disableClickPropagation(div);
                         return div;
@@ -743,6 +719,7 @@ export default class Buttons {
                 }
 
                 _this.total = new Total(_this);
+                _this.setElevationProfileWidth();
                 _this.openURLs();
                 _this.openLocalStorage();
             }
@@ -934,6 +911,25 @@ export default class Buttons {
         }
     }
 
+    setElevationProfileWidth() {
+        if (!this.elevation_input.checked) return;
+
+        if (this.elevation_profile) this.elevation_profile.style.display = 'none';
+        this.slide_container.style.display = 'none';
+        this.trace_info_grid.style.width = 'max-content';
+
+        var map_width = this.map._container.offsetWidth;
+        var info_width = this.trace_info_grid.offsetWidth;
+        var elevation_profile_width = Math.min(map_width - info_width, map_width * 4 / 5);
+
+        this.elev.resize({width: elevation_profile_width, height: this.elevation_profile_height});
+
+        if (this.elevation_profile) this.elevation_profile.style.display = '';
+        this.slide_container.style.display = '';
+        this.trace_info_grid.style.width = '';
+
+    };
+
     addHandlers() {
         const buttons = this;
         const map = this.map;
@@ -970,6 +966,7 @@ export default class Buttons {
             e.preventDefault();
             buttons.loadFiles(e.dataTransfer.files);
         });
+        window.addEventListener('resize', buttons.setElevationProfileWidth.bind(this));
     }
 
     showOrHideEditingOptions() {
@@ -2078,61 +2075,13 @@ export default class Buttons {
         this.elevation_input.addEventListener('click', function (e) {
             buttons.elevation_input.checked = !buttons.elevation_input.checked;
             if (buttons.elevation_input.checked) {
-                buttons.trace_info_grid.style.gridAutoColumns = '';
-                buttons.elevation_profile.style.display = '';
-                buttons.units_input.style.display = '';
-                buttons.units_text.style.display = '';
-                buttons.speed_units_input.style.display = '';
-                buttons.speed_units_text.style.display = '';
-                buttons.slide_container.style.display = '';
-                buttons.crop_container.style.display = 'block';
-
-                buttons.points.style.display = 'none';
-                buttons.points_info.style.display = 'none';
-                buttons.segments.style.display = 'none';
-                buttons.segments_info.style.display = 'none';
-                buttons.tracks.style.display = 'none';
-                buttons.tracks_info.style.display = 'none';
-
-                buttons.speed.style.gridColumn = '';
-                buttons.speed.style.gridRow = '';
-                buttons.speed_info.style.gridColumn = '';
-                buttons.speed_info.style.gridRow = '';
-                buttons.duration.style.gridColumn = '';
-                buttons.duration.style.gridRow = '';
-                buttons.duration_info.style.gridColumn = '';
-                buttons.duration_info.style.gridRow = '';
-                buttons.elevation_input.style.gridColumn = '';
-                buttons.elevation_input.style.gridRow = '';
+                buttons.trace_info_grid.classList.remove('minimized');
+                buttons.trace_info_grid.classList.add('maximized');
                 buttons.elevation_input.children[0].classList.remove('fa-chart-area');
                 buttons.elevation_input.children[0].classList.add('fa-minus');
             } else {
-                buttons.trace_info_grid.style.gridAutoColumns = 'auto';
-                buttons.elevation_profile.style.display = 'none';
-                buttons.units_input.style.display = 'none';
-                buttons.units_text.style.display = 'none';
-                buttons.speed_units_input.style.display = 'none';
-                buttons.speed_units_text.style.display = 'none';
-                buttons.slide_container.style.display = 'none';
-                buttons.crop_container.style.display = 'none';
-
-                buttons.points.style.display = '';
-                buttons.points_info.style.display = '';
-                buttons.segments.style.display = '';
-                buttons.segments_info.style.display = '';
-                buttons.tracks.style.display = '';
-                buttons.tracks_info.style.display = '';
-
-                buttons.speed.style.gridColumn = '3 / span 1';
-                buttons.speed.style.gridRow = '1 / span 1';
-                buttons.speed_info.style.gridColumn = '3 / span 1';
-                buttons.speed_info.style.gridRow = '2 / span 1';
-                buttons.duration.style.gridColumn = '4 / span 1';
-                buttons.duration.style.gridRow = '1 / span 1';
-                buttons.duration_info.style.gridColumn = '4 / span 1';
-                buttons.duration_info.style.gridRow = '2 / span 1';
-                buttons.elevation_input.style.gridColumn = '8 / span 1';
-                buttons.elevation_input.style.gridRow = '1 / span 2';
+                buttons.trace_info_grid.classList.remove('maximized');
+                buttons.trace_info_grid.classList.add('minimized');
                 buttons.elevation_input.children[0].classList.remove('fa-minus');
                 buttons.elevation_input.children[0].classList.add('fa-chart-area');
             }
