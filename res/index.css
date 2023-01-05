@@ -718,6 +718,11 @@ ul { -ms-overflow-style: none; scrollbar-width: none; }
     #layer-creation {
         display: none;
     }
+
+    #layer-selection {
+        padding: 0px;
+        white-space: normal;
+    }
 }
 
 .file-structure {
