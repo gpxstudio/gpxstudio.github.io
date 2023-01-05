@@ -285,6 +285,16 @@ html, body {
     display: none;
 }
 
+.maximized #elevation-input {
+    grid-column: 4 / span 1;
+    grid-row: 1 / span 1;
+}
+
+.minimized #elevation-input {
+    grid-column: 8 / span 1;
+    grid-row: 1 / span 2;
+}
+
 #distance {
     grid-column: 1 / span 1;
     grid-row: 2 / span 1;
@@ -345,16 +355,6 @@ html, body {
     grid-row: 1 / span 1;
 }
 
-@media screen and (max-width: 400px) {
-    .minimized #duration {
-        display: none;
-    }
-
-    .minimized #duration-val {
-        display: none;
-    }
-}
-
 #tracks {
     grid-column: 5 / span 1;
     grid-row: 2 / span 1;
@@ -373,16 +373,6 @@ html, body {
     display: none;
 }
 
-@media screen and (max-width: 450px) {
-    #tracks {
-        display: none;
-    }
-
-    #tracks-val {
-        display: none;
-    }
-}
-
 #segments {
     grid-column: 6 / span 1;
     grid-row: 2 / span 1;
@@ -399,16 +389,6 @@ html, body {
 
 .maximized #segments-val {
     display: none;
-}
-
-@media screen and (max-width: 500px) {
-    #segments {
-        display: none;
-    }
-
-    #segments-val {
-        display: none;
-    }
 }
 
 #points {
@@ -436,6 +416,86 @@ html, body {
 
     #points-val {
         display: none;
+    }
+
+    .minimized #elevation-input {
+        grid-column: 7 / span 1;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .maximized #speed {
+        display: none;
+    }
+
+    .maximized #speed-val {
+        display: none;
+    }
+
+    .maximized #duration {
+        display: none;
+    }
+
+    .maximized #duration-val {
+        display: none;
+    }
+
+    .maximized #elevation {
+        grid-column: 1 / span 1;
+        grid-row: 4 / span 1;
+    }
+
+    .maximized #elevation-val {
+        grid-column: 1 / span 1;
+        grid-row: 3 / span 1;
+    }
+
+    .maximized #speed-units-text {
+        display: none;
+    }
+
+    .maximized #speed-units-input {
+        display: none;
+    }
+
+    #segments {
+        display: none;
+    }
+
+    #segments-val {
+        display: none;
+    }
+
+    .minimized #elevation-input {
+        grid-column: 6 / span 1;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    #tracks {
+        display: none;
+    }
+
+    #tracks-val {
+        display: none;
+    }
+
+    .minimized #elevation-input {
+        grid-column: 5 / span 1;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .minimized #duration {
+        display: none;
+    }
+
+    .minimized #duration-val {
+        display: none;
+    }
+
+    .minimized #elevation-input {
+        grid-column: 4 / span 1;
     }
 }
 
@@ -473,52 +533,6 @@ html, body {
 
 .minimized #speed-units-input {
     display: none;
-}
-
-.maximized #elevation-input {
-    grid-column: 4 / span 1;
-    grid-row: 1 / span 1;
-}
-
-.minimized #elevation-input {
-    grid-column: 8 / span 1;
-    grid-row: 1 / span 2;
-}
-
-@media screen and (max-width: 500px) {
-    .maximized #speed {
-        display: none;
-    }
-
-    .maximized #speed-val {
-        display: none;
-    }
-
-    .maximized #duration {
-        display: none;
-    }
-
-    .maximized #duration-val {
-        display: none;
-    }
-
-    .maximized #elevation {
-        grid-column: 1 / span 1;
-        grid-row: 4 / span 1;
-    }
-
-    .maximized #elevation-val {
-        grid-column: 1 / span 1;
-        grid-row: 3 / span 1;
-    }
-
-    .maximized #speed-units-text {
-        display: none;
-    }
-
-    .maximized #speed-units-input {
-        display: none;
-    }
 }
 
 #start-point {
