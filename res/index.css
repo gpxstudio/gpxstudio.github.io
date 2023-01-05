@@ -202,17 +202,13 @@ html, body {
         display: inline-block;
     }
 
-    #toolbar:hover div {
+    #toolbar.maximized > div {
         display: inline-block;
     }
 
-    #toolbar:hover #burger {
+    #toolbar.maximized #burger {
         transform: rotate(0.25turn);
         transform-origin: 50% 50%;
-    }
-
-    #logo {
-        pointer-events: none;
     }
 }
 

@@ -958,6 +958,13 @@ export default class Buttons {
         this.donate2.addEventListener("click", function () {
             buttons.donation();
         });
+        this.toolbar_content.addEventListener("click", function () {
+            if (window.getComputedStyle(buttons.load).display == 'none') {
+                buttons.toolbar_content.classList.add('maximized');
+            } else {
+                buttons.toolbar_content.classList.remove('maximized');
+            }
+        });
 
         window.addEventListener('dragover', function (e) {
             e.preventDefault();
@@ -2002,6 +2009,9 @@ export default class Buttons {
                 if (buttons.street_view_button.open) {
                     openStreetView(e);
                     return;
+                }
+                if (window.getComputedStyle(buttons.load).display != 'none') {
+                    buttons.toolbar_content.classList.remove('maximized');
                 }
                 if (!total.hasFocus) {
                     const trace = total.traces[total.focusOn];
