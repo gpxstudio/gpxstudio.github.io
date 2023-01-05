@@ -711,11 +711,11 @@ ul { -ms-overflow-style: none; scrollbar-width: none; }
         display: none;
     }
 
-    .leaflet-control-layers-list .fa-gear {
+    .leaflet-control-street-view {
         display: none;
     }
 
-    .leaflet-control-street-view {
+    #layer-creation {
         display: none;
     }
 }
