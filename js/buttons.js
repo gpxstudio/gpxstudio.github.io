@@ -2089,6 +2089,7 @@ export default class Buttons {
                 buttons.trace_info_grid.classList.add('maximized');
                 buttons.elevation_input.children[0].classList.remove('fa-chart-area');
                 buttons.elevation_input.children[0].classList.add('fa-minus');
+                buttons.setElevationProfileWidth();
             } else {
                 buttons.trace_info_grid.classList.remove('maximized');
                 buttons.trace_info_grid.classList.add('minimized');
