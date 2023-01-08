@@ -15,19 +15,33 @@ h1 {
     -ms-user-select: none;
     user-select: none;
 }
-#header-container {
+#body-container {
     position:absolute;
     top:0px;
+    bottom:0px;
+    right:0px;
+    width: calc(100% - min(300px, 30%));
+    overflow: auto;
+}
+#nav-container {
+    position:absolute;
+    top:0px;
+    bottom:0px;
     left:0px;
     width: min(300px, 30%);
-    height: 100%;
-    line-height: 40px;
+    overflow: scroll;
+    line-height: min(40px, 7vh);
     background: #f4f4f4;
     text-align: center;
+}
+#nav-content {
+    height: 100%;
 }
 #navigation {
     list-style-type: none;
     padding-left: 0;
+    margin-block-start: min(16px, 3vh);
+    margin-block-end: min(16px, 3vh);
     margin-left: auto;
     margin-right: auto;
     width: 70%;
@@ -39,14 +53,6 @@ h1 {
 .block {
     padding: 0% 7% 5% 7%;
     text-align: justify;
-}
-#block-container {
-    position:absolute;
-    top:0px;
-    bottom:0px;
-    right:0px;
-    width: calc(100% - min(300px, 30%));
-    overflow: auto;
 }
 #social > a {
     padding: 0px 10px;
