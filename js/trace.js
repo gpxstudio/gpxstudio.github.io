@@ -465,13 +465,13 @@ export default class Trace {
         this.buttons.points.innerHTML = this.gpx._info.npoints;
         this.buttons.segments.innerHTML = this.gpx._info.nsegments;
         this.buttons.tracks.innerHTML = this.gpx._info.ntracks;
-        this.buttons.setElevationProfileWidth();
     }
 
     showElevation() {
         this.buttons.elev.clear();
         this.buttons.elev.options.imperial = !this.buttons.km;
         this.addElevation();
+        this.buttons.setElevationProfileWidth();
         if (this.isEdited || !this.visible) this.buttons.elev._removeSliderCircles();
     }
 

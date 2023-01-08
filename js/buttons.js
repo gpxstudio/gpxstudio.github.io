@@ -922,7 +922,9 @@ export default class Buttons {
         var info_width = this.trace_info_grid.offsetWidth;
         var elevation_profile_width = Math.min(map_width - info_width, map_width * 4 / 5);
 
-        this.elev.resize({width: elevation_profile_width, height: this.elevation_profile_height});
+        if (elevation_profile_width != this.elev._width) {
+            this.elev.resize({width: elevation_profile_width, height: this.elevation_profile_height});
+        }
 
         if (this.elevation_profile) this.elevation_profile.style.display = '';
         if (!this.embedding) this.slide_container.style.display = '';

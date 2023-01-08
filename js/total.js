@@ -142,6 +142,7 @@ export default class Total {
         }
         this.buttons.elev.addData(points);
         this.buttons.elev._removeSliderCircles();
+        this.buttons.setElevationProfileWidth();
     }
 
     getBounds() {
