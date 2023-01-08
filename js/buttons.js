@@ -261,10 +261,9 @@ export default class Buttons {
         var _this = this;
 
         // ELEVATION PROFILE
-        this.elevation_profile_height = this.embedding ? 120 : 160;
         this.elev = L.control.heightgraph({
             width: 100,
-        	height: this.elevation_profile_height,
+        	height: 100,
             margins:{
                 top:15,
                 right:10,
@@ -920,10 +919,12 @@ export default class Buttons {
 
         var map_width = this.map._container.offsetWidth;
         var info_width = this.trace_info_grid.offsetWidth;
+        var info_height = this.trace_info_grid.offsetHeight;
         var elevation_profile_width = Math.min(map_width - info_width, map_width * 4 / 5);
+        var elevation_profile_height = Math.min(info_height, this.embedding ? 120 : 160);
 
-        if (elevation_profile_width != this.elev._width) {
-            this.elev.resize({width: elevation_profile_width, height: this.elevation_profile_height});
+        if (elevation_profile_width != this.elev._width || elevation_profile_height != this.elev._height) {
+            this.elev.resize({width: elevation_profile_width, height: elevation_profile_height});
         }
 
         if (this.elevation_profile) this.elevation_profile.style.display = '';

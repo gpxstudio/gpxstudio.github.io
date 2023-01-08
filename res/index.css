@@ -239,6 +239,24 @@ html, body {
     }
 }
 
+@media screen and (max-height: 400px) {
+    #units-input {
+        display: none;
+    }
+
+    #units-text {
+        display: none;
+    }
+
+    #speed-units-input {
+        display: none;
+    }
+
+    #speed-units-text {
+        display: none;
+    }
+}
+
 #editing-options {
     display: none;
     text-align: left;
