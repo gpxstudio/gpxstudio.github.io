@@ -24,6 +24,7 @@ h1 {
     overflow: auto;
 }
 #nav-container {
+    z-index: 1;
     position:absolute;
     top:0px;
     bottom:0px;
@@ -33,9 +34,19 @@ h1 {
     line-height: min(40px, 7vh);
     background: #f4f4f4;
     text-align: center;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: space-between;
 }
-#nav-content {
-    height: 100%;
+#nav-top-content {
+    text-align: left;
 }
 #navigation {
     list-style-type: none;
@@ -47,7 +58,65 @@ h1 {
     width: 70%;
     text-align: left;
 }
-#navigation>li:hover {
+#burger-container {
+    width: 100%;
+}
+#burger {
+    display: none;
+    transition: transform .3s ease-in-out;
+}
+#logo > img {
+    width: 70%;
+    vertical-align: text-top;
+}
+@media screen and (max-width: 800px) {
+    #burger-container {
+        cursor: pointer;
+        height: 60px;
+    }
+    #burger {
+        display: block;
+        position: absolute;
+        font-size: 25px;
+        padding: 13px 20px;
+    }
+    #logo {
+        height: 100%;
+    }
+    #logo > img {
+        height: 75%;
+        width: auto;
+    }
+    #body-container {
+        top: 60px;
+        width: 100%;
+    }
+    #nav-container {
+        height: fit-content;
+        right: 0px;
+        width: 100%;
+    }
+    #nav-top {
+        display: none;
+    }
+    #nav-bot {
+        display: none;
+    }
+    #nav-container.maximized {
+        height: 100%;
+    }
+    .maximized #burger {
+        transform: rotate(0.25turn);
+        transform-origin: 50% 50%;
+    }
+    .maximized #nav-top {
+        display: block;
+    }
+    .maximized #nav-bot {
+        display: block;
+    }
+}
+#nav-top-content > div:hover {
     text-decoration: underline;
 }
 .block {
