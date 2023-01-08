@@ -25,6 +25,7 @@
             }
         </script>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
         <title>gpx.studio — about</title>
         <meta name="description" content="View, edit and create GPX files online: add, move and delete points, merge multiple files, reverse, add timestamps, edit waypoints and more!">
         <meta property="og:title" content="gpx.studio — the online GPX file editor" />
@@ -66,25 +67,26 @@
         <script src="/js/lang.js"></script>
     </head>
     <body>
-        <table id="header-container">
-            <tr>
-                <td valign="top">
-                    <ul id="navigation">
-                        <li><a href="./"><img src="/res/logo.png" style="width: 100%"></a></li>
-                        <li><a href="./" class="my-anchor"><i class="fas fa-map-marked-alt"></i> <b>Go to the app</b></a></li>
-                        <li><a href="#about" class="my-anchor">About</a></li>
-                        <li><a href="#support" class="my-anchor">Support</a></li>
-                        <li><a href="#funding" class="my-anchor">Funding</a></li>
-                        <li><a href="#translation" class="my-anchor">Translation</a></li>
-                        <li><a href="#guide" class="my-anchor">User Guide</a></li>
-                        <li><a href="#embed" class="my-anchor">Embedding</a></li>
-                        <li><a href="#terms" class="my-anchor">Terms of Service</a></li>
-                        <li><a href="#privacy" class="my-anchor">Privacy Policy</a></li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td valign="bottom">
+        <div id="nav-container">
+            <div id="burger-container">
+                <div id="burger"><i class="fa-solid fa-bars"></i></div>
+                <div id="logo"><img src="/res/logo.png"></div>
+            </div>
+            <div id="nav-top">
+                <div id="nav-top-content">
+                    <div><a href="./" class="my-anchor"><i class="fas fa-map-marked-alt"></i> <b>Go to the app</b></a></div>
+                    <div><a href="#about" class="my-anchor">About</a></div>
+                    <div><a href="#support" class="my-anchor">Support</a></div>
+                    <div><a href="#funding" class="my-anchor">Funding</a></div>
+                    <div><a href="#translation" class="my-anchor">Translation</a></div>
+                    <div><a href="#guide" class="my-anchor">User Guide</a></div>
+                    <div><a href="#embed" class="my-anchor">Embedding</a></div>
+                    <div><a href="#terms" class="my-anchor">Terms of Service</a></div>
+                    <div><a href="#privacy" class="my-anchor">Privacy Policy</a></div>
+                </div>
+            </div>
+            <div id="nav-bot">
+                <div id="nav-bot-content">
                     <!-- ADD_LANGUAGE -->
                     <div id="languages">
                         <select id="language-input">
@@ -108,10 +110,10 @@
                         <a href="https://github.com/gpxstudio/gpxstudio.github.io" target="_blank"><i class="fab fa-github fa-lg"></i></a>
                         <a href="mailto:hello@gpx.studio"><i class="fas fa-envelope fa-lg"></i></a>
                     </div>
-                </td>
-            </tr>
-        </table>
-        <div id="block-container">
+                </div>
+            </div>
+        </div>
+        <div id="body-container">
             <a name="about"></a>
             <div class="block">
             <h1>About &#128692;</h1>
@@ -515,6 +517,21 @@
         <script>
         var language = getLanguage();
 
+        const navigation = document.getElementById("nav-container");
+        navigation.addEventListener('click', function (e) {
+            if (navigation.classList.contains('maximized')) {
+                navigation.classList.remove('maximized');
+            } else {
+                navigation.classList.add('maximized');
+            }
+            e.stopPropagation();
+        });
+        document.addEventListener('click', function () {
+            if (navigation.classList.contains('maximized')) {
+                navigation.classList.remove('maximized');
+            }
+        });
+
         function showPreview() {
             const file_urls = document.getElementById("file-urls").value;
             const file_ids = document.getElementById("file-ids").value;
@@ -624,7 +641,9 @@
         languageInput.addEventListener('change', function () {
             window.location.href = '/' + (languageInput.value == 'en' ? '' : 'l/'+languageInput.value+'/')+'about.html'+window.location.hash;
         });
-
+        languageInput.addEventListener('click', function (e) {
+            e.stopPropagation();
+        });
         </script>
     </body>
 </html>
