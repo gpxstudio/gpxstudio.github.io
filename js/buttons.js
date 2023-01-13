@@ -1597,7 +1597,7 @@ export default class Buttons {
             }
 
             content += `<div id="start-change" style="padding-bottom:4px;">`+buttons.start_text+`
-                        <input type="datetime-local" id="start-time" step="1"></div></div><br>
+                        <input type="datetime-local" id="start-time" step="1"></div></div>
                         <div id="end-change">`+buttons.end_text+`
                         <input type="datetime-local" id="end-time" step="1" style="margin-left:5px;"></div></div><br> 
                         <div style="display: flex;align-items: center; padding: 10px; border: dashed;"><div style="max-width: 200px;display: inline-block;white-space: normal;">`+buttons.experimental_info_text+`</div><input type="checkbox" id="slope-speed" style="vertical-align:super"></div><br>
