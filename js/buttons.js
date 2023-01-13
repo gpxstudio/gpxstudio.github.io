@@ -996,6 +996,9 @@ export default class Buttons {
     toLocalDTLFormat(inDate) {
         var mdy = inDate.toLocaleDateString().split('/'); // split "mm/dd/yyyy" into array
         var hms = inDate.toLocaleTimeString().split(/:| /); // split "(h)h:mm:ss (AM/PM)"" into array with regex
+        if (mdy[2].length < 4) {
+            return null;
+        }
         // vvv toLocaleTimeString() outputs in 12hr format so this converts to 24hr format
         if (hms[3] == "PM" && hms[0] != "12") { // 12pm doesnt need adjusted
             hms[0] = String(parseInt(hms[0]) + 12); // adds 12hrs to 1pm - 11pm (1300-2300)
@@ -1622,41 +1625,6 @@ export default class Buttons {
 
             var speedChange = false;
 
-            if (buttons.speed_units) {
-                speed.value = Math.max(1, trace.getMovingSpeed().toFixed(1));
-                speed.addEventListener("change", function () {
-                    speedChange = true;
-                    // vvv this code calculates end time based on speed change and start time
-                    var dist = trace.getDistance() / 1000;
-                    var timeMS = (dist / speed.value) * 60 * 60 * 1000; // time it takes to travel dist in milliseconds
-                    var st = new Date(Date.parse(start.value));
-                    var et = new Date(st.getTime() + (timeMS)); // gets end time by adding start time plus timeMS
-                    end.value = buttons.toLocalDTLFormat(et);
-                    // ^^^ 
-                });
-            } else {
-                var pace = Math.floor(trace.getMovingPace() / 1000);
-                minutes.value = Math.floor(pace / 60);
-                seconds.value = pace % 60;
-                minutes.addEventListener("change", function () {
-                    speedChange = true;
-                });
-                seconds.addEventListener("change", function () {
-                    speedChange = true;
-                });
-            }
-
-            var start = document.getElementById("start-time");
-            if (trace.hasPoints()) {
-                const points = trace.getPoints();
-                if (points[0].meta.time) start.value = (new Date(points[0].meta.time.getTime() + offset * 60 * 60 * 1000)).toISOString().substring(0, 19);
-                else {
-                    start.value = buttons.toLocalDTLFormat(new Date());
-                }
-
-                if (points[points.length - 1].meta.time) end.value = (new Date(points[points.length - 1].meta.time.getTime() + offset * 60 * 60 * 1000)).toISOString().substring(0, 19);
-            }
-
             // Change end time when start time is changed based on set speed
             start.addEventListener("change", function () {
                 var dist = trace.getDistance() / 1000;
@@ -1681,7 +1649,43 @@ export default class Buttons {
                 var et = new Date(Date.parse(end.value));
                 var calcSpeed = dist / ((et.getTime() - st.getTime()) / 3600000); // speed in km/h or m/h depending on unit, (3,600,000 is to convert from ms to hours)
                 speed.value = calcSpeed.toFixed(3);
+                speedChange = true;
             });
+
+            if (buttons.speed_units) {
+                speed.value = Math.max(1, trace.getMovingSpeed().toFixed(3));
+                speed.addEventListener("change", function () {
+                    speedChange = true;
+                    // vvv this code calculates end time based on speed change and start time
+                    var dist = trace.getDistance() / 1000;
+                    var timeMS = (dist / speed.value) * 60 * 60 * 1000; // time it takes to travel dist in milliseconds
+                    var st = new Date(Date.parse(start.value));
+                    var et = new Date(st.getTime() + (timeMS)); // gets end time by adding start time plus timeMS
+                    end.value = buttons.toLocalDTLFormat(et);
+                    // ^^^ 
+                });
+            } else {
+                var pace = Math.floor(trace.getMovingPace() / 1000);
+                minutes.value = Math.floor(pace / 60);
+                seconds.value = pace % 60;
+                minutes.addEventListener("change", function () {
+                    speedChange = true;
+                });
+                seconds.addEventListener("change", function () {
+                    speedChange = true;
+                });
+            }
+            
+            var start = document.getElementById("start-time");
+            if (trace.hasPoints()) {
+                const points = trace.getPoints();
+                if (points[0].meta.time) start.value = (new Date(points[0].meta.time.getTime() + offset * 60 * 60 * 1000)).toISOString().substring(0, 19);
+                else {
+                    start.value = buttons.toLocalDTLFormat(new Date());
+                }
+
+                if (points[points.length - 1].meta.time) end.value = (new Date(points[points.length - 1].meta.time.getTime() + offset * 60 * 60 * 1000)).toISOString().substring(0, 19);
+            }
 
             const ok = document.getElementById("edit-speed");
             ok.addEventListener("click", function () {
