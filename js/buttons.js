@@ -1630,7 +1630,7 @@ export default class Buttons {
 
             const ok = document.getElementById("edit-speed");
             ok.addEventListener("click", function () {
-                var v = trace.getMovingSpeed();
+                var v = trace.getMovingSpeed(true);
                 if (speedChange) {
                     if (buttons.speed_units) {
                         v = Number(speed.value);
