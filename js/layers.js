@@ -190,7 +190,7 @@ for (var category in pointsOfInterest) {
     for (var poi of pointsOfInterest[category]) {
         pointsOfInterestLayers[category][poi.name] = new L.OverPassLayer({
             debug: false,
-            minZoom: 14,
+            minZoom: 11,
             endPoint: "https://overpass.kumi.systems/api/",
             query: "node({{bbox}})" + poi.query + ";out;",
             markerIcon: L.icon.glyph({
