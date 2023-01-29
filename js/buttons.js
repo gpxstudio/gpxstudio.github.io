@@ -40,10 +40,14 @@ export default class Buttons {
             condensedAttributionControl: false
         }).setView([0, 0], 2);
 
-        this.map.addEventListener("locationfound", function (e) {
-            e.target.setView(e.latlng,12);
-        });
         if (!this.embedding && !urlParams.has('state') && !localStorage.hasOwnProperty('traces')) {
+            var locationFound = false;
+            this.map.addEventListener("locationfound", function (e) {
+                if (!locationFound) {
+                    e.target.setView(e.latlng, 12);
+                    locationFound = true;
+                }
+            });
             this.map.locate({setView: true, maximumAge: 100000});
         }
 
@@ -457,6 +461,8 @@ export default class Buttons {
                     L.control.locate({
                         position: 'topright',
                         icon: 'fas fa-crosshairs',
+                        iconLoading: 'fas fa-spinner spinner',
+                        setView: 'always',
                         keepCurrentZoomLevel: true,
                         showPopup: false,
                         strings: {title: _this.locate_button_text}

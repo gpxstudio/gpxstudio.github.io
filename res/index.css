@@ -962,3 +962,16 @@ ul {
 #street-view-content:hover #street-view-selector {
     display: inline-block;
 }
+
+@-webkit-keyframes rotating {
+    from{
+        -webkit-transform: rotate(0deg);
+    }
+    to{
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+.requesting .spinner {
+    -webkit-animation: rotating 2s linear infinite;
+}
