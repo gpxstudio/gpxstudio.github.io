@@ -368,6 +368,7 @@ pointsOfInterest = {
 		new PointOfInterest("Water Point", "['amenity'='water_point']", "faucet"),
 		new PointOfInterest("Water Spring", "['natural'='spring']['drinking_water'='yes']", "droplet"),
 		new PointOfInterest("Shower", "['amenity'='shower']", "shower"),
+		new PointOfInterest("Fuel Station", "['amenity'='fuel']", "gas-pump"),
 	],
 	"Tourism": [
 		new PointOfInterest("Attraction", "['tourism'='attraction']", "landmark"),
