@@ -486,6 +486,7 @@
                     <option value="gray">Gray</option>
                     <option value="bluered">Blue-red</option>
                 </select><br>
+                <span>Choose the minimum zoom level to request POIs</span> <input id="poi-min-zoom-input" type="number" min="10" max="20"><br>
                 <span>Select the layers you want to appear in the interface</span>
                 <div id="layer-selection-area"></div>
                 <div id="layer-selection-ok" class="panels custom-button normal-button">Save</div>
@@ -512,6 +513,7 @@
         <div id="search-input-text">Search...</div>
         <div id="search-button-text">Search for a place or paste GPS coordinates</div>
         <div id="locate-button-text">Show my position</div>
+        <div id="add-poi-text">Add POI to current trace</div>
         <span id="track-text">Track</span>
         <span id="segment-text">Segment</span>
         <div id="edit-speed-popup-text">
@@ -536,9 +538,9 @@
         <div id="elevation-text">
             <div id="segment-text">Segment length</div>
             <div id="type-text">Category</div>
-            <div id="surface-text">Поверхность</div>
-            <div id="slope-text">Уклон</div>
-            <div id="missing-text">Отсутствует</div>,
+            <div id="surface-text">Surface</div>
+            <div id="slope-text">Slope</div>
+            <div id="missing-text">Missing</div>,
             <div id="paved-text">Paved</div>,
             <div id="unpaved-text">Unpaved</div>,
             <div id="asphalt-text">Asphalt</div>,
@@ -567,6 +569,60 @@
             <div id="woodchips-text">Woodchips</div>,
             <div id="grass-text">Grass</div>,
             <div id="grass-paver-text">Grass Paver</div>
+        </div>
+        <div id="layers-text">
+            <div id="basemaps-text">Basemaps</div>
+            <div id="overlays-text">Overlays</div>
+            <div id="custom-text">Custom</div>
+            <div id="world-text">World</div>
+            <div id="countries-text">Countries</div>
+            <div id="finland-text">Finland</div>
+            <div id="france-text">France</div>
+            <div id="new-zealand-text">New Zealand</div>
+            <div id="norway-text">Norway</div>
+            <div id="spain-text">Spain</div>
+            <div id="sweden-text">Sweden</div>
+            <div id="switzerland-text">Switzerland</div>
+            <div id="united-kingdom-text">United Kingdom</div>
+            <div id="united-states-text">United States</div>
+            <div id="poi-text">Points of Interest</div>
+            <div id="eat-and-drink-text">Eat and Drink</div>
+            <div id="bakery-text">Bakery</div>
+            <div id="supermarket-text">Supermarket</div>
+            <div id="convenience-store-text">Convenience Store</div>
+            <div id="restaurant-text">Restaurant</div>
+            <div id="fast-food-text">Fast Food</div>
+            <div id="cafe-text">Cafe</div>
+            <div id="pub-text">Pub</div>
+            <div id="bar-text">Bar</div>
+            <div id="amenities-text">Amenities</div>
+            <div id="toilets-text">Toilets</div>
+            <div id="drinking-water-text">Drinking Water</div>
+            <div id="water-point-text">Water Point</div>
+            <div id="water-spring-text">Water Spring</div>
+            <div id="shower-text">Shower</div>
+            <div id="fuel-station-text">Fuel Station</div>
+            <div id="parking-text">Parking</div>
+            <div id="tourism-text">Tourism</div>
+            <div id="attraction-text">Attraction</div>
+            <div id="viewpoint-text">Viewpoint</div>
+            <div id="hotel-text">Hotel</div>
+            <div id="hostel-text">Hostel</div>
+            <div id="guest-house-text">Guest House</div>
+            <div id="motel-text">Motel</div>
+            <div id="campsite-text">Campsite</div>
+            <div id="alpine-hut-text">Alpine Hut</div>
+            <div id="wilderness-hut-text">Wilderness Hut</div>
+            <div id="climbing-text">Climbing Site</div>
+            <div id="bicycle-text">Bicycle</div>
+            <div id="bicycle-parking-text">Bicycle Parking</div>
+            <div id="bicycle-rental-text">Bicycle Rental</div>
+            <div id="bicycle-shop-text">Bicycle Shop</div>
+            <div id="public-transport-text">Public Transport</div>
+            <div id="railway-station-text">Railway Station</div>
+            <div id="tram-stop-text">Tram Stop</div>
+            <div id="bus-stop-text">Bus Stop</div>
+            <div id="ferry-text">Ferry Terminal</div>
         </div>
         <h1>онлайн редактор gpx</h1>
         <h1>онлайн просмотрщик gpx</h1>
