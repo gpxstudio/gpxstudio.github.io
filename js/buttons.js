@@ -10,6 +10,7 @@ export default class Buttons {
         this.activity = localStorage.hasOwnProperty('activity') ? localStorage.getItem('activity') : document.getElementById('activity-input').children[0].value;
         this.routing = localStorage.hasOwnProperty('routing') ? localStorage.getItem('routing') == 'true' : true;
         this.strava_color = localStorage.hasOwnProperty('strava-color') ? localStorage.getItem('strava-color') : 'bluered';
+        this.poi_min_zoom = localStorage.hasOwnProperty('poi-min-zoom') ? parseInt(localStorage.getItem('poi-min-zoom')) : 14;
         this.keep_timestamps = false;
         this.disable_trace = false;
         this.show_direction = false;
@@ -161,6 +162,7 @@ export default class Buttons {
         this.activity_input = document.getElementById("activity-input");
         this.routing_input = document.getElementById("routing-input");
         this.strava_color_input = document.getElementById("strava-color-input");
+        this.poi_min_zoom_input = document.getElementById("poi-min-zoom-input");
         this.units_input = document.getElementById("units-input");
         this.units_text = document.getElementById("units-text");
         this.speed_units_input = document.getElementById("speed-units-input");
@@ -1326,6 +1328,24 @@ export default class Buttons {
             buttons.updateStravaColor();
         });
         this.strava_color_input.value = this.strava_color;
+        const change_poi_min_zoom = function (min_zoom) {
+            buttons.poi_min_zoom = min_zoom;
+            localStorage.setItem('poi-min-zoom', min_zoom);
+            Object.keys(layers).forEach(function(layer) {
+                if (layer.startsWith('poi')) {
+                    layers[layer].options.minZoom = buttons.poi_min_zoom;
+                    if (buttons.map.hasLayer(layers[layer])) {
+                        buttons.map.removeLayer(layers[layer]);
+                        buttons.map.addLayer(layers[layer]);
+                    }
+                }
+            });
+        }
+        this.poi_min_zoom_input.addEventListener("change", function (e) {
+            change_poi_min_zoom(buttons.poi_min_zoom_input.value);
+        });
+        this.poi_min_zoom_input.value = this.poi_min_zoom;
+        change_poi_min_zoom(this.poi_min_zoom);
         const editing_time_option = function () {
             buttons.keep_timestamps = buttons.edit_keep_time.checked;
         };
