@@ -486,7 +486,8 @@
                     <option value="gray">Grigio</option>
                     <option value="bluered">Blu-rosso</option>
                 </select><br>
-                <span>Seleziona i layer che vuoi visualizzare nell'interfaccia</span>
+                <span>Choose the minimum zoom level to request POIs</span> <input id="poi-min-zoom-input" type="number" min="10" max="20"><br>
+                <span>Select the layers you want to appear in the interface</span>
                 <div id="layer-selection-area"></div>
                 <div id="layer-selection-ok" class="panels custom-button normal-button">Salva</div>
             </div>
@@ -512,61 +513,116 @@
         <div id="search-input-text">Cerca...</div>
         <div id="search-button-text">Cerca un luogo o incolla delle coordinate GPS</div>
         <div id="locate-button-text">Mostra la mia posizione</div>
+        <div id="add-poi-text">Add POI to current trace</div>
         <span id="track-text">Traccia</span>
         <span id="segment-text">Segment</span>
         <div id="edit-speed-popup-text">
             <div id="speed-text">Velocità</div>
             <div id="pace-text">Passo</div>
-            <div id="start-text">Partenza</div>
-            <div id="experimental-info-text">Genera la velocità considerando la pendenza e il tipo di attività<br><b><i class="fas fa-exclamation-triangle"></i> Elimina tutte le informazioni temporali esistenti</b></div>
+            <div id="start-text">Start</div>
+            <div id="experimental-info-text">Generate speed considering the slope and the activity type<br><b><i class="fas fa-exclamation-triangle"></i> erases all existing time data</b></div>
         </div>
         <div id="waypoint-popup-text">
-            <div id="empty-title-text">senza nome</div>
-            <div id="name-text">Nome</div>
-            <div id="comment-text">Commento (per i dispositivi GPS)</div>
-            <div id="description-text">Descrizione (per gli utenti)</div>
-            <div id="symbol-text">Icona</div>
-            <div id="edit-info-text">Modifica info</div>
+            <div id="empty-title-text">empty title</div>
+            <div id="name-text">Name</div>
+            <div id="comment-text">Comment (for GPS devices)</div>
+            <div id="description-text">Description (for users)</div>
+            <div id="symbol-text">Symbol</div>
+            <div id="edit-info-text">Edit info</div>
         </div>
         <div id="right-click-popup-text">
-            <div id="split-text">Dividi qui</div>
+            <div id="split-text">Split here</div>
             <div id="start-loop-text">Start loop here</div>
-            <div id="remove-pt-text">Rimuovi punto</div>
+            <div id="remove-pt-text">Remove point</div>
         </div>
         <div id="elevation-text">
-            <div id="segment-text">Lunghezza del segmento</div>
-            <div id="type-text">Categoria</div>
-            <div id="surface-text">Superficie</div>
-            <div id="slope-text">Pendenza</div>
-            <div id="missing-text">Mancante</div>,
+            <div id="segment-text">Segment length</div>
+            <div id="type-text">Category</div>
+            <div id="surface-text">Surface</div>
+            <div id="slope-text">Slope</div>
+            <div id="missing-text">Missing</div>,
             <div id="paved-text">Paved</div>,
             <div id="unpaved-text">Unpaved</div>,
-            <div id="asphalt-text">Asfalto</div>,
-            <div id="concrete-text">Calcestruzzo</div>,
+            <div id="asphalt-text">Asphalt</div>,
+            <div id="concrete-text">Concrete</div>,
             <div id="chipseal-text">Chipseal</div>,
             <div id="cobblestone-text">Cobblestone</div>,
             <div id="unhewn-cobblestone-text">Unhewn Cobblestone</div>,
             <div id="paving-stones-text">Paving Stones</div>,
             <div id="stepping-stones-text">Stepping Stones</div>,
             <div id="sett-text">Sett Paving</div>,
-            <div id="metal-text">Metallo</div>,
-            <div id="wood-text">Legno</div>,
-            <div id="compacted-text">Ghiaia Compatta</div>,
-            <div id="fine-gravel-text">Ghiaia Fine</div>,
-            <div id="gravel-text">Ghiaia</div>,
-            <div id="pebblestone-text">Ciottoli</div>,
-            <div id="rock-text">Roccia</div>,
-            <div id="dirt-text">Terra</div>,
-            <div id="ground-text">Terreno</div>,
+            <div id="metal-text">Metal</div>,
+            <div id="wood-text">Wood</div>,
+            <div id="compacted-text">Compacted Gravel</div>,
+            <div id="fine-gravel-text">Fine Gravel</div>,
+            <div id="gravel-text">Gravel</div>,
+            <div id="pebblestone-text">Pebblestone</div>,
+            <div id="rock-text">Rock</div>,
+            <div id="dirt-text">Dirt</div>,
+            <div id="ground-text">Ground</div>,
             <div id="earth-text">Earth</div>,
-            <div id="snow-text">Neve</div>,
-            <div id="ice-text">Ghiaccio</div>,
-            <div id="salt-text">Sale</div>,
-            <div id="mud-text">Fango</div>,
-            <div id="sand-text">Sabbia</div>,
+            <div id="snow-text">Snow</div>,
+            <div id="ice-text">Ice</div>,
+            <div id="salt-text">Salt</div>,
+            <div id="mud-text">Mud</div>,
+            <div id="sand-text">Sand</div>,
             <div id="woodchips-text">Woodchips</div>,
-            <div id="grass-text">Erba</div>,
+            <div id="grass-text">Grass</div>,
             <div id="grass-paver-text">Grass Paver</div>
+        </div>
+        <div id="layers-text">
+            <div id="basemaps-text">Basemaps</div>
+            <div id="overlays-text">Overlays</div>
+            <div id="custom-text">Custom</div>
+            <div id="world-text">World</div>
+            <div id="countries-text">Countries</div>
+            <div id="finland-text">Finland</div>
+            <div id="france-text">France</div>
+            <div id="new-zealand-text">New Zealand</div>
+            <div id="norway-text">Norway</div>
+            <div id="spain-text">Spain</div>
+            <div id="sweden-text">Sweden</div>
+            <div id="switzerland-text">Switzerland</div>
+            <div id="united-kingdom-text">United Kingdom</div>
+            <div id="united-states-text">United States</div>
+            <div id="poi-text">Points of Interest</div>
+            <div id="eat-and-drink-text">Eat and Drink</div>
+            <div id="bakery-text">Bakery</div>
+            <div id="supermarket-text">Supermarket</div>
+            <div id="convenience-store-text">Convenience Store</div>
+            <div id="restaurant-text">Restaurant</div>
+            <div id="fast-food-text">Fast Food</div>
+            <div id="cafe-text">Cafe</div>
+            <div id="pub-text">Pub</div>
+            <div id="bar-text">Bar</div>
+            <div id="amenities-text">Amenities</div>
+            <div id="toilets-text">Toilets</div>
+            <div id="drinking-water-text">Drinking Water</div>
+            <div id="water-point-text">Water Point</div>
+            <div id="water-spring-text">Water Spring</div>
+            <div id="shower-text">Shower</div>
+            <div id="fuel-station-text">Fuel Station</div>
+            <div id="parking-text">Parking</div>
+            <div id="tourism-text">Tourism</div>
+            <div id="attraction-text">Attraction</div>
+            <div id="viewpoint-text">Viewpoint</div>
+            <div id="hotel-text">Hotel</div>
+            <div id="hostel-text">Hostel</div>
+            <div id="guest-house-text">Guest House</div>
+            <div id="motel-text">Motel</div>
+            <div id="campsite-text">Campsite</div>
+            <div id="alpine-hut-text">Alpine Hut</div>
+            <div id="wilderness-hut-text">Wilderness Hut</div>
+            <div id="climbing-text">Climbing Site</div>
+            <div id="bicycle-text">Bicycle</div>
+            <div id="bicycle-parking-text">Bicycle Parking</div>
+            <div id="bicycle-rental-text">Bicycle Rental</div>
+            <div id="bicycle-shop-text">Bicycle Shop</div>
+            <div id="public-transport-text">Public Transport</div>
+            <div id="railway-station-text">Railway Station</div>
+            <div id="tram-stop-text">Tram Stop</div>
+            <div id="bus-stop-text">Bus Stop</div>
+            <div id="ferry-text">Ferry Terminal</div>
         </div>
         <h1>editor GPX online</h1>
         <h1>visualizzatore GPX online</h1>
