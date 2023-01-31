@@ -1333,6 +1333,7 @@ export default class Buttons {
             localStorage.setItem('poi-min-zoom', min_zoom);
             Object.keys(layers).forEach(function(layer) {
                 if (layer.startsWith('poi')) {
+                    layers[layer].buttons = buttons;
                     layers[layer].options.minZoom = buttons.poi_min_zoom;
                     if (buttons.map.hasLayer(layers[layer])) {
                         buttons.map.removeLayer(layers[layer]);
