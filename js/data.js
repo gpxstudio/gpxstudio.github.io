@@ -369,6 +369,7 @@ pointsOfInterest = {
 		new PointOfInterest("Water Spring", "['natural'='spring']['drinking_water'='yes']", "droplet"),
 		new PointOfInterest("Shower", "['amenity'='shower']", "shower"),
 		new PointOfInterest("Fuel Station", "['amenity'='fuel']", "gas-pump"),
+		new PointOfInterest("Parking", "['amenity'='parking']", "square-parking"),
 	],
 	"Tourism": [
 		new PointOfInterest("Attraction", "['tourism'='attraction']", "landmark"),
@@ -380,6 +381,7 @@ pointsOfInterest = {
 		new PointOfInterest("Camp Site", "['tourism'='campsite']", "campground"),
 		new PointOfInterest("Alpine Hut", "['tourism'='alpine_hut']", "house-chimney-crack"),
 		new PointOfInterest("Wilderness Hut", "['tourism'='wilderness_hut']", "house-crack"),
+		new PointOfInterest("Climbing Site", "['sport'='climbing']", "mountain"),
 	],
 	"Bicycle": [
 		new PointOfInterest("Bicycle Parking", "['amenity'='bicycle_parking']", "square-parking"),
