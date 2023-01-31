@@ -239,6 +239,21 @@ export default class Buttons {
         this.search_button_text = document.getElementById('search-button-text').textContent;
         this.locate_button_text = document.getElementById('locate-button-text').textContent;
         this.empty_title_text = document.getElementById('empty-title-text').textContent;
+        this.basemaps_text = document.getElementById('basemaps-text').textContent;
+        this.overlays_text = document.getElementById('overlays-text').textContent;
+        this.world_text = document.getElementById('world-text').textContent;
+        this.countries_text = document.getElementById('countries-text').textContent;
+        this.finland_text = document.getElementById('finland-text').textContent;
+        this.france_text = document.getElementById('france-text').textContent;
+        this.new_zealand_text = document.getElementById('new-zealand-text').textContent;
+        this.norway_text = document.getElementById('norway-text').textContent;
+        this.spain_text = document.getElementById('spain-text').textContent;
+        this.sweden_text = document.getElementById('sweden-text').textContent;
+        this.switzerland_text = document.getElementById('switzerland-text').textContent;
+        this.united_kingdom_text = document.getElementById('united-kingdom-text').textContent;
+        this.united_states_text = document.getElementById('united-states-text').textContent;
+        this.poi_text = document.getElementById('poi-text').textContent;
+        this.custom_text = document.getElementById('custom-text').textContent;
 
         // WINDOWS
         this.help_window = L.control.window(this.map,{title:'',content:this.help_text,className:'panels-container'});
@@ -495,103 +510,93 @@ export default class Buttons {
                         _this.updateStravaCookies();
                     });
 
-                    const baselayersHierarchy = {
-                        "Basemaps": {
-                            "World": {
-                                "Mapbox Outdoors": null,
-                                "Mapbox Satellite": null,
-                                "OpenStreetMap" : layers.openStreetMap,
-                                "OpenTopoMap" : layers.openTopoMap,
-                                "OpenHikingMap" : layers.openHikingMap,
-                                "CyclOSM" : layers.cyclOSM
-                            },
-                            "Countries": {
-                                "Finland": { "Lantmäteriverket Terrängkarta": layers.finlandTopo },
-                                "France": {
-                                    "IGN SCAN25" : layers.ignFrScan25,
-                                    "IGN Plan" : layers.ignPlanV2,
-                                    "IGN Satellite" : layers.ignSatellite
-                                 },
-                                "New Zealand": {
-                                    "Linz Topo": layers.linz,
-                                    "Linz Topo50": layers.linzTopo
-                                },
-                                "Norway": { "Topografisk Norgeskart 4": layers.norwayTopo },
-                                "Spain": { "IGN": layers.ignEs },
-                                "Sweden": { "Lantmäteriet Topo": layers.swedenTopo },
-                                "Switzerland": { "swisstopo": layers.swisstopo },
-                                "United Kingdom": { "Ordnance Survey": layers.ordnanceSurvey },
-                                "United States": { "USGS": layers.usgs }
-                            }
-                        }
+                    var baselayersHierarchy = {};
+                    baselayersHierarchy[_this.basemaps_text] = {};
+                    baselayersHierarchy[_this.basemaps_text][_this.world_text] = {
+                        "Mapbox Outdoors": null,
+                        "Mapbox Satellite": null,
+                        "OpenStreetMap" : layers.openStreetMap,
+                        "OpenTopoMap" : layers.openTopoMap,
+                        "OpenHikingMap" : layers.openHikingMap,
+                        "CyclOSM" : layers.cyclOSM
+                    };
+                    baselayersHierarchy[_this.basemaps_text][_this.countries_text] = {};
+                    baselayersHierarchy[_this.basemaps_text][_this.countries_text][_this.finland_text] = { "Lantmäteriverket Terrängkarta": layers.finlandTopo };
+                    baselayersHierarchy[_this.basemaps_text][_this.countries_text][_this.france_text] = {
+                        "IGN SCAN25" : layers.ignFrScan25,
+                        "IGN Plan" : layers.ignPlanV2,
+                        "IGN Satellite" : layers.ignSatellite
+                    };
+                    baselayersHierarchy[_this.basemaps_text][_this.countries_text][_this.new_zealand_text] = {
+                        "Linz Topo": layers.linz,
+                        "Linz Topo50": layers.linzTopo
+                    };
+                    baselayersHierarchy[_this.basemaps_text][_this.countries_text][_this.norway_text] = { "Topografisk Norgeskart 4": layers.norwayTopo };
+                    baselayersHierarchy[_this.basemaps_text][_this.countries_text][_this.spain_text] = { "IGN": layers.ignEs };
+                    baselayersHierarchy[_this.basemaps_text][_this.countries_text][_this.sweden_text] = { "Lantmäteriet Topo": layers.swedenTopo };
+                    baselayersHierarchy[_this.basemaps_text][_this.countries_text][_this.switzerland_text] = { "swisstopo": layers.swisstopo };
+                    baselayersHierarchy[_this.basemaps_text][_this.countries_text][_this.united_kingdom_text] = { "Ordnance Survey": layers.ordnanceSurvey };
+                    baselayersHierarchy[_this.basemaps_text][_this.countries_text][_this.united_states_text] = { "USGS": layers.usgs };
+
+                    var overlaysHierarchy = {};
+                    overlaysHierarchy[_this.overlays_text] = {};
+                    overlaysHierarchy[_this.overlays_text][_this.world_text] = {
+                        "CyclOSM Lite" : layers.cyclOSMLite,
+                        "Strava Heatmap": {
+                            "Ride" : layers.stravaHeatmapRide,
+                            "Run" : layers.stravaHeatmapRun,
+                            "Water" : layers.stravaHeatmapWater,
+                            "Winter" : layers.stravaHeatmapWinter
+                        },
+                        "Waymarked Trails": {
+                            "Hiking": layers.waymarkedTrailsHiking,
+                            "Cycling": layers.waymarkedTrailsCycling,
+                            "MTB": layers.waymarkedTrailsMTB,
+                            "Skating": layers.waymarkedTrailsSkating,
+                            "Horse riding": layers.waymarkedTrailsHorseRiding,
+                            "Slopes": layers.waymarkedTrailsWinter
+                        },
+                    };
+                    overlaysHierarchy[_this.overlays_text][_this.world_text][_this.poi_text] = pointsOfInterestLayers;
+                    overlaysHierarchy[_this.overlays_text][_this.countries_text] = {};
+                    overlaysHierarchy[_this.overlays_text][_this.countries_text][_this.france_text] = {
+                        "IGN Slope": layers.ignSlope,
+                        "IGN Cadastre": layers.ignFrCadastre
+                    };
+                    overlaysHierarchy[_this.overlays_text][_this.countries_text][_this.switzerland_text] = {
+                        "swisstopo Slope": layers.swisstopoSlope,
+                        "swisstopo Cycling": layers.swisstopoCycling,
+                        "swisstopo Mountain Bike": layers.swisstopoMountainBike,
                     };
 
-                    const overlaysHierarchy = {
-                        "Overlays": {
-                            "World": {
-                                "CyclOSM Lite" : layers.cyclOSMLite,
-                                "Strava Heatmap": {
-                                    "Ride" : layers.stravaHeatmapRide,
-                                    "Run" : layers.stravaHeatmapRun,
-                                    "Water" : layers.stravaHeatmapWater,
-                                    "Winter" : layers.stravaHeatmapWinter
-                                },
-                                "Waymarked Trails": {
-                                    "Hiking": layers.waymarkedTrailsHiking,
-                                    "Cycling": layers.waymarkedTrailsCycling,
-                                    "MTB": layers.waymarkedTrailsMTB,
-                                    "Skating": layers.waymarkedTrailsSkating,
-                                    "Horse riding": layers.waymarkedTrailsHorseRiding,
-                                    "Slopes": layers.waymarkedTrailsWinter
-                                },
-                                "POI": pointsOfInterestLayers,
-                            },
-                            "Countries": {
-                                "France": {
-                                    "IGN Slope": layers.ignSlope,
-                                    "IGN Cadastre": layers.ignFrCadastre
-                                },
-                                "Switzerland": {
-                                    "swisstopo Slope": layers.swisstopoSlope,
-                                    "swisstopo Cycling": layers.swisstopoCycling,
-                                    "swisstopo Mountain Bike": layers.swisstopoMountainBike,
-                                }
-                            }
-                        }
+                    var baselayerSelection = {};
+                    baselayerSelection[_this.basemaps_text] = {};
+                    baselayerSelection[_this.basemaps_text][_this.world_text] = {
+                        "OpenStreetMap": true,
+                        "OpenTopoMap": true,
+                        "OpenHikingMap": true,
+                        "CyclOSM" : true
                     };
 
-                    var baselayerSelection = {
-                        "Basemaps": {
-                            "World": {
-                                "OpenStreetMap": true,
-                                "OpenTopoMap": true,
-                                "OpenHikingMap": true,
-                                "CyclOSM" : true
-                            }
-                        }
+                    var overlaySelection = {};
+                    overlaySelection[_this.overlays_text] = {};
+                    overlaySelection[_this.overlays_text][_this.world_text] = {
+                        "Strava Heatmap": {
+                            "Ride" : true,
+                            "Run" : true,
+                            "Water" : true,
+                            "Winter" : true
+                        },
+                        "Waymarked Trails": {
+                            "Hiking": true,
+                            "Cycling": true,
+                            "MTB": true,
+                            "Skating": true,
+                            "Horse riding": true,
+                            "Slopes": true
+                        },
                     };
-
-                    var overlaySelection = {
-                        "Overlays": {
-                            "World": {
-                                "Strava Heatmap": {
-                                    "Ride" : true,
-                                    "Run" : true,
-                                    "Water" : true,
-                                    "Winter" : true
-                                },
-                                "Waymarked Trails": {
-                                    "Hiking": true,
-                                    "Cycling": true,
-                                    "MTB": true,
-                                    "Skating": true,
-                                    "Horse riding": true,
-                                    "Slopes": true
-                                },
-                                "POI": pointsOfInterestLayerSelection
-                            }
-                        }
-                    };
+                    overlaySelection[_this.overlays_text][_this.world_text][_this.poi_text] = pointsOfInterestLayerSelection;
 
                     if (_this.supportsWebGL()) {
                         _this.mapboxMap = L.mapboxGL({
@@ -616,10 +621,10 @@ export default class Buttons {
                             _this.mapboxgl_canvas = _this.mapboxMap._container.querySelector('.mapboxgl-canvas');
                         });
 
-                        baselayersHierarchy["Basemaps"]["World"]["Mapbox Outdoors"] = _this.mapboxMap;
-                        baselayersHierarchy["Basemaps"]["World"]["Mapbox Satellite"] = _this.mapboxMap;
-                        baselayerSelection["Basemaps"]["World"]["Mapbox Outdoors"] = true;
-                        baselayerSelection["Basemaps"]["World"]["Mapbox Satellite"] = true;
+                        baselayersHierarchy[_this.basemaps_text][_this.world_text]["Mapbox Outdoors"] = _this.mapboxMap;
+                        baselayersHierarchy[_this.basemaps_text][_this.world_text]["Mapbox Satellite"] = _this.mapboxMap;
+                        baselayerSelection[_this.basemaps_text][_this.world_text]["Mapbox Outdoors"] = true;
+                        baselayerSelection[_this.basemaps_text][_this.world_text]["Mapbox Satellite"] = true;
 
                         _this.mapillary_coverageZoomed = L.vectorGrid.protobuf('https://tiles.mapillary.com/maps/vtp/mly1_computed_public/2/{z}/{x}/{y}?access_token=MLY|4381405525255083|3204871ec181638c3c31320490f03011', {
                             minZoom: 14,
@@ -652,9 +657,9 @@ export default class Buttons {
                             rendererFactory: L.canvas.tile
                         });
                     } else {
-                        delete baselayersHierarchy["Basemaps"]["World"]["Mapbox Outdoors"];
-                        delete baselayersHierarchy["Basemaps"]["World"]["Mapbox Satellite"];
-                        delete baselayersHierarchy["Basemaps"]["Countries"]["New Zealand"];
+                        delete baselayersHierarchy[_this.basemaps_text][_this.world_text]["Mapbox Outdoors"];
+                        delete baselayersHierarchy[_this.basemaps_text][_this.world_text]["Mapbox Satellite"];
+                        delete baselayersHierarchy[_this.basemaps_text][_this.countries_text][_this.new_zealand_text];
 
                         layers.openStreetMap.addTo(_this.map);
                     }
@@ -669,11 +674,11 @@ export default class Buttons {
 
                         const overlay = _this.custom_layers[i].type == "overlay";
                         if (overlay) {
-                            if (!overlaysHierarchy["Overlays"].hasOwnProperty("Custom")) overlaysHierarchy["Overlays"]["Custom"] = {};
-                            overlaysHierarchy["Overlays"]["Custom"][_this.custom_layers[i].name] = newLayer;
+                            if (!overlaysHierarchy[_this.overlays_text].hasOwnProperty(_this.custom_text)) overlaysHierarchy[_this.overlays_text][_this.custom_text] = {};
+                            overlaysHierarchy[_this.overlays_text][_this.custom_text][_this.custom_layers[i].name] = newLayer;
                         } else {
-                            if (!baselayersHierarchy["Basemaps"].hasOwnProperty("Custom")) baselayersHierarchy["Basemaps"]["Custom"] = {};
-                            baselayersHierarchy["Basemaps"]["Custom"][_this.custom_layers[i].name] = newLayer;
+                            if (!baselayersHierarchy[_this.basemaps_text].hasOwnProperty(_this.custom_text)) baselayersHierarchy[_this.basemaps_text][_this.custom_text] = {};
+                            baselayersHierarchy[_this.basemaps_text][_this.custom_text][_this.custom_layers[i].name] = newLayer;
                         }
                     }
 
@@ -1767,7 +1772,7 @@ export default class Buttons {
             localStorage.setItem('custom-layers', JSON.stringify(buttons.custom_layers));
 
             const overlay = buttons.layer_type.value == "overlay";
-            const parents = [overlay ? "Overlays" : "Basemaps", "Custom", buttons.layer_name.value];
+            const parents = [overlay ? buttons.overlays_text : buttons.basemaps_text, buttons.custom_text, buttons.layer_name.value];
             buttons.controlLayers.addLayer(newLayer, parents, overlay);
             if (buttons.supportsWebGL()) buttons.addSwitchMapboxLayers(true);
 
@@ -1843,8 +1848,8 @@ export default class Buttons {
 
                 for (var i=0; i<buttons.custom_layers.length; i++) {
                     var span;
-                    if (buttons.custom_layers[i].type == "baselayer") span = buttons.controlLayers._baselayersCheckboxHierarchy["Basemaps"]["Custom"][buttons.custom_layers[i].name].span;
-                    else span = buttons.controlLayers._overlaysCheckboxHierarchy["Overlays"]["Custom"][buttons.custom_layers[i].name].span;
+                    if (buttons.custom_layers[i].type == "baselayer") span = buttons.controlLayers._baselayersCheckboxHierarchy[buttons.basemaps_text][buttons.custom_text][buttons.custom_layers[i].name].span;
+                    else span = buttons.controlLayers._overlaysCheckboxHierarchy[buttons.overlays_text][buttons.custom_text][buttons.custom_layers[i].name].span;
 
                     const delete_layer = L.DomUtil.create('i', 'fas fa-trash-alt');
                     delete_layer.style.paddingLeft = '15px';
@@ -1853,7 +1858,7 @@ export default class Buttons {
                     const layerIndex = i;
                     delete_layer.addEventListener('click', function () {
                         const overlay = buttons.custom_layers[layerIndex].type == "overlay";
-                        const parents = [overlay ? "Overlays" : "Basemaps", "Custom", buttons.custom_layers[layerIndex].name];
+                        const parents = [overlay ? buttons.overlays_text : buttons.basemaps_text, buttons.custom_text, buttons.custom_layers[layerIndex].name];
                         const layer = buttons.custom_layers_object[layerIndex];
 
                         if (buttons.map.hasLayer(layer)) buttons.map.removeLayer(layer);
