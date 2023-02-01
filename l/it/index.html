@@ -68,7 +68,7 @@
         <link rel="stylesheet" href="/include/controlwindow/L.Control.Window.css">
         <link rel="stylesheet" type="text/css" href="/res/index.css">
         <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.css" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.74.1/dist/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.css">
         <link rel="stylesheet" href="/include/condensed-attribution/leaflet-control-condended-attribution.css" />
         <link rel="stylesheet" href="https://unpkg.com/mapillary-js@4.0.0/dist/mapillary.css" />
     </head>
@@ -480,12 +480,13 @@
             <div id="layer-selection">
                 <span>Scegli il colore Strava Heatmap</span>
                 <select name="strava-color" id="strava-color-input" class="close-spacing">
-                    <option value="hot">Hot</option>
-                    <option value="blue">Blue</option>
-                    <option value="purple">Purple</option>
-                    <option value="gray">Gray</option>
-                    <option value="bluered">Blue-red</option>
+                    <option value="hot">Caldo</option>
+                    <option value="blue">Blu</option>
+                    <option value="purple">Viola</option>
+                    <option value="gray">Grigio</option>
+                    <option value="bluered">Blu-rosso</option>
                 </select><br>
+                <span>Choose the minimum zoom level to request POIs</span> <input id="poi-min-zoom-input" type="number" min="10" max="20"><br>
                 <span>Seleziona i layer che vuoi visualizzare nell'interfaccia</span>
                 <div id="layer-selection-area"></div>
                 <div id="layer-selection-ok" class="panels custom-button normal-button">Salva</div>
@@ -512,6 +513,7 @@
         <div id="search-input-text">Cerca...</div>
         <div id="search-button-text">Cerca un luogo o incolla delle coordinate GPS</div>
         <div id="locate-button-text">Mostra la mia posizione</div>
+        <div id="add-poi-text">Add POI to current trace</div>
         <span id="track-text">Traccia</span>
         <span id="segment-text">Segment</span>
         <div id="edit-speed-popup-text">
@@ -568,6 +570,60 @@
             <div id="grass-text">Erba</div>,
             <div id="grass-paver-text">Grass Paver</div>
         </div>
+        <div id="layers-text">
+            <div id="basemaps-text">Basemaps</div>
+            <div id="overlays-text">Overlays</div>
+            <div id="custom-text">Custom</div>
+            <div id="world-text">World</div>
+            <div id="countries-text">Countries</div>
+            <div id="finland-text">Finland</div>
+            <div id="france-text">France</div>
+            <div id="new-zealand-text">New Zealand</div>
+            <div id="norway-text">Norway</div>
+            <div id="spain-text">Spain</div>
+            <div id="sweden-text">Sweden</div>
+            <div id="switzerland-text">Switzerland</div>
+            <div id="united-kingdom-text">United Kingdom</div>
+            <div id="united-states-text">United States</div>
+            <div id="poi-text">Points of Interest</div>
+            <div id="eat-and-drink-text">Eat and Drink</div>
+            <div id="bakery-text">Bakery</div>
+            <div id="supermarket-text">Supermarket</div>
+            <div id="convenience-store-text">Convenience Store</div>
+            <div id="restaurant-text">Restaurant</div>
+            <div id="fast-food-text">Fast Food</div>
+            <div id="cafe-text">Cafe</div>
+            <div id="pub-text">Pub</div>
+            <div id="bar-text">Bar</div>
+            <div id="amenities-text">Amenities</div>
+            <div id="toilets-text">Toilets</div>
+            <div id="drinking-water-text">Drinking Water</div>
+            <div id="water-point-text">Water Point</div>
+            <div id="water-spring-text">Water Spring</div>
+            <div id="shower-text">Shower</div>
+            <div id="fuel-station-text">Fuel Station</div>
+            <div id="parking-text">Parking</div>
+            <div id="tourism-text">Tourism</div>
+            <div id="attraction-text">Attraction</div>
+            <div id="viewpoint-text">Viewpoint</div>
+            <div id="hotel-text">Hotel</div>
+            <div id="hostel-text">Hostel</div>
+            <div id="guest-house-text">Guest House</div>
+            <div id="motel-text">Motel</div>
+            <div id="campsite-text">Campsite</div>
+            <div id="alpine-hut-text">Alpine Hut</div>
+            <div id="wilderness-hut-text">Wilderness Hut</div>
+            <div id="climbing-text">Climbing Site</div>
+            <div id="bicycle-text">Bicycle</div>
+            <div id="bicycle-parking-text">Bicycle Parking</div>
+            <div id="bicycle-rental-text">Bicycle Rental</div>
+            <div id="bicycle-shop-text">Bicycle Shop</div>
+            <div id="public-transport-text">Public Transport</div>
+            <div id="railway-station-text">Railway Station</div>
+            <div id="tram-stop-text">Tram Stop</div>
+            <div id="bus-stop-text">Bus Stop</div>
+            <div id="ferry-text">Ferry Terminal</div>
+        </div>
         <h1>editor GPX online</h1>
         <h1>visualizzatore GPX online</h1>
         <h1>modificare file GPX online</h1>
@@ -598,7 +654,7 @@
     <script type="text/javascript" src="/include/distancemarkers/leaflet-distance-markers.js"></script>
     <script type="text/javascript" src="/include/condensed-attribution/leaflet-control-condended-attribution.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.74.1/dist/L.Control.Locate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
     <script src="https://unpkg.com/mapillary-js@4.0.0/dist/mapillary.js"></script>
     <script src="https://unpkg.com/leaflet.vectorgrid@1.3.0/dist/Leaflet.VectorGrid.min.js"></script>

@@ -68,7 +68,7 @@
         <link rel="stylesheet" href="/include/controlwindow/L.Control.Window.css">
         <link rel="stylesheet" type="text/css" href="/res/index.css">
         <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.css" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.74.1/dist/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.css">
         <link rel="stylesheet" href="/include/condensed-attribution/leaflet-control-condended-attribution.css" />
         <link rel="stylesheet" href="https://unpkg.com/mapillary-js@4.0.0/dist/mapillary.css" />
     </head>
@@ -486,6 +486,7 @@
                     <option value="gray">Szürke</option>
                     <option value="bluered">Kék és piros</option>
                 </select><br>
+                <span>Válassza ki a minimális nagyítási szintet POI-k kéréséhez</span> <input id="poi-min-zoom-input" type="number" min="10" max="20"><br>
                 <span>Válassza ki a felületen megjeleníteni kívánt rétegeket</span>
                 <div id="layer-selection-area"></div>
                 <div id="layer-selection-ok" class="panels custom-button normal-button">Mentés</div>
@@ -512,6 +513,7 @@
         <div id="search-input-text">Kereső...</div>
         <div id="search-button-text">Keressen egy ki indulási helyet, vagy illessze be a GPS-koordinátákat</div>
         <div id="locate-button-text">Saját pozició</div>
+        <div id="add-poi-text">POI hozzáadása az aktuális útvonalhoz</div>
         <span id="track-text">Útvonal</span>
         <span id="segment-text">Szegmens</span>
         <div id="edit-speed-popup-text">
@@ -568,6 +570,60 @@
             <div id="grass-text">Fű</div>,
             <div id="grass-paver-text">Füves burkolat</div>
         </div>
+        <div id="layers-text">
+            <div id="basemaps-text">Alaptérkép</div>
+            <div id="overlays-text">Térkép rétegek</div>
+            <div id="custom-text">Egyedi beállítások</div>
+            <div id="world-text">Világ</div>
+            <div id="countries-text">Országok</div>
+            <div id="finland-text">Finn</div>
+            <div id="france-text">Francia</div>
+            <div id="new-zealand-text">Új Zéland</div>
+            <div id="norway-text">Norvégia</div>
+            <div id="spain-text">Spanyol</div>
+            <div id="sweden-text">Svéd</div>
+            <div id="switzerland-text">Svájc</div>
+            <div id="united-kingdom-text">Anglia</div>
+            <div id="united-states-text">Amerika</div>
+            <div id="poi-text">Látványosságok</div>
+            <div id="eat-and-drink-text">Étel és Ital</div>
+            <div id="bakery-text">Pékség</div>
+            <div id="supermarket-text">Szupermarket</div>
+            <div id="convenience-store-text">Kisbolt</div>
+            <div id="restaurant-text">Étterem</div>
+            <div id="fast-food-text">Gyorsétterem</div>
+            <div id="cafe-text">Kávézó</div>
+            <div id="pub-text">Kocsma</div>
+            <div id="bar-text">Bár</div>
+            <div id="amenities-text">Felszereltség</div>
+            <div id="toilets-text">Wc</div>
+            <div id="drinking-water-text">Ivóvíz</div>
+            <div id="water-point-text">Vízvételi pont</div>
+            <div id="water-spring-text">Forrás</div>
+            <div id="shower-text">Zuhanyozó</div>
+            <div id="fuel-station-text">Benzinkút</div>
+            <div id="parking-text">Parkoló</div>
+            <div id="tourism-text">Idegenforgalmi iroda</div>
+            <div id="attraction-text">Látnivaló</div>
+            <div id="viewpoint-text">Kilátó</div>
+            <div id="hotel-text">Hotel</div>
+            <div id="hostel-text">Hostel</div>
+            <div id="guest-house-text">Vendégház</div>
+            <div id="motel-text">Motel</div>
+            <div id="campsite-text">Kemping</div>
+            <div id="alpine-hut-text">Hegyi túristaház</div>
+            <div id="wilderness-hut-text">Erdei turistaház</div>
+            <div id="climbing-text">Hegymászó fal</div>
+            <div id="bicycle-text">Kerékpár</div>
+            <div id="bicycle-parking-text">Kerékpár parkoló</div>
+            <div id="bicycle-rental-text">Kerékpár bérélés</div>
+            <div id="bicycle-shop-text">Kerékpár üzlet</div>
+            <div id="public-transport-text">Tömegközlekedés</div>
+            <div id="railway-station-text">Railway Station</div>
+            <div id="tram-stop-text">Tram Stop</div>
+            <div id="bus-stop-text">Bus Stop</div>
+            <div id="ferry-text">Ferry Terminal</div>
+        </div>
         <h1>online gpx szerkesztő</h1>
         <h1>online gpx megjelenítő</h1>
         <h1>szerkesztheti a gpx fájlokat online</h1>
@@ -598,7 +654,7 @@
     <script type="text/javascript" src="/include/distancemarkers/leaflet-distance-markers.js"></script>
     <script type="text/javascript" src="/include/condensed-attribution/leaflet-control-condended-attribution.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.74.1/dist/L.Control.Locate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
     <script src="https://unpkg.com/mapillary-js@4.0.0/dist/mapillary.js"></script>
     <script src="https://unpkg.com/leaflet.vectorgrid@1.3.0/dist/Leaflet.VectorGrid.min.js"></script>

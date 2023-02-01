@@ -181,7 +181,79 @@ const overPassMinZoomOptions =  {
         position: 'topright',
         minZoomMessage: 'Zoom in to refresh POI'
     };
-const overPassAttribution = '&copy; <a href="https://www.overpass-api.de" target="_blank">Overpass API</a>'
+const overPassAttribution = '&copy; <a href="https://www.overpass-api.de" target="_blank">Overpass API</a>';
+const onSuccess = function (data) {
+    for (let i = 0; i < data.elements.length; i++) {
+        let pos;
+        let marker;
+        const e = data.elements[i];
+
+        if (e.id in this._ids) {
+            continue;
+        }
+
+        this._ids[e.id] = true;
+
+        if (e.type === 'node') {
+            pos = L.latLng(e.lat, e.lon);
+        } else {
+            pos = L.latLng(e.center.lat, e.center.lon);
+        }
+
+        if (this.options.markerIcon) {
+            marker = L.marker(pos, { icon: this.options.markerIcon });
+        } else {
+            marker = L.circle(pos, 20, {
+                stroke: false,
+                fillColor: '#E54041',
+                fillOpacity: 0.9
+            });
+        }
+
+        const popupContent = this._getPoiPopupHTML(e.tags, e.id);
+
+        var link = popupContent.getElementsByTagName('a')[0];
+        link.target = "_blank";
+
+        var extra = document.createElement("div");
+        extra.classList.add('popup-content');
+
+        var button = document.createElement("div");
+        button.classList.add('panels', 'custom-button', 'normal-button');
+        button.innerText = document.getElementById("add-poi-text").innerText;
+
+        extra.append(button);
+        popupContent.append(extra);
+
+        const _this = this;
+        const buttons = this.buttons;
+        button.addEventListener('click', function () {
+            if (buttons.total.focusOn >= 0) {
+                var cmt = '';
+                var first = true;
+                for (const [key, value] of Object.entries(e.tags)) {
+                    if (first) first = false;
+                    else cmt += ', ';
+                    cmt += `${key}: ${value}`;
+                }
+                buttons.clone_wpt = {
+                    sym: _this.options.sym,
+                    name: _this.options.type,
+                    cmt: cmt,
+                    desc: '',
+                }
+
+                const trace = buttons.total.traces[buttons.total.focusOn];
+                trace.addWaypoint(pos);
+            }
+        });
+
+        const popup = L.popup().setContent(popupContent);
+        marker.bindPopup(popup);
+
+        this._markers.addLayer(marker);
+    }
+};
 
 let pointsOfInterestLayers = {}, pointsOfInterestLayerSelection = {};
 for (var category in pointsOfInterest) {
@@ -199,7 +271,10 @@ for (var category in pointsOfInterest) {
                 glyph: poi.glyph,
             }),
             minZoomIndicatorOptions: overPassMinZoomOptions,
-            attribution: overPassAttribution
+            attribution: overPassAttribution,
+            type: poi.name,
+            sym: poi.sym,
+            onSuccess: onSuccess,
         });
         pointsOfInterestLayerSelection[category][poi.name] = true;
         layers["poi"+poi.query] = pointsOfInterestLayers[category][poi.name];

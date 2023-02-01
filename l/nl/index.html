@@ -68,7 +68,7 @@
         <link rel="stylesheet" href="/include/controlwindow/L.Control.Window.css">
         <link rel="stylesheet" type="text/css" href="/res/index.css">
         <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.css" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.74.1/dist/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.css">
         <link rel="stylesheet" href="/include/condensed-attribution/leaflet-control-condended-attribution.css" />
         <link rel="stylesheet" href="https://unpkg.com/mapillary-js@4.0.0/dist/mapillary.css" />
     </head>
@@ -183,7 +183,7 @@
             <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Mapillary of Google Street View"></i>
         </div>
         <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Direction markers</label>
-        <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Distance markers</label>
+        <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Afstandsmarkeringen</label>
         <div id="help-text">
         <div style="text-align: center; font-size: 10pt; color: #476947">
             <b>Bekijk de <a href="./about.html#guide" target="_blank">Gebruikersgids</a> voor meer informatie en kleine tutorials!</b>
@@ -486,6 +486,7 @@
                     <option value="gray">Grijs</option>
                     <option value="bluered">Blauw-rood</option>
                 </select><br>
+                <span>Kies het minimum zoomniveau om POI's aan te vragen</span> <input id="poi-min-zoom-input" type="number" min="10" max="20"><br>
                 <span>Kies de lagen die je wilt tonen</span>
                 <div id="layer-selection-area"></div>
                 <div id="layer-selection-ok" class="panels custom-button normal-button">Bewaar</div>
@@ -512,6 +513,7 @@
         <div id="search-input-text">Zoeken ...</div>
         <div id="search-button-text">Zoek naar een plaats of plak GPS-coördinaten</div>
         <div id="locate-button-text">Toon mijn positie</div>
+        <div id="add-poi-text">Voeg POI toe aan huidige spoor</div>
         <span id="track-text">Track</span>
         <span id="segment-text">Segment</span>
         <div id="edit-speed-popup-text">
@@ -568,6 +570,60 @@
             <div id="grass-text">Gras</div>,
             <div id="grass-paver-text">Grastegel</div>
         </div>
+        <div id="layers-text">
+            <div id="basemaps-text">Basis kaarten</div>
+            <div id="overlays-text">Lagen</div>
+            <div id="custom-text">Aangepast</div>
+            <div id="world-text">Wereld</div>
+            <div id="countries-text">Landen</div>
+            <div id="finland-text">Finland</div>
+            <div id="france-text">Frankrijk</div>
+            <div id="new-zealand-text">Nieuw-Zeeland</div>
+            <div id="norway-text">Noorwegen</div>
+            <div id="spain-text">Spanje</div>
+            <div id="sweden-text">Zweden</div>
+            <div id="switzerland-text">Zwitserland</div>
+            <div id="united-kingdom-text">Verenigd Koninkrijk</div>
+            <div id="united-states-text">Verenigde Staten</div>
+            <div id="poi-text">Interessant punt (POI)</div>
+            <div id="eat-and-drink-text">Eten en drinken</div>
+            <div id="bakery-text">Bakkerij</div>
+            <div id="supermarket-text">Supermarkt</div>
+            <div id="convenience-store-text">Gemakswinkel</div>
+            <div id="restaurant-text">Restaurant</div>
+            <div id="fast-food-text">Fast Food</div>
+            <div id="cafe-text">Café</div>
+            <div id="pub-text">Kroeg</div>
+            <div id="bar-text">Bar</div>
+            <div id="amenities-text">Voorzieningen</div>
+            <div id="toilets-text">Toiletten</div>
+            <div id="drinking-water-text">Drinkwater</div>
+            <div id="water-point-text">Waterpunt</div>
+            <div id="water-spring-text">Waterbron</div>
+            <div id="shower-text">Douche</div>
+            <div id="fuel-station-text">Tankstation</div>
+            <div id="parking-text">Parkeren</div>
+            <div id="tourism-text">Toerisme</div>
+            <div id="attraction-text">Attractie</div>
+            <div id="viewpoint-text">Uitzichtpunt</div>
+            <div id="hotel-text">Hotel</div>
+            <div id="hostel-text">Herberg</div>
+            <div id="guest-house-text">Gastenverblijf</div>
+            <div id="motel-text">Motel</div>
+            <div id="campsite-text">Camping</div>
+            <div id="alpine-hut-text">Berghut</div>
+            <div id="wilderness-hut-text">Wildernishut</div>
+            <div id="climbing-text">Klimplek</div>
+            <div id="bicycle-text">Fiets</div>
+            <div id="bicycle-parking-text">Fietsenstalling</div>
+            <div id="bicycle-rental-text">Fietsverhuur</div>
+            <div id="bicycle-shop-text">Fietsenwinkel</div>
+            <div id="public-transport-text">Openbaar vervoer</div>
+            <div id="railway-station-text">Treinstation</div>
+            <div id="tram-stop-text">Tramhalte</div>
+            <div id="bus-stop-text">Bushalte</div>
+            <div id="ferry-text">Veerboot terminal</div>
+        </div>
         <h1>online gpx-bewerker</h1>
         <h1>online gpx-viewer</h1>
         <h1>bewerk gpx-bestanden online</h1>
@@ -598,7 +654,7 @@
     <script type="text/javascript" src="/include/distancemarkers/leaflet-distance-markers.js"></script>
     <script type="text/javascript" src="/include/condensed-attribution/leaflet-control-condended-attribution.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.74.1/dist/L.Control.Locate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
     <script src="https://unpkg.com/mapillary-js@4.0.0/dist/mapillary.js"></script>
     <script src="https://unpkg.com/leaflet.vectorgrid@1.3.0/dist/Leaflet.VectorGrid.min.js"></script>
