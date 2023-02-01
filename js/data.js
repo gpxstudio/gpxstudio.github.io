@@ -125,7 +125,7 @@ window.icons = [
 	["Dam",{prefix: "fas", glyph: "water"}],
 	["Danger Area",{prefix: "fas", glyph: "exclamation"}],
 	["Deli",{prefix: "fas", glyph: "store"}],
-	["Department Store",{prefix: "fas", glyph: "store"}],
+	["Department Store",{prefix: "fas", glyph: "cart-shopping"}],
 	["Diamond, Blue",{prefix: "fas", glyph: "gem"}],
 	["Diamond, Green",{prefix: "fas", glyph: "gem"}],
 	["Diamond, Red",{prefix: "fas", glyph: "gem"}],
@@ -345,52 +345,53 @@ window.icons = [
 ];
 
 class PointOfInterest {
-	constructor(name, query, glyph) {
+	constructor(name, query, glyph, sym) {
 		this.name = name;
 		this.query = query;
 		this.glyph = glyph;
+        this.sym = sym; // taken from the list above
 	}
 }
 pointsOfInterest = {}
 pointsOfInterest[document.getElementById('eat-and-drink-text').innerText] = [
-	new PointOfInterest(document.getElementById('eat-and-drink-text').innerText, "['shop'='bakery']", "bread-slice"),
-	new PointOfInterest(document.getElementById('supermarket-text').innerText, "['shop'='supermarket']", "cart-shopping"),
-	new PointOfInterest(document.getElementById('convenience-store-text').innerText, "['shop'='convenience']", "shop"),
-	new PointOfInterest(document.getElementById('restaurant-text').innerText, "['amenity'='restaurant']", "utensils"),
-	new PointOfInterest(document.getElementById('fast-food-text').innerText, "['amenity'='fast_food']", "burger"),
-	new PointOfInterest(document.getElementById('cafe-text').innerText, "['amenity'='cafe']", "mug-hot"),
-	new PointOfInterest(document.getElementById('pub-text').innerText, "['amenity'='pub']", "beer-mug-empty"),
-	new PointOfInterest(document.getElementById('bar-text').innerText, "['amenity'='bar']", "martini-glass"),
+	new PointOfInterest(document.getElementById('bakery-text').innerText, "['shop'='bakery']", "bread-slice", "Convenience Store"),
+	new PointOfInterest(document.getElementById('supermarket-text').innerText, "['shop'='supermarket']", "cart-shopping", "Department Store"),
+	new PointOfInterest(document.getElementById('convenience-store-text').innerText, "['shop'='convenience']", "store", "Convenience Store"),
+	new PointOfInterest(document.getElementById('restaurant-text').innerText, "['amenity'='restaurant']", "utensils", "Restaurant"),
+	new PointOfInterest(document.getElementById('fast-food-text').innerText, "['amenity'='fast_food']", "burger", "Fast Food"),
+	new PointOfInterest(document.getElementById('cafe-text').innerText, "['amenity'='cafe']", "mug-hot", "Restaurant"),
+	new PointOfInterest(document.getElementById('pub-text').innerText, "['amenity'='pub']", "beer-mug-empty", "Bar"),
+	new PointOfInterest(document.getElementById('bar-text').innerText, "['amenity'='bar']", "martini-glass", "Bar"),
 ];
 pointsOfInterest[document.getElementById('amenities-text').innerText] = [
-	new PointOfInterest(document.getElementById('toilets-text').innerText, "['amenity'='toilets']", "restroom"),
-	new PointOfInterest(document.getElementById('drinking-water-text').innerText, "['amenity'='drinking_water']", "faucet"),
-	new PointOfInterest(document.getElementById('water-point-text').innerText, "['amenity'='water_point']", "faucet"),
-	new PointOfInterest(document.getElementById('water-spring-text').innerText, "['natural'='spring']['drinking_water'='yes']", "droplet"),
-	new PointOfInterest(document.getElementById('shower-text').innerText, "['amenity'='shower']", "shower"),
-	new PointOfInterest(document.getElementById('fuel-station-text').innerText, "['amenity'='fuel']", "gas-pump"),
-	new PointOfInterest(document.getElementById('parking-text').innerText, "['amenity'='parking']", "square-parking"),
+	new PointOfInterest(document.getElementById('toilets-text').innerText, "['amenity'='toilets']", "restroom", "Restroom"),
+	new PointOfInterest(document.getElementById('drinking-water-text').innerText, "['amenity'='drinking_water']", "faucet", "Drinking Water"),
+	new PointOfInterest(document.getElementById('water-point-text').innerText, "['amenity'='water_point']", "faucet", "Drinking Water"),
+	new PointOfInterest(document.getElementById('water-spring-text').innerText, "['natural'='spring']['drinking_water'='yes']", "droplet", "Water Source"),
+	new PointOfInterest(document.getElementById('shower-text').innerText, "['amenity'='shower']", "shower", "Shower"),
+	new PointOfInterest(document.getElementById('fuel-station-text').innerText, "['amenity'='fuel']", "gas-pump", "Gas Station"),
+	new PointOfInterest(document.getElementById('parking-text').innerText, "['amenity'='parking']", "square-parking", "Parking Area"),
 ];
 pointsOfInterest[document.getElementById('tourism-text').innerText] = [
-	new PointOfInterest(document.getElementById('attraction-text').innerText, "['tourism'='attraction']", "landmark"),
-	new PointOfInterest(document.getElementById('viewpoint-text').innerText, "['tourism'='viewpoint']", "binoculars"),
-	new PointOfInterest(document.getElementById('hotel-text').innerText, "['tourism'='hotel']", "hotel"),
-	new PointOfInterest(document.getElementById('hostel-text').innerText, "['tourism'='hostel']", "bed"),
-	new PointOfInterest(document.getElementById('guest-house-text').innerText, "['tourism'='guest_house']", "house-chimney-user"),
-	new PointOfInterest(document.getElementById('motel-text').innerText, "['tourism'='motel']", "hotel"),
-	new PointOfInterest(document.getElementById('campsite-text').innerText, "['tourism'='campsite']", "campground"),
-	new PointOfInterest(document.getElementById('alpine-hut-text').innerText, "['tourism'='alpine_hut']", "house-chimney-crack"),
-	new PointOfInterest(document.getElementById('wilderness-hut-text').innerText, "['tourism'='wilderness_hut']", "house-crack"),
-	new PointOfInterest(document.getElementById('climbing-text').innerText, "['sport'='climbing']", "mountain"),
+	new PointOfInterest(document.getElementById('attraction-text').innerText, "['tourism'='attraction']", "landmark", "Amusement Park"),
+	new PointOfInterest(document.getElementById('viewpoint-text').innerText, "['tourism'='viewpoint']", "binoculars", "Scenic Area"),
+	new PointOfInterest(document.getElementById('hotel-text').innerText, "['tourism'='hotel']", "hotel", "Hotel"),
+	new PointOfInterest(document.getElementById('hostel-text').innerText, "['tourism'='hostel']", "bed", "Hotel"),
+	new PointOfInterest(document.getElementById('guest-house-text').innerText, "['tourism'='guest_house']", "house-chimney-user", "Lodge"),
+	new PointOfInterest(document.getElementById('motel-text').innerText, "['tourism'='motel']", "hotel", "Hotel"),
+	new PointOfInterest(document.getElementById('campsite-text').innerText, "['tourism'='campsite']", "campground", "Campground"),
+	new PointOfInterest(document.getElementById('alpine-hut-text').innerText, "['tourism'='alpine_hut']", "house-chimney-crack", "Lodge"),
+	new PointOfInterest(document.getElementById('wilderness-hut-text').innerText, "['tourism'='wilderness_hut']", "house-crack", "Lodge"),
+	new PointOfInterest(document.getElementById('climbing-text').innerText, "['sport'='climbing']", "mountain", "Elevation point"),
 ];
 pointsOfInterest[document.getElementById('bicycle-text').innerText] = [
-	new PointOfInterest(document.getElementById('bicycle-parking-text').innerText, "['amenity'='bicycle_parking']", "square-parking"),
-	new PointOfInterest(document.getElementById('bicycle-rental-text').innerText, "['amenity'='bicycle_rental']", "tag"),
-	new PointOfInterest(document.getElementById('bicycle-shop-text').innerText, "['shop'='bicycle']", "bicycle"),
+	new PointOfInterest(document.getElementById('bicycle-parking-text').innerText, "['amenity'='bicycle_parking']", "square-parking", "Parking Area"),
+	new PointOfInterest(document.getElementById('bicycle-rental-text').innerText, "['amenity'='bicycle_rental']", "tag", "Bike Trail"),
+	new PointOfInterest(document.getElementById('bicycle-shop-text').innerText, "['shop'='bicycle']", "bicycle", "Bike Trail"),
 ];
 pointsOfInterest[document.getElementById('public-transport-text').innerText] = [
-	new PointOfInterest(document.getElementById('railway-station-text').innerText, "['railway'='station']", "train"),
-	new PointOfInterest(document.getElementById('tram-stop-text').innerText, "['railway'='tram_stop']", "train-tram"),
-	new PointOfInterest(document.getElementById('bus-stop-text').innerText, "['public_transport'='stop_position']['bus'='yes']", "bus-simple"),
-	new PointOfInterest(document.getElementById('ferry-text').innerText, "['amenity'='ferry_terminal']", "ship"),
+	new PointOfInterest(document.getElementById('railway-station-text').innerText, "['railway'='station']", "train", "Ground Transportation"),
+	new PointOfInterest(document.getElementById('tram-stop-text').innerText, "['railway'='tram_stop']", "train-tram", "Ground Transportation"),
+	new PointOfInterest(document.getElementById('bus-stop-text').innerText, "['public_transport'='stop_position']['bus'='yes']", "bus-simple", "Ground Transportation"),
+	new PointOfInterest(document.getElementById('ferry-text').innerText, "['amenity'='ferry_terminal']", "ship", "Boat Ramp"),
 ];

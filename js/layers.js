@@ -237,7 +237,7 @@ const onSuccess = function (data) {
                     cmt += `${key}: ${value}`;
                 }
                 buttons.clone_wpt = {
-                    sym: '',
+                    sym: _this.options.sym,
                     name: _this.options.type,
                     cmt: cmt,
                     desc: '',
@@ -273,6 +273,7 @@ for (var category in pointsOfInterest) {
             minZoomIndicatorOptions: overPassMinZoomOptions,
             attribution: overPassAttribution,
             type: poi.name,
+            sym: poi.sym,
             onSuccess: onSuccess,
         });
         pointsOfInterestLayerSelection[category][poi.name] = true;
