@@ -1086,7 +1086,6 @@ export default class Buttons {
             if (buttons.window_open) buttons.window_open.hide();
             const newTrace = total.addTrace(undefined, "new.gpx");
             newTrace.draw();
-            gtag('event', 'button', {'event_category' : 'draw'});
         });
         this.add_wpt.addEventListener("click", function () {
             if (total.hasFocus) return;
@@ -1187,7 +1186,6 @@ export default class Buttons {
                 buttons.zone_delete_wpts.checked,
                 buttons.zone_delete_inside.checked);
             buttons.zone_delete_window.hide();
-            gtag('event', 'button', {'event_category' : 'zone-delete'});
         });
         this.zone_delete_cancel.addEventListener("click", function () {
             buttons.zone_delete_window.hide();
@@ -1264,7 +1262,6 @@ export default class Buttons {
             }
 
             buttons.export_window.hide();
-            gtag('event', 'button', {'event_category' : 'export'});
         });
         this.save_drive.addEventListener("click", function () {
             buttons.export_window.hide();
@@ -1283,7 +1280,6 @@ export default class Buttons {
             const end = Math.min(trace.getPoints().length-1, total.buttons.slider.getIndexEnd());
             total.traces[total.focusOn].crop(start, end, !buttons.crop_keep.checked);
             buttons.crop_window.hide();
-            gtag('event', 'button', {'event_category' : 'crop'});
         });
         this.crop_cancel.addEventListener("click", function () {
             buttons.crop_window.hide();
@@ -1366,7 +1362,6 @@ export default class Buttons {
                 if (trace.drawing) trace.stopDraw();
             } else {
                 trace.draw();
-                gtag('event', 'button', {'event_category' : 'edit-trace'});
             }
         });
         this.toggle_editing_options.addEventListener('click', function () {
@@ -1478,7 +1473,6 @@ export default class Buttons {
             if (trace.isEdited) return;
             if (!trace.visible) trace.hideUnhide();
             trace.reverse();
-            gtag('event', 'button', {'event_category' : 'reverse'});
         });
         this.extract.addEventListener("click", function() {
             if (total.hasFocus) return;
@@ -1502,7 +1496,6 @@ export default class Buttons {
                 for (var i=0; i<newTraces.length; i++) {
                     total.setTraceIndex(newTraces[i].index, trace.index+1+i);
                 }
-                gtag('event', 'button', {'event_category' : 'extract'});
             }
         });
         this.extract_ok.addEventListener("click", function() {
@@ -1511,7 +1504,6 @@ export default class Buttons {
                 total.setTraceIndex(newTraces[i].index, buttons.extract.trace.index+1+i);
             }
             buttons.extract_window.hide();
-            gtag('event', 'button', {'event_category' : 'extract'});
         });
         this.extract_cancel.addEventListener("click", function() {
             buttons.extract_window.hide();
@@ -1538,7 +1530,6 @@ export default class Buttons {
         this.reduce_ok.addEventListener("click", function() {
             buttons.reduce.trace.simplify();
             buttons.reduce_window.hide();
-            gtag('event', 'button', {'event_category' : 'simplify'});
         });
         this.reduce_cancel.addEventListener("click", function() {
             buttons.reduce_window.hide();
@@ -1562,7 +1553,6 @@ export default class Buttons {
 
             buttons.window_open = buttons.structure_window;
             buttons.structure_window.show();
-            gtag('event', 'button', {'event_category' : 'structure'});
         });
         this.merge_selection.addEventListener("mousedown", function () {
             const items = buttons.file_structure.getElementsByClassName('multidrag-selected');
@@ -1685,7 +1675,6 @@ export default class Buttons {
                 trace.showData();
 
                 buttons.time.window.close();
-                gtag('event', 'button', {'event_category' : 'edit-time'});
             });
             const cancel = document.getElementById("cancel-speed");
             cancel.addEventListener("click", function () {
@@ -1733,7 +1722,6 @@ export default class Buttons {
             trace.showDistanceMarkers();
             trace.updateTab();
             buttons.color_window.hide();
-            gtag('event', 'button', {'event_category' : 'color'});
         });
         this.color_cancel.addEventListener("click", function () {
             buttons.color_window.hide();
@@ -1824,7 +1812,6 @@ export default class Buttons {
             if (buttons.window_open) buttons.window_open.hide();
             buttons.window_open = buttons.help_window;
             buttons.help_window.show();
-            gtag('event', 'button', {'event_category' : 'help'});
         });
         this.duplicate.addEventListener("click", function () {
             if (total.hasFocus) return;
@@ -1832,7 +1819,6 @@ export default class Buttons {
             if (trace.isEdited) return;
             const clone = trace.clone();
             total.setTraceIndex(clone.index, trace.index+1);
-            gtag('event', 'button', {'event_category' : 'duplicate'});
         });
         this.combine.addEventListener("click", function () {
             if (total.traces.length <= 1) return;
@@ -1852,7 +1838,6 @@ export default class Buttons {
             if (total.hasFocus) return;
             const trace = total.traces[total.focusOn];
             trace.hideUnhide();
-            gtag('event', 'button', {'event_category' : 'hide'});
         });
         if (!this.embedding) {
             this.layer_map = L.map('preview-map', {
@@ -2059,7 +2044,6 @@ export default class Buttons {
                         }
                         buttons.disable_trace = false;
                         buttons.add_wpt.active = false;
-                        gtag('event', 'button', {'event_category' : 'waypoint'});
                         return;
                     } else if (trace.drawing) {
                         if (buttons.disable_trace) return;
@@ -2158,7 +2142,6 @@ export default class Buttons {
             reader.readAsDataURL(file);
         }
         this.input.value = "";
-        gtag('event', 'button', {'event_category' : 'load'});
     }
 
     openURLs() {
@@ -2249,7 +2232,6 @@ export default class Buttons {
 
     donation() {
         window.open('https://ko-fi.com/gpxstudio');
-        gtag('event', 'button', {'event_category' : 'donate'});
     }
 
     pause(msec) {

@@ -52,7 +52,6 @@ export default class Trace {
             total.to_merge.merge(trace, total.buttons.merge_as_points.checked, total.buttons.merge_as_segments.checked, total.buttons.merge_as_tracks.checked, total.buttons.merge_stick_time.checked);
             total.removeTrace(trace.index);
             total.to_merge.focus();
-            gtag('event', 'button', {'event_category' : 'merge'});
         };
 
         this.gpx.on('error', function (e) {
