@@ -38,7 +38,7 @@ export default class Buttons {
             zoomControl: false,
             minZoom: 2,
             worldCopyJump: true,
-            condensedAttributionControl: false
+            toggleableAttributionControl: false
         }).setView([0, 0], 2);
 
         if (!this.embedding && !urlParams.has('state') && !localStorage.hasOwnProperty('traces')) {
@@ -379,10 +379,9 @@ export default class Buttons {
             position: 'bottomleft'
         }).addTo(this.map);
 
-        L.control.condensedAttribution({
+        L.control.toggleableAttribution({
             position: 'bottomleft',
-            emblem: '<i class="fas fa-circle-info"></i>',
-            prefix: '<a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>'
+            icon: '<i class="fas fa-circle-info"></i>',
         }).addTo(this.map);
 
         this.hideTraceButtons();
@@ -1842,7 +1841,7 @@ export default class Buttons {
         if (!this.embedding) {
             this.layer_map = L.map('preview-map', {
                 zoomControl: false,
-                condensedAttributionControl: false
+                toggleableAttributionControl: false
             });
             this.controlLayers._layer_selection_button.addEventListener('click', function () {
                 if (buttons.window_open) buttons.window_open.hide();
