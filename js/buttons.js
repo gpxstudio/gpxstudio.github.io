@@ -38,7 +38,9 @@ export default class Buttons {
             zoomControl: false,
             minZoom: 2,
             worldCopyJump: true,
-            toggleableAttributionControl: false
+            toggleableAttributionControl: false,
+            zoomSnap: 0.5,
+            zoomDelta: 0.5,
         }).setView([0, 0], 2);
 
         if (!this.embedding && !urlParams.has('state') && !localStorage.hasOwnProperty('traces')) {
