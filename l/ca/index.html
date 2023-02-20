@@ -73,45 +73,45 @@
                 <i id="burger" class="fa-solid fa-bars panels custom-button"></i>
                 <img src="/res/logo.png" height="21" class="panels custom-button" style="vertical-align: middle; padding: 2px 6px 4px 6px" alt="logo del gpx.studio, l'editor GPX en línia">
             </div>
-            <div id="load" class="panels custom-button">Load GPX</div>
-            <div id="manual" class="panels custom-button">New GPX</div>
-            <div id="export" class="panels custom-button">Export</div>
+            <div id="load" class="panels custom-button">Carregar GPS</div>
+            <div id="manual" class="panels custom-button">Nou GPX</div>
+            <div id="export" class="panels custom-button">Exporta</div>
             <div style="display: inline-block">
                 <div class="panels custom-button unselected no-click2" id="undo"><i class="fas fa-reply"></i></div>
                 <div class="panels custom-button unselected no-click2" id="redo"><i class="fas fa-share"></i></div>
             </div>
-            <div id="clear" class="panels custom-button">Clear all</div>
-            <div id="help" class="panels custom-button">Help</div>
-            <div id="about" class="panels custom-button">About</div>
-            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Donate</b> <i class="fas fa-heart"></i></div>
+            <div id="clear" class="panels custom-button">Esborra-ho tot</div>
+            <div id="help" class="panels custom-button">Ajuda</div>
+            <div id="about" class="panels custom-button">Sobre</div>
+            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Fes una donació</b> <i class="fas fa-heart"></i></div>
         </div>
         <div id="info">
             <ul id="sortable-tabs">
               <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">Total</li>
             </ul>
             <div id="info-grid" class="panels-container trace-info maximized">
-                <div class="panels panels-info" id="distance">Distance</div>
+                <div class="panels panels-info" id="distance">Distancia</div>
                 <div class="panels panels-val" id="distance-val"></div>
-                <div class="panels panels-info" id="elevation">Elevation</div>
+                <div class="panels panels-info" id="elevation">Elevació</div>
                 <div class="panels panels-val" id="elevation-val"></div>
-                <div class="panels panels-info" id="speed">Speed</div>
+                <div class="panels panels-info" id="speed">Velocitat</div>
                 <div class="panels panels-val" id="speed-val"></div>
-                <div class="panels panels-info" id="duration">Moving time</div>
+                <div class="panels panels-info" id="duration">Temps en moviment</div>
                 <div class="panels panels-val" id="duration-val"></div>
                 <div class="panels panels-info" id="tracks">Tracks</div>
                 <div class="panels panels-val" id="tracks-val">0</div>
-                <div class="panels panels-info" id="segments">Track segments</div>
+                <div class="panels panels-info" id="segments">Segments de tracks</div>
                 <div class="panels panels-val" id="segments-val">0</div>
-                <div class="panels panels-info" id="points">Track points</div>
+                <div class="panels panels-info" id="points">Punts del track</div>
                 <div class="panels panels-val" id="points-val">0</div>
-                <div id="units-text" class="panels panels-info">Distance units</div>
+                <div id="units-text" class="panels panels-info">Unitats de distancia</div>
                 <select id="units-input" name="panels panels-val units-input">
                     <option value="km">Mètric</option>
                     <option value="mi">Imperial</option>
                 </select>
-                <div id="speed-units-text" class="panels panels-info">Velocity units</div>
+                <div id="speed-units-text" class="panels panels-info">Unitats de velocitat</div>
                 <select id="speed-units-input" name="panels panels-val speed-units-input">
-                    <option value="speed">Speed</option>
+                    <option value="speed">Velocitat</option>
                     <option value="pace">Ritme</option>
                 </select>
                 <div id="elevation-input" class="panels-button custom-button" title="Mostrar/ocultar Perfil d'elevació"><i class="fas fa-minus"></i></div>
@@ -144,7 +144,7 @@
                 <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Alternar les opcions d'edició"></i>
                 <table class="panels">
                     <tr>
-                        <td><b>Activity</b></td>
+                        <td><b>Activitat</b></td>
                         <td><select name="activity" id="activity-input" class="close-spacing">
                             <option value="Trekking-dry">Bicicleta</option>
                             <option value="fastbike">Bicicleta de carretera</option>
@@ -154,14 +154,13 @@
                         </select></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><label for="routing-input"><b>Routing (follow roads)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
+                        <td colspan="2"><label for="routing-input"><b>Encaminament (seguir rutes)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><label for="edit-time-strategy"><b>Time data management</b></label></td>
+                        <td colspan="2"><label for="edit-time-strategy"><b>Gestió de dades de temps</b></label></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
-                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preserve the original timestamps</label></td>
+                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Conserva la velocitat mitjana</label><br>                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Conserva les marques de temps originals</label></td>
                     </tr>
                 </table>
             </div>
@@ -173,11 +172,11 @@
             </div>
             <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Obrir Mapillary o Google Street View"></i>
         </div>
-        <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Direction markers</label>
-        <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Distance markers</label>
+        <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Marcadors de direcció</label>
+        <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Marcadors de distancia</label>
         <div id="help-text">
         <div style="text-align: center; font-size: 10pt; color: #476947">
-            <b>Check out the <a href="./about.html#guide" target="_blank">User Guide</a> for more info and small tutorials!</b>
+            <b>Per a més informació i petits tutorials, dona un cop d'ull a la<a href="./about.html#guide" target="_blank">Guia d'Usuari</a>!</b>
         </div><br>
         <table style="width: 100%">
             <colgroup>
@@ -187,34 +186,34 @@
             </colgroup>
             <tbody>
             <tr>
-                <td><b>Load GPX</b></td>
+                <td><b>Carregar GPS</b></td>
                 <td>Ctrl+O</td>
-                <td>Import and visualize GPX files (or drag and drop anywhere in the window)</td>
+                <td>Importa i visualitza fitxers GPX (o bé arrossega i deixa anar a qualsevol lloc dins la finestra)</td>
             </tr>
             <tr>
-                <td><b>New GPX</b></td>
+                <td><b>Nou GPX</b></td>
                 <td>Ctrl+D</td>
-                <td>Start drawing a new route by placing anchor points on the map</td>
+                <td>Comença a dibuixar una nova ruta tot posant punts d'ancoratge en el mapa</td>
             </tr>
             <tr>
-                <td><b>Export</b></td>
+                <td><b>Exporta</b></td>
                 <td>Ctrl+S</td>
-                <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Time, heart rate, cadence, power and temperature data are automatically extended. Optionally, merge all files <b>in the chosen order</b>. You can also drag a tab to your desktop to download the file.</td>
+                <td>Baixa't els fitxers al teu escriptori o salva'ls al Google Drive™ per obtenir un <b>enllaç compartible</b> o bé un <b>codi d'incrustació</b>. Les dades de temps, freqüència cardíaca, cadència, potencia i temperatura s'amplien automàticament. Opcionalment, fusionar tots el fitxer<b> en l'ordre escollit</b>. També pots arrossegar una pestanya al teu escriptori per a descarregar el fitxer.</td>
             </tr>
             <tr>
                 <td><i class="fas fa-reply"></i> <i class="fas fa-share"></i></td>
                 <td>Ctrl+Z/Y</td>
-                <td>Undo and redo actions in edition mode</td>
+                <td>Desfer i refer accions en mode edició</td>
             </tr>
             <tr>
-                <td><b>Clear all</b></td>
+                <td><b>Esborra-ho tot</b></td>
                 <td>Ctrl+K</td>
-                <td>Delete all traces</td>
+                <td>Eliminar tots els rastres</td>
             </tr>
             <tr>
                 <td></td>
-                <td>Escape</td>
-                <td>Exit current menu or tool</td>
+                <td>Escapament</td>
+                <td>Sortir del menú o eina actual</td>
             </tr>
             </tbody>
         </table><br>
@@ -226,43 +225,43 @@
             <tbody>
             <tr>
                 <td><i class="fas fa-pencil-alt"></i></td>
-                <td>Enter edition mode to add, move, insert or delete (Shift+click) anchor points, right-click on anchor points for more options (split, change start, delete)</td>
+                <td>Activa el mode d'edició per afegir, moure, inserir o eliminar (Majúscules+clic) punts d'àncora, fes clic dret a punts d'àncora per a més opcions (dividir, canviar inici, eliminar)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-stopwatch"></i></td>
-                <td>Change the speed and starting time of the trace</td>
+                <td>Canviar la velocitat i l'hora d'inici del track</td>
             </tr>
             <tr>
                 <td><i class="fas fa-exchange-alt"></i></td>
-                <td>Reverse the trace and adapt the timestamps</td>
+                <td>Invertir el track i adaptar les marques de temps</td>
             </tr>
             <tr>
                 <td><i class="fas fa-plus-circle"></i></td>
-                <td>Merge with another trace (automatically extends time, heart rate, cadence, power and temperature data)</td>
+                <td>Combina amb un altre track (s'allarguen automàticament les dades de temps, freqüència cardíaca, cadència, potència i temperatura)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-list-ul"></i></td>
-                <td>Extract all track segments and creates one trace for each</td>
+                <td>Extreu tots els segments del track i crea un track per a cadascun</td>
             </tr>
             <tr>
                 <td><i class="fas fa-copy"></i></td>
-                <td>Duplicate the trace</td>
+                <td>Duplica el track</td>
             </tr>
             <tr>
                 <td><i class="fas fa-map-marker-alt"></i></td>
-                <td>Add a waypoint (drag to change its location and use the buttons to edit info, duplicate or remove)</td>
+                <td>Afegeix un waypoint (arrossega per canviar-ne la ubicació i utilitza els botons per editar la informació, duplicar o eliminar)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-compress-alt"></i></td>
-                <td>Reduce the number of track points</td>
+                <td>Reduir el nombre de punts de pista</td>
             </tr>
             <tr>
                 <td><i class="fas fa-vector-square"></i></td>
-                <td>Delete track points and/or waypoints inside/outside rectangle selection</td>
+                <td>Suprimeix punts de ruta i/o waypoints dins/fora de la selecció del rectangle</td>
             </tr>
             <tr>
                 <td><i class="fas fa-eye-slash"></i></td>
-                <td>Hide or unhide the trace</td>
+                <td>Amaga o mostra el track</td>
             </tr>
             <tr>
                 <td><i class="fas fa-palette"></i></td>
@@ -403,14 +402,14 @@
             <div id="split-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
         </div>
         <div id="extract-content" class="popup-content">
-            Choose what to extract<br>
+            Tria què vols extreure<br>
             <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Tracks</label><br>
-            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Track segments</label><br>
+            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Segments del track</label><br>
             <div id="extract-ok" class="panels custom-button normal-button">Ok</div>
             <div id="extract-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
         </div>
         <div id="structure-content" class="popup-content">
-            <div class="close-spacing">Drag and drop the elements to rearrange the file structure</div>
+            <div class="close-spacing">Arrossegueu i deixeu anar els elements per reordenar l'estructura del fitxer</div>
             <div>Move elements from or to the tabs above the elevation profile</div>
             <div>Rename tracks or change their color</div>
             <div id="file-structure"></div>
@@ -431,7 +430,7 @@
         </div>
         <div id="zone-delete-content" class="popup-content">
             Choose what to delete<br>
-            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Track points</label>
+            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Punts del track</label>
             <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
             <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inside selection</label>
             <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
@@ -508,7 +507,7 @@
         <span id="track-text">Track</span>
         <span id="segment-text">Segment</span>
         <div id="edit-speed-popup-text">
-            <div id="speed-text">Speed</div>
+            <div id="speed-text">Velocitat</div>
             <div id="pace-text">Ritme</div>
             <div id="start-text">Start</div>
             <div id="experimental-info-text">Generate speed considering the slope and the activity type<br><b><i class="fas fa-exclamation-triangle"></i> erases all existing time data</b></div>
