@@ -346,70 +346,70 @@ Resultat de traducció
         </div>
         <div id="clear-content" class="popup-content">
             Això suprimirà tots els tracks oberts.<br>Vols continuar?<br>
-            <div id="clear2" class="panels custom-button normal-button">Yes</div>
-            <div id="cancelclear" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="clear2" class="panels custom-button normal-button">Sí</div>
+            <div id="cancelclear" class="panels custom-button normal-button"><b>Cancel·lar</b></div>
         </div>
         <div id="delete-content" class="popup-content">
-            This will delete the current trace.<br>Do you wish to continue?<br>
-            <div id="delete2" class="panels custom-button normal-button">Yes</div>
-            <div id="canceldelete" class="panels custom-button normal-button"><b>Cancel</b></div>
+            Això suprimirà tots els tracks oberts.<br>Vols continuar?<br>
+            <div id="delete2" class="panels custom-button normal-button">Sí</div>
+            <div id="canceldelete" class="panels custom-button normal-button"><b>Cancel·lar</b></div>
         </div>
         <div id="color-content" class="popup-content">
             <div style="text-align: left">
-                <label for="color-picker">Pick a new color</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
-                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Apply color to all traces</label><br>
-                <label for="opacity-slider">Opacity</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
-                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Apply opacity to all traces</label><br>
-                <label for="width-slider">Width</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
-                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Apply width to all traces</label>
+                <label for="color-picker">Tria un color nou</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
+                 <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Aplica color a tots els tracks</label><br>
+                 <label for="opacity-slider">Opacitat</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
+                 <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Aplica opacitat a tots els tracks</label><br>
+                 <label for="width-slider">Amplada</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
+                 <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Aplica amplada a totes els tracks</label>
             </div>
-            <div id="validate-color" class="panels custom-button normal-button">Ok</div>
-            <div id="cancel-color" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="validate-color" class="panels custom-button normal-button">D'acord</div>
+            <div id="cancel-color" class="panels custom-button normal-button"><b>Cancel·lar</b></div>
         </div>
         <div id="load-content" class="popup-content">
-            Choose files from<br>
-            <div id="load2" class="panels custom-button normal-button">Desktop</div>
+            Trieu fitxers de<br>
+            <div id="load2" class="panels custom-button normal-button">Escriptori</div>
             <div id="load-drive" class="panels custom-button normal-button">Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div><br>
-            (or drag and drop anywhere in the window)
+            (o arrossegueu i deixeu anar a qualsevol lloc de la finestra)
         </div>
         <div id="share-content" class="popup-content">
-            Done!<br>
-            <div id="copy-link" class="panels custom-button fancy-button">Copy link <i class="fas fa-link"></i></div><br>
-            <div id="copy-embed" class="panels custom-button fancy-button">Copy embedding code <i class="fas fa-code"></i></div><br>
+            Fet!<br>
+            <div id="copy-link" class="panels custom-button fancy-button">Copia l'enllaç <i class="fas fa-link"></i></div><br>
+            <div id="copy-embed" class="panels custom-button fancy-button">Copia el codi d'incrustació <i class="fas fa-code"></i></div><br>
         </div>
         <div id="merge-content" class="popup-content">
             <div id="merge-time-options">
-                <i class="fas fa-stopwatch"></i> Choose how to adapt the timestamps of the second trace (if any)
+                <i class="fas fa-stopwatch"></i> Trieu com adaptar les marques de temps del segon track (si n'hi ha)
                 <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
-                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Keep the original timestamps (as long as they come after those of the first trace)</label><br>
-                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Make the second trace start right after the first one</label>
+                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Conserva les marques de temps originals (sempre que vinguin després de les del primer track)</label><br>
+                     <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Fes que el segon track comenci just després del primer</label>
                 </div>
                 <hr>
             </div>
             <div>
-                <div class="close-spacing">Click on another trace or tab to merge the current trace with it</div><hr>
-                Choose how to add the second trace to the first one
+                <div class="close-spacing">Feu clic a una altra track o pestanya per combinar-hi el track actual</div><hr>
+                Trieu com afegir el segon track al primer
                 <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
-                    <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Merge as track points</label><br>
-                    <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Merge as track segments</label><br>
-                    <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Merge as tracks</label>
+                    <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Combinar com a punts del track</label><br>
+                     <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Combina com a segments del track</label><br>
+                     <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Combina com a tracks</label>
                 </div>
             </div>
         </div>
         <div id="split-content" class="popup-content">
-            Choose how to split the trace<br>
-            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Split into separate files</label><br>
-            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Split into separate tracks</label><br>
-            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Split into separate track segments</label><br>
-            <div id="split-ok" class="panels custom-button normal-button">Ok</div>
-            <div id="split-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            Trieu com dividir el rastre<br>
+            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Dividiu en fitxers separats</label><br>
+            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Dividiu en tracks separats</label><br>
+            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Dividiu en segments de track separats</label><br>
+            <div id="split-ok" class="panels custom-button normal-button">D'acord</div>
+            <div id="split-cancel" class="panels custom-button normal-button"><b>Cancel·lar</b></div>
         </div>
         <div id="extract-content" class="popup-content">
             Tria què vols extreure<br>
             <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Tracks</label><br>
             <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Segments del track</label><br>
-            <div id="extract-ok" class="panels custom-button normal-button">Ok</div>
-            <div id="extract-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="extract-ok" class="panels custom-button normal-button">D'acord</div>
+            <div id="extract-cancel" class="panels custom-button normal-button"><b>Cancel·lar</b></div>
         </div>
         <div id="structure-content" class="popup-content">
             <div class="close-spacing">Arrossegueu i deixeu anar els elements per reordenar l'estructura del fitxer</div>
@@ -422,14 +422,14 @@ Resultat de traducció
         <div id="crop-content" class="popup-content">
             <input type="checkbox" id="crop-keep"><label for="crop-keep">Conserva les parts retallades en fitxers nous</label><br>
             <div id="crop-ok" class="panels custom-button normal-button">Continuar</div>
-            <div id="crop-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="crop-cancel" class="panels custom-button normal-button"><b>Cancel·lar</b></div>
         </div>
         <div id="reduce-content" class="popup-content">
             Tria la quantitat de detalls que vols conservar<br>
              Nombre de punts de la pista: <span id="reduce-npoints">0</span><br>
             <input type="range" min="0" max="1000" id="reduce-slider" style="width: 90%"><br>
-            <div id="reduce-ok" class="panels custom-button normal-button">Ok</div>
-            <div id="reduce-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="reduce-ok" class="panels custom-button normal-button">D'acord</div>
+            <div id="reduce-cancel" class="panels custom-button normal-button"><b>Cancel·lar</b></div>
         </div>
         <div id="zone-delete-content" class="popup-content">
             Selecciona el que vulguis eliminar<br>
@@ -438,7 +438,7 @@ Resultat de traducció
             <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Selecció interior</label>
             <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Selecció exterior</label><br>
             <div id="zone-delete-ok" class="panels custom-button normal-button">Continuar</div>
-            <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Cancel·lar</b></div>
         </div>
         <div id="layer-selection-content">
             <div id="layer-creation">
@@ -488,7 +488,7 @@ Resultat de traducció
         <div id="load-error-content" class="popup-content">
             S'ha produït un error en carregar el fitxer GPX.<br>
              Comproveu el format del fitxer.<br>
-            <div id="load-error-ok" class="panels custom-button normal-button">Ok</div>
+            <div id="load-error-ok" class="panels custom-button normal-button">D'acord</div>
         </div>
         <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
             <b>Obre en</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logo del gpx.studio, l'editor GPX en línia">
@@ -501,8 +501,8 @@ Resultat de traducció
         <div id="unit-minutes-text">minuts</div>
         <div id="duplicate-text">Duplica el track</div>
         <div id="delete-text">Elimina track</div>
-        <div id="ok-button-text">Ok</div>
-        <div id="cancel-button-text">Cancel</div>
+        <div id="ok-button-text">D'acord</div>
+        <div id="cancel-button-text">Cancel·lar</div>
         <div id="search-input-text">Cerca...</div>
         <div id="search-button-text">Cerqueu un lloc o enganxeu les coordenades GPS</div>
         <div id="locate-button-text">Mostra la meva posició</div>
