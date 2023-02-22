@@ -545,6 +545,7 @@ L.GPX = L.FeatureGroup.extend({
                               marker.fire('click');
                           });
                       });
+                      L.DomEvent.on(edit,"click",L.DomEvent.stopPropagation);
 
                       const clone = document.getElementById('clone' + popup._leaflet_id);
                       clone.addEventListener('click', function () {

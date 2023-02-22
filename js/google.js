@@ -100,8 +100,6 @@ export default class Google {
                 }
             );
         }
-
-        gtag('event', 'button', {'event_category' : 'open-drive'});
     }
 
     loadPicker(folderMode) {
@@ -154,7 +152,6 @@ export default class Google {
         if (data.action == google.picker.Action.PICKED) {
             for (var i=0; i<data.docs.length; i++)
                 this.downloadFile(data.docs[i]);
-            gtag('event', 'button', {'event_category' : 'load-drive'});
         }
     }
 
@@ -173,8 +170,6 @@ export default class Google {
 
             buttons.export_window.hide();
             this.window = L.control.window(this.buttons.map,{title:'',content:'Uploading...',className:'panels-container',closeButton:false,visible:true});
-
-            gtag('event', 'button', {'event_category' : 'save-drive'});
         }
     }
 

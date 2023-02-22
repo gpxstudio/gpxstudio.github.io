@@ -15,21 +15,12 @@
         <link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/"/>
         <link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/"/>
         <link rel="alternate" hreflang="sv" href="https://gpx.studio/l/sv/"/>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167421374-1"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            if(window.location.hostname != "localhost") {
-                gtag('config', 'UA-167421374-1');
-            }
-        </script>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-        <title>gpx.studio — the online GPX file editor</title>
-        <meta name="description" content="View, edit and create GPX files online: add, move and delete points, merge multiple files, reverse, add timestamps, edit waypoints and more!">
-        <meta property="og:title" content="gpx.studio — the online GPX file editor" />
-        <meta property="og:description" content="View, edit and create GPX files online: add, move and delete points, merge multiple files, reverse, add timestamps, edit waypoints and more!" />
+        <title>gpx.studio - το online πρόγραμμα επεξεργασίας αρχείων GPX</title>
+        <meta name="description" content="Προβάλετε, επεξεργαστείτε και δημιουργήστε αρχεία GPX online: προσθέστε, μετακινήστε και διαγράψτε σημεία, συγχωνεύστε πολλαπλά αρχεία, αντιστρέψτε τα, προσθέστε χρονοσημάνσεις, επεξεργαστείτε σημεία waypoints και πολλά άλλα!">
+        <meta property="og:title" content="gpx.studio - το online πρόγραμμα επεξεργασίας αρχείων GPX" />
+        <meta property="og:description" content="Προβάλετε, επεξεργαστείτε και δημιουργήστε αρχεία GPX online: προσθέστε, μετακινήστε και διαγράψτε σημεία, συγχωνεύστε πολλαπλά αρχεία, αντιστρέψτε τα, προσθέστε χρονοσημάνσεις, επεξεργαστείτε σημεία waypoints και πολλά άλλα!" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://gpx.studio/" />
         <meta property="og:image" content="https://gpx.studio/res/og_logo.png" />
@@ -62,15 +53,15 @@
         <link rel="stylesheet" href="/include/fontawesome/css/fontawesome.min.css"/>
         <link rel="stylesheet" href="/include/fontawesome/css/brands.min.css"/>
         <link rel="stylesheet" href="/include/fontawesome/css/solid.min.css"/>
-        <link rel="stylesheet" href="/include/leaflet/leaflet.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"/>
         <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
         <link rel="stylesheet" href="/include/elevation/L.Control.Heightgraph.css"/>
         <link rel="stylesheet" href="/include/controlwindow/L.Control.Window.css">
-        <link rel="stylesheet" type="text/css" href="/res/index.css">
         <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.css">
-        <link rel="stylesheet" href="/include/condensed-attribution/leaflet-control-condended-attribution.css" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet-toggleable-attribution@0.0.1/src/L.Control.ToggleableAttribution.css"/>
         <link rel="stylesheet" href="https://unpkg.com/mapillary-js@4.0.0/dist/mapillary.css" />
+        <link rel="stylesheet" type="text/css" href="/res/index.css">
     </head>
     <body>
         <input id="input-file" type="file" accept=".gpx" multiple style="display: none"/>
@@ -471,7 +462,7 @@
                         </select></td>
                     </tr>
                     <tr>
-                        <td>Preview</td>
+                        <td>Προεπισκόπηση</td>
                     </tr>
                 </table>
                 <div id="preview-map" style="width: 100%; height: 200px"></div>
@@ -639,7 +630,7 @@
         <h1>merge Strava activities</h1>
         </div>
     </body>
-    <script src="/include/leaflet/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
     <script src="/include/overpasslayer/OverPassLayer.bundle.js"></script>
     <script type="text/javascript" src="/include/icon/Leaflet.Icon.Glyph.js"></script>
     <script type="text/javascript" src="/js/data.js"></script>
@@ -652,7 +643,7 @@
     <script type="text/javascript" src="/include/controlwindow/L.Control.Window.js"></script>
     <script type="text/javascript" src="/include/geometryutil/leaflet.geometryutil.js"></script>
     <script type="text/javascript" src="/include/distancemarkers/leaflet-distance-markers.js"></script>
-    <script type="text/javascript" src="/include/condensed-attribution/leaflet-control-condended-attribution.js"></script>
+    <script src="https://unpkg.com/leaflet-toggleable-attribution@0.0.1/src/L.Control.ToggleableAttribution.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>

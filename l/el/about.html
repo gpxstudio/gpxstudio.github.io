@@ -15,21 +15,12 @@
         <link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/about.html"/>
         <link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/about.html"/>
         <link rel="alternate" hreflang="sv" href="https://gpx.studio/l/sv/about.html"/>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167421374-1"></script>
-        <script>
-            if(window.location.hostname != "localhost") {
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'UA-167421374-1');
-            }
-        </script>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-        <title>gpx.studio — about</title>
-        <meta name="description" content="View, edit and create GPX files online: add, move and delete points, merge multiple files, reverse, add timestamps, edit waypoints and more!">
-        <meta property="og:title" content="gpx.studio — the online GPX file editor" />
-        <meta property="og:description" content="View, edit and create GPX files online: add, move and delete points, merge multiple files, reverse, add timestamps, edit waypoints and more!" />
+        <title>gpx.studio - σχετικά</title>
+        <meta name="description" content="Προβάλετε, επεξεργαστείτε και δημιουργήστε αρχεία GPX online: προσθέστε, μετακινήστε και διαγράψτε σημεία, συγχωνεύστε πολλαπλά αρχεία, αντιστρέψτε τα, προσθέστε χρονοσημάνσεις, επεξεργαστείτε σημεία waypoints και πολλά άλλα!">
+        <meta property="og:title" content="gpx.studio - το online πρόγραμμα επεξεργασίας αρχείων GPX" />
+        <meta property="og:description" content="Προβάλετε, επεξεργαστείτε και δημιουργήστε αρχεία GPX online: προσθέστε, μετακινήστε και διαγράψτε σημεία, συγχωνεύστε πολλαπλά αρχεία, αντιστρέψτε τα, προσθέστε χρονοσημάνσεις, επεξεργαστείτε σημεία waypoints και πολλά άλλα!" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://gpx.studio" />
         <meta property="og:image" content="https://gpx.studio/res/og_logo.png" />
@@ -447,10 +438,10 @@
                 <p>To use Mapbox maps, you need to specify the <code>token</code> parameter with a valid <a href="https://account.mapbox.com/access-tokens/" target="_blank">Mapbox token</a>. You can also use a custom Mapbox style by directly specifying its URL with <code>mapbox-style=&lt;STYLE_URL&gt;</code>.</p>
                 <p>You can optionally add parameters to the source URL: <code>imperial</code> to get data in miles and feet, <code>running</code> to display the pace in minutes by unit of distance, <code>distance</code> to show distance markers, <code>direction</code> to show direction markers and <code>slope</code> to show the slope view of the elevation profile. Below is a playground to play with the parameters, see a preview and get the HTML code.</p>
                 <div class="guide-item">
-                    <h3 style="margin-block-start: 0em;">Parameters</h3>
-                    <p>File URLs (separated by commas)<br>
+                    <h3 style="margin-block-start: 0em;">Παράμετροι</h3>
+                    <p>Υπερσύνδεσμοι URL Αρχείων (διαχωρισμένοι με κόμμα)<br>
                     <input id="file-urls" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
-                    <p>Google Drive file IDs (separated by commas)<br>
+                    <p>Αναγνωριστικά αρχείων Google Drive ID (διαχωρισμένα με κόμματα)<br>
                     <input id="file-ids" type="text" oninput="showPreview()" value="10IbXh7W7QDO7ZKmapJYdcgN3vhdN2Q-e" style="width: 96%; margin: 5px;"></p>
                     <div style="display: flex; justify-content: space-between">
                         <span>Running <input id="running" type="checkbox" oninput="showPreview()"></span>
@@ -459,7 +450,7 @@
                         <span>Direction markers <input id="direction" type="checkbox" oninput="showPreview()"></span>
                         <span>Slope <input id="slope" type="checkbox" oninput="showPreview()"></span>
                     </div>
-                    <p>Default map <select id="sources" oninput="showPreview()">
+                    <p>Προεπιλεγμένος χάρτης <select id="sources" oninput="showPreview()">
                         <option value="outdoors">Mapbox Outdoors</option>
                         <option value="satellite">Mapbox Satellite</option>
                         <option value="osm" selected="selected">OpenStreetMap</option>
@@ -471,46 +462,41 @@
                     <input id="mapbox-token" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
                     <p>Mapbox custom style URL<br>
                     <input id="mapbox-style" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
-                    <h3>HTML code</h3>
+                    <h3>HTML κώδικας</h3>
                     <div style="text-align: left; overflow-wrap: break-word; padding:10px; border: 1px solid #ccc; background: #f5f5f5;">
                     <code id="embedding-code"></code>
                     </div>
-                    <h3>Preview</h3>
+                    <h3>Προεπισκόπηση</h3>
                     <iframe id="preview" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
             </div>
             <div class="block">
-            <a name="terms"></a><h1>Terms of Services &#128214;</h1>
-            <p>Thank you for using <b>gpx.studio</b>. These terms of service (Terms) cover your use and access of our website and related software (our Services).</p>
-            <p>By accessing this website, you are agreeing to be bound by this website Terms of Services and to review our Privacy Policy. If you do not agree with any of these terms, you are prohibited from using or accessing this site.</p>
-            <h2>Changes to the Services</h2>
-            <p>We may change the features of our Services, withdraw or add new features from time to time.</p>
-            <h2>Warranties</h2>
-            <p>The services on the website are provided "as is". To the fullest extent permitted by law, we make no warranties either implied or expressed about the Services. We do not make any promise about the accuracy of specific functions of the services, their reliability or availability.</p>
-            <h2>Changes to Terms</h2>
-            <div>We reserve the right to modify these Terms at any time. We will notice you on the website so you can agree to the revised Terms.</div>
+            <a name="terms"></a><h1>Όροι παροχής υπηρεσιών &#128214;</h1>
+            <p>Thank you for using <b>gpx.studio</b>. Αυτοί οι όροι παροχής υπηρεσιών (Όροι) καλύπτουν τη χρήση και την πρόσβασή σας στον ιστότοπό μας και το σχετικό του λογισμικό (τις Υπηρεσίες μας).</p>
+            <p>Με την πρόσβασή σας σε αυτή την ιστοσελίδα, συμφωνείτε να δεσμεύεστε από αυτή την ιστοσελίδα Όροι Παροχής Υπηρεσιών και να ελέγξετε την Πολιτική Απορρήτου μας. Εάν δεν συμφωνείτε με οποιονδήποτε από αυτούς τους όρους, απαγορεύεται η χρήση ή η πρόσβαση σε αυτόν τον ιστότοπο.</p>
+            <h2>Αλλαγές στις Υπηρεσίες</h2>
+            <p>Μπορούμε να αλλάξουμε τα χαρακτηριστικά των Υπηρεσιών μας, να αποσύρουμε ή να προσθέσουμε νέα χαρακτηριστικά κατά καιρούς.</p>
+            <h2>Εγγυήσεις</h2>
+            <p>Οι υπηρεσίες στην ιστοσελίδα παρέχονται «ως έχει». Στο μέγιστο βαθμό που επιτρέπεται από το νόμο, δεν παρέχουμε καμία σιωπηρή ή ρητή εγγύηση για τις Υπηρεσίες. Δεν δίνουμε καμία υπόσχεση για την ακρίβεια συγκεκριμένων λειτουργιών των υπηρεσιών, την αξιοπιστία ή τη διαθεσιμότητά τους.</p>
+            <h2>Αλλαγές στους Όρους</h2>
+            <div>Διατηρούμε το δικαίωμα να τροποποιήσουμε τους παρόντες Όρους ανά πάσα στιγμή. Θα σας ειδοποιήσουμε στην ιστοσελίδα για να συμφωνήσετε με τους αναθεωρημένους Όρους.</div>
             </div>
             <div class="block">
-            <a name="privacy"></a><h1>Privacy Policy &#128373;&#65039;</h1>
-            <p><b>gpx.studio</b> is an online GPX file editor which allows users to create, view and edit files.
-                We respect the privacy of our users and do not collect any personal information.</p>
-            <p>The files created, visualized or edited on the website are only read once and never stored on a server.
-                We only access the data contained in the files and handle all computations from your local browser (it is a pure client-side application).</p>
-            <p>However, we use third-party services which collect and use anonymized information:
-                <ul>
-                    <li><b>Google Analytics</b>: measures the number of page views and clicks on buttons to help us enhance your overall experience.</li>
-                </ul>
-            </p>
+            <a name="privacy"></a><h1>Πολιτική Απορρήτου &#128373;&#65039;</h1>
+            <p>Το <b>gpx.studio</b> είναι ένας online επεξεργαστής αρχείων GPX που επιτρέπει στους χρήστες να δημιουργήσουν, να βλέπουν και να επεξεργάζονται αρχεία.
+                Σεβόμαστε την ιδιωτικότητα των χρηστών μας και δεν συλλέγουμε προσωπικές πληροφορίες.</p>
+            <p>Τα αρχεία που δημιουργήθηκαν, οπτικοποιήθηκαν ή επεξεργάστηκαν στην ιστοσελίδα διαβάζονται μόνο μία φορά και δεν αποθηκεύονται ποτέ σε κάποιον διακομιστή.
+                Έχουμε πρόσβαση μόνο στα δεδομένα που περιέχονται στα αρχεία και χειριζόμαστε όλους τους υπολογισμούς από το τοπικό σας πρόγραμμα περιήγησης (είναι μια καθαρή εφαρμογή-πελάτη).</p>
             <h2>Google Drive</h2>
-            <p>The website offers the possibility to log in with Google Drive to upload and save files in order to facilitate the storage, versioning and sharing of GPX files.
-                That service authenticates you directly with your Google account, and an authentication token identifying you as the file owner is stored in your local browser session profile.
-                This information is used to browse GPX files in your Google Drive and to open only those you choose to open.
-                Furthermore, it is used to automatically authenticate users visiting the website again but it is never stored on our side.</p>
-            <p>We use standard Google Drive sharing functionality when you decide to share the file, and standard Google Drive authentication, authorization mechanisms for access control.
-                No other files than those you create with the tool or decide to open with it (either by opening from Google Drive or visiting its associated URL on the tool) will be accessed, and none will ever be stored.</p>
-            <p><b>gpx.studio</b>'s use of information received from Google APIs will adhere to the <a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
-            <p>Last updated July 26, 2021.</p>
+            <p>Η ιστοσελίδα προσφέρει τη δυνατότητα να συνδεθείτε με το Google Drive για να ανεβάσετε και να αποθηκεύσετε αρχεία προκειμένου να διευκολύνετε την αποθήκευση, δημιουργία ιστορικού εκδόσεων και κοινή χρήση αρχείων GPX.
+                Αυτή η υπηρεσία σας αυθεντικοποιεί απευθείας με το λογαριασμό σας Google και ένα μικρό αρχείο αυθεντικοποίησης σας ως ο ιδιοκτήτης του αρχείου, αποθηκεύεται στο τοπικό προφίλ συνεδρίας του προγράμματος περιήγησης.
+                Αυτές οι πληροφορίες χρησιμοποιούνται για να περιηγηθείτε σε αρχεία GPX στο Google Drive και να ανοίξετε μόνο αυτά θα επιλέξετε.
+                Επιπλέον, χρησιμοποιείται για να επαληθεύσει αυτόματα τους χρήστες που επισκέπτονται ξανά την ιστοσελίδα, αλλά ποτέ δεν αποθηκεύονται από την πλευρά μας.</p>
+            <p>Χρησιμοποιούμε την τυπική λειτουργικότητα κοινής χρήσης του Google Drive όταν αποφασίσετε να μοιραστείτε το αρχείο και τυπική αυθεντικοποίηση του Google Drive, με τους μηχανισμούς εξουσιοδότησης για τον έλεγχο πρόσβασης.
+                Δεν θα έχετε πρόσβαση σε άλλα αρχεία εκτός από αυτά που δημιουργείτε με το εργαλείο ή αποφασίσετε να ανοίξετε μαζί του (είτε ανοίγοντας τα από το Google Drive ή με επίσκεψη στον σχετικό υπερσύνδεσμο URL από το εργαλείο) και δεν θα αποθηκευτεί ποτέ κανένα.</p>
+            <p>Η χρήση πληροφοριών από το <b>gpx. tudio</b> που λαμβάνονται τα Google APIs θα συμμορφώνονται με την <a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes">Πολιτική Δεδομένων Χρήστη των Υπηρεσιών Google API</a>, συμπεριλαμβανομένων των απαιτήσεων Περιορισμένης Χρήσης.</p>
+            <p>Τελευταία ενημέρωση στις 26 Ιουλίου 2021.</p>
             <br><br><br>
             </div>
         </div>

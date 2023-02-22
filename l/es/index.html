@@ -15,15 +15,6 @@
         <link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/"/>
         <link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/"/>
         <link rel="alternate" hreflang="sv" href="https://gpx.studio/l/sv/"/>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167421374-1"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            if(window.location.hostname != "localhost") {
-                gtag('config', 'UA-167421374-1');
-            }
-        </script>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
         <title>gpx.studio — el editor de archivos GPX online</title>
@@ -62,15 +53,15 @@
         <link rel="stylesheet" href="/include/fontawesome/css/fontawesome.min.css"/>
         <link rel="stylesheet" href="/include/fontawesome/css/brands.min.css"/>
         <link rel="stylesheet" href="/include/fontawesome/css/solid.min.css"/>
-        <link rel="stylesheet" href="/include/leaflet/leaflet.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"/>
         <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
         <link rel="stylesheet" href="/include/elevation/L.Control.Heightgraph.css"/>
         <link rel="stylesheet" href="/include/controlwindow/L.Control.Window.css">
-        <link rel="stylesheet" type="text/css" href="/res/index.css">
         <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.css">
-        <link rel="stylesheet" href="/include/condensed-attribution/leaflet-control-condended-attribution.css" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet-toggleable-attribution@0.0.1/src/L.Control.ToggleableAttribution.css"/>
         <link rel="stylesheet" href="https://unpkg.com/mapillary-js@4.0.0/dist/mapillary.css" />
+        <link rel="stylesheet" type="text/css" href="/res/index.css">
     </head>
     <body>
         <input id="input-file" type="file" accept=".gpx" multiple style="display: none"/>
@@ -115,7 +106,7 @@
                 <div class="panels panels-val" id="points-val">0</div>
                 <div id="units-text" class="panels panels-info">Unidades de distancia</div>
                 <select id="units-input" name="panels panels-val units-input">
-                    <option value="km">Métrica</option>
+                    <option value="km">Métrico</option>
                     <option value="mi">Imperial</option>
                 </select>
                 <div id="speed-units-text" class="panels panels-info">Unidades de velocidad</div>
@@ -486,7 +477,7 @@
                     <option value="gray">Gris</option>
                     <option value="bluered">Azul-rojo</option>
                 </select><br>
-                <span>Choose the minimum zoom level to request POIs</span> <input id="poi-min-zoom-input" type="number" min="10" max="20"><br>
+                <span>Elije el nivel de zoom mínimo para solicitar POIs</span> <input id="poi-min-zoom-input" type="number" min="10" max="20"><br>
                 <span>Selecciona las capas que quieres que aparezcan en la interfaz</span>
                 <div id="layer-selection-area"></div>
                 <div id="layer-selection-ok" class="panels custom-button normal-button">Guardar</div>
@@ -513,7 +504,7 @@
         <div id="search-input-text">Buscar...</div>
         <div id="search-button-text">Busca un lugar o pega coordenadas GPS</div>
         <div id="locate-button-text">Mostrar mi ubicación</div>
-        <div id="add-poi-text">Add POI to current trace</div>
+        <div id="add-poi-text">Añade POI al track actual</div>
         <span id="track-text">Track</span>
         <span id="segment-text">Segmento</span>
         <div id="edit-speed-popup-text">
@@ -571,58 +562,58 @@
             <div id="grass-paver-text">Césped pavimentado</div>
         </div>
         <div id="layers-text">
-            <div id="basemaps-text">Basemaps</div>
-            <div id="overlays-text">Overlays</div>
-            <div id="custom-text">Custom</div>
-            <div id="world-text">World</div>
-            <div id="countries-text">Countries</div>
-            <div id="finland-text">Finland</div>
-            <div id="france-text">France</div>
-            <div id="new-zealand-text">New Zealand</div>
-            <div id="norway-text">Norway</div>
-            <div id="spain-text">Spain</div>
-            <div id="sweden-text">Sweden</div>
-            <div id="switzerland-text">Switzerland</div>
-            <div id="united-kingdom-text">United Kingdom</div>
-            <div id="united-states-text">United States</div>
-            <div id="poi-text">Points of Interest</div>
-            <div id="eat-and-drink-text">Eat and Drink</div>
-            <div id="bakery-text">Bakery</div>
-            <div id="supermarket-text">Supermarket</div>
-            <div id="convenience-store-text">Convenience Store</div>
-            <div id="restaurant-text">Restaurant</div>
-            <div id="fast-food-text">Fast Food</div>
-            <div id="cafe-text">Cafe</div>
+            <div id="basemaps-text">Mapas base</div>
+            <div id="overlays-text">Capas</div>
+            <div id="custom-text">Personalizar</div>
+            <div id="world-text">Mundo</div>
+            <div id="countries-text">Países</div>
+            <div id="finland-text">Finlandia</div>
+            <div id="france-text">Francia</div>
+            <div id="new-zealand-text">Nueva Zelanda</div>
+            <div id="norway-text">Noruega</div>
+            <div id="spain-text">España</div>
+            <div id="sweden-text">Suecia</div>
+            <div id="switzerland-text">Suiza</div>
+            <div id="united-kingdom-text">Reino Unido</div>
+            <div id="united-states-text">Estados Unidos</div>
+            <div id="poi-text">Puntos de Interés</div>
+            <div id="eat-and-drink-text">Comida y bebida</div>
+            <div id="bakery-text">Panadería</div>
+            <div id="supermarket-text">Supermercado</div>
+            <div id="convenience-store-text">Tienda de 24 horas</div>
+            <div id="restaurant-text">Restaurante</div>
+            <div id="fast-food-text">Comida rápida</div>
+            <div id="cafe-text">Cafetería</div>
             <div id="pub-text">Pub</div>
             <div id="bar-text">Bar</div>
-            <div id="amenities-text">Amenities</div>
-            <div id="toilets-text">Toilets</div>
-            <div id="drinking-water-text">Drinking Water</div>
-            <div id="water-point-text">Water Point</div>
-            <div id="water-spring-text">Water Spring</div>
-            <div id="shower-text">Shower</div>
-            <div id="fuel-station-text">Fuel Station</div>
-            <div id="parking-text">Parking</div>
-            <div id="tourism-text">Tourism</div>
-            <div id="attraction-text">Attraction</div>
-            <div id="viewpoint-text">Viewpoint</div>
+            <div id="amenities-text">Servicios</div>
+            <div id="toilets-text">Baños</div>
+            <div id="drinking-water-text">Agua potable</div>
+            <div id="water-point-text">Fuente</div>
+            <div id="water-spring-text">Manantial de agua</div>
+            <div id="shower-text">Ducha</div>
+            <div id="fuel-station-text">Gasolinera</div>
+            <div id="parking-text">Aparcamiento</div>
+            <div id="tourism-text">Turismo</div>
+            <div id="attraction-text">Atracción</div>
+            <div id="viewpoint-text">Mirador</div>
             <div id="hotel-text">Hotel</div>
-            <div id="hostel-text">Hostel</div>
-            <div id="guest-house-text">Guest House</div>
+            <div id="hostel-text">Hostal</div>
+            <div id="guest-house-text">Casa de huéspedes</div>
             <div id="motel-text">Motel</div>
-            <div id="campsite-text">Campsite</div>
-            <div id="alpine-hut-text">Alpine Hut</div>
-            <div id="wilderness-hut-text">Wilderness Hut</div>
-            <div id="climbing-text">Climbing Site</div>
-            <div id="bicycle-text">Bicycle</div>
-            <div id="bicycle-parking-text">Bicycle Parking</div>
-            <div id="bicycle-rental-text">Bicycle Rental</div>
-            <div id="bicycle-shop-text">Bicycle Shop</div>
-            <div id="public-transport-text">Public Transport</div>
-            <div id="railway-station-text">Railway Station</div>
-            <div id="tram-stop-text">Tram Stop</div>
-            <div id="bus-stop-text">Bus Stop</div>
-            <div id="ferry-text">Ferry Terminal</div>
+            <div id="campsite-text">Camping</div>
+            <div id="alpine-hut-text">Refugio de montaña </div>
+            <div id="wilderness-hut-text">Refugio vivac de montaña</div>
+            <div id="climbing-text">Lugar de escalada</div>
+            <div id="bicycle-text">Bicicleta</div>
+            <div id="bicycle-parking-text">Aparcamiento de bicicletas</div>
+            <div id="bicycle-rental-text">Alquiler de bicicletas</div>
+            <div id="bicycle-shop-text">Tienda de bicicletas</div>
+            <div id="public-transport-text">Transporte público</div>
+            <div id="railway-station-text">Estación de tren</div>
+            <div id="tram-stop-text">Parada de tranvía</div>
+            <div id="bus-stop-text">Parada de autobús</div>
+            <div id="ferry-text">Terminal de Ferry</div>
         </div>
         <h1>editor gps online</h1>
         <h1>visor gpx online</h1>
@@ -639,7 +630,7 @@
         <h1>unir actividades Strava</h1>
         </div>
     </body>
-    <script src="/include/leaflet/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
     <script src="/include/overpasslayer/OverPassLayer.bundle.js"></script>
     <script type="text/javascript" src="/include/icon/Leaflet.Icon.Glyph.js"></script>
     <script type="text/javascript" src="/js/data.js"></script>
@@ -652,7 +643,7 @@
     <script type="text/javascript" src="/include/controlwindow/L.Control.Window.js"></script>
     <script type="text/javascript" src="/include/geometryutil/leaflet.geometryutil.js"></script>
     <script type="text/javascript" src="/include/distancemarkers/leaflet-distance-markers.js"></script>
-    <script type="text/javascript" src="/include/condensed-attribution/leaflet-control-condended-attribution.js"></script>
+    <script src="https://unpkg.com/leaflet-toggleable-attribution@0.0.1/src/L.Control.ToggleableAttribution.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
