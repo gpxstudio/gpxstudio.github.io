@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ca">
+    <head>
+        <!-- ADD_LANGUAGE -->
+        <link rel="alternate" hreflang="x-default" href="https://gpx.studio/"/>
+        <link rel="alternate" hreflang="en" href="https://gpx.studio/"/>
+        <link rel="alternate" hreflang="de" href="https://gpx.studio/l/de"/>
+        <link rel="alternate" hreflang="es" href="https://gpx.studio/l/es/"/>
+        <link rel="alternate" hreflang="fr" href="https://gpx.studio/l/fr/"/>
+        <link rel="alternate" hreflang="it" href="https://gpx.studio/l/it/"/>
+        <link rel="alternate" hreflang="nl" href="https://gpx.studio/l/nl/"/>
+        <link rel="alternate" hreflang="no" href="https://gpx.studio/l/no/"/>
+        <link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/"/>
+        <link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/"/>
+        <link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/"/>
+        <link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/"/>
+        <link rel="alternate" hreflang="sv" href="https://gpx.studio/l/sv/"/>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <title>gpx.studio — the online GPX file editor</title>
+        <meta name="description" content="View, edit and create GPX files online: add, move and delete points, merge multiple files, reverse, add timestamps, edit waypoints and more!">
+        <meta property="og:title" content="gpx.studio — the online GPX file editor" />
+        <meta property="og:description" content="View, edit and create GPX files online: add, move and delete points, merge multiple files, reverse, add timestamps, edit waypoints and more!" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://gpx.studio/" />
+        <meta property="og:image" content="https://gpx.studio/res/og_logo.png" />
+        <meta name="twitter:card" content="summary_large_image">
+        <script type="application/ld+json">
+        {
+            "@context" : "http://schema.org",
+            "@type" : "WebApplication",
+            "name" : "gpx.studio",
+            "alternateName": "gpx.studio — the online GPX file editor",
+            "description": "View, edit and create GPX files online: add, move and delete points, merge multiple files, reverse, add timestamps, edit waypoints and more!",
+            "applicationCategory": "Tool, Editor",
+            "url" : "https://gpx.studio",
+            "sameAs" : [
+                "https://www.facebook.com/gpx.studio"
+            ],
+            "screenshot": "https://gpx.studio/res/preview.png",
+            "genre": "outdoors",
+            "keywords": "gpx, gps, file, viewer, editor, merge, reverse, timestamps, waypoints, segments",
+            "browserRequirements": "Requires JavaScript. Requires HTML5.",
+            "softwareHelp": {
+                "@type": "CreativeWork",
+                "url": "https://gpx.studio/about.html"
+            },
+            "operatingSystem": "All",
+            "featureList": "edit gpx files online, view gpx files online, merge gpx files online, reverse gpx file online, add timestamps to gpx file online, extract track segments, view and add waypoints gpx file online"
+        }
+        </script>
+        <link rel="icon" href="/res/favicon.png">
+        <link rel="stylesheet" href="/include/fontawesome/css/fontawesome.min.css"/>
+        <link rel="stylesheet" href="/include/fontawesome/css/brands.min.css"/>
+        <link rel="stylesheet" href="/include/fontawesome/css/solid.min.css"/>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"/>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
+        <link rel="stylesheet" href="/include/elevation/L.Control.Heightgraph.css"/>
+        <link rel="stylesheet" href="/include/controlwindow/L.Control.Window.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet-toggleable-attribution@0.0.1/src/L.Control.ToggleableAttribution.css"/>
+        <link rel="stylesheet" href="https://unpkg.com/mapillary-js@4.0.0/dist/mapillary.css" />
+        <link rel="stylesheet" type="text/css" href="/res/index.css">
+    </head>
+    <body>
+        <input id="input-file" type="file" accept=".gpx" multiple style="display: none"/>
+        <div id="mapid"></div>
+        <div id="mly"><div id="mly-controls"><i id="mly-move" class="fas fa-arrows-alt custom-button"></i><i id="mly-close" class="fas fa-times custom-button"></i></div></div>
+        <div style="display: none">
+        <div id="toolbar" class="panels-container center-leaflet">
+            <div id="burger-logo">
+                <i id="burger" class="fa-solid fa-bars panels custom-button"></i>
+                <img src="/res/logo.png" height="21" class="panels custom-button" style="vertical-align: middle; padding: 2px 6px 4px 6px" alt="logo del gpx.studio, l'editor GPX en línia">
+            </div>
+            <div id="load" class="panels custom-button">Carregar GPS</div>
+            <div id="manual" class="panels custom-button">Nou GPX</div>
+            <div id="export" class="panels custom-button">Exporta</div>
+            <div style="display: inline-block">
+                <div class="panels custom-button unselected no-click2" id="undo"><i class="fas fa-reply"></i></div>
+                <div class="panels custom-button unselected no-click2" id="redo"><i class="fas fa-share"></i></div>
+            </div>
+            <div id="clear" class="panels custom-button">Esborra-ho tot</div>
+            <div id="help" class="panels custom-button">Ajuda</div>
+            <div id="about" class="panels custom-button">Sobre</div>
+            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Fes una donació</b> <i class="fas fa-heart"></i></div>
+        </div>
+        <div id="info">
+            <ul id="sortable-tabs">
+              <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">Total</li>
+            </ul>
+            <div id="info-grid" class="panels-container trace-info maximized">
+                <div class="panels panels-info" id="distance">Distancia</div>
+                <div class="panels panels-val" id="distance-val"></div>
+                <div class="panels panels-info" id="elevation">Elevació</div>
+                <div class="panels panels-val" id="elevation-val"></div>
+                <div class="panels panels-info" id="speed">Velocitat</div>
+                <div class="panels panels-val" id="speed-val"></div>
+                <div class="panels panels-info" id="duration">Temps en moviment</div>
+                <div class="panels panels-val" id="duration-val"></div>
+                <div class="panels panels-info" id="tracks">Tracks</div>
+                <div class="panels panels-val" id="tracks-val">0</div>
+                <div class="panels panels-info" id="segments">Segments de tracks</div>
+                <div class="panels panels-val" id="segments-val">0</div>
+                <div class="panels panels-info" id="points">Punts del track</div>
+                <div class="panels panels-val" id="points-val">0</div>
+                <div id="units-text" class="panels panels-info">Unitats de distancia</div>
+                <select id="units-input" name="panels panels-val units-input">
+                    <option value="km">Mètric</option>
+                    <option value="mi">Imperial</option>
+                </select>
+                <div id="speed-units-text" class="panels panels-info">Unitats de velocitat</div>
+                <select id="speed-units-input" name="panels panels-val speed-units-input">
+                    <option value="speed">Velocitat</option>
+                    <option value="pace">Ritme</option>
+                </select>
+                <div id="elevation-input" class="panels-button custom-button" title="Mostra/oculta el perfil d'elevació"><i class="fas fa-minus"></i></div>
+                <div id="crop-container">
+                    <div class="panels-button custom-button" id="validate"><i class="fas fa-check custom-button"></i></div>
+                </div>
+                <div id="slide-container">
+                    <input type="range" min="0" max="10000000" value="0" class="slider" id="start-point">
+                    <input type="range" min="0" max="10000000" value="10000000" class="slider visible" id="end-point">
+                </div>
+            </div>
+        </div>
+        <div id="buttons-bar" class="vcenter-leaflet">
+            <div id="buttons" class="panels-container">
+                <div class="panels-button" id="edit" title="Edita punts del track"><i class="fas fa-pencil-alt custom-button"></i></div>
+                <div class="panels-button" id="edit-time" title="Edita el temps"><i class="fas fa-stopwatch custom-button"></i></div>
+                <div class="panels-button" id="reverse" title="Inverteix el track"><i class="fas fa-exchange-alt custom-button"></i></div>
+                <div class="panels-button" id="combine" title="Combina amb un altre track"><i class="fas fa-plus-circle custom-button"></i></div>
+                <div class="panels-button" id="extract" title="Extreure tracks o segments de tracks"><i class="fas fa-list-ul custom-button"></i></div>
+                <div class="panels-button" id="duplicate" title="Duplica el track"><i class="fas fa-copy custom-button"></i></div>
+                <div class="panels-button" id="add-wpt" title="Afegeix fita"><i class="fas fa-map-marker-alt custom-button"></i></div>
+                <div class="panels-button" id="reduce" title="Reduir el nombre de punts del track"><i class="fas fa-compress-alt custom-button"></i></div>
+                <div class="panels-button" id="zone-delete" title="Elimina-ho tot dins i fora de la selecció"><i class="fas fa-vector-square custom-button"></i></div>
+                <div class="panels-button" id="hide" title="Oculta/mostra el track"><i class="fas fa-eye-slash custom-button"></i></div>
+                <div class="panels-button" id="color" title="Canvia color, opacitat i amplada"><i class="fas fa-palette custom-button"></i></div>
+                <div class="panels-button" id="structure" title="Gestiona l'estructura del fitxer"><i class="fas fa-folder-tree custom-button"></i></div>
+                <div class="panels-button" id="delete" title="Elimina track"><i class="fas fa-trash-alt custom-button"></i></div>
+            </div>
+            <div id="editing-options" class="panels-container">
+                <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Alterna les opcions d'edició"></i>
+                <table class="panels">
+                    <tr>
+                        <td><b>Activitat</b></td>
+                        <td><select name="activity" id="activity-input" class="close-spacing">
+                            <option value="Trekking-dry">Bicicleta</option>
+                            <option value="fastbike">Bicicleta de carretera</option>
+                            <option value="MTB">Bicicleta de muntanya</option>
+                            <option value="Hiking-Alpine-SAC6">Córrer/caminar</option>
+                            <option value="Car-FastEco">Motocicleta</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><label for="routing-input"><b>Encaminament (seguir rutes)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><label for="edit-time-strategy"><b>Gestió de dades de temps</b></label></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Conserva la velocitat mitjana</label><br>                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Conserva les marques de temps originals</label></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="street-view-content">
+            <div id="street-view-selector">
+                <input id="street-view-provider-google" type="radio" name="street-view-provider" value="google"> <label for="street-view-provider-google">Google</label>
+                <input id="street-view-provider-mapillary" type="radio" name="street-view-provider" value="mapillary" checked> <label for="street-view-provider-mapillary">Mapillary</label>
+            </div>
+            <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Obre Mapillary o Google Street View"></i>
+        </div>
+        <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Marcadors de direcció</label>
+        <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Marcadors de distancia</label>
+        <div id="help-text">
+        <div style="text-align: center; font-size: 10pt; color: #476947">
+            <b>Per a més informació i petits tutorials, dona un cop d'ull a la<a href="./about.html#guide" target="_blank">Guia d'Usuari</a>!</b>
+        </div><br>
+        <table style="width: 100%">
+            <colgroup>
+               <col span="1" style="width: 11%;">
+               <col span="1" style="width: 7%;">
+               <col span="1" style="width: 82%;">
+            </colgroup>
+            <tbody>
+            <tr>
+                <td><b>Carregar GPS</b></td>
+                <td>Ctrl+O</td>
+                <td>Importa i visualitza fitxers GPX (o bé arrossega i deixa anar a qualsevol lloc dins la finestra)</td>
+            </tr>
+            <tr>
+                <td><b>Nou GPX</b></td>
+                <td>Ctrl+D</td>
+                <td>Comença a dibuixar una nova ruta tot posant punts d'ancoratge en el mapa</td>
+            </tr>
+            <tr>
+                <td><b>Exporta</b></td>
+                <td>Ctrl+S</td>
+                <td>Baixa't els fitxers al teu escriptori o salva'ls al Google Drive™ per obtenir un <b>enllaç compartible</b> o bé un <b>codi d'incrustació</b>. Les dades de temps, freqüència cardíaca, cadència, potencia i temperatura s'amplien automàticament. Opcionalment, fusionar tots el fitxer<b> en l'ordre escollit</b>. També pots arrossegar una pestanya al teu escriptori per a descarregar el fitxer.</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-reply"></i> <i class="fas fa-share"></i></td>
+                <td>Ctrl+Z/Y</td>
+                <td>Desfer i refer accions en mode edició</td>
+            </tr>
+            <tr>
+                <td><b>Esborra-ho tot</b></td>
+                <td>Ctrl+K</td>
+                <td>Eliminar tots els rastres</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Escapament</td>
+                <td>Sortir del menú o eina actual</td>
+            </tr>
+            </tbody>
+        </table><br>
+        <table style="width: 100%">
+            <colgroup>
+               <col span="1" align="center" style="width:11%;">
+               <col span="1" style="width: 89%;">
+            </colgroup>
+            <tbody>
+            <tr>
+                <td><i class="fas fa-pencil-alt"></i></td>
+                <td>Activa el mode d'edició per afegir, moure, inserir o eliminar (Majúscules+clic) punts d'àncora, fes clic dret a punts d'àncora per a més opcions (dividir, canviar inici, eliminar)</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-stopwatch"></i></td>
+                <td>Canviar la velocitat i l'hora d'inici del track</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-exchange-alt"></i></td>
+                <td>Invertir el track i adaptar les marques de temps</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-plus-circle"></i></td>
+                <td>Combina amb un altre track (s'allarguen automàticament les dades de temps, freqüència cardíaca, cadència, potència i temperatura)</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-list-ul"></i></td>
+                <td>Extreu tots els segments del track i crea un track per a cadascun</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-copy"></i></td>
+                <td>Duplica el track</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-map-marker-alt"></i></td>
+                <td>Afegeix un waypoint (arrossega per canviar-ne la ubicació i utilitza els botons per editar la informació, duplicar o eliminar)</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-compress-alt"></i></td>
+                <td>Reduir el nombre de punts de pista</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-vector-square"></i></td>
+                <td>Suprimeix punts de ruta i/o waypoints dins/fora de la selecció del rectangle</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-eye-slash"></i></td>
+                <td>Amaga o mostra el track</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-palette"></i></td>
+                <td>Canvieu el color i l'opacitat de la pantalla, aquests valors s'exportaran i es detectaran quan es tornin a importar</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-folder-tree"></i></td>
+                <td>Gestioneu l'estructura de fitxers, arrossegueu i deixeu anar fitxers, tracks i segments de track</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-trash-alt"></i></td>
+                <td>Elimina el track</td>
+            </tr>
+            </tbody>
+        </table><br>
+        <table style="width: 100%">
+            <colgroup>
+               <col span="1" style="width: 11%;">
+               <col span="1" style="width: 7%;">
+               <col span="1" style="width: 82%;">
+            </colgroup>
+            <tbody>
+            <tr>
+                <td></td>
+                <td>F1</td>
+                <td>Mostra l'últim mapa base utilitzat.</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>F2</td>
+                <td>Mostra o amaga les capes utilitzades actualment.</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>F3</td>
+                <td>Canvia entre l'encaminament i <i>pel camí més curt</i> (línies rectes entre el track) en editar tracks</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-chart-area"></i></td>
+                <td>Ctrl+H</td>
+                <td>Mostrar/ocultar Perfil d'elevació</td>
+            </tr>
+            </tbody>
+        </table><br>
+        A la part inferior, podeu veure un panell amb informació sobre els tracks que importeu.
+        La pestanya <b>Total</b> mostra informació sobre tots les tracks oberts fusionats en un de sol.
+        <b>Canvieu les pestanyes</b> per definir l'ordre en què han d'aparèixer els tracks i <b>feu doble clic</b> sobre elles per canviar-ne el nom.
+        Quan tingueu moltes pestanyes, navegueu per elles desplaçant-vos horitzontalment.
+        Utilitzeu el <b>slider</b> per moure el punt inicial/final i tallar la ruta.
+        </div>
+        <div id="export-content" class="popup-content">
+            <table style="text-align: left">
+                <colgroup>
+                   <col span="1">
+                   <col span="1">
+                </colgroup>
+                <tbody>
+                    <td><b>Exporta la configuració</b></td>
+                    <td><input type="checkbox" id="merge"> <label for="merge">Combina tots els tracks</label></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" id="include-time" checked> <label for="include-time">Temps</label></td>
+                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Superfície</label></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" id="include-cad" checked> <label for="include-cad">Cadència</label></td>
+                    <td><input type="checkbox" id="include-hr" checked> <label for="include-hr">Freqüència cardíaca</label></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" id="include-atemp" checked> 18 / 5.000
+Resultats de traducció
+Resultat de traducció
+<label for="include-atemp">Temperatura</label></td>
+                    <td><input type="checkbox" id="include-power" checked> <label for="include-power">Potència</label></td>
+                </tr>
+                </tbody>
+            </table>
+            <div style="color:#0f92c5;">&#9888;&#65039; L'eina és <b>gratuïta</b> d'utilitzar, però <b>no gratuïta</b> d'executar &#9888;&#65039;<br>Cada visualització del mapa, punt de seguiment afegit o mogut es factura.</div>
+            <div id="donate-2" class="panels custom-button fancy-button"><b>Ajudeu a mantenir aquest lloc web gratuït</b> &#128591;</div><br>
+            <div id="export-2" class="panels custom-button fancy-button">Descarrega <i class="fas fa-download"></i></div>
+            <div id="save-drive" class="panels custom-button fancy-button">Guarda al Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
+        </div>
+        <div id="clear-content" class="popup-content">
+            Això suprimirà tots els tracks oberts.<br>Vols continuar?<br>
+            <div id="clear2" class="panels custom-button normal-button">Sí</div>
+            <div id="cancelclear" class="panels custom-button normal-button"><b>Cancel·lar</b></div>
+        </div>
+        <div id="delete-content" class="popup-content">
+            Això suprimirà tots els tracks oberts.<br>Vols continuar?<br>
+            <div id="delete2" class="panels custom-button normal-button">Sí</div>
+            <div id="canceldelete" class="panels custom-button normal-button"><b>Cancel·lar</b></div>
+        </div>
+        <div id="color-content" class="popup-content">
+            <div style="text-align: left">
+                <label for="color-picker">Tria un color nou</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
+                 <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Aplica color a tots els tracks</label><br>
+                 <label for="opacity-slider">Opacitat</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
+                 <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Aplica opacitat a tots els tracks</label><br>
+                 <label for="width-slider">Amplada</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
+                 <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Aplica amplada a totes els tracks</label>
+            </div>
+            <div id="validate-color" class="panels custom-button normal-button">D'acord</div>
+            <div id="cancel-color" class="panels custom-button normal-button"><b>Cancel·lar</b></div>
+        </div>
+        <div id="load-content" class="popup-content">
+            Trieu fitxers de<br>
+            <div id="load2" class="panels custom-button normal-button">Escriptori</div>
+            <div id="load-drive" class="panels custom-button normal-button">Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div><br>
+            (o arrossegueu i deixeu anar a qualsevol lloc de la finestra)
+        </div>
+        <div id="share-content" class="popup-content">
+            Fet!<br>
+            <div id="copy-link" class="panels custom-button fancy-button">Copia l'enllaç <i class="fas fa-link"></i></div><br>
+            <div id="copy-embed" class="panels custom-button fancy-button">Copia el codi d'incrustació <i class="fas fa-code"></i></div><br>
+        </div>
+        <div id="merge-content" class="popup-content">
+            <div id="merge-time-options">
+                <i class="fas fa-stopwatch"></i> Trieu com adaptar les marques de temps del segon track (si n'hi ha)
+                <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
+                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Conserva les marques de temps originals (sempre que vinguin després de les del primer track)</label><br>
+                     <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Fes que el segon track comenci just després del primer</label>
+                </div>
+                <hr>
+            </div>
+            <div>
+                <div class="close-spacing">Feu clic a una altra track o pestanya per combinar-hi el track actual</div><hr>
+                Trieu com afegir el segon track al primer
+                <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
+                    <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Combinar com a punts del track</label><br>
+                     <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Combina com a segments del track</label><br>
+                     <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Combina com a tracks</label>
+                </div>
+            </div>
+        </div>
+        <div id="split-content" class="popup-content">
+            Trieu com dividir el rastre<br>
+            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Dividiu en fitxers separats</label><br>
+            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Dividiu en tracks separats</label><br>
+            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Dividiu en segments de track separats</label><br>
+            <div id="split-ok" class="panels custom-button normal-button">D'acord</div>
+            <div id="split-cancel" class="panels custom-button normal-button"><b>Cancel·lar</b></div>
+        </div>
+        <div id="extract-content" class="popup-content">
+            Tria què vols extreure<br>
+            <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Tracks</label><br>
+            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Segments del track</label><br>
+            <div id="extract-ok" class="panels custom-button normal-button">D'acord</div>
+            <div id="extract-cancel" class="panels custom-button normal-button"><b>Cancel·lar</b></div>
+        </div>
+        <div id="structure-content" class="popup-content">
+            <div class="close-spacing">Arrossegueu i deixeu anar els elements per reordenar l'estructura del fitxer</div>
+            <div>Mou elements des de o cap a les pestanyes que hi ha a sobre del perfil d'elevació</div>
+            <div>Canvia el nom de les pistes o canvia el color</div>
+            <div id="file-structure"></div>
+            <div id="merge-selection" class="panels custom-button normal-button">Combinar la selecció</div>
+            <div id="delete-selection" class="panels custom-button normal-button">Esborra la selecció</div>
+        </div>
+        <div id="crop-content" class="popup-content">
+            <input type="checkbox" id="crop-keep"><label for="crop-keep">Conserva les parts retallades en fitxers nous</label><br>
+            <div id="crop-ok" class="panels custom-button normal-button">Continuar</div>
+            <div id="crop-cancel" class="panels custom-button normal-button"><b>Cancel·lar</b></div>
+        </div>
+        <div id="reduce-content" class="popup-content">
+            Tria la quantitat de detalls que vols conservar<br>
+             Nombre de punts de la pista: <span id="reduce-npoints">0</span><br>
+            <input type="range" min="0" max="1000" id="reduce-slider" style="width: 90%"><br>
+            <div id="reduce-ok" class="panels custom-button normal-button">D'acord</div>
+            <div id="reduce-cancel" class="panels custom-button normal-button"><b>Cancel·lar</b></div>
+        </div>
+        <div id="zone-delete-content" class="popup-content">
+            Selecciona el que vulguis eliminar<br>
+            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Punts del track</label>
+            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
+            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Selecció interior</label>
+            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Selecció exterior</label><br>
+            <div id="zone-delete-ok" class="panels custom-button normal-button">Continuar</div>
+            <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Cancel·lar</b></div>
+        </div>
+        <div id="layer-selection-content">
+            <div id="layer-creation">
+                Afegiu o substituïu una capa personalitzada aquí
+                <table style="text-align: left">
+                    <tr>
+                        <td><label for="layer-name">Nom de la capa</label></td>
+                        <td><input type="text" id="layer-name" size="35"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="layer-url">URL Tiles</label></td>
+                        <td><input type="text" id="layer-url" placeholder="https://{s}.domain.com/{z}/{y}/{x}.png" size="35"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="layer-max-zoom">Nivell de zoom màxim</label></td>
+                        <td><input type="number" id="layer-max-zoom" value="20" min="1" max="20"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="layer-type">Tipus de capa</label></td>
+                        <td><select id="layer-type">
+                            <option value="baselayer">Mapa base</option>
+                            <option value="overlay">Capa</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td>Preview</td>
+                    </tr>
+                </table>
+                <div id="preview-map" style="width: 100%; height: 200px"></div>
+                <div id="layer-creation-ok" class="panels custom-button normal-button">Afegir capa</div>
+            </div>
+            <div id="layer-selection">
+                <span>Trieu el color del Strava Heatmap</span>
+                <select name="strava-color" id="strava-color-input" class="close-spacing">
+                    <option value="hot">Popular</option>
+                    <option value="blue">Blau</option>
+                    <option value="purple">Lila</option>
+                    <option value="gray">Gris</option>
+                    <option value="bluered">Blau-Vermell</option>
+                </select><br>
+                <span>Trieu el nivell de zoom mínim per sol·licitar POIs</span> <input id="poi-min-zoom-input" type="number" min="10" max="20"><br>
+                <span>Seleccioneu les capes que voleu que apareguin a la interfície</span>
+                <div id="layer-selection-area"></div>
+                <div id="layer-selection-ok" class="panels custom-button normal-button">Guarda</div>
+            </div>
+        </div>
+        <div id="load-error-content" class="popup-content">
+            S'ha produït un error en carregar el fitxer GPX.<br>
+             Comproveu el format del fitxer.<br>
+            <div id="load-error-ok" class="panels custom-button normal-button">D'acord</div>
+        </div>
+        <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
+            <b>Obre en</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logo del gpx.studio, l'editor GPX en línia">
+        </div>
+        <div id="unit-kilometers-text">km</div>
+        <div id="unit-miles-text">mi</div>
+        <div id="unit-meters-text">milles</div>
+        <div id="unit-feet-text">peus</div>
+        <div id="unit-hours-text">h</div>
+        <div id="unit-minutes-text">minuts</div>
+        <div id="duplicate-text">Duplica el track</div>
+        <div id="delete-text">Elimina track</div>
+        <div id="ok-button-text">D'acord</div>
+        <div id="cancel-button-text">Cancel·lar</div>
+        <div id="search-input-text">Cerca...</div>
+        <div id="search-button-text">Cerqueu un lloc o enganxeu les coordenades GPS</div>
+        <div id="locate-button-text">Mostra la meva posició</div>
+        <div id="add-poi-text">Afegeix POI al track actual</div>
+        <span id="track-text">Track</span>
+        <span id="segment-text">Segment</span>
+        <div id="edit-speed-popup-text">
+            <div id="speed-text">Velocitat</div>
+            <div id="pace-text">Ritme</div>
+            <div id="start-text">Inici</div>
+            <div id="experimental-info-text">Generar velocitat tenint en compte el pendent i el tipus d'activitat<br><b><i class="fas fa-exclamation-triangle"></i> esborra totes les dades de temps existents</b></div>
+        </div>
+        <div id="waypoint-popup-text">
+            <div id="empty-title-text">títol buit</div>
+            <div id="name-text">Nom</div>
+            <div id="comment-text">Comentari (per a dispositius GPS)</div>
+            <div id="description-text">Descripció (per a usuaris)</div>
+            <div id="symbol-text">Símbol</div>
+            <div id="edit-info-text">Editar la informació</div>
+        </div>
+        <div id="right-click-popup-text">
+            <div id="split-text">Dividiu aquí</div>
+            <div id="start-loop-text">Comenceu el bucle aquí</div>
+            <div id="remove-pt-text">Eliminar punt</div>
+        </div>
+        <div id="elevation-text">
+            <div id="segment-text">Longitud del segment</div>
+            <div id="type-text">Categoria</div>
+            <div id="surface-text">Superfície</div>
+            <div id="slope-text">Pendent</div>
+            <div id="missing-text">Falta quelcom</div>,
+            <div id="paved-text">Pavimentat</div>,
+            <div id="unpaved-text">No pavimentat</div>,
+            <div id="asphalt-text">Asfalt</div>,
+            <div id="concrete-text">Formigó</div>,
+            <div id="chipseal-text">Camí asfaltat</div>,
+            <div id="cobblestone-text">Llambordes</div>,
+            <div id="unhewn-cobblestone-text">Llambordes grosses</div>,
+            <div id="paving-stones-text">Camí de pedres</div>,
+            <div id="stepping-stones-text">Empedrat</div>,
+            <div id="sett-text">Paviment de llambordes</div>,
+            <div id="metal-text">Metall</div>,
+            <div id="wood-text">Fusta</div>,
+            <div id="compacted-text">Grava compactada</div>,
+            <div id="fine-gravel-text">Grava fina</div>,
+            <div id="gravel-text">Grava</div>,
+            <div id="pebblestone-text">Empedrat</div>,
+            <div id="rock-text">Roques</div>,
+            <div id="dirt-text">Terra</div>,
+            <div id="ground-text">Terreny</div>,
+            <div id="earth-text">Planeta Terra</div>,
+            <div id="snow-text">Neu</div>,
+            <div id="ice-text">Gel</div>,
+            <div id="salt-text">Sal</div>,
+            <div id="mud-text">Fang</div>,
+            <div id="sand-text">Sorra</div>,
+            <div id="woodchips-text">Fusta</div>,
+            <div id="grass-text">Herba</div>,
+            <div id="grass-paver-text">Gespa</div>
+        </div>
+        <div id="layers-text">
+            <div id="basemaps-text">Mapes base</div>
+            <div id="overlays-text">Capes</div>
+            <div id="custom-text">Personalitza</div>
+            <div id="world-text">Món</div>
+            <div id="countries-text">Països</div>
+            <div id="finland-text">Finlàndia</div>
+            <div id="france-text">França</div>
+            <div id="new-zealand-text">Nova Zelanda</div>
+            <div id="norway-text">Noruega</div>
+            <div id="spain-text">Espanya</div>
+            <div id="sweden-text">Suècia</div>
+            <div id="switzerland-text">Suïssa</div>
+            <div id="united-kingdom-text">Regne Unit</div>
+            <div id="united-states-text">Estats Units</div>
+            <div id="poi-text">Punts d'interès</div>
+            <div id="eat-and-drink-text">Aliments i begudes</div>
+            <div id="bakery-text">Fleca</div>
+            <div id="supermarket-text">Supermercat</div>
+            <div id="convenience-store-text">Botiga local</div>
+            <div id="restaurant-text">Restaurant</div>
+            <div id="fast-food-text">Menjar ràpid</div>
+            <div id="cafe-text">Cafeteria</div>
+            <div id="pub-text">Pub</div>
+            <div id="bar-text">Bar</div>
+            <div id="amenities-text">Equipaments</div>
+            <div id="toilets-text">Lavabos</div>
+            <div id="drinking-water-text">Aigua potable</div>
+            <div id="water-point-text">Punt d'aigua</div>
+            <div id="water-spring-text">Font</div>
+            <div id="shower-text">Dutxa</div>
+            <div id="fuel-station-text">Gasolinera</div>
+            <div id="parking-text">Aparcament</div>
+            <div id="tourism-text">Turisme</div>
+            <div id="attraction-text">Atracció</div>
+            <div id="viewpoint-text">Mirador</div>
+            <div id="hotel-text">Hotel</div>
+            <div id="hostel-text">Alberg</div>
+            <div id="guest-house-text">Casa de convidats</div>
+            <div id="motel-text">Motel</div>
+            <div id="campsite-text">Campament</div>
+            <div id="alpine-hut-text">Refugi de muntanya</div>
+            <div id="wilderness-hut-text">Cabana del desert</div>
+            <div id="climbing-text">Lloc d'escalada</div>
+            <div id="bicycle-text">Bicicleta</div>
+            <div id="bicycle-parking-text">Aparcament de bicicletes</div>
+            <div id="bicycle-rental-text">Lloguer de bicicletes</div>
+            <div id="bicycle-shop-text">Botiga de bicicletes</div>
+            <div id="public-transport-text">Transport públic</div>
+            <div id="railway-station-text">Estació de tren</div>
+            <div id="tram-stop-text">Parada de tramvia</div>
+            <div id="bus-stop-text">Parada d'autobús</div>
+            <div id="ferry-text">Terminal de ferri</div>
+        </div>
+        <h1>edita gpx en línia</h1>
+        <h1>visualitza gpx en línia</h1>
+        <h1>edita fitxers gpx en línia</h1>
+        <h1>visualitza fitxers gpx en línia</h1>
+        <h1>combina fitxers gpx en línia</h1>
+        <h1>extreu segments de fitxers gpx en línia</h1>
+        <h1>inverteix fitxers gpx en línia</h1>
+        <h1>afegeix marca de temps a fitxers gpx en línia</h1>
+        <h1>comprimeix simplifica redueix el nombre de punts fitxer gpx en línia</h1>
+        <h1>visualitza i afegeix waypoints al fitxer gpx en línia</h1>
+        <h1>edita l'activitat de Strava</h1>
+        <h1>corregeix l'activitat del Strava</h1>
+        <h1>fusiona les activitats de Strava</h1>
+        </div>
+    </body>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="/include/overpasslayer/OverPassLayer.bundle.js"></script>
+    <script type="text/javascript" src="/include/icon/Leaflet.Icon.Glyph.js"></script>
+    <script type="text/javascript" src="/js/data.js"></script>
+    <script type="module" src="/include/gpx/gpx.js"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+    <script type="text/javascript" src="/include/elevation/L.Control.Heightgraph.js"></script>
+    <script type="text/javascript" src="/js/elevation.js"></script>
+    <script type="text/javascript" src="/include/textpath/leaflet.textpath.js"></script>
+    <script type="text/javascript" src="/include/mapboxgl/leaflet-mapbox-gl.js"></script>
+    <script type="text/javascript" src="/include/controlwindow/L.Control.Window.js"></script>
+    <script type="text/javascript" src="/include/geometryutil/leaflet.geometryutil.js"></script>
+    <script type="text/javascript" src="/include/distancemarkers/leaflet-distance-markers.js"></script>
+    <script src="https://unpkg.com/leaflet-toggleable-attribution@0.0.1/src/L.Control.ToggleableAttribution.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script src="https://unpkg.com/mapillary-js@4.0.0/dist/mapillary.js"></script>
+    <script src="https://unpkg.com/leaflet.vectorgrid@1.3.0/dist/Leaflet.VectorGrid.min.js"></script>
+    <script src="/include/sanitize/xss.min.js"></script>
+    <script type="module" src="/include/simplify/simplify.js"></script>
+    <script src="/include/driveutils/upload.js"></script>
+    <script src="/js/lang.js"></script>
+    <script src="/js/layers.js"></script>
+    <script type="module" src="/include/node/bundle.js"></script>
+    <script type="module" src="/js/slider.js"></script>
+    <script type="module" src="/js/layercontrol.js"></script>
+    <script type="module" src="/js/buttons.js"></script>
+    <script type="module" src="/js/trace.js"></script>
+    <script type="module" src="/js/total.js"></script>
+    <script type="module" src="/js/google.js"></script>
+    <script type="module" src="/js/script.js"></script>
+    <script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
+    <script src="https://accounts.google.com/gsi/client"></script>
+</html>
