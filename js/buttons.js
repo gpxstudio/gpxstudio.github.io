@@ -437,7 +437,6 @@ export default class Buttons {
                         if (mapSource == 'osm') layers.openStreetMap.addTo(_this.map);
                         else if (mapSource == 'otm') layers.openTopoMap.addTo(_this.map);
                         else if (mapSource == 'ohm') layers.openHikingMap.addTo(_this.map);
-                        else if (mapSource == 'cosm') layers.cyclOSM.addTo(_this.map);
                         else if (mapSource == 'outdoors' && urlParams.has('token') && _this.supportsWebGL()) _this.mapboxMap.addTo(_this.map);
                         else if (mapSource == 'satellite' && urlParams.has('token') && _this.supportsWebGL()) {
                             _this.mapboxMap.addTo(_this.map);
@@ -454,7 +453,6 @@ export default class Buttons {
                             "OpenStreetMap" : layers.openStreetMap,
                             "OpenTopoMap" : layers.openTopoMap,
                             "OpenHikingMap" : layers.openHikingMap,
-                            "CyclOSM" : layers.cyclOSM
                         }).addTo(_this.map);
 
                         _this.addSwitchMapboxLayers();
@@ -463,7 +461,6 @@ export default class Buttons {
                             "OpenStreetMap" : layers.openStreetMap,
                             "OpenTopoMap" : layers.openTopoMap,
                             "OpenHikingMap" : layers.openHikingMap,
-                            "CyclOSM" : layers.cyclOSM
                         }).addTo(_this.map);
                     }
                 } else {
