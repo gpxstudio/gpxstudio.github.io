@@ -1076,10 +1076,9 @@ export default class Buttons {
             let delta = ((e.deltaY || -e.wheelDelta || e.detail) >> 10) || 1;
             delta = delta * (-100);
             buttons.tabs.scrollLeft -= delta;
+            e.stopPropagation();
             e.preventDefault();
         });
-        L.DomEvent.on(this.tabs,"mousewheel",L.DomEvent.stopPropagation);
-        L.DomEvent.on(this.tabs,"MozMousePixelScroll",L.DomEvent.stopPropagation);
         this.draw.addEventListener("click", function () {
             if (buttons.window_open) buttons.window_open.hide();
             const newTrace = total.addTrace(undefined, "new.gpx");
