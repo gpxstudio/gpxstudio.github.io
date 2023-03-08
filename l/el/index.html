@@ -155,14 +155,14 @@
                         </select></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><label for="routing-input"><b>Routing (follow roads)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
+                        <td colspan="2"><label for="routing-input"><b>Δρομολόγηση (ακολούθηση δρόμων)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><label for="edit-time-strategy"><b>Time data management</b></label></td>
+                        <td colspan="2"><label for="edit-time-strategy"><b>Διαχείριση δεδομένων χρόνου</b></label></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
-                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preserve the original timestamps</label></td>
+                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Διατήρηση μέσης ταχύτητας</label><br>
+                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Διατήρηση αρχικών χρονικών σημάνσεων</label></td>
                     </tr>
                 </table>
             </div>
@@ -174,11 +174,11 @@
             </div>
             <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Άνοιγμα σε Mapillary ή Google Street View"></i>
         </div>
-        <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Direction markers</label>
-        <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Distance markers</label>
+        <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Δείκτες κατεύθυνσης</label>
+        <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Δείκτες απόστασης</label>
         <div id="help-text">
         <div style="text-align: center; font-size: 10pt; color: #476947">
-            <b>Check out the <a href="./about.html#guide" target="_blank">User Guide</a> for more info and small tutorials!</b>
+            <b>Δείτε τον <a href="./about.html#guide" target="_blank">Οδηγό Χρήσης</a> για περισσότερες πληροφορίες και μικρά σεμινάρια!</b>
         </div><br>
         <table style="width: 100%">
             <colgroup>
@@ -190,22 +190,22 @@
             <tr>
                 <td><b>Φόρτωση GPX</b></td>
                 <td>Ctrl+O</td>
-                <td>Import and visualize GPX files (or drag and drop anywhere in the window)</td>
+                <td>Εισαγωγή και οπτικοποίηση αρχείων GPX (ή σύρετε και αφήστε οπουδήποτε στο παράθυρο)</td>
             </tr>
             <tr>
                 <td><b>Νέο GPX</b></td>
                 <td>Ctrl+D</td>
-                <td>Start drawing a new route by placing anchor points on the map</td>
+                <td>Ξεκινήστε να σχεδιάζετε μια νέα διαδρομή τοποθετώντας σημεία στο χάρτη</td>
             </tr>
             <tr>
                 <td><b>Εξαγωγή</b></td>
                 <td>Ctrl+S</td>
-                <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Time, heart rate, cadence, power and temperature data are automatically extended. Optionally, merge all files <b>in the chosen order</b>. You can also drag a tab to your desktop to download the file.</td>
+                <td>Κατεβάστε τα αρχεία στον υπολογιστή σας ή αποθηκεύστε στο Google DriveTM για να αποκτήσετε έναν <b>κοινόχρηστο σύνδεσμο</b> και <b>κώδικα ενσωμάτωσης</b>. Ο χρόνος, ο καρδιακός ρυθμός, ο ρυθμός, η ισχύς και τα δεδομένα θερμοκρασίας παρατείνονται αυτόματα. Προαιρετικά, συγχωνεύστε όλα τα αρχεία <b>με την επιλεγμένη σειρά</b>. Μπορείτε επίσης να σύρετε μια καρτέλα στην επιφάνεια εργασίας σας για να κατεβάσετε το αρχείο.</td>
             </tr>
             <tr>
                 <td><i class="fas fa-reply"></i> <i class="fas fa-share"></i></td>
                 <td>Ctrl+Z/Y</td>
-                <td>Undo and redo actions in edition mode</td>
+                <td>Αναίρεση και επανάληψη ενεργειών σε λειτουργία έκδοσης</td>
             </tr>
             <tr>
                 <td><b>Εκκαθάριση όλων</b></td>
@@ -215,7 +215,7 @@
             <tr>
                 <td></td>
                 <td>Escape</td>
-                <td>Exit current menu or tool</td>
+                <td>Έξοδος από τρέχον μενού ή εργαλείο</td>
             </tr>
             </tbody>
         </table><br>
@@ -227,23 +227,23 @@
             <tbody>
             <tr>
                 <td><i class="fas fa-pencil-alt"></i></td>
-                <td>Enter edition mode to add, move, insert or delete (Shift+click) anchor points, right-click on anchor points for more options (split, change start, delete)</td>
+                <td>Εισάγετε σε λειτουργία έκδοσης για προσθήκη, μετακίνηση, εισαγωγή ή διαγραφή σημείων αγκύρωσης (Shift+click), κάντε δεξί κλικ στα σημεία αγκύρωσης για περισσότερες επιλογές (διαχωρισμός, αλλαγή εκκίνησης, διαγραφή)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-stopwatch"></i></td>
-                <td>Change the speed and starting time of the trace</td>
+                <td>Αλλαγή της ταχύτητας και του χρόνου εκκίνησης του ίχνους</td>
             </tr>
             <tr>
                 <td><i class="fas fa-exchange-alt"></i></td>
-                <td>Reverse the trace and adapt the timestamps</td>
+                <td>Αντιστροφή του ίχνους και προσαρμογή των χρονοσημάνσεων</td>
             </tr>
             <tr>
                 <td><i class="fas fa-plus-circle"></i></td>
-                <td>Merge with another trace (automatically extends time, heart rate, cadence, power and temperature data)</td>
+                <td>Συγχώνευση με ένα άλλο ίχνος (επεκτείνει αυτόματα το χρόνο, τον καρδιακό ρυθμό, τον ρυθμό, την ισχύ και τη θερμοκρασία δεδομένων)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-list-ul"></i></td>
-                <td>Extract all track segments and creates one trace for each</td>
+                <td>Εξαγωγή όλων των τμημάτων και δημιουργία ενός ίχνους για κάθε κομμάτι</td>
             </tr>
             <tr>
                 <td><i class="fas fa-copy"></i></td>
@@ -458,8 +458,8 @@
                     <tr>
                         <td><label for="layer-type">Layer type</label></td>
                         <td><select id="layer-type">
-                            <option value="baselayer">Basemap</option>
-                            <option value="overlay">Overlay</option>
+                            <option value="baselayer">Βασικός Χάρτης</option>
+                            <option value="overlay">Επικαλύψεις</option>
                         </select></td>
                     </tr>
                     <tr>
@@ -472,11 +472,11 @@
             <div id="layer-selection">
                 <span>Choose the Strava Heatmap color</span>
                 <select name="strava-color" id="strava-color-input" class="close-spacing">
-                    <option value="hot">Hot</option>
-                    <option value="blue">Blue</option>
-                    <option value="purple">Purple</option>
-                    <option value="gray">Gray</option>
-                    <option value="bluered">Blue-red</option>
+                    <option value="hot">Ζεστό</option>
+                    <option value="blue">Μπλέ</option>
+                    <option value="purple">Μωβ</option>
+                    <option value="gray">Γκρίζο</option>
+                    <option value="bluered">Μπλε-Κόκκινο</option>
                 </select><br>
                 <span>Choose the minimum zoom level to request POIs</span> <input id="poi-min-zoom-input" type="number" min="10" max="20"><br>
                 <span>Select the layers you want to appear in the interface</span>
