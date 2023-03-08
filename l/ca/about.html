@@ -427,11 +427,11 @@ Per amagar un fitxer GPX, feu clic a <i class="fas fa-eye-slash button"></i>. Pe
             <div>
                 Us convidem a mostrar tracks al vostre lloc web amb <b>gpx.studio</b>. Hi ha dues maneres de fer-ho: la primera amb fitxers emmagatzemats en un servidor i la segona amb Google Drive.
                 <ul>
-                    <li><b>URL del fitxer:</b> afegiu l'enllaç al fitxer a l'atribut <code>urls</code> del paràmetre <code>estat</code> de la cadena de consulta. Make sure to use <code>https</code>, to encode any special characters and that <b>gpx.studio</b> is allowed to request the files, otherwise the requests will be blocked by the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank">CORS policy</a>, i.e. you should set the following header in your server response:
-                        <p style="text-align: center"><code>Access-Control-Allow-Origin: *</code> or <code>https://gpx.studio</code></p></li>
-                    <li><b>Google Drive:</b> Just save the files to your Google Drive when exporting and copy the code provided! If you want to display files that you already have on your Google Drive, add the ID of the file in the <code>ids</code> attribute of the <code>state</code> parameter of the query string and make sure they are available to all users with the link.</li>
+                    <li><b>URL del fitxer:</b> afegiu l'enllaç al fitxer a l'atribut <code>urls</code> del paràmetre <code>estat</code> de la cadena de consulta. Assegureu-vos d'utilitzar <code>https</code> per codificar qualsevol caràcter especial i que <b>gpx.studio</b> tingui permís per sol·licitar els fitxers, en cas contrari, les sol·licituds seran bloquejades per la política de <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank">CORS. </a>, és a dir, hauríeu d'establir la capçalera següent a la resposta del vostre servidor:
+                        <p style="text-align: center"><code>Control d'accés-Permetre-Origen: *</code> o <code>https://gpx.studio</code></p></li>
+                    <li><b>Google Drive:</b> només cal que deseu els fitxers al vostre Google Drive quan exporteu i copieu el codi proporcionat! Si voleu mostrar fitxers que ja teniu al vostre Google Drive, afegiu l'ID del fitxer a l'atribut <code>ids</code> del paràmetre <code>estat</code> de la cadena de consulta i assegureu-vos que estan disponibles per a tots els usuaris amb l'enllaç.</li>
                 </ul>
-                <p>Choose the map shown by default with the parameter <code>source</code> among the following values:</p>
+                <p>Trieu el mapa que es mostra per defecte amb el paràmetre <code>font</code> entre els valors següents:</p>
                 <ul>
                     <li><code>outdoors</code>: Mapbox Outdoors</li>
                     <li><code>satellite</code>: Mapbox Satellite</li>
@@ -439,8 +439,8 @@ Per amagar un fitxer GPX, feu clic a <i class="fas fa-eye-slash button"></i>. Pe
                     <li><code>otm</code>: OpenTopoMap</li>
                     <li><code>ohm</code>: OpenHikingMap</li>
                 </ul>
-                <p>To use Mapbox maps, you need to specify the <code>token</code> parameter with a valid <a href="https://account.mapbox.com/access-tokens/" target="_blank">Mapbox token</a>. You can also use a custom Mapbox style by directly specifying its URL with <code>mapbox-style=&lt;STYLE_URL&gt;</code>.</p>
-                <p>You can optionally add parameters to the source URL: <code>imperial</code> to get data in miles and feet, <code>running</code> to display the pace in minutes by unit of distance, <code>distance</code> to show distance markers, <code>direction</code> to show direction markers and <code>slope</code> to show the slope view of the elevation profile. Below is a playground to play with the parameters, see a preview and get the HTML code.</p>
+                <p>Per utilitzar mapes de Mapbox, heu d'especificar el paràmetre <code>token</code> amb un <a href="https://account.mapbox.com/access-tokens/" target="_blank">token de Mapbox</a> vàlid. També podeu utilitzar un estil de Mapbox personalitzat especificant directament el seu URL amb <code>mapbox-style=&lt;STYLE_URL&gt;</code>.</p>
+                <p>Opcionalment, podeu afegir paràmetres a l'URL d'origen: <code>imperial</code> per obtenir dades en milles i peus, <code>córrer</code> per mostrar el ritme en minuts per unitat de distància, <code>distància< /0> per mostrar marcadors de distància, <code>direcció</code> per mostrar marcadors de direcció i <code>pendent</code> per mostrar la vista de pendent del perfil d'elevació. Below is a playground to play with the parameters, see a preview and get the HTML code.</p>
                 <div class="guide-item">
                     <h3 style="margin-block-start: 0em;">Parameters</h3>
                     <p>File URLs (separated by commas)<br>
