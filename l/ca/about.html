@@ -144,7 +144,7 @@
             <div class="block">
             <a name="funding"></a><h1>Ajudeu a mantenir el lloc web gratuït (i sense anuncis) &#128591;</h1>
             <div>
-                Cada vegada que afegiu o moveu un punt de seguiment, fem una sol·licitud als nostres servidors per recuperar una ruta a la xarxa de carreteres.
+                Cada vegada que afegiu o moveu un punt de track, fem una sol·licitud als nostres servidors per recuperar una ruta a la xarxa de carreteres.
                 També confiem en les API de <a href="https://www.mapbox.com/" target="_blank">Mapbox</a> per carregar mapes bonics, recuperar dades d'elevació i processar sol·licituds de geocodificació (cercant un lloc a la barra de cerca).<br><br>
                  Malauradament, això és molt costós, així que si us agrada l'eina i l'utilitzeu amb freqüència, considereu fer una petita donació perquè aquest lloc web es mantingui <b>gratuït per utilitzar-lo</b> i <b>sense anuncis</b>. Gràcies pel vostre suport!<br><br>
                 <div style="text-align: center;"><script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support gpx.studio on Ko-fi', '#29abe0', 'F1F1303GH');kofiwidget2.draw();</script></div>
@@ -167,7 +167,7 @@
                 <div id="create" class="guide-content">
                     <ol>
                         <li>A la barra d'eines superior, feu clic a <span class="button">Nou GPX</span>. Una pestanya nova anomenada "nou" apareix a sobre del tauler inferior.</li>
-                        <li>Col·loqueu punts d'ancoratge al mapa fent clic a les ubicacions per les quals voleu passar.</li>
+                        <li>Col·loqueu punts al mapa fent clic a les ubicacions per les quals voleu passar.</li>
                         <li>
                             Si l'itinerari està habilitat, seleccioneu el tipus d'activitat adequat per tal d'agafar les carreteres més adequades.
                             Desactivar l'encaminament us permetrà dibuixar línies rectes lliurement al mapa.
@@ -223,34 +223,34 @@
                 <div id="edit-track" class="guide-content">Feu clic a <i class="fas fa-pencil-alt button">...</i> per entrar al mode d'edició. En funció del nivell de zoom, apareix un conjunt de punts d'ancoratge. Com més amplieu, més punts d'ancoratge apareixeran.<br>A continuació podeu:
                     <ul>
                         <li>afegiu punts de track al final del track fent clic al mapa a les ubicacions per les quals voleu passar.</li>
-                        <li>drag an anchor point or the line itself to re-route the trace through a new location.</li>
+                        <li>arrossegueu un punt o la mateixa línia per reencaminar la traça a través d'una nova ubicació.</li>
                         <li>feu clic en un punt d'ancoratge i utilitzeu <span class="button"><i class="fas fa-trash-alt"></i> <span>Elimina el punt</span></span> per eliminar-lo, o simplement Maj+clic sobre ell.</li>
-                        <li>click on an anchor point or on the line and use <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> to split the trace at a chosen location.</li>
-                        <li>click on an anchor point or on the line and use <span class="button"><i class="fas fa-undo"></i> <span>Start loop here</span></span> to make the loop start at a chosen location.</li>
+                        <li>feu clic a un punt o a la línia i utilitzeu <span class="button"><i class="fas fa-cut"></i> <span>Divideix aquí</span></span> per dividir la traça a la ubicació escollida.</li>
+                        <li>feu clic a un punt o a la línia i utilitzeu <span class="button"><i class="fas fa-undo"></i> <span>Inicia el bucle aquí</span></span> per fer que el bucle comenci a la ubicació escollida.</li>
                     </ul>
-                    If you make a mistake or change your mind about the itinerary, use the undo <i class="fas fa-reply button"></i> and redo <i class="fas fa-share button"></i> buttons.<br><br>
-                    If routing is enabled, select the appropriate activity type in order to take the most suitable roads.
-                    Disabling the routing will allow you to draw straight lines freely on the map.<br><br>
-                    If you edit a GPX file containing time, temperature, heartrate, cadence or power data, new track points will automatically contain the average value for each of those fields.
+                    Si cometeu un error o canvieu d'opinió sobre l'itinerari, feu servir els botons desfer <i class="fas fa-reply button"></i> i refer <i class="fas fa-share button"></i>.<br><br>
+                     Si l'enrutament està habilitat, seleccioneu el tipus d'activitat adequat per tal d'agafar les carreteres més adequades.
+                    Desactivar l'encaminament us permetrà dibuixar línies rectes lliurement al mapa.<br><br>
+                     Si editeu un fitxer GPX que conté dades de temps, temperatura, freqüència cardíaca, cadència o potència, els nous punts de seguiment inclouran automàticament el valor mitjà de cadascun d'aquests camps.
                 </div></div>
-                <div class="guide-item"><a name="crop-file" href="#crop-file" class="my-anchor"><div class="guide-title" onclick="toggle('crop')">Crop a GPX file</div></a>
-                <div id="crop" class="guide-content">There are three options:
+                <div class="guide-item"><a name="crop-file" href="#crop-file" class="my-anchor"><div class="guide-title" onclick="toggle('crop')">Retalla un fitxer GPX</div></a>
+                <div id="crop" class="guide-content">Hi ha tres opcions:
                     <ul>
-                        <li>Use the slider in the bottom panel to move the start and end points of the trace. Click on <i class="fas fa-check button"></i> to validate the selection. You can choose whether you want to keep cropped parts in separate files.</li>
-                        <li>Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, click on an anchor point or on the line and use <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> to split the trace at a chosen location.</li>
-                        <li>Click on <i class="fas fa-vector-square button"></i> and select an area containing the track points you want to keep or delete. Uncheck the box <i class="far fa-check-square"></i> Waypoints if you do not want to remove waypoints at the same time. Then, choose whether you want to delete track points inside or outside of the selection. Finally, click on <span class="button">Proceed</span>.</li>
+                        <li>Utilitzeu el control lliscant del tauler inferior per moure els punts inicial i final del track. Feu clic a <i class="fas fa-check button"></i> per validar la selecció. Podeu triar si voleu mantenir les parts retallades en fitxers separats.</li>
+                        <li>Entra al mode d'edició fent clic a <i class="fas fa-pencil-alt button">...</i>. A continuació, feu clic a un punt o a la línia i utilitzeu <span class="button"><i class="fas fa-cut"></i> <span>Dividir aquí</span></span> per dividir el track a la ubicació escollida.</li>
+                        <li>Feu clic a <i class="fas fa-vector-square button"></i> i seleccioneu una àrea que contingui els punts que voleu conservar o suprimir. Desmarqueu la casella <i class="far fa-check-square">Waypoints</i> si no voleu eliminar waypoints al mateix temps. A continuació, trieu si voleu suprimir els punts del track dins o fora de la selecció. Finalment, feu clic a <span class="button">Continua</span>.</li>
                     </ul>
                 </div></div>
-                <div class="guide-item"><a name="split-file" href="#split-file" class="my-anchor"><div class="guide-title" onclick="toggle('split')">Split a GPX file</div></a>
+                <div class="guide-item"><a name="split-file" href="#split-file" class="my-anchor"><div class="guide-title" onclick="toggle('split')">Dividiu un fitxer GPX</div></a>
                 <div id="split" class="guide-content">There are two options:
                     <ul>
-                        <li>Use the slider in the bottom panel to move the start and end points of the trace. Click on <i class="fas fa-check button"></i> to validate the selection. Check the box <i class="far fa-check-square"></i> Keep cropped parts in new files and then click on <span class="button">Proceed</span>.</li>
-                        <li>Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, click on an anchor point or on the line and use <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> to split the trace at a chosen location.</li>
+                        <li>Utilitzeu el control lliscant del tauler inferior per moure els punts inicial i final del track. Feu clic a <i class="fas fa-check button"></i> per validar la selecció. Marqueu la casella <i class="far fa-check-square"></i> Mantén les peces retallades en fitxers nous i després feu clic a <span class="button">Continua</span>.</li>
+                        <li>Entra al mode d'edició fent clic a <i class="fas fa-pencil-alt button">...</i>. A continuació, feu clic a un punt o a la línia i utilitzeu <span class="button"><i class="fas fa-cut"></i> <span>Dividir aquí</span></span> per dividir el track a la ubicació escollida.</li>
                     </ul>
                 </div></div>
                 <div class="guide-item"><a name="change-start-loop" href="#change-start-loop" class="my-anchor"><div class="guide-title" onclick="toggle('change-start')">Change the starting point of a loop</div></a>
                 <div id="change-start" class="guide-content">
-                    Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, click on an anchor point or on the line and use <span class="button"><i class="fas fa-undo"></i> <span>Start loop here</span></span> to make the loop start at a chosen location.</li>
+                    Entra al mode d'edició fent clic a <i class="fas fa-pencil-alt button">...</i>. Then, click on an anchor point or on the line and use <span class="button"><i class="fas fa-undo"></i> <span>Start loop here</span></span> to make the loop start at a chosen location.</li>
                 </div></div>
                 <div class="guide-item"><a name="add-timestamps" href="#add-timestamps" class="my-anchor"><div class="guide-title" onclick="toggle('timestamps')">Add timestamps to a GPX file</div></a>
                 <div id="timestamps" class="guide-content">
@@ -356,7 +356,7 @@
                 </div></div>
                 <div class="guide-item"><a name="remove-waypoint" href="#remove-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('rmv-wpt')">Remove waypoints of a GPX file</div></a>
                 <div id="rmv-wpt" class="guide-content">To remove a single waypoint, click on it and press <i class="fas fa-trash-alt button"></i> inside the popup, or simply Shift+click on it.<br>
-                    To remove all waypoints inside or outside an area, click on <i class="fas fa-vector-square button"></i> and select an area containing the waypoints you want to keep or delete. Uncheck the box <i class="far fa-check-square"></i> Track points if you do not want to remove track points at the same time. Then, choose whether you want to delete waypoints inside or outside of the selection. Finally, click on <span class="button">Proceed</span>.
+                    To remove all waypoints inside or outside an area, click on <i class="fas fa-vector-square button"></i> and select an area containing the waypoints you want to keep or delete. Uncheck the box <i class="far fa-check-square"></i> Track points if you do not want to remove track points at the same time. Then, choose whether you want to delete waypoints inside or outside of the selection. Finalment, feu clic a <span class="button">Continua</span>.
                 </div></div>
                 <div class="guide-item"><a name="reduce-points" href="#reduce-points" class="my-anchor"><div class="guide-title" onclick="toggle('reduce')">Reduce the number of track points of a GPX file</div></a>
                 <div id="reduce" class="guide-content">
@@ -372,7 +372,7 @@
                         <li>Click on <i class="fas fa-vector-square button"></i>.
                         <li>Select an area containing the track points and/or waypoints you want to keep or delete.</li>
                         <li>Choose whether you want to delete track points and/or waypoints, inside or outside of the selection.</li>
-                        <li>Finally, click on <span class="button">Proceed</span>.</li>
+                        <li>Finalment, feu clic a <span class="button">Continua</span>.</li>
                    </ol>
                 </div></div>
                 <div class="guide-item"><a name="delete-file" href="#delete-file" class="my-anchor"><div class="guide-title" onclick="toggle('delete')">Remove GPX files</div></a>
