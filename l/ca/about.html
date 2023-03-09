@@ -67,7 +67,7 @@
             <div id="nav-top">
                 <div id="nav-top-content">
                     <div><a href="./" class="my-anchor"><i class="fas fa-map-marked-alt"></i> <b>Anar a l'app </b></a></div>
-                    <div><a href="#about" class="my-anchor">Sobre</a></div>
+                    <div><a href="#about" class="my-anchor">Quant a</a></div>
                     <div><a href="#support" class="my-anchor">Suport</a></div>
                     <div><a href="#funding" class="my-anchor">Finançament</a></div>
                     <div><a href="#translation" class="my-anchor">Traducció</a></div>
@@ -440,66 +440,66 @@ Per amagar un fitxer GPX, feu clic a <i class="fas fa-eye-slash button"></i>. Pe
                     <li><code>ohm</code>: OpenHikingMap</li>
                 </ul>
                 <p>Per utilitzar mapes de Mapbox, heu d'especificar el paràmetre <code>token</code> amb un <a href="https://account.mapbox.com/access-tokens/" target="_blank">token de Mapbox</a> vàlid. També podeu utilitzar un estil de Mapbox personalitzat especificant directament el seu URL amb <code>mapbox-style=&lt;STYLE_URL&gt;</code>.</p>
-                <p>Opcionalment, podeu afegir paràmetres a l'URL d'origen: <code>imperial</code> per obtenir dades en milles i peus, <code>córrer</code> per mostrar el ritme en minuts per unitat de distància, <code>distància< /0> per mostrar marcadors de distància, <code>direcció</code> per mostrar marcadors de direcció i <code>pendent</code> per mostrar la vista de pendent del perfil d'elevació. Below is a playground to play with the parameters, see a preview and get the HTML code.</p>
+                <p>Opcionalment, podeu afegir paràmetres a l'URL d'origen: <code>imperial</code> per obtenir dades en milles i peus, <code>córrer</code> per mostrar el ritme en minuts per unitat de distància, <code>distància< /0> per mostrar marcadors de distància, <code>direcció</code> per mostrar marcadors de direcció i <code>pendent</code> per mostrar la vista de pendent del perfil d'elevació. A continuació tens un formulari per jugar amb els paràmetres, veure una vista prèvia i obtenir el codi HTML.</p>
                 <div class="guide-item">
-                    <h3 style="margin-block-start: 0em;">Parameters</h3>
-                    <p>File URLs (separated by commas)<br>
+                    <h3 style="margin-block-start: 0em;">Paràmetres</h3>
+                    <p>URL dels fitxers (separades per comes)<br>
                     <input id="file-urls" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
-                    <p>Google Drive file IDs (separated by commas)<br>
+                    <p>ID del fitxer a Google Drive (separats per comes)<br>
                     <input id="file-ids" type="text" oninput="showPreview()" value="10IbXh7W7QDO7ZKmapJYdcgN3vhdN2Q-e" style="width: 96%; margin: 5px;"></p>
                     <div style="display: flex; justify-content: space-between">
-                        <span>Running <input id="running" type="checkbox" oninput="showPreview()"></span>
-                        <span>Imperial <input id="imperial" type="checkbox" oninput="showPreview()"></span>
-                        <span>Distance markers <input id="distance" type="checkbox" oninput="showPreview()" checked></span>
-                        <span>Direction markers <input id="direction" type="checkbox" oninput="showPreview()"></span>
-                        <span>Slope <input id="slope" type="checkbox" oninput="showPreview()"></span>
+                        <span>Córrer <input id="running" type="checkbox" oninput="showPreview()"></span>
+                         <span>Imperial <input id="imperial" type="checkbox" oninput="showPreview()"></span>
+                         <span>Marcadors de distància <input id="distance" type="checkbox" oninput="showPreview()" checked></span>
+                         <span>Marcadors de direcció <input id="direction" type="checkbox" oninput="showPreview()"></span>
+                         <span>Pendent <input id="slope" type="checkbox" oninput="showPreview()"></span>
                     </div>
-                    <p>Default map <select id="sources" oninput="showPreview()">
+                    <p>Mapa per defecte <select id="sources" oninput="showPreview()">
                         <option value="outdoors">Mapbox a l'aire lliure</option>
-                        <option value="satellite">Mapbox Satellite</option>
+                        <option value="satellite">Mapbox Satèl·lit</option>
                         <option value="osm" selected="selected">OpenStreetMap</option>
                         <option value="otm">OpenTopoMap</option>
                         <option value="ohm">OpenHikingMap</option>
                     </select></p>
-                    <p>Mapbox token<br>
+                    <p>Símbol del Mapbox<br>
                     <input id="mapbox-token" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
-                    <p>Mapbox custom style URL<br>
+                    <p>URL d'estil personalitzat de Mapbox<br>
                     <input id="mapbox-style" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
-                    <h3>HTML code</h3>
+                    <h3>Codi HTML</h3>
                     <div style="text-align: left; overflow-wrap: break-word; padding:10px; border: 1px solid #ccc; background: #f5f5f5;">
                     <code id="embedding-code"></code>
                     </div>
-                    <h3>Preview</h3>
+                    <h3>Vista prèvia</h3>
                     <iframe id="preview" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
             </div>
             <div class="block">
-            <a name="terms"></a><h1>Terms of Services &#128214;</h1>
-            <p>Thank you for using <b>gpx.studio</b>. These terms of service (Terms) cover your use and access of our website and related software (our Services).</p>
-            <p>By accessing this website, you are agreeing to be bound by this website Terms of Services and to review our Privacy Policy. If you do not agree with any of these terms, you are prohibited from using or accessing this site.</p>
-            <h2>Changes to the Services</h2>
-            <p>We may change the features of our Services, withdraw or add new features from time to time.</p>
-            <h2>Warranties</h2>
-            <p>The services on the website are provided "as is". To the fullest extent permitted by law, we make no warranties either implied or expressed about the Services. We do not make any promise about the accuracy of specific functions of the services, their reliability or availability.</p>
-            <h2>Changes to Terms</h2>
-            <div>We reserve the right to modify these Terms at any time. We will notice you on the website so you can agree to the revised Terms.</div>
+            <a name="terms"></a><h1>Condicions dels serveis &#128214;</h1>
+            <p>Gràcies per utilitzar <b>gpx.studio</b>. Aquestes condicions del servei (Condicions) cobreixen el vostre ús i accés al nostre lloc web i al programari relacionat (els nostres Serveis).</p>
+            <p>En accedir a aquest lloc web, accepteu estar subjecte a les Condicions de servei d'aquest lloc web i revisar la nostra Política de privadesa. Si no esteu d'acord amb cap d'aquests termes, teniu prohibit utilitzar o accedir a aquest lloc.</p>
+            <h2>Canvis als Serveis</h2>
+            <p>Podem canviar les característiques dels nostres Serveis, retirar o afegir noves característiques de tant en tant.</p>
+            <h2>Garanties</h2>
+            <p>Els serveis del lloc web es proporcionen "tal com són". En la mesura màxima permesa per la llei, no oferim cap garantia ni implícita ni expressa sobre els Serveis. No fem cap promesa sobre l'exactitud de les funcions específiques dels serveis, la seva fiabilitat o disponibilitat.</p>
+            <h2>Canvis a les condicions</h2>
+            <div>Ens reservem el dret de modificar aquestes Condicions en qualsevol moment. Us avisarem al lloc web perquè pugueu acceptar les Condicions revisades.</div>
             </div>
             <div class="block">
-            <a name="privacy"></a><h1>Privacy Policy &#128373;&#65039;</h1>
-            <p><b>gpx.studio</b> is an online GPX file editor which allows users to create, view and edit files.
-                We respect the privacy of our users and do not collect any personal information.</p>
-            <p>The files created, visualized or edited on the website are only read once and never stored on a server.
-                We only access the data contained in the files and handle all computations from your local browser (it is a pure client-side application).</p>
+            <a name="privacy"></a><h1>Política de privadesa &#128373;&#65039;</h1>
+            <p><b>gpx.studio</b> és un editor de fitxers GPX en línia que permet als usuaris crear, veure i editar fitxers.
+                Respectem la privadesa dels nostres usuaris i no recollim cap informació personal.</p>
+            <p>Els fitxers creats, visualitzats o editats al lloc web només es llegeixen una vegada i mai s'emmagatzemen en un servidor.
+                Només accedim a les dades contingudes en els fitxers i gestionem tots els càlculs des del vostre navegador local (és una aplicació pura del costat de client).</p>
             <h2>Google Drive</h2>
-            <p>The website offers the possibility to log in with Google Drive to upload and save files in order to facilitate the storage, versioning and sharing of GPX files.
-                That service authenticates you directly with your Google account, and an authentication token identifying you as the file owner is stored in your local browser session profile.
-                This information is used to browse GPX files in your Google Drive and to open only those you choose to open.
-                Furthermore, it is used to automatically authenticate users visiting the website again but it is never stored on our side.</p>
-            <p>We use standard Google Drive sharing functionality when you decide to share the file, and standard Google Drive authentication, authorization mechanisms for access control.
-                No other files than those you create with the tool or decide to open with it (either by opening from Google Drive or visiting its associated URL on the tool) will be accessed, and none will ever be stored.</p>
-            <p><b>gpx.studio</b>'s use of information received from Google APIs will adhere to the <a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
-            <p>Last updated July 26, 2021.</p>
+            <p>El lloc web ofereix la possibilitat d'iniciar sessió amb Google Drive per pujar i desar fitxers per tal de facilitar l'emmagatzematge, versions i compartició d'arxius GPX.
+                Aquest servei us autentica directament amb el vostre compte de Google i s'emmagatzema un testimoni d'autenticació que us identifica com a propietari del fitxer al perfil de sessió del vostre navegador local.
+                Aquesta informació s'utilitza per explorar fitxers GPX al vostre Google Drive i per obrir només els que trieu obrir.
+                A més, s'utilitza per autenticar automàticament els usuaris que tornen a visitar el lloc web, però mai s'emmagatzema al nostre costat.</p>
+            <p>Utilitzem la funcionalitat estàndard de compartició de Google Drive quan decidiu compartir el fitxer, i l'autenticació estàndard de Google Drive, mecanismes d'autorització per al control d'accés.
+                No s'accedirà a cap altre fitxer que no sigui els que creeu amb l'eina o decidiu obrir-hi (ja sigui obrint-lo des de Google Drive o visitant l'URL associat a l'eina) i no se n'emmagatzemarà mai.</p>
+            <p>L'ús que fa <b>gpx.studio</b> de la informació rebuda de les API de Google s'adherirà a la <a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes">Política de dades d'usuari dels serveis d'API de Google</a>, inclosos els requisits d'ús limitat.</p>
+            <p>Darrera actualització: 26 de juliol del 2021.</p>
             <br><br><br>
             </div>
         </div>
