@@ -549,6 +549,7 @@ export default class Trace {
             if (trace._editMarkers.length == 1) return;
             insertTmpEditMarker();
             var content = '<div id="close-popup" class="custom-button" style="float: right;"><i class="fas fa-times"></i></div>';
+            content += '<div id="point-time">' + marker._pt.meta.time.toLocaleTimeString() + '</div>';
             if (marker != trace._editMarkers[0] && marker != trace._editMarkers[trace._editMarkers.length-1]) {
                 content += `<div id="split-waypoint" class="custom-button popup-action"><i class="fas fa-cut"></i> `+trace.buttons.split_text+`</div>
                             <div id="start-loop-waypoint" class="custom-button popup-action"><i class="fas fa-undo"></i> `+trace.buttons.start_loop_text+`</div>`;
