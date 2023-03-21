@@ -1254,7 +1254,7 @@ export default class Buttons {
 
             const output = total.outputGPX(mergeAll, time, hr, atemp, cad, power, surface);
             for (var i=0; i<output.length; i++) {
-                if (i > 0) await buttons.pause(100);
+                if (i > 0) await buttons.pause(200);
                 buttons.download(output[i].name, output[i].text);
             }
 
