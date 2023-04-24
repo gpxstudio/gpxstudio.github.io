@@ -108,7 +108,7 @@
                 <div id="units-text" class="panels panels-info">Távolságmérés mértékegységei</div>
                 <select id="units-input" name="panels panels-val units-input">
                     <option value="km">Méter</option>
-                    <option value="mi">Mérföld</option>
+                    <option value="mi">Angolszász</option>
                 </select>
                 <div id="speed-units-text" class="panels panels-info">Sebesség mérés mértékegységei</div>
                 <select id="speed-units-input" name="panels panels-val speed-units-input">
@@ -142,7 +142,7 @@
                 <div class="panels-button" id="delete" title="Törlés"><i class="fas fa-trash-alt custom-button"></i></div>
             </div>
             <div id="editing-options" class="panels-container">
-                <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Válszd ki a szerkesztési mód beállításokat"></i>
+                <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Szerkesztési lehetőségek váltása"></i>
                 <table class="panels">
                     <tr>
                         <td><b>Tevékenység</b></td>
@@ -151,7 +151,7 @@
                             <option value="fastbike">Versenykerékpár</option>
                             <option value="MTB">Terep bicikli (Montain bike)</option>
                             <option value="Hiking-Alpine-SAC6">Futás/Túrázás</option>
-                            <option value="Car-FastEco">Motor</option>
+                            <option value="Car-FastEco">Motorkerékpár</option>
                         </select></td>
                     </tr>
                     <tr>
@@ -172,7 +172,7 @@
                 <input id="street-view-provider-google" type="radio" name="street-view-provider" value="google"> <label for="street-view-provider-google">Google</label>
                 <input id="street-view-provider-mapillary" type="radio" name="street-view-provider" value="mapillary" checked> <label for="street-view-provider-mapillary">Mapillary</label>
             </div>
-            <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Mapillary vagy Google Street nézet"></i>
+            <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Mapillary vagy Google Street View megnyitása"></i>
         </div>
         <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Menetirány mutatása</label>
         <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Távolsági km szakaszok mutatása</label>
@@ -412,7 +412,7 @@
         </div>
         <div id="structure-content" class="popup-content">
             <div class="close-spacing">Húzza át az elemeket a fájlszerkezet átrendezéséhez</div>
-            <div>Move elements from or to the tabs above the elevation profile</div>
+            <div>Elemek áthelyezése a magassági profil feletti fülekről vagy fülekre</div>
             <div>Az útvonalak átnevezése vagy más útvonalszín megadása</div>
             <div id="file-structure"></div>
             <div id="merge-selection" class="panels custom-button normal-button">Egyesítés kijelőlés</div>
@@ -476,7 +476,7 @@
                     <option value="blue">Kék</option>
                     <option value="purple">Lila</option>
                     <option value="gray">Szürke</option>
-                    <option value="bluered">Kék és piros</option>
+                    <option value="bluered">Kék-Piros</option>
                 </select><br>
                 <span>Válassza ki a minimális nagyítási szintet POI-k kéréséhez</span> <input id="poi-min-zoom-input" type="number" min="10" max="20"><br>
                 <span>Válassza ki a felületen megjeleníteni kívánt rétegeket</span>
@@ -611,10 +611,10 @@
             <div id="bicycle-rental-text">Kerékpár bérélés</div>
             <div id="bicycle-shop-text">Kerékpár üzlet</div>
             <div id="public-transport-text">Tömegközlekedés</div>
-            <div id="railway-station-text">Railway Station</div>
-            <div id="tram-stop-text">Tram Stop</div>
-            <div id="bus-stop-text">Bus Stop</div>
-            <div id="ferry-text">Ferry Terminal</div>
+            <div id="railway-station-text">Vasútállomás</div>
+            <div id="tram-stop-text">Villamos megálló</div>
+            <div id="bus-stop-text">Buszmegálló</div>
+            <div id="ferry-text">Kompkikötő</div>
         </div>
         <h1>online gpx szerkesztő</h1>
         <h1>online gpx megjelenítő</h1>
