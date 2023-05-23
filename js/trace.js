@@ -455,7 +455,7 @@ export default class Trace {
     }
 
     showData() {
-        this.buttons.distance.innerHTML = (this.getDistance() / 1000).toFixed(1).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text);
+        this.buttons.distance.innerHTML = (this.getDistance() / 1000).toFixed(2).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text);
         this.buttons.elevation.innerHTML = '<i class="fas fa-angle-up"></i> ' + this.getElevationGain().toFixed(0).toString() + (this.buttons.km ? this.buttons.unit_meters_text : this.buttons.unit_feet_text) +
             ' <i class="fas fa-angle-down"></i> ' + this.getElevationLoss().toFixed(0).toString() + (this.buttons.km ? this.buttons.unit_meters_text : this.buttons.unit_feet_text);
         if (this.buttons.speed_units) this.buttons.speed.innerHTML = this.getMovingSpeed().toFixed(1).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text) + '/' + this.buttons.unit_hours_text;
@@ -1125,7 +1125,7 @@ export default class Trace {
 
         var trackLength = document.createElement('span');
         trackDetails.appendChild(trackLength);
-        trackLength.textContent = (track._dist / 1000 / (this.buttons.km ? 1 : 1.609344)).toFixed(1).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text);
+        trackLength.textContent = (track._dist / 1000 / (this.buttons.km ? 1 : 1.609344)).toFixed(2).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text);
         trackLength.style.marginLeft = 'auto';
         trackLength.classList.add('info');
 
@@ -1200,7 +1200,7 @@ export default class Trace {
 
         var segmentLength = document.createElement('span');
         segmentDetails.appendChild(segmentLength);
-        segmentLength.textContent = (segment._dist / 1000 / (this.buttons.km ? 1 : 1.609344)).toFixed(1).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text);
+        segmentLength.textContent = (segment._dist / 1000 / (this.buttons.km ? 1 : 1.609344)).toFixed(2).toString() + ' ' + (this.buttons.km ? this.buttons.unit_kilometers_text : this.buttons.unit_miles_text);
         segmentLength.style.marginLeft = 'auto';
         segmentLength.classList.add('info');
 
