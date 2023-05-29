@@ -103,19 +103,19 @@
                 <div class="panels panels-val" id="tracks-val">0</div>
                 <div class="panels panels-info" id="segments">Segmenty stopy</div>
                 <div class="panels panels-val" id="segments-val">0</div>
-                <div class="panels panels-info" id="points">Track points</div>
+                <div class="panels panels-info" id="points">Body stopy</div>
                 <div class="panels panels-val" id="points-val">0</div>
-                <div id="units-text" class="panels panels-info">Distance units</div>
+                <div id="units-text" class="panels panels-info">Jednotky vzdálenosti</div>
                 <select id="units-input" name="panels panels-val units-input">
-                    <option value="km">Metric</option>
-                    <option value="mi">Imperial</option>
+                    <option value="km">Metrické</option>
+                    <option value="mi">Imperiální</option>
                 </select>
-                <div id="speed-units-text" class="panels panels-info">Velocity units</div>
+                <div id="speed-units-text" class="panels panels-info">Jednotky rychlosti</div>
                 <select id="speed-units-input" name="panels panels-val speed-units-input">
                     <option value="speed">Rychlost</option>
-                    <option value="pace">Pace</option>
+                    <option value="pace">Tempo</option>
                 </select>
-                <div id="elevation-input" class="panels-button custom-button" title="Toggle the elevation profile"><i class="fas fa-minus"></i></div>
+                <div id="elevation-input" class="panels-button custom-button" title="Přepnout výškový profil"><i class="fas fa-minus"></i></div>
                 <div id="crop-container">
                     <div class="panels-button custom-button" id="validate"><i class="fas fa-check custom-button"></i></div>
                 </div>
@@ -127,42 +127,42 @@
         </div>
         <div id="buttons-bar" class="vcenter-leaflet">
             <div id="buttons" class="panels-container">
-                <div class="panels-button" id="edit" title="Edit track points"><i class="fas fa-pencil-alt custom-button"></i></div>
-                <div class="panels-button" id="edit-time" title="Edit time"><i class="fas fa-stopwatch custom-button"></i></div>
-                <div class="panels-button" id="reverse" title="Reverse"><i class="fas fa-exchange-alt custom-button"></i></div>
-                <div class="panels-button" id="combine" title="Merge with another trace"><i class="fas fa-plus-circle custom-button"></i></div>
-                <div class="panels-button" id="extract" title="Extract tracks or track segments"><i class="fas fa-list-ul custom-button"></i></div>
-                <div class="panels-button" id="duplicate" title="Duplicate"><i class="fas fa-copy custom-button"></i></div>
-                <div class="panels-button" id="add-wpt" title="Add waypoint"><i class="fas fa-map-marker-alt custom-button"></i></div>
-                <div class="panels-button" id="reduce" title="Reduce number of track points"><i class="fas fa-compress-alt custom-button"></i></div>
-                <div class="panels-button" id="zone-delete" title="Delete all inside/outside rectangle selection"><i class="fas fa-vector-square custom-button"></i></div>
-                <div class="panels-button" id="hide" title="Hide/unhide the trace"><i class="fas fa-eye-slash custom-button"></i></div>
-                <div class="panels-button" id="color" title="Change color, opacity and width"><i class="fas fa-palette custom-button"></i></div>
-                <div class="panels-button" id="structure" title="Manage the file structure"><i class="fas fa-folder-tree custom-button"></i></div>
-                <div class="panels-button" id="delete" title="Delete"><i class="fas fa-trash-alt custom-button"></i></div>
+                <div class="panels-button" id="edit" title="Upravit body stopy"><i class="fas fa-pencil-alt custom-button"></i></div>
+                <div class="panels-button" id="edit-time" title="Upravit čas"><i class="fas fa-stopwatch custom-button"></i></div>
+                <div class="panels-button" id="reverse" title="Obráceně"><i class="fas fa-exchange-alt custom-button"></i></div>
+                <div class="panels-button" id="combine" title="Sloučit s další trasou"><i class="fas fa-plus-circle custom-button"></i></div>
+                <div class="panels-button" id="extract" title="Extrahovat stopy nebo segmenty stop"><i class="fas fa-list-ul custom-button"></i></div>
+                <div class="panels-button" id="duplicate" title="Duplikovat"><i class="fas fa-copy custom-button"></i></div>
+                <div class="panels-button" id="add-wpt" title="Přidat trasový bod"><i class="fas fa-map-marker-alt custom-button"></i></div>
+                <div class="panels-button" id="reduce" title="Snížit počet bodů stopy"><i class="fas fa-compress-alt custom-button"></i></div>
+                <div class="panels-button" id="zone-delete" title="Odstranit výběr uvnitř / vně obdélníku"><i class="fas fa-vector-square custom-button"></i></div>
+                <div class="panels-button" id="hide" title="Skrýt/zobrazit stopy"><i class="fas fa-eye-slash custom-button"></i></div>
+                <div class="panels-button" id="color" title="Změna barvy, průhlednosti a šířky"><i class="fas fa-palette custom-button"></i></div>
+                <div class="panels-button" id="structure" title="Správa struktury souborů"><i class="fas fa-folder-tree custom-button"></i></div>
+                <div class="panels-button" id="delete" title="Smazat"><i class="fas fa-trash-alt custom-button"></i></div>
             </div>
             <div id="editing-options" class="panels-container">
-                <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Toggle editing options"></i>
+                <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Přepnout možnosti úprav"></i>
                 <table class="panels">
                     <tr>
-                        <td><b>Activity</b></td>
+                        <td><b>Aktivita</b></td>
                         <td><select name="activity" id="activity-input" class="close-spacing">
-                            <option value="Trekking-dry">Bike</option>
-                            <option value="fastbike">Racing bike</option>
-                            <option value="MTB">Mountain bike</option>
-                            <option value="Hiking-Alpine-SAC6">Run/hike</option>
-                            <option value="Car-FastEco">Motorcycle</option>
+                            <option value="Trekking-dry">Kolo</option>
+                            <option value="fastbike">Závodní kolo</option>
+                            <option value="MTB">Horské kolo</option>
+                            <option value="Hiking-Alpine-SAC6">Chůze/běh</option>
+                            <option value="Car-FastEco">Motocykl</option>
                         </select></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><label for="routing-input"><b>Routing (follow roads)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
+                        <td colspan="2"><label for="routing-input"><b>Trasování (po silnicích)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><label for="edit-time-strategy"><b>Time data management</b></label></td>
+                        <td colspan="2"><label for="edit-time-strategy"><b>Správa časových údajů</b></label></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
-                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preserve the original timestamps</label></td>
+                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Zachovat průměrnou rychlost</label><br>
+                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Zachovat původní časová razítka</label></td>
                     </tr>
                 </table>
             </div>
@@ -172,13 +172,13 @@
                 <input id="street-view-provider-google" type="radio" name="street-view-provider" value="google"> <label for="street-view-provider-google">Google</label>
                 <input id="street-view-provider-mapillary" type="radio" name="street-view-provider" value="mapillary" checked> <label for="street-view-provider-mapillary">Mapillary</label>
             </div>
-            <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Mapillary or Google Street View"></i>
+            <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Otevřít Mapillary nebo Google Street View"></i>
         </div>
-        <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Direction markers</label>
-        <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Distance markers</label>
+        <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Směrové značky</label>
+        <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Značky vzdálenosti</label>
         <div id="help-text">
         <div style="text-align: center; font-size: 10pt; color: #476947">
-            <b>Check out the <a href="./about.html#guide" target="_blank">User Guide</a> for more info and small tutorials!</b>
+            <b>Více informací a rychlé návody najdete v<a href="./about.html#guide" target="_blank">uživatelské příručce.</a></b>
         </div><br>
         <table style="width: 100%">
             <colgroup>
@@ -339,31 +339,31 @@
                 </tbody>
             </table>
             <div style="color:#0f92c5;">&#9888;&#65039; The tool is <b>free</b> to use but <b>not free</b> to run &#9888;&#65039;<br>Each map display, track point added or moved is billed.</div>
-            <div id="donate-2" class="panels custom-button fancy-button"><b>Help keep the website free</b> &#128591;</div><br>
-            <div id="export-2" class="panels custom-button fancy-button">Download <i class="fas fa-download"></i></div>
-            <div id="save-drive" class="panels custom-button fancy-button">Save to Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
+            <div id="donate-2" class="panels custom-button fancy-button"><b>Pomozte zachovat tyto stránky zdarma</b> &#128591;</div><br>
+            <div id="export-2" class="panels custom-button fancy-button">Stáhnout <i class="fas fa-download"></i></div>
+            <div id="save-drive" class="panels custom-button fancy-button">Uložit na Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
         </div>
         <div id="clear-content" class="popup-content">
-            This will delete all open traces.<br>Do you wish to continue?<br>
-            <div id="clear2" class="panels custom-button normal-button">Yes</div>
-            <div id="cancelclear" class="panels custom-button normal-button"><b>Cancel</b></div>
+            Tímto odstraníte všechny otevřené stopy.<br>Pokračovat?<br>
+            <div id="clear2" class="panels custom-button normal-button">Ano</div>
+            <div id="cancelclear" class="panels custom-button normal-button"><b>Storno</b></div>
         </div>
         <div id="delete-content" class="popup-content">
-            This will delete the current trace.<br>Do you wish to continue?<br>
-            <div id="delete2" class="panels custom-button normal-button">Yes</div>
-            <div id="canceldelete" class="panels custom-button normal-button"><b>Cancel</b></div>
+            Tímto odstraníte aktuální stopu.<br>Pokračovat?<br>
+            <div id="delete2" class="panels custom-button normal-button">Ano</div>
+            <div id="canceldelete" class="panels custom-button normal-button"><b>Storno</b></div>
         </div>
         <div id="color-content" class="popup-content">
             <div style="text-align: left">
-                <label for="color-picker">Pick a new color</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
-                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Apply color to all traces</label><br>
-                <label for="opacity-slider">Opacity</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
-                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Apply opacity to all traces</label><br>
-                <label for="width-slider">Width</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
-                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Apply width to all traces</label>
+                <label for="color-picker">Vybrat novou barvu</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
+                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Použít barvu na všechny stopy</label><br>
+                <label for="opacity-slider">Průhlednost</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
+                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Použít průhlednost pro všechny stopy</label><br>
+                <label for="width-slider">Šířka</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
+                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Použít šířku na všechny stopy</label>
             </div>
             <div id="validate-color" class="panels custom-button normal-button">Ok</div>
-            <div id="cancel-color" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="cancel-color" class="panels custom-button normal-button"><b>Storno</b></div>
         </div>
         <div id="load-content" class="popup-content">
             Choose files from<br>
@@ -401,14 +401,14 @@
             <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Split into separate tracks</label><br>
             <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Split into separate track segments</label><br>
             <div id="split-ok" class="panels custom-button normal-button">Ok</div>
-            <div id="split-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="split-cancel" class="panels custom-button normal-button"><b>Storno</b></div>
         </div>
         <div id="extract-content" class="popup-content">
             Choose what to extract<br>
             <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Tracks</label><br>
             <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Track segments</label><br>
             <div id="extract-ok" class="panels custom-button normal-button">Ok</div>
-            <div id="extract-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="extract-cancel" class="panels custom-button normal-button"><b>Storno</b></div>
         </div>
         <div id="structure-content" class="popup-content">
             <div class="close-spacing">Drag and drop the elements to rearrange the file structure</div>
@@ -421,23 +421,23 @@
         <div id="crop-content" class="popup-content">
             <input type="checkbox" id="crop-keep"><label for="crop-keep">Keep cropped parts in new files</label><br>
             <div id="crop-ok" class="panels custom-button normal-button">Proceed</div>
-            <div id="crop-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="crop-cancel" class="panels custom-button normal-button"><b>Storno</b></div>
         </div>
         <div id="reduce-content" class="popup-content">
             Choose the amount of detail to keep<br>
             Number of track points: <span id="reduce-npoints">0</span><br>
             <input type="range" min="0" max="1000" id="reduce-slider" style="width: 90%"><br>
             <div id="reduce-ok" class="panels custom-button normal-button">Ok</div>
-            <div id="reduce-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="reduce-cancel" class="panels custom-button normal-button"><b>Storno</b></div>
         </div>
         <div id="zone-delete-content" class="popup-content">
             Choose what to delete<br>
-            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Track points</label>
+            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Body stopy</label>
             <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
             <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inside selection</label>
             <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
             <div id="zone-delete-ok" class="panels custom-button normal-button">Proceed</div>
-            <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Storno</b></div>
         </div>
         <div id="layer-selection-content">
             <div id="layer-creation">
@@ -498,10 +498,10 @@
         <div id="unit-feet-text">ft</div>
         <div id="unit-hours-text">h</div>
         <div id="unit-minutes-text">min</div>
-        <div id="duplicate-text">Duplicate</div>
-        <div id="delete-text">Delete</div>
+        <div id="duplicate-text">Duplikovat</div>
+        <div id="delete-text">Smazat</div>
         <div id="ok-button-text">Ok</div>
-        <div id="cancel-button-text">Cancel</div>
+        <div id="cancel-button-text">Storno</div>
         <div id="search-input-text">Search...</div>
         <div id="search-button-text">Search for a place or paste GPS coordinates</div>
         <div id="locate-button-text">Show my position</div>
@@ -510,7 +510,7 @@
         <span id="segment-text">Segment</span>
         <div id="edit-speed-popup-text">
             <div id="speed-text">Rychlost</div>
-            <div id="pace-text">Pace</div>
+            <div id="pace-text">Tempo</div>
             <div id="start-text">Start</div>
             <div id="experimental-info-text">Generate speed considering the slope and the activity type<br><b><i class="fas fa-exclamation-triangle"></i> erases all existing time data</b></div>
         </div>
