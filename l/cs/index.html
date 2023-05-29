@@ -162,7 +162,7 @@
                     </tr>
                     <tr>
                         <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Zachovat průměrnou rychlost</label><br>
-                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Zachovat původní časová razítka</label></td>
+                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Zachovat původní časové značky</label></td>
                     </tr>
                 </table>
             </div>
@@ -366,100 +366,100 @@
             <div id="cancel-color" class="panels custom-button normal-button"><b>Storno</b></div>
         </div>
         <div id="load-content" class="popup-content">
-            Choose files from<br>
-            <div id="load2" class="panels custom-button normal-button">Desktop</div>
+            Vybrat soubory z<br>
+            <div id="load2" class="panels custom-button normal-button">Plocha</div>
             <div id="load-drive" class="panels custom-button normal-button">Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div><br>
-            (or drag and drop anywhere in the window)
+            (nebo přetáhněte kamkoliv v okně)
         </div>
         <div id="share-content" class="popup-content">
-            Done!<br>
-            <div id="copy-link" class="panels custom-button fancy-button">Copy link <i class="fas fa-link"></i></div><br>
-            <div id="copy-embed" class="panels custom-button fancy-button">Copy embedding code <i class="fas fa-code"></i></div><br>
+            Hotovo!<br>
+            <div id="copy-link" class="panels custom-button fancy-button">Kopírovat odkaz <i class="fas fa-link"></i></div><br>
+            <div id="copy-embed" class="panels custom-button fancy-button">Kopírovat kód vložení <i class="fas fa-code"></i></div><br>
         </div>
         <div id="merge-content" class="popup-content">
             <div id="merge-time-options">
-                <i class="fas fa-stopwatch"></i> Choose how to adapt the timestamps of the second trace (if any)
+                <i class="fas fa-stopwatch"></i> Zvolte, jak upravit časové značky druhého záznamu (pokud existuje)
                 <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
-                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Keep the original timestamps (as long as they come after those of the first trace)</label><br>
-                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Make the second trace start right after the first one</label>
+                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Zachovat původní časové značky (pokud následují po časových značkách první stopy)</label><br>
+                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Zajistěte, aby druhá stopa začínala hned po první stopě</label>
                 </div>
                 <hr>
             </div>
             <div>
-                <div class="close-spacing">Click on another trace or tab to merge the current trace with it</div><hr>
-                Choose how to add the second trace to the first one
+                <div class="close-spacing">Kliknutím na jinou stopu nebo kartu s ní sloučíte aktuální stopu</div><hr>
+                Zvolte jak přidat druhou stopu k první
                 <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
-                    <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Merge as track points</label><br>
-                    <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Merge as track segments</label><br>
-                    <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Merge as tracks</label>
+                    <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Sloučit jako body stopy</label><br>
+                    <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Sloučit jako segmenty stopy</label><br>
+                    <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Sloučit jako stopy</label>
                 </div>
             </div>
         </div>
         <div id="split-content" class="popup-content">
-            Choose how to split the trace<br>
-            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Split into separate files</label><br>
-            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Split into separate tracks</label><br>
-            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Split into separate track segments</label><br>
+            Zvolte způsob rozdělení stopy<br>
+            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Rozdělit do samostatných souborů</label><br>
+            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Rozdělit na samostatné stopy</label><br>
+            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Rozdělit na samostatné segmenty stopy</label><br>
             <div id="split-ok" class="panels custom-button normal-button">Ok</div>
             <div id="split-cancel" class="panels custom-button normal-button"><b>Storno</b></div>
         </div>
         <div id="extract-content" class="popup-content">
-            Choose what to extract<br>
-            <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Tracks</label><br>
-            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Track segments</label><br>
+            Zvolte, co chcete extrahovat<br>
+            <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Stopy</label><br>
+            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">segmenty stopy</label><br>
             <div id="extract-ok" class="panels custom-button normal-button">Ok</div>
             <div id="extract-cancel" class="panels custom-button normal-button"><b>Storno</b></div>
         </div>
         <div id="structure-content" class="popup-content">
-            <div class="close-spacing">Drag and drop the elements to rearrange the file structure</div>
-            <div>Move elements from or to the tabs above the elevation profile</div>
-            <div>Rename tracks or change their color</div>
+            <div class="close-spacing">Přetažením prvků změníte strukturu souboru</div>
+            <div>Přesunout prvky z nebo na záložky nad výškovým profilem</div>
+            <div>Přejmenovat stopy nebo změnit jejich barvu</div>
             <div id="file-structure"></div>
-            <div id="merge-selection" class="panels custom-button normal-button">Merge selection</div>
-            <div id="delete-selection" class="panels custom-button normal-button">Delete selection</div>
+            <div id="merge-selection" class="panels custom-button normal-button">Sloučit výběr</div>
+            <div id="delete-selection" class="panels custom-button normal-button">Smazat výběr</div>
         </div>
         <div id="crop-content" class="popup-content">
-            <input type="checkbox" id="crop-keep"><label for="crop-keep">Keep cropped parts in new files</label><br>
-            <div id="crop-ok" class="panels custom-button normal-button">Proceed</div>
+            <input type="checkbox" id="crop-keep"><label for="crop-keep">Zachovat oříznuté části v nových souborech</label><br>
+            <div id="crop-ok" class="panels custom-button normal-button">Pokračovat</div>
             <div id="crop-cancel" class="panels custom-button normal-button"><b>Storno</b></div>
         </div>
         <div id="reduce-content" class="popup-content">
-            Choose the amount of detail to keep<br>
-            Number of track points: <span id="reduce-npoints">0</span><br>
+            Zvolte množství detailů, které chcete zachovat<br>
+            Počet bodů stopy: <span id="reduce-npoints">0</span><br>
             <input type="range" min="0" max="1000" id="reduce-slider" style="width: 90%"><br>
             <div id="reduce-ok" class="panels custom-button normal-button">Ok</div>
             <div id="reduce-cancel" class="panels custom-button normal-button"><b>Storno</b></div>
         </div>
         <div id="zone-delete-content" class="popup-content">
-            Choose what to delete<br>
+            Vyberte co chcete smazat<br>
             <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Body stopy</label>
-            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
-            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inside selection</label>
-            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
-            <div id="zone-delete-ok" class="panels custom-button normal-button">Proceed</div>
+            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Trasové body</label><br>
+            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Vnitřní výběr</label>
+            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Vnější výběr</label><br>
+            <div id="zone-delete-ok" class="panels custom-button normal-button">Pokračovat</div>
             <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Storno</b></div>
         </div>
         <div id="layer-selection-content">
             <div id="layer-creation">
-                Add or replace a custom layer here
+                Zde přidejte nebo nahradte vlastní vrstvu
                 <table style="text-align: left">
                     <tr>
-                        <td><label for="layer-name">Layer name</label></td>
+                        <td><label for="layer-name">Název vrstvy</label></td>
                         <td><input type="text" id="layer-name" size="35"></td>
                     </tr>
                     <tr>
-                        <td><label for="layer-url">Tiles URL</label></td>
+                        <td><label for="layer-url">Adresa URL dlaždice</label></td>
                         <td><input type="text" id="layer-url" placeholder="https://{s}.domain.com/{z}/{y}/{x}.png" size="35"></td>
                     </tr>
                     <tr>
-                        <td><label for="layer-max-zoom">Max zoom level</label></td>
+                        <td><label for="layer-max-zoom">Maximální úroveň přiblížení</label></td>
                         <td><input type="number" id="layer-max-zoom" value="20" min="1" max="20"></td>
                     </tr>
                     <tr>
-                        <td><label for="layer-type">Layer type</label></td>
+                        <td><label for="layer-type">Typ vrstvy</label></td>
                         <td><select id="layer-type">
-                            <option value="baselayer">Basemap</option>
-                            <option value="overlay">Overlay</option>
+                            <option value="baselayer">Základní mapa</option>
+                            <option value="overlay">Překrytí</option>
                         </select></td>
                     </tr>
                     <tr>
@@ -467,12 +467,12 @@
                     </tr>
                 </table>
                 <div id="preview-map" style="width: 100%; height: 200px"></div>
-                <div id="layer-creation-ok" class="panels custom-button normal-button">Add layer</div>
+                <div id="layer-creation-ok" class="panels custom-button normal-button">Přidat vrstvu</div>
             </div>
             <div id="layer-selection">
-                <span>Choose the Strava Heatmap color</span>
+                <span>Výběr barvy mapy Strava Heatmap</span>
                 <select name="strava-color" id="strava-color-input" class="close-spacing">
-                    <option value="hot">Hot</option>
+                    <option value="hot">Horké</option>
                     <option value="blue">Blue</option>
                     <option value="purple">Purple</option>
                     <option value="gray">Gray</option>
