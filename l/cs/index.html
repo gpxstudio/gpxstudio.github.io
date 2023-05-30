@@ -267,15 +267,15 @@
             </tr>
             <tr>
                 <td><i class="fas fa-palette"></i></td>
-                <td>Change the display color and opacity, these values will be exported and detected when re-imported</td>
+                <td>Změňte barvu a krytí, tyto hodnoty budou exportovány a zjištěny při opětovném importu</td>
             </tr>
             <tr>
                 <td><i class="fas fa-folder-tree"></i></td>
-                <td>Manage the file structure, drag and drop files, tracks and track segments</td>
+                <td>Spravujte strukturu souborů, přetahujte soubory, stopy a segmenty stop</td>
             </tr>
             <tr>
                 <td><i class="fas fa-trash-alt"></i></td>
-                <td>Delete the trace</td>
+                <td>Smazat stopu</td>
             </tr>
             </tbody>
         </table><br>
@@ -289,30 +289,30 @@
             <tr>
                 <td></td>
                 <td>F1</td>
-                <td>Show the last basemap used.</td>
+                <td>Zobrazit poslední použitou základní mapu.</td>
             </tr>
             <tr>
                 <td></td>
                 <td>F2</td>
-                <td>Show or hide the overlays currently used.</td>
+                <td>Zobrazit nebo skrýt aktuálně používané překryvy.</td>
             </tr>
             <tr>
                 <td></td>
                 <td>F3</td>
-                <td>Switch between routing and <i>as the crow flies</i> (straight lines between track points) when editing traces</td>
+                <td>Přepínání mezi trasováním a <i>přímou čarou</i> (přímky mezi body trasy)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-chart-area"></i></td>
                 <td>Ctrl+H</td>
-                <td>Show or hide the elevation profile</td>
+                <td>Zobrazit nebo skrýt výškový profil</td>
             </tr>
             </tbody>
         </table><br>
-        At the bottom, you can see a panel with information about the traces you import.
-        The <b>Total</b> tab displays information about all open traces merged into one.
-        <b>Swap the tabs</b> to define the order in which the traces should appear and <b>double-click</b> on them to change their names.
-        When you have many tabs, navigate through them by scrolling horizontally.
-        Use the <b>slider</b> to move the start/end point and cut the route.
+        Ve spodní části vidíte panel s informacemi o importovaných stopách.
+        Karta <b>Celkem</b> zobrazuje informace o všech otevřených trasách sloučených do jedné.
+        <b>Prohoďte karty</b> a definujte pořadí, ve kterém se mají stopy objevit, a <b>dvojklikem</b> na ně změňte jejich názvy.
+        Pokud máte mnoho karet, procházejte je vodorovným posouváním.
+        Pomocí <b>posuvníku</b> přesuňte počáteční/koncový bod a ořízněte trasu.
         </div>
         <div id="export-content" class="popup-content">
             <table style="text-align: left">
@@ -321,24 +321,24 @@
                    <col span="1">
                 </colgroup>
                 <tbody>
-                    <td><b>Export settings</b></td>
-                    <td><input type="checkbox" id="merge"> <label for="merge">Merge all traces</label></td>
+                    <td><b>Exportujte nastavení</b></td>
+                    <td><input type="checkbox" id="merge"> <label for="merge">Sloučit všechny stopy</label></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-time" checked> <label for="include-time">Time</label></td>
-                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Surface</label></td>
+                    <td><input type="checkbox" id="include-time" checked> <label for="include-time">Čas</label></td>
+                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Povrch</label></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-cad" checked> <label for="include-cad">Cadence</label></td>
-                    <td><input type="checkbox" id="include-hr" checked> <label for="include-hr">Heartrate</label></td>
+                    <td><input type="checkbox" id="include-cad" checked> <label for="include-cad">Kadence</label></td>
+                    <td><input type="checkbox" id="include-hr" checked> <label for="include-hr">Tepová frekvence</label></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Temperature</label></td>
-                    <td><input type="checkbox" id="include-power" checked> <label for="include-power">Power</label></td>
+                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Teplota</label></td>
+                    <td><input type="checkbox" id="include-power" checked> <label for="include-power">Energie</label></td>
                 </tr>
                 </tbody>
             </table>
-            <div style="color:#0f92c5;">&#9888;&#65039; The tool is <b>free</b> to use but <b>not free</b> to run &#9888;&#65039;<br>Each map display, track point added or moved is billed.</div>
+            <div style="color:#0f92c5;">&#9888;&#65039; Nástroj je <b>zdarma</b> k použití, ale <b>jeho provoz není</b> zadarmo &#9888;&#65039;<br>Každé zobrazení mapy, přidání nebo přemístění bodu trasy něco stojí.</div>
             <div id="donate-2" class="panels custom-button fancy-button"><b>Pomozte zachovat tyto stránky zdarma</b> &#128591;</div><br>
             <div id="export-2" class="panels custom-button fancy-button">Stáhnout <i class="fas fa-download"></i></div>
             <div id="save-drive" class="panels custom-button fancy-button">Uložit na Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
@@ -473,10 +473,10 @@
                 <span>Výběr barvy mapy Strava Heatmap</span>
                 <select name="strava-color" id="strava-color-input" class="close-spacing">
                     <option value="hot">Horké</option>
-                    <option value="blue">Blue</option>
-                    <option value="purple">Purple</option>
-                    <option value="gray">Gray</option>
-                    <option value="bluered">Blue-red</option>
+                    <option value="blue">Modrá</option>
+                    <option value="purple">Fialová</option>
+                    <option value="gray">Šedá</option>
+                    <option value="bluered">Modrá červená</option>
                 </select><br>
                 <span>Choose the minimum zoom level to request POIs</span> <input id="poi-min-zoom-input" type="number" min="10" max="20"><br>
                 <span>Select the layers you want to appear in the interface</span>
