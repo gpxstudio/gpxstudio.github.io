@@ -756,8 +756,8 @@ html, body {
     border-radius: 4px 4px 0px 0px;
     margin-bottom: -5px;
     overflow-y: hidden;
-    font-size: 12px;
-    color: #777777;
+    font-size: 14px;
+    color: #454545;
     display:inline-block;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -777,6 +777,8 @@ html, body {
     -webkit-box-shadow: #BCBCBC 2px 0px 2px, #BCBCBC inset 0px 0px 0px;
     -moz-box-shadow: #BCBCBC 2px 0px 2px, #BCBCBC inset 0px 0px 0px;
     background-color: #fcfcfc;
+    color: #000000;
+    font-weight: bold;
 }
 .tab-color {
     position: inherit;
