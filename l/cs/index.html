@@ -18,10 +18,10 @@
         <link rel="alternate" hreflang="ca" href="https://gpx.studio/l/ca/"/>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-        <title>gpx.studio — the online GPX file editor</title>
-        <meta name="description" content="View, edit and create GPX files online: add, move and delete points, merge multiple files, reverse, add timestamps, edit waypoints and more!">
-        <meta property="og:title" content="gpx.studio — the online GPX file editor" />
-        <meta property="og:description" content="View, edit and create GPX files online: add, move and delete points, merge multiple files, reverse, add timestamps, edit waypoints and more!" />
+        <title>gpx.studio — online editor GPX souborů</title>
+        <meta name="description" content="Prohlížejte, upravujte a vytvářejte soubory GPX online: přidávejte, přesouvejte a mažte body, slučujte více souborů, obracejte je, přidávejte časové značky, upravujte trasové body a další!">
+        <meta property="og:title" content="gpx.studio — online editor GPX souborů" />
+        <meta property="og:description" content="Prohlížejte, upravujte a vytvářejte soubory GPX online: přidávejte, přesouvejte a mažte body, slučujte více souborů, obracejte je, přidávejte časové značky, upravujte trasové body a další!" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://gpx.studio/" />
         <meta property="og:image" content="https://gpx.studio/res/og_logo.png" />
@@ -72,50 +72,50 @@
         <div id="toolbar" class="panels-container center-leaflet">
             <div id="burger-logo">
                 <i id="burger" class="fa-solid fa-bars panels custom-button"></i>
-                <img src="/res/logo.png" height="21" class="panels custom-button" style="vertical-align: middle; padding: 2px 6px 4px 6px" alt="logo of gpx.studio, the online GPX file editor">
+                <img src="/res/logo.png" height="21" class="panels custom-button" style="vertical-align: middle; padding: 2px 6px 4px 6px" alt="logo gpx.studio, online editoru souborů GPX">
             </div>
-            <div id="load" class="panels custom-button">Load GPX</div>
-            <div id="manual" class="panels custom-button">New GPX</div>
-            <div id="export" class="panels custom-button">Export</div>
+            <div id="load" class="panels custom-button">Načíst GPX</div>
+            <div id="manual" class="panels custom-button">Nový GPX</div>
+            <div id="export" class="panels custom-button">Exportovat</div>
             <div style="display: inline-block">
                 <div class="panels custom-button unselected no-click2" id="undo"><i class="fas fa-reply"></i></div>
                 <div class="panels custom-button unselected no-click2" id="redo"><i class="fas fa-share"></i></div>
             </div>
-            <div id="clear" class="panels custom-button">Clear all</div>
-            <div id="help" class="panels custom-button">Help</div>
-            <div id="about" class="panels custom-button">About</div>
-            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Donate</b> <i class="fas fa-heart"></i></div>
+            <div id="clear" class="panels custom-button">Vymazat vše</div>
+            <div id="help" class="panels custom-button">Nápověda</div>
+            <div id="about" class="panels custom-button">O aplikaci</div>
+            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Přispět</b> <i class="fas fa-heart"></i></div>
         </div>
         <div id="info">
             <ul id="sortable-tabs">
-              <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">Total</li>
+              <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">Celkem</li>
             </ul>
             <div id="info-grid" class="panels-container trace-info maximized">
-                <div class="panels panels-info" id="distance">Distance</div>
+                <div class="panels panels-info" id="distance">Vzdálenost</div>
                 <div class="panels panels-val" id="distance-val"></div>
-                <div class="panels panels-info" id="elevation">Elevation</div>
+                <div class="panels panels-info" id="elevation">Nadmořská výška</div>
                 <div class="panels panels-val" id="elevation-val"></div>
-                <div class="panels panels-info" id="speed">Speed</div>
+                <div class="panels panels-info" id="speed">Rychlost</div>
                 <div class="panels panels-val" id="speed-val"></div>
-                <div class="panels panels-info" id="duration">Moving time</div>
+                <div class="panels panels-info" id="duration">Doba v pohybu</div>
                 <div class="panels panels-val" id="duration-val"></div>
-                <div class="panels panels-info" id="tracks">Tracks</div>
+                <div class="panels panels-info" id="tracks">Stopy</div>
                 <div class="panels panels-val" id="tracks-val">0</div>
-                <div class="panels panels-info" id="segments">Track segments</div>
+                <div class="panels panels-info" id="segments">Segmenty stopy</div>
                 <div class="panels panels-val" id="segments-val">0</div>
-                <div class="panels panels-info" id="points">Track points</div>
+                <div class="panels panels-info" id="points">Body stopy</div>
                 <div class="panels panels-val" id="points-val">0</div>
-                <div id="units-text" class="panels panels-info">Distance units</div>
+                <div id="units-text" class="panels panels-info">Jednotky vzdálenosti</div>
                 <select id="units-input" name="panels panels-val units-input">
-                    <option value="km">Metric</option>
-                    <option value="mi">Imperial</option>
+                    <option value="km">Metrické</option>
+                    <option value="mi">Imperiální</option>
                 </select>
-                <div id="speed-units-text" class="panels panels-info">Velocity units</div>
+                <div id="speed-units-text" class="panels panels-info">Jednotky rychlosti</div>
                 <select id="speed-units-input" name="panels panels-val speed-units-input">
-                    <option value="speed">Speed</option>
-                    <option value="pace">Pace</option>
+                    <option value="speed">Rychlost</option>
+                    <option value="pace">Tempo</option>
                 </select>
-                <div id="elevation-input" class="panels-button custom-button" title="Toggle the elevation profile"><i class="fas fa-minus"></i></div>
+                <div id="elevation-input" class="panels-button custom-button" title="Přepnout výškový profil"><i class="fas fa-minus"></i></div>
                 <div id="crop-container">
                     <div class="panels-button custom-button" id="validate"><i class="fas fa-check custom-button"></i></div>
                 </div>
@@ -127,42 +127,42 @@
         </div>
         <div id="buttons-bar" class="vcenter-leaflet">
             <div id="buttons" class="panels-container">
-                <div class="panels-button" id="edit" title="Edit track points"><i class="fas fa-pencil-alt custom-button"></i></div>
-                <div class="panels-button" id="edit-time" title="Edit time"><i class="fas fa-stopwatch custom-button"></i></div>
-                <div class="panels-button" id="reverse" title="Reverse"><i class="fas fa-exchange-alt custom-button"></i></div>
-                <div class="panels-button" id="combine" title="Merge with another trace"><i class="fas fa-plus-circle custom-button"></i></div>
-                <div class="panels-button" id="extract" title="Extract tracks or track segments"><i class="fas fa-list-ul custom-button"></i></div>
-                <div class="panels-button" id="duplicate" title="Duplicate"><i class="fas fa-copy custom-button"></i></div>
-                <div class="panels-button" id="add-wpt" title="Add waypoint"><i class="fas fa-map-marker-alt custom-button"></i></div>
-                <div class="panels-button" id="reduce" title="Reduce number of track points"><i class="fas fa-compress-alt custom-button"></i></div>
-                <div class="panels-button" id="zone-delete" title="Delete all inside/outside rectangle selection"><i class="fas fa-vector-square custom-button"></i></div>
-                <div class="panels-button" id="hide" title="Hide/unhide the trace"><i class="fas fa-eye-slash custom-button"></i></div>
-                <div class="panels-button" id="color" title="Change color, opacity and width"><i class="fas fa-palette custom-button"></i></div>
-                <div class="panels-button" id="structure" title="Manage the file structure"><i class="fas fa-folder-tree custom-button"></i></div>
-                <div class="panels-button" id="delete" title="Delete"><i class="fas fa-trash-alt custom-button"></i></div>
+                <div class="panels-button" id="edit" title="Upravit body stopy"><i class="fas fa-pencil-alt custom-button"></i></div>
+                <div class="panels-button" id="edit-time" title="Upravit čas"><i class="fas fa-stopwatch custom-button"></i></div>
+                <div class="panels-button" id="reverse" title="Obráceně"><i class="fas fa-exchange-alt custom-button"></i></div>
+                <div class="panels-button" id="combine" title="Sloučit s další trasou"><i class="fas fa-plus-circle custom-button"></i></div>
+                <div class="panels-button" id="extract" title="Extrahovat stopy nebo segmenty stop"><i class="fas fa-list-ul custom-button"></i></div>
+                <div class="panels-button" id="duplicate" title="Duplikovat"><i class="fas fa-copy custom-button"></i></div>
+                <div class="panels-button" id="add-wpt" title="Přidat trasový bod"><i class="fas fa-map-marker-alt custom-button"></i></div>
+                <div class="panels-button" id="reduce" title="Snížit počet bodů stopy"><i class="fas fa-compress-alt custom-button"></i></div>
+                <div class="panels-button" id="zone-delete" title="Odstranit výběr uvnitř / vně obdélníku"><i class="fas fa-vector-square custom-button"></i></div>
+                <div class="panels-button" id="hide" title="Skrýt/zobrazit stopy"><i class="fas fa-eye-slash custom-button"></i></div>
+                <div class="panels-button" id="color" title="Změna barvy, průhlednosti a šířky"><i class="fas fa-palette custom-button"></i></div>
+                <div class="panels-button" id="structure" title="Správa struktury souborů"><i class="fas fa-folder-tree custom-button"></i></div>
+                <div class="panels-button" id="delete" title="Smazat"><i class="fas fa-trash-alt custom-button"></i></div>
             </div>
             <div id="editing-options" class="panels-container">
-                <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Toggle editing options"></i>
+                <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Přepnout možnosti úprav"></i>
                 <table class="panels">
                     <tr>
-                        <td><b>Activity</b></td>
+                        <td><b>Aktivita</b></td>
                         <td><select name="activity" id="activity-input" class="close-spacing">
-                            <option value="Trekking-dry">Bike</option>
-                            <option value="fastbike">Racing bike</option>
-                            <option value="MTB">Mountain bike</option>
-                            <option value="Hiking-Alpine-SAC6">Run/hike</option>
-                            <option value="Car-FastEco">Motorcycle</option>
+                            <option value="Trekking-dry">Kolo</option>
+                            <option value="fastbike">Závodní kolo</option>
+                            <option value="MTB">Horské kolo</option>
+                            <option value="Hiking-Alpine-SAC6">Chůze/běh</option>
+                            <option value="Car-FastEco">Motocykl</option>
                         </select></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><label for="routing-input"><b>Routing (follow roads)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
+                        <td colspan="2"><label for="routing-input"><b>Trasování (po silnicích)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><label for="edit-time-strategy"><b>Time data management</b></label></td>
+                        <td colspan="2"><label for="edit-time-strategy"><b>Správa časových údajů</b></label></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
-                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preserve the original timestamps</label></td>
+                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Zachovat průměrnou rychlost</label><br>
+                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Zachovat původní časové značky</label></td>
                     </tr>
                 </table>
             </div>
@@ -172,13 +172,13 @@
                 <input id="street-view-provider-google" type="radio" name="street-view-provider" value="google"> <label for="street-view-provider-google">Google</label>
                 <input id="street-view-provider-mapillary" type="radio" name="street-view-provider" value="mapillary" checked> <label for="street-view-provider-mapillary">Mapillary</label>
             </div>
-            <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Mapillary or Google Street View"></i>
+            <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Otevřít Mapillary nebo Google Street View"></i>
         </div>
-        <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Direction markers</label>
-        <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Distance markers</label>
+        <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Směrové značky</label>
+        <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Značky vzdálenosti</label>
         <div id="help-text">
         <div style="text-align: center; font-size: 10pt; color: #476947">
-            <b>Check out the <a href="./about.html#guide" target="_blank">User Guide</a> for more info and small tutorials!</b>
+            <b>Více informací a rychlé návody najdete v<a href="./about.html#guide" target="_blank">uživatelské příručce.</a></b>
         </div><br>
         <table style="width: 100%">
             <colgroup>
@@ -188,34 +188,34 @@
             </colgroup>
             <tbody>
             <tr>
-                <td><b>Load GPX</b></td>
+                <td><b>Načíst GPX</b></td>
                 <td>Ctrl+O</td>
-                <td>Import and visualize GPX files (or drag and drop anywhere in the window)</td>
+                <td>Importujte a vizualizujte GPX soubory (nebo přetáhněte kdekoli v okně)</td>
             </tr>
             <tr>
-                <td><b>New GPX</b></td>
+                <td><b>Nový GPX</b></td>
                 <td>Ctrl+D</td>
-                <td>Start drawing a new route by placing anchor points on the map</td>
+                <td>Začněte kreslit novou trasu umístěním bodů na mapu</td>
             </tr>
             <tr>
-                <td><b>Export</b></td>
+                <td><b>Exportovat</b></td>
                 <td>Ctrl+S</td>
-                <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Time, heart rate, cadence, power and temperature data are automatically extended. Optionally, merge all files <b>in the chosen order</b>. You can also drag a tab to your desktop to download the file.</td>
+                <td>Stáhněte si soubory na plochu nebo je uložte do Google Drive a získejte <b>odkaz pro sdílení</b> a <b>kód pro vložení</b>. Údaje o čase, srdečním tepu, kadenci, výkonu a teplotě se automaticky rozšiřují. Volitelně sloučit všechny soubory <b>ve zvoleném pořadí</b>. Soubor můžete stáhnout také přetažením karty na plochu.</td>
             </tr>
             <tr>
                 <td><i class="fas fa-reply"></i> <i class="fas fa-share"></i></td>
                 <td>Ctrl+Z/Y</td>
-                <td>Undo and redo actions in edition mode</td>
+                <td>Zrušení a opakování akcí v režimu editace</td>
             </tr>
             <tr>
-                <td><b>Clear all</b></td>
+                <td><b>Vymazat vše</b></td>
                 <td>Ctrl+K</td>
-                <td>Delete all traces</td>
+                <td>Smazat všechny stopy</td>
             </tr>
             <tr>
                 <td></td>
-                <td>Escape</td>
-                <td>Exit current menu or tool</td>
+                <td>Uniknout</td>
+                <td>Ukončit aktuální nabídku nebo nástroj</td>
             </tr>
             </tbody>
         </table><br>
@@ -227,55 +227,55 @@
             <tbody>
             <tr>
                 <td><i class="fas fa-pencil-alt"></i></td>
-                <td>Enter edition mode to add, move, insert or delete (Shift+click) anchor points, right-click on anchor points for more options (split, change start, delete)</td>
+                <td>Vstupte do režimu editace a přidávejte, přesouvejte, vkládejte nebo odstraňujte (Shift+kliknutí) kotevní body, kliknutím pravým tlačítkem myši na kotevní body získáte další možnosti (rozdělení, změna začátku, odstranění)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-stopwatch"></i></td>
-                <td>Change the speed and starting time of the trace</td>
+                <td>Změna rychlosti a času spuštění trasování</td>
             </tr>
             <tr>
                 <td><i class="fas fa-exchange-alt"></i></td>
-                <td>Reverse the trace and adapt the timestamps</td>
+                <td>Obrátit trasu a přizpůsobit časové značky</td>
             </tr>
             <tr>
                 <td><i class="fas fa-plus-circle"></i></td>
-                <td>Merge with another trace (automatically extends time, heart rate, cadence, power and temperature data)</td>
+                <td>Sloučení s jinou stopou (automaticky rozšíří údaje o čase, tepové frekvenci, kadenci, výkonu a teplotě)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-list-ul"></i></td>
-                <td>Extract all track segments and creates one trace for each</td>
+                <td>Extrahovat všechny segmenty stopy a pro každý vytvořit jednu stopu</td>
             </tr>
             <tr>
                 <td><i class="fas fa-copy"></i></td>
-                <td>Duplicate the trace</td>
+                <td>Duplikovat stopu</td>
             </tr>
             <tr>
                 <td><i class="fas fa-map-marker-alt"></i></td>
-                <td>Add a waypoint (drag to change its location and use the buttons to edit info, duplicate or remove)</td>
+                <td>Přidat trasový bod (přetažením změníte jeho polohu a použijte tlačítka pro úpravu informací, duplikovat nebo odstranit)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-compress-alt"></i></td>
-                <td>Reduce the number of track points</td>
+                <td>Snížit počet trasových bodů</td>
             </tr>
             <tr>
                 <td><i class="fas fa-vector-square"></i></td>
-                <td>Delete track points and/or waypoints inside/outside rectangle selection</td>
+                <td>Odstranění traťových bodů a/nebo bodů trasy uvnitř/venku výběru obdélníku</td>
             </tr>
             <tr>
                 <td><i class="fas fa-eye-slash"></i></td>
-                <td>Hide or unhide the trace</td>
+                <td>Skrýt nebo odkrýt stopu</td>
             </tr>
             <tr>
                 <td><i class="fas fa-palette"></i></td>
-                <td>Change the display color and opacity, these values will be exported and detected when re-imported</td>
+                <td>Změňte barvu a krytí, tyto hodnoty budou exportovány a zjištěny při opětovném importu</td>
             </tr>
             <tr>
                 <td><i class="fas fa-folder-tree"></i></td>
-                <td>Manage the file structure, drag and drop files, tracks and track segments</td>
+                <td>Spravujte strukturu souborů, přetahujte soubory, stopy a segmenty stop</td>
             </tr>
             <tr>
                 <td><i class="fas fa-trash-alt"></i></td>
-                <td>Delete the trace</td>
+                <td>Smazat stopu</td>
             </tr>
             </tbody>
         </table><br>
@@ -289,30 +289,30 @@
             <tr>
                 <td></td>
                 <td>F1</td>
-                <td>Show the last basemap used.</td>
+                <td>Zobrazit poslední použitou základní mapu.</td>
             </tr>
             <tr>
                 <td></td>
                 <td>F2</td>
-                <td>Show or hide the overlays currently used.</td>
+                <td>Zobrazit nebo skrýt aktuálně používané překryvy.</td>
             </tr>
             <tr>
                 <td></td>
                 <td>F3</td>
-                <td>Switch between routing and <i>as the crow flies</i> (straight lines between track points) when editing traces</td>
+                <td>Přepínání mezi trasováním a <i>přímou čarou</i> (přímky mezi body trasy)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-chart-area"></i></td>
                 <td>Ctrl+H</td>
-                <td>Show or hide the elevation profile</td>
+                <td>Zobrazit nebo skrýt výškový profil</td>
             </tr>
             </tbody>
         </table><br>
-        At the bottom, you can see a panel with information about the traces you import.
-        The <b>Total</b> tab displays information about all open traces merged into one.
-        <b>Swap the tabs</b> to define the order in which the traces should appear and <b>double-click</b> on them to change their names.
-        When you have many tabs, navigate through them by scrolling horizontally.
-        Use the <b>slider</b> to move the start/end point and cut the route.
+        Ve spodní části vidíte panel s informacemi o importovaných stopách.
+        Karta <b>Celkem</b> zobrazuje informace o všech otevřených trasách sloučených do jedné.
+        <b>Prohoďte karty</b> a definujte pořadí, ve kterém se mají stopy objevit, a <b>dvojklikem</b> na ně změňte jejich názvy.
+        Pokud máte mnoho karet, procházejte je vodorovným posouváním.
+        Pomocí <b>posuvníku</b> přesuňte počáteční/koncový bod a ořízněte trasu.
         </div>
         <div id="export-content" class="popup-content">
             <table style="text-align: left">
@@ -321,145 +321,145 @@
                    <col span="1">
                 </colgroup>
                 <tbody>
-                    <td><b>Export settings</b></td>
-                    <td><input type="checkbox" id="merge"> <label for="merge">Merge all traces</label></td>
+                    <td><b>Exportujte nastavení</b></td>
+                    <td><input type="checkbox" id="merge"> <label for="merge">Sloučit všechny stopy</label></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-time" checked> <label for="include-time">Time</label></td>
-                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Surface</label></td>
+                    <td><input type="checkbox" id="include-time" checked> <label for="include-time">Čas</label></td>
+                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Povrch</label></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-cad" checked> <label for="include-cad">Cadence</label></td>
-                    <td><input type="checkbox" id="include-hr" checked> <label for="include-hr">Heartrate</label></td>
+                    <td><input type="checkbox" id="include-cad" checked> <label for="include-cad">Kadence</label></td>
+                    <td><input type="checkbox" id="include-hr" checked> <label for="include-hr">Tepová frekvence</label></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Temperature</label></td>
-                    <td><input type="checkbox" id="include-power" checked> <label for="include-power">Power</label></td>
+                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Teplota</label></td>
+                    <td><input type="checkbox" id="include-power" checked> <label for="include-power">Energie</label></td>
                 </tr>
                 </tbody>
             </table>
-            <div style="color:#0f92c5;">&#9888;&#65039; The tool is <b>free</b> to use but <b>not free</b> to run &#9888;&#65039;<br>Each map display, track point added or moved is billed.</div>
-            <div id="donate-2" class="panels custom-button fancy-button"><b>Help keep the website free</b> &#128591;</div><br>
-            <div id="export-2" class="panels custom-button fancy-button">Download <i class="fas fa-download"></i></div>
-            <div id="save-drive" class="panels custom-button fancy-button">Save to Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
+            <div style="color:#0f92c5;">&#9888;&#65039; Nástroj je <b>zdarma</b> k použití, ale <b>jeho provoz není</b> zadarmo &#9888;&#65039;<br>Každé zobrazení mapy, přidání nebo přemístění bodu trasy něco stojí.</div>
+            <div id="donate-2" class="panels custom-button fancy-button"><b>Pomozte zachovat tyto stránky zdarma</b> &#128591;</div><br>
+            <div id="export-2" class="panels custom-button fancy-button">Stáhnout <i class="fas fa-download"></i></div>
+            <div id="save-drive" class="panels custom-button fancy-button">Uložit na Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
         </div>
         <div id="clear-content" class="popup-content">
-            This will delete all open traces.<br>Do you wish to continue?<br>
-            <div id="clear2" class="panels custom-button normal-button">Yes</div>
-            <div id="cancelclear" class="panels custom-button normal-button"><b>Cancel</b></div>
+            Tímto odstraníte všechny otevřené stopy.<br>Pokračovat?<br>
+            <div id="clear2" class="panels custom-button normal-button">Ano</div>
+            <div id="cancelclear" class="panels custom-button normal-button"><b>Storno</b></div>
         </div>
         <div id="delete-content" class="popup-content">
-            This will delete the current trace.<br>Do you wish to continue?<br>
-            <div id="delete2" class="panels custom-button normal-button">Yes</div>
-            <div id="canceldelete" class="panels custom-button normal-button"><b>Cancel</b></div>
+            Tímto odstraníte aktuální stopu.<br>Pokračovat?<br>
+            <div id="delete2" class="panels custom-button normal-button">Ano</div>
+            <div id="canceldelete" class="panels custom-button normal-button"><b>Storno</b></div>
         </div>
         <div id="color-content" class="popup-content">
             <div style="text-align: left">
-                <label for="color-picker">Pick a new color</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
-                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Apply color to all traces</label><br>
-                <label for="opacity-slider">Opacity</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
-                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Apply opacity to all traces</label><br>
-                <label for="width-slider">Width</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
-                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Apply width to all traces</label>
+                <label for="color-picker">Vybrat novou barvu</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
+                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Použít barvu na všechny stopy</label><br>
+                <label for="opacity-slider">Průhlednost</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
+                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Použít průhlednost pro všechny stopy</label><br>
+                <label for="width-slider">Šířka</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
+                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Použít šířku na všechny stopy</label>
             </div>
             <div id="validate-color" class="panels custom-button normal-button">Ok</div>
-            <div id="cancel-color" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="cancel-color" class="panels custom-button normal-button"><b>Storno</b></div>
         </div>
         <div id="load-content" class="popup-content">
-            Choose files from<br>
-            <div id="load2" class="panels custom-button normal-button">Desktop</div>
+            Vybrat soubory z<br>
+            <div id="load2" class="panels custom-button normal-button">Plocha</div>
             <div id="load-drive" class="panels custom-button normal-button">Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div><br>
-            (or drag and drop anywhere in the window)
+            (nebo přetáhněte kamkoliv v okně)
         </div>
         <div id="share-content" class="popup-content">
-            Done!<br>
-            <div id="copy-link" class="panels custom-button fancy-button">Copy link <i class="fas fa-link"></i></div><br>
-            <div id="copy-embed" class="panels custom-button fancy-button">Copy embedding code <i class="fas fa-code"></i></div><br>
+            Hotovo!<br>
+            <div id="copy-link" class="panels custom-button fancy-button">Kopírovat odkaz <i class="fas fa-link"></i></div><br>
+            <div id="copy-embed" class="panels custom-button fancy-button">Kopírovat kód vložení <i class="fas fa-code"></i></div><br>
         </div>
         <div id="merge-content" class="popup-content">
             <div id="merge-time-options">
-                <i class="fas fa-stopwatch"></i> Choose how to adapt the timestamps of the second trace (if any)
+                <i class="fas fa-stopwatch"></i> Zvolte, jak upravit časové značky druhého záznamu (pokud existuje)
                 <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
-                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Keep the original timestamps (as long as they come after those of the first trace)</label><br>
-                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Make the second trace start right after the first one</label>
+                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Zachovat původní časové značky (pokud následují po časových značkách první stopy)</label><br>
+                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Zajistěte, aby druhá stopa začínala hned po první stopě</label>
                 </div>
                 <hr>
             </div>
             <div>
-                <div class="close-spacing">Click on another trace or tab to merge the current trace with it</div><hr>
-                Choose how to add the second trace to the first one
+                <div class="close-spacing">Kliknutím na jinou stopu nebo kartu s ní sloučíte aktuální stopu</div><hr>
+                Zvolte jak přidat druhou stopu k první
                 <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
-                    <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Merge as track points</label><br>
-                    <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Merge as track segments</label><br>
-                    <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Merge as tracks</label>
+                    <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Sloučit jako body stopy</label><br>
+                    <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Sloučit jako segmenty stopy</label><br>
+                    <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Sloučit jako stopy</label>
                 </div>
             </div>
         </div>
         <div id="split-content" class="popup-content">
-            Choose how to split the trace<br>
-            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Split into separate files</label><br>
-            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Split into separate tracks</label><br>
-            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Split into separate track segments</label><br>
+            Zvolte způsob rozdělení stopy<br>
+            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Rozdělit do samostatných souborů</label><br>
+            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Rozdělit na samostatné stopy</label><br>
+            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Rozdělit na samostatné segmenty stopy</label><br>
             <div id="split-ok" class="panels custom-button normal-button">Ok</div>
-            <div id="split-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="split-cancel" class="panels custom-button normal-button"><b>Storno</b></div>
         </div>
         <div id="extract-content" class="popup-content">
-            Choose what to extract<br>
-            <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Tracks</label><br>
-            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Track segments</label><br>
+            Zvolte, co chcete extrahovat<br>
+            <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Stopy</label><br>
+            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">segmenty stopy</label><br>
             <div id="extract-ok" class="panels custom-button normal-button">Ok</div>
-            <div id="extract-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="extract-cancel" class="panels custom-button normal-button"><b>Storno</b></div>
         </div>
         <div id="structure-content" class="popup-content">
-            <div class="close-spacing">Drag and drop the elements to rearrange the file structure</div>
-            <div>Move elements from or to the tabs above the elevation profile</div>
-            <div>Rename tracks or change their color</div>
+            <div class="close-spacing">Přetažením prvků změníte strukturu souboru</div>
+            <div>Přesunout prvky z nebo na záložky nad výškovým profilem</div>
+            <div>Přejmenovat stopy nebo změnit jejich barvu</div>
             <div id="file-structure"></div>
-            <div id="merge-selection" class="panels custom-button normal-button">Merge selection</div>
-            <div id="delete-selection" class="panels custom-button normal-button">Delete selection</div>
+            <div id="merge-selection" class="panels custom-button normal-button">Sloučit výběr</div>
+            <div id="delete-selection" class="panels custom-button normal-button">Smazat výběr</div>
         </div>
         <div id="crop-content" class="popup-content">
-            <input type="checkbox" id="crop-keep"><label for="crop-keep">Keep cropped parts in new files</label><br>
-            <div id="crop-ok" class="panels custom-button normal-button">Proceed</div>
-            <div id="crop-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <input type="checkbox" id="crop-keep"><label for="crop-keep">Zachovat oříznuté části v nových souborech</label><br>
+            <div id="crop-ok" class="panels custom-button normal-button">Pokračovat</div>
+            <div id="crop-cancel" class="panels custom-button normal-button"><b>Storno</b></div>
         </div>
         <div id="reduce-content" class="popup-content">
-            Choose the amount of detail to keep<br>
-            Number of track points: <span id="reduce-npoints">0</span><br>
+            Zvolte množství detailů, které chcete zachovat<br>
+            Počet bodů stopy: <span id="reduce-npoints">0</span><br>
             <input type="range" min="0" max="1000" id="reduce-slider" style="width: 90%"><br>
             <div id="reduce-ok" class="panels custom-button normal-button">Ok</div>
-            <div id="reduce-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            <div id="reduce-cancel" class="panels custom-button normal-button"><b>Storno</b></div>
         </div>
         <div id="zone-delete-content" class="popup-content">
-            Choose what to delete<br>
-            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Track points</label>
-            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
-            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inside selection</label>
-            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
-            <div id="zone-delete-ok" class="panels custom-button normal-button">Proceed</div>
-            <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+            Vyberte co chcete smazat<br>
+            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Body stopy</label>
+            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Trasové body</label><br>
+            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Vnitřní výběr</label>
+            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Vnější výběr</label><br>
+            <div id="zone-delete-ok" class="panels custom-button normal-button">Pokračovat</div>
+            <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Storno</b></div>
         </div>
         <div id="layer-selection-content">
             <div id="layer-creation">
-                Add or replace a custom layer here
+                Zde přidejte nebo nahradte vlastní vrstvu
                 <table style="text-align: left">
                     <tr>
-                        <td><label for="layer-name">Layer name</label></td>
+                        <td><label for="layer-name">Název vrstvy</label></td>
                         <td><input type="text" id="layer-name" size="35"></td>
                     </tr>
                     <tr>
-                        <td><label for="layer-url">Tiles URL</label></td>
+                        <td><label for="layer-url">Adresa URL dlaždice</label></td>
                         <td><input type="text" id="layer-url" placeholder="https://{s}.domain.com/{z}/{y}/{x}.png" size="35"></td>
                     </tr>
                     <tr>
-                        <td><label for="layer-max-zoom">Max zoom level</label></td>
+                        <td><label for="layer-max-zoom">Maximální úroveň přiblížení</label></td>
                         <td><input type="number" id="layer-max-zoom" value="20" min="1" max="20"></td>
                     </tr>
                     <tr>
-                        <td><label for="layer-type">Layer type</label></td>
+                        <td><label for="layer-type">Typ vrstvy</label></td>
                         <td><select id="layer-type">
-                            <option value="baselayer">Basemap</option>
-                            <option value="overlay">Overlay</option>
+                            <option value="baselayer">Základní mapa</option>
+                            <option value="overlay">Překrytí</option>
                         </select></td>
                     </tr>
                     <tr>
@@ -467,168 +467,168 @@
                     </tr>
                 </table>
                 <div id="preview-map" style="width: 100%; height: 200px"></div>
-                <div id="layer-creation-ok" class="panels custom-button normal-button">Add layer</div>
+                <div id="layer-creation-ok" class="panels custom-button normal-button">Přidat vrstvu</div>
             </div>
             <div id="layer-selection">
-                <span>Choose the Strava Heatmap color</span>
+                <span>Výběr barvy mapy Strava Heatmap</span>
                 <select name="strava-color" id="strava-color-input" class="close-spacing">
-                    <option value="hot">Hot</option>
-                    <option value="blue">Blue</option>
-                    <option value="purple">Purple</option>
-                    <option value="gray">Gray</option>
-                    <option value="bluered">Blue-red</option>
+                    <option value="hot">Horké</option>
+                    <option value="blue">Modrá</option>
+                    <option value="purple">Fialová</option>
+                    <option value="gray">Šedá</option>
+                    <option value="bluered">Modrá červená</option>
                 </select><br>
-                <span>Choose the minimum zoom level to request POIs</span> <input id="poi-min-zoom-input" type="number" min="10" max="20"><br>
-                <span>Select the layers you want to appear in the interface</span>
+                <span>Zvolte minimální úroveň přiblížení pro vyžádání POI</span> <input id="poi-min-zoom-input" type="number" min="10" max="20"><br>
+                <span>Vyberte vrstvy, které chcete zobrazit v rozhraní</span>
                 <div id="layer-selection-area"></div>
-                <div id="layer-selection-ok" class="panels custom-button normal-button">Save</div>
+                <div id="layer-selection-ok" class="panels custom-button normal-button">Uložit</div>
             </div>
         </div>
         <div id="load-error-content" class="popup-content">
-            There was an error loading your GPX file.<br>
-            Please check the file format.<br>
+            Při načítání vašeho GPX souboru došlo k chybě.<br>
+            Zkontrolujte prosím formát souboru.<br>
             <div id="load-error-ok" class="panels custom-button normal-button">Ok</div>
         </div>
         <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
-            <b>Open in</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logo of gpx.studio, the online GPX file editor">
+            <b>Otevřít v</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logo gpx.studio, online editoru souborů GPX">
         </div>
         <div id="unit-kilometers-text">km</div>
-        <div id="unit-miles-text">mi</div>
+        <div id="unit-miles-text">mil</div>
         <div id="unit-meters-text">m</div>
-        <div id="unit-feet-text">ft</div>
-        <div id="unit-hours-text">h</div>
+        <div id="unit-feet-text">stop</div>
+        <div id="unit-hours-text">hod</div>
         <div id="unit-minutes-text">min</div>
-        <div id="duplicate-text">Duplicate</div>
-        <div id="delete-text">Delete</div>
+        <div id="duplicate-text">Duplikovat</div>
+        <div id="delete-text">Smazat</div>
         <div id="ok-button-text">Ok</div>
-        <div id="cancel-button-text">Cancel</div>
-        <div id="search-input-text">Search...</div>
-        <div id="search-button-text">Search for a place or paste GPS coordinates</div>
-        <div id="locate-button-text">Show my position</div>
-        <div id="add-poi-text">Add POI to current trace</div>
-        <span id="track-text">Track</span>
+        <div id="cancel-button-text">Storno</div>
+        <div id="search-input-text">Hledat...</div>
+        <div id="search-button-text">Hledat místo nebo vložit GPS souřadnice</div>
+        <div id="locate-button-text">Zobrazit moji pozici</div>
+        <div id="add-poi-text">Přidat POI do aktuální stopy</div>
+        <span id="track-text">Stopa</span>
         <span id="segment-text">Segment</span>
         <div id="edit-speed-popup-text">
-            <div id="speed-text">Speed</div>
-            <div id="pace-text">Pace</div>
-            <div id="start-text">Start</div>
-            <div id="experimental-info-text">Generate speed considering the slope and the activity type<br><b><i class="fas fa-exclamation-triangle"></i> erases all existing time data</b></div>
+            <div id="speed-text">Rychlost</div>
+            <div id="pace-text">Tempo</div>
+            <div id="start-text">Začátek</div>
+            <div id="experimental-info-text">Generování rychlosti s ohledem na sklon a typ aktivity<br><b><i class="fas fa-exclamation-triangle"></i> vymaže všechny existující časové údaje</b></div>
         </div>
         <div id="waypoint-popup-text">
-            <div id="empty-title-text">empty title</div>
-            <div id="name-text">Name</div>
-            <div id="comment-text">Comment (for GPS devices)</div>
-            <div id="description-text">Description (for users)</div>
+            <div id="empty-title-text">prázdný název</div>
+            <div id="name-text">Název</div>
+            <div id="comment-text">Komentář (pro zařízení GPS)</div>
+            <div id="description-text">Popis (pro uživatele)</div>
             <div id="symbol-text">Symbol</div>
-            <div id="edit-info-text">Edit info</div>
+            <div id="edit-info-text">Upravit info</div>
         </div>
         <div id="right-click-popup-text">
-            <div id="split-text">Split here</div>
-            <div id="start-loop-text">Start loop here</div>
-            <div id="remove-pt-text">Remove point</div>
+            <div id="split-text">Rozdělit zde</div>
+            <div id="start-loop-text">Spustit cyklus zde</div>
+            <div id="remove-pt-text">Odstranit bod</div>
         </div>
         <div id="elevation-text">
-            <div id="segment-text">Segment length</div>
-            <div id="type-text">Category</div>
-            <div id="surface-text">Surface</div>
-            <div id="slope-text">Slope</div>
-            <div id="missing-text">Missing</div>,
-            <div id="paved-text">Paved</div>,
-            <div id="unpaved-text">Unpaved</div>,
-            <div id="asphalt-text">Asphalt</div>,
-            <div id="concrete-text">Concrete</div>,
+            <div id="segment-text">Délka segmentu</div>
+            <div id="type-text">Kategorie</div>
+            <div id="surface-text">Povrch</div>
+            <div id="slope-text">Sklon</div>
+            <div id="missing-text">Chybějící</div>,
+            <div id="paved-text">Dlážděné</div>,
+            <div id="unpaved-text">Nezpevněné</div>,
+            <div id="asphalt-text">Asfalt</div>,
+            <div id="concrete-text">Beton</div>,
             <div id="chipseal-text">Chipseal</div>,
-            <div id="cobblestone-text">Cobblestone</div>,
-            <div id="unhewn-cobblestone-text">Unhewn Cobblestone</div>,
-            <div id="paving-stones-text">Paving Stones</div>,
-            <div id="stepping-stones-text">Stepping Stones</div>,
-            <div id="sett-text">Sett Paving</div>,
-            <div id="metal-text">Metal</div>,
-            <div id="wood-text">Wood</div>,
-            <div id="compacted-text">Compacted Gravel</div>,
-            <div id="fine-gravel-text">Fine Gravel</div>,
-            <div id="gravel-text">Gravel</div>,
-            <div id="pebblestone-text">Pebblestone</div>,
-            <div id="rock-text">Rock</div>,
-            <div id="dirt-text">Dirt</div>,
-            <div id="ground-text">Ground</div>,
-            <div id="earth-text">Earth</div>,
-            <div id="snow-text">Snow</div>,
-            <div id="ice-text">Ice</div>,
-            <div id="salt-text">Salt</div>,
-            <div id="mud-text">Mud</div>,
-            <div id="sand-text">Sand</div>,
-            <div id="woodchips-text">Woodchips</div>,
-            <div id="grass-text">Grass</div>,
-            <div id="grass-paver-text">Grass Paver</div>
+            <div id="cobblestone-text">Dlažební kostky</div>,
+            <div id="unhewn-cobblestone-text">Netesaná dlažba</div>,
+            <div id="paving-stones-text">Dlažba</div>,
+            <div id="stepping-stones-text">Nášlapné kameny</div>,
+            <div id="sett-text">Dlažby</div>,
+            <div id="metal-text">Kov</div>,
+            <div id="wood-text">Dřevo</div>,
+            <div id="compacted-text">Zhutněný štěrk</div>,
+            <div id="fine-gravel-text">Jemný štěrk</div>,
+            <div id="gravel-text">Štěrk</div>,
+            <div id="pebblestone-text">Oblázek</div>,
+            <div id="rock-text">Skála</div>,
+            <div id="dirt-text">Hlína</div>,
+            <div id="ground-text">Pozemek</div>,
+            <div id="earth-text">Země</div>,
+            <div id="snow-text">Sníh</div>,
+            <div id="ice-text">Led</div>,
+            <div id="salt-text">Sůl</div>,
+            <div id="mud-text">Bláto</div>,
+            <div id="sand-text">Písek</div>,
+            <div id="woodchips-text">Dřevěné štěpky</div>,
+            <div id="grass-text">Tráva</div>,
+            <div id="grass-paver-text">Travní dlažby</div>
         </div>
         <div id="layers-text">
-            <div id="basemaps-text">Basemaps</div>
-            <div id="overlays-text">Overlays</div>
-            <div id="custom-text">Custom</div>
-            <div id="world-text">World</div>
-            <div id="countries-text">Countries</div>
-            <div id="finland-text">Finland</div>
-            <div id="france-text">France</div>
-            <div id="new-zealand-text">New Zealand</div>
-            <div id="norway-text">Norway</div>
-            <div id="spain-text">Spain</div>
-            <div id="sweden-text">Sweden</div>
-            <div id="switzerland-text">Switzerland</div>
-            <div id="united-kingdom-text">United Kingdom</div>
-            <div id="united-states-text">United States</div>
-            <div id="poi-text">Points of Interest</div>
-            <div id="eat-and-drink-text">Eat and Drink</div>
-            <div id="bakery-text">Bakery</div>
+            <div id="basemaps-text">Základní mapy</div>
+            <div id="overlays-text">Překrytí</div>
+            <div id="custom-text">Vlastní</div>
+            <div id="world-text">Svět</div>
+            <div id="countries-text">Státy</div>
+            <div id="finland-text">Finsko</div>
+            <div id="france-text">Francie</div>
+            <div id="new-zealand-text">Nový Zéland</div>
+            <div id="norway-text">Norsko</div>
+            <div id="spain-text">Španělsko</div>
+            <div id="sweden-text">Švédsko</div>
+            <div id="switzerland-text">Švýcarsko</div>
+            <div id="united-kingdom-text">Velká Británie</div>
+            <div id="united-states-text">Spojené státy</div>
+            <div id="poi-text">Body zájmu</div>
+            <div id="eat-and-drink-text">Jídlo a pití</div>
+            <div id="bakery-text">Pekařství</div>
             <div id="supermarket-text">Supermarket</div>
-            <div id="convenience-store-text">Convenience Store</div>
-            <div id="restaurant-text">Restaurant</div>
-            <div id="fast-food-text">Fast Food</div>
-            <div id="cafe-text">Cafe</div>
-            <div id="pub-text">Pub</div>
+            <div id="convenience-store-text">Smýšené zboží</div>
+            <div id="restaurant-text">Restaurace</div>
+            <div id="fast-food-text">Rychlé občerstvení</div>
+            <div id="cafe-text">Kavárna</div>
+            <div id="pub-text">Hospoda</div>
             <div id="bar-text">Bar</div>
-            <div id="amenities-text">Amenities</div>
-            <div id="toilets-text">Toilets</div>
-            <div id="drinking-water-text">Drinking Water</div>
-            <div id="water-point-text">Water Point</div>
-            <div id="water-spring-text">Water Spring</div>
-            <div id="shower-text">Shower</div>
-            <div id="fuel-station-text">Fuel Station</div>
-            <div id="parking-text">Parking</div>
-            <div id="tourism-text">Tourism</div>
-            <div id="attraction-text">Attraction</div>
-            <div id="viewpoint-text">Viewpoint</div>
+            <div id="amenities-text">Vybavení</div>
+            <div id="toilets-text">Toalety</div>
+            <div id="drinking-water-text">Pitná voda</div>
+            <div id="water-point-text">Vodní bod</div>
+            <div id="water-spring-text">Vodní pramen</div>
+            <div id="shower-text">Sprcha</div>
+            <div id="fuel-station-text">Čerpací stanice</div>
+            <div id="parking-text">Parkoviště</div>
+            <div id="tourism-text">Cestovní ruch</div>
+            <div id="attraction-text">Atrakce</div>
+            <div id="viewpoint-text">Vyhlídka</div>
             <div id="hotel-text">Hotel</div>
             <div id="hostel-text">Hostel</div>
-            <div id="guest-house-text">Guest House</div>
+            <div id="guest-house-text">Dům pro hosty</div>
             <div id="motel-text">Motel</div>
-            <div id="campsite-text">Campsite</div>
-            <div id="alpine-hut-text">Alpine Hut</div>
-            <div id="wilderness-hut-text">Wilderness Hut</div>
-            <div id="climbing-text">Climbing Site</div>
-            <div id="bicycle-text">Bicycle</div>
-            <div id="bicycle-parking-text">Bicycle Parking</div>
-            <div id="bicycle-rental-text">Bicycle Rental</div>
-            <div id="bicycle-shop-text">Bicycle Shop</div>
-            <div id="public-transport-text">Public Transport</div>
-            <div id="railway-station-text">Railway Station</div>
-            <div id="tram-stop-text">Tram Stop</div>
-            <div id="bus-stop-text">Bus Stop</div>
-            <div id="ferry-text">Ferry Terminal</div>
+            <div id="campsite-text">Stanový kemp</div>
+            <div id="alpine-hut-text">Horská chata</div>
+            <div id="wilderness-hut-text">Chata v divočině</div>
+            <div id="climbing-text">Lezecká stěna</div>
+            <div id="bicycle-text">Jízdní kolo</div>
+            <div id="bicycle-parking-text">Parkoviště pro kola</div>
+            <div id="bicycle-rental-text">Půjčovna jízdních kol</div>
+            <div id="bicycle-shop-text">Prodejna jízdních kol</div>
+            <div id="public-transport-text">Veřejná doprava</div>
+            <div id="railway-station-text">Železniční stanice</div>
+            <div id="tram-stop-text">Zastávka tramvaje</div>
+            <div id="bus-stop-text">Autobusová zastávka</div>
+            <div id="ferry-text">Trajektový terminál</div>
         </div>
         <h1>online gpx editor</h1>
-        <h1>online gpx viewer</h1>
-        <h1>edit gpx files online</h1>
-        <h1>view gpx files online</h1>
-        <h1>merge gpx files online</h1>
-        <h1>extract segments gpx file online</h1>
-        <h1>reverse gpx file online</h1>
-        <h1>add timestamps to gpx file online</h1>
-        <h1>compress simplify reduce number points gpx file online</h1>
-        <h1>view and add waypoints gpx file online</h1>
-        <h1>edit Strava activity</h1>
-        <h1>correct Strava activity</h1>
-        <h1>merge Strava activities</h1>
+        <h1>online gpx prohlížeč</h1>
+        <h1>úprava gpx souborů online</h1>
+        <h1>prohlížet soubory gpx online</h1>
+        <h1>sloučení gpx souborů online</h1>
+        <h1>extrahovat segmenty gpx souboru online</h1>
+        <h1>reverzní soubor gpx online</h1>
+        <h1>přidání časových značek gpx souboru online</h1>
+        <h1>komprimovat zjednodušit snížit počet bodů souboru gpx online</h1>
+        <h1>zobrazit a přidat trasové body gpx online</h1>
+        <h1>upraviť Strava aktivity</h1>
+        <h1>opravit Strava sktivity</h1>
+        <h1>sloučit Strava aktivity</h1>
         </div>
     </body>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>

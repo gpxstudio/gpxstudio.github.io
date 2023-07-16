@@ -19,9 +19,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
         <title>gpx.studio — онлайн редактор файлов GPX</title>
-        <meta name="description" content="View, edit and create GPX files online: add, move and delete points, merge multiple files, reverse, add timestamps, edit waypoints and more!">
+        <meta name="description" content="Просматривайте, редактируйте и создавайте GPX файлы онлайн: добавляйте, перемещайте и удаляйте точки, объединяйте несколько файлов, меняйте направление маршрута, добавляйте временные метки, редактируйте путевые точки и многое другое!">
         <meta property="og:title" content="gpx.studio — онлайн редактор файлов GPX" />
-        <meta property="og:description" content="View, edit and create GPX files online: add, move and delete points, merge multiple files, reverse, add timestamps, edit waypoints and more!" />
+        <meta property="og:description" content="Просматривайте, редактируйте и создавайте GPX файлы онлайн: добавляйте, перемещайте и удаляйте точки, объединяйте несколько файлов, меняйте направление маршрута, добавляйте временные метки, редактируйте путевые точки и многое другое!" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://gpx.studio/" />
         <meta property="og:image" content="https://gpx.studio/res/og_logo.png" />
@@ -108,7 +108,7 @@
                 <div id="units-text" class="panels panels-info">Distance units</div>
                 <select id="units-input" name="panels panels-val units-input">
                     <option value="km">Метрические</option>
-                    <option value="mi">Imperial</option>
+                    <option value="mi">Имперские</option>
                 </select>
                 <div id="speed-units-text" class="panels panels-info">Velocity units</div>
                 <select id="speed-units-input" name="panels panels-val speed-units-input">
@@ -131,14 +131,14 @@
                 <div class="panels-button" id="edit-time" title="Изменить время"><i class="fas fa-stopwatch custom-button"></i></div>
                 <div class="panels-button" id="reverse" title="Изменить направление"><i class="fas fa-exchange-alt custom-button"></i></div>
                 <div class="panels-button" id="combine" title="Объединение с другим треком"><i class="fas fa-plus-circle custom-button"></i></div>
-                <div class="panels-button" id="extract" title="Extract tracks or track segments"><i class="fas fa-list-ul custom-button"></i></div>
+                <div class="panels-button" id="extract" title="Извлечение треков или сегментов трека"><i class="fas fa-list-ul custom-button"></i></div>
                 <div class="panels-button" id="duplicate" title="Дубликат"><i class="fas fa-copy custom-button"></i></div>
                 <div class="panels-button" id="add-wpt" title="Добавить путевую точку"><i class="fas fa-map-marker-alt custom-button"></i></div>
                 <div class="panels-button" id="reduce" title="Уменьшение количества точек трека"><i class="fas fa-compress-alt custom-button"></i></div>
                 <div class="panels-button" id="zone-delete" title="Удалить все внутри или снаружи выделенного прямоугольника"><i class="fas fa-vector-square custom-button"></i></div>
                 <div class="panels-button" id="hide" title="Скрыть/отобразить трек"><i class="fas fa-eye-slash custom-button"></i></div>
                 <div class="panels-button" id="color" title="Изменить цвет, прозрачность и ширину"><i class="fas fa-palette custom-button"></i></div>
-                <div class="panels-button" id="structure" title="Manage the file structure"><i class="fas fa-folder-tree custom-button"></i></div>
+                <div class="panels-button" id="structure" title="Управление структурой файлов"><i class="fas fa-folder-tree custom-button"></i></div>
                 <div class="panels-button" id="delete" title="Удалить"><i class="fas fa-trash-alt custom-button"></i></div>
             </div>
             <div id="editing-options" class="panels-container">
@@ -147,11 +147,11 @@
                     <tr>
                         <td><b>Activity</b></td>
                         <td><select name="activity" id="activity-input" class="close-spacing">
-                            <option value="Trekking-dry">Bike</option>
-                            <option value="fastbike">Racing bike</option>
-                            <option value="MTB">Mountain bike</option>
+                            <option value="Trekking-dry">Велосипед</option>
+                            <option value="fastbike">Гоночный велосипед</option>
+                            <option value="MTB">Горный велосипед</option>
                             <option value="Hiking-Alpine-SAC6">Run/hike</option>
-                            <option value="Car-FastEco">Motorcycle</option>
+                            <option value="Car-FastEco">Мотоцикл</option>
                         </select></td>
                     </tr>
                     <tr>
@@ -172,7 +172,7 @@
                 <input id="street-view-provider-google" type="radio" name="street-view-provider" value="google"> <label for="street-view-provider-google">Google</label>
                 <input id="street-view-provider-mapillary" type="radio" name="street-view-provider" value="mapillary" checked> <label for="street-view-provider-mapillary">Mapillary</label>
             </div>
-            <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Mapillary or Google Street View"></i>
+            <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Открыть Mapillary или Google Street View"></i>
         </div>
         <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Direction markers</label>
         <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Метки расстояния</label>
@@ -473,9 +473,9 @@
                 <span>Choose the Strava Heatmap color</span>
                 <select name="strava-color" id="strava-color-input" class="close-spacing">
                     <option value="hot">Hot</option>
-                    <option value="blue">Blue</option>
-                    <option value="purple">Purple</option>
-                    <option value="gray">Gray</option>
+                    <option value="blue">Синий</option>
+                    <option value="purple">Фиолетовый</option>
+                    <option value="gray">Серый</option>
                     <option value="bluered">Blue-red</option>
                 </select><br>
                 <span>Choose the minimum zoom level to request POIs</span> <input id="poi-min-zoom-input" type="number" min="10" max="20"><br>
