@@ -240,13 +240,13 @@
                     <ul>
                         <li>Bruk glideknappen i nederste panel for å endre start og sluttpunkt for ruten. Klikk på <i class="fas fa-check button"></i> for å godkjenne valget. Du kan velge om du vil beholde de beskårede delene i separate filer.</li>
                         <li>Start redigeringsmodus ved å klikke på <i class="fas fa-pencil-alt button"></i>. Klikk deretter på et ankerpunkt eller på linjen og bruk <span class="button"><i class="fas fa-cut"></i> <span>Del her</span></span> for å dele sporet på det utvalgte stedet.</li>
-                        <li>Klikk på <i class="fas fa-vector-square button"></i> og velg et område som inneholder sporpunktene du vil beholde eller slette. Uncheck the box <i class="far fa-check-square"></i> Waypoints if you do not want to remove waypoints at the same time. Then, choose whether you want to delete track points inside or outside of the selection. Finally, click on <span class="button">Proceed</span>.</li>
+                        <li>Klikk på <i class="fas fa-vector-square button"></i> og velg et område som inneholder sporpunktene du vil beholde eller slette. Fjern merkingen fra boksen <i class="far fa-check-square"></i> Veipunkter hvis du ikke vil slette veipunktene. Nå kan du velger om du vil slette punktene enten innenfor eller utenfor markeringsboksen. Til slutt, klikk på <span class="button">Fortsett</span>.</li>
                     </ul>
                 </div></div>
-                <div class="guide-item"><a name="split-file" href="#split-file" class="my-anchor"><div class="guide-title" onclick="toggle('split')">Split a GPX file</div></a>
+                <div class="guide-item"><a name="split-file" href="#split-file" class="my-anchor"><div class="guide-title" onclick="toggle('split')">Dele opp en GPX-fil</div></a>
                 <div id="split" class="guide-content">Det finnes to muligheter:
                     <ul>
-                        <li>Bruk glideknappen i nederste panel for å endre start og sluttpunkt for ruten. Klikk på <i class="fas fa-check button"></i> for å godkjenne valget. Check the box <i class="far fa-check-square"></i> Keep cropped parts in new files and then click on <span class="button">Proceed</span>.</li>
+                        <li>Bruk glideknappen i nederste panel for å endre start og sluttpunkt for ruten. Klikk på <i class="fas fa-check button"></i> for å godkjenne valget. Kryss av i boksen <i class="far fa-check-square"></i> Behold beskårne deler i nye filer, og klikk deretter på <span class="button">Fortsett</span>.</li>
                         <li>Start redigeringsmodus ved å klikke på <i class="fas fa-pencil-alt button"></i>. Klikk deretter på et ankerpunkt eller på linjen og bruk <span class="button"><i class="fas fa-cut"></i> <span>Del her</span></span> for å dele sporet på det utvalgte stedet.</li>
                     </ul>
                 </div></div>
@@ -254,7 +254,7 @@
                 <div id="change-start" class="guide-content">
                     Start redigeringsmodus ved å klikke på <i class="fas fa-pencil-alt button"></i>. Then, click on an anchor point or on the line and use <span class="button"><i class="fas fa-undo"></i> <span>Start loop here</span></span> to make the loop start at a chosen location.</li>
                 </div></div>
-                <div class="guide-item"><a name="add-timestamps" href="#add-timestamps" class="my-anchor"><div class="guide-title" onclick="toggle('timestamps')">Add timestamps to a GPX file</div></a>
+                <div class="guide-item"><a name="add-timestamps" href="#add-timestamps" class="my-anchor"><div class="guide-title" onclick="toggle('timestamps')">Legg til tidsstempler i en GPX-fil</div></a>
                 <div id="timestamps" class="guide-content">
                     <ol>
                         <li>Klikk på <i class="fas fa-stopwatch button"></i>.</li>
@@ -262,30 +262,30 @@
                         <li>Velg starttid.</li>
                         <li>Klikk <span class="button">Ok</span>.</li>
                     </ol>
-                    Hvis GPX-filen ikke har noen tidsstempler, brukes en konstant hastighet på hele GPX-filen som standard. You can check the box <i class="far fa-check-square"></i> Experimental to generate timestamps which make the speed vary depending on the slope.<br>
-                    If the GPX file already has timestamps, they will be shifted and compressed to match the chosen speed and start time.
+                    Hvis GPX-filen ikke har noen tidsstempler, brukes en konstant hastighet på hele GPX-filen som standard. Du kan krysse av i boksen <i class="far fa-check-square"></i> Eksperimentell for å generere tidsstempler som får hastigheten til å variere avhengig av hvor bratt ruten er.<br>
+                    Hvis GPX-filen allerede har tidsstempler, de vil bli endret og komprimert for å ha den utvalgte hastigheten og starttiden.
                 </div></div>
-                <div class="guide-item"><a name="change-date" href="#change-date" class="my-anchor"><div class="guide-title" onclick="toggle('date')">Change the date of a GPX file</div></a>
+                <div class="guide-item"><a name="change-date" href="#change-date" class="my-anchor"><div class="guide-title" onclick="toggle('date')">Endre datoen for en GPX-fil</div></a>
                 <div id="date" class="guide-content">
                     <ol>
                         <li>Klikk på <i class="fas fa-stopwatch button"></i>.</li>
-                        <li>Change the start time.</li>
+                        <li>Endre starttidspunktet.</li>
                         <li>Klikk <span class="button">Ok</span>.</li>
                     </ol>
                 </div></div>
-                <div class="guide-item"><a name="change-speed" href="#change-speed" class="my-anchor"><div class="guide-title" onclick="toggle('speed')">Change the speed of a GPX file</div></a>
+                <div class="guide-item"><a name="change-speed" href="#change-speed" class="my-anchor"><div class="guide-title" onclick="toggle('speed')">Endre hastigheten for en GPX-fil</div></a>
                 <div id="speed" class="guide-content">
                     <ol>
                         <li>Klikk på <i class="fas fa-stopwatch button"></i>.</li>
-                        <li>Change the average speed.</li>
+                        <li>Endre gjennomsnittshastighet.</li>
                         <li>Klikk <span class="button">Ok</span>.</li>
                     </ol>
-                    Hvis GPX-filen ikke har noen tidsstempler, brukes en konstant hastighet på hele GPX-filen som standard. You can check the box <i class="far fa-check-square"></i> Experimental to generate timestamps which make the speed vary depending on the slope.<br>
-                    If the GPX file already has timestamps, they will be shifted and compressed to match the chosen speed and start time.
+                    Hvis GPX-filen ikke har noen tidsstempler, brukes en konstant hastighet på hele GPX-filen som standard. Du kan krysse av i boksen <i class="far fa-check-square"></i> Eksperimentell for å generere tidsstempler som får hastigheten til å variere avhengig av hvor bratt ruten er.<br>
+                    Hvis GPX-filen allerede har tidsstempler, de vil bli endret og komprimert for å ha den utvalgte hastigheten og starttiden.
                 </div></div>
-                <div class="guide-item"><a name="merge-files" href="#merge-files" class="my-anchor"><div class="guide-title" onclick="toggle('merge')">Merge multiple GPX files</div></a>
+                <div class="guide-item"><a name="merge-files" href="#merge-files" class="my-anchor"><div class="guide-title" onclick="toggle('merge')">Slå sammen flere GPX-filer</div></a>
                 <div id="merge" class="guide-content">
-                    To merge two GPX files:
+                    For å slå sammen to GPX-filer:
                     <ol>
                         <li>Below the bottom panel, select the tab of the first GPX file you want to merge.</li>
                         <li>Click on <i class="fas fa-plus-circle button"></i> (available only when more than two files are open).</li>
@@ -358,7 +358,7 @@
                 </div></div>
                 <div class="guide-item"><a name="remove-waypoint" href="#remove-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('rmv-wpt')">Remove waypoints of a GPX file</div></a>
                 <div id="rmv-wpt" class="guide-content">For å fjerne et eneste veipunkt, klikk på det og trykk <i class="fas fa-trash-alt button"></i> inni sprettoppvinduet, eller bare Shift+klikk på det.<br>
-                    For å fjerne alle veipunktene i eller utenfor et område, klikk på <i class="fas fa-vector-square button"></i> og velg et område som inneholder veipunktene du vil beholde eller slette. Uncheck the box <i class="far fa-check-square"></i> Track points if you do not want to remove track points at the same time. Then, choose whether you want to delete waypoints inside or outside of the selection. Finally, click on <span class="button">Proceed</span>.
+                    For å fjerne alle veipunktene i eller utenfor et område, klikk på <i class="fas fa-vector-square button"></i> og velg et område som inneholder veipunktene du vil beholde eller slette. Uncheck the box <i class="far fa-check-square"></i> Track points if you do not want to remove track points at the same time. Then, choose whether you want to delete waypoints inside or outside of the selection. Til slutt, klikk på <span class="button">Fortsett</span>.
                 </div></div>
                 <div class="guide-item"><a name="reduce-points" href="#reduce-points" class="my-anchor"><div class="guide-title" onclick="toggle('reduce')">Reduce the number of track points of a GPX file</div></a>
                 <div id="reduce" class="guide-content">
@@ -374,7 +374,7 @@
                         <li>Klikk på <i class="fas fa-vector-square button"></i>.
                         <li>Select an area containing the track points and/or waypoints you want to keep or delete.</li>
                         <li>Choose whether you want to delete track points and/or waypoints, inside or outside of the selection.</li>
-                        <li>Finally, click on <span class="button">Proceed</span>.</li>
+                        <li>Til slutt, klikk på <span class="button">Fortsett</span>.</li>
                    </ol>
                 </div></div>
                 <div class="guide-item"><a name="delete-file" href="#delete-file" class="my-anchor"><div class="guide-title" onclick="toggle('delete')">Remove GPX files</div></a>
