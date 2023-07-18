@@ -296,7 +296,7 @@ export default class Buttons {
             expandControls: false,
             translation: {
                 distance: this.distance_info.innerText,
-                elevation: this.elevation_info.innerText,
+                elevation: document.getElementById('altitude-text').innerText,
                 segment_length: document.getElementById('segment-text').innerText,
                 type: document.getElementById('type-text').innerText
             },
