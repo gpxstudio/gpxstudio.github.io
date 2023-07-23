@@ -2457,7 +2457,7 @@ export default class Trace {
                 const latIdx = ans.features[0].properties.messages[0].indexOf("Latitude");
                 const tagIdx = ans.features[0].properties.messages[0].indexOf("WayTags");
                 var messageIdx = 1;
-                var surface = "missing";
+                var surface = getSurface(ans.features[0].properties.messages[messageIdx][tagIdx]);
 
                 var mid = -1, dist = -1, j = 0;
                 for (var i=0; i<new_pts.length; i++) {
@@ -2476,8 +2476,9 @@ export default class Trace {
                     if (messageIdx < ans.features[0].properties.messages.length &&
                         new_points[i].lng == Number(ans.features[0].properties.messages[messageIdx][lngIdx]) / 1000000 &&
                         new_points[i].lat == Number(ans.features[0].properties.messages[messageIdx][latIdx]) / 1000000) {
-                        surface = getSurface(ans.features[0].properties.messages[messageIdx][tagIdx]);
                         messageIdx++;
+                        if (messageIdx == ans.features[0].properties.messages.length) surface = "missing";
+                        else surface = getSurface(ans.features[0].properties.messages[messageIdx][tagIdx]);
                     }
 
                     new_points[i].meta = {time:null, original_time:false, ele:new_pts[i][2], surface:surface};
@@ -2525,7 +2526,7 @@ export default class Trace {
                 const latIdx = ans.features[0].properties.messages[0].indexOf("Latitude");
                 const tagIdx = ans.features[0].properties.messages[0].indexOf("WayTags");
                 var messageIdx = 1;
-                var surface = "missing";
+                var surface = getSurface(ans.features[0].properties.messages[messageIdx][tagIdx]);
 
                 const new_points = [];
                 var j=0;
@@ -2545,8 +2546,9 @@ export default class Trace {
                     if (messageIdx < ans.features[0].properties.messages.length &&
                         new_points[i].lng == Number(ans.features[0].properties.messages[messageIdx][lngIdx]) / 1000000 &&
                         new_points[i].lat == Number(ans.features[0].properties.messages[messageIdx][latIdx]) / 1000000) {
-                        surface = getSurface(ans.features[0].properties.messages[messageIdx][tagIdx]);
                         messageIdx++;
+                        if (messageIdx == ans.features[0].properties.messages.length) surface = "missing";
+                        else surface = getSurface(ans.features[0].properties.messages[messageIdx][tagIdx]);
                     }
 
                     new_points[i].meta = {time:null, original_time:false, ele:new_pts[i][2], surface:surface};
