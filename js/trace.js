@@ -2457,7 +2457,7 @@ export default class Trace {
                 const latIdx = ans.features[0].properties.messages[0].indexOf("Latitude");
                 const tagIdx = ans.features[0].properties.messages[0].indexOf("WayTags");
                 var messageIdx = 1;
-                var surface = getSurface(ans.features[0].properties.messages[messageIdx][tagIdx]);
+                var surface = "missing";
 
                 var mid = -1, dist = -1, j = 0;
                 for (var i=0; i<new_pts.length; i++) {
@@ -2472,21 +2472,20 @@ export default class Trace {
                     }
 
                     new_points.push(L.latLng(new_pts[i][1],new_pts[i][0]));
+
+                    if (messageIdx < ans.features[0].properties.messages.length &&
+                        new_points[i].lng == Number(ans.features[0].properties.messages[messageIdx][lngIdx]) / 1000000 &&
+                        new_points[i].lat == Number(ans.features[0].properties.messages[messageIdx][latIdx]) / 1000000) {
+                        surface = getSurface(ans.features[0].properties.messages[messageIdx][tagIdx]);
+                        messageIdx++;
+                    }
+
                     new_points[i].meta = {time:null, original_time:false, ele:new_pts[i][2], surface:surface};
                     new_points[i].routing = true;
 
                     if (mid == -1 || new_points[i].distanceTo(b) < dist) {
                         dist = new_points[i].distanceTo(b);
                         mid = i;
-                    }
-
-                    if (new_points[i].lng.toPrecision(ans.features[0].properties.messages[messageIdx][lngIdx].length).replace('.','') == ans.features[0].properties.messages[messageIdx][lngIdx] &&
-                        new_points[i].lat.toPrecision(ans.features[0].properties.messages[messageIdx][latIdx].length).replace('.','') == ans.features[0].properties.messages[messageIdx][latIdx]){
-                        messageIdx++;
-                        if (messageIdx == ans.features[0].properties.messages.length) {
-                            surface = "missing";
-                            messageIdx--;
-                        } else surface = getSurface(ans.features[0].properties.messages[messageIdx][tagIdx]);
                     }
                 }
                 new_points[0].routing = false;
@@ -2526,7 +2525,7 @@ export default class Trace {
                 const latIdx = ans.features[0].properties.messages[0].indexOf("Latitude");
                 const tagIdx = ans.features[0].properties.messages[0].indexOf("WayTags");
                 var messageIdx = 1;
-                var surface = getSurface(ans.features[0].properties.messages[messageIdx][tagIdx]);
+                var surface = "missing";
 
                 const new_points = [];
                 var j=0;
@@ -2542,17 +2541,16 @@ export default class Trace {
                     }
 
                     new_points.push(L.latLng(new_pts[i][1],new_pts[i][0]));
+
+                    if (messageIdx < ans.features[0].properties.messages.length &&
+                        new_points[i].lng == Number(ans.features[0].properties.messages[messageIdx][lngIdx]) / 1000000 &&
+                        new_points[i].lat == Number(ans.features[0].properties.messages[messageIdx][latIdx]) / 1000000) {
+                        surface = getSurface(ans.features[0].properties.messages[messageIdx][tagIdx]);
+                        messageIdx++;
+                    }
+
                     new_points[i].meta = {time:null, original_time:false, ele:new_pts[i][2], surface:surface};
                     new_points[i].routing = true;
-
-                    if (new_points[i].lng.toPrecision(ans.features[0].properties.messages[messageIdx][lngIdx].length).replace('.','') == ans.features[0].properties.messages[messageIdx][lngIdx] &&
-                        new_points[i].lat.toPrecision(ans.features[0].properties.messages[messageIdx][latIdx].length).replace('.','') == ans.features[0].properties.messages[messageIdx][latIdx]){
-                        messageIdx++;
-                        if (messageIdx == ans.features[0].properties.messages.length) {
-                            surface = "missing";
-                            messageIdx--;
-                        } else surface = getSurface(ans.features[0].properties.messages[messageIdx][tagIdx]);
-                    }
                 }
                 new_points[0].routing = false;
                 new_points[new_points.length-1].routing = false;
