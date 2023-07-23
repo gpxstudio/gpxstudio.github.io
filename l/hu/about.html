@@ -227,7 +227,7 @@
                         <li>húzzon egy útvonal szerkesztési pontot vagy magát a vonalat az új útra. Az útvonal átszerkeszti magát a megadott útra.</li>
                         <li>kattintson egy útvonal szerkesztési pontra, és a <span class="button"><i class="fas fa-trash-alt"></i> <span>Pont eltávolítása</span></span> gombbal távolítsa el, vagy egyszerűen Shift+kattintson rá.</li>
                         <li>kattintson egy útvonal szerkesztési pontra vagy az útvonalra, és használja a <span class="button"><i class="fas fa-cut"></i> <span>vágás itt</span></span> parancsot a nyomvonal felosztásához egy kiválasztott helyen.</li>
-                        <li>kattintson egy útvonal szerkesztési pontra vagy az útvonalra, és használja a <span class="button"><i class="fas fa-undo"></i> <span>rajt áthelyezése ide</span></span> parancsot, hogy az útvonal egy kiválasztott helyről induljon.</li>
+                        <li>kattintson egy útvonal szerkesztési pontra vagy az útvonalra, és használja a <span class="button"><i class="fas fa-undo"></i> <span>Kezdés áthelyezése ide</span></span> parancsot, hogy az útvonal egy kiválasztott helyről induljon.</li>
                     </ul>
                     Ha hibázik, vagy meggondolja magát az útvonallal kapcsolatban, használja a visszavonás <i class="fas fa-reply button"></i> és az újra szerketés <i class="fas fa-share button"></i> gombokat.<br><br>
                      Ha az útonal rajzolás engedélyezve van, válassza ki a megfelelő tevékenységtípust, hogy a legmegfelelőbb utakon haladjon.
@@ -238,7 +238,7 @@
                 <div id="crop" class="guide-content">Három lehetőség van:
                     <ul>
                         <li>Az alsó panelen a szintkép alatt lévő csúszkával mozgathatja a útvonal kezdő- és végpontját. Kattintson a <i class="fas fa-check button"></i> ábrára a kiválasztás érvényesítéséhez. Kiválaszthatja, hogy a kivágott részeket külön fájlokban kívánja-e menteni.</li>
-                        <li>Lépjen be az útvonal szerkesztési módba a <i class="fas fa-pencil-alt button"></i> gombra kattintva. Kattintson egy útvonal szerkesztési pontra vagy az útvonalra, és használja a vágás itt parancsot a nyomvonal felosztásához egy kiválasztott helyen.</li>
+                        <li>Lépjen be az útvonal szerkesztési módba a <i class="fas fa-pencil-alt button"></i> gombra kattintva. Ezután kattintson egy szerkesztési pontra, vagy a vonalra, és a <span class="button"><i class="fas fa-cut"></i> <span>Szétválasztás itt</span></span> paranccsal válassza szét a nyomvonalat a kiválasztott helyen.</li>
                         <li>Kattintson a <i class="fas fa-vector-square button"></i> elemre, és jelölje ki a megtartani vagy törölni kívánt útvonal szerkesztési pontokat tartalmazó területet. Vegye ki a pipa jelet <i class="far fa-check-square"></i> az útpontok jelölőnégyzetből, ha nem szeretné egyszerre eltávolítani az útpontokat. Ezután válassza ki, hogy a kijelölt területen belül vagy kívül szeretné-e törölni az útvonalpontokat. Végül kattintson a <span class="button">Folytatás</span> gombra.</li>
                     </ul>
                 </div></div>
@@ -246,12 +246,12 @@
                 <div id="split" class="guide-content">Két lehetőség van:
                     <ul>
                         <li>Az alsó panelen a szintkép alatt lévő csúszkával mozgathatja a útvonal kezdő- és végpontját. Kattintson a <i class="fas fa-check button"></i> ábrára a kiválasztás érvényesítéséhez. Jelölje be a <i class="far fa-check-square"></i> A kivágott részek megőrzése új fájlokban négyzetet, majd kattintson a <span class="button">Folytatás</span> gombra.</li>
-                        <li>Lépjen be az útvonal szerkesztési módba a <i class="fas fa-pencil-alt button"></i> gombra kattintva. Kattintson egy útvonal szerkesztési pontra vagy az útvonalra, és használja a vágás itt parancsot a nyomvonal felosztásához egy kiválasztott helyen.</li>
+                        <li>Lépjen be az útvonal szerkesztési módba a <i class="fas fa-pencil-alt button"></i> gombra kattintva. Ezután kattintson egy szerkesztési pontra, vagy a vonalra, és a <span class="button"><i class="fas fa-cut"></i> <span>Szétválasztás itt</span></span> paranccsal válassza szét a nyomvonalat a kiválasztott helyen.</li>
                     </ul>
                 </div></div>
                 <div class="guide-item"><a name="change-start-loop" href="#change-start-loop" class="my-anchor"><div class="guide-title" onclick="toggle('change-start')">Rajt áthelyezése</div></a>
                 <div id="change-start" class="guide-content">
-                    Lépjen be az útvonal szerkesztési módba a <i class="fas fa-pencil-alt button"></i> gombra kattintva. Kattintson egy útvonal szerkesztési pontra vagy az útvonalra, és használja a rajt áthelyezése ide parancsot, hogy az útvonak egy kiválasztott helyről induljon.</li>
+                    Lépjen be az útvonal szerkesztési módba a <i class="fas fa-pencil-alt button"></i> gombra kattintva. Ezután kattintson egy szerkesztési pontra vagy a vonalra, és használja a <span class="button"><i class="fas fa-undo"></i> <span>Útvonal indítása itt</span></span> parancsot, hogy az útvonal a kiválasztott helyen kezdődjön.</li>
                 </div></div>
                 <div class="guide-item"><a name="add-timestamps" href="#add-timestamps" class="my-anchor"><div class="guide-title" onclick="toggle('timestamps')"> Időadatok hozzáadása GPX-fájlhoz </div></a>
                 <div id="timestamps" class="guide-content">
@@ -348,7 +348,7 @@
                         <li>El nevezheti és megadhat néhány adatot az útpontról (HTML segítségével formázhatja az információkat, vagy akár képeket is linkelhet).</li>
                         <li>Kattintson <span class="button">Ok</span>.</li>
                     </ol>
-                    Ha egy meglévő hely megjelőlés másolni szeretne és újra felhasználni. Kattintson a meglévő helymegjeleőlő jelzőikonra, és nyomja meg a <i class="fas fa-copy button"></i> gombot a felugró ablakban. Ezután kattintson a térképen arra helyre ahová szeretné helyezni, hogy hozzáadja az útvonalpont másolatát.
+                    Ha egy útpontot egy másik helyen vagy egy másik nyomvonalhoz szeretne újra felhasználni, kattintson az útpontra, és nyomja meg a <i class="fas fa-copy button"></i> billentyűt a felugró ablakban. Ezután kattintson a térképen arra helyre ahová szeretné helyezni, hogy hozzáadja az útvonalpont másolatát.
                 </div></div>
                 <div class="guide-item"><a name="edit-waypoint" href="#edit-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('edit-wpt')"> GPX-fájl útvonalpontjának szerkesztése</div></a>
                 <div id="edit-wpt" class="guide-content">Egy útvonalpont helyének megváltoztatásához egyszerűen húzza át egy új helyre. Ha egy útvonalpontot a kiválasztott út közelébe húz, az automatikusan ráillesztésre kerül, így az útvonalpontot tökéletesen elhelyezheti az úton. Használja a zoom-ot nagyítson vagy kicsinyítsen ha pontosabban szeretné megadni az útvonalpontok helyét. Ha útvonal közelébe helyezzük el útvonalpontunkat a program automatikusan az útvonalunkra fogja rakni.<br>
