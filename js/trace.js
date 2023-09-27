@@ -23,7 +23,9 @@ const getSurface = function (message) {
 
 export default class Trace {
     constructor(file, name, map, total, callback) {
-        name = name.split('.')[0];
+        name = name.split('.');
+        if (name.length > 1) name = name.slice(0, -1).join('.');
+        else name = name[0];
         this.name = name;
         this.map = map;
         this.total = total;
