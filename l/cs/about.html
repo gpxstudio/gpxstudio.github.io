@@ -424,13 +424,13 @@
             <div class="block">
             <a name="embed"></a><h1>Embedding &#128506;</h1>
             <div>
-                You are very welcome to display traces on your website with <b>gpx.studio</b>. There are two ways to do it: the first one with files stored on a server and the second one with Google Drive.
+                You are very welcome to display traces on your website with <b>gpx.studio</b>. Existují dva způsoby, jak to provést: první se soubory uloženými na serveru a druhý s použitím Google Drive.
                 <ul>
                     <li><b>File URL:</b> Add the link to the file in the <code>urls</code> attribute of the <code>state</code> parameter of the query string. Make sure to use <code>https</code>, to encode any special characters and that <b>gpx.studio</b> is allowed to request the files, otherwise the requests will be blocked by the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank">CORS policy</a>, i.e. you should set the following header in your server response:
                         <p style="text-align: center"><code>Access-Control-Allow-Origin: *</code> or <code>https://gpx.studio</code></p></li>
                     <li><b>Google Drive:</b> Just save the files to your Google Drive when exporting and copy the code provided! If you want to display files that you already have on your Google Drive, add the ID of the file in the <code>ids</code> attribute of the <code>state</code> parameter of the query string and make sure they are available to all users with the link.</li>
                 </ul>
-                <p>Choose the map shown by default with the parameter <code>source</code> among the following values:</p>
+                <p>Vyberte výchozí zobrazenou mapu parametrem <code>zdroj</code> z následujících hodnot:</p>
                 <ul>
                     <li><code>outdoors</code>: Mapbox Outdoors</li>
                     <li><code>satellite</code>: Mapbox Satellite</li>
@@ -438,13 +438,13 @@
                     <li><code>otm</code>: OpenTopoMap</li>
                     <li><code>ohm</code>: OpenHikingMap</li>
                 </ul>
-                <p>To use Mapbox maps, you need to specify the <code>token</code> parameter with a valid <a href="https://account.mapbox.com/access-tokens/" target="_blank">Mapbox token</a>. You can also use a custom Mapbox style by directly specifying its URL with <code>mapbox-style=&lt;STYLE_URL&gt;</code>.</p>
+                <p>Chcete-li použít Mapbox mapy, musíte zadat parametr <code>token</code> s platným Mapbox <a href="https://account.mapbox.com/access-tokens/" target="_blank">tokenem</a>. You can also use a custom Mapbox style by directly specifying its URL with <code>mapbox-style=&lt;STYLE_URL&gt;</code>.</p>
                 <p>You can optionally add parameters to the source URL: <code>imperial</code> to get data in miles and feet, <code>running</code> to display the pace in minutes by unit of distance, <code>distance</code> to show distance markers, <code>direction</code> to show direction markers and <code>slope</code> to show the slope view of the elevation profile. Below is a playground to play with the parameters, see a preview and get the HTML code.</p>
                 <div class="guide-item">
-                    <h3 style="margin-block-start: 0em;">Parameters</h3>
-                    <p>File URLs (separated by commas)<br>
+                    <h3 style="margin-block-start: 0em;">Parametry</h3>
+                    <p>URL souborů (oddělené čárkami)<br>
                     <input id="file-urls" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
-                    <p>Google Drive file IDs (separated by commas)<br>
+                    <p>ID souborů Google Drive (oddělené čárkami)<br>
                     <input id="file-ids" type="text" oninput="showPreview()" value="10IbXh7W7QDO7ZKmapJYdcgN3vhdN2Q-e" style="width: 96%; margin: 5px;"></p>
                     <div style="display: flex; justify-content: space-between">
                         <span>Running <input id="running" type="checkbox" oninput="showPreview()"></span>
