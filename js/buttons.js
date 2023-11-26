@@ -26,6 +26,7 @@ export default class Buttons {
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         this.embedding = urlParams.has('embed');
+
         if (this.embedding) {
             if (urlParams.has('imperial')) this.km = false;
             if (urlParams.has('running')) this.speed_units = false;
@@ -406,6 +407,8 @@ export default class Buttons {
                 } else if (window.location.hostname != "localhost") _this.mapbox_token = keys.mapbox;
                 else _this.mapbox_token = keys.mapbox_dev;
 
+                _this.openaip_token = keys.openaip;
+
                 // TILES
 
                 if (_this.embedding) {
@@ -538,9 +541,11 @@ export default class Buttons {
                     baselayersHierarchy[_this.basemaps_text][_this.countries_text][_this.united_kingdom_text] = { "Ordnance Survey": layers.ordnanceSurvey };
                     baselayersHierarchy[_this.basemaps_text][_this.countries_text][_this.united_states_text] = { "USGS": layers.usgs };
 
+                    layers.openAip.setUrl("https://{s}.api.tiles.openaip.net/api/data/openaip/{z}/{x}/{y}.png?apiKey=" + _this.openaip_token)
                     var overlaysHierarchy = {};
                     overlaysHierarchy[_this.overlays_text] = {};
                     overlaysHierarchy[_this.overlays_text][_this.world_text] = {
+                        "Open AIP": layers.openAip,
                         "CyclOSM Lite" : layers.cyclOSMLite,
                         "Strava Heatmap": {
                             "Ride" : layers.stravaHeatmapRide,
@@ -581,6 +586,7 @@ export default class Buttons {
                     var overlaySelection = {};
                     overlaySelection[_this.overlays_text] = {};
                     overlaySelection[_this.overlays_text][_this.world_text] = {
+                        "Open AIP": true,
                         "Strava Heatmap": {
                             "Ride" : true,
                             "Run" : true,
