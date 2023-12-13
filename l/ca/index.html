@@ -135,12 +135,12 @@
                 <div class="panels-button" id="extract" title="Extreure tracks o segments de tracks"><i class="fas fa-list-ul custom-button"></i></div>
                 <div class="panels-button" id="duplicate" title="Duplica el track"><i class="fas fa-copy custom-button"></i></div>
                 <div class="panels-button" id="add-wpt" title="Afegeix un waypoint"><i class="fas fa-map-marker-alt custom-button"></i></div>
-                <div class="panels-button" id="reduce" title="Reduir el nombre de punts del track"><i class="fas fa-compress-alt custom-button"></i></div>
+                <div class="panels-button" id="reduce" title="Redueix el nombre de punts del track"><i class="fas fa-compress-alt custom-button"></i></div>
                 <div class="panels-button" id="zone-delete" title="Elimina-ho tot dins i fora de la selecció"><i class="fas fa-vector-square custom-button"></i></div>
                 <div class="panels-button" id="hide" title="Oculta/mostra el track"><i class="fas fa-eye-slash custom-button"></i></div>
                 <div class="panels-button" id="color" title="Canvia color, opacitat i amplada"><i class="fas fa-palette custom-button"></i></div>
                 <div class="panels-button" id="structure" title="Gestiona l'estructura del fitxer"><i class="fas fa-folder-tree custom-button"></i></div>
-                <div class="panels-button" id="delete" title="Elimina track"><i class="fas fa-trash-alt custom-button"></i></div>
+                <div class="panels-button" id="delete" title="Elimina el track"><i class="fas fa-trash-alt custom-button"></i></div>
             </div>
             <div id="editing-options" class="panels-container">
                 <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Alterna les opcions d'edició"></i>
@@ -231,7 +231,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-stopwatch"></i></td>
-                <td>Canviar la velocitat i l'hora d'inici del track</td>
+                <td>Canvia la velocitat i l'hora d'inici del track</td>
             </tr>
             <tr>
                 <td><i class="fas fa-exchange-alt"></i></td>
@@ -255,11 +255,11 @@
             </tr>
             <tr>
                 <td><i class="fas fa-compress-alt"></i></td>
-                <td>Reduir el nombre de punts de pista</td>
+                <td>Redueix el nombre de punts del track</td>
             </tr>
             <tr>
                 <td><i class="fas fa-vector-square"></i></td>
-                <td>Suprimeix punts de ruta i/o waypoints dins/fora de la selecció del rectangle</td>
+                <td>Suprimeix punts del track i/o waypoints dins/fora de la selecció del rectangle</td>
             </tr>
             <tr>
                 <td><i class="fas fa-eye-slash"></i></td>
@@ -304,7 +304,7 @@
             <tr>
                 <td><i class="fas fa-chart-area"></i></td>
                 <td>Ctrl+H</td>
-                <td>Mostrar/ocultar Perfil d'elevació</td>
+                <td>Mostra/oculta el perfil d'elevació</td>
             </tr>
             </tbody>
         </table><br>
@@ -333,10 +333,7 @@
                     <td><input type="checkbox" id="include-hr" checked> <label for="include-hr">Freqüència cardíaca</label></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-atemp" checked> 18 / 5.000
-Resultats de traducció
-Resultat de traducció
-<label for="include-atemp">Temperatura</label></td>
+                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Temperatura</label></td>
                     <td><input type="checkbox" id="include-power" checked> <label for="include-power">Potència</label></td>
                 </tr>
                 </tbody>
@@ -344,7 +341,7 @@ Resultat de traducció
             <div style="color:#0f92c5;">&#9888;&#65039; L'eina és <b>gratuïta</b> d'utilitzar, però <b>no gratuïta</b> d'executar &#9888;&#65039;<br>Cada visualització del mapa, punt de seguiment afegit o mogut es factura.</div>
             <div id="donate-2" class="panels custom-button fancy-button"><b>Ajudeu a mantenir aquest lloc web gratuït</b> &#128591;</div><br>
             <div id="export-2" class="panels custom-button fancy-button">Descarrega <i class="fas fa-download"></i></div>
-            <div id="save-drive" class="panels custom-button fancy-button">Guarda al Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
+            <div id="save-drive" class="panels custom-button fancy-button">Desa al Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
         </div>
         <div id="clear-content" class="popup-content">
             Això suprimirà tots els tracks oberts.<br>Vols continuar?<br>
@@ -419,7 +416,7 @@ Resultat de traducció
             <div>Canvia el nom de les pistes o canvia el color</div>
             <div id="file-structure"></div>
             <div id="merge-selection" class="panels custom-button normal-button">Combinar la selecció</div>
-            <div id="delete-selection" class="panels custom-button normal-button">Esborra la selecció</div>
+            <div id="delete-selection" class="panels custom-button normal-button">Elimina la selecció</div>
         </div>
         <div id="crop-content" class="popup-content">
             <input type="checkbox" id="crop-keep"><label for="crop-keep">Conserva les parts retallades en fitxers nous</label><br>
@@ -473,7 +470,7 @@ Resultat de traducció
                 <div id="layer-creation-ok" class="panels custom-button normal-button">Afegir capa</div>
             </div>
             <div id="layer-selection">
-                <span>Trieu el color del Strava Heatmap</span>
+                <span>Trieu el color de l'Strava Heatmap</span>
                 <select name="strava-color" id="strava-color-input" class="close-spacing">
                     <option value="hot">Popular</option>
                     <option value="blue">Blau</option>
@@ -484,7 +481,7 @@ Resultat de traducció
                 <span>Trieu el nivell de zoom mínim per sol·licitar POIs</span> <input id="poi-min-zoom-input" type="number" min="10" max="20"><br>
                 <span>Seleccioneu les capes que voleu que apareguin a la interfície</span>
                 <div id="layer-selection-area"></div>
-                <div id="layer-selection-ok" class="panels custom-button normal-button">Guarda</div>
+                <div id="layer-selection-ok" class="panels custom-button normal-button">Desa</div>
             </div>
         </div>
         <div id="load-error-content" class="popup-content">
@@ -502,20 +499,20 @@ Resultat de traducció
         <div id="unit-hours-text">h</div>
         <div id="unit-minutes-text">minuts</div>
         <div id="duplicate-text">Duplica el track</div>
-        <div id="delete-text">Elimina track</div>
+        <div id="delete-text">Elimina el track</div>
         <div id="ok-button-text">D'acord</div>
         <div id="cancel-button-text">Cancel·lar</div>
         <div id="search-input-text">Cerca...</div>
         <div id="search-button-text">Cerqueu un lloc o enganxeu les coordenades GPS</div>
         <div id="locate-button-text">Mostra la meva posició</div>
-        <div id="add-poi-text">Afegeix POI al track actual</div>
+        <div id="add-poi-text">Afegeix un POI al track actual</div>
         <span id="track-text">Track</span>
         <span id="segment-text">Segment</span>
         <div id="edit-speed-popup-text">
             <div id="speed-text">Velocitat</div>
             <div id="pace-text">Ritme</div>
             <div id="start-text">Inici</div>
-            <div id="experimental-info-text">Generar velocitat tenint en compte el pendent i el tipus d'activitat<br><b><i class="fas fa-exclamation-triangle"></i> esborra totes les dades de temps existents</b></div>
+            <div id="experimental-info-text">Genera la velocitat tenint en compte el pendent i el tipus d'activitat<br><b><i class="fas fa-exclamation-triangle"></i> elimina totes les dades de temps existents</b></div>
         </div>
         <div id="waypoint-popup-text">
             <div id="empty-title-text">títol buit</div>
@@ -523,12 +520,12 @@ Resultat de traducció
             <div id="comment-text">Comentari (per a dispositius GPS)</div>
             <div id="description-text">Descripció (per a usuaris)</div>
             <div id="symbol-text">Símbol</div>
-            <div id="edit-info-text">Editar la informació</div>
+            <div id="edit-info-text">Edita la informació</div>
         </div>
         <div id="right-click-popup-text">
-            <div id="split-text">Dividiu aquí</div>
-            <div id="start-loop-text">Comenceu el bucle aquí</div>
-            <div id="remove-pt-text">Eliminar punt</div>
+            <div id="split-text">Divideix aquí</div>
+            <div id="start-loop-text">Comença el bucle aquí</div>
+            <div id="remove-pt-text">Elimina el punt</div>
         </div>
         <div id="elevation-text">
             <div id="altitude-text">Altitud</div>
@@ -604,11 +601,11 @@ Resultat de traducció
             <div id="viewpoint-text">Mirador</div>
             <div id="hotel-text">Hotel</div>
             <div id="hostel-text">Alberg</div>
-            <div id="guest-house-text">Casa de convidats</div>
+            <div id="guest-house-text">Pensió</div>
             <div id="motel-text">Motel</div>
             <div id="campsite-text">Campament</div>
             <div id="alpine-hut-text">Refugi de muntanya</div>
-            <div id="wilderness-hut-text">Cabana del desert</div>
+            <div id="wilderness-hut-text">Cabana</div>
             <div id="climbing-text">Lloc d'escalada</div>
             <div id="bicycle-text">Bicicleta</div>
             <div id="bicycle-parking-text">Aparcament de bicicletes</div>
@@ -620,8 +617,8 @@ Resultat de traducció
             <div id="bus-stop-text">Parada d'autobús</div>
             <div id="ferry-text">Terminal de ferri</div>
         </div>
-        <h1>edita gpx en línia</h1>
-        <h1>visualitza gpx en línia</h1>
+        <h1>editor gpx en línia</h1>
+        <h1>visor de gpx en línia</h1>
         <h1>edita fitxers gpx en línia</h1>
         <h1>visualitza fitxers gpx en línia</h1>
         <h1>combina fitxers gpx en línia</h1>
