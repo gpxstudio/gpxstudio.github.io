@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="ro">
+    <head>
+        <!-- ADD_LANGUAGE -->
+        <link rel="alternate" hreflang="x-default" href="https://gpx.studio/"/>
+        <link rel="alternate" hreflang="en" href="https://gpx.studio/"/>
+        <link rel="alternate" hreflang="de" href="https://gpx.studio/l/de"/>
+        <link rel="alternate" hreflang="es" href="https://gpx.studio/l/es/"/>
+        <link rel="alternate" hreflang="fr" href="https://gpx.studio/l/fr/"/>
+        <link rel="alternate" hreflang="it" href="https://gpx.studio/l/it/"/>
+        <link rel="alternate" hreflang="nl" href="https://gpx.studio/l/nl/"/>
+        <link rel="alternate" hreflang="no" href="https://gpx.studio/l/no/"/>
+        <link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/"/>
+        <link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/"/>
+        <link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/"/>
+        <link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/"/>
+        <link rel="alternate" hreflang="sv" href="https://gpx.studio/l/sv/"/>
+        <link rel="alternate" hreflang="ca" href="https://gpx.studio/l/ca/"/>
+        <link rel="alternate" hreflang="cs" href="https://gpx.studio/l/cs/"/>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <title>gpx.studio — the online GPX file editor</title>
+        <meta name="description" content="View, edit and create GPX files online: add, move and delete points, merge multiple files, reverse, add timestamps, edit waypoints and more!">
+        <meta property="og:title" content="gpx.studio — the online GPX file editor" />
+        <meta property="og:description" content="View, edit and create GPX files online: add, move and delete points, merge multiple files, reverse, add timestamps, edit waypoints and more!" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://gpx.studio/" />
+        <meta property="og:image" content="https://gpx.studio/res/og_logo.png" />
+        <meta name="twitter:card" content="summary_large_image">
+        <script type="application/ld+json">
+        {
+            "@context" : "http://schema.org",
+            "@type" : "WebApplication",
+            "name" : "gpx.studio",
+            "alternateName": "gpx.studio — the online GPX file editor",
+            "description": "View, edit and create GPX files online: add, move and delete points, merge multiple files, reverse, add timestamps, edit waypoints and more!",
+            "applicationCategory": "Tool, Editor",
+            "url" : "https://gpx.studio",
+            "sameAs" : [
+                "https://www.facebook.com/gpx.studio"
+            ],
+            "screenshot": "https://gpx.studio/res/preview.png",
+            "genre": "outdoors",
+            "keywords": "gpx, gps, file, viewer, editor, merge, reverse, timestamps, waypoints, segments",
+            "browserRequirements": "Requires JavaScript. Requires HTML5.",
+            "softwareHelp": {
+                "@type": "CreativeWork",
+                "url": "https://gpx.studio/about.html"
+            },
+            "operatingSystem": "All",
+            "featureList": "edit gpx files online, view gpx files online, merge gpx files online, reverse gpx file online, add timestamps to gpx file online, extract track segments, view and add waypoints gpx file online"
+        }
+        </script>
+        <link rel="icon" href="/res/favicon.png">
+        <link rel="stylesheet" href="/include/fontawesome/css/fontawesome.min.css"/>
+        <link rel="stylesheet" href="/include/fontawesome/css/brands.min.css"/>
+        <link rel="stylesheet" href="/include/fontawesome/css/solid.min.css"/>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
+        <link rel="stylesheet" href="/include/elevation/L.Control.Heightgraph.css"/>
+        <link rel="stylesheet" href="/include/controlwindow/L.Control.Window.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet-toggleable-attribution@0.0.1/src/L.Control.ToggleableAttribution.css"/>
+        <link rel="stylesheet" href="https://unpkg.com/mapillary-js@4.0.0/dist/mapillary.css" />
+        <link rel="stylesheet" type="text/css" href="/res/index.css">
+    </head>
+    <body>
+        <input id="input-file" type="file" accept=".gpx" multiple style="display: none"/>
+        <div id="mapid"></div>
+        <div id="mly"><div id="mly-controls"><i id="mly-move" class="fas fa-arrows-alt custom-button"></i><i id="mly-close" class="fas fa-times custom-button"></i></div></div>
+        <div style="display: none">
+        <div id="toolbar" class="panels-container center-leaflet">
+            <div id="burger-logo">
+                <i id="burger" class="fa-solid fa-bars panels custom-button"></i>
+                <img src="/res/logo.png" height="21" class="panels custom-button" style="vertical-align: middle; padding: 2px 6px 4px 6px" alt="logo of gpx.studio, the online GPX file editor">
+            </div>
+            <div id="load" class="panels custom-button">Load GPX</div>
+            <div id="manual" class="panels custom-button">New GPX</div>
+            <div id="export" class="panels custom-button">Export</div>
+            <div style="display: inline-block">
+                <div class="panels custom-button unselected no-click2" id="undo"><i class="fas fa-reply"></i></div>
+                <div class="panels custom-button unselected no-click2" id="redo"><i class="fas fa-share"></i></div>
+            </div>
+            <div id="clear" class="panels custom-button">Clear all</div>
+            <div id="help" class="panels custom-button">Help</div>
+            <div id="about" class="panels custom-button">About</div>
+            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Donate</b> <i class="fas fa-heart"></i></div>
+        </div>
+        <div id="info">
+            <ul id="sortable-tabs">
+              <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">Total</li>
+            </ul>
+            <div id="info-grid" class="panels-container trace-info maximized">
+                <div class="panels panels-info" id="distance">Distance</div>
+                <div class="panels panels-val" id="distance-val"></div>
+                <div class="panels panels-info" id="elevation">Elevation</div>
+                <div class="panels panels-val" id="elevation-val"></div>
+                <div class="panels panels-info" id="speed">Speed</div>
+                <div class="panels panels-val" id="speed-val"></div>
+                <div class="panels panels-info" id="duration">Moving time</div>
+                <div class="panels panels-val" id="duration-val"></div>
+                <div class="panels panels-info" id="tracks">Tracks</div>
+                <div class="panels panels-val" id="tracks-val">0</div>
+                <div class="panels panels-info" id="segments">Track segments</div>
+                <div class="panels panels-val" id="segments-val">0</div>
+                <div class="panels panels-info" id="points">Track points</div>
+                <div class="panels panels-val" id="points-val">0</div>
+                <div id="units-text" class="panels panels-info">Distance units</div>
+                <select id="units-input" name="panels panels-val units-input">
+                    <option value="km">Metric</option>
+                    <option value="mi">Imperial</option>
+                </select>
+                <div id="speed-units-text" class="panels panels-info">Velocity units</div>
+                <select id="speed-units-input" name="panels panels-val speed-units-input">
+                    <option value="speed">Speed</option>
+                    <option value="pace">Pace</option>
+                </select>
+                <div id="elevation-input" class="panels-button custom-button" title="Toggle the elevation profile"><i class="fas fa-minus"></i></div>
+                <div id="crop-container">
+                    <div class="panels-button custom-button" id="validate"><i class="fas fa-check custom-button"></i></div>
+                </div>
+                <div id="slide-container">
+                    <input type="range" min="0" max="10000000" value="0" class="slider" id="start-point">
+                    <input type="range" min="0" max="10000000" value="10000000" class="slider visible" id="end-point">
+                </div>
+            </div>
+        </div>
+        <div id="buttons-bar" class="vcenter-leaflet">
+            <div id="buttons" class="panels-container">
+                <div class="panels-button" id="edit" title="Edit track points"><i class="fas fa-pencil-alt custom-button"></i></div>
+                <div class="panels-button" id="edit-time" title="Edit time"><i class="fas fa-stopwatch custom-button"></i></div>
+                <div class="panels-button" id="reverse" title="Reverse"><i class="fas fa-exchange-alt custom-button"></i></div>
+                <div class="panels-button" id="combine" title="Merge with another trace"><i class="fas fa-plus-circle custom-button"></i></div>
+                <div class="panels-button" id="extract" title="Extract tracks or track segments"><i class="fas fa-list-ul custom-button"></i></div>
+                <div class="panels-button" id="duplicate" title="Duplicate"><i class="fas fa-copy custom-button"></i></div>
+                <div class="panels-button" id="add-wpt" title="Add waypoint"><i class="fas fa-map-marker-alt custom-button"></i></div>
+                <div class="panels-button" id="reduce" title="Reduce number of track points"><i class="fas fa-compress-alt custom-button"></i></div>
+                <div class="panels-button" id="zone-delete" title="Delete all inside/outside rectangle selection"><i class="fas fa-vector-square custom-button"></i></div>
+                <div class="panels-button" id="hide" title="Hide/unhide the trace"><i class="fas fa-eye-slash custom-button"></i></div>
+                <div class="panels-button" id="color" title="Change color, opacity and width"><i class="fas fa-palette custom-button"></i></div>
+                <div class="panels-button" id="structure" title="Manage the file structure"><i class="fas fa-folder-tree custom-button"></i></div>
+                <div class="panels-button" id="delete" title="Delete"><i class="fas fa-trash-alt custom-button"></i></div>
+            </div>
+            <div id="editing-options" class="panels-container">
+                <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Toggle editing options"></i>
+                <table class="panels">
+                    <tr>
+                        <td><b>Activity</b></td>
+                        <td><select name="activity" id="activity-input" class="close-spacing">
+                            <option value="Trekking-dry">Bike</option>
+                            <option value="fastbike">Racing bike</option>
+                            <option value="MTB">Mountain bike</option>
+                            <option value="Hiking-Alpine-SAC6">Run/hike</option>
+                            <option value="Car-FastEco">Motorcycle</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><label for="routing-input"><b>Routing (follow roads)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><label for="edit-time-strategy"><b>Time data management</b></label></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
+                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preserve the original timestamps</label></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="street-view-content">
+            <div id="street-view-selector">
+                <input id="street-view-provider-google" type="radio" name="street-view-provider" value="google"> <label for="street-view-provider-google">Google</label>
+                <input id="street-view-provider-mapillary" type="radio" name="street-view-provider" value="mapillary" checked> <label for="street-view-provider-mapillary">Mapillary</label>
+            </div>
+            <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Mapillary or Google Street View"></i>
+        </div>
+        <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Direction markers</label>
+        <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Distance markers</label>
+        <div id="help-text">
+        <div style="text-align: center; font-size: 10pt; color: #476947">
+            <b>Check out the <a href="./about.html#guide" target="_blank">User Guide</a> for more info and small tutorials!</b>
+        </div><br>
+        <table style="width: 100%">
+            <colgroup>
+               <col span="1" style="width: 11%;">
+               <col span="1" style="width: 7%;">
+               <col span="1" style="width: 82%;">
+            </colgroup>
+            <tbody>
+            <tr>
+                <td><b>Load GPX</b></td>
+                <td>Ctrl+O</td>
+                <td>Import and visualize GPX files (or drag and drop anywhere in the window)</td>
+            </tr>
+            <tr>
+                <td><b>New GPX</b></td>
+                <td>Ctrl+D</td>
+                <td>Start drawing a new route by placing anchor points on the map</td>
+            </tr>
+            <tr>
+                <td><b>Export</b></td>
+                <td>Ctrl+S</td>
+                <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Time, heart rate, cadence, power and temperature data are automatically extended. Optionally, merge all files <b>in the chosen order</b>. You can also drag a tab to your desktop to download the file.</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-reply"></i> <i class="fas fa-share"></i></td>
+                <td>Ctrl+Z/Y</td>
+                <td>Undo and redo actions in edition mode</td>
+            </tr>
+            <tr>
+                <td><b>Clear all</b></td>
+                <td>Ctrl+K</td>
+                <td>Delete all traces</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Escape</td>
+                <td>Exit current menu or tool</td>
+            </tr>
+            </tbody>
+        </table><br>
+        <table style="width: 100%">
+            <colgroup>
+               <col span="1" align="center" style="width:11%;">
+               <col span="1" style="width: 89%;">
+            </colgroup>
+            <tbody>
+            <tr>
+                <td><i class="fas fa-pencil-alt"></i></td>
+                <td>Enter edition mode to add, move, insert or delete (Shift+click) anchor points, right-click on anchor points for more options (split, change start, delete)</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-stopwatch"></i></td>
+                <td>Change the speed and starting time of the trace</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-exchange-alt"></i></td>
+                <td>Reverse the trace and adapt the timestamps</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-plus-circle"></i></td>
+                <td>Merge with another trace (automatically extends time, heart rate, cadence, power and temperature data)</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-list-ul"></i></td>
+                <td>Extract all track segments and creates one trace for each</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-copy"></i></td>
+                <td>Duplicate the trace</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-map-marker-alt"></i></td>
+                <td>Add a waypoint (drag to change its location and use the buttons to edit info, duplicate or remove)</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-compress-alt"></i></td>
+                <td>Reduce the number of track points</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-vector-square"></i></td>
+                <td>Delete track points and/or waypoints inside/outside rectangle selection</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-eye-slash"></i></td>
+                <td>Hide or unhide the trace</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-palette"></i></td>
+                <td>Change the display color and opacity, these values will be exported and detected when re-imported</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-folder-tree"></i></td>
+                <td>Manage the file structure, drag and drop files, tracks and track segments</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-trash-alt"></i></td>
+                <td>Delete the trace</td>
+            </tr>
+            </tbody>
+        </table><br>
+        <table style="width: 100%">
+            <colgroup>
+               <col span="1" style="width: 11%;">
+               <col span="1" style="width: 7%;">
+               <col span="1" style="width: 82%;">
+            </colgroup>
+            <tbody>
+            <tr>
+                <td></td>
+                <td>F1</td>
+                <td>Show the last basemap used.</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>F2</td>
+                <td>Show or hide the overlays currently used.</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>F3</td>
+                <td>Switch between routing and <i>as the crow flies</i> (straight lines between track points) when editing traces</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-chart-area"></i></td>
+                <td>Ctrl+H</td>
+                <td>Show or hide the elevation profile</td>
+            </tr>
+            </tbody>
+        </table><br>
+        At the bottom, you can see a panel with information about the traces you import.
+        The <b>Total</b> tab displays information about all open traces merged into one.
+        <b>Swap the tabs</b> to define the order in which the traces should appear and <b>double-click</b> on them to change their names.
+        When you have many tabs, navigate through them by scrolling horizontally.
+        Use the <b>slider</b> to move the start/end point and cut the route.
+        </div>
+        <div id="export-content" class="popup-content">
+            <table style="text-align: left">
+                <colgroup>
+                   <col span="1">
+                   <col span="1">
+                </colgroup>
+                <tbody>
+                    <td><b>Export settings</b></td>
+                    <td><input type="checkbox" id="merge"> <label for="merge">Merge all traces</label></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" id="include-time" checked> <label for="include-time">Time</label></td>
+                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Surface</label></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" id="include-cad" checked> <label for="include-cad">Cadence</label></td>
+                    <td><input type="checkbox" id="include-hr" checked> <label for="include-hr">Heartrate</label></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Temperature</label></td>
+                    <td><input type="checkbox" id="include-power" checked> <label for="include-power">Power</label></td>
+                </tr>
+                </tbody>
+            </table>
+            <div style="color:#0f92c5;">&#9888;&#65039; The tool is <b>free</b> to use but <b>not free</b> to run &#9888;&#65039;<br>Each map display, track point added or moved is billed.</div>
+            <div id="donate-2" class="panels custom-button fancy-button"><b>Help keep the website free</b> &#128591;</div><br>
+            <div id="export-2" class="panels custom-button fancy-button">Download <i class="fas fa-download"></i></div>
+            <div id="save-drive" class="panels custom-button fancy-button">Save to Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
+        </div>
+        <div id="clear-content" class="popup-content">
+            This will delete all open traces.<br>Do you wish to continue?<br>
+            <div id="clear2" class="panels custom-button normal-button">Yes</div>
+            <div id="cancelclear" class="panels custom-button normal-button"><b>Cancel</b></div>
+        </div>
+        <div id="delete-content" class="popup-content">
+            This will delete the current trace.<br>Do you wish to continue?<br>
+            <div id="delete2" class="panels custom-button normal-button">Yes</div>
+            <div id="canceldelete" class="panels custom-button normal-button"><b>Cancel</b></div>
+        </div>
+        <div id="color-content" class="popup-content">
+            <div style="text-align: left">
+                <label for="color-picker">Pick a new color</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
+                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Apply color to all traces</label><br>
+                <label for="opacity-slider">Opacity</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
+                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Apply opacity to all traces</label><br>
+                <label for="width-slider">Width</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
+                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Apply width to all traces</label>
+            </div>
+            <div id="validate-color" class="panels custom-button normal-button">Ok</div>
+            <div id="cancel-color" class="panels custom-button normal-button"><b>Cancel</b></div>
+        </div>
+        <div id="load-content" class="popup-content">
+            Choose files from<br>
+            <div id="load2" class="panels custom-button normal-button">Desktop</div>
+            <div id="load-drive" class="panels custom-button normal-button">Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div><br>
+            (or drag and drop anywhere in the window)
+        </div>
+        <div id="share-content" class="popup-content">
+            Done!<br>
+            <div id="copy-link" class="panels custom-button fancy-button">Copy link <i class="fas fa-link"></i></div><br>
+            <div id="copy-embed" class="panels custom-button fancy-button">Copy embedding code <i class="fas fa-code"></i></div><br>
+        </div>
+        <div id="merge-content" class="popup-content">
+            <div id="merge-time-options">
+                <i class="fas fa-stopwatch"></i> Choose how to adapt the timestamps of the second trace (if any)
+                <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
+                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Keep the original timestamps (as long as they come after those of the first trace)</label><br>
+                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Make the second trace start right after the first one</label>
+                </div>
+                <hr>
+            </div>
+            <div>
+                <div class="close-spacing">Click on another trace or tab to merge the current trace with it</div><hr>
+                Choose how to add the second trace to the first one
+                <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
+                    <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Merge as track points</label><br>
+                    <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Merge as track segments</label><br>
+                    <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Merge as tracks</label>
+                </div>
+            </div>
+        </div>
+        <div id="split-content" class="popup-content">
+            Choose how to split the trace<br>
+            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Split into separate files</label><br>
+            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Split into separate tracks</label><br>
+            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Split into separate track segments</label><br>
+            <div id="split-ok" class="panels custom-button normal-button">Ok</div>
+            <div id="split-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+        </div>
+        <div id="extract-content" class="popup-content">
+            Choose what to extract<br>
+            <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Tracks</label><br>
+            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Track segments</label><br>
+            <div id="extract-ok" class="panels custom-button normal-button">Ok</div>
+            <div id="extract-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+        </div>
+        <div id="structure-content" class="popup-content">
+            <div class="close-spacing">Drag and drop the elements to rearrange the file structure</div>
+            <div>Move elements from or to the tabs above the elevation profile</div>
+            <div>Rename tracks or change their color</div>
+            <div id="file-structure"></div>
+            <div id="merge-selection" class="panels custom-button normal-button">Merge selection</div>
+            <div id="delete-selection" class="panels custom-button normal-button">Delete selection</div>
+        </div>
+        <div id="crop-content" class="popup-content">
+            <input type="checkbox" id="crop-keep"><label for="crop-keep">Keep cropped parts in new files</label><br>
+            <div id="crop-ok" class="panels custom-button normal-button">Proceed</div>
+            <div id="crop-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+        </div>
+        <div id="reduce-content" class="popup-content">
+            Choose the amount of detail to keep<br>
+            Number of track points: <span id="reduce-npoints">0</span><br>
+            <input type="range" min="0" max="1000" id="reduce-slider" style="width: 90%"><br>
+            <div id="reduce-ok" class="panels custom-button normal-button">Ok</div>
+            <div id="reduce-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+        </div>
+        <div id="zone-delete-content" class="popup-content">
+            Choose what to delete<br>
+            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Track points</label>
+            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
+            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inside selection</label>
+            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
+            <div id="zone-delete-ok" class="panels custom-button normal-button">Proceed</div>
+            <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Cancel</b></div>
+        </div>
+        <div id="layer-selection-content">
+            <div id="layer-creation">
+                Add or replace a custom layer here
+                <table style="text-align: left">
+                    <tr>
+                        <td><label for="layer-name">Layer name</label></td>
+                        <td><input type="text" id="layer-name" size="35"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="layer-url">Tiles URL</label></td>
+                        <td><input type="text" id="layer-url" placeholder="https://{s}.domain.com/{z}/{y}/{x}.png" size="35"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="layer-max-zoom">Max zoom level</label></td>
+                        <td><input type="number" id="layer-max-zoom" value="20" min="1" max="20"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="layer-type">Layer type</label></td>
+                        <td><select id="layer-type">
+                            <option value="baselayer">Basemap</option>
+                            <option value="overlay">Overlay</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td>Preview</td>
+                    </tr>
+                </table>
+                <div id="preview-map" style="width: 100%; height: 200px"></div>
+                <div id="layer-creation-ok" class="panels custom-button normal-button">Add layer</div>
+            </div>
+            <div id="layer-selection">
+                <span>Choose the Strava Heatmap color</span>
+                <select name="strava-color" id="strava-color-input" class="close-spacing">
+                    <option value="hot">Hot</option>
+                    <option value="blue">Blue</option>
+                    <option value="purple">Purple</option>
+                    <option value="gray">Gray</option>
+                    <option value="bluered">Blue-red</option>
+                </select><br>
+                <span>Choose the minimum zoom level to request POIs</span> <input id="poi-min-zoom-input" type="number" min="10" max="20"><br>
+                <span>Select the layers you want to appear in the interface</span>
+                <div id="layer-selection-area"></div>
+                <div id="layer-selection-ok" class="panels custom-button normal-button">Save</div>
+            </div>
+        </div>
+        <div id="load-error-content" class="popup-content">
+            There was an error loading your GPX file.<br>
+            Please check the file format.<br>
+            <div id="load-error-ok" class="panels custom-button normal-button">Ok</div>
+        </div>
+        <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
+            <b>Open in</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logo of gpx.studio, the online GPX file editor">
+        </div>
+        <div id="unit-kilometers-text">km</div>
+        <div id="unit-miles-text">mi</div>
+        <div id="unit-meters-text">m</div>
+        <div id="unit-feet-text">ft</div>
+        <div id="unit-hours-text">h</div>
+        <div id="unit-minutes-text">min</div>
+        <div id="duplicate-text">Duplicate</div>
+        <div id="delete-text">Delete</div>
+        <div id="ok-button-text">Ok</div>
+        <div id="cancel-button-text">Cancel</div>
+        <div id="search-input-text">Search...</div>
+        <div id="search-button-text">Search for a place or paste GPS coordinates</div>
+        <div id="locate-button-text">Show my position</div>
+        <div id="add-poi-text">Add POI to current trace</div>
+        <span id="track-text">Track</span>
+        <span id="segment-text">Segment</span>
+        <div id="edit-speed-popup-text">
+            <div id="speed-text">Speed</div>
+            <div id="pace-text">Pace</div>
+            <div id="start-text">Start</div>
+            <div id="experimental-info-text">Generate speed considering the slope and the activity type<br><b><i class="fas fa-exclamation-triangle"></i> erases all existing time data</b></div>
+        </div>
+        <div id="waypoint-popup-text">
+            <div id="empty-title-text">empty title</div>
+            <div id="name-text">Name</div>
+            <div id="comment-text">Comment (for GPS devices)</div>
+            <div id="description-text">Description (for users)</div>
+            <div id="symbol-text">Symbol</div>
+            <div id="edit-info-text">Edit info</div>
+        </div>
+        <div id="right-click-popup-text">
+            <div id="split-text">Split here</div>
+            <div id="start-loop-text">Start loop here</div>
+            <div id="remove-pt-text">Remove point</div>
+        </div>
+        <div id="elevation-text">
+            <div id="altitude-text">Altitude</div>
+            <div id="segment-text">Segment length</div>
+            <div id="type-text">Category</div>
+            <div id="surface-text">Surface</div>
+            <div id="slope-text">Slope</div>
+            <div id="missing-text">Missing</div>,
+            <div id="paved-text">Paved</div>,
+            <div id="unpaved-text">Unpaved</div>,
+            <div id="asphalt-text">Asphalt</div>,
+            <div id="concrete-text">Concrete</div>,
+            <div id="chipseal-text">Chipseal</div>,
+            <div id="cobblestone-text">Cobblestone</div>,
+            <div id="unhewn-cobblestone-text">Unhewn Cobblestone</div>,
+            <div id="paving-stones-text">Paving Stones</div>,
+            <div id="stepping-stones-text">Stepping Stones</div>,
+            <div id="sett-text">Sett Paving</div>,
+            <div id="metal-text">Metal</div>,
+            <div id="wood-text">Wood</div>,
+            <div id="compacted-text">Compacted Gravel</div>,
+            <div id="fine-gravel-text">Fine Gravel</div>,
+            <div id="gravel-text">Gravel</div>,
+            <div id="pebblestone-text">Pebblestone</div>,
+            <div id="rock-text">Rock</div>,
+            <div id="dirt-text">Dirt</div>,
+            <div id="ground-text">Ground</div>,
+            <div id="earth-text">Earth</div>,
+            <div id="snow-text">Snow</div>,
+            <div id="ice-text">Ice</div>,
+            <div id="salt-text">Salt</div>,
+            <div id="mud-text">Mud</div>,
+            <div id="sand-text">Sand</div>,
+            <div id="woodchips-text">Woodchips</div>,
+            <div id="grass-text">Grass</div>,
+            <div id="grass-paver-text">Grass Paver</div>
+        </div>
+        <div id="layers-text">
+            <div id="basemaps-text">Basemaps</div>
+            <div id="overlays-text">Overlays</div>
+            <div id="custom-text">Custom</div>
+            <div id="world-text">World</div>
+            <div id="countries-text">Countries</div>
+            <div id="finland-text">Finland</div>
+            <div id="france-text">France</div>
+            <div id="new-zealand-text">New Zealand</div>
+            <div id="norway-text">Norway</div>
+            <div id="spain-text">Spain</div>
+            <div id="sweden-text">Sweden</div>
+            <div id="switzerland-text">Switzerland</div>
+            <div id="united-kingdom-text">United Kingdom</div>
+            <div id="united-states-text">United States</div>
+            <div id="poi-text">Points of Interest</div>
+            <div id="eat-and-drink-text">Eat and Drink</div>
+            <div id="bakery-text">Bakery</div>
+            <div id="supermarket-text">Supermarket</div>
+            <div id="convenience-store-text">Convenience Store</div>
+            <div id="restaurant-text">Restaurant</div>
+            <div id="fast-food-text">Fast Food</div>
+            <div id="cafe-text">Cafe</div>
+            <div id="pub-text">Pub</div>
+            <div id="bar-text">Bar</div>
+            <div id="amenities-text">Amenities</div>
+            <div id="toilets-text">Toilets</div>
+            <div id="drinking-water-text">Drinking Water</div>
+            <div id="water-point-text">Water Point</div>
+            <div id="water-spring-text">Water Spring</div>
+            <div id="shower-text">Shower</div>
+            <div id="fuel-station-text">Fuel Station</div>
+            <div id="parking-text">Parking</div>
+            <div id="tourism-text">Tourism</div>
+            <div id="attraction-text">Attraction</div>
+            <div id="viewpoint-text">Viewpoint</div>
+            <div id="hotel-text">Hotel</div>
+            <div id="hostel-text">Hostel</div>
+            <div id="guest-house-text">Guest House</div>
+            <div id="motel-text">Motel</div>
+            <div id="campsite-text">Campsite</div>
+            <div id="alpine-hut-text">Alpine Hut</div>
+            <div id="wilderness-hut-text">Wilderness Hut</div>
+            <div id="climbing-text">Climbing Site</div>
+            <div id="bicycle-text">Bicycle</div>
+            <div id="bicycle-parking-text">Bicycle Parking</div>
+            <div id="bicycle-rental-text">Bicycle Rental</div>
+            <div id="bicycle-shop-text">Bicycle Shop</div>
+            <div id="public-transport-text">Public Transport</div>
+            <div id="railway-station-text">Railway Station</div>
+            <div id="tram-stop-text">Tram Stop</div>
+            <div id="bus-stop-text">Bus Stop</div>
+            <div id="ferry-text">Ferry Terminal</div>
+        </div>
+        <h1>online gpx editor</h1>
+        <h1>online gpx viewer</h1>
+        <h1>edit gpx files online</h1>
+        <h1>view gpx files online</h1>
+        <h1>merge gpx files online</h1>
+        <h1>extract segments gpx file online</h1>
+        <h1>reverse gpx file online</h1>
+        <h1>add timestamps to gpx file online</h1>
+        <h1>compress simplify reduce number points gpx file online</h1>
+        <h1>view and add waypoints gpx file online</h1>
+        <h1>edit Strava activity</h1>
+        <h1>correct Strava activity</h1>
+        <h1>merge Strava activities</h1>
+        </div>
+    </body>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/include/overpasslayer/OverPassLayer.bundle.js"></script>
+    <script type="text/javascript" src="/include/icon/Leaflet.Icon.Glyph.js"></script>
+    <script type="text/javascript" src="/js/data.js"></script>
+    <script type="module" src="/include/gpx/gpx.js"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+    <script type="text/javascript" src="/include/elevation/L.Control.Heightgraph.js"></script>
+    <script type="text/javascript" src="/js/elevation.js"></script>
+    <script type="text/javascript" src="/include/textpath/leaflet.textpath.js"></script>
+    <script type="text/javascript" src="/include/mapboxgl/leaflet-mapbox-gl.js"></script>
+    <script type="text/javascript" src="/include/controlwindow/L.Control.Window.js"></script>
+    <script type="text/javascript" src="/include/geometryutil/leaflet.geometryutil.js"></script>
+    <script type="text/javascript" src="/include/distancemarkers/leaflet-distance-markers.js"></script>
+    <script src="https://unpkg.com/leaflet-toggleable-attribution@0.0.1/src/L.Control.ToggleableAttribution.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script src="https://unpkg.com/mapillary-js@4.0.0/dist/mapillary.js"></script>
+    <script src="https://unpkg.com/leaflet.vectorgrid@1.3.0/dist/Leaflet.VectorGrid.min.js"></script>
+    <script src="/include/sanitize/xss.min.js"></script>
+    <script type="module" src="/include/simplify/simplify.js"></script>
+    <script src="/include/driveutils/upload.js"></script>
+    <script src="/js/lang.js"></script>
+    <script src="/js/layers.js"></script>
+    <script type="module" src="/include/node/bundle.js"></script>
+    <script type="module" src="/js/slider.js"></script>
+    <script type="module" src="/js/layercontrol.js"></script>
+    <script type="module" src="/js/buttons.js"></script>
+    <script type="module" src="/js/trace.js"></script>
+    <script type="module" src="/js/total.js"></script>
+    <script type="module" src="/js/google.js"></script>
+    <script type="module" src="/js/script.js"></script>
+    <script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
+    <script src="https://accounts.google.com/gsi/client"></script>
+</html>
