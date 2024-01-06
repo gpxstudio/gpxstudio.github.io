@@ -174,7 +174,22 @@ const layers = {
         maxNativeZoom: 14,
         maxZoom: MAX_ZOOM,
         attribution: '&copy; <a href="https://www.strava.com" target="_blank">Strava</a>'
-    })
+    }),
+    squadrats: L.geoJSON(JSON.parse(localStorage.getItem('squadrats')), {
+        style: (feature) => {
+            switch (feature.properties.name) {
+                case "squadrats": return {stroke: true, weight: 2, opacity: 1, fillOpacity: 0.3, color: '#ffedd9'};
+                case "yard": return {stroke: true, weight: 2, opacity: 1, fillOpacity: 0.3, color: '#fff'};
+                case "ubersquadrat": return {stroke: true, weight: 2, opacity: 1, fillOpacity: 0.0, color: '#f00'};
+                case "squadratinhos": return {stroke: true, weight: 2, opacity: 1, fillOpacity: 0.2, color: '#ffd5ab'};
+                case "yardinho": return {stroke: true, weight: 2, opacity: 1, fillOpacity: 0.2, color: '#ffc285'};
+                case "ubersquadratinho": return {stroke: true, weight: 2, opacity: 1, fillOpacity: 0.0, color: '#f00'};
+            }
+        },
+        maxNativeZoom: 18,
+        maxZoom: MAX_ZOOM,
+        attribution: '&copy; <a href="https://squadrats.com" target="_blank">Squadrats</a>'
+    }),
 };
 
 const overPassMinZoomOptions =  {

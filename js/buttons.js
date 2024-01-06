@@ -548,6 +548,9 @@ export default class Buttons {
                             "Water" : layers.stravaHeatmapWater,
                             "Winter" : layers.stravaHeatmapWinter
                         },
+                        "Squadrats": {
+                            "All" : layers.squadrats
+                        },
                         "Waymarked Trails": {
                             "Hiking": layers.waymarkedTrailsHiking,
                             "Cycling": layers.waymarkedTrailsCycling,
@@ -586,6 +589,9 @@ export default class Buttons {
                             "Run" : true,
                             "Water" : true,
                             "Winter" : true
+                        },
+                        "Squadrats": {
+                            "All" : true
                         },
                         "Waymarked Trails": {
                             "Hiking": true,
