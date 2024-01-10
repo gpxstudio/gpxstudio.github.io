@@ -20,9 +20,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
         <title>gpx.studio - 在线GPX文件编辑器</title>
-        <meta name="description" content="在线查看、编辑和创建 GPX 文件：添加、移动和删除点、合并多个文件、逆向文件、添加时间戳、编辑兴趣点等等！">
+        <meta name="description" content="在线查看、编辑和创建 GPX 文件：添加、移动和删除点、合并多个文件、逆向文件、添加时间戳、编辑航点等等！">
         <meta property="og:title" content="gpx.studio - 在线GPX文件编辑器" />
-        <meta property="og:description" content="在线查看、编辑和创建 GPX 文件：添加、移动和删除点、合并多个文件、逆向文件、添加时间戳、编辑兴趣点等等！" />
+        <meta property="og:description" content="在线查看、编辑和创建 GPX 文件：添加、移动和删除点、合并多个文件、逆向文件、添加时间戳、编辑航点等等！" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://gpx.studio/" />
         <meta property="og:image" content="https://gpx.studio/res/og_logo.png" />
@@ -75,45 +75,45 @@
                 <i id="burger" class="fa-solid fa-bars panels custom-button"></i>
                 <img src="/res/logo.png" height="21" class="panels custom-button" style="vertical-align: middle; padding: 2px 6px 4px 6px" alt="logo of gpx.studio, the online GPX file editor">
             </div>
-            <div id="load" class="panels custom-button">Load GPX</div>
-            <div id="manual" class="panels custom-button">New GPX</div>
-            <div id="export" class="panels custom-button">Export</div>
+            <div id="load" class="panels custom-button">加载GPX</div>
+            <div id="manual" class="panels custom-button">新建GPX</div>
+            <div id="export" class="panels custom-button">导出</div>
             <div style="display: inline-block">
                 <div class="panels custom-button unselected no-click2" id="undo"><i class="fas fa-reply"></i></div>
                 <div class="panels custom-button unselected no-click2" id="redo"><i class="fas fa-share"></i></div>
             </div>
-            <div id="clear" class="panels custom-button">Clear all</div>
-            <div id="help" class="panels custom-button">Help</div>
-            <div id="about" class="panels custom-button">About</div>
-            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>Donate</b> <i class="fas fa-heart"></i></div>
+            <div id="clear" class="panels custom-button">清除全部</div>
+            <div id="help" class="panels custom-button">帮助</div>
+            <div id="about" class="panels custom-button">关于</div>
+            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>捐赠</b> <i class="fas fa-heart"></i></div>
         </div>
         <div id="info">
             <ul id="sortable-tabs">
-              <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">Total</li>
+              <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">全部</li>
             </ul>
             <div id="info-grid" class="panels-container trace-info maximized">
-                <div class="panels panels-info" id="distance">Distance</div>
+                <div class="panels panels-info" id="distance">距离</div>
                 <div class="panels panels-val" id="distance-val"></div>
-                <div class="panels panels-info" id="elevation">Elevation</div>
+                <div class="panels panels-info" id="elevation">海拔</div>
                 <div class="panels panels-val" id="elevation-val"></div>
-                <div class="panels panels-info" id="speed">Speed</div>
+                <div class="panels panels-info" id="speed">速度</div>
                 <div class="panels panels-val" id="speed-val"></div>
-                <div class="panels panels-info" id="duration">Moving time</div>
+                <div class="panels panels-info" id="duration">移动时间</div>
                 <div class="panels panels-val" id="duration-val"></div>
-                <div class="panels panels-info" id="tracks">Tracks</div>
+                <div class="panels panels-info" id="tracks">轨迹</div>
                 <div class="panels panels-val" id="tracks-val">0</div>
-                <div class="panels panels-info" id="segments">Track segments</div>
+                <div class="panels panels-info" id="segments">轨迹段</div>
                 <div class="panels panels-val" id="segments-val">0</div>
-                <div class="panels panels-info" id="points">Track points</div>
+                <div class="panels panels-info" id="points">轨迹点</div>
                 <div class="panels panels-val" id="points-val">0</div>
-                <div id="units-text" class="panels panels-info">Distance units</div>
+                <div id="units-text" class="panels panels-info">长度单位</div>
                 <select id="units-input" name="panels panels-val units-input">
                     <option value="km">Metric</option>
                     <option value="mi">Imperial</option>
                 </select>
-                <div id="speed-units-text" class="panels panels-info">Velocity units</div>
+                <div id="speed-units-text" class="panels panels-info">速度单位</div>
                 <select id="speed-units-input" name="panels panels-val speed-units-input">
-                    <option value="speed">Speed</option>
+                    <option value="speed">速度</option>
                     <option value="pace">Pace</option>
                 </select>
                 <div id="elevation-input" class="panels-button custom-button" title="Toggle the elevation profile"><i class="fas fa-minus"></i></div>
@@ -146,7 +146,7 @@
                 <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Toggle editing options"></i>
                 <table class="panels">
                     <tr>
-                        <td><b>Activity</b></td>
+                        <td><b>活动</b></td>
                         <td><select name="activity" id="activity-input" class="close-spacing">
                             <option value="Trekking-dry">Bike</option>
                             <option value="fastbike">Racing bike</option>
@@ -156,14 +156,14 @@
                         </select></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><label for="routing-input"><b>Routing (follow roads)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
+                        <td colspan="2"><label for="routing-input"><b>路由(跟随道路)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><label for="edit-time-strategy"><b>Time data management</b></label></td>
+                        <td colspan="2"><label for="edit-time-strategy"><b>时间数据管理</b></label></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
-                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preserve the original timestamps</label></td>
+                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">保持平均速度</label><br>
+                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">保留原始时间戳</label></td>
                     </tr>
                 </table>
             </div>
@@ -175,11 +175,11 @@
             </div>
             <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Mapillary or Google Street View"></i>
         </div>
-        <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Direction markers</label>
-        <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Distance markers</label>
+        <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> 方向标记</label>
+        <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> 距离标记</label>
         <div id="help-text">
         <div style="text-align: center; font-size: 10pt; color: #476947">
-            <b>Check out the <a href="./about.html#guide" target="_blank">User Guide</a> for more info and small tutorials!</b>
+            <b>查看 <a href="./about.html#guide" target="_blank">用户指南</a> 了解更多信息和小教程！</b>
         </div><br>
         <table style="width: 100%">
             <colgroup>
@@ -189,19 +189,19 @@
             </colgroup>
             <tbody>
             <tr>
-                <td><b>Load GPX</b></td>
+                <td><b>加载GPX</b></td>
                 <td>Ctrl+O</td>
-                <td>Import and visualize GPX files (or drag and drop anywhere in the window)</td>
+                <td>导入和查看GPX文件(或拖放到窗口中的任何位置)</td>
             </tr>
             <tr>
-                <td><b>New GPX</b></td>
+                <td><b>新建GPX</b></td>
                 <td>Ctrl+D</td>
-                <td>Start drawing a new route by placing anchor points on the map</td>
+                <td>通过在地图上放置锚点开始绘制新路由</td>
             </tr>
             <tr>
-                <td><b>Export</b></td>
+                <td><b>导出</b></td>
                 <td>Ctrl+S</td>
-                <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Time, heart rate, cadence, power and temperature data are automatically extended. Optionally, merge all files <b>in the chosen order</b>. You can also drag a tab to your desktop to download the file.</td>
+                <td>将文件下载到桌面或保存到Google云端硬盘™，以获得 <b>可共享链接</b> 和 <b>嵌入代码</b>。 时间、心率、步频、功率和温度数据自动扩展。 可选，合并所有文件 <b>按照选定的顺序</b> 您也可以拖动标签到您的桌面下载文件。</td>
             </tr>
             <tr>
                 <td><i class="fas fa-reply"></i> <i class="fas fa-share"></i></td>
@@ -209,7 +209,7 @@
                 <td>Undo and redo actions in edition mode</td>
             </tr>
             <tr>
-                <td><b>Clear all</b></td>
+                <td><b>清除全部</b></td>
                 <td>Ctrl+K</td>
                 <td>Delete all traces</td>
             </tr>
@@ -433,7 +433,7 @@
         </div>
         <div id="zone-delete-content" class="popup-content">
             Choose what to delete<br>
-            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Track points</label>
+            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">轨迹点</label>
             <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
             <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inside selection</label>
             <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
@@ -510,7 +510,7 @@
         <span id="track-text">Track</span>
         <span id="segment-text">Segment</span>
         <div id="edit-speed-popup-text">
-            <div id="speed-text">Speed</div>
+            <div id="speed-text">速度</div>
             <div id="pace-text">Pace</div>
             <div id="start-text">Start</div>
             <div id="experimental-info-text">Generate speed considering the slope and the activity type<br><b><i class="fas fa-exclamation-triangle"></i> erases all existing time data</b></div>
