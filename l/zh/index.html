@@ -73,7 +73,7 @@
         <div id="toolbar" class="panels-container center-leaflet">
             <div id="burger-logo">
                 <i id="burger" class="fa-solid fa-bars panels custom-button"></i>
-                <img src="/res/logo.png" height="21" class="panels custom-button" style="vertical-align: middle; padding: 2px 6px 4px 6px" alt="logo of gpx.studio, the online GPX file editor">
+                <img src="/res/logo.png" height="21" class="panels custom-button" style="vertical-align: middle; padding: 2px 6px 4px 6px" alt="gpx.studio标志，在线GPX文件编辑器">
             </div>
             <div id="load" class="panels custom-button">加载GPX</div>
             <div id="manual" class="panels custom-button">新建GPX</div>
@@ -108,15 +108,15 @@
                 <div class="panels panels-val" id="points-val">0</div>
                 <div id="units-text" class="panels panels-info">长度单位</div>
                 <select id="units-input" name="panels panels-val units-input">
-                    <option value="km">Metric</option>
-                    <option value="mi">Imperial</option>
+                    <option value="km">公制</option>
+                    <option value="mi">英制</option>
                 </select>
                 <div id="speed-units-text" class="panels panels-info">速度单位</div>
                 <select id="speed-units-input" name="panels panels-val speed-units-input">
                     <option value="speed">速度</option>
-                    <option value="pace">Pace</option>
+                    <option value="pace">配速</option>
                 </select>
-                <div id="elevation-input" class="panels-button custom-button" title="Toggle the elevation profile"><i class="fas fa-minus"></i></div>
+                <div id="elevation-input" class="panels-button custom-button" title="显示或隐藏海拔概览"><i class="fas fa-minus"></i></div>
                 <div id="crop-container">
                     <div class="panels-button custom-button" id="validate"><i class="fas fa-check custom-button"></i></div>
                 </div>
@@ -128,31 +128,31 @@
         </div>
         <div id="buttons-bar" class="vcenter-leaflet">
             <div id="buttons" class="panels-container">
-                <div class="panels-button" id="edit" title="Edit track points"><i class="fas fa-pencil-alt custom-button"></i></div>
-                <div class="panels-button" id="edit-time" title="Edit time"><i class="fas fa-stopwatch custom-button"></i></div>
-                <div class="panels-button" id="reverse" title="Reverse"><i class="fas fa-exchange-alt custom-button"></i></div>
-                <div class="panels-button" id="combine" title="Merge with another trace"><i class="fas fa-plus-circle custom-button"></i></div>
-                <div class="panels-button" id="extract" title="Extract tracks or track segments"><i class="fas fa-list-ul custom-button"></i></div>
-                <div class="panels-button" id="duplicate" title="Duplicate"><i class="fas fa-copy custom-button"></i></div>
-                <div class="panels-button" id="add-wpt" title="Add waypoint"><i class="fas fa-map-marker-alt custom-button"></i></div>
-                <div class="panels-button" id="reduce" title="Reduce number of track points"><i class="fas fa-compress-alt custom-button"></i></div>
-                <div class="panels-button" id="zone-delete" title="Delete all inside/outside rectangle selection"><i class="fas fa-vector-square custom-button"></i></div>
-                <div class="panels-button" id="hide" title="Hide/unhide the trace"><i class="fas fa-eye-slash custom-button"></i></div>
-                <div class="panels-button" id="color" title="Change color, opacity and width"><i class="fas fa-palette custom-button"></i></div>
-                <div class="panels-button" id="structure" title="Manage the file structure"><i class="fas fa-folder-tree custom-button"></i></div>
-                <div class="panels-button" id="delete" title="Delete"><i class="fas fa-trash-alt custom-button"></i></div>
+                <div class="panels-button" id="edit" title="编辑轨迹点"><i class="fas fa-pencil-alt custom-button"></i></div>
+                <div class="panels-button" id="edit-time" title="编辑时间"><i class="fas fa-stopwatch custom-button"></i></div>
+                <div class="panels-button" id="reverse" title="反转"><i class="fas fa-exchange-alt custom-button"></i></div>
+                <div class="panels-button" id="combine" title="与另一个轨迹合并"><i class="fas fa-plus-circle custom-button"></i></div>
+                <div class="panels-button" id="extract" title="提取轨迹或轨迹段"><i class="fas fa-list-ul custom-button"></i></div>
+                <div class="panels-button" id="duplicate" title="创建副本"><i class="fas fa-copy custom-button"></i></div>
+                <div class="panels-button" id="add-wpt" title="添加路径点"><i class="fas fa-map-marker-alt custom-button"></i></div>
+                <div class="panels-button" id="reduce" title="减少轨迹点的数量"><i class="fas fa-compress-alt custom-button"></i></div>
+                <div class="panels-button" id="zone-delete" title="删除所有矩形内/外的选择"><i class="fas fa-vector-square custom-button"></i></div>
+                <div class="panels-button" id="hide" title="隐藏或取消隐藏轨迹"><i class="fas fa-eye-slash custom-button"></i></div>
+                <div class="panels-button" id="color" title="更改颜色、不透明度和宽度"><i class="fas fa-palette custom-button"></i></div>
+                <div class="panels-button" id="structure" title="管理文件结构"><i class="fas fa-folder-tree custom-button"></i></div>
+                <div class="panels-button" id="delete" title="删除"><i class="fas fa-trash-alt custom-button"></i></div>
             </div>
             <div id="editing-options" class="panels-container">
-                <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Toggle editing options"></i>
+                <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="切换编辑选项"></i>
                 <table class="panels">
                     <tr>
                         <td><b>活动</b></td>
                         <td><select name="activity" id="activity-input" class="close-spacing">
-                            <option value="Trekking-dry">Bike</option>
-                            <option value="fastbike">Racing bike</option>
-                            <option value="MTB">Mountain bike</option>
-                            <option value="Hiking-Alpine-SAC6">Run/hike</option>
-                            <option value="Car-FastEco">Motorcycle</option>
+                            <option value="Trekking-dry">自行车</option>
+                            <option value="fastbike">比赛自行车</option>
+                            <option value="MTB">山地自行车</option>
+                            <option value="Hiking-Alpine-SAC6">跑步/徒步</option>
+                            <option value="Car-FastEco">摩托车</option>
                         </select></td>
                     </tr>
                     <tr>
@@ -173,7 +173,7 @@
                 <input id="street-view-provider-google" type="radio" name="street-view-provider" value="google"> <label for="street-view-provider-google">Google</label>
                 <input id="street-view-provider-mapillary" type="radio" name="street-view-provider" value="mapillary" checked> <label for="street-view-provider-mapillary">Mapillary</label>
             </div>
-            <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Mapillary or Google Street View"></i>
+            <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Mapillary 或 谷歌街景视图"></i>
         </div>
         <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> 方向标记</label>
         <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> 距离标记</label>
@@ -252,7 +252,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-map-marker-alt"></i></td>
-                <td>添加航点（拖动以更改其位置，并使用按钮编辑信息、复制或删除）</td>
+                <td>添加路径点（拖动以更改其位置，并使用按钮编辑信息、复制或删除）</td>
             </tr>
             <tr>
                 <td><i class="fas fa-compress-alt"></i></td>
@@ -260,7 +260,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-vector-square"></i></td>
-                <td>删除矩形选区内/外的轨迹点和/或航点</td>
+                <td>删除矩形选区内/外的轨迹点和/或路径点</td>
             </tr>
             <tr>
                 <td><i class="fas fa-eye-slash"></i></td>
@@ -305,7 +305,7 @@
             <tr>
                 <td><i class="fas fa-chart-area"></i></td>
                 <td>Ctrl+H</td>
-                <td>显示或隐藏海拔配置文件</td>
+                <td>显示或隐藏海拔概览</td>
             </tr>
             </tbody>
         </table><br>
@@ -390,77 +390,77 @@
                 <div class="close-spacing">点击另一个跟踪或标签来和当前轨迹合并</div><hr>
                 选择如何将第二个轨迹添加到第一个轨迹
                 <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
-                    <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Merge as track points</label><br>
-                    <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Merge as track segments</label><br>
-                    <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Merge as tracks</label>
+                    <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">合并为轨迹点</label><br>
+                    <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">合并为轨迹段</label><br>
+                    <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">合并为轨迹</label>
                 </div>
             </div>
         </div>
         <div id="split-content" class="popup-content">
-            Choose how to split the trace<br>
-            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Split into separate files</label><br>
-            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Split into separate tracks</label><br>
-            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Split into separate track segments</label><br>
+            选择如何分割轨迹<br>
+            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">分割成单独的文件</label><br>
+            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">分割成单独的轨迹</label><br>
+            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">分割成单独的轨迹段</label><br>
             <div id="split-ok" class="panels custom-button normal-button">好的</div>
             <div id="split-cancel" class="panels custom-button normal-button"><b>取消</b></div>
         </div>
         <div id="extract-content" class="popup-content">
-            Choose what to extract<br>
-            <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Tracks</label><br>
-            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Track segments</label><br>
+            选择要提取的内容<br>
+            <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">轨迹</label><br>
+            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">轨迹段</label><br>
             <div id="extract-ok" class="panels custom-button normal-button">好的</div>
             <div id="extract-cancel" class="panels custom-button normal-button"><b>取消</b></div>
         </div>
         <div id="structure-content" class="popup-content">
-            <div class="close-spacing">Drag and drop the elements to rearrange the file structure</div>
-            <div>Move elements from or to the tabs above the elevation profile</div>
-            <div>Rename tracks or change their color</div>
+            <div class="close-spacing">拖放元素来重新排列文件结构</div>
+            <div>将元素移出或移入海拔概述上方的选项卡</div>
+            <div>重命名轨迹或更改其颜色</div>
             <div id="file-structure"></div>
-            <div id="merge-selection" class="panels custom-button normal-button">Merge selection</div>
-            <div id="delete-selection" class="panels custom-button normal-button">Delete selection</div>
+            <div id="merge-selection" class="panels custom-button normal-button">合并选择项</div>
+            <div id="delete-selection" class="panels custom-button normal-button">删除选择项</div>
         </div>
         <div id="crop-content" class="popup-content">
-            <input type="checkbox" id="crop-keep"><label for="crop-keep">Keep cropped parts in new files</label><br>
-            <div id="crop-ok" class="panels custom-button normal-button">Proceed</div>
+            <input type="checkbox" id="crop-keep"><label for="crop-keep">将裁剪的部分保留在新文件中</label><br>
+            <div id="crop-ok" class="panels custom-button normal-button">继续</div>
             <div id="crop-cancel" class="panels custom-button normal-button"><b>取消</b></div>
         </div>
         <div id="reduce-content" class="popup-content">
-            Choose the amount of detail to keep<br>
-            Number of track points: <span id="reduce-npoints">0</span><br>
+            选择保留<br>
+            轨道点数量： <span id="reduce-npoints">0</span><br>
             <input type="range" min="0" max="1000" id="reduce-slider" style="width: 90%"><br>
             <div id="reduce-ok" class="panels custom-button normal-button">好的</div>
             <div id="reduce-cancel" class="panels custom-button normal-button"><b>取消</b></div>
         </div>
         <div id="zone-delete-content" class="popup-content">
-            Choose what to delete<br>
+            选择要删除的<br>
             <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">轨迹点</label>
-            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
-            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inside selection</label>
-            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
-            <div id="zone-delete-ok" class="panels custom-button normal-button">Proceed</div>
+            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">路径点</label><br>
+            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">在选区内</label>
+            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">在选区外</label><br>
+            <div id="zone-delete-ok" class="panels custom-button normal-button">继续</div>
             <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>取消</b></div>
         </div>
         <div id="layer-selection-content">
             <div id="layer-creation">
-                Add or replace a custom layer here
+                在此处添加或替换自定义图层
                 <table style="text-align: left">
                     <tr>
-                        <td><label for="layer-name">Layer name</label></td>
+                        <td><label for="layer-name">图层名称</label></td>
                         <td><input type="text" id="layer-name" size="35"></td>
                     </tr>
                     <tr>
-                        <td><label for="layer-url">Tiles URL</label></td>
+                        <td><label for="layer-url">瓦片网址</label></td>
                         <td><input type="text" id="layer-url" placeholder="https://{s}.domain.com/{z}/{y}/{x}.png" size="35"></td>
                     </tr>
                     <tr>
-                        <td><label for="layer-max-zoom">Max zoom level</label></td>
+                        <td><label for="layer-max-zoom">最大缩放级别</label></td>
                         <td><input type="number" id="layer-max-zoom" value="20" min="1" max="20"></td>
                     </tr>
                     <tr>
-                        <td><label for="layer-type">Layer type</label></td>
+                        <td><label for="layer-type">图层类型</label></td>
                         <td><select id="layer-type">
-                            <option value="baselayer">Basemap</option>
-                            <option value="overlay">Overlay</option>
+                            <option value="baselayer">底图</option>
+                            <option value="overlay">叠加</option>
                         </select></td>
                     </tr>
                     <tr>
@@ -468,169 +468,169 @@
                     </tr>
                 </table>
                 <div id="preview-map" style="width: 100%; height: 200px"></div>
-                <div id="layer-creation-ok" class="panels custom-button normal-button">Add layer</div>
+                <div id="layer-creation-ok" class="panels custom-button normal-button">添加层</div>
             </div>
             <div id="layer-selection">
-                <span>Choose the Strava Heatmap color</span>
+                <span>选择Strava热图颜色</span>
                 <select name="strava-color" id="strava-color-input" class="close-spacing">
-                    <option value="hot">Hot</option>
-                    <option value="blue">Blue</option>
-                    <option value="purple">Purple</option>
-                    <option value="gray">Gray</option>
-                    <option value="bluered">Blue-red</option>
+                    <option value="hot">灼热</option>
+                    <option value="blue">蓝色</option>
+                    <option value="purple">紫色</option>
+                    <option value="gray">灰色</option>
+                    <option value="bluered">蓝红色</option>
                 </select><br>
-                <span>Choose the minimum zoom level to request POIs</span> <input id="poi-min-zoom-input" type="number" min="10" max="20"><br>
-                <span>Select the layers you want to appear in the interface</span>
+                <span>选择请求兴趣点的最小缩放级别</span> <input id="poi-min-zoom-input" type="number" min="10" max="20"><br>
+                <span>选择你想要出现在界面的图层</span>
                 <div id="layer-selection-area"></div>
-                <div id="layer-selection-ok" class="panels custom-button normal-button">Save</div>
+                <div id="layer-selection-ok" class="panels custom-button normal-button">保存</div>
             </div>
         </div>
         <div id="load-error-content" class="popup-content">
-            There was an error loading your GPX file.<br>
-            Please check the file format.<br>
+            加载您的 GPX 文件时出错。<br>
+            请检查文件格式。<br>
             <div id="load-error-ok" class="panels custom-button normal-button">好的</div>
         </div>
         <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
-            <b>Open in</b> <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="logo of gpx.studio, the online GPX file editor">
+            <b>在</b> 中打开 <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="gpx.studio标志，在线GPX文件编辑器">
         </div>
-        <div id="unit-kilometers-text">km</div>
-        <div id="unit-miles-text">mi</div>
-        <div id="unit-meters-text">m</div>
-        <div id="unit-feet-text">ft</div>
-        <div id="unit-hours-text">h</div>
-        <div id="unit-minutes-text">min</div>
-        <div id="duplicate-text">Duplicate</div>
-        <div id="delete-text">Delete</div>
+        <div id="unit-kilometers-text">千米</div>
+        <div id="unit-miles-text">英里</div>
+        <div id="unit-meters-text">米</div>
+        <div id="unit-feet-text">英尺</div>
+        <div id="unit-hours-text">小时</div>
+        <div id="unit-minutes-text">分钟</div>
+        <div id="duplicate-text">创建副本</div>
+        <div id="delete-text">删除</div>
         <div id="ok-button-text">好的</div>
         <div id="cancel-button-text">取消</div>
-        <div id="search-input-text">Search...</div>
-        <div id="search-button-text">Search for a place or paste GPS coordinates</div>
-        <div id="locate-button-text">Show my position</div>
-        <div id="add-poi-text">Add POI to current trace</div>
-        <span id="track-text">Track</span>
-        <span id="segment-text">Segment</span>
+        <div id="search-input-text">搜索...</div>
+        <div id="search-button-text">搜索地点或粘贴GPS坐标</div>
+        <div id="locate-button-text">显示我的位置</div>
+        <div id="add-poi-text">添加兴趣点到当前轨迹</div>
+        <span id="track-text">轨迹</span>
+        <span id="segment-text">段</span>
         <div id="edit-speed-popup-text">
             <div id="speed-text">速度</div>
-            <div id="pace-text">Pace</div>
-            <div id="start-text">Start</div>
-            <div id="experimental-info-text">Generate speed considering the slope and the activity type<br><b><i class="fas fa-exclamation-triangle"></i> erases all existing time data</b></div>
+            <div id="pace-text">配速</div>
+            <div id="start-text">开始</div>
+            <div id="experimental-info-text">生成速度时考虑斜坡和活动类型<br><b><i class="fas fa-exclamation-triangle"></i> 擦除所有现有的时间数据</b></div>
         </div>
         <div id="waypoint-popup-text">
-            <div id="empty-title-text">empty title</div>
-            <div id="name-text">Name</div>
-            <div id="comment-text">Comment (for GPS devices)</div>
-            <div id="description-text">Description (for users)</div>
-            <div id="symbol-text">Symbol</div>
-            <div id="edit-info-text">Edit info</div>
+            <div id="empty-title-text">空标题</div>
+            <div id="name-text">名称</div>
+            <div id="comment-text">备注 (GPS设备)</div>
+            <div id="description-text">描述(为用户)</div>
+            <div id="symbol-text">符号</div>
+            <div id="edit-info-text">编辑信息</div>
         </div>
         <div id="right-click-popup-text">
-            <div id="split-text">Split here</div>
-            <div id="start-loop-text">Start loop here</div>
-            <div id="remove-pt-text">Remove point</div>
+            <div id="split-text">在此拆分</div>
+            <div id="start-loop-text">在此开始循环</div>
+            <div id="remove-pt-text">删除点</div>
         </div>
         <div id="elevation-text">
-            <div id="altitude-text">Altitude</div>
-            <div id="segment-text">Segment length</div>
-            <div id="type-text">Category</div>
-            <div id="surface-text">Surface</div>
-            <div id="slope-text">Slope</div>
-            <div id="missing-text">Missing</div>,
-            <div id="paved-text">Paved</div>,
-            <div id="unpaved-text">Unpaved</div>,
-            <div id="asphalt-text">Asphalt</div>,
-            <div id="concrete-text">Concrete</div>,
-            <div id="chipseal-text">Chipseal</div>,
-            <div id="cobblestone-text">Cobblestone</div>,
-            <div id="unhewn-cobblestone-text">Unhewn Cobblestone</div>,
-            <div id="paving-stones-text">Paving Stones</div>,
-            <div id="stepping-stones-text">Stepping Stones</div>,
-            <div id="sett-text">Sett Paving</div>,
-            <div id="metal-text">Metal</div>,
-            <div id="wood-text">Wood</div>,
-            <div id="compacted-text">Compacted Gravel</div>,
-            <div id="fine-gravel-text">Fine Gravel</div>,
-            <div id="gravel-text">Gravel</div>,
-            <div id="pebblestone-text">Pebblestone</div>,
-            <div id="rock-text">Rock</div>,
-            <div id="dirt-text">Dirt</div>,
-            <div id="ground-text">Ground</div>,
-            <div id="earth-text">Earth</div>,
-            <div id="snow-text">Snow</div>,
-            <div id="ice-text">Ice</div>,
-            <div id="salt-text">Salt</div>,
-            <div id="mud-text">Mud</div>,
-            <div id="sand-text">Sand</div>,
-            <div id="woodchips-text">Woodchips</div>,
-            <div id="grass-text">Grass</div>,
-            <div id="grass-paver-text">Grass Paver</div>
+            <div id="altitude-text">海拔</div>
+            <div id="segment-text">段长度</div>
+            <div id="type-text">分类</div>
+            <div id="surface-text">表面</div>
+            <div id="slope-text">斜坡</div>
+            <div id="missing-text">缺失</div>,
+            <div id="paved-text">铺装路面</div>,
+            <div id="unpaved-text">非铺装路面</div>,
+            <div id="asphalt-text">沥青</div>,
+            <div id="concrete-text">混凝土</div>,
+            <div id="chipseal-text">碎石铺装</div>,
+            <div id="cobblestone-text">鹅卵石</div>,
+            <div id="unhewn-cobblestone-text">未开凿的鹅卵石</div>,
+            <div id="paving-stones-text">铺路石</div>,
+            <div id="stepping-stones-text">垫脚石</div>,
+            <div id="sett-text">铺路石</div>,
+            <div id="metal-text">金属</div>,
+            <div id="wood-text">木材</div>,
+            <div id="compacted-text">紧凑的砾石</div>,
+            <div id="fine-gravel-text">精良的砾石</div>,
+            <div id="gravel-text">沙砾</div>,
+            <div id="pebblestone-text">卵石</div>,
+            <div id="rock-text">岩石</div>,
+            <div id="dirt-text">泥土</div>,
+            <div id="ground-text">地</div>,
+            <div id="earth-text">土</div>,
+            <div id="snow-text">雪</div>,
+            <div id="ice-text">冰</div>,
+            <div id="salt-text">盐</div>,
+            <div id="mud-text">泥巴</div>,
+            <div id="sand-text">沙粒</div>,
+            <div id="woodchips-text">木片</div>,
+            <div id="grass-text">草地</div>,
+            <div id="grass-paver-text">草坪</div>
         </div>
         <div id="layers-text">
-            <div id="basemaps-text">Basemaps</div>
-            <div id="overlays-text">Overlays</div>
-            <div id="custom-text">Custom</div>
-            <div id="world-text">World</div>
-            <div id="countries-text">Countries</div>
-            <div id="finland-text">Finland</div>
-            <div id="france-text">France</div>
-            <div id="new-zealand-text">New Zealand</div>
-            <div id="norway-text">Norway</div>
-            <div id="spain-text">Spain</div>
-            <div id="sweden-text">Sweden</div>
-            <div id="switzerland-text">Switzerland</div>
-            <div id="united-kingdom-text">United Kingdom</div>
-            <div id="united-states-text">United States</div>
-            <div id="poi-text">Points of Interest</div>
-            <div id="eat-and-drink-text">Eat and Drink</div>
-            <div id="bakery-text">Bakery</div>
-            <div id="supermarket-text">Supermarket</div>
-            <div id="convenience-store-text">Convenience Store</div>
-            <div id="restaurant-text">Restaurant</div>
-            <div id="fast-food-text">Fast Food</div>
-            <div id="cafe-text">Cafe</div>
-            <div id="pub-text">Pub</div>
-            <div id="bar-text">Bar</div>
-            <div id="amenities-text">Amenities</div>
-            <div id="toilets-text">Toilets</div>
-            <div id="drinking-water-text">Drinking Water</div>
-            <div id="water-point-text">Water Point</div>
-            <div id="water-spring-text">Water Spring</div>
-            <div id="shower-text">Shower</div>
-            <div id="fuel-station-text">Fuel Station</div>
-            <div id="parking-text">Parking</div>
-            <div id="tourism-text">Tourism</div>
-            <div id="attraction-text">Attraction</div>
-            <div id="viewpoint-text">Viewpoint</div>
-            <div id="hotel-text">Hotel</div>
-            <div id="hostel-text">Hostel</div>
-            <div id="guest-house-text">Guest House</div>
-            <div id="motel-text">Motel</div>
-            <div id="campsite-text">Campsite</div>
-            <div id="alpine-hut-text">Alpine Hut</div>
-            <div id="wilderness-hut-text">Wilderness Hut</div>
-            <div id="climbing-text">Climbing Site</div>
-            <div id="bicycle-text">Bicycle</div>
-            <div id="bicycle-parking-text">Bicycle Parking</div>
-            <div id="bicycle-rental-text">Bicycle Rental</div>
-            <div id="bicycle-shop-text">Bicycle Shop</div>
-            <div id="public-transport-text">Public Transport</div>
-            <div id="railway-station-text">Railway Station</div>
-            <div id="tram-stop-text">Tram Stop</div>
-            <div id="bus-stop-text">Bus Stop</div>
-            <div id="ferry-text">Ferry Terminal</div>
+            <div id="basemaps-text">底图</div>
+            <div id="overlays-text">叠加层</div>
+            <div id="custom-text">自定义</div>
+            <div id="world-text">世界</div>
+            <div id="countries-text">国家/地区</div>
+            <div id="finland-text">芬兰</div>
+            <div id="france-text">法国</div>
+            <div id="new-zealand-text">新西兰</div>
+            <div id="norway-text">挪威</div>
+            <div id="spain-text">西班牙</div>
+            <div id="sweden-text">瑞典</div>
+            <div id="switzerland-text">瑞士</div>
+            <div id="united-kingdom-text">英国</div>
+            <div id="united-states-text">美国</div>
+            <div id="poi-text">兴趣点</div>
+            <div id="eat-and-drink-text">吃吃喝喝</div>
+            <div id="bakery-text">面包店</div>
+            <div id="supermarket-text">超市</div>
+            <div id="convenience-store-text">便利店</div>
+            <div id="restaurant-text">餐厅</div>
+            <div id="fast-food-text">快餐</div>
+            <div id="cafe-text">咖啡厅</div>
+            <div id="pub-text">英式酒吧</div>
+            <div id="bar-text">酒吧</div>
+            <div id="amenities-text">便利设施</div>
+            <div id="toilets-text">厕所</div>
+            <div id="drinking-water-text">饮用水</div>
+            <div id="water-point-text">取水点</div>
+            <div id="water-spring-text">泉水</div>
+            <div id="shower-text">淋浴</div>
+            <div id="fuel-station-text">加油站</div>
+            <div id="parking-text">停车场</div>
+            <div id="tourism-text">旅游观光</div>
+            <div id="attraction-text">景点</div>
+            <div id="viewpoint-text">观景点</div>
+            <div id="hotel-text">酒店</div>
+            <div id="hostel-text">旅馆</div>
+            <div id="guest-house-text">招待所</div>
+            <div id="motel-text">汽车旅馆</div>
+            <div id="campsite-text">营地</div>
+            <div id="alpine-hut-text">高山小屋</div>
+            <div id="wilderness-hut-text">荒野小屋</div>
+            <div id="climbing-text">攀登站点</div>
+            <div id="bicycle-text">自行车</div>
+            <div id="bicycle-parking-text">自行车停车场</div>
+            <div id="bicycle-rental-text">自行车出租点</div>
+            <div id="bicycle-shop-text">自行车店</div>
+            <div id="public-transport-text">公共交通</div>
+            <div id="railway-station-text">火车站</div>
+            <div id="tram-stop-text">有轨电车站</div>
+            <div id="bus-stop-text">巴士站</div>
+            <div id="ferry-text">轮渡码头</div>
         </div>
-        <h1>online gpx editor</h1>
-        <h1>online gpx viewer</h1>
-        <h1>edit gpx files online</h1>
-        <h1>view gpx files online</h1>
-        <h1>merge gpx files online</h1>
-        <h1>extract segments gpx file online</h1>
-        <h1>reverse gpx file online</h1>
-        <h1>add timestamps to gpx file online</h1>
-        <h1>compress simplify reduce number points gpx file online</h1>
-        <h1>view and add waypoints gpx file online</h1>
-        <h1>edit Strava activity</h1>
-        <h1>correct Strava activity</h1>
-        <h1>merge Strava activities</h1>
+        <h1>在线gpx编辑器</h1>
+        <h1>在线gpx查看器</h1>
+        <h1>在线编辑gpx文件</h1>
+        <h1>在线查看gpx文件</h1>
+        <h1>在线合并gpx文件</h1>
+        <h1>在线提取区段gpx文件</h1>
+        <h1>在线反转gpx文件</h1>
+        <h1>在线为gpx文件添加时间戳</h1>
+        <h1>在线压缩简化减少gpx文件轨迹点</h1>
+        <h1>在线查看和添加gpx文件路径点</h1>
+        <h1>编辑Strava活动</h1>
+        <h1>修正Strava活动</h1>
+        <h1>合并Strava活动</h1>
         </div>
     </body>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
