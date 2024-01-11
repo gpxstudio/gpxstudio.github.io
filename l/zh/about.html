@@ -336,80 +336,80 @@
                         <li>点击 <i class="fas fa-palette button"></i></li>
                         <li>点击颜色打开颜色选择器。</li>
                         <li>移动不透明度滑块以改变透明度。</li>
-                        <li>Move the width slider to change the width.</li>
+                        <li>移动宽度滑块来改变宽度。</li>
                         <li>点击 <span class="button">好的</span>。</li>
                     </ol>
-                    You can optionally apply the chosen color, opacity and width to all traces by using the checkboxes.<br>
-                    For traces with multiple tracks, the file structure tool <i class="fas fa-folder-tree button"></i> can be used to assign a different color to each of them.
+                    您可以选择使用复选框将所选颜色、不透明度和宽度应用于所有轨迹。<br>
+                    对于具有多个轨迹的轨迹，可以使用文件结构工具 <i class="fas fa-folder-tree button"></i> 为每个轨迹指定不同的颜色。
                 </div></div>
-                <div class="guide-item"><a name="add-waypoint" href="#add-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('add-wpt')">Add waypoints (points of interest) to a GPX file</div></a>
+                <div class="guide-item"><a name="add-waypoint" href="#add-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('add-wpt')">将路径点(兴趣点) 添加到 GPX 文件</div></a>
                 <div id="add-wpt" class="guide-content">
                     <ol>
-                        <li>Click on <i class="fas fa-map-marker-alt button"></i>.</li>
-                        <li>Click on the map at the location you want to place it.</li>
-                        <li>Fill in some data about the waypoint (you can use HTML to format information, or even link images).</li>
+                        <li>点击 <i class="fas fa-map-marker-alt button"></i>。</li>
+                        <li>在您想要放置的位置上点击地图上的位置。</li>
+                        <li>填写关于路径点的某些数据 (您可以使用 HTML 格式化信息，甚至链接图像)。</li>
                         <li>点击 <span class="button">好的</span>。</li>
                     </ol>
-                    If you want to reuse a waypoint at another location or for another trace, click on the waypoint and press <i class="fas fa-copy button"></i> inside the popup. Then, click on the map to add a copy of the waypoint at the chosen location.
+                    如果您想在另一个位置或另一条轨迹上重复使用路径点，请单击路径点并在弹出窗口中按 <i class="fas fa-copy button"></i>。 然后，单击地图以在所选位置添加路径点的副本。
                 </div></div>
-                <div class="guide-item"><a name="edit-waypoint" href="#edit-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('edit-wpt')">Edit a waypoint of a GPX file</div></a>
-                <div id="edit-wpt" class="guide-content">To change the location of a waypoint, you can simply drag it to a new location. When dragging a waypoint close to the trace, it is automatically attracted so that you can place the waypoint perfectly on the trace. Zoom in or out to change the distance at which the waypoints are attracted.<br>
-                    To edit the data of a waypoint, click on it and press <i class="fas fa-pencil-alt button"></i> inside the popup. Change the information and then click <span class="button">Ok</span>.
+                <div class="guide-item"><a name="edit-waypoint" href="#edit-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('edit-wpt')">编辑一个 GPX 文件的路径点</div></a>
+                <div id="edit-wpt" class="guide-content">要更改路径点的位置，您可以把它拖动到一个新位置。 当拖动路径点靠近轨迹时，它会被自动吸引，以便您能够将路径点完全放置在轨迹上。 放大或缩小以改变路径点吸引的距离。<br>
+                    编辑路径点数据，点击它并在弹出窗口中按 <i class="fas fa-pencil-alt button"></i>。 更改信息并点击<span class="button">好的</span>。
                 </div></div>
-                <div class="guide-item"><a name="remove-waypoint" href="#remove-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('rmv-wpt')">Remove waypoints of a GPX file</div></a>
-                <div id="rmv-wpt" class="guide-content">To remove a single waypoint, click on it and press <i class="fas fa-trash-alt button"></i> inside the popup, or simply Shift+click on it.<br>
-                    To remove all waypoints inside or outside an area, click on <i class="fas fa-vector-square button"></i> and select an area containing the waypoints you want to keep or delete. Uncheck the box <i class="far fa-check-square"></i> Track points if you do not want to remove track points at the same time. Then, choose whether you want to delete waypoints inside or outside of the selection. 最后，点击<span class="button">继续</span>.
+                <div class="guide-item"><a name="remove-waypoint" href="#remove-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('rmv-wpt')">删除GPX文件中的路径点</div></a>
+                <div id="rmv-wpt" class="guide-content">若要删除单个路径点，请单击它并在弹出窗口中按 <i class="fas fa-trash-alt button"></i> ，或者简单的 Shift+点击它。<br>
+                    移除区域内或外的所有路径点，点击 <i class="fas fa-vector-square button"></i> 并选择一个包含您想要保留或删除的路径点的区域。 如果您不想同时移除路径点，请取消勾选方框 <i class="far fa-check-square"></i> 路径点。 然后，选择您想要删除选区内或外的路径点。 最后，点击<span class="button">继续</span>.
                 </div></div>
-                <div class="guide-item"><a name="reduce-points" href="#reduce-points" class="my-anchor"><div class="guide-title" onclick="toggle('reduce')">Reduce the number of track points of a GPX file</div></a>
+                <div class="guide-item"><a name="reduce-points" href="#reduce-points" class="my-anchor"><div class="guide-title" onclick="toggle('reduce')">减少GPX文件的轨迹点的数量</div></a>
                 <div id="reduce" class="guide-content">
                     <ol>
-                        <li>Click on <i class="fas fa-compress-alt button"></i>.</li>
-                        <li>Use the slider to choose the number of track points to keep. You can see a live preview of the GPX file with the reduced number of points.</li>
+                        <li>点击 <i class="fas fa-compress-alt button"></i></li>
+                        <li>使用滑块选择要保留的轨迹点数量。 您可以看到 轨迹点减少后的GPX 文件的实时预览。</li>
                         <li>点击 <span class="button">好的</span>。</li>
                     </ol>
                 </div></div>
-                <div class="guide-item"><a name="delete-points-in-zone" href="#delete-points-in-zone" class="my-anchor"><div class="guide-title" onclick="toggle('delete-zone')">Remove all track points and/or waypoints inside/outside an area</div></a>
+                <div class="guide-item"><a name="delete-points-in-zone" href="#delete-points-in-zone" class="my-anchor"><div class="guide-title" onclick="toggle('delete-zone')">移除区域内/外的所有轨迹点和/或路径点</div></a>
                 <div id="delete-zone" class="guide-content">
                     <ol>
-                        <li>Click on <i class="fas fa-vector-square button"></i>.
-                        <li>Select an area containing the track points and/or waypoints you want to keep or delete.</li>
-                        <li>Choose whether you want to delete track points and/or waypoints, inside or outside of the selection.</li>
+                        <li>点击 <i class="fas fa-vector-square button"></i>
+                        <li>选择一个包含您想保留或删除的轨迹点和/或路径点的区域。</li>
+                        <li>选择是否要删除选区内外的轨迹点和/或路径点。</li>
                         <li>最后，点击<span class="button">继续</span>.</li>
                    </ol>
                 </div></div>
-                <div class="guide-item"><a name="delete-file" href="#delete-file" class="my-anchor"><div class="guide-title" onclick="toggle('delete')">Remove GPX files</div></a>
-                <div id="delete" class="guide-content">Below the bottom panel, select the tab of the file you want to delete and click on <i class="fas fa-trash-alt button"></i>.<br>
-                To remove all GPX files at once, click on <span class="button">Clear all</span> in the top toolbar.</div></div>
-                <div class="guide-item"><a name="open-street-view" href="#open-street-view" class="my-anchor"><div class="guide-title" onclick="toggle('street-view')">Open Street View</div></a>
-                <div id="street-view" class="guide-content">In the top-right corner, click on <i class="fas fa-street-view button"></i> and then click on the map to open Street View at that location.</div></div>
-                <div class="guide-item"><a name="search-location" href="#search-location" class="my-anchor"><div class="guide-title" onclick="toggle('search')">Center the map on a location</div></a>
-                <div id="search" class="guide-content">In the top-right corner, click on <i class="fas fa-search button"></i> and then type an address. Choose one of the suggested locations to center the map on it.</div></div>
-                <div class="guide-item"><a name="hide-trace" href="#hide-trace" class="my-anchor"><div class="guide-title" onclick="toggle('hide-gpx')">Hide a GPX file</div></a>
-                <div id="hide-gpx" class="guide-content">To hide a GPX file, click on <i class="fas fa-eye-slash button"></i>. To unhide it, click on <i class="fas fa-eye button"></i>.<br>
-                A hidden trace will also unhide when adding a point in edition mode or when using most of the tools.</div></div>
-                <div class="guide-item"><a name="hide-elevation" href="#hide-elevation" class="my-anchor"><div class="guide-title" onclick="toggle('profile')">Hide the elevation profile</div></a>
-                <div id="profile" class="guide-content">To hide the elevation profile, simply click on <i class="fas fa-chart-area button"></i>.</div></div>
-                <div class="guide-item"><a name="direction-markers" href="#direction-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-direction-markers')">Show direction markers</div></a>
-                <div id="show-direction-markers" class="guide-content">To show direction markers, go in the map layers <i class="fas fa-layer-group button"></i> and check the box <i class="far fa-check-square"></i> Direction markers.</div></div>
-                <div class="guide-item"><a name="distance-markers" href="#distance-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-distance-markers')">Show distance markers</div></a>
-                <div id="show-distance-markers" class="guide-content">To show distance markers, go in the map layers <i class="fas fa-layer-group button"></i> and check the box <i class="far fa-check-square"></i> Distance markers.</div></div>
-                <div class="guide-item"><a name="toggle-layer" href="#toggle-layer" class="my-anchor"><div class="guide-title" onclick="toggle('layer')">Show or hide map layers</div></a>
+                <div class="guide-item"><a name="delete-file" href="#delete-file" class="my-anchor"><div class="guide-title" onclick="toggle('delete')">删除 GPX 文件</div></a>
+                <div id="delete" class="guide-content">在底部面板下，选择您想要删除的文件的标签，然后点击 <i class="fas fa-trash-alt button"></i>。<br>
+                一次移除所有 GPX 文件， 点击顶部工具栏中的 <span class="button">清除所有</span>。</div></div>
+                <div class="guide-item"><a name="open-street-view" href="#open-street-view" class="my-anchor"><div class="guide-title" onclick="toggle('street-view')">打开街景视图</div></a>
+                <div id="street-view" class="guide-content">在右上角，点击 <i class="fas fa-street-view button"></i> 然后点击地图打开该位置的街景视图。</div></div>
+                <div class="guide-item"><a name="search-location" href="#search-location" class="my-anchor"><div class="guide-title" onclick="toggle('search')">将地图居中定位在某个位置</div></a>
+                <div id="search" class="guide-content">在右上角，点击 <i class="fas fa-search button"></i> 然后输入地址。 选择一个建议的位置来将地图居中。</div></div>
+                <div class="guide-item"><a name="hide-trace" href="#hide-trace" class="my-anchor"><div class="guide-title" onclick="toggle('hide-gpx')">隐藏一个 GPX 文件</div></a>
+                <div id="hide-gpx" class="guide-content">要隐藏一个 GPX 文件，请点击 <i class="fas fa-eye-slash button"></i>。 要取消隐藏它，请点击 <i class="fas fa-eye button"></i>。<br>
+                在编辑模式中添加点或使用大部分工具时，隐藏的轨迹也会取消隐藏。</div></div>
+                <div class="guide-item"><a name="hide-elevation" href="#hide-elevation" class="my-anchor"><div class="guide-title" onclick="toggle('profile')">隐藏高程概览</div></a>
+                <div id="profile" class="guide-content">要隐藏高程概览，请单击 <i class="fas fa-chart-area button"></i></div></div>
+                <div class="guide-item"><a name="direction-markers" href="#direction-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-direction-markers')">显示方向标记</div></a>
+                <div id="show-direction-markers" class="guide-content">要显示方向标记，请进入地图图层 <i class="fas fa-layer-group button"></i> 并勾选框 <i class="far fa-check-square"></i> 方向标记。</div></div>
+                <div class="guide-item"><a name="distance-markers" href="#distance-markers" class="my-anchor"><div class="guide-title" onclick="toggle('show-distance-markers')">显示距离标记</div></a>
+                <div id="show-distance-markers" class="guide-content">要显示方向标记，请进入地图图层 <i class="fas fa-layer-group button"></i> 并勾选框 <i class="far fa-check-square"></i> 距离标记。</div></div>
+                <div class="guide-item"><a name="toggle-layer" href="#toggle-layer" class="my-anchor"><div class="guide-title" onclick="toggle('layer')">显示或隐藏地图图层</div></a>
                 <div id="layer" class="guide-content">
                     <ol>
-                        <li>Hover over <i class="fas fa-layer-group button"></i> in the top-right corner.</li>
-                        <li>Click on <i class="fas fa-gear button"></i>.</li>
-                        <li>Select the layers you want to appear in the interface.</li>
+                        <li>悬停在右上角的 <i class="fas fa-layer-group button"></i>。</li>
+                        <li>点击 <i class="fas fa-gear button"></i>。</li>
+                        <li>选择你想要出现在界面的图层.</li>
                     </ol>
                 </div></div>
-                <div class="guide-item"><a name="custom-layer" href="#custom-layer" class="my-anchor"><div class="guide-title" onclick="toggle('custom')">Add custom map layers</div></a>
+                <div class="guide-item"><a name="custom-layer" href="#custom-layer" class="my-anchor"><div class="guide-title" onclick="toggle('custom')">添加自定义地图图层</div></a>
                 <div id="custom" class="guide-content">
                     <ol>
-                        <li>Hover over <i class="fas fa-layer-group button"></i> in the top-right corner.</li>
-                        <li>Click on <i class="fas fa-gear button"></i>.</li>
-                        <li>Fill out the form to add or replace a map layer.</li>
+                        <li>悬停在右上角的 <i class="fas fa-layer-group button"></i>。</li>
+                        <li>点击 <i class="fas fa-gear button"></i>。</li>
+                        <li>填写表单以添加或替换地图层。</li>
                     </ol>
                 </div></div>
-                <div class="guide-item"><a name="map-legends" href="#map-legends" class="my-anchor"><div class="guide-title" onclick="toggle('legend')">Map legends</div></a>
+                <div class="guide-item"><a name="map-legends" href="#map-legends" class="my-anchor"><div class="guide-title" onclick="toggle('legend')">地图图例</div></a>
                 <div id="legend" class="guide-content">
                     <ul>
                         <li><a href="https://footpathapp.com/user-guide/maps/mapbox-outdoors/" target="_blank">Mapbox Outdoors</a></li>
@@ -430,7 +430,7 @@
                         <p style="text-align: center"><code>Access-Control-Allow-Origin: *</code>或者<code>https://gpx.studio</code></p></li>
                     <li><b>谷歌云盘：</b>只需在导出时将文件保存到您的谷歌云盘并复制提供的代码即可！ 如果要显示谷歌云盘中已有的文件，请在查询字符串的 <code>state</code> 参数的 <code>ids</code> 属性中添加文件的 ID，并确保所有具有链接的用户都可以使用这些文件。</li>
                 </ul>
-                <p>Choose the map shown by default with the parameter <code>source</code> among the following values:</p>
+                <p>在以下值中选择默认显示的地图，参数为 <code>source</code>：</p>
                 <ul>
                     <li><code>outdoors</code>: Mapbox Outdoors</li>
                     <li><code>satellite</code>: Mapbox Satellite</li>
@@ -438,67 +438,67 @@
                     <li><code>otm</code>: OpenTopoMap</li>
                     <li><code>ohm</code>: OpenHikingMap</li>
                 </ul>
-                <p>To use Mapbox maps, you need to specify the <code>token</code> parameter with a valid <a href="https://account.mapbox.com/access-tokens/" target="_blank">Mapbox token</a>. You can also use a custom Mapbox style by directly specifying its URL with <code>mapbox-style=&lt;STYLE_URL&gt;</code>.</p>
-                <p>You can optionally add parameters to the source URL: <code>imperial</code> to get data in miles and feet, <code>running</code> to display the pace in minutes by unit of distance, <code>distance</code> to show distance markers, <code>direction</code> to show direction markers and <code>slope</code> to show the slope view of the elevation profile. Below is a playground to play with the parameters, see a preview and get the HTML code.</p>
+                <p>要使用 Mapbox 地图，您需要指定 <code>token</code> 参数，有效的 <a href="https://account.mapbox.com/access-tokens/" target="_blank">Mapbox token</a>。 您也可以使用自定义Mapbox风格，直接指定其网址为 <code>mapbox-style=&lt;STYLE_URL&gt;</code></p>
+                <p>您可以选择向源 URL 添加参数：<code>imperial</code> 以英里和英尺为单位获取数据，<code>running</code> 以分钟为单位显示速度，<code>distance</code> 显示距离标记，<code>direction</code> 显示方向标记，<code>slope</code> 显示高程概览的坡度视图。 下面是一个游乐场，可以尝试参数，查看预览并获取 HTML 代码。</p>
                 <div class="guide-item">
-                    <h3 style="margin-block-start: 0em;">Parameters</h3>
-                    <p>File URLs (separated by commas)<br>
+                    <h3 style="margin-block-start: 0em;">参数</h3>
+                    <p>文件 URLs (用逗号分隔)<br>
                     <input id="file-urls" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
-                    <p>Google Drive file IDs (separated by commas)<br>
+                    <p>谷歌云盘文件 IDs (用逗号分隔)<br>
                     <input id="file-ids" type="text" oninput="showPreview()" value="10IbXh7W7QDO7ZKmapJYdcgN3vhdN2Q-e" style="width: 96%; margin: 5px;"></p>
                     <div style="display: flex; justify-content: space-between">
-                        <span>Running <input id="running" type="checkbox" oninput="showPreview()"></span>
-                        <span>Imperial <input id="imperial" type="checkbox" oninput="showPreview()"></span>
-                        <span>Distance markers <input id="distance" type="checkbox" oninput="showPreview()" checked></span>
-                        <span>Direction markers <input id="direction" type="checkbox" oninput="showPreview()"></span>
-                        <span>Slope <input id="slope" type="checkbox" oninput="showPreview()"></span>
+                        <span>跑步<input id="running" type="checkbox" oninput="showPreview()"></span>
+                        <span>英制 <input id="imperial" type="checkbox" oninput="showPreview()"></span>
+                        <span>距离标记 <input id="distance" type="checkbox" oninput="showPreview()" checked></span>
+                        <span>方向标记 <input id="direction" type="checkbox" oninput="showPreview()"></span>
+                        <span>坡度 <input id="slope" type="checkbox" oninput="showPreview()"></span>
                     </div>
-                    <p>Default map <select id="sources" oninput="showPreview()">
+                    <p>默认地图 <select id="sources" oninput="showPreview()">
                         <option value="outdoors">Mapbox Outdoors</option>
-                        <option value="satellite">Mapbox Satellite</option>
+                        <option value="satellite">Mapbox 卫星</option>
                         <option value="osm" selected="selected">OpenStreetMap</option>
                         <option value="otm">OpenTopoMap</option>
                         <option value="ohm">OpenHikingMap</option>
                     </select></p>
-                    <p>Mapbox token<br>
+                    <p>Mapbox 令牌<br>
                     <input id="mapbox-token" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
-                    <p>Mapbox custom style URL<br>
+                    <p>Mapbox 自定义样式 URL<br>
                     <input id="mapbox-style" type="text" oninput="showPreview()" value="" style="width: 96%; margin: 5px;"></p>
-                    <h3>HTML code</h3>
+                    <h3>HTML代码</h3>
                     <div style="text-align: left; overflow-wrap: break-word; padding:10px; border: 1px solid #ccc; background: #f5f5f5;">
                     <code id="embedding-code"></code>
                     </div>
-                    <h3>Preview</h3>
+                    <h3>预览</h3>
                     <iframe id="preview" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
             </div>
             <div class="block">
-            <a name="terms"></a><h1>Terms of Services &#128214;</h1>
-            <p>Thank you for using <b>gpx.studio</b>. These terms of service (Terms) cover your use and access of our website and related software (our Services).</p>
-            <p>By accessing this website, you are agreeing to be bound by this website Terms of Services and to review our Privacy Policy. If you do not agree with any of these terms, you are prohibited from using or accessing this site.</p>
-            <h2>Changes to the Services</h2>
-            <p>We may change the features of our Services, withdraw or add new features from time to time.</p>
-            <h2>Warranties</h2>
-            <p>The services on the website are provided "as is". To the fullest extent permitted by law, we make no warranties either implied or expressed about the Services. We do not make any promise about the accuracy of specific functions of the services, their reliability or availability.</p>
-            <h2>Changes to Terms</h2>
-            <div>We reserve the right to modify these Terms at any time. We will notice you on the website so you can agree to the revised Terms.</div>
+            <a name="terms"></a><h1>服务条款 &#128214;</h1>
+            <p>感谢您使用 <b>gpx.studio</b>。 这些服务条款(条款) 涵盖您对我们网站和相关软件的使用和访问(我们的服务)。</p>
+            <p>通过访问这个网站，您同意接受此网站服务条款的约束，并审查我们的隐私政策。 如果您不同意其中的任何一条，那您将没有权限访问或使用我们的网站。</p>
+            <h2>服务的变动</h2>
+            <p>我们可以不时更改我们服务的功能，撤销或添加新功能。</p>
+            <h2>保证</h2>
+            <p>网站上提供的服务是“现状”。 在法律允许的最大范围内，我们对服务不作任何暗示或明示的保证。 我们不对服务特定功能的准确性、可靠性或可用性做出任何承诺。</p>
+            <h2>条款的更改</h2>
+            <div>我们保留随时修改这些条款的权利。 我们会在网站上通知您，以便您同意修订过的条款。</div>
             </div>
             <div class="block">
-            <a name="privacy"></a><h1>Privacy Policy &#128373;&#65039;</h1>
-            <p><b>gpx.studio</b> is an online GPX file editor which allows users to create, view and edit files.
-                We respect the privacy of our users and do not collect any personal information.</p>
-            <p>The files created, visualized or edited on the website are only read once and never stored on a server.
-                We only access the data contained in the files and handle all computations from your local browser (it is a pure client-side application).</p>
+            <a name="privacy"></a><h1>隐私政策 &#128373; &#65039;</h1>
+            <p><b>gpx.studio</b> 是一个在线的 GPX 文件编辑器，允许用户创建、查看和编辑文件。
+                我们尊重我们用户的隐私，不收集任何个人信息。</p>
+            <p>在网站上创建、可视化或编辑的文件只读取过一次，并且绝不会存储在服务器上。
+                我们只访问文件中包含的数据，并处理所有计算在本地浏览器中进行(它纯粹是客户端应用程序)。</p>
             <h2>Google Drive</h2>
-            <p>The website offers the possibility to log in with Google Drive to upload and save files in order to facilitate the storage, versioning and sharing of GPX files.
-                That service authenticates you directly with your Google account, and an authentication token identifying you as the file owner is stored in your local browser session profile.
-                This information is used to browse GPX files in your Google Drive and to open only those you choose to open.
-                Furthermore, it is used to automatically authenticate users visiting the website again but it is never stored on our side.</p>
-            <p>We use standard Google Drive sharing functionality when you decide to share the file, and standard Google Drive authentication, authorization mechanisms for access control.
-                No other files than those you create with the tool or decide to open with it (either by opening from Google Drive or visiting its associated URL on the tool) will be accessed, and none will ever be stored.</p>
-            <p><b>gpx.studio</b>'s use of information received from Google APIs will adhere to the <a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
-            <p>Last updated July 26, 2021.</p>
+            <p>该网站提供了使用谷歌云盘上传和保存文件的可能性，以方便存储，版本管理和分享GPX文件。
+                该服务直接通过您的谷歌账户验证您， 并且一个识别您为文件所有者的身份验证令牌保存在您的本地浏览器会话配置文件中。
+                此信息用于浏览谷歌云盘中的 GPX 文件并只打开您选择打开的文件。
+                此外，它用来自动验证再次访问网站的用户，但它从未储存在我们这边。</p>
+            <p>当您决定共享文件时，我们会使用标准的谷歌云盘共享功能，以及标准的谷歌云盘身份验证和访问控制授权机制。
+                除了您使用该工具创建或决定使用它打开的文件（通过从谷歌云盘打开或访问该工具上的关联 URL）之外，不会访问任何其他文件，也不会存储任何文件。</p>
+            <p><b>gpx. tudio</b>使用从谷歌API收到的信息将遵守 <a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes">谷歌API服务用户数据政策</a>包括有限使用要求。</p>
+            <p>上次更新日期：2021年7月26日。</p>
             <br><br><br>
             </div>
         </div>
