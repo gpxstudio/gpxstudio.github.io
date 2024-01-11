@@ -122,7 +122,7 @@
                     <li>查看，添加，编辑和删除航点</li>
                     <li>减少航迹点的数量</li>
                     <li>查看和修订文件结构</li>
-                    <li>缺失时自动将海拔数据添加到轨迹</li>
+                    <li>缺失时自动将高程数据添加到轨迹</li>
                     <li>在需要时合并多轨迹，延长时间、心率、步频、功率和温度数据</li>
                     <li>从轨迹中提取轨迹段并执行任何其他操作，同时在文件中保留轨迹段的结构</li>
                     <li>将文件下载到桌面或保存到谷歌云盘™，以获得可共享链接和嵌入代码。</li>
@@ -147,7 +147,7 @@
             <a name="funding"></a><h1>帮助保持网站免费(和无广告) &#128591;</h1>
             <div>
                 每次您添加或移动轨迹点时，我们都向我们的服务器发出请求，以检索道路网上的路由。
-                我们还依赖于 <a href="https://www.mapbox.com/" target="_blank">Mapbox</a> 的 API 来加载精美的地图、检索海拔数据和处理地理编码请求（在搜索栏中查找位置）。<br><br>
+                我们还依赖于 <a href="https://www.mapbox.com/" target="_blank">Mapbox</a> 的 API 来加载精美的地图、检索高程数据和处理地理编码请求（在搜索栏中查找位置）。<br><br>
                 不幸的是，这非常昂贵，所以如果你喜欢这个工具并经常使用它，请考虑进行小额捐赠，以便这个网站可以保持<b>免费使用</b>和<b>无广告</b>。 感谢您的支持 ！<br><br>
                 <div style="text-align: center;"><script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support gpx.studio on Ko-fi', '#29abe0', 'F1F1303GH');kofiwidget2.draw();</script></div>
             </div>
@@ -164,180 +164,180 @@
             <div class="block">
             <a name="guide"></a><h1>用户指南 &#127891;</h1>
             <div class="guide">
-                Click on a topic to learn more!<br><br>
-                <div class="guide-item"><a name="create-file" href="#create-file" class="my-anchor"><div class="guide-title" onclick="toggle('create')">Create a new GPX file</div></a>
+                点击主题来了解更多！<br><br>
+                <div class="guide-item"><a name="create-file" href="#create-file" class="my-anchor"><div class="guide-title" onclick="toggle('create')">创建一个新的 GPX 文件</div></a>
                 <div id="create" class="guide-content">
                     <ol>
-                        <li>In the top toolbar, click on <span class="button">New GPX</span>. A new tab called "new" appears above the bottom panel.</li>
-                        <li>Place anchor points on the map by clicking at the locations you want to go through.</li>
+                        <li>在顶部工具栏中，点击 <span class="button">新的 GPX</span>。 底部面板上出现一个名为“新”的标签。</li>
+                        <li>点击您想要通过的位置，在地图上放置锚点。</li>
                         <li>
-                            If routing is enabled, select the appropriate activity type in order to take the most suitable roads.
-                            Disabling the routing will allow you to draw straight lines freely on the map.
+                            如果启用了路由，请选择适当的活动类型以便匹配最合适的道路。
+                            禁用路由将允许您在地图上自由绘制直线。
                         </li>
-                        <li>You can drag a point or the line itself to re-route the trace through a new location.</li>
-                        <li>If you make a mistake or change your mind about the itinerary, you can:
+                        <li>您可以拖动点或线本身来重新规划轨迹的路由到一个新的位置。</li>
+                        <li>如果你犯了错误或改变了你对行程的想法，你可以：
                             <ul>
-                                <li>use the undo <i class="fas fa-reply button"></i> and redo <i class="fas fa-share button"></i> buttons.</li>
-                                <li>click on an anchor point and use <span class="button"><i class="fas fa-trash-alt"></i> <span>Remove point</span></span> to remove it, or simply Shift+click on it.</li>
+                                <li>使用撤消 <i class="fas fa-reply button"></i> 和重做 <i class="fas fa-share button"></i> 按钮。</li>
+                                <li>点击锚点并使用 <span class="button"><i class="fas fa-trash-alt"></i> <span>删除点</span></span> 去删除它，或者简单的 Shift +点击它。</li>
                             </ul>
                         </li>
                     </ol>
                 </div></div>
-                <div class="guide-item"><a name="load-file" href="#load-file" class="my-anchor"><div class="guide-title" onclick="toggle('load')">Load existing GPX files</div></a>
-                <div id="load" class="guide-content">There are two options:
+                <div class="guide-item"><a name="load-file" href="#load-file" class="my-anchor"><div class="guide-title" onclick="toggle('load')">加载现有的 GPX 文件</div></a>
+                <div id="load" class="guide-content">有两个选项：
                     <ul>
-                        <li>Click on <span class="button">Load</span> and select one or more GPX files to load.</li>
-                        <li>Drag and drop GPX files in the window.</li>
+                        <li>点击 <span class="button">加载</span> 并选择一个或多个GPX 文件加载。</li>
+                        <li>拖放GPX文件到窗口中的任意位置.</li>
                     </ul>
                 </div></div>
-                <div class="guide-item"><a name="export-file" href="#export-file" class="my-anchor"><div class="guide-title" onclick="toggle('export')">Export GPX files</div></a>
+                <div class="guide-item"><a name="export-file" href="#export-file" class="my-anchor"><div class="guide-title" onclick="toggle('export')">导出 GPX 文件</div></a>
                 <div id="export" class="guide-content">
-                    There are two options:
+                    有两个选项：
                     <ul>
-                        <li>Click on <span class="button">Export</span> and then choose whether to:
+                        <li>点击 <span class="button">导出</span> 然后选择是否：
                            <ul>
-                               <li>merge all open GPX files as tracks into one file, or export them separately.</li>
-                               <li>include time, temperature, heartrate, cadence, power and surface data or not.</li>
+                               <li>将所有打开的 GPX 文件合并为一个文件导出，或单独导出。</li>
+                               <li>包括或者不包括时间、温度、心率、步频，功率和路面数据。</li>
                            </ul>
-                           Then, click on <span class="button">Download <i class="fas fa-download"></i></span> to download the files on your computer or on <span class="button">Save to Google Drive</span> to save it in the cloud.
+                           然后点击 <span class="button">下载 <i class="fas fa-download"></i></span> 下载到您的计算机上，或 <span class="button">保存到谷歌云盘</span> 以便将其保存到云端。
                         </li>
-                        <li>Drag and drop a tab (below the bottom panel) onto your desktop.</li>
+                        <li>拖放标签(底部面板下面) 到您的桌面。</li>
                     </ul>
                 </div></div>
-                <div class="guide-item"><a name="share-file" href="#share-file" class="my-anchor"><div class="guide-title" onclick="toggle('share')">Share a GPX file</div></a>
-                <div id="share" class="guide-content"><b>gpx.studio</b> does not provide GPX file hosting. However, it integrates smoothly with Google Drive.
-                    To share GPX files:
+                <div class="guide-item"><a name="share-file" href="#share-file" class="my-anchor"><div class="guide-title" onclick="toggle('share')">共享一个 GPX 文件</div></a>
+                <div id="share" class="guide-content"><b>gpx.studio</b> 没有提供 GPX 文件托管。 然而，它已经丝滑的集成了谷歌云盘。
+                    要分享 GPX 文件：
                     <ol>
-                        <li>Click on <span class="button">Export</span> and then choose whether to:
+                        <li>点击 <span class="button">导出</span> 然后选择是否：
                            <ul>
-                               <li>merge all open GPX files as tracks into one file, or export them separately.</li>
-                               <li>include time, temperature, heartrate, cadence, power and surface data or not.</li>
+                               <li>将所有打开的 GPX 文件合并为一个文件导出，或单独导出。</li>
+                               <li>包括或者不包括时间、温度、心率、步频，功率和路面数据。</li>
                            </ul>
                         </li>
-                        <li>Click on <span class="button">Save to Google Drive</span>.</li>
-                        <li>Connect to your Google account.</li>
-                        <li>Select the folder where you want to save the files.</li>
-                        <li>When the files are uploaded, click on <span class="button">Copy link <i class="fas fa-link"></i></span> and send it to your friends!</li>
+                        <li>点击 <span class="button">保存到谷歌云盘</span></li>
+                        <li>连接你的谷歌账户。</li>
+                        <li>选择要保存文件的文件夹。</li>
+                        <li>当文件被上传时，点击 <span class="button">复制链接 <i class="fas fa-link"></i></span> 并发送给您的朋友！</li>
                     </ol>
-                    If you want to use <b>gpx.studio</b> to open GPX files stored on your Google Drive, you can install the <a href="https://gsuite.google.com/marketplace/app/gpxstudio_the_online_gpx_editor/666808960580" target="_blank">Google Drive Add-on</a>.
+                    如果您想要使用 <b>gpx.studio</b> 打开存储在您的谷歌云盘上的 GPX 文件，您可以安装 <a href="https://gsuite.google.com/marketplace/app/gpxstudio_the_online_gpx_editor/666808960580" target="_blank">谷歌云盘附加组件</a>。
                 </div></div>
-                <div class="guide-item"><a name="edit-track-points" href="#edit-track-points" class="my-anchor"><div class="guide-title" onclick="toggle('edit-track')">Edit the track points of a GPX file</div></a>
-                <div id="edit-track" class="guide-content">Click on <i class="fas fa-pencil-alt button"></i> to enter the edition mode. Depending on the zoom level, a set of anchor points appears. The more you zoom in, the more anchor points appear.<br>You can then:
+                <div class="guide-item"><a name="edit-track-points" href="#edit-track-points" class="my-anchor"><div class="guide-title" onclick="toggle('edit-track')">编辑GPX文件中的轨迹点</div></a>
+                <div id="edit-track" class="guide-content">点击 <i class="fas fa-pencil-alt button"></i> 进入编辑模式。 根据缩放级别，会出现一组锚点。 您放大越多，锚点越多。<br>您可以：
                     <ul>
-                        <li>add track points at the end of the trace by clicking on the map at the locations you want to go through.</li>
-                        <li>drag an anchor point or the line itself to re-route the trace through a new location.</li>
-                        <li>click on an anchor point and use <span class="button"><i class="fas fa-trash-alt"></i> <span>Remove point</span></span> to remove it, or simply Shift+click on it.</li>
-                        <li>click on an anchor point or on the line and use <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> to split the trace at a chosen location.</li>
-                        <li>click on an anchor point or on the line and use <span class="button"><i class="fas fa-undo"></i> <span>Start loop here</span></span> to make the loop start at a chosen location.</li>
+                        <li>通过点击您想要访问的位置的地图，在轨迹终点添加轨迹点。</li>
+                        <li>拖动锚点或线本身来重新规划轨迹的路由到一个新的位置。</li>
+                        <li>点击锚点并使用 <span class="button"><i class="fas fa-trash-alt"></i> <span>删除点</span></span> 去删除它，或者简单的 Shift +点击它。</li>
+                        <li>点击锚点或线，使用 <span class="button"><i class="fas fa-cut"></i> <span>在这里拆分</span></span> 在选定的位置拆分轨迹。</li>
+                        <li>单击锚点或线，使用 <span class="button"><i class="fas fa-undo"></i> <span>开始在这里的循环</span></span> 使循环开始于选定的位置。</li>
                     </ul>
-                    If you make a mistake or change your mind about the itinerary, use the undo <i class="fas fa-reply button"></i> and redo <i class="fas fa-share button"></i> buttons.<br><br>
-                    If routing is enabled, select the appropriate activity type in order to take the most suitable roads.
-                    Disabling the routing will allow you to draw straight lines freely on the map.<br><br>
-                    If you edit a GPX file containing time, temperature, heartrate, cadence or power data, new track points will automatically contain the average value for each of those fields.
+                    如果您犯了错误或改变了您对行程的想法， 使用撤消 <i class="fas fa-reply button"></i> 和重做 <i class="fas fa-share button"></i> 按钮。<br><br>
+                    如果启用路由， 选择适当的活动类型以便匹配最合适的道路。
+                    禁用路由将允许您在地图上自由绘制直线。<br><br>
+                    如果您编辑的GPX文件包含时间、温度、心率、步频或功率数据，新轨迹点将自动包含这些字段的平均值。
                 </div></div>
-                <div class="guide-item"><a name="crop-file" href="#crop-file" class="my-anchor"><div class="guide-title" onclick="toggle('crop')">Crop a GPX file</div></a>
-                <div id="crop" class="guide-content">There are three options:
+                <div class="guide-item"><a name="crop-file" href="#crop-file" class="my-anchor"><div class="guide-title" onclick="toggle('crop')">裁剪一个 GPX 文件</div></a>
+                <div id="crop" class="guide-content">有三种选择：
                     <ul>
-                        <li>Use the slider in the bottom panel to move the start and end points of the trace. Click on <i class="fas fa-check button"></i> to validate the selection. You can choose whether you want to keep cropped parts in separate files.</li>
-                        <li>Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, click on an anchor point or on the line and use <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> to split the trace at a chosen location.</li>
-                        <li>Click on <i class="fas fa-vector-square button"></i> and select an area containing the track points you want to keep or delete. Uncheck the box <i class="far fa-check-square"></i> Waypoints if you do not want to remove waypoints at the same time. Then, choose whether you want to delete track points inside or outside of the selection. Finally, click on <span class="button">Proceed</span>.</li>
-                    </ul>
-                </div></div>
-                <div class="guide-item"><a name="split-file" href="#split-file" class="my-anchor"><div class="guide-title" onclick="toggle('split')">Split a GPX file</div></a>
-                <div id="split" class="guide-content">There are two options:
-                    <ul>
-                        <li>Use the slider in the bottom panel to move the start and end points of the trace. Click on <i class="fas fa-check button"></i> to validate the selection. Check the box <i class="far fa-check-square"></i> Keep cropped parts in new files and then click on <span class="button">Proceed</span>.</li>
-                        <li>Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, click on an anchor point or on the line and use <span class="button"><i class="fas fa-cut"></i> <span>Split here</span></span> to split the trace at a chosen location.</li>
+                        <li>使用底部面板中的滑块移动轨迹的起始点和终点。 点击<i class="fas fa-check button"></i>来验证选择项。 您可以选择是否将裁剪的部分保留在单独的文件中。</li>
+                        <li>点击 <i class="fas fa-pencil-alt button"></i> 进入编辑模式。 然后，点击锚点或线，使用 <span class="button"><i class="fas fa-cut"></i> <span>在这里拆分</span></span> 在选定的位置拆分轨迹。</li>
+                        <li>单击 <i class="fas fa-vector-square button"></i> 并选择一个包含您想保留或删除的轨迹点的区域。 如果您不想同时移除路径点，请取消勾选方框 <i class="far fa-check-square"></i> 路径点。 然后，选择您想要删除选区内外的轨迹点。 最后，点击<span class="button">继续</span>.</li>
                     </ul>
                 </div></div>
-                <div class="guide-item"><a name="change-start-loop" href="#change-start-loop" class="my-anchor"><div class="guide-title" onclick="toggle('change-start')">Change the starting point of a loop</div></a>
+                <div class="guide-item"><a name="split-file" href="#split-file" class="my-anchor"><div class="guide-title" onclick="toggle('split')">分割一个 GPX 文件</div></a>
+                <div id="split" class="guide-content">有两个选项：
+                    <ul>
+                        <li>使用底部面板中的滑块移动轨迹的起始点和终点。 点击<i class="fas fa-check button"></i>来验证选择项。 勾选这个选项<i class="far fa-check-square"></i>保持裁剪的部分在新的文件然后点击<span class="button">继续</span>。</li>
+                        <li>点击 <i class="fas fa-pencil-alt button"></i> 进入编辑模式。 然后，点击锚点或线，使用 <span class="button"><i class="fas fa-cut"></i> <span>在这里拆分</span></span> 在选定的位置拆分轨迹。</li>
+                    </ul>
+                </div></div>
+                <div class="guide-item"><a name="change-start-loop" href="#change-start-loop" class="my-anchor"><div class="guide-title" onclick="toggle('change-start')">更改循环的起点</div></a>
                 <div id="change-start" class="guide-content">
-                    Enter the edition mode by clicking on <i class="fas fa-pencil-alt button"></i>. Then, click on an anchor point or on the line and use <span class="button"><i class="fas fa-undo"></i> <span>Start loop here</span></span> to make the loop start at a chosen location.</li>
+                    点击 <i class="fas fa-pencil-alt button"></i> 进入编辑模式。 然后，单击锚点或线，使用 <span class="button"><i class="fas fa-undo"></i> <span>开始在这里的循环</span></span> 使循环开始于选定的位置。</li>
                 </div></div>
-                <div class="guide-item"><a name="add-timestamps" href="#add-timestamps" class="my-anchor"><div class="guide-title" onclick="toggle('timestamps')">Add timestamps to a GPX file</div></a>
+                <div class="guide-item"><a name="add-timestamps" href="#add-timestamps" class="my-anchor"><div class="guide-title" onclick="toggle('timestamps')">将时间戳添加到 GPX 文件</div></a>
                 <div id="timestamps" class="guide-content">
                     <ol>
-                        <li>Click on <i class="fas fa-stopwatch button"></i>.</li>
-                        <li>Enter the average speed.</li>
-                        <li>Select the start time.</li>
-                        <li>Click on <span class="button">Ok</span>.</li>
+                        <li>点击 <i class="fas fa-stopwatch button"></i>。</li>
+                        <li>输入平均速度。</li>
+                        <li>请选择开始时间。</li>
+                        <li>点击 <span class="button">好的</span>。</li>
                     </ol>
-                    If the GPX file has no timestamps, a constant speed is applied to the whole GPX file by default. You can check the box <i class="far fa-check-square"></i> Experimental to generate timestamps which make the speed vary depending on the slope.<br>
-                    If the GPX file already has timestamps, they will be shifted and compressed to match the chosen speed and start time.
+                    如果GPX文件没有时间戳，默认情况下对整个GPX文件应用恒定速度。 您可以勾选框 <i class="far fa-check-square"></i> 实验性地生成时间戳，其速度因斜坡而异。<br>
+                    如果GPX文件已经有时间戳， 他们将被调整和压缩以匹配选定的速度和起始时间。
                 </div></div>
-                <div class="guide-item"><a name="change-date" href="#change-date" class="my-anchor"><div class="guide-title" onclick="toggle('date')">Change the date of a GPX file</div></a>
+                <div class="guide-item"><a name="change-date" href="#change-date" class="my-anchor"><div class="guide-title" onclick="toggle('date')">更改一个 GPX 文件的日期</div></a>
                 <div id="date" class="guide-content">
                     <ol>
-                        <li>Click on <i class="fas fa-stopwatch button"></i>.</li>
-                        <li>Change the start time.</li>
-                        <li>Click on <span class="button">Ok</span>.</li>
+                        <li>点击 <i class="fas fa-stopwatch button"></i>。</li>
+                        <li>更改起始时间。</li>
+                        <li>点击 <span class="button">好的</span>。</li>
                     </ol>
                 </div></div>
-                <div class="guide-item"><a name="change-speed" href="#change-speed" class="my-anchor"><div class="guide-title" onclick="toggle('speed')">Change the speed of a GPX file</div></a>
+                <div class="guide-item"><a name="change-speed" href="#change-speed" class="my-anchor"><div class="guide-title" onclick="toggle('speed')">更改GPX文件的速度</div></a>
                 <div id="speed" class="guide-content">
                     <ol>
-                        <li>Click on <i class="fas fa-stopwatch button"></i>.</li>
-                        <li>Change the average speed.</li>
-                        <li>Click on <span class="button">Ok</span>.</li>
+                        <li>点击 <i class="fas fa-stopwatch button"></i>。</li>
+                        <li>更改平均速度。</li>
+                        <li>点击 <span class="button">好的</span>。</li>
                     </ol>
-                    If the GPX file has no timestamps, a constant speed is applied to the whole GPX file by default. You can check the box <i class="far fa-check-square"></i> Experimental to generate timestamps which make the speed vary depending on the slope.<br>
-                    If the GPX file already has timestamps, they will be shifted and compressed to match the chosen speed and start time.
+                    如果GPX文件没有时间戳，默认情况下对整个GPX文件应用恒定速度。 您可以勾选框 <i class="far fa-check-square"></i> 实验性地生成时间戳，其速度因斜坡而异。<br>
+                    如果GPX文件已经有时间戳， 他们将被调整和压缩以匹配选定的速度和起始时间。
                 </div></div>
-                <div class="guide-item"><a name="merge-files" href="#merge-files" class="my-anchor"><div class="guide-title" onclick="toggle('merge')">Merge multiple GPX files</div></a>
+                <div class="guide-item"><a name="merge-files" href="#merge-files" class="my-anchor"><div class="guide-title" onclick="toggle('merge')">合并多个GPX文件</div></a>
                 <div id="merge" class="guide-content">
-                    To merge two GPX files:
+                    要合并两个GPX文件：
                     <ol>
-                        <li>Below the bottom panel, select the tab of the first GPX file you want to merge.</li>
-                        <li>Click on <i class="fas fa-plus-circle button"></i> (available only when more than two files are open).</li>
-                        <li>Click on the tab of the second GPX file to merge or on the trace itself. The track points of the second GPX file will come after those of the first GPX file.</li>
+                        <li>在底部面板下，选择您想要合并的第一个GPX文件的标签。</li>
+                        <li>点击 <i class="fas fa-plus-circle button"></i> (仅当打开两个以上的文件时可用)。</li>
+                        <li>单击第二个GPX文件的标签以合并或轨迹本身。 第二个GPX文件的轨迹点将在第一个GPX文件轨迹点之后出现。</li>
                     </ol>
-                    You can also use the file structure tool:
+                    您也可以使用文件结构工具：
                     <ol>
-                        <li>Below the bottom panel, select the tab of the first GPX file you want to merge.</li>
-                        <li>Click on <i class="fas fa-folder-tree button"></i>.</li>
-                        <li>Drag the tab of the file you wish to merge into the first one and drop it in the file structure.</li>
+                        <li>在底部面板下，选择您想要合并的第一个GPX文件的标签。</li>
+                        <li>点击 <i class="fas fa-folder-tree button"></i>。</li>
+                        <li>拖动您想要合并到第一个文件的标签，然后将其拖放到文件结构中。</li>
                     </ol>
-                    If you want to merge all open GPX files at once:
+                    如果您想同时合并所有打开的 GPX 文件：
                     <ol>
-                        <li>Below the bottom panel, put the tabs in the order you want them to appear in the merged GPX file.</li>
-                        <li>Click on <span class="button">Export</span>.</li>
-                        <li>Check the box <i class="far fa-check-square"></i> Merge all traces.</li>
-                        <li>Click on <span class="button">Download <i class="fas fa-download"></i></span> to download the files on your computer or on <span class="button">Save to Google Drive</span> to save it in the cloud.</li>
+                        <li>在底部面板下，按您想要它们出现在合并的 GPX 文件中的顺序排列标签。</li>
+                        <li>点击 <span class="button">导出</span>。</li>
+                        <li>勾选选项<i class="far fa-check-square"></i>合并所有轨迹。</li>
+                        <li>点击 <span class="button">下载 <i class="fas fa-download"></i></span> 下载到您的计算机上，或 <span class="button">保存到谷歌云盘</span> 以便将其保存到云端。</li>
                     </ol>
-                    When merging multiple GPX files: missing time, temperature, heartrate, cadence or power data will be automatically extended with the average value across merged files.
-                    If some GPX files contains timestamps, it is ensured that the timestamps of the merged file are strictly increasing (the timestamps of some files are shifted if necessary).
+                    合并多个GPX文件时：缺少时间、温度、心跳、步频或功率数据将自动使用平均值扩展到合并文件。
+                    如果一些GPX文件包含时间戳， 请确保合并文件的时间戳是按照严格顺序增加的(必要时会调整某些文件的时间戳)。
                 </div></div>
-                <div class="guide-item"><a name="extract-segments" href="#extract-segments" class="my-anchor"><div class="guide-title" onclick="toggle('extract')">Extract tracks or tracks segments of a GPX file</div></a>
+                <div class="guide-item"><a name="extract-segments" href="#extract-segments" class="my-anchor"><div class="guide-title" onclick="toggle('extract')">提取轨迹或者轨迹段从一个GPX文件</div></a>
                 <div id="extract" class="guide-content">
-                    To extract all tracks or tracks segments from a trace, click on <i class="fas fa-list-ul button"></i> (available only if the file has more than one track or track segment).
-                    If the GPX file contains waypoints (points of interest), they are kept in the files for which the traces pass closest.<br><br>
-                    To extract a specific track or track segment:
+                    从轨迹中提取所有轨迹或轨迹段， 单击 <i class="fas fa-list-ul button"></i> (仅当文件有多个轨迹或轨迹段时可用)。
+                    如果GPX文件包含路径点(兴趣点)，它们将被保存在轨迹最接近的文件中。<br><br>
+                    要提取特定的轨迹或轨迹段：
                     <ol>
-                        <li>Click on <i class="fas fa-folder-tree button"></i>.</li>
-                        <li>Drag the track or track segment you wish to extract from the file structure to the tabs above the elevation profile.</li>
+                        <li>点击 <i class="fas fa-folder-tree button"></i>。</li>
+                        <li>将要从文件结构中提取的轨迹或轨迹段拖动到高程概览上方的选项卡中。</li>
                     </ol>
                 </div></div>
-                <div class="guide-item"><a name="change-structure" href="#change-structure" class="my-anchor"><div class="guide-title" onclick="toggle('structure')">Change the structure of a GPX file</div></a>
+                <div class="guide-item"><a name="change-structure" href="#change-structure" class="my-anchor"><div class="guide-title" onclick="toggle('structure')">更改一个 GPX 文件的结构</div></a>
                 <div id="structure" class="guide-content">
-                    Click on <i class="fas fa-folder-tree button"></i> and then you can:
+                    点击 <i class="fas fa-folder-tree button"></i> 然后您可以：
                     <ul>
-                        <li>Drag and drop tracks and track segments to rearrange them, or drop them in the tabs above the elevation profile to extract them.</li>
-                        <li>Drag and drop traces from the tabs above the elevation profile to merge them with the current trace.</li>
-                        <li>Assign a different color to each track.</li>
-                        <li>Rename each track.</li>
-                        <li>Select a set of tracks or track segments to delete or merge them.</li>
+                        <li>拖放轨迹和轨迹段来重新排列，或将其拖放到高程概览上方的标签上以提取它们。</li>
+                        <li>从高程概览上方的标签上拖放轨迹，将其与当前轨迹合并。</li>
+                        <li>为每个轨迹分配不同的颜色。</li>
+                        <li>重命名每个轨迹。</li>
+                        <li>选择要删除或合并的轨迹和轨迹段。</li>
                     </ul>
                 </div></div>
-                <div class="guide-item"><a name="copy-file" href="#copy-file" class="my-anchor"><div class="guide-title" onclick="toggle('copy')">Copy a GPX file</div></a>
-                <div id="copy" class="guide-content">Click on <i class="fas fa-copy button"></i> to duplicate a GPX file.</div></div>
-                <div class="guide-item"><a name="change-color" href="#change-color" class="my-anchor"><div class="guide-title" onclick="toggle('color')">Change the color, opacity and width of a GPX file</div></a>
+                <div class="guide-item"><a name="copy-file" href="#copy-file" class="my-anchor"><div class="guide-title" onclick="toggle('copy')">复制一个 GPX 文件</div></a>
+                <div id="copy" class="guide-content">点击 <i class="fas fa-copy button"></i> 复制一个 GPX 文件。</div></div>
+                <div class="guide-item"><a name="change-color" href="#change-color" class="my-anchor"><div class="guide-title" onclick="toggle('color')">更改一个GPX文件的颜色、透明度和宽度</div></a>
                 <div id="color" class="guide-content">
                     <ol>
-                        <li>Click on <i class="fas fa-palette button"></i>.</li>
-                        <li>Click on the color to open the color picker.</li>
-                        <li>Move the opacity slider to change the opacity.</li>
+                        <li>点击 <i class="fas fa-palette button"></i></li>
+                        <li>点击颜色打开颜色选择器。</li>
+                        <li>移动不透明度滑块以改变透明度。</li>
                         <li>Move the width slider to change the width.</li>
-                        <li>Click on <span class="button">Ok</span>.</li>
+                        <li>点击 <span class="button">好的</span>。</li>
                     </ol>
                     You can optionally apply the chosen color, opacity and width to all traces by using the checkboxes.<br>
                     For traces with multiple tracks, the file structure tool <i class="fas fa-folder-tree button"></i> can be used to assign a different color to each of them.
@@ -348,7 +348,7 @@
                         <li>Click on <i class="fas fa-map-marker-alt button"></i>.</li>
                         <li>Click on the map at the location you want to place it.</li>
                         <li>Fill in some data about the waypoint (you can use HTML to format information, or even link images).</li>
-                        <li>Click on <span class="button">Ok</span>.</li>
+                        <li>点击 <span class="button">好的</span>。</li>
                     </ol>
                     If you want to reuse a waypoint at another location or for another trace, click on the waypoint and press <i class="fas fa-copy button"></i> inside the popup. Then, click on the map to add a copy of the waypoint at the chosen location.
                 </div></div>
@@ -358,14 +358,14 @@
                 </div></div>
                 <div class="guide-item"><a name="remove-waypoint" href="#remove-waypoint" class="my-anchor"><div class="guide-title" onclick="toggle('rmv-wpt')">Remove waypoints of a GPX file</div></a>
                 <div id="rmv-wpt" class="guide-content">To remove a single waypoint, click on it and press <i class="fas fa-trash-alt button"></i> inside the popup, or simply Shift+click on it.<br>
-                    To remove all waypoints inside or outside an area, click on <i class="fas fa-vector-square button"></i> and select an area containing the waypoints you want to keep or delete. Uncheck the box <i class="far fa-check-square"></i> Track points if you do not want to remove track points at the same time. Then, choose whether you want to delete waypoints inside or outside of the selection. Finally, click on <span class="button">Proceed</span>.
+                    To remove all waypoints inside or outside an area, click on <i class="fas fa-vector-square button"></i> and select an area containing the waypoints you want to keep or delete. Uncheck the box <i class="far fa-check-square"></i> Track points if you do not want to remove track points at the same time. Then, choose whether you want to delete waypoints inside or outside of the selection. 最后，点击<span class="button">继续</span>.
                 </div></div>
                 <div class="guide-item"><a name="reduce-points" href="#reduce-points" class="my-anchor"><div class="guide-title" onclick="toggle('reduce')">Reduce the number of track points of a GPX file</div></a>
                 <div id="reduce" class="guide-content">
                     <ol>
                         <li>Click on <i class="fas fa-compress-alt button"></i>.</li>
                         <li>Use the slider to choose the number of track points to keep. You can see a live preview of the GPX file with the reduced number of points.</li>
-                        <li>Click on <span class="button">Ok</span>.</li>
+                        <li>点击 <span class="button">好的</span>。</li>
                     </ol>
                 </div></div>
                 <div class="guide-item"><a name="delete-points-in-zone" href="#delete-points-in-zone" class="my-anchor"><div class="guide-title" onclick="toggle('delete-zone')">Remove all track points and/or waypoints inside/outside an area</div></a>
@@ -374,7 +374,7 @@
                         <li>Click on <i class="fas fa-vector-square button"></i>.
                         <li>Select an area containing the track points and/or waypoints you want to keep or delete.</li>
                         <li>Choose whether you want to delete track points and/or waypoints, inside or outside of the selection.</li>
-                        <li>Finally, click on <span class="button">Proceed</span>.</li>
+                        <li>最后，点击<span class="button">继续</span>.</li>
                    </ol>
                 </div></div>
                 <div class="guide-item"><a name="delete-file" href="#delete-file" class="my-anchor"><div class="guide-title" onclick="toggle('delete')">Remove GPX files</div></a>
@@ -415,20 +415,20 @@
                         <li><a href="https://footpathapp.com/user-guide/maps/mapbox-outdoors/" target="_blank">Mapbox Outdoors</a></li>
                         <li><a href="https://wiki.openstreetmap.org/wiki/LinesTab" target="_blank">OpenStreetMap</a></li>
                         <li><a href="https://opentopomap.org/about" target="_blank">OpenTopoMap</a></li>
-                        <li>OpenHikingMap: same than OpenTopoMap but with hiking trails.</li>
+                        <li>OpenHikingMap ：与 OpenTopoMap 相同，但是有徒步跟踪。</li>
                         <li><a href="https://www.cyclosm.org/legend.html" target="_blank">CyclOSM</a></li>
                     </ul>
                 </div></div>
             </div>
             </div>
             <div class="block">
-            <a name="embed"></a><h1>Embedding &#128506;</h1>
+            <a name="embed"></a><h1>内嵌 &#128506;</h1>
             <div>
-                You are very welcome to display traces on your website with <b>gpx.studio</b>. There are two ways to do it: the first one with files stored on a server and the second one with Google Drive.
+                非常欢迎您使用 <b>gpx.studio</b> 在您的网站上显示轨迹。 有两种方法可以做到：第一种方法的文件存储在服务器上，第二种方法的文件存储在谷歌云盘。
                 <ul>
-                    <li><b>File URL:</b> Add the link to the file in the <code>urls</code> attribute of the <code>state</code> parameter of the query string. Make sure to use <code>https</code>, to encode any special characters and that <b>gpx.studio</b> is allowed to request the files, otherwise the requests will be blocked by the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank">CORS policy</a>, i.e. you should set the following header in your server response:
-                        <p style="text-align: center"><code>Access-Control-Allow-Origin: *</code> or <code>https://gpx.studio</code></p></li>
-                    <li><b>Google Drive:</b> Just save the files to your Google Drive when exporting and copy the code provided! If you want to display files that you already have on your Google Drive, add the ID of the file in the <code>ids</code> attribute of the <code>state</code> parameter of the query string and make sure they are available to all users with the link.</li>
+                    <li><b>文件网址：</b>在查询字符串的 <code>state</code> 参数的 <code>urls</code> 属性中添加指向文件的链接。 确保使用 <code>https</code> 对任何特殊字符进行编码，并允许 <b>gpx.studio</b> 请求文件，否则请求将被 <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank">CORS 策略</a>阻止，即您应该在服务器响应中设置以下标头：
+                        <p style="text-align: center"><code>Access-Control-Allow-Origin: *</code>或者<code>https://gpx.studio</code></p></li>
+                    <li><b>谷歌云盘：</b>只需在导出时将文件保存到您的谷歌云盘并复制提供的代码即可！ 如果要显示谷歌云盘中已有的文件，请在查询字符串的 <code>state</code> 参数的 <code>ids</code> 属性中添加文件的 ID，并确保所有具有链接的用户都可以使用这些文件。</li>
                 </ul>
                 <p>Choose the map shown by default with the parameter <code>source</code> among the following values:</p>
                 <ul>
