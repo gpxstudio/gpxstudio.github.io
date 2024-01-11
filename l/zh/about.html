@@ -427,7 +427,7 @@
                 非常欢迎您使用 <b>gpx.studio</b> 在您的网站上显示轨迹。 有两种方法可以做到：第一种方法的文件存储在服务器上，第二种方法的文件存储在谷歌云盘。
                 <ul>
                     <li><b>文件网址：</b>在查询字符串的 <code>state</code> 参数的 <code>urls</code> 属性中添加指向文件的链接。 确保使用 <code>https</code> 对任何特殊字符进行编码，并允许 <b>gpx.studio</b> 请求文件，否则请求将被 <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank">CORS 策略</a>阻止，即您应该在服务器响应中设置以下标头：
-                        <p style="text-align: center"><code>Access-Control-Allow-Origin: *</code>或者<code>https://gpx.studio</code></p></li>
+                        <p style="text-align: center"><code>Access-Control-Allow-Origin: *</code> 或者 <code>https://gpx.studio</code></p></li>
                     <li><b>谷歌云盘：</b>只需在导出时将文件保存到您的谷歌云盘并复制提供的代码即可！ 如果要显示谷歌云盘中已有的文件，请在查询字符串的 <code>state</code> 参数的 <code>ids</code> 属性中添加文件的 ID，并确保所有具有链接的用户都可以使用这些文件。</li>
                 </ul>
                 <p>在以下值中选择默认显示的地图，参数为 <code>source</code>：</p>
@@ -497,7 +497,7 @@
                 此外，它用来自动验证再次访问网站的用户，但它从未储存在我们这边。</p>
             <p>当您决定共享文件时，我们会使用标准的谷歌云盘共享功能，以及标准的谷歌云盘身份验证和访问控制授权机制。
                 除了您使用该工具创建或决定使用它打开的文件（通过从谷歌云盘打开或访问该工具上的关联 URL）之外，不会访问任何其他文件，也不会存储任何文件。</p>
-            <p><b>gpx. tudio</b>使用从谷歌API收到的信息将遵守 <a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes">谷歌API服务用户数据政策</a>包括有限使用要求。</p>
+            <p><b>gpx.studio</b>使用从谷歌API收到的信息将遵守 <a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes">谷歌API服务用户数据政策</a>包括有限使用要求。</p>
             <p>上次更新日期：2021年7月26日。</p>
             <br><br><br>
             </div>
