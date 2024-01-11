@@ -20,9 +20,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
         <title>gpx.studio — online editor GPX souborů</title>
-        <meta name="description" content="Prohlížejte, upravujte a vytvářejte soubory GPX online: přidávejte, přesouvejte a odstraňujte body, slučujte více souborů, vracejte zpět, přidávejte časová razítka, upravujte průjezdní body a mnoho dalšího!">
+        <meta name="description" content="Prohlížejte, upravujte a vytvářejte soubory GPX online: přidávejte, přesouvejte a odstraňujte body, slučujte více souborů, obracejte směr, přidávejte časové značky, upravujte trasové body a mnoho dalšího!">
         <meta property="og:title" content="gpx.studio — online editor GPX souborů" />
-        <meta property="og:description" content="Prohlížejte, upravujte a vytvářejte soubory GPX online: přidávejte, přesouvejte a odstraňujte body, slučujte více souborů, vracejte zpět, přidávejte časová razítka, upravujte průjezdní body a mnoho dalšího!" />
+        <meta property="og:description" content="Prohlížejte, upravujte a vytvářejte soubory GPX online: přidávejte, přesouvejte a odstraňujte body, slučujte více souborů, obracejte směr, přidávejte časové značky, upravujte trasové body a mnoho dalšího!" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://gpx.studio/" />
         <meta property="og:image" content="https://gpx.studio/res/og_logo.png" />
@@ -104,7 +104,7 @@
                 <div class="panels panels-val" id="tracks-val">0</div>
                 <div class="panels panels-info" id="segments">Segmenty stopy</div>
                 <div class="panels panels-val" id="segments-val">0</div>
-                <div class="panels panels-info" id="points">Body stopy</div>
+                <div class="panels panels-info" id="points">Trasové body</div>
                 <div class="panels panels-val" id="points-val">0</div>
                 <div id="units-text" class="panels panels-info">Jednotky vzdálenosti</div>
                 <select id="units-input" name="panels panels-val units-input">
@@ -128,9 +128,9 @@
         </div>
         <div id="buttons-bar" class="vcenter-leaflet">
             <div id="buttons" class="panels-container">
-                <div class="panels-button" id="edit" title="Upravit body stopy"><i class="fas fa-pencil-alt custom-button"></i></div>
+                <div class="panels-button" id="edit" title="Upravit trasové body"><i class="fas fa-pencil-alt custom-button"></i></div>
                 <div class="panels-button" id="edit-time" title="Upravit čas"><i class="fas fa-stopwatch custom-button"></i></div>
-                <div class="panels-button" id="reverse" title="Obráceně"><i class="fas fa-exchange-alt custom-button"></i></div>
+                <div class="panels-button" id="reverse" title="Obrátit"><i class="fas fa-exchange-alt custom-button"></i></div>
                 <div class="panels-button" id="combine" title="Sloučit s další trasou"><i class="fas fa-plus-circle custom-button"></i></div>
                 <div class="panels-button" id="extract" title="Extrahovat stopy nebo segmenty stop"><i class="fas fa-list-ul custom-button"></i></div>
                 <div class="panels-button" id="duplicate" title="Duplikovat"><i class="fas fa-copy custom-button"></i></div>
@@ -268,7 +268,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-palette"></i></td>
-                <td>Změňte barvu a krytí, tyto hodnoty budou exportovány a zjištěny při opětovném importu</td>
+                <td>Změňte barvu a průhlednost, tyto hodnoty budou exportovány a zjištěny při opětovném importu</td>
             </tr>
             <tr>
                 <td><i class="fas fa-folder-tree"></i></td>
@@ -387,10 +387,10 @@
                 <hr>
             </div>
             <div>
-                <div class="close-spacing">Kliknutím na jinou stopu nebo kartu s ní sloučíte aktuální stopu</div><hr>
+                <div class="close-spacing">Kliknutím na jinou stopu nebo kartu, sloučíte aktuální stopu s ní</div><hr>
                 Zvolte jak přidat druhou stopu k první
                 <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
-                    <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Sloučit jako body stopy</label><br>
+                    <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Sloučit jako trasové body</label><br>
                     <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Sloučit jako segmenty stopy</label><br>
                     <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Sloučit jako stopy</label>
                 </div>
@@ -413,7 +413,7 @@
         </div>
         <div id="structure-content" class="popup-content">
             <div class="close-spacing">Přetažením prvků změníte strukturu souboru</div>
-            <div>Přesunout prvky z nebo na záložky nad výškovým profilem</div>
+            <div>Přesunout prvky z, nebo na karty nad výškovým profilem</div>
             <div>Přejmenovat stopy nebo změnit jejich barvu</div>
             <div id="file-structure"></div>
             <div id="merge-selection" class="panels custom-button normal-button">Sloučit výběr</div>
@@ -433,7 +433,7 @@
         </div>
         <div id="zone-delete-content" class="popup-content">
             Vyberte co chcete smazat<br>
-            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Body stopy</label>
+            <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Trasové body</label>
             <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Trasové body</label><br>
             <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Vnitřní výběr</label>
             <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Vnější výběr</label><br>
@@ -464,7 +464,7 @@
                         </select></td>
                     </tr>
                     <tr>
-                        <td>Preview</td>
+                        <td>Náhled</td>
                     </tr>
                 </table>
                 <div id="preview-map" style="width: 100%; height: 200px"></div>
