@@ -395,7 +395,7 @@ export default class Buttons {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 const keys = JSON.parse(xhr.responseText);
                 _this.routing_url = keys.routing_url;
-                _this.mapbox_style = 'mapbox://styles/mapbox/outdoors-v11';
+                _this.mapbox_style = 'mapbox://styles/mapbox/outdoors-v12';
 
                 if (_this.embedding && urlParams.has('token')) {
                     _this.mapbox_token = urlParams.get('token');
@@ -603,7 +603,7 @@ export default class Buttons {
                             attribution: '&copy; <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
                             maxZoom: MAX_ZOOM,
                             accessToken: _this.mapbox_token,
-                            style: 'mapbox://styles/mapbox/outdoors-v11',
+                            style: 'mapbox://styles/mapbox/outdoors-v12',
                             interactive: true,
                             minZoom: 1,
                             dragRotate: false,
@@ -619,6 +619,12 @@ export default class Buttons {
                         _this.mapboxMap.getMapboxMap().on('load', () => {
                             _this.mapboxSKUToken = _this.mapboxMap.getMapboxMap()._requestManager._skuToken;
                             _this.mapboxgl_canvas = _this.mapboxMap._container.querySelector('.mapboxgl-canvas');
+                            _this.mapbox_logo = _this.mapboxMap._container.querySelector('.mapboxgl-ctrl');
+                            if (_this.mapbox_logo) {
+                                const attribution_control = document.querySelector('.leaflet-bottom.leaflet-left');
+                                attribution_control.insertBefore(_this.mapbox_logo, attribution_control.firstChild);
+                                if (!_this.map.hasLayer(_this.mapboxMap)) _this.mapbox_logo.style.display = 'none';
+                            }
                         });
 
                         baselayersHierarchy[_this.basemaps_text][_this.world_text]["Mapbox Outdoors"] = _this.mapboxMap;
@@ -2062,6 +2068,9 @@ export default class Buttons {
                 if (buttons.map.hasLayer(buttons.mapboxMap)) {
                     if (buttons.mapboxSatelliteSelector.checked) localStorage.setItem('lastbasemap', 'mapbox-satellite');
                     else localStorage.setItem('lastbasemap', 'mapbox');
+                    if (buttons.mapbox_logo) buttons.mapbox_logo.style.display = '';
+                } else {
+                    if (buttons.mapbox_logo) buttons.mapbox_logo.style.display = 'none';
                 }
             });
             window.addEventListener('beforeunload', function (e) {

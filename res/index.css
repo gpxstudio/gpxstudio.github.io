@@ -124,6 +124,12 @@ html, body {
     vertical-align: text-top;
 }
 
+.mapboxgl-ctrl {
+    float: right;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
 .leaflet-control-zoom a {
     font-size: 18px !important;
 }
