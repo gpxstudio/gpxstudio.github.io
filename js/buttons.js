@@ -616,15 +616,15 @@ export default class Buttons {
                             boxZoom: false
                         }).addTo(_this.map);
 
+                        _this.mapbox_logo = _this.mapboxMap._container.querySelector('.mapboxgl-ctrl');
+                        if (_this.mapbox_logo) {
+                            const attribution_control = document.querySelector('.leaflet-bottom.leaflet-left');
+                            attribution_control.insertBefore(_this.mapbox_logo, attribution_control.firstChild);
+                        }
+
                         _this.mapboxMap.getMapboxMap().on('load', () => {
                             _this.mapboxSKUToken = _this.mapboxMap.getMapboxMap()._requestManager._skuToken;
                             _this.mapboxgl_canvas = _this.mapboxMap._container.querySelector('.mapboxgl-canvas');
-                            _this.mapbox_logo = _this.mapboxMap._container.querySelector('.mapboxgl-ctrl');
-                            if (_this.mapbox_logo) {
-                                const attribution_control = document.querySelector('.leaflet-bottom.leaflet-left');
-                                attribution_control.insertBefore(_this.mapbox_logo, attribution_control.firstChild);
-                                if (!_this.map.hasLayer(_this.mapboxMap)) _this.mapbox_logo.style.display = 'none';
-                            }
                         });
 
                         baselayersHierarchy[_this.basemaps_text][_this.world_text]["Mapbox Outdoors"] = _this.mapboxMap;
@@ -691,7 +691,11 @@ export default class Buttons {
                     _this.controlLayers = L.control.layers(baselayersHierarchy, overlaysHierarchy, {editable: true}).addTo(_this.map);
 
                     if (localStorage.hasOwnProperty('lastbasemap')) {
-                        const basemap = layers[localStorage.getItem('lastbasemap')];
+                        const basemap_key = localStorage.getItem('lastbasemap');
+                        if (!basemap_key.includes('mapbox')) {
+                            _this.mapbox_logo.firstChild.style.display = 'none';
+                        }
+                        const basemap = layers[basemap_key];
                         const basemapId = _this.controlLayers.getLayerId(basemap);
                         if (basemapId) {
                             _this.controlLayers._layerControlInputs[basemapId].click();
@@ -2068,9 +2072,9 @@ export default class Buttons {
                 if (buttons.map.hasLayer(buttons.mapboxMap)) {
                     if (buttons.mapboxSatelliteSelector.checked) localStorage.setItem('lastbasemap', 'mapbox-satellite');
                     else localStorage.setItem('lastbasemap', 'mapbox');
-                    if (buttons.mapbox_logo) buttons.mapbox_logo.style.display = '';
+                    if (buttons.mapbox_logo) buttons.mapbox_logo.firstChild.style.display = '';
                 } else {
-                    if (buttons.mapbox_logo) buttons.mapbox_logo.style.display = 'none';
+                    if (buttons.mapbox_logo) buttons.mapbox_logo.firstChild.style.display = 'none';
                 }
             });
             window.addEventListener('beforeunload', function (e) {
