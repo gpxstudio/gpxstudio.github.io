@@ -692,9 +692,7 @@ export default class Buttons {
 
                     if (localStorage.hasOwnProperty('lastbasemap')) {
                         const basemap_key = localStorage.getItem('lastbasemap');
-                        if (!basemap_key.includes('mapbox')) {
-                            _this.mapbox_logo.firstChild.style.display = 'none';
-                        }
+                        if (_this.mapbox_logo && !basemap_key.includes('mapbox')) _this.mapbox_logo.firstChild.style.display = 'none';
                         const basemap = layers[basemap_key];
                         const basemapId = _this.controlLayers.getLayerId(basemap);
                         if (basemapId) {
