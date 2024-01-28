@@ -2267,8 +2267,6 @@ export default class Buttons {
     }
 
     supportsWebGL() {
-        var canvas = document.createElement("canvas");
-        var gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
-        return (gl && gl instanceof WebGLRenderingContext);
+        return mapboxgl.supported();
    };
 }
