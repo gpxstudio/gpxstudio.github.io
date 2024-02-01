@@ -247,6 +247,7 @@ export default class Buttons {
         this.overlays_text = document.getElementById('overlays-text').textContent;
         this.world_text = document.getElementById('world-text').textContent;
         this.countries_text = document.getElementById('countries-text').textContent;
+        this.bulgaria_text = document.getElementById('bulgaria-text').textContent;
         this.finland_text = document.getElementById('finland-text').textContent;
         this.france_text = document.getElementById('france-text').textContent;
         this.new_zealand_text = document.getElementById('new-zealand-text').textContent;
@@ -522,6 +523,9 @@ export default class Buttons {
                         "CyclOSM" : layers.cyclOSM
                     };
                     baselayersHierarchy[_this.basemaps_text][_this.countries_text] = {};
+                    baselayersHierarchy[_this.basemaps_text][_this.countries_text][_this.bulgaria_text] = {
+                        "BGMountains": layers.bgMountains
+                    };
                     baselayersHierarchy[_this.basemaps_text][_this.countries_text][_this.finland_text] = { "Lantmäteriverket Terrängkarta": layers.finlandTopo };
                     baselayersHierarchy[_this.basemaps_text][_this.countries_text][_this.france_text] = {
                         "IGN SCAN25" : layers.ignFrScan25,
