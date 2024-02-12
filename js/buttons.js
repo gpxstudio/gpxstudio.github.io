@@ -622,7 +622,9 @@ export default class Buttons {
                             boxZoom: false
                         }).addTo(_this.map);
 
-                        _this.mapboxMap.getMapboxMap().addControl(new MapboxLanguage());
+                        _this.mapboxMap.getMapboxMap().addControl(new MapboxLanguage({
+                            defaultLanguage: getLanguage() == 'zh' ? 'zh-Hans' : getLanguage()
+                        }));
 
                         _this.mapbox_logo = _this.mapboxMap._container.querySelector('.mapboxgl-ctrl');
                         if (_this.mapbox_logo) {
