@@ -622,6 +622,8 @@ export default class Buttons {
                             boxZoom: false
                         }).addTo(_this.map);
 
+                        _this.mapboxMap.getMapboxMap().addControl(new MapboxLanguage());
+
                         _this.mapbox_logo = _this.mapboxMap._container.querySelector('.mapboxgl-ctrl');
                         if (_this.mapbox_logo) {
                             const attribution_control = document.querySelector('.leaflet-bottom.leaflet-left');
