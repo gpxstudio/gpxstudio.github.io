@@ -140,11 +140,11 @@
                 <div class="panels-button" id="zone-delete" title="Excluir toda a seleção de dentro/fora do retângulo"><i class="fas fa-vector-square custom-button"></i></div>
                 <div class="panels-button" id="hide" title="Ocultar/reexibir a trilha"><i class="fas fa-eye-slash custom-button"></i></div>
                 <div class="panels-button" id="color" title="Alterar cor, opacidade e largura"><i class="fas fa-palette custom-button"></i></div>
-                <div class="panels-button" id="structure" title="Gerir a estrutura de arquivos"><i class="fas fa-folder-tree custom-button"></i></div>
+                <div class="panels-button" id="structure" title="Gerir a estrutura do ficheiro"><i class="fas fa-folder-tree custom-button"></i></div>
                 <div class="panels-button" id="delete" title="Apagar"><i class="fas fa-trash-alt custom-button"></i></div>
             </div>
             <div id="editing-options" class="panels-container">
-                <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Alterar opções de edição"></i>
+                <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Alternar opções de edição"></i>
                 <table class="panels">
                     <tr>
                         <td><b>Atividade</b></td>
@@ -164,7 +164,7 @@
                     </tr>
                     <tr>
                         <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Manter a velocidade média</label><br>
-                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Manter as gravações temporais originais</label></td>
+                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Manter registos de tempo originais</label></td>
                     </tr>
                 </table>
             </div>
@@ -273,7 +273,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-folder-tree"></i></td>
-                <td>Manage the file structure, drag and drop files, tracks and track segments</td>
+                <td>Gerir a estrutura do ficheiro, arrastar e largar ficheiros, percursos e segmentos de percurso</td>
             </tr>
             <tr>
                 <td><i class="fas fa-trash-alt"></i></td>
@@ -291,12 +291,12 @@
             <tr>
                 <td></td>
                 <td>F1</td>
-                <td>Show the last basemap used.</td>
+                <td>Mostrar o último mapa-base usado.</td>
             </tr>
             <tr>
                 <td></td>
                 <td>F2</td>
-                <td>Show or hide the overlays currently used.</td>
+                <td>Mostrar ou ocultar coberturas usadas atualmente.</td>
             </tr>
             <tr>
                 <td></td>
@@ -323,20 +323,20 @@
                    <col span="1">
                 </colgroup>
                 <tbody>
-                    <td><b>Export settings</b></td>
-                    <td><input type="checkbox" id="merge"> <label for="merge">Merge all traces</label></td>
+                    <td><b>Definições de exportação</b></td>
+                    <td><input type="checkbox" id="merge"> <label for="merge">Combinar todos os trajetos</label></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-time" checked> <label for="include-time">Time</label></td>
-                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Surface</label></td>
+                    <td><input type="checkbox" id="include-time" checked> <label for="include-time">Tempo</label></td>
+                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Superfície</label></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-cad" checked> <label for="include-cad">Cadence</label></td>
-                    <td><input type="checkbox" id="include-hr" checked> <label for="include-hr">Heartrate</label></td>
+                    <td><input type="checkbox" id="include-cad" checked> <label for="include-cad">Cadência</label></td>
+                    <td><input type="checkbox" id="include-hr" checked> <label for="include-hr">Frequência cardíaca</label></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Temperature</label></td>
-                    <td><input type="checkbox" id="include-power" checked> <label for="include-power">Power</label></td>
+                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Temperatura</label></td>
+                    <td><input type="checkbox" id="include-power" checked> <label for="include-power">Potência</label></td>
                 </tr>
                 </tbody>
             </table>
@@ -357,12 +357,12 @@
         </div>
         <div id="color-content" class="popup-content">
             <div style="text-align: left">
-                <label for="color-picker">Pick a new color</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
-                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Apply color to all traces</label><br>
-                <label for="opacity-slider">Opacity</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
-                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Apply opacity to all traces</label><br>
-                <label for="width-slider">Width</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
-                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Apply width to all traces</label>
+                <label for="color-picker">Escolha uma nova cor</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
+                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Aplicar cor a todos os trajetos</label><br>
+                <label for="opacity-slider">Opacidade</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
+                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Aplicar opacidade a todos os trajetos</label><br>
+                <label for="width-slider">Largura</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
+                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Aplicar largura a todos os trajetos</label>
             </div>
             <div id="validate-color" class="panels custom-button normal-button">Ok</div>
             <div id="cancel-color" class="panels custom-button normal-button"><b>Cancelar</b></div>
@@ -461,7 +461,7 @@
                         <td><label for="layer-type">Layer type</label></td>
                         <td><select id="layer-type">
                             <option value="baselayer">Mapa-base</option>
-                            <option value="overlay">Sobreposição</option>
+                            <option value="overlay">Cobertura</option>
                         </select></td>
                     </tr>
                     <tr>
@@ -630,9 +630,9 @@
         <h1>adicionar timestamps para o arquivo gpx online</h1>
         <h1>comprimir simplesmente simplifica o arquivo para reduzir os números de pontos gpx online</h1>
         <h1>visualizar e adicionar waypoints no arquivo gpx online</h1>
-        <h1>edite a actividade do Strava</h1>
-        <h1>edite a actividade do Strava</h1>
-        <h1>mesclar as atividades do Strava</h1>
+        <h1>edite a atividade do Strava</h1>
+        <h1>corrigir atividade do Strava</h1>
+        <h1>combinar atividades do Strava</h1>
         </div>
     </body>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
