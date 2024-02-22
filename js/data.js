@@ -371,6 +371,7 @@ pointsOfInterest[document.getElementById('amenities-text').innerText] = [
 	new PointOfInterest(document.getElementById('shower-text').innerText, "['amenity'='shower']", "shower", "Shower"),
 	new PointOfInterest(document.getElementById('fuel-station-text').innerText, "['amenity'='fuel']", "gas-pump", "Gas Station"),
 	new PointOfInterest(document.getElementById('parking-text').innerText, "['amenity'='parking']", "square-parking", "Parking Area"),
+    new PointOfInterest(document.getElementById('gate-text').innerText, "['barrier']", "road-barrier", "Crossing"),
 ];
 pointsOfInterest[document.getElementById('tourism-text').innerText] = [
 	new PointOfInterest(document.getElementById('attraction-text').innerText, "['tourism'='attraction']", "landmark", "Amusement Park"),
