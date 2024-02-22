@@ -812,7 +812,7 @@ export default class Buttons {
 
     updateStravaColor() {
         if (!this.stravaCookies) return;
-        layers.stravaHeatmapRide.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/all/${this.strava_color}/{z}/{x}/{y}@2x.png?Signature=${this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${this.stravaCookies['CloudFront-Policy']}`);
+        layers.stravaHeatmapAll.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/all/${this.strava_color}/{z}/{x}/{y}@2x.png?Signature=${this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${this.stravaCookies['CloudFront-Policy']}`);
         layers.stravaHeatmapRide.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/ride/${this.strava_color}/{z}/{x}/{y}@2x.png?Signature=${this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${this.stravaCookies['CloudFront-Policy']}`);
         layers.stravaHeatmapRun.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/run/${this.strava_color}/{z}/{x}/{y}@2x.png?Signature=${this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${this.stravaCookies['CloudFront-Policy']}`);
         layers.stravaHeatmapWater.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/water/${this.strava_color}/{z}/{x}/{y}@2x.png?Signature=${this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${this.stravaCookies['CloudFront-Policy']}`);
