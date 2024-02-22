@@ -496,6 +496,10 @@ export default class Buttons {
                     };
                     _this.streetView.addTo(_this.map);
 
+                    layers.stravaHeatmapAll.on('tileerror', function () {
+                        _this.updateStravaCookies();
+                    });
+
                     layers.stravaHeatmapRide.on('tileerror', function () {
                         _this.updateStravaCookies();
                     });
@@ -548,6 +552,7 @@ export default class Buttons {
                     overlaysHierarchy[_this.overlays_text][_this.world_text] = {
                         "CyclOSM Lite" : layers.cyclOSMLite,
                         "Strava Heatmap": {
+                            "All" : layers.stravaHeatmapAll,
                             "Ride" : layers.stravaHeatmapRide,
                             "Run" : layers.stravaHeatmapRun,
                             "Water" : layers.stravaHeatmapWater,
@@ -587,6 +592,7 @@ export default class Buttons {
                     overlaySelection[_this.overlays_text] = {};
                     overlaySelection[_this.overlays_text][_this.world_text] = {
                         "Strava Heatmap": {
+                            "All": true,
                             "Ride" : true,
                             "Run" : true,
                             "Water" : true,
@@ -806,6 +812,7 @@ export default class Buttons {
 
     updateStravaColor() {
         if (!this.stravaCookies) return;
+        layers.stravaHeatmapRide.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/all/${this.strava_color}/{z}/{x}/{y}@2x.png?Signature=${this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${this.stravaCookies['CloudFront-Policy']}`);
         layers.stravaHeatmapRide.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/ride/${this.strava_color}/{z}/{x}/{y}@2x.png?Signature=${this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${this.stravaCookies['CloudFront-Policy']}`);
         layers.stravaHeatmapRun.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/run/${this.strava_color}/{z}/{x}/{y}@2x.png?Signature=${this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${this.stravaCookies['CloudFront-Policy']}`);
         layers.stravaHeatmapWater.setUrl(`https://heatmap-external-{s}.strava.com/tiles-auth/water/${this.strava_color}/{z}/{x}/{y}@2x.png?Signature=${this.stravaCookies['CloudFront-Signature']}&Key-Pair-Id=${this.stravaCookies['CloudFront-Key-Pair-Id']}&Policy=${this.stravaCookies['CloudFront-Policy']}`);
