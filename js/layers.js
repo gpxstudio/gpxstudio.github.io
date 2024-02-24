@@ -184,6 +184,11 @@ const layers = {
         maxNativeZoom: 14,
         maxZoom: MAX_ZOOM,
         attribution: '&copy; <a href="https://www.strava.com" target="_blank">Strava</a>'
+    }),
+    openAip: L.tileLayer('', { // Url is set in buttons.js
+        maxNativeZoom: 14,
+        maxZoom: MAX_ZOOM,
+        attribution: '&copy; <a href="http://openaip.net/" target="_blank">OpenAIP</a>'
     })
 };
 
