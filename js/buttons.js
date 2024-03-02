@@ -234,6 +234,7 @@ export default class Buttons {
         this.speed_text = document.getElementById('speed-text').textContent;
         this.pace_text = document.getElementById('pace-text').textContent;
         this.start_text = document.getElementById('start-text').textContent;
+        this.end_text = document.getElementById('end-text').textContent;
         this.experimental_info_text = document.getElementById('experimental-info-text').innerHTML;
         this.name_text = document.getElementById('name-text').textContent;
         this.comment_text = document.getElementById('comment-text').textContent;
@@ -1028,6 +1029,22 @@ export default class Buttons {
         }
     }
 
+    toLocalDTLFormat(inDate) {
+        var mdy = inDate.toLocaleDateString().split('/'); // split "mm/dd/yyyy" into array
+        var hms = inDate.toLocaleTimeString().split(/:| /); // split "(h)h:mm:ss (AM/PM)"" into array with regex
+        if (mdy[2].length < 4) {
+            return null;
+        }
+        // vvv toLocaleTimeString() outputs in 12hr format so this converts to 24hr format
+        if (hms[3] == "PM" && hms[0] != "12") { // 12pm doesnt need adjusted
+            hms[0] = String(parseInt(hms[0]) + 12); // adds 12hrs to 1pm - 11pm (1300-2300)
+        }
+        else if (hms[3] == "AM" && hms[0] == "12") {
+            hms[0] = String(parseInt(hms[0]) - 12); // 12am represented as 12 in 12hr format but needs to be 0 in 24hr so subtract 12
+        }
+        return mdy[2] + '-' + mdy[0].padStart(2, '0') + '-' + mdy[1].padStart(2, '0') + "T" + hms[0].padStart(2, '0') + ':' + hms[1] + ':' + hms[2]; // datetime-local format needs to be "yyyy-mm-ddThh:mm:ss"
+    }
+
     addHandlersWithTotal(total) {
         this.total = total;
         this.elev.total = total;
@@ -1626,8 +1643,10 @@ export default class Buttons {
                 else content += buttons.unit_minutes_text + '/' + buttons.unit_miles_text + `</div>`;
             }
 
-            content += `<div id="start-change">`+buttons.start_text+`
-                        <input type="datetime-local" id="start-time" step="1"></div></div><br>
+            content += `<div id="start-change" style="padding-bottom:4px;">`+buttons.start_text+`
+                        <input type="datetime-local" id="start-time" step="1"></div></div>
+                        <div id="end-change">`+buttons.end_text+`
+                        <input type="datetime-local" id="end-time" step="1" style="margin-left:5px;"></div></div><br> 
                         <div style="display: flex;align-items: center; padding: 10px; border: dashed;"><div style="max-width: 200px;display: inline-block;white-space: normal;">`+buttons.experimental_info_text+`</div><input type="checkbox" id="slope-speed" style="vertical-align:super"></div><br>
                         <div id="edit-speed" class="panels custom-button normal-button">`+buttons.ok_button_text+`</div>
                         <div id="cancel-speed" class="panels custom-button normal-button"><b>`+buttons.cancel_button_text+`</b></div>`;
@@ -1645,13 +1664,49 @@ export default class Buttons {
             var minutes = document.getElementById("minutes");
             var seconds = document.getElementById("seconds");
             var slope_speed = document.getElementById("slope-speed");
+            var start = document.getElementById("start-time");
+            var end = document.getElementById("end-time");
 
             var speedChange = false;
 
+            // Change end time when start time is changed based on set speed
+            start.addEventListener("change", function () {
+                var dist = trace.getDistance() / 1000;
+                var timeMS = (dist / speed.value) * 60 * 60 * 1000; // time it takes to travel dist in milliseconds
+                var st = new Date(Date.parse(start.value));
+                var et = new Date(st.getTime() + (timeMS)); // gets end time by adding start time plus timeMS
+                end.value = buttons.toLocalDTLFormat(et);
+                /*
+                // This commentedcode would change the speed instead of the end time when start time is changed
+                var dist = trace.getDistance() / 1000;
+                var st = new Date(Date.parse(start.value));
+                var et = new Date(Date.parse(end.value));
+                var calcSpeed = dist / ((et.getTime() - st.getTime()) / 3600000); // speed in km/h or m/h depending on unit, (3,600,000 is to convert from ms to hours)
+                speed.value = calcSpeed.toFixed(3);
+                */
+            });
+
+            // Calculate speed when end time is changed based on distance over difference between start and end time
+            end.addEventListener("change", function () {
+                var dist = trace.getDistance() / 1000;
+                var st = new Date(Date.parse(start.value));
+                var et = new Date(Date.parse(end.value));
+                var calcSpeed = dist / ((et.getTime() - st.getTime()) / 3600000); // speed in km/h or m/h depending on unit, (3,600,000 is to convert from ms to hours)
+                speed.value = calcSpeed.toFixed(3);
+                speedChange = true;
+            });
+
             if (buttons.speed_units) {
-                speed.value = Math.max(1, trace.getMovingSpeed().toFixed(1));
+                speed.value = Math.max(1, trace.getMovingSpeed().toFixed(3));
                 speed.addEventListener("change", function () {
                     speedChange = true;
+                    // vvv this code calculates end time based on speed change and start time
+                    var dist = trace.getDistance() / 1000;
+                    var timeMS = (dist / speed.value) * 60 * 60 * 1000; // time it takes to travel dist in milliseconds
+                    var st = new Date(Date.parse(start.value));
+                    var et = new Date(st.getTime() + (timeMS)); // gets end time by adding start time plus timeMS
+                    end.value = buttons.toLocalDTLFormat(et);
+                    // ^^^ 
                 });
             } else {
                 var pace = Math.floor(trace.getMovingPace() / 1000);
@@ -1664,12 +1719,16 @@ export default class Buttons {
                     speedChange = true;
                 });
             }
-
+            
             var start = document.getElementById("start-time");
             if (trace.hasPoints()) {
                 const points = trace.getPoints();
                 if (points[0].meta.time) start.value = (new Date(points[0].meta.time.getTime() + offset * 60 * 60 * 1000)).toISOString().substring(0, 19);
-                else start.value = new Date().toISOString().substring(0, 19);
+                else {
+                    start.value = buttons.toLocalDTLFormat(new Date());
+                }
+
+                if (points[points.length - 1].meta.time) end.value = (new Date(points[points.length - 1].meta.time.getTime() + offset * 60 * 60 * 1000)).toISOString().substring(0, 19);
             }
 
             const ok = document.getElementById("edit-speed");
@@ -1680,7 +1739,7 @@ export default class Buttons {
                         v = Number(speed.value);
                         if (!buttons.km) v *= 1.609344;
                     } else {
-                        v = Number(minutes.value) * 60 +  Number(seconds.value);
+                        v = Number(minutes.value) * 60 + Number(seconds.value);
                         v = Math.max(v, 1);
                         if (!buttons.km) v /= 1.609344;
                         v = 1 / v; // km/s
