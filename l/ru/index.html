@@ -101,21 +101,21 @@
                 <div class="panels panels-val" id="speed-val"></div>
                 <div class="panels panels-info" id="duration">Время в движении</div>
                 <div class="panels panels-val" id="duration-val"></div>
-                <div class="panels panels-info" id="tracks">Tracks</div>
+                <div class="panels panels-info" id="tracks">Треки</div>
                 <div class="panels panels-val" id="tracks-val">0</div>
-                <div class="panels panels-info" id="segments">Track segments</div>
+                <div class="panels panels-info" id="segments">Сегменты треков</div>
                 <div class="panels panels-val" id="segments-val">0</div>
                 <div class="panels panels-info" id="points">Точки трека</div>
                 <div class="panels panels-val" id="points-val">0</div>
-                <div id="units-text" class="panels panels-info">Distance units</div>
+                <div id="units-text" class="panels panels-info">Единицы измерения расстояния</div>
                 <select id="units-input" name="panels panels-val units-input">
                     <option value="km">Метрические</option>
                     <option value="mi">Имперские</option>
                 </select>
-                <div id="speed-units-text" class="panels panels-info">Velocity units</div>
+                <div id="speed-units-text" class="panels panels-info">Единицы измерения скорости</div>
                 <select id="speed-units-input" name="panels panels-val speed-units-input">
                     <option value="speed">Скорость</option>
-                    <option value="pace">Pace</option>
+                    <option value="pace">Темп</option>
                 </select>
                 <div id="elevation-input" class="panels-button custom-button" title="Переключить профиль высоты"><i class="fas fa-minus"></i></div>
                 <div id="crop-container">
@@ -144,20 +144,20 @@
                 <div class="panels-button" id="delete" title="Удалить"><i class="fas fa-trash-alt custom-button"></i></div>
             </div>
             <div id="editing-options" class="panels-container">
-                <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Toggle editing options"></i>
+                <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Переключить настройки редактирования"></i>
                 <table class="panels">
                     <tr>
-                        <td><b>Activity</b></td>
+                        <td><b>Активность</b></td>
                         <td><select name="activity" id="activity-input" class="close-spacing">
                             <option value="Trekking-dry">Велосипед</option>
                             <option value="fastbike">Гоночный велосипед</option>
                             <option value="MTB">Горный велосипед</option>
-                            <option value="Hiking-Alpine-SAC6">Run/hike</option>
+                            <option value="Hiking-Alpine-SAC6">Бег/Хайкинг</option>
                             <option value="Car-FastEco">Мотоцикл</option>
                         </select></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><label for="routing-input"><b>Routing (follow roads)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
+                        <td colspan="2"><label for="routing-input"><b>Маршрутизация (с привязкой к дорогам)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
                     </tr>
                     <tr>
                         <td colspan="2"><label for="edit-time-strategy"><b>Time data management</b></label></td>
@@ -512,7 +512,7 @@
         <span id="segment-text">Segment</span>
         <div id="edit-speed-popup-text">
             <div id="speed-text">Скорость</div>
-            <div id="pace-text">Pace</div>
+            <div id="pace-text">Темп</div>
             <div id="start-text">Начало</div>
             <div id="experimental-info-text">Generate speed considering the slope and the activity type<br><b><i class="fas fa-exclamation-triangle"></i> erases all existing time data</b></div>
         </div>
