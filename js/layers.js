@@ -29,55 +29,55 @@ const layers = {
     swisstopo: L.tileLayer('https://wmts20.geo.admin.ch/1.0.0/ch.swisstopo.pixelkarte-farbe/default/current/3857/{z}/{x}/{y}.jpeg', {
         maxNativeZoom: 18,
         maxZoom: MAX_ZOOM,
-        attribution : '&copy; <a href="https://www.swisstopo.admin.ch" target="_blank">swisstopo</a>'
+        attribution: '&copy; <a href="https://www.swisstopo.admin.ch" target="_blank">swisstopo</a>'
     }),
     swisstopoSlope: L.tileLayer('https://wmts.geo.admin.ch/1.0.0/ch.swisstopo.hangneigung-ueber_30/default/current/3857/{z}/{x}/{y}.png', {
         maxNativeZoom: 17,
         maxZoom: MAX_ZOOM,
         opacity: 0.4,
-        attribution : '&copy; <a href="https://www.swisstopo.admin.ch" target="_blank">swisstopo</a>'
+        attribution: '&copy; <a href="https://www.swisstopo.admin.ch" target="_blank">swisstopo</a>'
     }),
     swisstopoCycling: L.tileLayer('https://wmts.geo.admin.ch/1.0.0/ch.astra.veloland/default/current/3857/{z}/{x}/{y}.png', {
         maxNativeZoom: 18,
         maxZoom: MAX_ZOOM,
-        attribution : '&copy; <a href="https://www.swisstopo.admin.ch" target="_blank">swisstopo</a>'
+        attribution: '&copy; <a href="https://www.swisstopo.admin.ch" target="_blank">swisstopo</a>'
     }),
     swisstopoMountainBike: L.tileLayer('https://wmts.geo.admin.ch/1.0.0/ch.astra.mountainbikeland/default/current/3857/{z}/{x}/{y}.png', {
         maxNativeZoom: 18,
         maxZoom: MAX_ZOOM,
-        attribution : '&copy; <a href="https://www.swisstopo.admin.ch" target="_blank">swisstopo</a>'
+        attribution: '&copy; <a href="https://www.swisstopo.admin.ch" target="_blank">swisstopo</a>'
     }),
-    ignPlanV2: L.tileLayer('https://wxs.ign.fr/cartes/geoportail/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/png&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}', {
+    ignPlanV2: L.tileLayer('https://data.geopf.fr/wmts?SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/png&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}', {
         maxNativeZoom: 18,
         maxZoom: MAX_ZOOM,
-        attribution : "IGN-F/Géoportail"
+        attribution: "IGN-F/Géoportail"
     }),
     ignFrScan25: L.tileLayer('https://wxs.ign.fr/ifj1o8jmglxpfn6p1tn4b3g1/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR&FORMAT=image/jpeg&STYLE=normal', {
         maxNativeZoom: 16,
         maxZoom: MAX_ZOOM,
-        attribution : "IGN-F/Géoportail"
+        attribution: "IGN-F/Géoportail"
     }),
-    ignSatellite: L.tileLayer('https://wxs.ign.fr/ortho/geoportail/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}', {
+    ignSatellite: L.tileLayer('https://data.geopf.fr/wmts?SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}', {
         maxNativeZoom: 19,
         maxZoom: MAX_ZOOM,
-        attribution : "IGN-F/Géoportail"
+        attribution: "IGN-F/Géoportail"
     }),
-    ignFrCadastre: L.tileLayer('https://wxs.ign.fr/parcellaire/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}&LAYER=CADASTRALPARCELS.PARCELS&FORMAT=image/png&STYLE=normal', {
+    ignFrCadastre: L.tileLayer('https://data.geopf.fr/wmts?SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}&LAYER=CADASTRALPARCELS.PARCELS&FORMAT=image/png&STYLE=normal', {
         maxNativeZoom: 20,
         maxZoom: MAX_ZOOM,
         opacity: 0.5,
-        attribution : "IGN-F/Géoportail"
+        attribution: "IGN-F/Géoportail"
     }),
-    ignSlope: L.tileLayer('https://wxs.ign.fr/altimetrie/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&TileMatrixSet=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&Layer=GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN&FORMAT=image/png&Style=normal', {
+    ignSlope: L.tileLayer('https://data.geopf.fr/wmts?SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&TileMatrixSet=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&Layer=GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN&FORMAT=image/png&Style=normal', {
         maxNativeZoom: 17,
         maxZoom: MAX_ZOOM,
         opacity: 0.4,
-        attribution : "IGN-F/Géoportail"
+        attribution: "IGN-F/Géoportail"
     }),
     ignEs: L.tileLayer('https://www.ign.es/wmts/mapa-raster?layer=MTN&style=default&tilematrixset=GoogleMapsCompatible&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image/jpeg&TileMatrix={z}&TileCol={x}&TileRow={y}', {
         maxNativeZoom: 20,
         maxZoom: MAX_ZOOM,
-        attribution : "IGN-F/Géoportail"
+        attribution: "IGN-F/Géoportail"
     }),
     ordnanceSurvey: L.tileLayer('https://api.os.uk/maps/raster/v1/zxy/Outdoor_3857/{z}/{x}/{y}.png?key=piCT8WysfuC3xLSUW7sGLfrAAJoYDvQz', {
         maxNativeZoom: 20,
@@ -187,10 +187,10 @@ const layers = {
     })
 };
 
-const overPassMinZoomOptions =  {
-        position: 'topright',
-        minZoomMessage: 'Zoom in to refresh POI'
-    };
+const overPassMinZoomOptions = {
+    position: 'topright',
+    minZoomMessage: 'Zoom in to refresh POI'
+};
 const overPassAttribution = '&copy; <a href="https://www.overpass-api.de" target="_blank">Overpass API</a>';
 const onSuccess = function (data) {
     for (let i = 0; i < data.elements.length; i++) {
@@ -287,6 +287,6 @@ for (var category in pointsOfInterest) {
             onSuccess: onSuccess,
         });
         pointsOfInterestLayerSelection[category][poi.name] = true;
-        layers["poi"+poi.query] = pointsOfInterestLayers[category][poi.name];
+        layers["poi" + poi.query] = pointsOfInterestLayers[category][poi.name];
     }
 }
