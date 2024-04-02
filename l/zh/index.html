@@ -1,37 +1,34 @@
 <!DOCTYPE html>
 <html lang="zh">
-
-<head>
-    <!-- ADD_LANGUAGE -->
-    <link rel="alternate" hreflang="x-default" href="https://gpx.studio/" />
-    <link rel="alternate" hreflang="en" href="https://gpx.studio/" />
-    <link rel="alternate" hreflang="de" href="https://gpx.studio/l/de" />
-    <link rel="alternate" hreflang="es" href="https://gpx.studio/l/es/" />
-    <link rel="alternate" hreflang="fr" href="https://gpx.studio/l/fr/" />
-    <link rel="alternate" hreflang="it" href="https://gpx.studio/l/it/" />
-    <link rel="alternate" hreflang="nl" href="https://gpx.studio/l/nl/" />
-    <link rel="alternate" hreflang="no" href="https://gpx.studio/l/no/" />
-    <link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/" />
-    <link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/" />
-    <link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/" />
-    <link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/" />
-    <link rel="alternate" hreflang="sv" href="https://gpx.studio/l/sv/" />
-    <link rel="alternate" hreflang="ca" href="https://gpx.studio/l/ca/" />
-    <link rel="alternate" hreflang="cs" href="https://gpx.studio/l/cs/" />
-    <link rel="alternate" hreflang="zh" href="https://gpx.studio/l/zh/" />
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>gpx.studio - 在线GPX文件编辑器</title>
-    <meta name="description"
-        content="在线查看、编辑和创建 GPX 文件：添加、移动和删除点、合并文件、逆向文件、添加时间戳、编辑路径点等等！">
-    <meta property="og:title" content="gpx.studio - 在线GPX文件编辑器" />
-    <meta property="og:description"
-        content="在线查看、编辑和创建 GPX 文件：添加、移动和删除点、合并文件、逆向文件、添加时间戳、编辑路径点等等！" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://gpx.studio/" />
-    <meta property="og:image" content="https://gpx.studio/res/og_logo.png" />
-    <meta name="twitter:card" content="summary_large_image">
-    <script type="application/ld+json">
+    <head>
+        <!-- ADD_LANGUAGE -->
+        <link rel="alternate" hreflang="x-default" href="https://gpx.studio/"/>
+        <link rel="alternate" hreflang="en" href="https://gpx.studio/"/>
+        <link rel="alternate" hreflang="de" href="https://gpx.studio/l/de"/>
+        <link rel="alternate" hreflang="es" href="https://gpx.studio/l/es/"/>
+        <link rel="alternate" hreflang="fr" href="https://gpx.studio/l/fr/"/>
+        <link rel="alternate" hreflang="it" href="https://gpx.studio/l/it/"/>
+        <link rel="alternate" hreflang="nl" href="https://gpx.studio/l/nl/"/>
+        <link rel="alternate" hreflang="no" href="https://gpx.studio/l/no/"/>
+        <link rel="alternate" hreflang="pt" href="https://gpx.studio/l/pt/"/>
+        <link rel="alternate" hreflang="ru" href="https://gpx.studio/l/ru/"/>
+        <link rel="alternate" hreflang="hu" href="https://gpx.studio/l/hu/"/>
+        <link rel="alternate" hreflang="pl" href="https://gpx.studio/l/pl/"/>
+        <link rel="alternate" hreflang="sv" href="https://gpx.studio/l/sv/"/>
+        <link rel="alternate" hreflang="ca" href="https://gpx.studio/l/ca/"/>
+        <link rel="alternate" hreflang="cs" href="https://gpx.studio/l/cs/"/>
+        <link rel="alternate" hreflang="zh" href="https://gpx.studio/l/zh/"/>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <title>gpx.studio - 在线GPX文件编辑器</title>
+        <meta name="description" content="在线查看、编辑和创建 GPX 文件：添加、移动和删除点、合并文件、逆向文件、添加时间戳、编辑路径点等等！">
+        <meta property="og:title" content="gpx.studio - 在线GPX文件编辑器" />
+        <meta property="og:description" content="在线查看、编辑和创建 GPX 文件：添加、移动和删除点、合并文件、逆向文件、添加时间戳、编辑路径点等等！" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://gpx.studio/" />
+        <meta property="og:image" content="https://gpx.studio/res/og_logo.png" />
+        <meta name="twitter:card" content="summary_large_image">
+        <script type="application/ld+json">
         {
             "@context" : "http://schema.org",
             "@type" : "WebApplication",
@@ -55,37 +52,29 @@
             "featureList": "edit gpx files online, view gpx files online, merge gpx files online, reverse gpx file online, add timestamps to gpx file online, extract track segments, view and add waypoints gpx file online"
         }
         </script>
-    <link rel="icon" href="/res/favicon.png">
-    <link rel="stylesheet" href="/include/fontawesome/css/fontawesome.min.css" />
-    <link rel="stylesheet" href="/include/fontawesome/css/brands.min.css" />
-    <link rel="stylesheet" href="/include/fontawesome/css/solid.min.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link href='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css' rel='stylesheet' />
-    <link rel="stylesheet" href="/include/elevation/L.Control.Heightgraph.css" />
-    <link rel="stylesheet" href="/include/controlwindow/L.Control.Window.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.css" />
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.css">
-    <link rel="stylesheet"
-        href="https://unpkg.com/leaflet-toggleable-attribution@0.0.1/src/L.Control.ToggleableAttribution.css" />
-    <link rel="stylesheet" href="https://unpkg.com/mapillary-js@4.0.0/dist/mapillary.css" />
-    <link rel="stylesheet" type="text/css" href="/res/index.css">
-</head>
-
-<body>
-    <input id="input-file" type="file" accept=".gpx" multiple style="display: none" />
-    <div id="mapid"></div>
-    <div id="mly">
-        <div id="mly-controls"><i id="mly-move" class="fas fa-arrows-alt custom-button"></i><i id="mly-close"
-                class="fas fa-times custom-button"></i></div>
-    </div>
-    <div style="display: none">
+        <link rel="icon" href="/res/favicon.png">
+        <link rel="stylesheet" href="/include/fontawesome/css/fontawesome.min.css"/>
+        <link rel="stylesheet" href="/include/fontawesome/css/brands.min.css"/>
+        <link rel="stylesheet" href="/include/fontawesome/css/solid.min.css"/>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css' rel='stylesheet' />
+        <link rel="stylesheet" href="/include/elevation/L.Control.Heightgraph.css"/>
+        <link rel="stylesheet" href="/include/controlwindow/L.Control.Window.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet-toggleable-attribution@0.0.1/src/L.Control.ToggleableAttribution.css"/>
+        <link rel="stylesheet" href="https://unpkg.com/mapillary-js@4.0.0/dist/mapillary.css" />
+        <link rel="stylesheet" type="text/css" href="/res/index.css">
+    </head>
+    <body>
+        <input id="input-file" type="file" accept=".gpx" multiple style="display: none"/>
+        <div id="mapid"></div>
+        <div id="mly"><div id="mly-controls"><i id="mly-move" class="fas fa-arrows-alt custom-button"></i><i id="mly-close" class="fas fa-times custom-button"></i></div></div>
+        <div style="display: none">
         <div id="toolbar" class="panels-container center-leaflet">
             <div id="burger-logo">
                 <i id="burger" class="fa-solid fa-bars panels custom-button"></i>
-                <img src="/res/logo.png" height="21" class="panels custom-button"
-                    style="vertical-align: middle; padding: 2px 6px 4px 6px"
-                    alt="gpx.studio标志，在线GPX文件编辑器">
+                <img src="/res/logo.png" height="21" class="panels custom-button" style="vertical-align: middle; padding: 2px 6px 4px 6px" alt="gpx.studio标志，在线GPX文件编辑器">
             </div>
             <div id="load" class="panels custom-button">加载GPX</div>
             <div id="manual" class="panels custom-button">新建GPX</div>
@@ -97,12 +86,11 @@
             <div id="clear" class="panels custom-button">清除全部</div>
             <div id="help" class="panels custom-button">帮助</div>
             <div id="about" class="panels custom-button">关于</div>
-            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>捐赠</b> <i
-                    class="fas fa-heart"></i></div>
+            <div id="donate" class="panels custom-button" style="color:rgb(220,15,130)"><b>捐赠</b> <i class="fas fa-heart"></i></div>
         </div>
         <div id="info">
             <ul id="sortable-tabs">
-                <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">全部</li>
+              <li class="tab tab-focus" id="total-tab" style="margin-right:-3px;">全部</li>
             </ul>
             <div id="info-grid" class="panels-container trace-info maximized">
                 <div class="panels panels-info" id="distance">距离</div>
@@ -129,11 +117,9 @@
                     <option value="speed">速度</option>
                     <option value="pace">配速</option>
                 </select>
-                <div id="elevation-input" class="panels-button custom-button" title="显示或隐藏高程概览"><i
-                        class="fas fa-minus"></i></div>
+                <div id="elevation-input" class="panels-button custom-button" title="显示或隐藏高程概览"><i class="fas fa-minus"></i></div>
                 <div id="crop-container">
-                    <div class="panels-button custom-button" id="validate"><i class="fas fa-check custom-button"></i>
-                    </div>
+                    <div class="panels-button custom-button" id="validate"><i class="fas fa-check custom-button"></i></div>
                 </div>
                 <div id="slide-container">
                     <input type="range" min="0" max="10000000" value="0" class="slider" id="start-point">
@@ -143,52 +129,37 @@
         </div>
         <div id="buttons-bar" class="vcenter-leaflet">
             <div id="buttons" class="panels-container">
-                <div class="panels-button" id="edit" title="编辑轨迹点"><i
-                        class="fas fa-pencil-alt custom-button"></i></div>
-                <div class="panels-button" id="edit-time" title="编辑时间"><i
-                        class="fas fa-stopwatch custom-button"></i></div>
-                <div class="panels-button" id="reverse" title="反转"><i
-                        class="fas fa-exchange-alt custom-button"></i></div>
-                <div class="panels-button" id="combine" title="与另一个轨迹合并"><i
-                        class="fas fa-plus-circle custom-button"></i></div>
-                <div class="panels-button" id="extract" title="提取轨迹或轨迹段"><i
-                        class="fas fa-list-ul custom-button"></i></div>
-                <div class="panels-button" id="duplicate" title="创建副本"><i class="fas fa-copy custom-button"></i>
-                </div>
-                <div class="panels-button" id="add-wpt" title="添加路径点"><i
-                        class="fas fa-map-marker-alt custom-button"></i></div>
-                <div class="panels-button" id="reduce" title="减少轨迹点的数量"><i
-                        class="fas fa-compress-alt custom-button"></i></div>
-                <div class="panels-button" id="zone-delete" title="删除所有矩形内/外的选择"><i
-                        class="fas fa-vector-square custom-button"></i></div>
-                <div class="panels-button" id="hide" title="隐藏或取消隐藏轨迹"><i
-                        class="fas fa-eye-slash custom-button"></i></div>
-                <div class="panels-button" id="color" title="更改颜色、不透明度和宽度"><i
-                        class="fas fa-palette custom-button"></i></div>
-                <div class="panels-button" id="structure" title="管理文件结构"><i
-                        class="fas fa-folder-tree custom-button"></i></div>
-                <div class="panels-button" id="delete" title="删除"><i class="fas fa-trash-alt custom-button"></i>
-                </div>
+                <div class="panels-button" id="edit" title="编辑轨迹点"><i class="fas fa-pencil-alt custom-button"></i></div>
+                <div class="panels-button" id="edit-time" title="编辑时间"><i class="fas fa-stopwatch custom-button"></i></div>
+                <div class="panels-button" id="reverse" title="反转"><i class="fas fa-exchange-alt custom-button"></i></div>
+                <div class="panels-button" id="combine" title="与另一个轨迹合并"><i class="fas fa-plus-circle custom-button"></i></div>
+                <div class="panels-button" id="extract" title="提取轨迹或轨迹段"><i class="fas fa-list-ul custom-button"></i></div>
+                <div class="panels-button" id="duplicate" title="创建副本"><i class="fas fa-copy custom-button"></i></div>
+                <div class="panels-button" id="add-wpt" title="添加路径点"><i class="fas fa-map-marker-alt custom-button"></i></div>
+                <div class="panels-button" id="reduce" title="减少轨迹点的数量"><i class="fas fa-compress-alt custom-button"></i></div>
+                <div class="panels-button" id="zone-delete" title="删除所有矩形内/外的选择"><i class="fas fa-vector-square custom-button"></i></div>
+                <div class="panels-button" id="hide" title="隐藏或取消隐藏轨迹"><i class="fas fa-eye-slash custom-button"></i></div>
+                <div class="panels-button" id="color" title="更改颜色、不透明度和宽度"><i class="fas fa-palette custom-button"></i></div>
+                <div class="panels-button" id="structure" title="管理文件结构"><i class="fas fa-folder-tree custom-button"></i></div>
+                <div class="panels-button" id="delete" title="删除"><i class="fas fa-trash-alt custom-button"></i></div>
             </div>
             <div id="editing-options" class="panels-container">
-                <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on"
-                    title="切换编辑选项"></i>
+                <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="切换编辑选项"></i>
                 <table class="panels">
                     <tr>
                         <td><b>活动</b></td>
                         <td><select name="activity" id="activity-input" class="close-spacing">
-                                <option value="Trekking-dry">自行车</option>
-                                <option value="fastbike">比赛自行车</option>
-                                <option value="MTB">山地自行车</option>
-                                <option value="Hiking-Alpine-SAC6">跑步/徒步</option>
-                                <option value="Car-FastEco">摩托车</option>
-                                <option value="river">Water</option>
-                                <option value="rail">Railway</option>
-                            </select></td>
+                            <option value="Trekking-dry">自行车</option>
+                            <option value="fastbike">比赛自行车</option>
+                            <option value="MTB">山地自行车</option>
+                            <option value="Hiking-Alpine-SAC6">跑步/徒步</option>
+                            <option value="Car-FastEco">摩托车</option>
+                            <option value="river">Water</option>
+                            <option value="rail">Railway</option>
+                        </select></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><label for="routing-input"><b>路由(跟随道路)</b></label><input
-                                id="routing-input" type="checkbox" name="routing" checked></td>
+                        <td colspan="2"><label for="routing-input"><b>路由(跟随道路)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
                     </tr>
                     <tr>
                         <td colspan="2"><label for="private-input"><b>Allow private roads</b> <i
@@ -199,214 +170,187 @@
                         <td colspan="2"><label for="edit-time-strategy"><b>时间数据管理</b></label></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg"
-                                checked><label for="edit-avg">Preserve the average speed</label><br>
-                            <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label
-                                for="edit-keep">Preserve the original timestamps</label>
-                        </td>
+                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
+                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preserve the original timestamps</label></td>
                     </tr>
                 </table>
             </div>
         </div>
         <div id="street-view-content">
             <div id="street-view-selector">
-                <input id="street-view-provider-google" type="radio" name="street-view-provider" value="google"> <label
-                    for="street-view-provider-google">Google</label>
-                <input id="street-view-provider-mapillary" type="radio" name="street-view-provider" value="mapillary"
-                    checked> <label for="street-view-provider-mapillary">Mapillary</label>
+                <input id="street-view-provider-google" type="radio" name="street-view-provider" value="google"> <label for="street-view-provider-google">Google</label>
+                <input id="street-view-provider-mapillary" type="radio" name="street-view-provider" value="mapillary" checked> <label for="street-view-provider-mapillary">Mapillary</label>
             </div>
-            <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;"
-                title="Open Mapillary 或 谷歌街景视图"></i>
+            <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Mapillary 或 谷歌街景视图"></i>
         </div>
-        <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button"
-                style="vertical-align: middle;"> 方向标记</label>
-        <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button"
-                style="vertical-align: middle;"> 距离标记</label>
+        <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> 方向标记</label>
+        <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> 距离标记</label>
         <div id="help-text">
-            <div style="text-align: center; font-size: 10pt; color: #476947">
-                <b>Check out the <a href="./about.html#guide" target="_blank">User Guide</a> for more info and small
-                    tutorials!</b>
-            </div><br>
-            <table style="width: 100%">
-                <colgroup>
-                    <col span="1" style="width: 11%;">
-                    <col span="1" style="width: 7%;">
-                    <col span="1" style="width: 82%;">
-                </colgroup>
-                <tbody>
-                    <tr>
-                        <td><b>加载GPX</b></td>
-                        <td>Ctrl+O</td>
-                        <td>导入和查看GPX文件(或拖放到窗口中的任何位置)</td>
-                    </tr>
-                    <tr>
-                        <td><b>新建GPX</b></td>
-                        <td>Ctrl+D</td>
-                        <td>通过在地图上放置锚点开始绘制新路由</td>
-                    </tr>
-                    <tr>
-                        <td><b>导出</b></td>
-                        <td>Ctrl+S</td>
-                        <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b>
-                            and <b>embedding code</b>. Time, heart rate, cadence, power and temperature data are
-                            automatically extended. 可选，合并所有文件 <b>按照选定的顺序</b> You can also
-                            drag a tab to your desktop to download the file.</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-reply"></i> <i class="fas fa-share"></i></td>
-                        <td>Ctrl+Z/Y</td>
-                        <td>在编辑模式下撤销和重做</td>
-                    </tr>
-                    <tr>
-                        <td><b>清除全部</b></td>
-                        <td>Ctrl+K</td>
-                        <td>删除所有轨迹</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>ESC</td>
-                        <td>退出当前菜单或工具</td>
-                    </tr>
-                </tbody>
-            </table><br>
-            <table style="width: 100%">
-                <colgroup>
-                    <col span="1" align="center" style="width:11%;">
-                    <col span="1" style="width: 89%;">
-                </colgroup>
-                <tbody>
-                    <tr>
-                        <td><i class="fas fa-pencil-alt"></i></td>
-                        <td>Enter edition mode to add, move, insert or delete (Shift+click) anchor points, right-click
-                            on anchor points for more options (split, change start, delete)</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-stopwatch"></i></td>
-                        <td>更改轨迹的速度和起始时间</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-exchange-alt"></i></td>
-                        <td>反转轨迹并调整时间戳</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-plus-circle"></i></td>
-                        <td>Merge with another trace (automatically extends time, heart rate, cadence, power and
-                            temperature data)</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-list-ul"></i></td>
-                        <td>提取所有轨迹段并为每个轨迹段创建一个轨迹</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-copy"></i></td>
-                        <td>复制轨迹</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-map-marker-alt"></i></td>
-                        <td>Add a waypoint (drag to change its location and use the buttons to edit info, duplicate or
-                            remove)</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-compress-alt"></i></td>
-                        <td>减少航迹点的数量</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-vector-square"></i></td>
-                        <td>删除矩形选区内/外的轨迹点和/或路径点</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-eye-slash"></i></td>
-                        <td>隐藏或取消隐藏轨迹</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-palette"></i></td>
-                        <td>Change the display color and opacity, these values will be exported and detected when
-                            re-imported</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-folder-tree"></i></td>
-                        <td>管理文件结构、拖放文件、轨迹和轨迹段</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-trash-alt"></i></td>
-                        <td>删除轨迹</td>
-                    </tr>
-                </tbody>
-            </table><br>
-            <table style="width: 100%">
-                <colgroup>
-                    <col span="1" style="width: 11%;">
-                    <col span="1" style="width: 7%;">
-                    <col span="1" style="width: 82%;">
-                </colgroup>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td>F1</td>
-                        <td>显示上次使用的底图。</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>F2</td>
-                        <td>显示或隐藏当前使用的叠加层。</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>F3</td>
-                        <td>Switch between routing and <i>as the crow flies</i> (straight lines between track points)
-                            when editing traces</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-chart-area"></i></td>
-                        <td>Ctrl+H</td>
-                        <td>显示或隐藏高程概览</td>
-                    </tr>
-                </tbody>
-            </table><br>
-            在底部，您可以看到一个面板，其中包含有关您导入的轨迹的信息。
-            <b>总计</b> 标签显示所有打开的轨迹合并为一个的信息。
-            <b>Swap the tabs</b> to define the order in which the traces should appear and <b>double-click</b> on them
-            to change their names.
-            当你有许多标签时，通过水平滚动来导航它们。
-            使用 <b>滑块</b> 移动起始/终点并切断路由。
+        <div style="text-align: center; font-size: 10pt; color: #476947">
+            <b>Check out the <a href="./about.html#guide" target="_blank">User Guide</a> for more info and small tutorials!</b>
+        </div><br>
+        <table style="width: 100%">
+            <colgroup>
+               <col span="1" style="width: 11%;">
+               <col span="1" style="width: 7%;">
+               <col span="1" style="width: 82%;">
+            </colgroup>
+            <tbody>
+            <tr>
+                <td><b>加载GPX</b></td>
+                <td>Ctrl+O</td>
+                <td>导入和查看GPX文件(或拖放到窗口中的任何位置)</td>
+            </tr>
+            <tr>
+                <td><b>新建GPX</b></td>
+                <td>Ctrl+D</td>
+                <td>通过在地图上放置锚点开始绘制新路由</td>
+            </tr>
+            <tr>
+                <td><b>导出</b></td>
+                <td>Ctrl+S</td>
+                <td>将文件下载到桌面或保存到谷歌云盘™，以获得 <b>可共享链接</b> 和 <b>嵌入代码</b>。 时间、心率、步频、功率和温度数据自动扩展。 可选，合并所有文件 <b>按照选定的顺序</b> 您也可以拖动标签到您的桌面下载文件。</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-reply"></i> <i class="fas fa-share"></i></td>
+                <td>Ctrl+Z/Y</td>
+                <td>在编辑模式下撤销和重做</td>
+            </tr>
+            <tr>
+                <td><b>清除全部</b></td>
+                <td>Ctrl+K</td>
+                <td>删除所有轨迹</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>ESC</td>
+                <td>退出当前菜单或工具</td>
+            </tr>
+            </tbody>
+        </table><br>
+        <table style="width: 100%">
+            <colgroup>
+               <col span="1" align="center" style="width:11%;">
+               <col span="1" style="width: 89%;">
+            </colgroup>
+            <tbody>
+            <tr>
+                <td><i class="fas fa-pencil-alt"></i></td>
+                <td>输入编辑模式以添加、移动、插入或删除 (Shift+点击) 锚点，右击锚点以获取更多选项 (拆分、更改起始、删除)</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-stopwatch"></i></td>
+                <td>更改轨迹的速度和起始时间</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-exchange-alt"></i></td>
+                <td>反转轨迹并调整时间戳</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-plus-circle"></i></td>
+                <td>与另一条轨迹合并（自动延长时间、心率、步频、功率和温度数据）</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-list-ul"></i></td>
+                <td>提取所有轨迹段并为每个轨迹段创建一个轨迹</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-copy"></i></td>
+                <td>复制轨迹</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-map-marker-alt"></i></td>
+                <td>添加路径点（拖动以更改其位置，并使用按钮编辑信息、复制或删除）</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-compress-alt"></i></td>
+                <td>减少航迹点的数量</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-vector-square"></i></td>
+                <td>删除矩形选区内/外的轨迹点和/或路径点</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-eye-slash"></i></td>
+                <td>隐藏或取消隐藏轨迹</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-palette"></i></td>
+                <td>更改显示颜色和不透明度，这些值将被导出并在重新导入时应用</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-folder-tree"></i></td>
+                <td>管理文件结构、拖放文件、轨迹和轨迹段</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-trash-alt"></i></td>
+                <td>删除轨迹</td>
+            </tr>
+            </tbody>
+        </table><br>
+        <table style="width: 100%">
+            <colgroup>
+               <col span="1" style="width: 11%;">
+               <col span="1" style="width: 7%;">
+               <col span="1" style="width: 82%;">
+            </colgroup>
+            <tbody>
+            <tr>
+                <td></td>
+                <td>F1</td>
+                <td>显示上次使用的底图。</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>F2</td>
+                <td>显示或隐藏当前使用的叠加层。</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>F3</td>
+                <td>编辑轨迹时，在路由和<i>直线</i>（轨迹点之间的直线）之间切换</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-chart-area"></i></td>
+                <td>Ctrl+H</td>
+                <td>显示或隐藏高程概览</td>
+            </tr>
+            </tbody>
+        </table><br>
+        在底部，您可以看到一个面板，其中包含有关您导入的轨迹的信息。
+        <b>总计</b> 标签显示所有打开的轨迹合并为一个的信息。
+        <b>交换标签</b>以定义轨迹的显示顺序，并<b>双击</b>以更改其名称。
+        当你有许多标签时，通过水平滚动来导航它们。
+        使用 <b>滑块</b> 移动起始/终点并切断路由。
         </div>
         <div id="export-content" class="popup-content">
             <table style="text-align: left">
                 <colgroup>
-                    <col span="1">
-                    <col span="1">
+                   <col span="1">
+                   <col span="1">
                 </colgroup>
                 <tbody>
                     <td><b>导出设置</b></td>
                     <td><input type="checkbox" id="merge"> <label for="merge">合并所有轨迹</label></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="include-time" checked> <label for="include-time">时间</label>
-                        </td>
-                        <td><input type="checkbox" id="include-surface" checked> <label
-                                for="include-surface">Surface</label></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="include-cad" checked> <label for="include-cad">步频</label>
-                        </td>
-                        <td><input type="checkbox" id="include-hr" checked> <label for="include-hr">心律</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="include-atemp" checked> <label
-                                for="include-atemp">Temperature</label></td>
-                        <td><input type="checkbox" id="include-power" checked> <label for="include-power">功率</label>
-                        </td>
-                    </tr>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" id="include-time" checked> <label for="include-time">时间</label></td>
+                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Surface</label></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" id="include-cad" checked> <label for="include-cad">步频</label></td>
+                    <td><input type="checkbox" id="include-hr" checked> <label for="include-hr">心律</label></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Temperature</label></td>
+                    <td><input type="checkbox" id="include-power" checked> <label for="include-power">功率</label></td>
+                </tr>
                 </tbody>
             </table>
-            <div style="color:#0f92c5;">&#9888;&#65039; The tool is <b>free</b> to use but <b>not free</b> to run
-                &#9888;&#65039;<br>Each map display, track point added or moved is billed.</div>
-            <div id="donate-2" class="panels custom-button fancy-button"><b>帮助保持网站免费</b> &#128591;
-            </div><br>
+            <div style="color:#0f92c5;">&#9888;&#65039; 该工具是<b>免费的</b>但运行&#9888;&#65039;<br>每个地图显示、添加或移动的轨迹点<b>不是不免费</b>都是计费的。</div>
+            <div id="donate-2" class="panels custom-button fancy-button"><b>帮助保持网站免费</b> &#128591;</div><br>
             <div id="export-2" class="panels custom-button fancy-button">下载 <i class="fas fa-download"></i></div>
-            <div id="save-drive" class="panels custom-button fancy-button">保存到 Google Drive <img
-                    src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
+            <div id="save-drive" class="panels custom-button fancy-button">保存到 Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
         </div>
         <div id="clear-content" class="popup-content">
             这将删除所有打开的轨迹。<br>继续吗？<br>
@@ -420,18 +364,12 @@
         </div>
         <div id="color-content" class="popup-content">
             <div style="text-align: left">
-                <label for="color-picker">Pick a new color</label> <input type="color" id="color-picker"
-                    class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
-                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Apply color to all
-                    traces</label><br>
-                <label for="opacity-slider">Opacity</label> <input type="range" min="0" max="1" step="0.01"
-                    id="opacity-slider" style="vertical-align: bottom"><br>
-                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Apply opacity to all
-                    traces</label><br>
-                <label for="width-slider">Width</label> <input type="range" min="1" max="10" step="1" id="width-slider"
-                    style="vertical-align: bottom"><br>
-                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Apply width to all
-                    traces</label>
+                <label for="color-picker">Pick a new color</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
+                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Apply color to all traces</label><br>
+                <label for="opacity-slider">Opacity</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
+                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Apply opacity to all traces</label><br>
+                <label for="width-slider">Width</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
+                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Apply width to all traces</label>
             </div>
             <div id="validate-color" class="panels custom-button normal-button">好的</div>
             <div id="cancel-color" class="panels custom-button normal-button"><b>取消</b></div>
@@ -439,60 +377,45 @@
         <div id="load-content" class="popup-content">
             选择文件从<br>
             <div id="load2" class="panels custom-button normal-button">桌面</div>
-            <div id="load-drive" class="panels custom-button normal-button">谷歌云盘 <img src="/res/drive.png"
-                    style="height: 15px; vertical-align: bottom"></div><br>
+            <div id="load-drive" class="panels custom-button normal-button">谷歌云盘 <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div><br>
             (或拖放到窗口中的任意位置)
         </div>
         <div id="share-content" class="popup-content">
             完成！<br>
-            <div id="copy-link" class="panels custom-button fancy-button">复制链接 <i class="fas fa-link"></i></div>
-            <br>
-            <div id="copy-embed" class="panels custom-button fancy-button">复制嵌入代码 <i
-                    class="fas fa-code"></i></div><br>
+            <div id="copy-link" class="panels custom-button fancy-button">复制链接 <i class="fas fa-link"></i></div><br>
+            <div id="copy-embed" class="panels custom-button fancy-button">复制嵌入代码 <i class="fas fa-code"></i></div><br>
         </div>
         <div id="merge-content" class="popup-content">
             <div id="merge-time-options">
                 <i class="fas fa-stopwatch"></i> 选择如何调整第二条轨迹的时间戳（如果有）
                 <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
-                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label
-                        for="merge-keep">Keep the original timestamps (as long as they come after those of the first
-                        trace)</label><br>
-                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label
-                        for="merge-stick">Make the second trace start right after the first one</label>
+                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Keep the original timestamps (as long as they come after those of the first trace)</label><br>
+                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Make the second trace start right after the first one</label>
                 </div>
                 <hr>
             </div>
             <div>
-                <div class="close-spacing">点击另一个跟踪或标签来和当前轨迹合并</div>
-                <hr>
+                <div class="close-spacing">点击另一个跟踪或标签来和当前轨迹合并</div><hr>
                 选择如何将第二个轨迹添加到第一个轨迹
                 <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
-                    <input type="radio" id="merge-as-points" name="merge-structure" checked><label
-                        for="merge-as-points">Merge as track points</label><br>
-                    <input type="radio" id="merge-as-segments" name="merge-structure"><label
-                        for="merge-as-segments">Merge as track segments</label><br>
-                    <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Merge
-                        as tracks</label>
+                    <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Merge as track points</label><br>
+                    <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Merge as track segments</label><br>
+                    <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Merge as tracks</label>
                 </div>
             </div>
         </div>
         <div id="split-content" class="popup-content">
             选择如何分割轨迹<br>
-            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Split
-                into separate files</label><br>
-            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Split into
-                separate tracks</label><br>
-            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Split into
-                separate track segments</label><br>
+            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Split into separate files</label><br>
+            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Split into separate tracks</label><br>
+            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Split into separate track segments</label><br>
             <div id="split-ok" class="panels custom-button normal-button">好的</div>
             <div id="split-cancel" class="panels custom-button normal-button"><b>取消</b></div>
         </div>
         <div id="extract-content" class="popup-content">
             选择要提取的内容<br>
-            <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label
-                for="extract-track">Tracks</label><br>
-            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label
-                for="extract-segment">Track segments</label><br>
+            <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Tracks</label><br>
+            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Track segments</label><br>
             <div id="extract-ok" class="panels custom-button normal-button">好的</div>
             <div id="extract-cancel" class="panels custom-button normal-button"><b>取消</b></div>
         </div>
@@ -519,12 +442,9 @@
         <div id="zone-delete-content" class="popup-content">
             选择要删除的<br>
             <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">轨迹点</label>
-            <input type="checkbox" id="zone-delete-waypoints" checked><label
-                for="zone-delete-waypoints">Waypoints</label><br>
-            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inside
-                selection</label>
-            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside
-                selection</label><br>
+            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
+            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">在选区内</label>
+            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
             <div id="zone-delete-ok" class="panels custom-button normal-button">继续</div>
             <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>取消</b></div>
         </div>
@@ -538,8 +458,7 @@
                     </tr>
                     <tr>
                         <td><label for="layer-url">瓦片网址</label></td>
-                        <td><input type="text" id="layer-url" placeholder="https://{s}.domain.com/{z}/{y}/{x}.png"
-                                size="35"></td>
+                        <td><input type="text" id="layer-url" placeholder="https://{s}.domain.com/{z}/{y}/{x}.png" size="35"></td>
                     </tr>
                     <tr>
                         <td><label for="layer-max-zoom">最大缩放级别</label></td>
@@ -548,9 +467,9 @@
                     <tr>
                         <td><label for="layer-type">图层类型</label></td>
                         <td><select id="layer-type">
-                                <option value="baselayer">底图</option>
-                                <option value="overlay">叠加</option>
-                            </select></td>
+                            <option value="baselayer">底图</option>
+                            <option value="overlay">叠加</option>
+                        </select></td>
                     </tr>
                     <tr>
                         <td>预览</td>
@@ -568,8 +487,7 @@
                     <option value="gray">灰色</option>
                     <option value="bluered">蓝红色</option>
                 </select><br>
-                <span>选择请求兴趣点的最小缩放级别</span> <input id="poi-min-zoom-input" type="number"
-                    min="10" max="20"><br>
+                <span>选择请求兴趣点的最小缩放级别</span> <input id="poi-min-zoom-input" type="number" min="10" max="20"><br>
                 <span>选择你想要出现在界面的图层</span>
                 <div id="layer-selection-area"></div>
                 <div id="layer-selection-ok" class="panels custom-button normal-button">保存</div>
@@ -580,10 +498,8 @@
             请检查文件格式。<br>
             <div id="load-error-ok" class="panels custom-button normal-button">好的</div>
         </div>
-        <div id="embed-content" class="panels-container custom-button"
-            style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
-            <b>在</b> 中打开 <img src="/res/logo.png" height="20" style="vertical-align: bottom;"
-                alt="gpx.studio标志，在线GPX文件编辑器">
+        <div id="embed-content" class="panels-container custom-button" style="padding: 4px 10px; margin-left: 10px; border-radius: 16px; font-size: 14px; color: #3a3a38;">
+            <b>在</b> 中打开 <img src="/res/logo.png" height="20" style="vertical-align: bottom;" alt="gpx.studio标志，在线GPX文件编辑器">
         </div>
         <div id="unit-kilometers-text">千米</div>
         <div id="unit-miles-text">英里</div>
@@ -605,8 +521,7 @@
             <div id="speed-text">速度</div>
             <div id="pace-text">配速</div>
             <div id="start-text">开始</div>
-            <div id="experimental-info-text">Generate speed considering the slope and the activity type<br><b><i
-                        class="fas fa-exclamation-triangle"></i> erases all existing time data</b></div>
+            <div id="experimental-info-text">Generate speed considering the slope and the activity type<br><b><i class="fas fa-exclamation-triangle"></i> erases all existing time data</b></div>
         </div>
         <div id="waypoint-popup-text">
             <div id="empty-title-text">空标题</div>
@@ -726,42 +641,41 @@
         <h1>编辑Strava活动</h1>
         <h1>修正Strava活动</h1>
         <h1>合并Strava活动</h1>
-    </div>
-</body>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="/include/overpasslayer/OverPassLayer.bundle.js"></script>
-<script type="text/javascript" src="/include/icon/Leaflet.Icon.Glyph.js"></script>
-<script type="text/javascript" src="/js/data.js"></script>
-<script type="module" src="/include/gpx/gpx.js"></script>
-<script src='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js'></script>
-<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-language/v1.0.0/mapbox-gl-language.js'></script>
-<script type="text/javascript" src="/include/elevation/L.Control.Heightgraph.js"></script>
-<script type="text/javascript" src="/js/elevation.js"></script>
-<script type="text/javascript" src="/include/textpath/leaflet.textpath.js"></script>
-<script type="text/javascript" src="/include/mapboxgl/leaflet-mapbox-gl.js"></script>
-<script type="text/javascript" src="/include/controlwindow/L.Control.Window.js"></script>
-<script type="text/javascript" src="/include/geometryutil/leaflet.geometryutil.js"></script>
-<script type="text/javascript" src="/include/distancemarkers/leaflet-distance-markers.js"></script>
-<script src="https://unpkg.com/leaflet-toggleable-attribution@0.0.1/src/L.Control.ToggleableAttribution.js"></script>
-<script src="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-<script src="https://unpkg.com/mapillary-js@4.0.0/dist/mapillary.js"></script>
-<script src="https://unpkg.com/leaflet.vectorgrid@1.3.0/dist/Leaflet.VectorGrid.min.js"></script>
-<script src="/include/sanitize/xss.min.js"></script>
-<script type="module" src="/include/simplify/simplify.js"></script>
-<script src="/include/driveutils/upload.js"></script>
-<script src="/js/lang.js"></script>
-<script src="/js/layers.js"></script>
-<script type="module" src="/include/node/bundle.js"></script>
-<script type="module" src="/js/slider.js"></script>
-<script type="module" src="/js/layercontrol.js"></script>
-<script type="module" src="/js/buttons.js"></script>
-<script type="module" src="/js/trace.js"></script>
-<script type="module" src="/js/total.js"></script>
-<script type="module" src="/js/google.js"></script>
-<script type="module" src="/js/script.js"></script>
-<script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
-<script src="https://accounts.google.com/gsi/client"></script>
-
+        </div>
+    </body>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/include/overpasslayer/OverPassLayer.bundle.js"></script>
+    <script type="text/javascript" src="/include/icon/Leaflet.Icon.Glyph.js"></script>
+    <script type="text/javascript" src="/js/data.js"></script>
+    <script type="module" src="/include/gpx/gpx.js"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js'></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-language/v1.0.0/mapbox-gl-language.js'></script>
+    <script type="text/javascript" src="/include/elevation/L.Control.Heightgraph.js"></script>
+    <script type="text/javascript" src="/js/elevation.js"></script>
+    <script type="text/javascript" src="/include/textpath/leaflet.textpath.js"></script>
+    <script type="text/javascript" src="/include/mapboxgl/leaflet-mapbox-gl.js"></script>
+    <script type="text/javascript" src="/include/controlwindow/L.Control.Window.js"></script>
+    <script type="text/javascript" src="/include/geometryutil/leaflet.geometryutil.js"></script>
+    <script type="text/javascript" src="/include/distancemarkers/leaflet-distance-markers.js"></script>
+    <script src="https://unpkg.com/leaflet-toggleable-attribution@0.0.1/src/L.Control.ToggleableAttribution.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder@2.3.0/dist/Control.Geocoder.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script src="https://unpkg.com/mapillary-js@4.0.0/dist/mapillary.js"></script>
+    <script src="https://unpkg.com/leaflet.vectorgrid@1.3.0/dist/Leaflet.VectorGrid.min.js"></script>
+    <script src="/include/sanitize/xss.min.js"></script>
+    <script type="module" src="/include/simplify/simplify.js"></script>
+    <script src="/include/driveutils/upload.js"></script>
+    <script src="/js/lang.js"></script>
+    <script src="/js/layers.js"></script>
+    <script type="module" src="/include/node/bundle.js"></script>
+    <script type="module" src="/js/slider.js"></script>
+    <script type="module" src="/js/layercontrol.js"></script>
+    <script type="module" src="/js/buttons.js"></script>
+    <script type="module" src="/js/trace.js"></script>
+    <script type="module" src="/js/total.js"></script>
+    <script type="module" src="/js/google.js"></script>
+    <script type="module" src="/js/script.js"></script>
+    <script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
+    <script src="https://accounts.google.com/gsi/client"></script>
 </html>
