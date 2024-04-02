@@ -1383,7 +1383,10 @@ export default class Buttons {
             if (trace.isEdited) trace.updateEditMarkers();
         });
         this.edit.addEventListener("click", function () {
-            if (total.hasFocus) return;
+            if (total.hasFocus) {
+                buttons.draw.click();
+                return;
+            }
             if (buttons.window_open) buttons.window_open.hide();
             var trace = total.traces[total.focusOn];
             if (trace.isEdited) {
