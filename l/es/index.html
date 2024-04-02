@@ -209,7 +209,7 @@
             <tr>
                 <td><b>Exportar</b></td>
                 <td>Ctrl+S</td>
-                <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Time, heart rate, cadence, power and temperature data are automatically extended. Opcionalmente, combina todos los archivos <b>en el orden</b> elegido. You can also drag a tab to your desktop to download the file.</td>
+                <td>Descarga los archivos en tu escritorio o guarda los archivos en Google Drive para obtener un <b>enlace compartido</b> y un <b>código de inserción</b>. Los datos de tiempo, ritmo cardíaco, cadencia, potencia y temperatura se extienden automáticamente. Opcionalmente, combina todos los archivos <b>en el orden</b> elegido. También puedes arrastrar la pestaña a tu escritorio para descargar el archivo.</td>
             </tr>
             <tr>
                 <td><i class="fas fa-reply"></i> <i class="fas fa-share"></i></td>
@@ -236,7 +236,7 @@
             <tbody>
             <tr>
                 <td><i class="fas fa-pencil-alt"></i></td>
-                <td>Enter edition mode to add, move, insert or delete (Shift+click) anchor points, right-click on anchor points for more options (split, change start, delete)</td>
+                <td>Activa el modo de edición para añadir, mover, insertar o eliminar (Mayús+clic) puntos de ancla, haz clic derecho en puntos de ancla para más opciones (dividir, cambiar inicio, eliminar)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-stopwatch"></i></td>
@@ -248,7 +248,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-plus-circle"></i></td>
-                <td>Merge with another trace (automatically extends time, heart rate, cadence, power and temperature data)</td>
+                <td>Combina con otro track (prolonga automáticamente el tiempo, el ritmo cardíaco, la cadencia, la potencia y los datos de la temperatura)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-list-ul"></i></td>
@@ -260,7 +260,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-map-marker-alt"></i></td>
-                <td>Add a waypoint (drag to change its location and use the buttons to edit info, duplicate or remove)</td>
+                <td>Añade un waypoint (arrastre para cambiar su ubicación y utilice los botones para editar información, duplicar o eliminar)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-compress-alt"></i></td>
@@ -276,7 +276,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-palette"></i></td>
-                <td>Change the display color and opacity, these values will be exported and detected when re-imported</td>
+                <td>Cambia el color y la opacidad, estos valores se exportarán y se detectarán cuando se vuelva a importar</td>
             </tr>
             <tr>
                 <td><i class="fas fa-folder-tree"></i></td>
@@ -308,7 +308,7 @@
             <tr>
                 <td></td>
                 <td>F3</td>
-                <td>Switch between routing and <i>as the crow flies</i> (straight lines between track points) when editing traces</td>
+                <td>Cambia entre ruteo y <i>línea recta</i> al editar los puntos del track</td>
             </tr>
             <tr>
                 <td><i class="fas fa-chart-area"></i></td>
@@ -319,7 +319,7 @@
         </table><br>
         En la parte inferior, puede ver un panel con información sobre los tracks importados.
         La pestaña <b>Total</b> muestra información sobre todos los tracks abiertos y combinados en uno.
-        <b>Swap the tabs</b> to define the order in which the traces should appear and <b>double-click</b> on them to change their names.
+        <b>Intercambia las pestañas</b> para definir el orden en el que deben aparecer los tracks y <b>haz doble clic</b> en ellos para cambiar sus nombres.
         Cuando tengas muchas pestañas, navega entre ellas desplazando la barra horizontalmente.
         Usa la <b>barra deslizante</b> para mover el punto de inicio/fin y cortar el track.
         </div>
@@ -347,7 +347,7 @@
                 </tr>
                 </tbody>
             </table>
-            <div style="color:#0f92c5;">&#9888;&#65039; The tool is <b>free</b> to use but <b>not free</b> to run &#9888;&#65039;<br>Each map display, track point added or moved is billed.</div>
+            <div style="color:#0f92c5;">&#9888;&#65039; El uso de la herramienta es <b>gratuito</b> pero su funcionamiento interno <b>no es gratuito</b> &#9888;&#65039;<br>Cada visualización del mapa y cada punto añadido o movido me es facturado.</div>
             <div id="donate-2" class="panels custom-button fancy-button"><b>Ayuda a que esta herramienta siga siendo gratuita</b> &#128591;</div><br>
             <div id="export-2" class="panels custom-button fancy-button">Descargar <i class="fas fa-download"></i></div>
             <div id="save-drive" class="panels custom-button fancy-button">Guardar en Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
@@ -396,19 +396,19 @@
             </div>
             <div>
                 <div class="close-spacing">Haz clic en otro track o pestaña para combinar con el actual track</div><hr>
-                Choose how to add the second trace to the first one
+                Elige cómo añadir el segundo track al primero
                 <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
-                    <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Merge as track points</label><br>
-                    <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Merge as track segments</label><br>
-                    <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Merge as tracks</label>
+                    <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Combinar como puntos de track</label><br>
+                <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Combinar como segmentos de track</label><br>
+                <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Combinar como tracks</label>
                 </div>
             </div>
         </div>
         <div id="split-content" class="popup-content">
             Elegir cómo dividir el track<br>
-            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Split into separate files</label><br>
-            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Split into separate tracks</label><br>
-            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Split into separate track segments</label><br>
+            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Dividir en ficheros separados</label><br>
+            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Dividir en tracks separados</label><br>
+            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Dividir en segmentos de tracks separados</label><br>
             <div id="split-ok" class="panels custom-button normal-button">Aceptar</div>
             <div id="split-cancel" class="panels custom-button normal-button"><b>Cancelar</b></div>
         </div>
@@ -443,7 +443,7 @@
             Elige qué eliminar<br>
             <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Puntos del track</label>
             <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
-            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Inside selection</label>
+            <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Selección interior</label>
             <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
             <div id="zone-delete-ok" class="panels custom-button normal-button">Continúe</div>
             <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Cancelar</b></div>
