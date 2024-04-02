@@ -187,7 +187,7 @@
         <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> 距离标记</label>
         <div id="help-text">
         <div style="text-align: center; font-size: 10pt; color: #476947">
-            <b>Check out the <a href="./about.html#guide" target="_blank">User Guide</a> for more info and small tutorials!</b>
+            <b>查看 <a href="./about.html#guide" target="_blank">用户指南</a> 了解更多信息和小教程！</b>
         </div><br>
         <table style="width: 100%">
             <colgroup>
@@ -335,14 +335,14 @@
                 </tr>
                 <tr>
                     <td><input type="checkbox" id="include-time" checked> <label for="include-time">时间</label></td>
-                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Surface</label></td>
+                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">表面</label></td>
                 </tr>
                 <tr>
                     <td><input type="checkbox" id="include-cad" checked> <label for="include-cad">步频</label></td>
                     <td><input type="checkbox" id="include-hr" checked> <label for="include-hr">心律</label></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Temperature</label></td>
+                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">温度</label></td>
                     <td><input type="checkbox" id="include-power" checked> <label for="include-power">功率</label></td>
                 </tr>
                 </tbody>
@@ -364,12 +364,12 @@
         </div>
         <div id="color-content" class="popup-content">
             <div style="text-align: left">
-                <label for="color-picker">Pick a new color</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
-                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Apply color to all traces</label><br>
-                <label for="opacity-slider">Opacity</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
-                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Apply opacity to all traces</label><br>
-                <label for="width-slider">Width</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
-                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Apply width to all traces</label>
+                <label for="color-picker">选择新颜色</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
+                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">将颜色应用于所有轨迹</label><br>
+                <label for="opacity-slider">不透明度</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
+                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">将不透明度应用于所有轨迹</label><br>
+                <label for="width-slider">宽度</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
+                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">将宽度应用于所有迹线</label>
             </div>
             <div id="validate-color" class="panels custom-button normal-button">好的</div>
             <div id="cancel-color" class="panels custom-button normal-button"><b>取消</b></div>
@@ -389,8 +389,8 @@
             <div id="merge-time-options">
                 <i class="fas fa-stopwatch"></i> 选择如何调整第二条轨迹的时间戳（如果有）
                 <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
-                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Keep the original timestamps (as long as they come after those of the first trace)</label><br>
-                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Make the second trace start right after the first one</label>
+                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">保留原始时间戳（只要它们位于第一个轨迹的时间戳之后）</label><br>
+                     <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">使第二个轨迹紧随第一个轨迹之后开始</label>
                 </div>
                 <hr>
             </div>
@@ -398,24 +398,24 @@
                 <div class="close-spacing">点击另一个跟踪或标签来和当前轨迹合并</div><hr>
                 选择如何将第二个轨迹添加到第一个轨迹
                 <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
-                    <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Merge as track points</label><br>
-                    <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Merge as track segments</label><br>
-                    <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Merge as tracks</label>
+                    <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">合并为轨迹点</label><br>
+                    <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">合并为轨迹段</label><br>
+                    <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">合并为轨迹</label>
                 </div>
             </div>
         </div>
         <div id="split-content" class="popup-content">
             选择如何分割轨迹<br>
-            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Split into separate files</label><br>
-            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Split into separate tracks</label><br>
-            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Split into separate track segments</label><br>
+            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">分割成单独的文件</label><br>
+            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">分割成单独的轨迹</label><br>
+            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">分割成单独的轨迹段</label><br>
             <div id="split-ok" class="panels custom-button normal-button">好的</div>
             <div id="split-cancel" class="panels custom-button normal-button"><b>取消</b></div>
         </div>
         <div id="extract-content" class="popup-content">
             选择要提取的内容<br>
-            <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Tracks</label><br>
-            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Track segments</label><br>
+            <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">轨迹</label><br>
+            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">轨迹段</label><br>
             <div id="extract-ok" class="panels custom-button normal-button">好的</div>
             <div id="extract-cancel" class="panels custom-button normal-button"><b>取消</b></div>
         </div>
@@ -442,9 +442,9 @@
         <div id="zone-delete-content" class="popup-content">
             选择要删除的<br>
             <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">轨迹点</label>
-            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
+            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">路径点</label><br>
             <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">在选区内</label>
-            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
+            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">在选区外</label><br>
             <div id="zone-delete-ok" class="panels custom-button normal-button">继续</div>
             <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>取消</b></div>
         </div>
@@ -521,7 +521,7 @@
             <div id="speed-text">速度</div>
             <div id="pace-text">配速</div>
             <div id="start-text">开始</div>
-            <div id="experimental-info-text">Generate speed considering the slope and the activity type<br><b><i class="fas fa-exclamation-triangle"></i> erases all existing time data</b></div>
+            <div id="experimental-info-text">生成速度时考虑斜坡和活动类型<br><b><i class="fas fa-exclamation-triangle"></i> 擦除所有现有的时间数据</b></div>
         </div>
         <div id="waypoint-popup-text">
             <div id="empty-title-text">空标题</div>
