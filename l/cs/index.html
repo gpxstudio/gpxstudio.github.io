@@ -154,17 +154,24 @@
                             <option value="MTB">Horské kolo</option>
                             <option value="Hiking-Alpine-SAC6">Chůze/běh</option>
                             <option value="Car-FastEco">Motocykl</option>
+                            <option value="river">Voda</option>
+                            <option value="rail">Železnice</option>
                         </select></td>
                     </tr>
                     <tr>
                         <td colspan="2"><label for="routing-input"><b>Trasování (po silnicích)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
                     </tr>
                     <tr>
+                        <td colspan="2"><label for="private-input"><b>Povolit soukromé komunikace</b> <i
+                                    class="fas fa-triangle-exclamation"></i></label> <input id="private-input"
+                                type="checkbox" name="private"></td>
+                    </tr>
+                    <tr>
                         <td colspan="2"><label for="edit-time-strategy"><b>Správa časových údajů</b></label></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Zachovat průměrnou rychlost</label><br>
-                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Zachovat původní časové značky</label></td>
+                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
+                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preserve the original timestamps</label></td>
                     </tr>
                 </table>
             </div>

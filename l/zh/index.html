@@ -154,17 +154,24 @@
                             <option value="MTB">山地自行车</option>
                             <option value="Hiking-Alpine-SAC6">跑步/徒步</option>
                             <option value="Car-FastEco">摩托车</option>
+                            <option value="river">Water</option>
+                            <option value="rail">Railway</option>
                         </select></td>
                     </tr>
                     <tr>
                         <td colspan="2"><label for="routing-input"><b>路由(跟随道路)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
                     </tr>
                     <tr>
+                        <td colspan="2"><label for="private-input"><b>Allow private roads</b> <i
+                                    class="fas fa-triangle-exclamation"></i></label> <input id="private-input"
+                                type="checkbox" name="private"></td>
+                    </tr>
+                    <tr>
                         <td colspan="2"><label for="edit-time-strategy"><b>时间数据管理</b></label></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">保持平均速度</label><br>
-                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">保留原始时间戳</label></td>
+                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
+                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preserve the original timestamps</label></td>
                     </tr>
                 </table>
             </div>

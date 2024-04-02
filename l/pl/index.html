@@ -154,17 +154,24 @@
                             <option value="MTB">Rower górski</option>
                             <option value="Hiking-Alpine-SAC6">Bieg/Wędrówka</option>
                             <option value="Car-FastEco">Motocykl</option>
+                            <option value="river">Water</option>
+                            <option value="rail">Railway</option>
                         </select></td>
                     </tr>
                     <tr>
                         <td colspan="2"><label for="routing-input"><b>Routing (po drogach)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
                     </tr>
                     <tr>
+                        <td colspan="2"><label for="private-input"><b>Allow private roads</b> <i
+                                    class="fas fa-triangle-exclamation"></i></label> <input id="private-input"
+                                type="checkbox" name="private"></td>
+                    </tr>
+                    <tr>
                         <td colspan="2"><label for="edit-time-strategy"><b>Zarządzanie danymi czasu</b></label></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Zachowaj średnią prędkość</label><br>
-                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Zachowaj oryginalne znaczniki czasu</label></td>
+                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
+                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preserve the original timestamps</label></td>
                     </tr>
                 </table>
             </div>
@@ -514,7 +521,7 @@
             <div id="speed-text">Prędkość</div>
             <div id="pace-text">Tempo</div>
             <div id="start-text">Początek</div>
-            <div id="experimental-info-text">Generuj prędkość z uwzględnieniem nachylenia i typu aktywności<br><b><i class="fas fa-exclamation-triangle"></i> usuwa wszystkie istniejące dane czasowe</b></div>
+            <div id="experimental-info-text">Generate speed considering the slope and the activity type<br><b><i class="fas fa-exclamation-triangle"></i> erases all existing time data</b></div>
         </div>
         <div id="waypoint-popup-text">
             <div id="empty-title-text">pusty tytuł</div>

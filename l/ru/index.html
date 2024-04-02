@@ -154,10 +154,17 @@
                             <option value="MTB">Горный велосипед</option>
                             <option value="Hiking-Alpine-SAC6">Бег/Хайкинг</option>
                             <option value="Car-FastEco">Мотоцикл</option>
+                            <option value="river">Water</option>
+                            <option value="rail">Railway</option>
                         </select></td>
                     </tr>
                     <tr>
                         <td colspan="2"><label for="routing-input"><b>Маршрутизация (с привязкой к дорогам)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><label for="private-input"><b>Allow private roads</b> <i
+                                    class="fas fa-triangle-exclamation"></i></label> <input id="private-input"
+                                type="checkbox" name="private"></td>
                     </tr>
                     <tr>
                         <td colspan="2"><label for="edit-time-strategy"><b>Time data management</b></label></td>
@@ -180,7 +187,7 @@
         <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Метки расстояния</label>
         <div id="help-text">
         <div style="text-align: center; font-size: 10pt; color: #476947">
-            <b>Ознакомьтесь с <a href="./about.html#guide" target="_blank">Руководством пользователя</a> для получения дополнительной информации!</b>
+            <b>Check out the <a href="./about.html#guide" target="_blank">User Guide</a> for more info and small tutorials!</b>
         </div><br>
         <table style="width: 100%">
             <colgroup>
@@ -435,9 +442,9 @@
         <div id="zone-delete-content" class="popup-content">
             Выберите, что удалить<br>
             <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Точки трека</label>
-            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Путевые точки</label><br>
+            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
             <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Внутри выделения</label>
-            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Снаружи выделения</label><br>
+            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
             <div id="zone-delete-ok" class="panels custom-button normal-button">Продолжить</div>
             <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Отмена</b></div>
         </div>

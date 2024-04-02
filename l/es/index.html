@@ -154,17 +154,24 @@
                             <option value="MTB">Bicicleta de montaña</option>
                             <option value="Hiking-Alpine-SAC6">Correr/Caminar</option>
                             <option value="Car-FastEco">Motocicleta</option>
+                            <option value="river">Water</option>
+                            <option value="rail">Railway</option>
                         </select></td>
                     </tr>
                     <tr>
                         <td colspan="2"><label for="routing-input"><b>Enrutamiento (seguir rutas)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
                     </tr>
                     <tr>
+                        <td colspan="2"><label for="private-input"><b>Allow private roads</b> <i
+                                    class="fas fa-triangle-exclamation"></i></label> <input id="private-input"
+                                type="checkbox" name="private"></td>
+                    </tr>
+                    <tr>
                         <td colspan="2"><label for="edit-time-strategy"><b>Gestión de datos de tiempo</b></label></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Conserva la velocidad media</label><br>
-                <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Conserva las marcas de tiempo originales</label></td>
+                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
+                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preserve the original timestamps</label></td>
                     </tr>
                 </table>
             </div>
@@ -180,7 +187,7 @@
         <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Indicadores de distancia</label>
         <div id="help-text">
         <div style="text-align: center; font-size: 10pt; color: #476947">
-            <b>¡Echa un vistazo a la <a href="./about.html#guide" target="_blank">Guía de usuario</a> para más información!</b>
+            <b>Check out the <a href="./about.html#guide" target="_blank">User Guide</a> for more info and small tutorials!</b>
         </div><br>
         <table style="width: 100%">
             <colgroup>
@@ -328,14 +335,14 @@
                 </tr>
                 <tr>
                     <td><input type="checkbox" id="include-time" checked> <label for="include-time">Tiempo</label></td>
-                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Superficie</label></td>
+                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Surface</label></td>
                 </tr>
                 <tr>
                     <td><input type="checkbox" id="include-cad" checked> <label for="include-cad">Cadencia</label></td>
                     <td><input type="checkbox" id="include-hr" checked> <label for="include-hr">Ritmo cardiaco</label></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Temperatura</label></td>
+                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Temperature</label></td>
                     <td><input type="checkbox" id="include-power" checked> <label for="include-power">Potencia</label></td>
                 </tr>
                 </tbody>
@@ -357,12 +364,12 @@
         </div>
         <div id="color-content" class="popup-content">
             <div style="text-align: left">
-                <label for="color-picker">Escoge un nuevo color</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
-                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Aplica color a todos los rastros</label><br>
-                <label for="opacity-slider">Opacidad</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
-                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Aplicar opacidad a todos los tracks</label><br>
-                <label for="width-slider">Ancho</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
-                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Aplicar ancho a todos los tracks</label>
+                <label for="color-picker">Pick a new color</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
+                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Apply color to all traces</label><br>
+                <label for="opacity-slider">Opacity</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
+                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Apply opacity to all traces</label><br>
+                <label for="width-slider">Width</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
+                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Apply width to all traces</label>
             </div>
             <div id="validate-color" class="panels custom-button normal-button">Aceptar</div>
             <div id="cancel-color" class="panels custom-button normal-button"><b>Cancelar</b></div>
@@ -382,8 +389,8 @@
             <div id="merge-time-options">
                 <i class="fas fa-stopwatch"></i> Elege cómo adaptar las marcas de tiempo del segundo track (si existe)
                 <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
-                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Mantén las marcas de tiempo originales (siempre y cuando vengan después de las del primer track)</label><br>
-                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Haz que el segundo track comience justo después del primero</label>
+                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Keep the original timestamps (as long as they come after those of the first trace)</label><br>
+                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Make the second trace start right after the first one</label>
                 </div>
                 <hr>
             </div>
@@ -408,7 +415,7 @@
         <div id="extract-content" class="popup-content">
             Elige qué extraer<br>
             <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Tracks</label><br>
-            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Segmentos de track</label><br>
+            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Track segments</label><br>
             <div id="extract-ok" class="panels custom-button normal-button">Aceptar</div>
             <div id="extract-cancel" class="panels custom-button normal-button"><b>Cancelar</b></div>
         </div>
@@ -437,7 +444,7 @@
             <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Puntos del track</label>
             <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
             <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Selección interior</label>
-            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Selección exterior</label><br>
+            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
             <div id="zone-delete-ok" class="panels custom-button normal-button">Continúe</div>
             <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Cancelar</b></div>
         </div>
@@ -514,7 +521,7 @@
             <div id="speed-text">Velocidad</div>
             <div id="pace-text">Ritmo</div>
             <div id="start-text">Inicio</div>
-            <div id="experimental-info-text">Genera la velocidad teniendo en cuenta la pendiente y el tipo de actividad<br><b><i class="fas fa-exclamation-triangle"></i> elimina todos los datos de tiempo existentes</b></div>
+            <div id="experimental-info-text">Generate speed considering the slope and the activity type<br><b><i class="fas fa-exclamation-triangle"></i> erases all existing time data</b></div>
         </div>
         <div id="waypoint-popup-text">
             <div id="empty-title-text">titulo vacío</div>

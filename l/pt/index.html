@@ -154,17 +154,24 @@
                             <option value="MTB">Bicicleta de montanha</option>
                             <option value="Hiking-Alpine-SAC6">Corrida/caminhada</option>
                             <option value="Car-FastEco">Moto</option>
+                            <option value="river">Water</option>
+                            <option value="rail">Railway</option>
                         </select></td>
                     </tr>
                     <tr>
                         <td colspan="2"><label for="routing-input"><b>Navegação (seguir estradas)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
                     </tr>
                     <tr>
+                        <td colspan="2"><label for="private-input"><b>Allow private roads</b> <i
+                                    class="fas fa-triangle-exclamation"></i></label> <input id="private-input"
+                                type="checkbox" name="private"></td>
+                    </tr>
+                    <tr>
                         <td colspan="2"><label for="edit-time-strategy"><b>Gestão dos dados de tempo</b></label></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Manter a velocidade média</label><br>
-                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Manter registos de tempo originais</label></td>
+                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
+                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preserve the original timestamps</label></td>
                     </tr>
                 </table>
             </div>
@@ -435,9 +442,9 @@
         <div id="zone-delete-content" class="popup-content">
             Escolher o que excluir<br>
             <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Pontos do percurso</label>
-            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Pontos de Parada</label><br>
+            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
             <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Dentro da seleção</label>
-            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Fora da seleção</label><br>
+            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
             <div id="zone-delete-ok" class="panels custom-button normal-button">Proceder</div>
             <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Cancelar</b></div>
         </div>

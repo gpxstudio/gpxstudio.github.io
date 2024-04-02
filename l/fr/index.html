@@ -154,17 +154,24 @@
                             <option value="MTB">VTT</option>
                             <option value="Hiking-Alpine-SAC6">Course à pied/randonnée</option>
                             <option value="Car-FastEco">Moto</option>
+                            <option value="river">Cours d'eau</option>
+                            <option value="rail">Chemins de fer</option>
                         </select></td>
                     </tr>
                     <tr>
                         <td colspan="2"><label for="routing-input"><b>Routage (suivre les routes)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
                     </tr>
                     <tr>
+                        <td colspan="2"><label for="private-input"><b>Autoriser les routes privées</b> <i
+                                    class="fas fa-triangle-exclamation"></i></label> <input id="private-input"
+                                type="checkbox" name="private"></td>
+                    </tr>
+                    <tr>
                         <td colspan="2"><label for="edit-time-strategy"><b>Gestion des données de temps</b></label></td>
                     </tr>
                     <tr>
                         <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Conserver la vitesse moyenne</label><br>
-                <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Conserver les horodatages originaux</label></td>
+                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Conserver les horodatages</label></td>
                     </tr>
                 </table>
             </div>
@@ -328,7 +335,7 @@
                 </tr>
                 <tr>
                     <td><input type="checkbox" id="include-time" checked> <label for="include-time">Temps</label></td>
-                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Surface</label></td>
+                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Revêtement</label></td>
                 </tr>
                 <tr>
                     <td><input type="checkbox" id="include-cad" checked> <label for="include-cad">Cadence</label></td>
@@ -408,7 +415,7 @@
         <div id="extract-content" class="popup-content">
             Choisissez quoi extraire<br>
             <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Tracks</label><br>
-            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Segments</label><br>
+            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Track segments</label><br>
             <div id="extract-ok" class="panels custom-button normal-button">Ok</div>
             <div id="extract-cancel" class="panels custom-button normal-button"><b>Annuler</b></div>
         </div>

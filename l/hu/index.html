@@ -154,17 +154,24 @@
                             <option value="MTB">Hegyi kerékpár</option>
                             <option value="Hiking-Alpine-SAC6">Futás/Túrázás</option>
                             <option value="Car-FastEco">Motorkerékpár</option>
+                            <option value="river">Water</option>
+                            <option value="rail">Railway</option>
                         </select></td>
                     </tr>
                     <tr>
                         <td colspan="2"><label for="routing-input"><b>Útvonaltervezés (útvonalra illesztéssel)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
                     </tr>
                     <tr>
+                        <td colspan="2"><label for="private-input"><b>Allow private roads</b> <i
+                                    class="fas fa-triangle-exclamation"></i></label> <input id="private-input"
+                                type="checkbox" name="private"></td>
+                    </tr>
+                    <tr>
                         <td colspan="2"><label for="edit-time-strategy"><b>Időadat-kezelés</b></label></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Tartsa meg az átlagos sebességet</label><br>
-                         <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Őrizze meg az eredeti adatokat</label></td>
+                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
+                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preserve the original timestamps</label></td>
                     </tr>
                 </table>
             </div>
@@ -382,8 +389,8 @@
             <div id="merge-time-options">
                 <i class="fas fa-stopwatch"></i> Válassza ki a második útvonal időbélyegeinek adaptálási módját (ha van ilyen)
                 <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
-                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Őrizze meg az eredeti időbélyegeket (ameddig azok az első nyomkövetés után jönnek)</label><br>
-                     <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">A második útvonal közvetlenül az első után kezdődjön</label>
+                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Keep the original timestamps (as long as they come after those of the first trace)</label><br>
+                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Make the second trace start right after the first one</label>
                 </div>
                 <hr>
             </div>
@@ -435,9 +442,9 @@
         <div id="zone-delete-content" class="popup-content">
             Válassza ki, mit szeretne törölni<br>
             <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Útvonal pontok</label>
-            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Útvonalpontok</label><br>
+            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
             <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Belső kiválasztás</label>
-            <input type="radio" name="where" id="zone-delete-outside">Külső választás<br>
+            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
             <div id="zone-delete-ok" class="panels custom-button normal-button">Folytassa</div>
             <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Mégsem</b></div>
         </div>
@@ -514,7 +521,7 @@
             <div id="speed-text">Sebesség</div>
             <div id="pace-text">Tempó</div>
             <div id="start-text">Rajt</div>
-            <div id="experimental-info-text">A sebesség generálása a szintkülönbség és a tevékenység típusának figyelembevételével<br><b><i class="fas fa-exclamation-triangle"></i> törli az összes meglévő időadatot</b></div>
+            <div id="experimental-info-text">Generate speed considering the slope and the activity type<br><b><i class="fas fa-exclamation-triangle"></i> erases all existing time data</b></div>
         </div>
         <div id="waypoint-popup-text">
             <div id="empty-title-text">üres cím</div>

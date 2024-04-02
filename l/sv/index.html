@@ -154,17 +154,24 @@
                             <option value="MTB">Mountainbike</option>
                             <option value="Hiking-Alpine-SAC6">Löpa/vandra</option>
                             <option value="Car-FastEco">Motorcykel</option>
+                            <option value="river">Water</option>
+                            <option value="rail">Railway</option>
                         </select></td>
                     </tr>
                     <tr>
                         <td colspan="2"><label for="routing-input"><b>Routing (följ vägar)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
                     </tr>
                     <tr>
+                        <td colspan="2"><label for="private-input"><b>Allow private roads</b> <i
+                                    class="fas fa-triangle-exclamation"></i></label> <input id="private-input"
+                                type="checkbox" name="private"></td>
+                    </tr>
+                    <tr>
                         <td colspan="2"><label for="edit-time-strategy"><b>Tidsdatahantering</b></label></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Bevara medelhastigheten</label><br>
-                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Bevara de ursprungliga tidsstämplarna</label></td>
+                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
+                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preserve the original timestamps</label></td>
                     </tr>
                 </table>
             </div>
@@ -514,7 +521,7 @@
             <div id="speed-text">Fart</div>
             <div id="pace-text">Tempo</div>
             <div id="start-text">Start</div>
-            <div id="experimental-info-text">Generera hastighet med tanke på lutningen och aktivitetstypen<br><b><i class="fas fa-exclamation-triangle"></i> raderar alla befintliga tidsdata</b></div>
+            <div id="experimental-info-text">Generate speed considering the slope and the activity type<br><b><i class="fas fa-exclamation-triangle"></i> erases all existing time data</b></div>
         </div>
         <div id="waypoint-popup-text">
             <div id="empty-title-text">tom titel</div>
