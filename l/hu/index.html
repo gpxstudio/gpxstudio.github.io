@@ -187,7 +187,7 @@
         <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Távolsági km szakaszok mutatása</label>
         <div id="help-text">
         <div style="text-align: center; font-size: 10pt; color: #476947">
-            <b>Check out the <a href="./about.html#guide" target="_blank">User Guide</a> for more info and small tutorials!</b>
+            <b>Olvasd el a<a href="./about.html#guide" target="_blank">Használati útmutatót</a> További információkért és oktató leírásokért!</b>
         </div><br>
         <table style="width: 100%">
             <colgroup>
@@ -209,7 +209,7 @@
             <tr>
                 <td><b>Gpx fájl letöltés</b></td>
                 <td>Ctrl+S</td>
-                <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Az idő, a pulzusszám, a lépés, a teljesítmény és a hőmérséklet adatok automatikusan kitöltésre kerülnek. Összes adat kiválasztása <b>adatok külön kiválasztása</b>. You can also drag a tab to your desktop to download the file.</td>
+                <td>Töltsd le a kész útvonalad számítógépedre vagy mentsd el Google Drive™-ba egy megosztott mappába <b>mappa megosztási link</b> és <b>beágyazható kód</b>. Az idő, a pulzusszám, a lépés, a teljesítmény és a hőmérséklet adatok automatikusan kitöltésre kerülnek. Összes adat kiválasztása <b>adatok külön kiválasztása</b>. Töltse le a fájlt saját gépére.</td>
             </tr>
             <tr>
                 <td><i class="fas fa-reply"></i> <i class="fas fa-share"></i></td>
@@ -248,7 +248,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-plus-circle"></i></td>
-                <td>Merge with another trace (automatically extends time, heart rate, cadence, power and temperature data)</td>
+                <td>Két útvonal egyesítése (automatikusan meghosszabbítja az időt, a pulzusszámot, a ritmus-, a teljesítmény- és a hőmérsékletadatokat)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-list-ul"></i></td>
@@ -260,7 +260,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-map-marker-alt"></i></td>
-                <td>Add a waypoint (drag to change its location and use the buttons to edit info, duplicate or remove)</td>
+                <td>Útpont hozzáadása( pl.: ezzel lehet jelölni egy pihenőt, látványosságot vagy ellenőrzőpont. Húzással módosítható az elhelyezése és a jelzésre kattintva lehet elnevezni, megjegyzést akár ábrát hozzáadni, duplikálni vagy törölni.)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-compress-alt"></i></td>
@@ -335,14 +335,14 @@
                 </tr>
                 <tr>
                     <td><input type="checkbox" id="include-time" checked> Idő</td>
-                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Surface</label></td>
+                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Felület</label></td>
                 </tr>
                 <tr>
                     <td><input type="checkbox" id="include-cad" checked> Ütem</td>
                     <td><input type="checkbox" id="include-hr" checked> Pulzus</td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Temperature</label></td>
+                    <td><input type="checkbox" id="include-atemp" checked> Hőmérséklet</td>
                     <td><input type="checkbox" id="include-power" checked> Energia</td>
                 </tr>
                 </tbody>
@@ -364,12 +364,12 @@
         </div>
         <div id="color-content" class="popup-content">
             <div style="text-align: left">
-                <label for="color-picker">Pick a new color</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
-                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Apply color to all traces</label><br>
-                <label for="opacity-slider">Opacity</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
-                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Apply opacity to all traces</label><br>
-                <label for="width-slider">Width</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
-                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Apply width to all traces</label>
+                <label for="color-picker">Válasszon új színt</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
+                 <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Útvonal szín módosítása</label><br>
+                 <label for="opacity-slider">Átlátszóság</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
+                 <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Útvonal átlátszóság módosítása </label><br>
+                 <label for="width-slider">Szélesség</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
+                 <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Útvonal szélesség módosítása</label>
             </div>
             <div id="validate-color" class="panels custom-button normal-button">Rendben</div>
             <div id="cancel-color" class="panels custom-button normal-button"><b>Mégsem</b></div>
@@ -398,24 +398,24 @@
                 <div class="close-spacing">Kattintson egy másik útvonalra vagy útvonal fülre, hogy az aktuális útvonalat egyesítse vele</div><hr>
                 Válassza ki, hogyan szeretne egyesíteni két útvonalat
                 <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
-                    <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Merge as track points</label><br>
-                    <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Merge as track segments</label><br>
-                    <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Merge as tracks</label>
+                    <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Egyesítés egy útvonalként</label><br>
+                 <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Egyesítse számszakaszként</label><br>
+                 <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Egyesítés számként</label>
                 </div>
             </div>
         </div>
         <div id="split-content" class="popup-content">
             Válassza ki a útvonal szétvágásának módját<br>
-            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Split into separate files</label><br>
-            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Split into separate tracks</label><br>
-            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Split into separate track segments</label><br>
+            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Szétvágás külön fájlokra</label><br>
+            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Szétvágás külön útvonalakra</label><br>
+            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Szétvágás külön útvonal szegmensekre</label><br>
             <div id="split-ok" class="panels custom-button normal-button">Rendben</div>
             <div id="split-cancel" class="panels custom-button normal-button"><b>Mégsem</b></div>
         </div>
         <div id="extract-content" class="popup-content">
             Válassza ki, hogy mit szeretne kitörölni<br>
-            <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Tracks</label><br>
-            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Track segments</label><br>
+            <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Útvonalak</label><br>
+            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment"> Útvonal szegmens</label><br>
             <div id="extract-ok" class="panels custom-button normal-button">Rendben</div>
             <div id="extract-cancel" class="panels custom-button normal-button"><b>Mégsem</b></div>
         </div>
