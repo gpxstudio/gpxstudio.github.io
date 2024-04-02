@@ -154,15 +154,15 @@
                             <option value="MTB">VTT</option>
                             <option value="Hiking-Alpine-SAC6">Course à pied/randonnée</option>
                             <option value="Car-FastEco">Moto</option>
-                            <option value="river">Water</option>
-                            <option value="rail">Railway</option>
+                            <option value="river">Cours d'eau</option>
+                            <option value="rail">Chemins de fer</option>
                         </select></td>
                     </tr>
                     <tr>
                         <td colspan="2"><label for="routing-input"><b>Routage (suivre les routes)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><label for="private-input"><b>Allow private roads</b> <i
+                        <td colspan="2"><label for="private-input"><b>Autoriser les routes privées</b> <i
                                     class="fas fa-triangle-exclamation"></i></label> <input id="private-input"
                                 type="checkbox" name="private"></td>
                     </tr>
@@ -209,7 +209,7 @@
             <tr>
                 <td><b>Exporter</b></td>
                 <td>Ctrl+S</td>
-                <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. Les données de temps, fréquence cardiaque, cadence, puissance et température sont automatiquement étendues. Optionnellement, fusionnez tous les fichiers <b>dans l'ordre choisi</b>. You can also drag a tab to your desktop to download the file.</td>
+                <td>Télécharger les fichiers sur votre bureau ou sauvegardez sur Google Drive™ pour obtenir un <b>lien de partage</b> et un <b>code d'intégration</b>. Les données de temps, fréquence cardiaque, cadence, puissance et température sont automatiquement étendues. Optionnellement, fusionnez tous les fichiers <b>dans l'ordre choisi</b>. Vous pouvez également glisser et déposer un onglet sur votre bureau pour télécharger le fichier.</td>
             </tr>
             <tr>
                 <td><i class="fas fa-reply"></i> <i class="fas fa-share"></i></td>
@@ -248,7 +248,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-plus-circle"></i></td>
-                <td>Merge with another trace (automatically extends time, heart rate, cadence, power and temperature data)</td>
+                <td>Fusionner avec une autre trace (étend automatiquement les données de temps, fréquence cardiaque, cadence, puissance et température)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-list-ul"></i></td>
@@ -260,7 +260,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-map-marker-alt"></i></td>
-                <td>Add a waypoint (drag to change its location and use the buttons to edit info, duplicate or remove)</td>
+                <td>Ajouter un point d'intérêt (faire glisser pour changer sa position et utiliser les boutons pour modifier les informations, dupliquer ou supprimer)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-compress-alt"></i></td>
@@ -276,7 +276,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-palette"></i></td>
-                <td>Change the display color and opacity, these values will be exported and detected when re-imported</td>
+                <td>Changer la couleur et l'opacité de la trace, ces valeurs seront exportées et détectées lors de la réimportation</td>
             </tr>
             <tr>
                 <td><i class="fas fa-folder-tree"></i></td>
@@ -308,7 +308,7 @@
             <tr>
                 <td></td>
                 <td>F3</td>
-                <td>Switch between routing and <i>as the crow flies</i> (straight lines between track points) when editing traces</td>
+                <td>Basculer entre le routage et le <i>vol d'oiseau</i> (lignes droites entre les points de passage) lors de l'édition de traces</td>
             </tr>
             <tr>
                 <td><i class="fas fa-chart-area"></i></td>
@@ -319,7 +319,7 @@
         </table><br>
         En bas de l'écran, vous pouvez voir un panneau contenant des informations sur les traces que vous importez.
         L'onglet <b>Total</b> affiche les données sur l'ensemble des traces ouvertes.
-        <b>Swap the tabs</b> to define the order in which the traces should appear and <b>double-click</b> on them to change their names.
+        <b>Échanger les onglets</b> pour définir l'ordre dans lequel les traces doivent apparaître et <b>double-cliquez sur</b> dessus pour les renommer.
         Lorsque vous avez beaucoup d'onglets, vous pouvez les faire défiler horizontalement.
         Utilisez le <b>slider</b> pour déplacer le point de départ/arrivée et couper la route.
         </div>
@@ -347,7 +347,7 @@
                 </tr>
                 </tbody>
             </table>
-            <div style="color:#0f92c5;">&#9888;&#65039; The tool is <b>free</b> to use but <b>not free</b> to run &#9888;&#65039;<br>Each map display, track point added or moved is billed.</div>
+            <div style="color:#0f92c5;">&#9888;&#65039; L'outil est <b>gratuit</b> d'utilisation mais <b>coûte de l'argent</b> &#9888;&#65039;<br>Chaque chargement de carte, point de passage ajouté ou déplacé est facturé.</div>
             <div id="donate-2" class="panels custom-button fancy-button"><b>Aidez à garder le site gratuit</b> &#128591;</div><br>
             <div id="export-2" class="panels custom-button fancy-button">Télécharger <i class="fas fa-download"></i></div>
             <div id="save-drive" class="panels custom-button fancy-button">Enregistrer dans Google Drive <img src="/res/drive.png" style="height: 15px; vertical-align: bottom"></div>
@@ -398,17 +398,17 @@
                 <div class="close-spacing">Cliquez sur une autre trace ou sur un autre onglet pour fusionner la trace actuelle avec la trace correspondante</div><hr>
                 Choisissez comment fusionner la seconde trace avec la première
                 <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
-                    <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Merge as track points</label><br>
-                    <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Merge as track segments</label><br>
-                    <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Merge as tracks</label>
+                    <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Fusionner les points</label><br>
+                <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Fusionner les segments</label><br>
+                <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Fusionner les tracks</label>
                 </div>
             </div>
         </div>
         <div id="split-content" class="popup-content">
             Choisisser comment diviser la trace<br>
-            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Split into separate files</label><br>
-            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Split into separate tracks</label><br>
-            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Split into separate track segments</label><br>
+            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Diviser en traces distinctes</label><br>
+            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Diviser en tracks distinctes</label><br>
+            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Diviser en segments distincts</label><br>
             <div id="split-ok" class="panels custom-button normal-button">Ok</div>
             <div id="split-cancel" class="panels custom-button normal-button"><b>Annuler</b></div>
         </div>
