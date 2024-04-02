@@ -209,7 +209,7 @@
             <tr>
                 <td><b>Esporta</b></td>
                 <td>Ctrl+S</td>
-                <td>Download the files to your desktop or save to Google Drive™ to get a <b>shareable link</b> and <b>embedding code</b>. I dati sul tempo, la frequenza cardiaca, la cadenza, la potenza e la temperatura vengono estesi automaticamente. Facoltativamente, puoi unire tutti i file <b>nell'ordine in cui sono visualizzati nelle schede</b>. You can also drag a tab to your desktop to download the file.</td>
+                <td>Scarica i file sul tuo dispositivo o salvali in Google Drive™ per ottenere un <b>link condivisibile</b> e un <b>codice di incorporamento</b>. I dati sul tempo, la frequenza cardiaca, la cadenza, la potenza e la temperatura vengono estesi automaticamente. Facoltativamente, puoi unire tutti i file <b>nell'ordine in cui sono visualizzati nelle schede</b>. Puoi anche trascinare una scheda sul tuo computer per scaricare il file.</td>
             </tr>
             <tr>
                 <td><i class="fas fa-reply"></i> <i class="fas fa-share"></i></td>
@@ -248,7 +248,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-plus-circle"></i></td>
-                <td>Merge with another trace (automatically extends time, heart rate, cadence, power and temperature data)</td>
+                <td>Unisci ad un'altra traccia (i dati sul tempo, la frequenza cardiaca, la cadenza, la potenza e la temperatura verranno estesi automaticamente)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-list-ul"></i></td>
@@ -260,7 +260,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-map-marker-alt"></i></td>
-                <td>Add a waypoint (drag to change its location and use the buttons to edit info, duplicate or remove)</td>
+                <td>Aggiungi un waypoint (trascinalo per cambiarne la posizione e usa i pulsanti visualizzati per modificarne le impostazioni, duplicarlo o rimuoverlo)</td>
             </tr>
             <tr>
                 <td><i class="fas fa-compress-alt"></i></td>
@@ -335,14 +335,14 @@
                 </tr>
                 <tr>
                     <td><input type="checkbox" id="include-time" checked> <label for="include-time">Dati temporali</label></td>
-                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Surface</label></td>
+                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Superficie</label></td>
                 </tr>
                 <tr>
                     <td><input type="checkbox" id="include-cad" checked> <label for="include-cad">Cadenza</label></td>
                     <td><input type="checkbox" id="include-hr" checked> <label for="include-hr">Frequenza cardiaca</label></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Temperature</label></td>
+                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Temperatura</label></td>
                     <td><input type="checkbox" id="include-power" checked> <label for="include-power">Potenza</label></td>
                 </tr>
                 </tbody>
@@ -364,12 +364,12 @@
         </div>
         <div id="color-content" class="popup-content">
             <div style="text-align: left">
-                <label for="color-picker">Pick a new color</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
-                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Apply color to all traces</label><br>
-                <label for="opacity-slider">Opacity</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
-                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Apply opacity to all traces</label><br>
-                <label for="width-slider">Width</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
-                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Apply width to all traces</label>
+                <label for="color-picker">Scegli un nuovo colore</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
+                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Applica colore a tutte le tracce</label><br>
+                <label for="opacity-slider">Opacità</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
+                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Applica opacità a tutte le tracce</label><br>
+                <label for="width-slider">Larghezza</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
+                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Applica larghezza a tutte le tracce</label>
             </div>
             <div id="validate-color" class="panels custom-button normal-button">Ok</div>
             <div id="cancel-color" class="panels custom-button normal-button"><b>Annulla</b></div>
@@ -389,8 +389,8 @@
             <div id="merge-time-options">
                 <i class="fas fa-stopwatch"></i> Scegli come adattare i timestamp della seconda traccia (se presenti)
                 <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
-                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Keep the original timestamps (as long as they come after those of the first trace)</label><br>
-                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Make the second trace start right after the first one</label>
+                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Mantenere i timestamp originali (purché siano successivi a quelli della prima traccia)</label><br>
+                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Fare in modo che la seconda traccia inizi subito dopo la prima</label>.
                 </div>
                 <hr>
             </div>
@@ -398,17 +398,17 @@
                 <div class="close-spacing">Clicca su un'altra traccia o su un'altra scheda per unirla con la traccia corrente</div><hr>
                 Scegli come unire la seconda traccia alla prima
                 <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
-                    <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Merge as track points</label><br>
-                    <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Merge as track segments</label><br>
-                    <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Merge as tracks</label>
+                    <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Unisci come punti traccia</label><br>
+                    <input type="radio" id="merge-as-segments" name="merge-structure"><label for="merge-as-segments">Unisci come segmenti di traccia</label><br>
+                    <input type="radio" id="merge-as-tracks" name="merge-structure"><label for="merge-as-tracks">Unisci come tracce</label>
                 </div>
             </div>
         </div>
         <div id="split-content" class="popup-content">
             Scegli come dividere la traccia<br>
-            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Split into separate files</label><br>
-            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Split into separate tracks</label><br>
-            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Split into separate track segments</label><br>
+            <input type="radio" id="split-as-files" name="split-structure" checked><label for="split-as-files">Dividi in file diversi</label><br>
+            <input type="radio" id="split-as-tracks" name="split-structure"><label for="split-as-tracks">Dividi in tracce diverse</label><br>
+            <input type="radio" id="split-as-segments" name="split-structure"><label for="split-as-segments">Dividi in segmenti diversi</label><br>
             <div id="split-ok" class="panels custom-button normal-button">Ok</div>
             <div id="split-cancel" class="panels custom-button normal-button"><b>Annulla</b></div>
         </div>
