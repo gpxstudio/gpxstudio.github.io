@@ -9,6 +9,7 @@ export default class Buttons {
         this.speed_units = localStorage.hasOwnProperty('speed') ? localStorage.getItem('speed') == 'true' : true;
         this.activity = localStorage.hasOwnProperty('activity') ? localStorage.getItem('activity') : document.getElementById('activity-input').children[0].value;
         this.routing = localStorage.hasOwnProperty('routing') ? localStorage.getItem('routing') == 'true' : true;
+        this.private = localStorage.hasOwnProperty('private') ? localStorage.getItem('private') == 'true' : false;
         this.strava_color = localStorage.hasOwnProperty('strava-color') ? localStorage.getItem('strava-color') : 'bluered';
         this.poi_min_zoom = localStorage.hasOwnProperty('poi-min-zoom') ? parseInt(localStorage.getItem('poi-min-zoom')) : 14;
         this.keep_timestamps = false;
@@ -51,7 +52,7 @@ export default class Buttons {
                     locationFound = true;
                 }
             });
-            this.map.locate({setView: true, maximumAge: 100000});
+            this.map.locate({ setView: true, maximumAge: 100000 });
         }
 
         // BUTTONS
@@ -163,6 +164,7 @@ export default class Buttons {
         this.tracks = document.getElementById("tracks-val");
         this.activity_input = document.getElementById("activity-input");
         this.routing_input = document.getElementById("routing-input");
+        this.private_input = document.getElementById("private-input");
         this.strava_color_input = document.getElementById("strava-color-input");
         this.poi_min_zoom_input = document.getElementById("poi-min-zoom-input");
         this.units_input = document.getElementById("units-input");
@@ -261,22 +263,22 @@ export default class Buttons {
         this.custom_text = document.getElementById('custom-text').textContent;
 
         // WINDOWS
-        this.help_window = L.control.window(this.map,{title:'',content:this.help_text,className:'panels-container'});
-        this.export_window = L.control.window(this.map,{title:'',content:this.export_content,className:'panels-container'});
-        this.clear_window = L.control.window(this.map,{title:'',content:this.clear_content,className:'panels-container',closeButton:false});
-        this.delete_window = L.control.window(this.map,{title:'',content:this.delete_content,className:'panels-container',closeButton:false});
-        this.zone_delete_window = L.control.window(this.map,{title:'',content:this.zone_delete_content,className:'panels-container',closeButton:false});
-        this.color_window = L.control.window(this.map,{title:'',content:this.color_content,className:'panels-container',closeButton:false});
-        this.reduce_window = L.control.window(this.map,{title:'',content:this.reduce_content,className:'panels-container',closeButton:false});
-        this.load_window = L.control.window(this.map,{title:'',content:this.load_content,className:'panels-container'});
-        this.load_error_window = L.control.window(this.map,{title:'',content:this.load_error_content,className:'panels-container',closeButton:false});
-        this.share_window = L.control.window(this.map,{title:'',content:this.share_content,className:'panels-container'});
-        this.merge_window = L.control.window(this.map,{title:'',content:this.merge_content,className:'panels-container'});
-        this.split_window = L.control.window(this.map,{title:'',content:this.split_content,className:'panels-container'});
-        this.extract_window = L.control.window(this.map,{title:'',content:this.extract_content,className:'panels-container',closeButton:false});
-        this.structure_window = L.control.window(this.map,{title:'',content:this.structure_content,className:'panels-container'});
-        this.crop_window = L.control.window(this.map,{title:'',content:this.crop_content,className:'panels-container',closeButton:false});
-        this.layer_selection_window = L.control.window(this.map,{title:'',content:this.layer_selection_content,className:'panels-container'});
+        this.help_window = L.control.window(this.map, { title: '', content: this.help_text, className: 'panels-container' });
+        this.export_window = L.control.window(this.map, { title: '', content: this.export_content, className: 'panels-container' });
+        this.clear_window = L.control.window(this.map, { title: '', content: this.clear_content, className: 'panels-container', closeButton: false });
+        this.delete_window = L.control.window(this.map, { title: '', content: this.delete_content, className: 'panels-container', closeButton: false });
+        this.zone_delete_window = L.control.window(this.map, { title: '', content: this.zone_delete_content, className: 'panels-container', closeButton: false });
+        this.color_window = L.control.window(this.map, { title: '', content: this.color_content, className: 'panels-container', closeButton: false });
+        this.reduce_window = L.control.window(this.map, { title: '', content: this.reduce_content, className: 'panels-container', closeButton: false });
+        this.load_window = L.control.window(this.map, { title: '', content: this.load_content, className: 'panels-container' });
+        this.load_error_window = L.control.window(this.map, { title: '', content: this.load_error_content, className: 'panels-container', closeButton: false });
+        this.share_window = L.control.window(this.map, { title: '', content: this.share_content, className: 'panels-container' });
+        this.merge_window = L.control.window(this.map, { title: '', content: this.merge_content, className: 'panels-container' });
+        this.split_window = L.control.window(this.map, { title: '', content: this.split_content, className: 'panels-container' });
+        this.extract_window = L.control.window(this.map, { title: '', content: this.extract_content, className: 'panels-container', closeButton: false });
+        this.structure_window = L.control.window(this.map, { title: '', content: this.structure_content, className: 'panels-container' });
+        this.crop_window = L.control.window(this.map, { title: '', content: this.crop_content, className: 'panels-container', closeButton: false });
+        this.layer_selection_window = L.control.window(this.map, { title: '', content: this.layer_selection_content, className: 'panels-container' });
 
         this.zoom = L.control.zoom({
             position: 'topright'
@@ -287,12 +289,12 @@ export default class Buttons {
         // ELEVATION PROFILE
         this.elev = L.control.heightgraph({
             width: 100,
-        	height: 100,
-            margins:{
-                top:15,
-                right:10,
-                bottom:30,
-                left:60
+            height: 100,
+            margins: {
+                top: 15,
+                right: 10,
+                bottom: 30,
+                left: 60
             },
             expandControls: false,
             translation: {
@@ -333,7 +335,7 @@ export default class Buttons {
                 else this.multipleEmbedding = true;
             }
 
-            this.toolbar = L.control({position: 'topleft'});
+            this.toolbar = L.control({ position: 'topleft' });
             this.toolbar.onAdd = function (map) {
                 var div = _this.embed_content;
                 L.DomEvent.disableClickPropagation(div);
@@ -342,10 +344,10 @@ export default class Buttons {
             this.toolbar.addTo(this.map);
 
             this.embed_content.addEventListener('click', function () {
-                window.open(queryString.replace('&embed','').replace('embed&','').replace('embed',''));
+                window.open(queryString.replace('&embed', '').replace('embed&', '').replace('embed', ''));
             });
         } else {
-            this.toolbar = L.control({position: 'topleft'});
+            this.toolbar = L.control({ position: 'topleft' });
             this.toolbar.onAdd = function (map) {
                 var div = _this.toolbar_content;
                 L.DomEvent.disableClickPropagation(div);
@@ -353,7 +355,7 @@ export default class Buttons {
             };
             this.toolbar.addTo(this.map);
 
-            this.buttonbar = L.control({position: 'topleft'});
+            this.buttonbar = L.control({ position: 'topleft' });
             this.buttonbar.onAdd = function (map) {
                 var div = _this.buttons_bar;
                 L.DomEvent.disableClickPropagation(div);
@@ -365,7 +367,7 @@ export default class Buttons {
 
         }
 
-        this.trace_info = L.control({position: 'bottomleft'});
+        this.trace_info = L.control({ position: 'bottomleft' });
         this.trace_info.onAdd = function (map) {
             var div = _this.trace_info_content;
             L.DomEvent.disableClickPropagation(div);
@@ -392,7 +394,7 @@ export default class Buttons {
         this.addHandlers();
 
         var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 const keys = JSON.parse(xhr.responseText);
                 _this.routing_url = keys.routing_url;
@@ -443,33 +445,33 @@ export default class Buttons {
                         else if (mapSource == 'satellite' && urlParams.has('token') && _this.supportsWebGL()) {
                             _this.mapboxMap.addTo(_this.map);
                             _this.mapboxMap.options.style = "mapbox://styles/mapbox/satellite-v9";
-                            _this.mapboxMap.getMapboxMap().setStyle("mapbox://styles/mapbox/satellite-v9", {diff: false});
+                            _this.mapboxMap.getMapboxMap().setStyle("mapbox://styles/mapbox/satellite-v9", { diff: false });
                         } else layers.openStreetMap.addTo(_this.map);
                     } else if (urlParams.has('token') && _this.supportsWebGL()) _this.mapboxMap.addTo(_this.map);
                     else layers.openStreetMap.addTo(_this.map);
 
                     if (urlParams.has('token') && _this.supportsWebGL()) {
                         _this.controlLayers = L.control.layers({
-                            [_this.custom_style ? "Mapbox" : "Mapbox Outdoors"] : _this.mapboxMap,
-                            "Mapbox Satellite" : _this.mapboxMap,
-                            "OpenStreetMap" : layers.openStreetMap,
-                            "OpenTopoMap" : layers.openTopoMap,
-                            "OpenHikingMap" : layers.openHikingMap,
+                            [_this.custom_style ? "Mapbox" : "Mapbox Outdoors"]: _this.mapboxMap,
+                            "Mapbox Satellite": _this.mapboxMap,
+                            "OpenStreetMap": layers.openStreetMap,
+                            "OpenTopoMap": layers.openTopoMap,
+                            "OpenHikingMap": layers.openHikingMap,
                         }).addTo(_this.map);
 
                         _this.addSwitchMapboxLayers();
                     } else {
                         _this.controlLayers = L.control.layers({
-                            "OpenStreetMap" : layers.openStreetMap,
-                            "OpenTopoMap" : layers.openTopoMap,
-                            "OpenHikingMap" : layers.openHikingMap,
+                            "OpenStreetMap": layers.openStreetMap,
+                            "OpenTopoMap": layers.openTopoMap,
+                            "OpenHikingMap": layers.openHikingMap,
                         }).addTo(_this.map);
                     }
                 } else {
                     _this.geocoderControl = L.Control.geocoder({
                         defaultMarkGeocode: false,
                         placeholder: _this.search_input_text
-                    }).on('markgeocode', function(e) {
+                    }).on('markgeocode', function (e) {
                         var bbox = e.geocode.bbox;
                         _this.map.fitBounds(bbox);
                     }).addTo(_this.map);
@@ -482,7 +484,7 @@ export default class Buttons {
                         setView: 'always',
                         keepCurrentZoomLevel: true,
                         showPopup: false,
-                        strings: {title: _this.locate_button_text}
+                        strings: { title: _this.locate_button_text }
                     }).addTo(_this.map);
 
                     _this.streetView = L.control({
@@ -521,10 +523,10 @@ export default class Buttons {
                     baselayersHierarchy[_this.basemaps_text][_this.world_text] = {
                         "Mapbox Outdoors": null,
                         "Mapbox Satellite": null,
-                        "OpenStreetMap" : layers.openStreetMap,
-                        "OpenTopoMap" : layers.openTopoMap,
-                        "OpenHikingMap" : layers.openHikingMap,
-                        "CyclOSM" : layers.cyclOSM
+                        "OpenStreetMap": layers.openStreetMap,
+                        "OpenTopoMap": layers.openTopoMap,
+                        "OpenHikingMap": layers.openHikingMap,
+                        "CyclOSM": layers.cyclOSM
                     };
                     baselayersHierarchy[_this.basemaps_text][_this.countries_text] = {};
                     baselayersHierarchy[_this.basemaps_text][_this.countries_text][_this.bulgaria_text] = {
@@ -532,9 +534,9 @@ export default class Buttons {
                     };
                     baselayersHierarchy[_this.basemaps_text][_this.countries_text][_this.finland_text] = { "Lantmäteriverket Terrängkarta": layers.finlandTopo };
                     baselayersHierarchy[_this.basemaps_text][_this.countries_text][_this.france_text] = {
-                        "IGN SCAN25" : layers.ignFrScan25,
-                        "IGN Plan" : layers.ignPlanV2,
-                        "IGN Satellite" : layers.ignSatellite
+                        "IGN SCAN25": layers.ignFrScan25,
+                        "IGN Plan": layers.ignPlanV2,
+                        "IGN Satellite": layers.ignSatellite
                     };
                     baselayersHierarchy[_this.basemaps_text][_this.countries_text][_this.new_zealand_text] = {
                         "Linz Topo": layers.linz,
@@ -550,13 +552,13 @@ export default class Buttons {
                     var overlaysHierarchy = {};
                     overlaysHierarchy[_this.overlays_text] = {};
                     overlaysHierarchy[_this.overlays_text][_this.world_text] = {
-                        "CyclOSM Lite" : layers.cyclOSMLite,
+                        "CyclOSM Lite": layers.cyclOSMLite,
                         "Strava Heatmap": {
-                            "All" : layers.stravaHeatmapAll,
-                            "Ride" : layers.stravaHeatmapRide,
-                            "Run" : layers.stravaHeatmapRun,
-                            "Water" : layers.stravaHeatmapWater,
-                            "Winter" : layers.stravaHeatmapWinter
+                            "All": layers.stravaHeatmapAll,
+                            "Ride": layers.stravaHeatmapRide,
+                            "Run": layers.stravaHeatmapRun,
+                            "Water": layers.stravaHeatmapWater,
+                            "Winter": layers.stravaHeatmapWinter
                         },
                         "Waymarked Trails": {
                             "Hiking": layers.waymarkedTrailsHiking,
@@ -585,7 +587,7 @@ export default class Buttons {
                         "OpenStreetMap": true,
                         "OpenTopoMap": true,
                         "OpenHikingMap": true,
-                        "CyclOSM" : true
+                        "CyclOSM": true
                     };
 
                     var overlaySelection = {};
@@ -593,10 +595,10 @@ export default class Buttons {
                     overlaySelection[_this.overlays_text][_this.world_text] = {
                         "Strava Heatmap": {
                             "All": true,
-                            "Ride" : true,
-                            "Run" : true,
-                            "Water" : true,
-                            "Winter" : true
+                            "Ride": true,
+                            "Run": true,
+                            "Water": true,
+                            "Winter": true
                         },
                         "Waymarked Trails": {
                             "Hiking": true,
@@ -686,7 +688,7 @@ export default class Buttons {
                         layers.openStreetMap.addTo(_this.map);
                     }
 
-                    for (var i=0; i<_this.custom_layers.length; i++) {
+                    for (var i = 0; i < _this.custom_layers.length; i++) {
                         const newLayer = L.tileLayer(_this.custom_layers[i].url, {
                             maxNativeZoom: _this.custom_layers[i].maxZoom,
                             maxZoom: MAX_ZOOM
@@ -704,7 +706,7 @@ export default class Buttons {
                         }
                     }
 
-                    _this.controlLayers = L.control.layers(baselayersHierarchy, overlaysHierarchy, {editable: true}).addTo(_this.map);
+                    _this.controlLayers = L.control.layers(baselayersHierarchy, overlaysHierarchy, { editable: true }).addTo(_this.map);
 
                     if (localStorage.hasOwnProperty('lastbasemap')) {
                         const basemap_key = localStorage.getItem('lastbasemap');
@@ -718,7 +720,7 @@ export default class Buttons {
                     }
                     if (localStorage.hasOwnProperty('lastoverlays')) {
                         const overlays = JSON.parse(localStorage.getItem('lastoverlays'));
-                        for (var i=0; i<overlays.length; i++) {
+                        for (var i = 0; i < overlays.length; i++) {
                             const overlayId = _this.controlLayers.getLayerId(layers[overlays[i]]);
                             if (overlayId) _this.controlLayers.showLayer(overlayId);
                         }
@@ -734,7 +736,7 @@ export default class Buttons {
 
                 const toggle = document.getElementsByClassName('leaflet-control-layers-toggle')[0];
                 toggle.removeAttribute("href");
-                toggle.classList.add('fas','fa-layer-group','custom-button');
+                toggle.classList.add('fas', 'fa-layer-group', 'custom-button');
 
                 if (!_this.embedding) {
                     const settings_container = document.getElementsByClassName('leaflet-control-layers-list')[0];
@@ -765,13 +767,13 @@ export default class Buttons {
     addSwitchMapboxLayers(update) {
         const _this = this;
         const layerSelectors = _this.controlLayers._layerControlInputs;
-        for (var i=0; i<layerSelectors.length; i++) {
+        for (var i = 0; i < layerSelectors.length; i++) {
             const span = layerSelectors[i].nextSibling;
             if (span.textContent.endsWith("Mapbox Satellite")) {
                 _this.mapboxSatelliteSelector = layerSelectors[i];
                 _this.mapboxSatelliteSelector.checked = this.mapboxMap._map && (_this.mapboxMap.options.style == "mapbox://styles/mapbox/satellite-v9");
                 _this.mapboxSatelliteSelector.addEventListener('click', function (e) {
-                    _this.mapboxMap.getMapboxMap().setStyle("mapbox://styles/mapbox/satellite-v9", {diff: false});
+                    _this.mapboxMap.getMapboxMap().setStyle("mapbox://styles/mapbox/satellite-v9", { diff: false });
                 });
                 if (!update && localStorage.hasOwnProperty('lastbasemap') && localStorage.getItem('lastbasemap') == 'mapbox-satellite') {
                     _this.mapboxSatelliteSelector.click();
@@ -781,7 +783,7 @@ export default class Buttons {
                 _this.mapboxOutdoorsSelector = layerSelectors[i];
                 _this.mapboxOutdoorsSelector.checked = this.mapboxMap._map && (_this.mapboxMap.options.style == _this.mapbox_style);
                 _this.mapboxOutdoorsSelector.addEventListener('click', function (e) {
-                    _this.mapboxMap.getMapboxMap().setStyle(_this.mapbox_style, {diff: false});
+                    _this.mapboxMap.getMapboxMap().setStyle(_this.mapbox_style, { diff: false });
                 });
                 if (!update && localStorage.hasOwnProperty('lastbasemap') && localStorage.getItem('lastbasemap') == 'mapbox') {
                     _this.mapboxOutdoorsSelector.click();
@@ -799,7 +801,7 @@ export default class Buttons {
         const _this = this;
 
         var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 _this.stravaCookies = JSON.parse(xhr.response);
                 _this.updateStravaColor();
@@ -821,66 +823,66 @@ export default class Buttons {
 
     hideTraceButtons() {
         this.slider.hide();
-        this.delete.classList.add('unselected','no-click');
-        this.zone_delete.classList.add('unselected','no-click');
-        this.reverse.classList.add('unselected','no-click');
-        this.edit.classList.add('unselected','no-click');
-        this.time.classList.add('unselected','no-click');
-        this.duplicate.classList.add('unselected','no-click');
-        this.combine.classList.add('unselected','no-click');
-        this.extract.classList.add('unselected','no-click');
-        this.color.classList.add('unselected','no-click');
-        this.add_wpt.classList.add('unselected','no-click');
-        this.reduce.classList.add('unselected','no-click');
-        this.structure.classList.add('unselected','no-click');
-        this.hide.classList.add('unselected','no-click');
+        this.delete.classList.add('unselected', 'no-click');
+        this.zone_delete.classList.add('unselected', 'no-click');
+        this.reverse.classList.add('unselected', 'no-click');
+        this.edit.classList.add('unselected', 'no-click');
+        this.time.classList.add('unselected', 'no-click');
+        this.duplicate.classList.add('unselected', 'no-click');
+        this.combine.classList.add('unselected', 'no-click');
+        this.extract.classList.add('unselected', 'no-click');
+        this.color.classList.add('unselected', 'no-click');
+        this.add_wpt.classList.add('unselected', 'no-click');
+        this.reduce.classList.add('unselected', 'no-click');
+        this.structure.classList.add('unselected', 'no-click');
+        this.hide.classList.add('unselected', 'no-click');
     }
 
     showTraceButtons() {
         this.slider.show();
-        this.delete.classList.remove('unselected','no-click');
-        this.zone_delete.classList.remove('unselected','no-click');
-        this.reverse.classList.remove('unselected','no-click');
-        this.edit.classList.remove('unselected','no-click');
-        this.time.classList.remove('unselected','no-click');
-        this.duplicate.classList.remove('unselected','no-click');
-        this.extract.classList.remove('unselected','no-click');
-        this.color.classList.remove('unselected','no-click');
-        this.add_wpt.classList.remove('unselected','no-click');
-        this.reduce.classList.remove('unselected','no-click');
-        this.structure.classList.remove('unselected','no-click');
-        this.hide.classList.remove('unselected','no-click');
-        if (this.total.traces.length > 1) this.combine.classList.remove('unselected','no-click');
+        this.delete.classList.remove('unselected', 'no-click');
+        this.zone_delete.classList.remove('unselected', 'no-click');
+        this.reverse.classList.remove('unselected', 'no-click');
+        this.edit.classList.remove('unselected', 'no-click');
+        this.time.classList.remove('unselected', 'no-click');
+        this.duplicate.classList.remove('unselected', 'no-click');
+        this.extract.classList.remove('unselected', 'no-click');
+        this.color.classList.remove('unselected', 'no-click');
+        this.add_wpt.classList.remove('unselected', 'no-click');
+        this.reduce.classList.remove('unselected', 'no-click');
+        this.structure.classList.remove('unselected', 'no-click');
+        this.hide.classList.remove('unselected', 'no-click');
+        if (this.total.traces.length > 1) this.combine.classList.remove('unselected', 'no-click');
     }
 
     greyTraceButtons() {
         this.slider.hide();
-        this.delete.classList.add('unselected','no-click');
-        this.zone_delete.classList.add('unselected','no-click');
-        this.reverse.classList.add('unselected','no-click');
-        this.time.classList.add('unselected','no-click');
-        this.duplicate.classList.add('unselected','no-click');
-        this.combine.classList.add('unselected','no-click');
-        this.extract.classList.add('unselected','no-click');
-        this.color.classList.add('unselected','no-click');
-        this.add_wpt.classList.add('unselected','no-click');
-        this.reduce.classList.add('unselected','no-click');
-        this.structure.classList.add('unselected','no-click');
+        this.delete.classList.add('unselected', 'no-click');
+        this.zone_delete.classList.add('unselected', 'no-click');
+        this.reverse.classList.add('unselected', 'no-click');
+        this.time.classList.add('unselected', 'no-click');
+        this.duplicate.classList.add('unselected', 'no-click');
+        this.combine.classList.add('unselected', 'no-click');
+        this.extract.classList.add('unselected', 'no-click');
+        this.color.classList.add('unselected', 'no-click');
+        this.add_wpt.classList.add('unselected', 'no-click');
+        this.reduce.classList.add('unselected', 'no-click');
+        this.structure.classList.add('unselected', 'no-click');
     }
 
     blackTraceButtons() {
         this.slider.show();
-        this.delete.classList.remove('unselected','no-click');
-        this.zone_delete.classList.remove('unselected','no-click');
-        this.reverse.classList.remove('unselected','no-click');
-        this.time.classList.remove('unselected','no-click');
-        this.duplicate.classList.remove('unselected','no-click');
-        this.extract.classList.remove('unselected','no-click');
-        this.color.classList.remove('unselected','no-click');
-        this.add_wpt.classList.remove('unselected','no-click');
-        this.reduce.classList.remove('unselected','no-click');
-        this.structure.classList.remove('unselected','no-click');
-        if (this.total.traces.length > 1) this.combine.classList.remove('unselected','no-click');
+        this.delete.classList.remove('unselected', 'no-click');
+        this.zone_delete.classList.remove('unselected', 'no-click');
+        this.reverse.classList.remove('unselected', 'no-click');
+        this.time.classList.remove('unselected', 'no-click');
+        this.duplicate.classList.remove('unselected', 'no-click');
+        this.extract.classList.remove('unselected', 'no-click');
+        this.color.classList.remove('unselected', 'no-click');
+        this.add_wpt.classList.remove('unselected', 'no-click');
+        this.reduce.classList.remove('unselected', 'no-click');
+        this.structure.classList.remove('unselected', 'no-click');
+        if (this.total.traces.length > 1) this.combine.classList.remove('unselected', 'no-click');
     }
 
     hideToolbars() {
@@ -895,8 +897,8 @@ export default class Buttons {
         this.toolbar.getContainer().style.visibility = 'visible';
         this.trace_info.getContainer().style.visibility = 'visible';
         if (!this.total.hasFocus) {
-             if (!this.total.traces[this.total.focusOn].isEdited) this.showTraceButtons();
-         }
+            if (!this.total.traces[this.total.focusOn].isEdited) this.showTraceButtons();
+        }
     }
 
     disableMap() {
@@ -960,7 +962,7 @@ export default class Buttons {
         var elevation_profile_height = Math.min(info_height, this.embedding ? 120 : 160);
 
         if (elevation_profile_width != this.elev._width || elevation_profile_height != this.elev._height) {
-            this.elev.resize({width: elevation_profile_width, height: elevation_profile_height});
+            this.elev.resize({ width: elevation_profile_width, height: elevation_profile_height });
         }
 
         if (this.elevation_profile) this.elevation_profile.style.display = '';
@@ -972,7 +974,7 @@ export default class Buttons {
     addHandlers() {
         const buttons = this;
         const map = this.map;
-        this.input.oninput = function() {
+        this.input.oninput = function () {
             buttons.loadFiles(this.files)
         };
         this.load.addEventListener("click", function () {
@@ -1046,7 +1048,7 @@ export default class Buttons {
                 const avgData = dragEl.trace.getAverageAdditionalData();
                 const data = total.outputGPX(false, true, avgData.hr, avgData.atemp, avgData.cad, avgData.power, true, dragEl.trace.index);
 
-                dataTransfer.setData('DownloadURL', 'application/gpx+xml:'+data[0].name+':data:text/octet-stream;charset=utf-8,'+encodeURIComponent(data[0].text));
+                dataTransfer.setData('DownloadURL', 'application/gpx+xml:' + data[0].name + ':data:text/octet-stream;charset=utf-8,' + encodeURIComponent(data[0].text));
                 dataTransfer.dropEffect = 'copy';
                 dataTransfer.effectAllowed = 'copy';
             },
@@ -1054,8 +1056,8 @@ export default class Buttons {
                 const order = total.buttons.tabs.childNodes;
                 const offset = 3;
 
-                for (var i=offset; i<order.length; i++)
-                    total.swapTraces(i-offset, order[i].trace.index);
+                for (var i = offset; i < order.length; i++)
+                    total.swapTraces(i - offset, order[i].trace.index);
 
                 if (total.hasFocus) total.update();
             },
@@ -1065,16 +1067,16 @@ export default class Buttons {
                     trace = e.items[0].trace;
                     if (e.items[0].segment) newTrace = trace.extractSelection([e.items[0].track], e.items.map(x => x.segment));
                     else newTrace = trace.extractSelection(e.items.map(x => x.track));
-                    for (var i=0; i<e.items.length; i++) {
+                    for (var i = 0; i < e.items.length; i++) {
                         buttons.tabs.removeChild(e.items[i]);
                     }
-                    total.setTraceIndex(newTrace.index, e.newIndicies[0].index-1);
+                    total.setTraceIndex(newTrace.index, e.newIndicies[0].index - 1);
                 } else {
                     trace = e.item.trace;
                     if (e.item.segment) newTrace = trace.extractSelection([e.item.track], [e.item.segment]);
                     else newTrace = trace.extractSelection([e.item.track]);
                     buttons.tabs.removeChild(e.item);
-                    total.setTraceIndex(newTrace.index, e.newIndex-1);
+                    total.setTraceIndex(newTrace.index, e.newIndex - 1);
                 }
 
                 trace.focus();
@@ -1094,8 +1096,8 @@ export default class Buttons {
                 }
             }
         });
-        this.tabs.addEventListener('wheel', function(e) {
-            if(e.type != 'wheel') {
+        this.tabs.addEventListener('wheel', function (e) {
+            if (e.type != 'wheel') {
                 return;
             }
             let delta = ((e.deltaY || -e.wheelDelta || e.detail) >> 10) || 1;
@@ -1278,7 +1280,7 @@ export default class Buttons {
             const surface = buttons.include_surface.checked;
 
             const output = total.outputGPX(mergeAll, time, hr, atemp, cad, power, surface);
-            for (var i=0; i<output.length; i++) {
+            for (var i = 0; i < output.length; i++) {
                 if (i > 0) await buttons.pause(200);
                 buttons.download(output[i].name, output[i].text);
             }
@@ -1299,7 +1301,7 @@ export default class Buttons {
             if (total.hasFocus) return;
             const trace = total.traces[total.focusOn];
             const start = Math.max(0, total.buttons.slider.getIndexStart());
-            const end = Math.min(trace.getPoints().length-1, total.buttons.slider.getIndexEnd());
+            const end = Math.min(trace.getPoints().length - 1, total.buttons.slider.getIndexEnd());
             total.traces[total.focusOn].crop(start, end, !buttons.crop_keep.checked);
             buttons.crop_window.hide();
         });
@@ -1308,7 +1310,7 @@ export default class Buttons {
         });
         this.units_input.addEventListener("change", function (e) {
             buttons.km = buttons.units_input.value == 'km';
-            localStorage.setItem('km',buttons.km);
+            localStorage.setItem('km', buttons.km);
             const focus = total.hasFocus ? total : total.traces[total.focusOn];
             focus.showData();
             focus.showElevation();
@@ -1321,7 +1323,7 @@ export default class Buttons {
         this.units_input.value = this.km ? "km" : "mi";
         this.speed_units_input.addEventListener("change", function (e) {
             buttons.speed_units = buttons.speed_units_input.value == 'speed';
-            localStorage.setItem('speed',buttons.speed_units);
+            localStorage.setItem('speed', buttons.speed_units);
             const focus = total.hasFocus ? total : total.traces[total.focusOn];
             focus.showData();
             focus.showElevation();
@@ -1330,16 +1332,21 @@ export default class Buttons {
         this.speed_units_input.value = this.speed_units ? "speed" : "pace";
         this.activity_input.addEventListener("change", function (e) {
             buttons.activity = buttons.activity_input.value;
-            localStorage.setItem('activity',buttons.activity);
+            localStorage.setItem('activity', buttons.activity);
             if (total.hasFocus) total.showData();
             else total.traces[total.focusOn].showData();
         });
         this.activity_input.value = this.activity;
         this.routing_input.addEventListener("change", function (e) {
             buttons.routing = buttons.routing_input.checked;
-            localStorage.setItem('routing',buttons.routing);
+            localStorage.setItem('routing', buttons.routing);
         });
         this.routing_input.checked = buttons.routing;
+        this.private_input.addEventListener("change", function (e) {
+            buttons.private = buttons.private_input.checked;
+            localStorage.setItem('private', buttons.private);
+        });
+        this.private_input.checked = buttons.private;
         this.strava_color_input.addEventListener("change", function (e) {
             buttons.strava_color = buttons.strava_color_input.value;
             localStorage.setItem('strava-color', buttons.strava_color);
@@ -1349,7 +1356,7 @@ export default class Buttons {
         const change_poi_min_zoom = function (min_zoom) {
             buttons.poi_min_zoom = min_zoom;
             localStorage.setItem('poi-min-zoom', min_zoom);
-            Object.keys(layers).forEach(function(layer) {
+            Object.keys(layers).forEach(function (layer) {
                 if (layer.startsWith('poi')) {
                     layers[layer].buttons = buttons;
                     layers[layer].options.minZoom = buttons.poi_min_zoom;
@@ -1375,7 +1382,7 @@ export default class Buttons {
             const trace = total.traces[total.focusOn];
             if (trace.isEdited) trace.updateEditMarkers();
         });
-        this.edit.addEventListener("click", function() {
+        this.edit.addEventListener("click", function () {
             if (total.hasFocus) return;
             if (buttons.window_open) buttons.window_open.hide();
             var trace = total.traces[total.focusOn];
@@ -1444,7 +1451,7 @@ export default class Buttons {
                 e.preventDefault();
             } else if (e.key === "F2") {
                 var hasOverlay = false;
-                for (var i=0; i<buttons.controlLayers._layers.length; i++) {
+                for (var i = 0; i < buttons.controlLayers._layers.length; i++) {
                     if (buttons.controlLayers._layers[i].overlay &&
                         buttons.map.hasLayer(buttons.controlLayers._layers[i].layer)) {
                         hasOverlay = true;
@@ -1455,7 +1462,7 @@ export default class Buttons {
                     saveLayers();
                 } else if (localStorage.hasOwnProperty('lastoverlays')) {
                     const activeLayers = JSON.parse(localStorage.getItem('lastoverlays'));
-                    for (var i=0; i<activeLayers.length; i++) {
+                    for (var i = 0; i < activeLayers.length; i++) {
                         const layerId = buttons.controlLayers.getLayerId(layers[activeLayers[i]]);
                         if (layerId) buttons.controlLayers._layerControlInputs[layerId].click();
                     }
@@ -1489,14 +1496,14 @@ export default class Buttons {
                 e.preventDefault();
             }
         });
-        this.reverse.addEventListener("click", function() {
+        this.reverse.addEventListener("click", function () {
             if (total.hasFocus) return;
             const trace = total.traces[total.focusOn];
             if (trace.isEdited) return;
             if (!trace.visible) trace.hideUnhide();
             trace.reverse();
         });
-        this.extract.addEventListener("click", function() {
+        this.extract.addEventListener("click", function () {
             if (total.hasFocus) return;
             const trace = total.traces[total.focusOn];
             if (trace.isEdited) return;
@@ -1515,26 +1522,26 @@ export default class Buttons {
             }
 
             if (newTraces) {
-                for (var i=0; i<newTraces.length; i++) {
-                    total.setTraceIndex(newTraces[i].index, trace.index+1+i);
+                for (var i = 0; i < newTraces.length; i++) {
+                    total.setTraceIndex(newTraces[i].index, trace.index + 1 + i);
                 }
             }
         });
-        this.extract_ok.addEventListener("click", function() {
+        this.extract_ok.addEventListener("click", function () {
             const newTraces = buttons.extract.trace.extract(buttons.extract_as_segments.checked);
-            for (var i=0; i<newTraces.length; i++) {
-                total.setTraceIndex(newTraces[i].index, buttons.extract.trace.index+1+i);
+            for (var i = 0; i < newTraces.length; i++) {
+                total.setTraceIndex(newTraces[i].index, buttons.extract.trace.index + 1 + i);
             }
             buttons.extract_window.hide();
         });
-        this.extract_cancel.addEventListener("click", function() {
+        this.extract_cancel.addEventListener("click", function () {
             buttons.extract_window.hide();
         });
-        const sliderCallback = function() {
+        const sliderCallback = function () {
             const npoints = buttons.reduce.trace.previewSimplify(buttons.reduce_slider.value);
             buttons.reduce_npoints.innerHTML = npoints + '/' + buttons.reduce.trace.getPoints().length;
         };
-        this.reduce.addEventListener("click", function() {
+        this.reduce.addEventListener("click", function () {
             if (total.hasFocus) return;
             const trace = total.traces[total.focusOn];
             if (trace.isEdited) return;
@@ -1549,11 +1556,11 @@ export default class Buttons {
             buttons.reduce_slider.value = 500;
             sliderCallback();
         });
-        this.reduce_ok.addEventListener("click", function() {
+        this.reduce_ok.addEventListener("click", function () {
             buttons.reduce.trace.simplify();
             buttons.reduce_window.hide();
         });
-        this.reduce_cancel.addEventListener("click", function() {
+        this.reduce_cancel.addEventListener("click", function () {
             buttons.reduce_window.hide();
         });
         this.reduce_slider.addEventListener("input", sliderCallback);
@@ -1563,7 +1570,7 @@ export default class Buttons {
             buttons.file_structure.appendChild(buttons.structure.trace.getFileStructure(true, structure_callback));
         };
         L.DomEvent.on(this.file_structure, "mousedown", L.DomEvent.stopPropagation);
-        this.structure.addEventListener("click", function() {
+        this.structure.addEventListener("click", function () {
             if (total.hasFocus) return;
             const trace = total.traces[total.focusOn];
             if (trace.isEdited) return;
@@ -1579,7 +1586,7 @@ export default class Buttons {
         this.merge_selection.addEventListener("mousedown", function () {
             const items = buttons.file_structure.getElementsByClassName('multidrag-selected');
             var tracks = [], segments = [];
-            for (var i=0; i<items.length; i++) {
+            for (var i = 0; i < items.length; i++) {
                 if (items[i].segment) {
                     segments.push(items[i].segment);
                     if (tracks.length == 0) tracks.push(items[i].track);
@@ -1594,7 +1601,7 @@ export default class Buttons {
         this.delete_selection.addEventListener("mousedown", function () {
             const items = buttons.file_structure.getElementsByClassName('multidrag-selected');
             var tracks = [], segments = [];
-            for (var i=0; i<items.length; i++) {
+            for (var i = 0; i < items.length; i++) {
                 if (items[i].segment) {
                     segments.push(items[i].segment);
                     if (tracks.length == 0) tracks.push(items[i].track);
@@ -1626,14 +1633,14 @@ export default class Buttons {
                 else content += buttons.unit_minutes_text + '/' + buttons.unit_miles_text + `</div>`;
             }
 
-            content += `<div id="start-change">`+buttons.start_text+`
+            content += `<div id="start-change">` + buttons.start_text + `
                         <input type="datetime-local" id="start-time" step="1"></div></div><br>
-                        <div style="display: flex;align-items: center; padding: 10px; border: dashed;"><div style="max-width: 200px;display: inline-block;white-space: normal;">`+buttons.experimental_info_text+`</div><input type="checkbox" id="slope-speed" style="vertical-align:super"></div><br>
-                        <div id="edit-speed" class="panels custom-button normal-button">`+buttons.ok_button_text+`</div>
-                        <div id="cancel-speed" class="panels custom-button normal-button"><b>`+buttons.cancel_button_text+`</b></div>`;
+                        <div style="display: flex;align-items: center; padding: 10px; border: dashed;"><div style="max-width: 200px;display: inline-block;white-space: normal;">`+ buttons.experimental_info_text + `</div><input type="checkbox" id="slope-speed" style="vertical-align:super"></div><br>
+                        <div id="edit-speed" class="panels custom-button normal-button">`+ buttons.ok_button_text + `</div>
+                        <div id="cancel-speed" class="panels custom-button normal-button"><b>`+ buttons.cancel_button_text + `</b></div>`;
 
             if (buttons.window_open) buttons.window_open.hide();
-            buttons.time.window = L.control.window(map,{title:'','content':content,className:'panels-container',visible:true,closeButton:false});
+            buttons.time.window = L.control.window(map, { title: '', 'content': content, className: 'panels-container', visible: true, closeButton: false });
             buttons.window_open = buttons.time.window;
             buttons.time.window.addEventListener('hide', function () {
                 buttons.time.window.remove();
@@ -1680,7 +1687,7 @@ export default class Buttons {
                         v = Number(speed.value);
                         if (!buttons.km) v *= 1.609344;
                     } else {
-                        v = Number(minutes.value) * 60 +  Number(seconds.value);
+                        v = Number(minutes.value) * 60 + Number(seconds.value);
                         v = Math.max(v, 1);
                         if (!buttons.km) v /= 1.609344;
                         v = 1 / v; // km/s
@@ -1725,7 +1732,7 @@ export default class Buttons {
             trace.style.opacity = opacity;
             trace.style.weight = weight;
             if (buttons.color_checkbox.checked || buttons.opacity_checkbox.checked || buttons.width_checkbox.checked) {
-                for (var i=0; i<total.traces.length; i++) {
+                for (var i = 0; i < total.traces.length; i++) {
                     if (buttons.color_checkbox.checked) total.traces[i].style.color = color;
                     if (buttons.opacity_checkbox.checked) total.traces[i].style.opacity = opacity;
                     if (buttons.width_checkbox.checked) total.traces[i].style.weight = weight;
@@ -1789,7 +1796,7 @@ export default class Buttons {
                 maxZoom: MAX_ZOOM
             });
 
-            const id = 'custom-'+Math.random().toString(16).slice(2);
+            const id = 'custom-' + Math.random().toString(16).slice(2);
 
             layers[id] = newLayer;
             buttons.custom_layers.push({
@@ -1810,8 +1817,8 @@ export default class Buttons {
             const baselayerSelection = JSON.parse(localStorage.getItem('baselayer-selection'));
             const overlaySelection = JSON.parse(localStorage.getItem('overlay-selection'));
             var current = overlay ? overlaySelection : baselayerSelection;
-            for (var i=0; i<parents.length; i++) {
-                if (i == parents.length-1) current[parents[i]] = true;
+            for (var i = 0; i < parents.length; i++) {
+                if (i == parents.length - 1) current[parents[i]] = true;
                 else if (!current.hasOwnProperty(parents[i])) current[parents[i]] = {};
                 current = current[parents[i]];
             }
@@ -1840,7 +1847,7 @@ export default class Buttons {
             const trace = total.traces[total.focusOn];
             if (trace.isEdited) return;
             const clone = trace.clone();
-            total.setTraceIndex(clone.index, trace.index+1);
+            total.setTraceIndex(clone.index, trace.index + 1);
         });
         this.combine.addEventListener("click", function () {
             if (total.traces.length <= 1) return;
@@ -1874,7 +1881,7 @@ export default class Buttons {
                 buttons.controlLayers._addLayerSelectionContent(buttons.layer_selection);
                 buttons.layer_map.fitBounds(buttons.map.getBounds());
 
-                for (var i=0; i<buttons.custom_layers.length; i++) {
+                for (var i = 0; i < buttons.custom_layers.length; i++) {
                     var span;
                     if (buttons.custom_layers[i].type == "baselayer") span = buttons.controlLayers._baselayersCheckboxHierarchy[buttons.basemaps_text][buttons.custom_text][buttons.custom_layers[i].name].span;
                     else span = buttons.controlLayers._overlaysCheckboxHierarchy[buttons.overlays_text][buttons.custom_text][buttons.custom_layers[i].name].span;
@@ -1919,11 +1926,11 @@ export default class Buttons {
             const openStreetView = function (e) {
                 if (buttons.street_view_button.mapillary) {
                     if (!buttons.mapillary) {
-                        var {Viewer} = mapillary;
+                        var { Viewer } = mapillary;
                         buttons.mapillary = new Viewer({
-                          accessToken: 'MLY|4381405525255083|3204871ec181638c3c31320490f03011',
-                          container: buttons.mapillary_container,
-                          component: { cover: false }
+                            accessToken: 'MLY|4381405525255083|3204871ec181638c3c31320490f03011',
+                            container: buttons.mapillary_container,
+                            component: { cover: false }
                         });
 
                         buttons.mapillary.on('position', async (event) => {
@@ -1951,13 +1958,13 @@ export default class Buttons {
                     var Http = new XMLHttpRequest();
                     Http.open("GET", url);
                     Http.send();
-                    Http.onreadystatechange = function() {
+                    Http.onreadystatechange = function () {
                         if (Http.readyState == 4 && Http.status == 200) {
                             var ans = JSON.parse(this.responseText);
                             if (ans.data) {
                                 var dist = Infinity, imageId = null, ll = null;
-                                for (var i=0; i<ans.data.length; i++) {
-                                    const imgLatlng = L.latLng([ans.data[i].geometry.coordinates[1],ans.data[i].geometry.coordinates[0]]);
+                                for (var i = 0; i < ans.data.length; i++) {
+                                    const imgLatlng = L.latLng([ans.data[i].geometry.coordinates[1], ans.data[i].geometry.coordinates[0]]);
                                     if (imageId == null || e.latlng.distanceTo(imgLatlng) < dist) {
                                         imageId = ans.data[i].id;
                                         dist = e.latlng.distanceTo(imgLatlng);
@@ -1986,7 +1993,7 @@ export default class Buttons {
                         }
                     }
                 } else {
-                    window.open('https://maps.google.com/maps?q=&layer=c&cbll='+e.latlng.lat+','+e.latlng.lng+'&cbp=11,0,0,0,0');
+                    window.open('https://maps.google.com/maps?q=&layer=c&cbll=' + e.latlng.lat + ',' + e.latlng.lng + '&cbp=11,0,0,0,0');
                 }
             };
             const closeStreetView = function (e) {
@@ -2002,7 +2009,7 @@ export default class Buttons {
             };
             this.street_view_button.addEventListener('click', function () {
                 if (buttons.street_view_button.open) {
-                    if (total.hasFocus || !total.traces[total.focusOn].isEdited) {
+                    if (total.hasFocus || !total.traces[total.focusOn].isEdited) {
                         map._container.style.cursor = '';
                         if (buttons.mapboxgl_canvas) buttons.mapboxgl_canvas.style.cursor = '';
                     }
@@ -2096,11 +2103,11 @@ export default class Buttons {
                 if (buttons.embedding) return;
                 if (buttons.total.traces.length > 0) {
                     localStorage.setItem('traces', buttons.total.traces.length);
-                    for (var i=0; i<buttons.total.traces.length; i++) {
+                    for (var i = 0; i < buttons.total.traces.length; i++) {
                         const avgData = buttons.total.traces[i].getAverageAdditionalData();
                         const data = total.outputGPX(false, true, avgData.hr, avgData.atemp, avgData.cad, avgData.power, true, i);
                         try {
-                            localStorage.setItem(i,JSON.stringify(data[0]));
+                            localStorage.setItem(i, JSON.stringify(data[0]));
                         } catch (err) {
                             e.preventDefault();
                             e.returnValue = true;
@@ -2145,7 +2152,7 @@ export default class Buttons {
     }
 
     focusTabElement(tab) {
-        document.querySelectorAll('.tab').forEach(item => {item.classList.remove('tab-focus');});
+        document.querySelectorAll('.tab').forEach(item => { item.classList.remove('tab-focus'); });
         tab.classList.add('tab-focus');
     }
 
@@ -2159,8 +2166,8 @@ export default class Buttons {
             var file = files[i];
             if (file.name.split('.').pop().toLowerCase() != 'gpx') continue;
             var reader = new FileReader();
-            reader.onload = (function(f, name) {
-                return function(e) {
+            reader.onload = (function (f, name) {
+                return function (e) {
                     total.addTrace(e.target.result, name)
                 };
             })(file, file.name);
@@ -2183,10 +2190,10 @@ export default class Buttons {
         const total = this.total;
         var countDone = 0, countOk = 0;
         const onFinish = function () {
-            for (var j=1; j<sortable.el.children.length; j++) {
+            for (var j = 1; j < sortable.el.children.length; j++) {
                 const tab = sortable.el.children[j];
                 const trace = tab.trace;
-                trace.index = j-1;
+                trace.index = j - 1;
                 trace.key = null;
                 total.traces[trace.index] = trace;
                 if (trace.hasFocus) {
@@ -2196,11 +2203,11 @@ export default class Buttons {
         };
 
         const index = {};
-        for (var i=0; i<params.urls.length; i++) {
+        for (var i = 0; i < params.urls.length; i++) {
             index[params.urls[i]] = i;
         }
 
-        for (var i=0; i<params.urls.length; i++) {
+        for (var i = 0; i < params.urls.length; i++) {
             const file_url = params.urls[i];
             const href = decodeURIComponent(file_url);
             if (href) {
@@ -2208,12 +2215,12 @@ export default class Buttons {
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState == 4 && xhr.status == 200) {
                         const path = href.split('/');
-                        const name = path.length ? path[path.length-1] : href;
+                        const name = path.length ? path[path.length - 1] : href;
                         _this.total.addTrace(xhr.responseText, name, function (trace) {
                             trace.key = file_url;
                             countOk++;
                             countDone++;
-                            for (var j=total.traces.length-countOk; j<total.traces.length-1; j++) {
+                            for (var j = total.traces.length - countOk; j < total.traces.length - 1; j++) {
                                 if (index[total.traces[j].key] > index[file_url]) {
                                     sortable.el.appendChild(total.traces[j].tab);
                                 }
@@ -2240,7 +2247,7 @@ export default class Buttons {
         if (!localStorage.hasOwnProperty('traces')) return;
 
         var length = localStorage.getItem('traces');
-        for (var i=0; i<length; i++) {
+        for (var i = 0; i < length; i++) {
             if (!localStorage.hasOwnProperty(i)) continue;
             const data = JSON.parse(localStorage.getItem(i));
             this.total.addTrace(data.text, data.name);
@@ -2285,5 +2292,5 @@ export default class Buttons {
         const gl = document.createElement('canvas').getContext('webgl2');
         if (!gl) return false;
         else return true;
-   };
+    };
 }
