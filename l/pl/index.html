@@ -135,7 +135,7 @@
                 <div class="panels-button" id="combine" title="Scal z inną trasą"><i class="fas fa-plus-circle custom-button"></i></div>
                 <div class="panels-button" id="extract" title="Wyodrębnij trasę lub segmenty trasy"><i class="fas fa-list-ul custom-button"></i></div>
                 <div class="panels-button" id="duplicate" title="Duplikuj"><i class="fas fa-copy custom-button"></i></div>
-                <div class="panels-button" id="add-wpt" title="Dodaj POI"><i class="fas fa-map-marker-alt custom-button"></i></div>
+                <div class="panels-button" id="add-wpt" title="Dodaj punkt"><i class="fas fa-map-marker-alt custom-button"></i></div>
                 <div class="panels-button" id="reduce" title="Zredukuj liczbę punktów trasy"><i class="fas fa-compress-alt custom-button"></i></div>
                 <div class="panels-button" id="zone-delete" title="Usuń wszystko wewnątrz/na zewnątrz zaznaczenia"><i class="fas fa-vector-square custom-button"></i></div>
                 <div class="panels-button" id="hide" title="Ukryj/Pokaż trasę"><i class="fas fa-eye-slash custom-button"></i></div>
@@ -162,7 +162,7 @@
                         <td colspan="2"><label for="routing-input"><b>Routing (po drogach)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><label for="private-input"><b>Allow private roads</b> <i
+                        <td colspan="2"><label for="private-input"><b>Zezwalaj na prywatne drogi</b> <i
                                     class="fas fa-triangle-exclamation"></i></label> <input id="private-input"
                                 type="checkbox" name="private"></td>
                     </tr>
@@ -395,7 +395,7 @@
                 <hr>
             </div>
             <div>
-                <div class="close-spacing">Kliknij na inną trasę lub zakładkę, aby scalić z nią trasę bieżącą</div><hr>
+                <div class="close-spacing">Kliknij inną trasę lub zakładkę, aby scalić z nią trasę bieżącą</div><hr>
                 Wybierz jak dodać drugą trasę do pierwszej
                 <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
                     <input type="radio" id="merge-as-points" name="merge-structure" checked><label for="merge-as-points">Scal jako punkty trasy</label><br>
@@ -573,60 +573,60 @@
             <div id="grass-paver-text">Płyta ażurowa</div>
         </div>
         <div id="layers-text">
-            <div id="basemaps-text">Basemaps</div>
-            <div id="overlays-text">Overlays</div>
-            <div id="custom-text">Custom</div>
-            <div id="world-text">World</div>
-            <div id="countries-text">Countries</div>
+            <div id="basemaps-text">Mapy bazowe</div>
+            <div id="overlays-text">Nakładki</div>
+            <div id="custom-text">Własne</div>
+            <div id="world-text">Świat</div>
+            <div id="countries-text">Kraje</div>
             <div id="bulgaria-text">Bułgaria</div>
-            <div id="finland-text">Finland</div>
-            <div id="france-text">France</div>
-            <div id="new-zealand-text">New Zealand</div>
-            <div id="norway-text">Norway</div>
-            <div id="spain-text">Spain</div>
-            <div id="sweden-text">Sweden</div>
-            <div id="switzerland-text">Switzerland</div>
-            <div id="united-kingdom-text">United Kingdom</div>
-            <div id="united-states-text">United States</div>
-            <div id="poi-text">Points of Interest</div>
-            <div id="eat-and-drink-text">Eat and Drink</div>
-            <div id="bakery-text">Bakery</div>
+            <div id="finland-text">Finlandia</div>
+            <div id="france-text">Francja</div>
+            <div id="new-zealand-text">Nowa Zelandia</div>
+            <div id="norway-text">Norwegia</div>
+            <div id="spain-text">Hiszpania</div>
+            <div id="sweden-text">Szwecja</div>
+            <div id="switzerland-text">Szwajcaria</div>
+            <div id="united-kingdom-text">Wielka Brytania</div>
+            <div id="united-states-text">Stany Zjednoczone</div>
+            <div id="poi-text">Ciekawe miejsca</div>
+            <div id="eat-and-drink-text">Jedzenie i picie</div>
+            <div id="bakery-text">Piekarnia</div>
             <div id="supermarket-text">Supermarket</div>
-            <div id="convenience-store-text">Convenience Store</div>
-            <div id="restaurant-text">Restaurant</div>
-            <div id="fast-food-text">Fast Food</div>
-            <div id="cafe-text">Cafe</div>
+            <div id="convenience-store-text">Sklep spożywczy</div>
+            <div id="restaurant-text">Restauracja</div>
+            <div id="fast-food-text">Fast food</div>
+            <div id="cafe-text">Kawiarnia</div>
             <div id="pub-text">Pub</div>
             <div id="bar-text">Bar</div>
-            <div id="amenities-text">Amenities</div>
-            <div id="toilets-text">Toilets</div>
-            <div id="drinking-water-text">Drinking Water</div>
+            <div id="amenities-text">Udogodnienia</div>
+            <div id="toilets-text">Toalety</div>
+            <div id="drinking-water-text">Woda pitna</div>
             <div id="water-point-text">Water Point</div>
-            <div id="water-spring-text">Water Spring</div>
-            <div id="shower-text">Shower</div>
-            <div id="fuel-station-text">Fuel Station</div>
+            <div id="water-spring-text">Źródło wody</div>
+            <div id="shower-text">Prysznic</div>
+            <div id="fuel-station-text">Stacja paliw</div>
             <div id="parking-text">Parking</div>
-            <div id="tourism-text">Tourism</div>
-            <div id="attraction-text">Attraction</div>
-            <div id="viewpoint-text">Viewpoint</div>
+            <div id="tourism-text">Turystyka</div>
+            <div id="attraction-text">Atrakcja</div>
+            <div id="viewpoint-text">Punkt widokowy</div>
             <div id="hotel-text">Hotel</div>
             <div id="hostel-text">Hostel</div>
-            <div id="guest-house-text">Guest House</div>
+            <div id="guest-house-text">Pensjonat</div>
             <div id="motel-text">Motel</div>
-            <div id="campsite-text">Campsite</div>
-            <div id="alpine-hut-text">Alpine Hut</div>
-            <div id="wilderness-hut-text">Wilderness Hut</div>
-            <div id="climbing-text">Climbing Site</div>
-            <div id="bicycle-text">Bicycle</div>
+            <div id="campsite-text">Kemping</div>
+            <div id="alpine-hut-text">Chata alpejska</div>
+            <div id="wilderness-hut-text">Chata na odludziu</div>
+            <div id="climbing-text">Miejsce wspinaczki</div>
+            <div id="bicycle-text">Rower</div>
             <div id="bicycle-parking-text">Bicycle Parking</div>
-            <div id="bicycle-rental-text">Bicycle Rental</div>
-            <div id="bicycle-shop-text">Bicycle Shop</div>
-            <div id="public-transport-text">Public Transport</div>
-            <div id="railway-station-text">Railway Station</div>
-            <div id="tram-stop-text">Tram Stop</div>
-            <div id="bus-stop-text">Bus Stop</div>
-            <div id="ferry-text">Ferry Terminal</div>
-            <div id="barrier-text">Barrier</div>
+            <div id="bicycle-rental-text">Wypożyczalnia rowerów</div>
+            <div id="bicycle-shop-text">Sklep rowerowy</div>
+            <div id="public-transport-text">Transport publiczny</div>
+            <div id="railway-station-text">Stacja kolejowa</div>
+            <div id="tram-stop-text">Przystanek tramwajowy</div>
+            <div id="bus-stop-text">Przystanek autobusowy</div>
+            <div id="ferry-text">Terminal promowy</div>
+            <div id="barrier-text">Bariera</div>
         </div>
         <h1>edytor gpx online</h1>
         <h1>internetowa przeglądarka gpx</h1>
