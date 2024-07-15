@@ -95,7 +95,7 @@
             <div id="info-grid" class="panels-container trace-info maximized">
                 <div class="panels panels-info" id="distance">Afstand</div>
                 <div class="panels panels-val" id="distance-val"></div>
-                <div class="panels panels-info" id="elevation">Elevation</div>
+                <div class="panels panels-info" id="elevation">Stijging</div>
                 <div class="panels panels-val" id="elevation-val"></div>
                 <div class="panels panels-info" id="speed">Snelheid</div>
                 <div class="panels panels-val" id="speed-val"></div>
@@ -147,7 +147,7 @@
                 <i id="toggle-editing-options" class="fas fa-minus panels-button custom-button toggle-on" title="Schakel tussen de bewerkingsopties"></i>
                 <table class="panels">
                     <tr>
-                        <td><b>Activity</b></td>
+                        <td><b>activiteit</b></td>
                         <td><select name="activity" id="activity-input" class="close-spacing">
                             <option value="Trekking-dry">Fiets</option>
                             <option value="fastbike">Racefiets</option>
@@ -155,23 +155,23 @@
                             <option value="Hiking-Alpine-SAC6">Hardlopen/wandelen</option>
                             <option value="Car-FastEco">Motorfiets</option>
                             <option value="river">Water</option>
-                            <option value="rail">Railway</option>
+                            <option value="rail">Spoorweg</option>
                         </select></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><label for="routing-input"><b>Routing (follow roads)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
+                        <td colspan="2"><label for="routing-input"><b>Routing (volg wegen)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><label for="private-input"><b>Allow private roads</b> <i
+                        <td colspan="2"><label for="private-input"><b>Privéwegen toestaan</b> <i
                                     class="fas fa-triangle-exclamation"></i></label> <input id="private-input"
                                 type="checkbox" name="private"></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><label for="edit-time-strategy"><b>Time data management</b></label></td>
+                        <td colspan="2"><label for="edit-time-strategy"><b>Tijdgegevensbeheer</b></label></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
-                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preserve the original timestamps</label></td>
+                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Behoud de gemiddelde snelheid</label><br>
+                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Behoud de oorspronkelijke tijdstempels</label></td>
                     </tr>
                 </table>
             </div>
@@ -183,11 +183,11 @@
             </div>
             <i id="street-view" class="fas fa-street-view custom-button" style="padding: 6px; font-size: 14px;" title="Open Mapillary of Google Street View"></i>
         </div>
-        <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Direction markers</label>
+        <label id="chevrons" class="dontselect"><input type="checkbox" id="show-chevrons" class="custom-button" style="vertical-align: middle;"> Richting pijlen</label>
         <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Afstandsmarkeringen</label>
         <div id="help-text">
         <div style="text-align: center; font-size: 10pt; color: #476947">
-            <b>Check out the <a href="./about.html#guide" target="_blank">User Guide</a> for more info and small tutorials!</b>
+            <b>Bekijk de <a href="./about.html#guide" target="_blank">Gebruikersgids</a> voor meer informatie en kleine tutorials!</b>
         </div><br>
         <table style="width: 100%">
             <colgroup>
@@ -330,20 +330,20 @@
                    <col span="1">
                 </colgroup>
                 <tbody>
-                    <td><b>Export settings</b></td>
-                    <td><input type="checkbox" id="merge"> <label for="merge">Merge all traces</label></td>
+                    <td><b>export-instellingen</b></td>
+                    <td><input type="checkbox" id="merge"> tracks samenvoegen</td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-time" checked> <label for="include-time">Time</label></td>
-                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Surface</label></td>
+                    <td><input type="checkbox" id="include-time" checked> <label for="include-time">Tijd</label></td>
+                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Oppervlak</label></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-cad" checked> <label for="include-cad">Cadence</label></td>
-                    <td><input type="checkbox" id="include-hr" checked> <label for="include-hr">Heartrate</label></td>
+                    <td><input type="checkbox" id="include-cad" checked> cadans</td>
+                    <td><input type="checkbox" id="include-hr" checked> Hartslag</td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Temperature</label></td>
-                    <td><input type="checkbox" id="include-power" checked> <label for="include-power">Power</label></td>
+                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Temperatuur</label></td>
+                    <td><input type="checkbox" id="include-power" checked> <label for="include-power">Vermogen</label></td>
                 </tr>
                 </tbody>
             </table>
@@ -364,12 +364,7 @@
         </div>
         <div id="color-content" class="popup-content">
             <div style="text-align: left">
-                <label for="color-picker">Pick a new color</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
-                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Apply color to all traces</label><br>
-                <label for="opacity-slider">Opacity</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
-                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Apply opacity to all traces</label><br>
-                <label for="width-slider">Width</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
-                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Apply width to all traces</label>
+                <label for="color-picker">Kies een nieuwe kleur</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
             </div>
             <div id="validate-color" class="panels custom-button normal-button">Ok</div>
             <div id="cancel-color" class="panels custom-button normal-button"><b>Annuleren</b></div>
@@ -387,10 +382,10 @@
         </div>
         <div id="merge-content" class="popup-content">
             <div id="merge-time-options">
-                <i class="fas fa-stopwatch"></i> Choose how to adapt the timestamps of the second trace (if any)
+                <i class="fas fa-stopwatch"></i> Kies hoe u de tijdstempels van het tweede trace aan kunt passen (indien van toepassing)
                 <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
-                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Keep the original timestamps (as long as they come after those of the first trace)</label><br>
-                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Make the second trace start right after the first one</label>
+                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Behoud de originele tijdstempels (zolang ze komen na die van het eerste spoor)</label><br>
+                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Laat het tweede spoor meteen beginnen na het eerste</label>
                 </div>
                 <hr>
             </div>
@@ -442,7 +437,7 @@
         <div id="zone-delete-content" class="popup-content">
             Kies wat u wilt verwijderen<br>
             <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Trackpunten</label>
-            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
+            <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">waypoints</label><br>
             <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Binnen selectie</label>
             <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Buiten selectie</label><br>
             <div id="zone-delete-ok" class="panels custom-button normal-button">Ga verder</div>
@@ -521,7 +516,7 @@
             <div id="speed-text">Snelheid</div>
             <div id="pace-text">Snelheid</div>
             <div id="start-text">Start</div>
-            <div id="experimental-info-text">Generate speed considering the slope and the activity type<br><b><i class="fas fa-exclamation-triangle"></i> erases all existing time data</b></div>
+            <div id="experimental-info-text">Genereer de snelheid rekening houdend met de helling en het activiteitstype<br><b><i class="fas fa-exclamation-triangle"></i> verwijdert alle bestaande tijdgegevens</b></div>
         </div>
         <div id="waypoint-popup-text">
             <div id="empty-title-text">lege titel</div>
@@ -638,9 +633,33 @@
         <h1>online tijdstempels toevoegen aan gpx-bestand</h1>
         <h1>comprimeer vereenvoudig verminder aantal punten gpx-bestand online</h1>
         <h1>bekijk en bewerk waypoints gpx-bestand online</h1>
-        <h1>edit Strava activity</h1>
-        <h1>correct Strava activity</h1>
-        <h1>merge Strava activities</h1>
+        <h1>bewerk Strava activiteit</h1>
+        <h1>corrigeer Strava activiteit</h1>
+        <h1>strava activiteiten samenvoegen</h1>
+        <div id="new-website-text" style="text-align: left; width:fit-content; max-width: 80dvw; white-space: wrap; padding: 6px;">
+            <p style="text-align: center;"><b>BIG NEWS!</b> 🎉</p>
+
+            I’ve spent the last few months rewriting gpx.studio from scratch and am thrilled to finally share it with you!<br><br>
+
+            Here are some highlights of the new version:
+            <ul>
+            <li>🖥️ A modern look with more accessible menus</li>
+            <li>🌎 A much smoother map experience, now supporting 3D view</li>
+            <li>📈 An interactive elevation profile with more detailed information</li>
+            <li>🛠️ Tools applicable to multiple GPX files at once</li>
+            <li>↔️ An application-wide undo-redo functionality</li>
+            </ul><br>
+
+            🙏 A huge thank you to the community that made this possible through donations, translations and feature suggestions.<br><br>
+
+            🤝 You can help us transition to the future website by:
+            <ul>
+            <li>🐞 Trying it out and reporting any bugs you find</li>
+            <li>📝 Providing feedback on the textual content (and later translating it into other languages)</li>
+            </ul>
+
+            <p style="text-align: center;">🔗 Discover the future of gpx.studio <a href="https://gpx.studio/gpx.studio" target="_blank">here</a>!</p>
+        </div>
         </div>
     </body>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>

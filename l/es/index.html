@@ -103,7 +103,7 @@
                 <div class="panels panels-val" id="duration-val"></div>
                 <div class="panels panels-info" id="tracks">Tracks</div>
                 <div class="panels panels-val" id="tracks-val">0</div>
-                <div class="panels panels-info" id="segments">Segmentos de track</div>
+                <div class="panels panels-info" id="segments">Segmentos del track</div>
                 <div class="panels panels-val" id="segments-val">0</div>
                 <div class="panels panels-info" id="points">Puntos del track</div>
                 <div class="panels panels-val" id="points-val">0</div>
@@ -154,15 +154,15 @@
                             <option value="MTB">Bicicleta de montaña</option>
                             <option value="Hiking-Alpine-SAC6">Correr/Caminar</option>
                             <option value="Car-FastEco">Motocicleta</option>
-                            <option value="river">Water</option>
-                            <option value="rail">Railway</option>
+                            <option value="river">Agua</option>
+                            <option value="rail">Ferrocarril</option>
                         </select></td>
                     </tr>
                     <tr>
                         <td colspan="2"><label for="routing-input"><b>Enrutamiento (seguir rutas)</b></label> <input id="routing-input" type="checkbox" name="routing" checked></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><label for="private-input"><b>Allow private roads</b> <i
+                        <td colspan="2"><label for="private-input"><b>Permitir caminos privados</b> <i
                                     class="fas fa-triangle-exclamation"></i></label> <input id="private-input"
                                 type="checkbox" name="private"></td>
                     </tr>
@@ -170,8 +170,8 @@
                         <td colspan="2"><label for="edit-time-strategy"><b>Gestión de datos de tiempo</b></label></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Preserve the average speed</label><br>
-                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preserve the original timestamps</label></td>
+                        <td colspan="2"><input type="radio" id="edit-avg" name="edit-time-strategy" value="edit-avg" checked><label for="edit-avg">Conservar la velocidad media</label><br>
+                        <input type="radio" id="edit-keep" name="edit-time-strategy" value="edit-keep"><label for="edit-keep">Preservar las marcas de tiempo originales</label></td>
                     </tr>
                 </table>
             </div>
@@ -187,7 +187,7 @@
         <label id="dist-markers" class="dontselect"><input type="checkbox" id="show-dist-markers" class="custom-button" style="vertical-align: middle;"> Indicadores de distancia</label>
         <div id="help-text">
         <div style="text-align: center; font-size: 10pt; color: #476947">
-            <b>Check out the <a href="./about.html#guide" target="_blank">User Guide</a> for more info and small tutorials!</b>
+            <b>¡Echa un vistazo a la <a href="./about.html#guide" target="_blank">Guía de usuario</a> para más información!</b>
         </div><br>
         <table style="width: 100%">
             <colgroup>
@@ -280,7 +280,7 @@
             </tr>
             <tr>
                 <td><i class="fas fa-folder-tree"></i></td>
-                <td>Administrar la estructura de archivos, arrastrar y soltar archivos, tracks y segmentos de tracks</td>
+                <td>Administrar la estructura de archivos, arrastrar y soltar archivos, tracks y segmentos del tracks</td>
             </tr>
             <tr>
                 <td><i class="fas fa-trash-alt"></i></td>
@@ -335,14 +335,14 @@
                 </tr>
                 <tr>
                     <td><input type="checkbox" id="include-time" checked> <label for="include-time">Tiempo</label></td>
-                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Surface</label></td>
+                    <td><input type="checkbox" id="include-surface" checked> <label for="include-surface">Superficie</label></td>
                 </tr>
                 <tr>
                     <td><input type="checkbox" id="include-cad" checked> <label for="include-cad">Cadencia</label></td>
                     <td><input type="checkbox" id="include-hr" checked> <label for="include-hr">Ritmo cardiaco</label></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Temperature</label></td>
+                    <td><input type="checkbox" id="include-atemp" checked> <label for="include-atemp">Temperatura</label></td>
                     <td><input type="checkbox" id="include-power" checked> <label for="include-power">Potencia</label></td>
                 </tr>
                 </tbody>
@@ -364,12 +364,12 @@
         </div>
         <div id="color-content" class="popup-content">
             <div style="text-align: left">
-                <label for="color-picker">Pick a new color</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
-                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Apply color to all traces</label><br>
-                <label for="opacity-slider">Opacity</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
-                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Apply opacity to all traces</label><br>
-                <label for="width-slider">Width</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
-                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Apply width to all traces</label>
+                <label for="color-picker">Seleccionar un nuevo color</label> <input type="color" id="color-picker" class="input-minimal" value="#ff0000" style="vertical-align: sub;"><br>
+                <input id="color-checkbox" type="checkbox"> <label for="color-checkbox">Aplicar color a todos los tracks</label><br>
+                <label for="opacity-slider">Transparencia</label> <input type="range" min="0" max="1" step="0.01" id="opacity-slider" style="vertical-align: bottom"><br>
+                <input id="opacity-checkbox" type="checkbox"> <label for="opacity-checkbox">Aplicar transparencia a todos los tracks</label><br>
+                <label for="width-slider">Ancho</label> <input type="range" min="1" max="10" step="1" id="width-slider" style="vertical-align: bottom"><br>
+                <input id="width-checkbox" type="checkbox"> <label for="width-checkbox">Aplicar ancho a todos los tracks</label>
             </div>
             <div id="validate-color" class="panels custom-button normal-button">Aceptar</div>
             <div id="cancel-color" class="panels custom-button normal-button"><b>Cancelar</b></div>
@@ -389,8 +389,8 @@
             <div id="merge-time-options">
                 <i class="fas fa-stopwatch"></i> Elege cómo adaptar las marcas de tiempo del segundo track (si existe)
                 <div class="center-leaflet" style="text-align: left; width: max-content; max-width: 100%;">
-                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Keep the original timestamps (as long as they come after those of the first trace)</label><br>
-                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Make the second trace start right after the first one</label>
+                    <input type="radio" id="merge-keep" name="merge-time" value="merge-keep" checked><label for="merge-keep">Mantén las marcas de tiempo originales (siempre y cuando vengan después de las del primer track)</label><br>
+                    <input type="radio" id="merge-stick" name="merge-time" value="merge-stick"><label for="merge-stick">Haz que el segundo track comience justo después del primero</label>
                 </div>
                 <hr>
             </div>
@@ -415,7 +415,7 @@
         <div id="extract-content" class="popup-content">
             Elige qué extraer<br>
             <input type="radio" id="extract-track" name="extract-choice" value="extract-track" checked><label for="extract-track">Tracks</label><br>
-            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Track segments</label><br>
+            <input type="radio" id="extract-segment" name="extract-choice" value="extract-segment"><label for="extract-segment">Segmentos de trayectos</label><br>
             <div id="extract-ok" class="panels custom-button normal-button">Aceptar</div>
             <div id="extract-cancel" class="panels custom-button normal-button"><b>Cancelar</b></div>
         </div>
@@ -444,7 +444,7 @@
             <input type="checkbox" id="zone-delete-points" checked><label for="zone-delete-points">Puntos del track</label>
             <input type="checkbox" id="zone-delete-waypoints" checked><label for="zone-delete-waypoints">Waypoints</label><br>
             <input type="radio" name="where" id="zone-delete-inside" checked><label for="zone-delete-inside">Selección interior</label>
-            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Outside selection</label><br>
+            <input type="radio" name="where" id="zone-delete-outside"><label for="zone-delete-outside">Selección exterior</label><br>
             <div id="zone-delete-ok" class="panels custom-button normal-button">Continúe</div>
             <div id="zone-delete-cancel" class="panels custom-button normal-button"><b>Cancelar</b></div>
         </div>
@@ -521,7 +521,7 @@
             <div id="speed-text">Velocidad</div>
             <div id="pace-text">Ritmo</div>
             <div id="start-text">Inicio</div>
-            <div id="experimental-info-text">Generate speed considering the slope and the activity type<br><b><i class="fas fa-exclamation-triangle"></i> erases all existing time data</b></div>
+            <div id="experimental-info-text">Genera la velocidad teniendo en cuenta la pendiente y el tipo de actividad<br><b><i class="fas fa-exclamation-triangle"></i> elimina todos los datos de tiempo existentes</b></div>
         </div>
         <div id="waypoint-popup-text">
             <div id="empty-title-text">titulo vacío</div>
@@ -641,6 +641,30 @@
         <h1>editar actividad Strava</h1>
         <h1>actividad Strava correcta</h1>
         <h1>unir actividades Strava</h1>
+        <div id="new-website-text" style="text-align: left; width:fit-content; max-width: 80dvw; white-space: wrap; padding: 6px;">
+            <p style="text-align: center;"><b>BIG NEWS!</b> 🎉</p>
+
+            I’ve spent the last few months rewriting gpx.studio from scratch and am thrilled to finally share it with you!<br><br>
+
+            Here are some highlights of the new version:
+            <ul>
+            <li>🖥️ A modern look with more accessible menus</li>
+            <li>🌎 A much smoother map experience, now supporting 3D view</li>
+            <li>📈 An interactive elevation profile with more detailed information</li>
+            <li>🛠️ Tools applicable to multiple GPX files at once</li>
+            <li>↔️ An application-wide undo-redo functionality</li>
+            </ul><br>
+
+            🙏 A huge thank you to the community that made this possible through donations, translations and feature suggestions.<br><br>
+
+            🤝 You can help us transition to the future website by:
+            <ul>
+            <li>🐞 Trying it out and reporting any bugs you find</li>
+            <li>📝 Providing feedback on the textual content (and later translating it into other languages)</li>
+            </ul>
+
+            <p style="text-align: center;">🔗 Discover the future of gpx.studio <a href="https://gpx.studio/gpx.studio" target="_blank">here</a>!</p>
+        </div>
         </div>
     </body>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
