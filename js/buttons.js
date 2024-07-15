@@ -178,6 +178,7 @@ export default class Buttons {
         this.end_slider = document.getElementById('end-point');
         this.total_tab = document.getElementById('total-tab');
         this.tabs = document.getElementById('sortable-tabs');
+        this.new_website_text = document.getElementById('new-website-text');
         this.help_text = document.getElementById('help-text');
         this.export_content = document.getElementById('export-content');
         this.clear_content = document.getElementById('clear-content');
@@ -264,6 +265,7 @@ export default class Buttons {
 
         // WINDOWS
         this.help_window = L.control.window(this.map, { title: '', content: this.help_text, className: 'panels-container' });
+        this.new_website_window = L.control.window(this.map, { title: '', content: this.new_website_text, className: 'panels-container' });
         this.export_window = L.control.window(this.map, { title: '', content: this.export_content, className: 'panels-container' });
         this.clear_window = L.control.window(this.map, { title: '', content: this.clear_content, className: 'panels-container', closeButton: false });
         this.delete_window = L.control.window(this.map, { title: '', content: this.delete_content, className: 'panels-container', closeButton: false });
@@ -2120,6 +2122,7 @@ export default class Buttons {
                 }
                 saveLayers(true);
             });
+            this.new_website_window.show();
         }
         this.show_chevrons.addEventListener('input', function (e) {
             buttons.show_direction = buttons.show_chevrons.checked;
