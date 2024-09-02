@@ -1,4 +1,4 @@
-# ⚠️ This repository will soon be archived as the website will be replaced by the new version developed under [gpxstudio/gpx.studio](https://github.com/gpxstudio/gpx.studio) ⚠️
+# 🧭 The code of the new website is tracked at [gpxstudio/gpx.studio](https://github.com/gpxstudio/gpx.studio) 🧭
 
 ![logo of gpx.studio](res/logo.png)
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/F1F1303GH)
